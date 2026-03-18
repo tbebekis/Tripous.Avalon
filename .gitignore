@@ -1,0 +1,31 @@
+## [ Build Outputs ]
+**/bin/
+**/obj/
+**/Bin/
+**/Obj/
+*.exe
+*.dll
+*.pdb
+*.nupkg
+
+## [ Visual Studio / IDE ]
+.vs/
+.idea/
+*.user
+*.suo
+*.sln.docstates
+*.vshost.exe
+*.vshost.exe.manifest
+
+## [ Packages ]
+**/packages/
+**/node_modules/
+project.lock.json
+project.assets.json
+
+## [ OS specific ]
+.DS_Store
+Thumbs.db
+
+## [ Avalonia specific ]
+*.visualstate

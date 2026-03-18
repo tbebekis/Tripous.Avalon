@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Avalon", "Tripous.Avalon\Tripous.Avalon.csproj", "{731EEBBD-F41E-4234-9639-A25AE9ACFCED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C3535CBF-C890-45A6-9BD4-C54C84CAB524}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataApp00", "DataApp00\DataApp00.csproj", "{6B9EC099-7B5F-4F49-8D24-A3B8DFBFAB83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{731EEBBD-F41E-4234-9639-A25AE9ACFCED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{731EEBBD-F41E-4234-9639-A25AE9ACFCED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{731EEBBD-F41E-4234-9639-A25AE9ACFCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{731EEBBD-F41E-4234-9639-A25AE9ACFCED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B9EC099-7B5F-4F49-8D24-A3B8DFBFAB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B9EC099-7B5F-4F49-8D24-A3B8DFBFAB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B9EC099-7B5F-4F49-8D24-A3B8DFBFAB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B9EC099-7B5F-4F49-8D24-A3B8DFBFAB83}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

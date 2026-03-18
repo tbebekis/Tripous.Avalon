@@ -1,0 +1,65 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="800"
+        x:Class="DataApp00.MainWindow"
+        Width="800"
+        Height="500"
+        WindowStartupLocation="CenterScreen"
+        Title="Tripous.Avalon - DataSource Basic Example"
+        Background="#F4F4F4">
+
+    <Grid RowDefinitions="Auto, Auto, Auto, *">
+        
+        <Border Grid.Row="0" Background="White" BorderBrush="#DDDDDD" BorderThickness="0,0,0,1" Padding="10">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Name="btnInsert" Click="AnyClick" Content="Insert" Width="100" Background="#2196F3" Foreground="White" HorizontalContentAlignment="Center"/>
+                <Button Name="btnDelete" Click="AnyClick" Content="Delete" Width="100" Background="#F44336" Foreground="White" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Background="#E3F2FD" Margin="10" Padding="15" CornerRadius="5">
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Id:" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    <TextBox Name="edtNewId" Width="80"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="New Name:" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    <TextBox Name="edtNewName" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Country Id:" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    <TextBox Name="edtNewCountryId" Width="80"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="2" Background="White" Margin="10,0,10,10" Padding="15" CornerRadius="5" BoxShadow="0 2 5 0 #20000000">
+            <Grid ColumnDefinitions="Auto, 250, 40, Auto, 250" RowDefinitions="Auto">
+                
+                <TextBlock Grid.Column="0" Text="Name:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="SemiBold"/>
+                <TextBox Grid.Column="1" Name="edtName"/>
+
+                <TextBlock Grid.Column="3" Text="Country:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="SemiBold"/>
+                <ComboBox Grid.Column="4" Name="cboCountry" HorizontalAlignment="Stretch"/>
+                
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="3" Margin="10" RowDefinitions="Auto, *">
+            <TextBlock Grid.Row="0" Text="Customers List" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#333333"/>
+            <Border Grid.Row="1" Background="White" CornerRadius="5" ClipToBounds="True">
+                <DataGrid Name="gridCustomers" 
+                          CanUserResizeColumns="True" 
+                          CanUserSortColumns="True"
+                          GridLinesVisibility="All"
+                          BorderThickness="1"
+                          BorderBrush="#CCCCCC">
+                </DataGrid>
+            </Border>
+        </Grid>
+        
+    </Grid>
+</Window>
