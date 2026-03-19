@@ -37,6 +37,12 @@ public interface IDataSource
     /// </summary>
     void SetValue(object innerItem, string propertyName, object value);
     
+    // Για το Master-Detail (εσωτερικό, με arrays για σύνθετα κλειδιά)
+    void ApplyChildSync(string[] PropertyNames, object[] Values);
+    
+    // Για το απλό φίλτρο του χρήστη (δημόσιο, ένα πεδίο)
+    void ApplyFilter(string PropertyName, object Value);
+    
     // --- CRUD ---
 
     /// <summary>

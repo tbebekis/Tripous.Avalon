@@ -70,6 +70,18 @@ public class ListDataSource<T> : IDataSource
             Prop.SetValue(innerItem, ConvertedValue);
         }
     }
+    
+    // Για το Master-Detail (εσωτερικό, με arrays για σύνθετα κλειδιά)
+    public void ApplyChildSync(string[] PropertyNames, object[] Values)
+    {
+        // TODO:
+    }
+    
+    // Για το απλό φίλτρο του χρήστη (δημόσιο, ένα πεδίο)
+    public void ApplyFilter(string PropertyName, object Value)
+    {
+        // TODO:
+    }
 
     // --- CRUD ---
 

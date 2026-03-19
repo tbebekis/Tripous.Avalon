@@ -68,6 +68,43 @@ public class DataTableSource : IDataSource
         }
     }
 
+ 
+    public void ApplyChildSync(string[] PropertyNames, object[] Values)
+    {
+        if (PropertyNames == null || Values == null || PropertyNames.Length == 0)
+        {
+            fTable.DefaultView.RowFilter = string.Empty;
+            return;
+        }
+
+        List<string> criteria = new List<string>();
+
+        for (int i = 0; i < PropertyNames.Length; i++)
+        {
+            string column = PropertyNames[i];
+            object val = Values[i];
+
+            // Χρήση ενός απλού helper για το formatting
+            criteria.Add($"{column} = {FormatValueForSql(val)}");
+        }
+
+        fTable.DefaultView.RowFilter = string.Join(" AND ", criteria);
+    }
+
+    private string FormatValueForSql(object fValue)
+    {
+        if (fValue == null || fValue == DBNull.Value) return "NULL";
+        if (fValue is string s) return $"'{s.Replace("'", "''")}'";
+        if (fValue is DateTime d) return $"#{d:yyyy-MM-dd HH:mm:ss}#";
+        if (fValue is bool b) return b ? "1" : "0";
+        return fValue.ToString();
+    }
+    
+    // Για το απλό φίλτρο του χρήστη (δημόσιο, ένα πεδίο)
+    public void ApplyFilter(string PropertyName, object Value)
+    {
+        // TODO:
+    }
     // --- CRUD ---
     
     /// <summary>

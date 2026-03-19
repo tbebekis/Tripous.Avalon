@@ -61,7 +61,7 @@ static public class AvaloniaUiExtensions
         Grid.Columns.Clear();
         Grid.AutoGenerateColumns = false;
 
-        foreach (string PropName in bindingSource.Source.GetPropertyNames())
+        foreach (string PropName in bindingSource.DataSource.GetPropertyNames())
         {
             // Optional: We could check for BrowsableAttribute here 
             // if the Link doesn't already perform filtering.

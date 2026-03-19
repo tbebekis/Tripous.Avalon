@@ -8,6 +8,7 @@ using System.Linq;
 
 namespace Tripous.Avalon.Data;
 
+/*
 /// <summary>
 /// Delegate for the event triggered during the creation of a new inner object.
 /// </summary>
@@ -32,6 +33,7 @@ public delegate void BindingSourceCancelEventHandler(object sender, BindingSourc
 /// Delegate for events triggered when a data value is changing or has changed.
 /// </summary>
 public delegate void BindingSourceChangeEventHandler(object sender, BindingSourceChangeEventArgs e);
+*/
 
 /// <summary>
 /// Provides a centralized mechanism for data binding, navigation, and CRUD operations 
@@ -45,17 +47,27 @@ public class BindingSource : INotifyPropertyChanged
     private string fTitle;
     private Type fSourceItemType;
 
+    // ● private
+    /// <summary>
+    /// Notifies listeners that a property value has changed.
+    /// </summary>
+    void OnPropertyChanged(string PropertyName) => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+
+
+    
+    // ● construction
     /// <summary>
     /// Initializes a new instance of the DataSource class using a specific data link.
     /// </summary>
     public BindingSource(IDataSource source)
     {
-        this.Source = source ?? throw new ArgumentNullException(nameof(source));
+        this.DataSource = source ?? throw new ArgumentNullException(nameof(source));
         this.fRows = new BindingSourceRowCollection<BindingSourceRow>();
-        this.fSourceItemType = Source.GetItemType();
+        this.fSourceItemType = DataSource.GetItemType();
         this.Load();
     }
 
+    // ● static
     /// <summary>
     /// Creates a DataSource instance from a DataTable.
     /// </summary>
@@ -66,13 +78,7 @@ public class BindingSource : INotifyPropertyChanged
     /// </summary>
     public static BindingSource FromList<T>(IList<T> List) => new BindingSource(new ListDataSource<T>(List));
 
-    /// <summary>
-    /// Notifies listeners that a property value has changed.
-    /// </summary>
-    void OnPropertyChanged(string PropertyName) => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
-
-
-
+    // ● public
     /// <summary>
     /// Forces the UI to synchronize its selection with the current record.
     /// </summary>
@@ -84,7 +90,6 @@ public class BindingSource : INotifyPropertyChanged
         if (Index <= 0) { Last(); First(); }
         else { First(); Position = Index; }
     }
-
     
     /// <summary>
     /// Loads the data from the underlying data link into the row collection.
@@ -94,7 +99,7 @@ public class BindingSource : INotifyPropertyChanged
         this.OnLoading?.Invoke(this, EventArgs.Empty);
 
         var TempList = new List<BindingSourceRow>();
-        foreach (object Item in Source.GetRows())
+        foreach (object Item in DataSource.GetRows())
         {
             TempList.Add(new BindingSourceRow(this, Item));
         }
@@ -120,31 +125,31 @@ public class BindingSource : INotifyPropertyChanged
         this.OnPropertyChanged(nameof(Count));
         this.OnPropertyChanged(nameof(Position));
     }    
-
+    
     /// <summary>
     /// Adds a new record to the data source.
     /// </summary>
     public virtual BindingSourceRow Add()
     {
-        var CreateArgs = new BindingSourceCreateEventArgs();
+        var CreateArgs = new BindingSourceCreateArgs();
         this.OnCreateInnerObject?.Invoke(this, CreateArgs);
         if (CreateArgs.Cancel) return null;
 
-        object NewInnerItem = CreateArgs.NewInnerObject ?? Source.CreateNew();
-        this.OnInnerObjectCreated?.Invoke(this, NewInnerItem);
+        object NewInnerItem = CreateArgs.NewInnerObject ?? DataSource.CreateNew();
+        var InnerObjectArgs = new BindingSourceInnerObjectArgs(NewInnerItem);
+        this.OnInnerObjectCreated?.Invoke(this, InnerObjectArgs);
 
         var NewRow = new BindingSourceRow(this, NewInnerItem);
         if (!RaiseOnAdding(NewRow)) return null;
 
         // Commit to source via Link
-        Source.AddToSource(NewInnerItem);
+        DataSource.AddToSource(NewInnerItem);
         this.fRows.Add(NewRow);
         this.Current = NewRow;
 
-        this.OnAdded?.Invoke(this, new BindingSourceEventArgs(NewRow));
+        this.OnAdded?.Invoke(this, new BindingSourceArgs(NewRow));
         return NewRow;
     }
-
     /// <summary>
     /// Deletes the specified record from the data source.
     /// </summary>
@@ -161,13 +166,13 @@ public class BindingSource : INotifyPropertyChanged
 
         try 
         {
-            Source.RemoveFromSource(Row.InnerObject);
+            DataSource.RemoveFromSource(Row.InnerObject);
             this.fRows.Remove(Row);
 
             if (this.Current == Row)
                 this.Position = (this.fRows.Count > 0) ? Math.Max(0, Index - 1) : -1;
 
-            this.OnDeleted?.Invoke(this, new BindingSourceEventArgs(Row));
+            this.OnDeleted?.Invoke(this, new BindingSourceArgs(Row));
             return true;
         }
         catch (Exception Ex)
@@ -175,7 +180,6 @@ public class BindingSource : INotifyPropertyChanged
             throw new ApplicationException($"DataSource: {Title} - Delete failed.", Ex);
         }
     }
-
     /// <summary>
     /// Deletes the current record.
     /// </summary>
@@ -185,12 +189,12 @@ public class BindingSource : INotifyPropertyChanged
     /// Moves the current selection to the first record.
     /// </summary>
     public virtual BindingSourceRow First() { Position = 0; return Current; }
-
     /// <summary>
     /// Moves the current selection to the last record.
     /// </summary>
     public virtual BindingSourceRow Last() { Position = this.fRows.Count - 1; return Current; }
 
+    // ● Current - get/set value
     /// <summary>
     /// Gets the value of a property from the current record as a specific type.
     /// </summary>
@@ -199,7 +203,15 @@ public class BindingSource : INotifyPropertyChanged
         if (this.fCurrent == null) return default(T);
         return this.fCurrent.GetValue<T>(PropertyName);
     }
-
+    /// <summary>
+    /// Sets the value of a property from the current record as a specific type.. Returns true if successful.
+    /// </summary>
+    public bool SetValue<T>(string PropertyName, T Value)
+    {
+        if (this.fCurrent == null) return false;
+        return this.fCurrent.SetValue<T>(PropertyName, Value);
+    }
+    
     /// <summary>
     /// Gets the value of a property from the current record as an object. 
     /// Useful for lookups where the type is unknown.
@@ -208,7 +220,6 @@ public class BindingSource : INotifyPropertyChanged
     {
         return this.fCurrent?[PropertyName];
     }
-
     /// <summary>
     /// Sets the value of a property for the current record.
     /// </summary>
@@ -219,8 +230,6 @@ public class BindingSource : INotifyPropertyChanged
         return true;
     }
     
-    // ● Accessors (Proxy to Current)
-
     /// <summary>
     /// Accesses the property value of the current record as a string.
     /// </summary>
@@ -266,13 +275,19 @@ public class BindingSource : INotifyPropertyChanged
     /// </summary>
     public void AsDateTime(string PropertyName, DateTime Value) => fCurrent?.AsDateTime(PropertyName, Value);
 
-
+    // ● filter 
+    // Για το απλό φίλτρο του χρήστη (δημόσιο, ένα πεδίο)
+    public void ApplyFilter(string PropertyName, object Value)
+    {
+        DataSource.ApplyFilter(PropertyName, Value);
+    }
     
+    // ● event triggers
     /// <summary>
     /// Internal trigger to raise the OnAdding event.
     /// </summary>
     internal bool RaiseOnAdding(BindingSourceRow row) {
-        var e = new BindingSourceCancelEventArgs(row);
+        var e = new BindingSourceCancelArgs(row);
         OnAdding?.Invoke(this, e);
         return !e.Cancel;
     }
@@ -280,7 +295,7 @@ public class BindingSource : INotifyPropertyChanged
     /// Internal trigger to raise the OnDeleting event.
     /// </summary>
     internal bool RaiseOnDeleting(BindingSourceRow row) {
-        var e = new BindingSourceCancelEventArgs(row);
+        var e = new BindingSourceCancelArgs(row);
         OnDeleting?.Invoke(this, e);
         return !e.Cancel;
     }    
@@ -288,7 +303,7 @@ public class BindingSource : INotifyPropertyChanged
     /// Internal trigger to raise the OnChanging event.
     /// </summary>
     internal bool RaiseOnChanging(BindingSourceRow row, string propName, object oldVal, object newVal) {
-        var e = new BindingSourceChangeEventArgs(row, propName, oldVal, newVal);
+        var e = new BindingSourceChangeArgs(row, propName, oldVal, newVal);
         OnChanging?.Invoke(this, e);
         return !e.Cancel;
     }
@@ -296,28 +311,27 @@ public class BindingSource : INotifyPropertyChanged
     /// Internal trigger to raise the OnChanged event.
     /// </summary>
     internal void RaiseOnChanged(BindingSourceRow row, string propName, object oldVal, object newVal) {
-        OnChanged?.Invoke(this, new BindingSourceChangeEventArgs(row, propName, oldVal, newVal));
+        OnChanged?.Invoke(this, new BindingSourceChangeArgs(row, propName, oldVal, newVal));
     }      
     
+    // ● properties
     /// <summary>
     /// Gets the collection of records as DataSourceRow wrappers.
     /// </summary>
     public ObservableCollection<BindingSourceRow> Rows => this.fRows;
-
     /// <summary>
     /// Gets the total number of records.
     /// </summary>
     public int Count => Rows.Count;
-
     /// <summary>
     /// Gets a value indicating whether the underlying source has a fixed size.
     /// </summary>
-    public bool IsFixedSize => Source.IsFixedSize;
+    public bool IsFixedSize => DataSource.IsFixedSize;
 
     /// <summary>
     /// Gets the underlying data link.
     /// </summary>
-    public IDataSource Source { get; protected set; }
+    public IDataSource DataSource { get; protected set; }
 
     /// <summary>
     /// Gets the type of the items contained in the source.
@@ -337,7 +351,7 @@ public class BindingSource : INotifyPropertyChanged
                 this.fCurrent = value;
                 this.OnPropertyChanged(nameof(Current));
                 this.OnPropertyChanged(nameof(Position));
-                this.OnCurrentPositionChanged?.Invoke(this, new BindingSourceEventArgs(this.fCurrent));
+                this.OnCurrentPositionChanged?.Invoke(this, new BindingSourceArgs(this.fCurrent));
             }
         }
     }
@@ -354,7 +368,7 @@ public class BindingSource : INotifyPropertyChanged
             var TargetRow = Rows[value];
             if (TargetRow == fCurrent) return;
 
-            var Args = new BindingSourceCancelEventArgs(fCurrent);
+            var Args = new BindingSourceCancelArgs(fCurrent);
             this.OnCurrentPositionChanging?.Invoke(this, Args);
 
             if (Args.Cancel) { this.OnPropertyChanged(nameof(Position)); return; }
@@ -379,52 +393,52 @@ public class BindingSource : INotifyPropertyChanged
     /// <summary>
     /// Occurs when a new inner object is requested.
     /// </summary>
-    public event BindingSourceCreateEventHandler OnCreateInnerObject;
+    public event EventHandler<BindingSourceCreateArgs> OnCreateInnerObject;   // BindingSourceCreateEventHandler
 
     /// <summary>
     /// Occurs when a new inner object has been successfully created.
     /// </summary>
-    public event BindingSourceObjectHandler OnInnerObjectCreated;
+    public event EventHandler<BindingSourceInnerObjectArgs> OnInnerObjectCreated; // BindingSourceObjectHandler
 
     /// <summary>
     /// Occurs before a record is added to the collection.
     /// </summary>
-    public event BindingSourceCancelEventHandler OnAdding;
+    public event EventHandler<BindingSourceCancelArgs> OnAdding;  // BindingSourceCancelEventHandler
 
     /// <summary>
     /// Occurs after a record has been added to the collection.
     /// </summary>
-    public event BindingSourceEventHandler OnAdded;
+    public event EventHandler<BindingSourceArgs> OnAdded; // BindingSourceEventHandler
 
     /// <summary>
     /// Occurs before a record is deleted.
     /// </summary>
-    public event BindingSourceCancelEventHandler OnDeleting;
+    public event EventHandler<BindingSourceCancelArgs> OnDeleting;    // BindingSourceCancelEventHandler
 
     /// <summary>
     /// Occurs after a record has been deleted.
     /// </summary>
-    public event BindingSourceEventHandler OnDeleted;
+    public event EventHandler<BindingSourceArgs> OnDeleted;
 
     /// <summary>
     /// Occurs before a data value is changed.
     /// </summary>
-    public event BindingSourceChangeEventHandler OnChanging;
+    public event EventHandler<BindingSourceChangeArgs> OnChanging;    // BindingSourceChangeEventHandler
 
     /// <summary>
     /// Occurs after a data value has been changed.
     /// </summary>
-    public event BindingSourceChangeEventHandler OnChanged;
+    public event EventHandler<BindingSourceChangeArgs> OnChanged;
 
     /// <summary>
     /// Occurs before the current record position changes.
     /// </summary>
-    public event BindingSourceCancelEventHandler OnCurrentPositionChanging;
+    public event EventHandler<BindingSourceCancelArgs> OnCurrentPositionChanging;
 
     /// <summary>
     /// Occurs after the current record position has changed.
     /// </summary>
-    public event BindingSourceEventHandler OnCurrentPositionChanged;
+    public event EventHandler<BindingSourceArgs> OnCurrentPositionChanged;
 
     /// <summary>
     /// Occurs when the loading process begins.
