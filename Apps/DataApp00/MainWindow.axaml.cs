@@ -1,13 +1,15 @@
 using Avalonia.Controls;
 using Tripous.Avalon;
+using Tripous.Avalon.Controls;
+using Tripous.Avalon.Data;
 
 namespace DataApp00;
 
 public partial class MainWindow : Window
 {
     bool IsWindowInitialized = false;
-    private DataSource dsCustomer;
-    private DataSource dsCountry;
+    private BindingSource dsCustomer;
+    private BindingSource dsCountry;
     
     // ● event handlers
     void AnyClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -23,19 +25,19 @@ public partial class MainWindow : Window
 
     void ListTest()
     {
-        dsCustomer = DataSource.FromList(Customer.GetList()); // new DataSource(Customer.GetList());
+        dsCustomer = BindingSource.FromList(Customer.GetList()); // new DataSource(Customer.GetList());
         dsCustomer.Bind(edtName, "Name");
         dsCustomer.Bind(gridCustomers, true);
-        dsCountry = DataSource.FromList(Country.GetList()); 
+        dsCountry = BindingSource.FromList(Country.GetList()); 
         dsCustomer.Bind(cboCountry, dsCountry, "Name", "Id",  "CountryId");
     }
 
     void DataTableTest()
     {
-        dsCustomer = DataSource.FromTable(Tests.CreateCustomerTable()); // new DataSource(Customer.GetList());
+        dsCustomer = BindingSource.FromTable(Tests.CreateCustomerTable()); // new DataSource(Customer.GetList());
         dsCustomer.Bind(edtName, "Name");
         dsCustomer.Bind(gridCustomers, true);
-        dsCountry = DataSource.FromTable(Tests.CreateCountryTable()); 
+        dsCountry = BindingSource.FromTable(Tests.CreateCountryTable()); 
         dsCustomer.Bind(cboCountry, dsCountry, "Name", "Id",  "CountryId");
     }
     
@@ -48,7 +50,7 @@ public partial class MainWindow : Window
 
     void Insert()
     {
-        DataSourceRow Row = dsCustomer.Add();
+        BindingSourceRow Row = dsCustomer.Add();
         Row["Id"] = edtNewId.GetText();
         Row["Name"] = edtNewName.GetText();
         Row["CountryId"] = edtNewCountryId.GetText();

@@ -2,13 +2,13 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Tripous.Avalon;
+namespace Tripous.Avalon.Data;
 
 /// <summary>
 /// A wrapper class that represents a single row in a DataSource. 
 /// It provides a unified way to access data from different types of underlying objects (DataRow or POCO).
 /// </summary>
-public class DataSourceRow : INotifyPropertyChanged
+public class BindingSourceRow : INotifyPropertyChanged
 {
     /// <summary>
     /// Notifies listeners that a property value has changed.
@@ -19,11 +19,11 @@ public class DataSourceRow : INotifyPropertyChanged
     /// <summary>
     /// Initializes a new instance of the DataSourceRow class.
     /// </summary>
-    /// <param name="DataSource">The parent DataSource.</param>
+    /// <param name="bindingSource">The parent DataSource.</param>
     /// <param name="innerObject">The actual data object (e.g., DataRow or a class instance).</param>
-    public DataSourceRow(DataSource DataSource, object innerObject)
+    public BindingSourceRow(BindingSource bindingSource, object innerObject)
     {
-        this.DataSource = DataSource;
+        this.BindingSource = bindingSource;
         this.InnerObject = innerObject;
     }
 
@@ -181,7 +181,7 @@ public class DataSourceRow : INotifyPropertyChanged
 
             // 2. OnChanging: (Cancelable) DbPark Validation
             // Call the internal method of the DataSource
-            if (!this.DataSource.RaiseOnChanging(this, PropertyName, OldValue, NewValue))
+            if (!this.BindingSource.RaiseOnChanging(this, PropertyName, OldValue, NewValue))
             {
                 // If the user canceled the change, we stop here.
                 // The TextBox will revert to the old value due to TwoWay Binding 
@@ -212,7 +212,7 @@ public class DataSourceRow : INotifyPropertyChanged
             this.OnPropertyChanged("Item");
 
             // 5. OnChanged: The change is finalized
-            this.DataSource.RaiseOnChanged(this, PropertyName, OldValue, NewValue);
+            this.BindingSource.RaiseOnChanged(this, PropertyName, OldValue, NewValue);
         }
     }
 
@@ -220,7 +220,7 @@ public class DataSourceRow : INotifyPropertyChanged
     /// Gets the parent DataSource that owns this row.
     /// </summary>
     [System.ComponentModel.Browsable(false)]
-    public DataSource DataSource { get; private set; }
+    public BindingSource BindingSource { get; private set; }
 
     /// <summary>
     /// Gets the underlying business object wrapped by this row.

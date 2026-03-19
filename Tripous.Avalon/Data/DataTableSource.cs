@@ -2,12 +2,12 @@ using System;
 using System.Data;
 using System.Linq;
 
-namespace Tripous.Avalon;
+namespace Tripous.Avalon.Data;
 
 /// <summary>
 /// Implements the IDataLink interface to provide a bridge between a DataSource and a ADO.NET DataTable.
 /// </summary>
-public class DataTableLink : IDataLink
+public class DataTableSource : IDataSource
 {
     private DataTable fTable;
 
@@ -15,7 +15,7 @@ public class DataTableLink : IDataLink
     /// Initializes a new instance of the DataTableLink class with a specified DataTable.
     /// </summary>
     /// <param name="table">The DataTable to link to.</param>
-    public DataTableLink(DataTable table)
+    public DataTableSource(DataTable table)
     {
         this.fTable = table ?? throw new ArgumentNullException(nameof(table));
     }

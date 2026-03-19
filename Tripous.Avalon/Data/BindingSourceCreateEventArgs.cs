@@ -1,11 +1,11 @@
 using System;
 
-namespace Tripous.Avalon;
+namespace Tripous.Avalon.Data;
 
 /// <summary>
 /// Provides data for events triggered when a new inner object is being created within the DataSource.
 /// </summary>
-public class DataSourceCreateEventArgs : EventArgs
+public class BindingSourceCreateEventArgs : EventArgs
 {
     /// <summary>
     /// Gets or sets the new inner object instance provided by the caller (e.g., a new Customer instance).
@@ -20,7 +20,7 @@ public class DataSourceCreateEventArgs : EventArgs
     /// <summary>
     /// Initializes a new instance of the DataSourceCreateEventArgs class.
     /// </summary>
-    public DataSourceCreateEventArgs()
+    public BindingSourceCreateEventArgs()
     {
         this.NewInnerObject = null;
     }

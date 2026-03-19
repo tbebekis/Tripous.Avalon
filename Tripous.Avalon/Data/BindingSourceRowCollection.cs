@@ -2,21 +2,21 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
-namespace Tripous.Avalon;
+namespace Tripous.Avalon.Data;
 
 /// <summary>
 /// A specialized ObservableCollection that supports batch loading operations 
 /// by temporarily suspending collection change notifications.
 /// </summary>
 /// <typeparam name="T">The type of elements in the collection.</typeparam>
-public class DataSourceRowCollection<T> : ObservableCollection<T>
+public class BindingSourceRowCollection<T> : ObservableCollection<T>
 {
     private bool fIsSuspended;
 
     /// <summary>
     /// Initializes a new instance of the DataSourceRowCollection class.
     /// </summary>
-    public DataSourceRowCollection() : base()
+    public BindingSourceRowCollection() : base()
     {
         this.fIsSuspended = false;
     }

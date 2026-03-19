@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Tripous.Avalon;
+namespace Tripous.Avalon.Data;
 
 /// <summary>
 /// Implements the IDataLink interface to provide a bridge between a DataSource and a generic IList of POCO (Plain Old CLR Objects).
 /// </summary>
 /// <typeparam name="T">The type of the business objects in the list.</typeparam>
-public class ListLink<T> : IDataLink
+public class ListDataSource<T> : IDataSource
 {
     private IList<T> fList;
     private PropertyInfo[] fProperties;
@@ -18,7 +18,7 @@ public class ListLink<T> : IDataLink
     /// Initializes a new instance of the ListLink class with a specified list.
     /// </summary>
     /// <param name="list">The generic list to link to.</param>
-    public ListLink(IList<T> list)
+    public ListDataSource(IList<T> list)
     {
         this.fList = list ?? throw new ArgumentNullException(nameof(list));
         // Cache properties for performance

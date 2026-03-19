@@ -1,16 +1,16 @@
 using System;
 
-namespace Tripous.Avalon;
+namespace Tripous.Avalon.Data;
 
 /// <summary>
 /// Provides data for standard events associated with a DataSourceRow.
 /// </summary>
-public class DataSourceEventArgs : EventArgs
+public class BindingSourceEventArgs : EventArgs
 {
     /// <summary>
     /// Gets the row associated with the event.
     /// </summary>
-    public DataSourceRow Row { get; internal set; }
+    public BindingSourceRow Row { get; internal set; }
 
     /// <summary>
     /// Gets the underlying business object (InnerObject) associated with the row.
@@ -21,7 +21,7 @@ public class DataSourceEventArgs : EventArgs
     /// Initializes a new instance of the DataSourceEventArgs class.
     /// </summary>
     /// <param name="row">The row involved in the event.</param>
-    public DataSourceEventArgs(DataSourceRow row)
+    public BindingSourceEventArgs(BindingSourceRow row)
     {
         this.Row = row;
     }

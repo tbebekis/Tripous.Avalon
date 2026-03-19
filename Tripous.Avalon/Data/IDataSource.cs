@@ -1,12 +1,12 @@
 using System;
 
-namespace Tripous.Avalon;
+namespace Tripous.Avalon.Data;
 
 /// <summary>
 /// Defines a contract for a data bridge that abstracts the underlying data source (e.g., DataTable, List, etc.) 
 /// allowing the DataSource class to operate independently of the specific data implementation.
 /// </summary>
-public interface IDataLink
+public interface IDataSource
 {
     // --- Schema & Metadata ---
 

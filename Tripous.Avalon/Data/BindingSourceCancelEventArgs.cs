@@ -1,16 +1,16 @@
 using System;
 
-namespace Tripous.Avalon;
+namespace Tripous.Avalon.Data;
 
 /// <summary>
 /// Provides data for events that can be canceled within a DataSource operation.
 /// </summary>
-public class DataSourceCancelEventArgs : EventArgs
+public class BindingSourceCancelEventArgs : EventArgs
 {
     /// <summary>
     /// Gets the row associated with the event.
     /// </summary>
-    public DataSourceRow Row { get; internal set; }
+    public BindingSourceRow Row { get; internal set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the operation should be canceled.
@@ -26,7 +26,7 @@ public class DataSourceCancelEventArgs : EventArgs
     /// Initializes a new instance of the DataSourceCancelEventArgs class.
     /// </summary>
     /// <param name="row">The row involved in the event.</param>
-    public DataSourceCancelEventArgs(DataSourceRow row)
+    public BindingSourceCancelEventArgs(BindingSourceRow row)
     {
         this.Row = row;
     }

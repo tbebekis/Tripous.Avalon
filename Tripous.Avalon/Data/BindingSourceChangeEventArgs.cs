@@ -1,11 +1,11 @@
 using System;
 
-namespace Tripous.Avalon;
+namespace Tripous.Avalon.Data;
 
 /// <summary>
 /// Provides data for events involving a change in a data property value.
 /// </summary>
-public class DataSourceChangeEventArgs : DataSourceCancelEventArgs
+public class BindingSourceChangeEventArgs : BindingSourceCancelEventArgs
 {
     /// <summary>
     /// Gets the name of the property that is changing or has changed.
@@ -29,7 +29,7 @@ public class DataSourceChangeEventArgs : DataSourceCancelEventArgs
     /// <param name="propertyName">The name of the property.</param>
     /// <param name="oldValue">The original value.</param>
     /// <param name="newValue">The proposed new value.</param>
-    public DataSourceChangeEventArgs(DataSourceRow row, string propertyName, object oldValue, object newValue) 
+    public BindingSourceChangeEventArgs(BindingSourceRow row, string propertyName, object oldValue, object newValue) 
         : base(row)
     {
         this.PropertyName = propertyName;

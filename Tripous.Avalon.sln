@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Avalon", "Tripous.Avalon\Tripous.Avalon.csproj", "{731EEBBD-F41E-4234-9639-A25AE9ACFCED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Avalon", "Tripous.Avalon\Tripous.Avalon.csproj", "{FD9EC5C0-27A5-4069-9F39-4C876652CCA3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C3535CBF-C890-45A6-9BD4-C54C84CAB524}"
-	ProjectSection(SolutionItems) = preProject
-		ReadMe.md = ReadMe.md
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Avalon.Controls", "Tripous.Avalon.Controls\Tripous.Avalon.Controls.csproj", "{F666BD7C-A0AC-4BC8-AA5C-8BF3086693E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataApp00", "DataApp00\DataApp00.csproj", "{6B9EC099-7B5F-4F49-8D24-A3B8DFBFAB83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Avalon.Windows", "Tripous.Avalon.Windows\Tripous.Avalon.Windows.csproj", "{4CFFC6A5-0AF2-4123-A756-609BC4AB7865}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{4281F14C-03B6-488F-8390-766ACC16920D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataApp00", "Apps\DataApp00\DataApp00.csproj", "{51503A0C-63EE-4ABA-9C67-69F3DEAC6063}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,13 +16,24 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{731EEBBD-F41E-4234-9639-A25AE9ACFCED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{731EEBBD-F41E-4234-9639-A25AE9ACFCED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{731EEBBD-F41E-4234-9639-A25AE9ACFCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{731EEBBD-F41E-4234-9639-A25AE9ACFCED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B9EC099-7B5F-4F49-8D24-A3B8DFBFAB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B9EC099-7B5F-4F49-8D24-A3B8DFBFAB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B9EC099-7B5F-4F49-8D24-A3B8DFBFAB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B9EC099-7B5F-4F49-8D24-A3B8DFBFAB83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD9EC5C0-27A5-4069-9F39-4C876652CCA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD9EC5C0-27A5-4069-9F39-4C876652CCA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD9EC5C0-27A5-4069-9F39-4C876652CCA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD9EC5C0-27A5-4069-9F39-4C876652CCA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F666BD7C-A0AC-4BC8-AA5C-8BF3086693E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F666BD7C-A0AC-4BC8-AA5C-8BF3086693E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F666BD7C-A0AC-4BC8-AA5C-8BF3086693E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F666BD7C-A0AC-4BC8-AA5C-8BF3086693E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CFFC6A5-0AF2-4123-A756-609BC4AB7865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CFFC6A5-0AF2-4123-A756-609BC4AB7865}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CFFC6A5-0AF2-4123-A756-609BC4AB7865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CFFC6A5-0AF2-4123-A756-609BC4AB7865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51503A0C-63EE-4ABA-9C67-69F3DEAC6063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51503A0C-63EE-4ABA-9C67-69F3DEAC6063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51503A0C-63EE-4ABA-9C67-69F3DEAC6063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51503A0C-63EE-4ABA-9C67-69F3DEAC6063}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51503A0C-63EE-4ABA-9C67-69F3DEAC6063} = {4281F14C-03B6-488F-8390-766ACC16920D}
 	EndGlobalSection
 EndGlobal
