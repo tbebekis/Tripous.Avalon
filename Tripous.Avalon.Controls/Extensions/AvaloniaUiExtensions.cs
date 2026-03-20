@@ -105,6 +105,19 @@ static public class AvaloniaUiExtensions
         bindingSource.ForceMoveToCurrent();
     }
 
+    static public void Bind(this BindingSource bindingSource, ComboBox Box, string PropertyName, object[] ItemsSource = null)
+    {
+        if (Box == null || string.IsNullOrEmpty(PropertyName)) return;
+        Box.DataContext = bindingSource;
+        if (ItemsSource != null)
+            Box.ItemsSource = ItemsSource;
+        Box.Bind(TextBox.TextProperty, new Binding(string.Format("Current[{0}]", PropertyName))
+        {
+            Mode = BindingMode.TwoWay,
+            UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged 
+        });
+        bindingSource.ForceMoveToCurrent();
+    }
     /// <summary>
     /// Binds a ComboBox as a lookup control.
     /// </summary>

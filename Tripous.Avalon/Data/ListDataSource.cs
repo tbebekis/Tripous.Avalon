@@ -13,7 +13,9 @@ public class ListDataSource<T> : IDataSource
 {
     private IList<T> fList;
     private PropertyInfo[] fProperties;
+    private string[] fChildPropertyNames;
 
+    // ● construction 
     /// <summary>
     /// Initializes a new instance of the ListLink class with a specified list.
     /// </summary>
@@ -25,13 +27,11 @@ public class ListDataSource<T> : IDataSource
         this.fProperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
     }
 
-    // --- Schema ---
-
+    // ● Schema & Metadata
     /// <summary>
     /// Gets the type of items contained in the link.
     /// </summary>
     public Type GetItemType() => typeof(T);
-
     /// <summary>
     /// Returns an array of property names available on the generic type T.
     /// </summary>
@@ -40,26 +40,23 @@ public class ListDataSource<T> : IDataSource
         return fProperties.Select(p => p.Name).ToArray();
     }
 
-    // --- Data Access ---
-
+    // ● Data Operations
     /// <summary>
     /// Returns the collection of items from the underlying list.
     /// </summary>
     public System.Collections.IEnumerable GetRows() => fList;
-
     /// <summary>
     /// Gets the value of a specific property from an item in the list using reflection.
     /// </summary>
-    public object GetValue(object innerItem, string propertyName)
+    public object GetValue(object InnerObject, string propertyName)
     {
         var Prop = typeof(T).GetProperty(propertyName);
-        return Prop?.GetValue(innerItem);
+        return Prop?.GetValue(InnerObject);
     }
-
     /// <summary>
     /// Sets the value of a specific property on an item in the list, handling Nullable types and type conversions.
     /// </summary>
-    public void SetValue(object innerItem, string propertyName, object value)
+    public void SetValue(object InnerObject, string propertyName, object value)
     {
         var Prop = typeof(T).GetProperty(propertyName);
         if (Prop != null && Prop.CanWrite)
@@ -67,24 +64,77 @@ public class ListDataSource<T> : IDataSource
             // Handle Nullable types and type conversion
             Type TargetType = Nullable.GetUnderlyingType(Prop.PropertyType) ?? Prop.PropertyType;
             object ConvertedValue = (value == null) ? null : Convert.ChangeType(value, TargetType);
-            Prop.SetValue(innerItem, ConvertedValue);
+            Prop.SetValue(InnerObject, ConvertedValue);
         }
     }
     
-    // Για το Master-Detail (εσωτερικό, με arrays για σύνθετα κλειδιά)
-    public void ApplyChildSync(string[] PropertyNames, object[] Values)
+    // ● master-detail and filter
+ 
+    /// <summary>
+    /// Returns true if the specified object should be included in the visible rows
+    /// </summary>
+    public bool PassesDetailCondition(object InnerObject, object[] MasterValues)
     {
-        // TODO:
-    }
-    
-    // Για το απλό φίλτρο του χρήστη (δημόσιο, ένα πεδίο)
-    public void ApplyFilter(string PropertyName, object Value)
-    {
-        // TODO:
+        if (fChildPropertyNames == null || MasterValues == null || fChildPropertyNames.Length != MasterValues.Length)
+            return true;
+        for (int i = 0; i < fChildPropertyNames.Length; i++)
+        {
+            object Value = GetValue(InnerObject, fChildPropertyNames[i]);
+            if (!Equals(Value, MasterValues[i])) return false;
+        }
+        return true;
     }
 
-    // --- CRUD ---
+    /// <summary>
+    /// Sets the filter
+    /// </summary>
+    public void SetFilter(string PropertyName, object Value)
+    {
+        this.FilterPropertyName = PropertyName;
+        this.FilterValue = Value;
+    }
+    /// <summary>
+    /// Clears the filter
+    /// </summary>
+    public void ClearFilter()
+    {
+        this.FilterPropertyName = null;
+        this.FilterValue = null;
+    }
+    /// <summary>
+    /// Returns true if the specified object should be included in the visible rows
+    /// </summary>
+    public bool PassesFilterCondition1(object InnerObject)
+    {
+        if (string.IsNullOrEmpty(FilterPropertyName)) return true;
+        object Value = GetValue(InnerObject, FilterPropertyName);
 
+        if (Value is string strValue && FilterValue is string strFilter)
+        {
+            /* Wildcard: StartsWith check */
+            if (strFilter.EndsWith("*") && strFilter.Length > 1)
+            {
+                string cleanFilter = strFilter.Substring(0, strFilter.Length - 1);
+                return strValue.StartsWith(cleanFilter, StringComparison.OrdinalIgnoreCase);
+            }
+
+            /* Standard: Contains check */
+            return strValue.Contains(strFilter, StringComparison.OrdinalIgnoreCase);
+        }
+
+        /* Fallback for non-string types */
+        return Equals(Value, FilterValue);
+    }
+    /// <summary>
+    /// Returns true if the specified object should be included in the visible rows
+    /// </summary>
+    public bool PassesFilterCondition(object InnerObject)
+    {
+        if (string.IsNullOrEmpty(FilterPropertyName)) return true;
+        object Value = GetValue(InnerObject, FilterPropertyName);
+        return Equals(Value, FilterValue);
+    }
+    // ● CRUD 
     /// <summary>
     /// Creates a new instance of type T. This requires the type to have a parameterless constructor.
     /// </summary>
@@ -94,49 +144,50 @@ public class ListDataSource<T> : IDataSource
         // Create a new POCO (requires parameterless constructor)
         return Activator.CreateInstance<T>();
     }
-
     /// <summary>
     /// Adds a new item to the underlying generic list if it is not already present.
     /// </summary>
-    public void AddToSource(object innerItem)
+    public void AddToSource(object InnerObject)
     {
-        if (innerItem is T item && !fList.Contains(item))
+        if (InnerObject is T item && !fList.Contains(item))
         {
             fList.Add(item);
         }
     }
-
     /// <summary>
     /// Removes an item from the underlying generic list.
     /// </summary>
-    public void RemoveFromSource(object innerItem)
+    public void RemoveFromSource(object InnerObject)
     {
-        if (innerItem is T item)
+        if (InnerObject is T item)
         {
             fList.Remove(item);
         }
     }
 
-    // --- Capabilities ---
-
+    // ● properties 
     /// <summary>
-    /// Gets a value indicating whether the data source has a fixed size (e.g., an Array).
+    /// Gets a value indicating whether the data source has a fixed size.
     /// </summary>
-    public bool IsFixedSize 
+    public bool IsFixedSize => false;
+    /// <summary>
+    /// Gets a value indicating whether the data source is read-only.
+    /// </summary>
+    public bool IsReadOnly => false;
+    /// <summary>
+    /// The property name the filter is applied on.
+    /// </summary>
+    public string FilterPropertyName { get; private set; }
+    /// <summary>
+    /// The filter value.
+    /// </summary>
+    public object FilterValue { get; private set; }
+    /// <summary>
+    /// The property names when this is a detail source.
+    /// </summary>
+    public string[] DetailPropertyNames
     {
-        get 
-        {
-            // Arrays implement the non-generic IList, where IsFixedSize is defined
-            if (fList is System.Collections.IList nonGenericList)
-            {
-                return nonGenericList.IsFixedSize;
-            }
-            return false; // Standard List<T> instances are not Fixed Size
-        }
+        get  => fChildPropertyNames;
+        set => fChildPropertyNames = value;
     }
-
-    /// <summary>
-    /// Gets a value indicating whether the underlying list is read-only.
-    /// </summary>
-    public bool IsReadOnly => fList.IsReadOnly;
 }

@@ -10,6 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{4281F14C-0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataApp00", "Apps\DataApp00\DataApp00.csproj", "{51503A0C-63EE-4ABA-9C67-69F3DEAC6063}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDetailApp", "Apps\MasterDetailApp\MasterDetailApp.csproj", "{7E042D3E-89D6-4350-AAB7-D46CAE6628AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{B420634D-DF3C-4C7E-B972-5234D9CC7260}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +39,13 @@ Global
 		{51503A0C-63EE-4ABA-9C67-69F3DEAC6063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51503A0C-63EE-4ABA-9C67-69F3DEAC6063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51503A0C-63EE-4ABA-9C67-69F3DEAC6063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E042D3E-89D6-4350-AAB7-D46CAE6628AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E042D3E-89D6-4350-AAB7-D46CAE6628AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E042D3E-89D6-4350-AAB7-D46CAE6628AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E042D3E-89D6-4350-AAB7-D46CAE6628AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{51503A0C-63EE-4ABA-9C67-69F3DEAC6063} = {4281F14C-03B6-488F-8390-766ACC16920D}
+		{7E042D3E-89D6-4350-AAB7-D46CAE6628AD} = {4281F14C-03B6-488F-8390-766ACC16920D}
 	EndGlobalSection
 EndGlobal

@@ -50,10 +50,11 @@ public partial class MainWindow : Window
 
     void Insert()
     {
-        BindingSourceRow Row = dsCustomer.Add();
+        BindingSourceRow Row = dsCustomer.NewRow();
         Row["Id"] = edtNewId.GetText();
         Row["Name"] = edtNewName.GetText();
         Row["CountryId"] = edtNewCountryId.GetText();
+        dsCustomer.AddRow(Row);
     }
 
     void Delete()
