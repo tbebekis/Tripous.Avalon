@@ -17,7 +17,8 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\Tripous.Avalon.Controls\Tripous.Avalon.Controls.csproj" />
-      <ProjectReference Include="..\Tripous.Avalon\Tripous.Avalon.csproj" />
+        <ProjectReference Include="..\Tripous.Avalon.Controls\Tripous.Avalon.Controls.csproj" />
+        <ProjectReference Include="..\Tripous.Avalon\Tripous.Avalon.csproj" />
+        <ProjectReference Include="..\Tripous\Tripous.csproj" />
     </ItemGroup>
 </Project>

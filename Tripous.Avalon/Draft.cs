@@ -99,7 +99,7 @@ public class Locator
     public char TermTerminator { get; set; } = '*';
     public bool RequiresEnterKey { get; set; } = true;
     public int MaxDropDownRows { get; set; } = 80;
-    public bool DisplaysInsertButton { get; set; } = false;
+    public string DataWindowName { get; set; }
 
     public BindingSource ApplyFilter(string PropertyName, object Value)
     {

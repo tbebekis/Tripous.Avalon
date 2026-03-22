@@ -39,7 +39,31 @@ public class ListDataSource<T> : IDataSource
     {
         return fProperties.Select(p => p.Name).ToArray();
     }
-
+    /// <summary>
+    /// Returns an array of the property types
+    /// </summary>
+    public Type[] GetPropertyTypes()
+    {
+        return fProperties
+            .Select(c => c.PropertyType)
+            .ToArray();
+    }
+    /// <summary>
+    /// Returns the <see cref="Type"/> of a specified property.
+    /// </summary>
+    public Type GetPropertyType(string PropertyName)
+    {
+        PropertyInfo Prop = fProperties.FirstOrDefault(x => x.Name.IsSameText(PropertyName)); 
+        return Prop != null ? Prop.PropertyType : typeof(string);
+    }
+    /// <summary>
+    /// Returns the <see cref="Type"/> of a property specified by its index in the properties.
+    /// </summary>
+    public Type GetPropertyType(int PropertyIndex)
+    {
+        return fProperties[PropertyIndex].PropertyType;
+    }
+    
     // ● Data Operations
     /// <summary>
     /// Returns the collection of items from the underlying list.
@@ -134,6 +158,7 @@ public class ListDataSource<T> : IDataSource
         object Value = GetValue(InnerObject, FilterPropertyName);
         return Equals(Value, FilterValue);
     }
+    
     // ● CRUD 
     /// <summary>
     /// Creates a new instance of type T. This requires the type to have a parameterless constructor.

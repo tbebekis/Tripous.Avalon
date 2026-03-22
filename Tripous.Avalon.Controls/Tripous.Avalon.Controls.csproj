@@ -21,5 +21,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Tripous.Avalon\Tripous.Avalon.csproj" />
+      <ProjectReference Include="..\Tripous\Tripous.csproj" />
     </ItemGroup>    
 </Project>

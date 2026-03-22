@@ -36,7 +36,32 @@ public class DataTableSource : IDataSource
             .Select(c => c.ColumnName)
             .ToArray();
     }
+    /// <summary>
+    /// Returns an array of the property types
+    /// </summary>
+    public Type[] GetPropertyTypes()
+    {
+        return fTable.Columns.Cast<DataColumn>()
+            .Select(c => c.DataType)
+            .ToArray();
+    }
+    /// <summary>
+    /// Returns the <see cref="Type"/> of a specified property.
+    /// </summary>
+    public Type GetPropertyType(string PropertyName)
+    {
+        DataColumn Col = fTable.Columns.Cast<DataColumn>().FirstOrDefault(c => c.ColumnName.IsSameText(PropertyName));
+        return Col != null ? Col.DataType : typeof(string);
+    }
 
+    /// <summary>
+    /// Returns the <see cref="Type"/> of a property specified by its index in the properties.
+    /// </summary>
+    public Type GetPropertyType(int PropertyIndex)
+    {
+        return fTable.Columns[PropertyIndex].DataType;
+    }
+    
     // ● Data Operations
     /// <summary>
     /// Returns the collection of rows from the DataTable.

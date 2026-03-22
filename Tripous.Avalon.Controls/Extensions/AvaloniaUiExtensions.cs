@@ -14,37 +14,7 @@ namespace Tripous.Avalon.Controls;
 
 static public class AvaloniaUiExtensions
 {
-    /// <summary>
-    /// Returns the index of Value in List, case insensitively, if exists, else -1.
-    /// </summary>
-    static int IndexOfText(this IList<string> List, string Value)
-    {
-        if (List != null)
-        {
-            for (int i = 0; i < List.Count; i++)
-                if (string.Compare(List[i], Value, StringComparison.InvariantCultureIgnoreCase) == 0)  
-                    return i;
-        }
-        return -1;
-    }
-    /// <summary>
-    /// Returns trur if Value exists in List, case insensitively.
-    /// </summary>
-    static bool ContainsText(this IList<string> List, string Value)
-    {
-        return IndexOfText(List, Value) != -1;
-    }
-    /// <summary>
-    /// Case insensitive string equality.
-    /// <para>Returns true if 1. both are null, 2. both are empty string or 3. they are the same string </para>
-    /// </summary>
-    static bool IsSameText(this string A, string B)
-    {
-        //return (!string.IsNullOrWhiteSpace(A) && !string.IsNullOrWhiteSpace(B))&& (string.Compare(A, B, StringComparison.InvariantCultureIgnoreCase) == 0);
-
-        // Compare() returns true if 1. both are null, 2. both are empty string or 3. they are the same string
-        return string.Compare(A, B, StringComparison.InvariantCultureIgnoreCase) == 0;
-    }
+ 
     
     // ● control text
     static public string GetText(this TextBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
@@ -52,63 +22,82 @@ static public class AvaloniaUiExtensions
     static public string GetText(this AutoCompleteBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
     static public string GetText(this ComboBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
     
-    // ● bind to DataSource
+    // ● bind  
     /// <summary>
     /// Automatically generates grid columns based on the data source schema.
     /// </summary>
-   static public void CreateGridColumns(this BindingSource bindingSource, DataGrid Grid)
+    static public void CreateGridColumns(this BindingSource BS, DataGrid Grid)
     {
         Grid.Columns.Clear();
         Grid.AutoGenerateColumns = false;
 
-        foreach (string PropName in bindingSource.DataSource.GetPropertyNames())
+        string[] PropertyNames = BS.DataSource.GetPropertyNames();
+        Type[] PropertyTypes = BS.DataSource.GetPropertyTypes();
+
+        string PropertyName;
+        Type PropertyType;
+        DataGridBoundColumn GridColumn;
+        for (int i = 0; i < PropertyNames.Length; i++)
         {
-            // Optional: We could check for BrowsableAttribute here 
-            // if the Link doesn't already perform filtering.
-            var GridCol = new DataGridTextColumn
-            {
-                Header = PropName,
-                Binding = new Binding(string.Format("[{0}]", PropName))
-            };
-            
-            //string S = GridCol.Binding.
-            Grid.Columns.Add(GridCol);
+            PropertyName = PropertyNames[i];
+            PropertyType = PropertyTypes[i];
+
+            GridColumn = PropertyType == typeof(bool) ? new DataGridCheckBoxColumn() : new DataGridTextColumn();
+            GridColumn.Header = PropertyName;
+            GridColumn.Binding = new Binding(string.Format("[{0}]", PropertyName));
+ 
+            Grid.Columns.Add(GridColumn);
         }
     }
-    
     /// <summary>
     /// Binds a DataGrid to the data source.
     /// </summary>
-    static public void Bind(this BindingSource bindingSource, DataGrid Grid, bool CreateColumns = false)
+    static public void Bind(this BindingSource BS, DataGrid Grid, bool CreateColumns = false)
     {
         if (Grid == null) return;
-        Grid.DataContext = bindingSource;
+        Grid.DataContext = BS;
         Grid.Bind(DataGrid.ItemsSourceProperty, new Binding("Rows") { Mode = BindingMode.OneWay });
         Grid.Bind(DataGrid.SelectedItemProperty, new Binding("Current") { Mode = BindingMode.TwoWay });
         
-        if (CreateColumns) bindingSource.CreateGridColumns(Grid);
-        bindingSource.ForceMoveToCurrent();
+        if (CreateColumns) BS.CreateGridColumns(Grid);
+        BS.ForceMoveToCurrent();
     }
-
+    /// <summary>
+    /// Unbinds a grid
+    /// </summary>
+    static public void UnBind(this DataGrid Grid, bool RemoveColumns = false)
+    {
+        if (Grid == null) return;
+ 
+        Grid.ClearValue(DataGrid.ItemsSourceProperty);
+        Grid.ClearValue(DataGrid.SelectedItemProperty);
+ 
+        Grid.DataContext = null;
+ 
+        if (RemoveColumns)
+            Grid.Columns.Clear();
+    }
     /// <summary>
     /// Binds a TextBox to a specific property of the current record.
     /// </summary>
-    static public void Bind(this BindingSource bindingSource, TextBox Edt, string PropertyName)
+    static public void Bind(this BindingSource BS, TextBox Box, string PropertyName)
     {
-        if (Edt == null || string.IsNullOrEmpty(PropertyName)) return;
-        Edt.DataContext = bindingSource;
-        Edt.Bind(TextBox.TextProperty, new Binding(string.Format("Current[{0}]", PropertyName))
+        if (Box == null || string.IsNullOrEmpty(PropertyName)) return;
+        Box.DataContext = BS;
+        Box.Bind(TextBox.TextProperty, new Binding(string.Format("Current[{0}]", PropertyName))
         {
             Mode = BindingMode.TwoWay,
             UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged 
         });
-        bindingSource.ForceMoveToCurrent();
+        BS.ForceMoveToCurrent();
     }
-
-    static public void Bind(this BindingSource bindingSource, ComboBox Box, string PropertyName, object[] ItemsSource = null)
+    /// <summary>
+    /// Binds a combo box as a normal control, not a lookup combo box
+    /// </summary>
+    static public void Bind(this BindingSource BS, ComboBox Box, string PropertyName, object[] ItemsSource = null)
     {
         if (Box == null || string.IsNullOrEmpty(PropertyName)) return;
-        Box.DataContext = bindingSource;
+        Box.DataContext = BS;
         if (ItemsSource != null)
             Box.ItemsSource = ItemsSource;
         Box.Bind(TextBox.TextProperty, new Binding(string.Format("Current[{0}]", PropertyName))
@@ -116,17 +105,17 @@ static public class AvaloniaUiExtensions
             Mode = BindingMode.TwoWay,
             UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged 
         });
-        bindingSource.ForceMoveToCurrent();
+        BS.ForceMoveToCurrent();
     }
     /// <summary>
     /// Binds a ComboBox as a lookup control.
     /// </summary>
-    static public void Bind(this BindingSource bindingSource, ComboBox Cbo, BindingSource LookupSource, string DisplayMember, string ValueMember, string TargetPropertyName)
+    static public void Bind(this BindingSource BS, ComboBox Box, BindingSource LookupSource, string DisplayMember, string ValueMember, string TargetPropertyName)
     {
-        if (Cbo == null || LookupSource == null) return;
+        if (Box == null || LookupSource == null) return;
 
         // 1. Data Source
-        Cbo.Bind(ComboBox.ItemsSourceProperty, new Binding("Rows") 
+        Box.Bind(ComboBox.ItemsSourceProperty, new Binding("Rows") 
         { 
             Source = LookupSource, 
             Mode = BindingMode.OneWay 
@@ -134,7 +123,7 @@ static public class AvaloniaUiExtensions
 
         // 2. Rendering: Use FuncDataTemplate to avoid "Cannot set both DisplayMemberBinding and ItemTemplate"
         // The row is the DataSourceRow contained in the LookupSource fRows
-        Cbo.ItemTemplate = new FuncDataTemplate<BindingSourceRow>((row, namescope) => 
+        Box.ItemTemplate = new FuncDataTemplate<BindingSourceRow>((row, namescope) => 
         {
             var Block = new TextBlock();
             Block.Bind(TextBlock.TextProperty, new Binding($"[{DisplayMember}]"));
@@ -142,58 +131,58 @@ static public class AvaloniaUiExtensions
         });
 
         // 3. From UI to DataSource
-        Cbo.SelectionChanged += (s, e) =>
+        Box.SelectionChanged += (s, e) =>
         {
-            if (Cbo.SelectedItem is BindingSourceRow SelectedRow)
+            if (Box.SelectedItem is BindingSourceRow SelectedRow)
             {
                 object NewValue = SelectedRow[ValueMember];
-                object OldValue = bindingSource.GetValue(TargetPropertyName);
+                object OldValue = BS.GetValue(TargetPropertyName);
 
                 if (!object.Equals(OldValue, NewValue))
                 {
-                    bindingSource.SetValue(TargetPropertyName, NewValue);
+                    BS.SetValue(TargetPropertyName, NewValue);
                 }
             }
         };
 
         // 4. From DataSource to UI
-        bindingSource.OnCurrentPositionChanged += (s, e) =>
+        BS.OnCurrentPositionChanged += (s, e) =>
         {
-            object CurrentValue = bindingSource.GetValue(TargetPropertyName);
+            object CurrentValue = BS.GetValue(TargetPropertyName);
         
             if (CurrentValue == null)
             {
-                Cbo.SelectedItem = null;
+                Box.SelectedItem = null;
             }
             else
             {
                 var FoundRow = LookupSource.Rows.FirstOrDefault(r => 
                     object.Equals(r[ValueMember], CurrentValue));
             
-                if (Cbo.SelectedItem != FoundRow)
+                if (Box.SelectedItem != FoundRow)
                 {
-                    Cbo.SelectedItem = FoundRow;
+                    Box.SelectedItem = FoundRow;
                 }
             }
         };
         
         // 5. Keyboard Handling: F4 for open, Enter for Tab behavior
-        Cbo.KeyDown += (s, e) =>
+        Box.KeyDown += (s, e) =>
         {
             if (e.Key == Key.F4)
             {
-                Cbo.IsDropDownOpen = !Cbo.IsDropDownOpen;
+                Box.IsDropDownOpen = !Box.IsDropDownOpen;
                 e.Handled = true;
             }
             else if (e.Key == Key.Enter)
             {
-                GetNextControl(Cbo)?.Focus();
+                GetNextControl(Box)?.Focus();
                 e.Handled = true;
             }
         };
 
         // ΠΡΟΣΘΗΚΗ: Listener για αλλαγή τιμής στο TargetPropertyName
-        bindingSource.OnChanged += (s, e) =>
+        BS.OnChanged += (s, e) =>
         {
             if (e.PropertyName == TargetPropertyName)
             {
@@ -201,28 +190,27 @@ static public class AvaloniaUiExtensions
                 var FoundRow = LookupSource.Rows.FirstOrDefault(r => 
                     object.Equals(r[ValueMember], e.NewValue));
             
-                if (Cbo.SelectedItem != FoundRow)
-                    Cbo.SelectedItem = FoundRow;
+                if (Box.SelectedItem != FoundRow)
+                    Box.SelectedItem = FoundRow;
             }
         };
         
         // 6. Text search only (Select-only)
-        Cbo.IsEditable = false; 
-        Cbo.IsTextSearchEnabled = true;
+        Box.IsEditable = false; 
+        Box.IsTextSearchEnabled = true;
 
-        bindingSource.ForceMoveToCurrent();
+        BS.ForceMoveToCurrent();
     }
-
     /// <summary>
     /// Binds a ListBox to a specific property of the current record.
     /// </summary>
-    static public void Bind(this BindingSource bindingSource, ListBox Lst, BindingSource LookupSource, string DisplayMember, string ValueMember, string TargetPropertyName)
+    static public void Bind(this BindingSource BS, ListBox Box, BindingSource LookupSource, string DisplayMember, string ValueMember, string TargetPropertyName)
     {
-        if (Lst == null || LookupSource == null) return;
+        if (Box == null || LookupSource == null) return;
 
-        Lst.Bind(ListBox.ItemsSourceProperty, new Binding("Rows") { Source = LookupSource });
+        Box.Bind(ListBox.ItemsSourceProperty, new Binding("Rows") { Source = LookupSource });
     
-        Lst.ItemTemplate = new FuncDataTemplate<BindingSourceRow>((row, ns) => 
+        Box.ItemTemplate = new FuncDataTemplate<BindingSourceRow>((row, ns) => 
         {
             var tb = new TextBlock();
             tb.Bind(TextBlock.TextProperty, new Binding($"[{DisplayMember}]"));
@@ -230,83 +218,79 @@ static public class AvaloniaUiExtensions
         });
 
         // SelectedValue synchronization (using SelectionChanged like in ComboBox)
-        Lst.SelectionChanged += (s, e) =>
+        Box.SelectionChanged += (s, e) =>
         {
-            if (Lst.SelectedItem is BindingSourceRow row)
-                bindingSource.SetValue(TargetPropertyName, row[ValueMember]);
+            if (Box.SelectedItem is BindingSourceRow row)
+                BS.SetValue(TargetPropertyName, row[ValueMember]);
         };
 
-        bindingSource.OnCurrentPositionChanged += (s, e) =>
+        BS.OnCurrentPositionChanged += (s, e) =>
         {
-            object val = bindingSource.GetValue(TargetPropertyName);
-            Lst.SelectedItem = LookupSource.Rows.FirstOrDefault(r => object.Equals(r[ValueMember], val));
+            object val = BS.GetValue(TargetPropertyName);
+            Box.SelectedItem = LookupSource.Rows.FirstOrDefault(r => object.Equals(r[ValueMember], val));
         };
         
         // 3. ΠΡΟΣΘΗΚΗ: Από τον DataSource προς το UI (Αλλαγή τιμής στο ίδιο Row)
-        bindingSource.OnChanged += (s, e) =>
+        BS.OnChanged += (s, e) =>
         {
             if (e.PropertyName == TargetPropertyName)
             {
                 var FoundRow = LookupSource.Rows.FirstOrDefault(r => object.Equals(r[ValueMember], e.NewValue));
-                if (Lst.SelectedItem != FoundRow)
-                    Lst.SelectedItem = FoundRow;
+                if (Box.SelectedItem != FoundRow)
+                    Box.SelectedItem = FoundRow;
             }
         };
     
-        bindingSource.ForceMoveToCurrent();
+        BS.ForceMoveToCurrent();
     }
-
     /// <summary>
     /// Binds a CheckBox to a boolean property of the current record.
     /// </summary>
-    static public void Bind(this BindingSource bindingSource, CheckBox Chk, string PropertyName)
+    static public void Bind(this BindingSource BS, CheckBox Box, string PropertyName)
     {
-        if (Chk == null || string.IsNullOrEmpty(PropertyName)) return;
-        Chk.DataContext = bindingSource;
-        Chk.Bind(CheckBox.IsCheckedProperty, new Binding($"Current[{PropertyName}]")
+        if (Box == null || string.IsNullOrEmpty(PropertyName)) return;
+        Box.DataContext = BS;
+        Box.Bind(CheckBox.IsCheckedProperty, new Binding($"Current[{PropertyName}]")
         {
             Mode = BindingMode.TwoWay
         });
-        bindingSource.ForceMoveToCurrent();
+        BS.ForceMoveToCurrent();
     }
-
     /// <summary>
     /// Binds a ToggleSwitch to a boolean property of the current record.
     /// </summary>
-    static public void Bind(this BindingSource bindingSource, ToggleSwitch Sw, string PropertyName)
+    static public void Bind(this BindingSource BS, ToggleSwitch ToggleSwitch, string PropertyName)
     {
-        if (Sw == null) return;
-        Sw.DataContext = bindingSource;
-        Sw.Bind(ToggleSwitch.IsCheckedProperty, new Binding($"Current[{PropertyName}]") { Mode = BindingMode.TwoWay });
-        bindingSource.ForceMoveToCurrent();
+        if (ToggleSwitch == null) return;
+        ToggleSwitch.DataContext = BS;
+        ToggleSwitch.Bind(ToggleSwitch.IsCheckedProperty, new Binding($"Current[{PropertyName}]") { Mode = BindingMode.TwoWay });
+        BS.ForceMoveToCurrent();
     }
-
     /// <summary>
     /// Binds a DatePicker to a date property of the current record.
     /// </summary>
-    static public void Bind(this BindingSource bindingSource, DatePicker Dt, string PropertyName)
+    static public void Bind(this BindingSource BS, DatePicker DatePicker, string PropertyName)
     {
-        if (Dt == null || string.IsNullOrEmpty(PropertyName)) return;
-        Dt.DataContext = bindingSource;
-        Dt.Bind(DatePicker.SelectedDateProperty, new Binding($"Current[{PropertyName}]")
+        if (DatePicker == null || string.IsNullOrEmpty(PropertyName)) return;
+        DatePicker.DataContext = BS;
+        DatePicker.Bind(DatePicker.SelectedDateProperty, new Binding($"Current[{PropertyName}]")
         {
             Mode = BindingMode.TwoWay
         });
-        bindingSource.ForceMoveToCurrent();
+        BS.ForceMoveToCurrent();
     }
-
     /// <summary>
     /// Binds a NumericUpDown to a numeric property of the current record.
     /// </summary>
-    static public void Bind(this BindingSource bindingSource, NumericUpDown Num, string PropertyName)
+    static public void Bind(this BindingSource BS, NumericUpDown NumericUpDown, string PropertyName)
     {
-        if (Num == null || string.IsNullOrEmpty(PropertyName)) return;
-        Num.DataContext = bindingSource;
-        Num.Bind(NumericUpDown.ValueProperty, new Binding($"Current[{PropertyName}]")
+        if (NumericUpDown == null || string.IsNullOrEmpty(PropertyName)) return;
+        NumericUpDown.DataContext = BS;
+        NumericUpDown.Bind(NumericUpDown.ValueProperty, new Binding($"Current[{PropertyName}]")
         {
             Mode = BindingMode.TwoWay
         });
-        bindingSource.ForceMoveToCurrent();
+        BS.ForceMoveToCurrent();
     }
     
     // ● DataGrid

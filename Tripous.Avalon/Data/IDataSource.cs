@@ -17,6 +17,18 @@ public interface IDataSource
     /// Returns an array of property or column names available in the data source.
     /// </summary>
     string[] GetPropertyNames();
+    /// <summary>
+    /// Returns an array of the property types
+    /// </summary>
+    Type[] GetPropertyTypes();
+    /// <summary>
+    /// Returns the <see cref="Type"/> of a specified property.
+    /// </summary>
+    Type GetPropertyType(string PropertyName);
+    /// <summary>
+    /// Returns the <see cref="Type"/> of a property specified by its index in the properties.
+    /// </summary>
+    Type GetPropertyType(int PropertyIndex);
     
     // ● Data Operations
     /// <summary>
