@@ -8,15 +8,18 @@ namespace Tripous.Data;
 public class SqlFilterDef
 {
     private string fRawTag;
+    private string fStatement;
     private readonly StringBuilder sbErrors = new();
+    
 
     // ● private
     private void Parse()
     {
-        sbErrors.Clear();
-
+ 
         try
         {
+            sbErrors.Clear();
+
             SetDefaults();
 
             if (string.IsNullOrWhiteSpace(RawTag))
@@ -75,6 +78,8 @@ public class SqlFilterDef
         {
             sbErrors.AppendLine(e.ToString());
         }
+ 
+
     }
 
     private void SetDefaults()
@@ -140,59 +145,54 @@ public class SqlFilterDef
     private void ParseDate(string[] parts)
     {
         // Supported:
-        // [[date:Label]]
-        // [[date:Custom:Label]]
-        // [[date:range]]
-        // [[date:range:Label]]   // tolerated
+        // Manual entry:  Date >= [[date:Custom:From Date]]
+        // Auto-computed: Date = [[date:Today]]
 
+        DateRange range;
+        
+        if (!TryParseDateRange(parts[1], out range))
+        {
+            AddError($"Date with invalid range: {parts[1]}");
+            return;
+        }
+        
+        this.DateRange = range;
+        
+        // [[date:Range]]
         if (parts.Length == 2)
         {
-            // [[date:Something]]
-            // Either:
-            //   - Label  => Custom
-            //   - Range  => computed range
-            if (TryParseDateRange(parts[1], out DateRange range))
-            {
-                DateRange = range;
-
-                if (DateRange == DateRange.Custom)
-                    AddError("Custom date range requires a label.");
-            }
-            else
-            {
-                DateRange = DateRange.Custom;
-                Label = parts[1];
-
-                if (string.IsNullOrWhiteSpace(Label))
-                    AddError("Missing label.");
-            }
-
+            if (DateRange == DateRange.Custom)
+                AddError("Custom date requires 3 parts, where the third is a Label.");
+ 
             return;
         }
 
+        // [[date:Custom:Label]]
         if (parts.Length >= 3)
         {
-            // [[date:Custom:Label]]
-            // [[date:LastMonth:Label]]
-            if (!TryParseDateRange(parts[1], out DateRange range))
+            if (DateRange != DateRange.Custom)
             {
-                AddError($"Invalid date range '{parts[1]}'.");
+                AddError("A Date with 3 parts, should be defined as Custom.");
                 return;
             }
-
-            DateRange = range;
+ 
             Label = parts[2];
 
             if (string.IsNullOrWhiteSpace(Label))
-                AddError("Missing label.");
+            {
+                AddError("Missing label in Custom Date.");
+                return;
+            }
 
             if (parts.Length > 3)
-                Text = string.Join(":", parts.Skip(3));
+            {
+                AddError("A Custom Date cannot have more than 3 parts.");
+            }
 
             return;
         }
 
-        AddError("Invalid date filter.");
+         
     }
 
     private void ParseLookup(string[] parts)
@@ -240,7 +240,12 @@ public class SqlFilterDef
             AddError("Missing label.");
 
         if (index < parts.Length)
+        {
             Text = string.Join(":", parts.Skip(index));
+        }
+        
+        if (string.IsNullOrWhiteSpace(Text) && string.IsNullOrWhiteSpace(Statement))
+            AddError($"{Type} filter requires a SELECT statement either inline or not.");
     }
 
     private void ParseEnum(string[] parts)
@@ -288,7 +293,13 @@ public class SqlFilterDef
             AddError("Missing label.");
 
         if (index < parts.Length)
+        {
             Text = string.Join(":", parts.Skip(index));
+        }
+        
+        if (string.IsNullOrWhiteSpace(Text) && string.IsNullOrWhiteSpace(Statement))
+            AddError($"{Type} filter requires a list of constant values either inline or not.");
+            
     }
 
     private bool TryParseFilterType(string token, out SqlFilterType filterType)
@@ -377,7 +388,7 @@ public class SqlFilterDef
     private void AddError(string message)
     {
         if (!string.IsNullOrWhiteSpace(message))
-            sbErrors.AppendLine(message);
+            sbErrors.AppendLine($"{message} - {RawTag}");
     }
 
     // ● public
@@ -403,18 +414,53 @@ public class SqlFilterDef
             {
                 fRawTag = value;
                 Parse();
-                    
             }
         }
     }
 
     /// <summary>
-    /// When it is a LookUp or Multiple filter, this is the SELECT statement.
-    /// <para>When is an Enum filter, this is a a semicolon delimited list of constants.</para>
-    /// <para>When is a Date filter with <see cref="DateRange.Custom"/> then this is the date value in ISO format.</para>
+    /// When it is a LookUp or Enum filter, this is the SELECT statement or the list of constants the user enters inline in the SELECT statement.
+    /// <para>When it is a LookUp filter this is a SELECT statement, e.g. [[lookup:int:Country:select Id from Country]]</para>
+    /// <para>When it is an Enum filter, this is a semicolon delimited list of constants, e.g.  [[enum:string:Status:Pending;Completed;Cancelled]]</para>
     /// </summary>
+    [JsonIgnore]
     public string Text { get; set; }
 
+    /// <summary>
+    /// When it is a LookUp or Enum filter, this is the SELECT statement or the list of constants the user enters in the design-time UI.
+    /// <para>When it is a LookUp filter, this is a SELECT statement.</para>
+    /// <para>When it is an Enum filter, this is a semicolon delimited list of constants.</para>
+    /// </summary>
+    public string Statement
+    {
+        get => fStatement;
+        set
+        {
+            fStatement = value;
+            Parse(); 
+        }
+    }
+    [JsonIgnore]
+    public string LookUpSelectSqlText
+    {
+        get
+        {
+            string Result = "";
+
+            if (Type == SqlFilterType.Lookup)
+            {
+                if (!string.IsNullOrWhiteSpace(Text) &&
+                    Text.Trim().StartsWith("select ", StringComparison.InvariantCultureIgnoreCase))
+                    Result = Text;
+                else
+                    Result = Statement;
+            }
+
+            return Result;
+        }
+ 
+    }
+    
     /// <summary>
     /// The label the user gives to the filter, e.g. A_Date as in [[date:A_Date]]
     /// <para>A label may contain spaces and characters other than english characters.</para>

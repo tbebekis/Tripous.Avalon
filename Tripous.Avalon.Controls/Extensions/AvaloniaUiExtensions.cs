@@ -2,6 +2,7 @@ using System.Data;
 using System.Data.Common;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.DataGridInteractions;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Input;
@@ -23,38 +24,14 @@ static public class AvaloniaUiExtensions
     static public string GetText(this ComboBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
     
     // ● bind  
-    /// <summary>
-    /// Automatically generates grid columns based on the data source schema.
-    /// </summary>
-    static public void CreateGridColumns(this BindingSource BS, DataGrid Grid)
-    {
-        Grid.Columns.Clear();
-        Grid.AutoGenerateColumns = false;
 
-        string[] PropertyNames = BS.DataSource.GetPropertyNames();
-        Type[] PropertyTypes = BS.DataSource.GetPropertyTypes();
-
-        string PropertyName;
-        Type PropertyType;
-        DataGridBoundColumn GridColumn;
-        for (int i = 0; i < PropertyNames.Length; i++)
-        {
-            PropertyName = PropertyNames[i];
-            PropertyType = PropertyTypes[i];
-
-            GridColumn = PropertyType == typeof(bool) ? new DataGridCheckBoxColumn() : new DataGridTextColumn();
-            GridColumn.Header = PropertyName;
-            GridColumn.Binding = new Binding(string.Format("[{0}]", PropertyName));
- 
-            Grid.Columns.Add(GridColumn);
-        }
-    }
     /// <summary>
     /// Binds a DataGrid to the data source.
     /// </summary>
     static public void Bind(this BindingSource BS, DataGrid Grid, bool CreateColumns = false)
     {
         if (Grid == null) return;
+        Grid.UnBind(CreateColumns);
         Grid.DataContext = BS;
         Grid.Bind(DataGrid.ItemsSourceProperty, new Binding("Rows") { Mode = BindingMode.OneWay });
         Grid.Bind(DataGrid.SelectedItemProperty, new Binding("Current") { Mode = BindingMode.TwoWay });
@@ -295,6 +272,32 @@ static public class AvaloniaUiExtensions
     
     // ● DataGrid
     /// <summary>
+    /// Automatically generates grid columns based on the data source schema.
+    /// </summary>
+    static public void CreateGridColumns(this BindingSource BS, DataGrid Grid)
+    {
+        Grid.Columns.Clear();
+        Grid.AutoGenerateColumns = false;
+
+        string[] PropertyNames = BS.DataSource.GetPropertyNames();
+        Type[] PropertyTypes = BS.DataSource.GetPropertyTypes();
+
+        string PropertyName;
+        Type PropertyType;
+        DataGridBoundColumn GridColumn;
+        for (int i = 0; i < PropertyNames.Length; i++)
+        {
+            PropertyName = PropertyNames[i];
+            PropertyType = PropertyTypes[i];
+
+            GridColumn = PropertyType == typeof(bool) ? new DataGridCheckBoxColumn() : new DataGridTextColumn();
+            GridColumn.Header = PropertyName;
+            GridColumn.Binding = new Binding(string.Format("[{0}]", PropertyName));
+ 
+            Grid.Columns.Add(GridColumn);
+        }
+    }
+    /// <summary>
     /// Returns the name of a Property/FieldName a column is bound to.
     /// </summary>
     static public string GetPropertyName(this DataGridBoundColumn column)
@@ -376,6 +379,25 @@ static public class AvaloniaUiExtensions
                 return Column;
         return null;
     }
+    /// <summary>
+    /// Shows/Hides data bound grid columns according to a specified flag.
+    /// </summary>
+    static public void ShowHideIdColumns(this DataGrid Grid, bool Value)
+    {
+        string PropertyName;
+        foreach (var column in Grid.Columns)
+        {
+            if (column is DataGridBoundColumn Col)
+            {
+                PropertyName = Col.GetPropertyName();
+                if (!string.IsNullOrWhiteSpace(PropertyName) && PropertyName.EndsWith("Id", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Col.IsVisible = Value;
+                }
+            }
+        }
+    }
+    
     
     /// <summary>
     /// Finds and returns the next focusable control in the visual tree.

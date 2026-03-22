@@ -139,60 +139,14 @@ public class SqlFilterDefTests
     }
 
     [Fact]
-    public void String_With_String_Datatype_Parses()
+    public void String_With_Text_IsError()
     {
-        var f = Create("[[string:string:Customer Name]]");
+        var f = Create("[[string:Customer Name:Default Text]]");
 
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.String, f.Type);
-        Assert.Equal("Customer Name", f.Label);
-        Assert.False(f.IsNumeric);
-        Assert.False(f.IsMultiple);
+        AssertHasErrors(f);
     }
 
-    [Fact]
-    public void String_With_Int_Datatype_Sets_IsNumeric_True()
-    {
-        var f = Create("[[string:int:Customer Id]]");
 
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.String, f.Type);
-        Assert.Equal("Customer Id", f.Label);
-        Assert.True(f.IsNumeric);
-    }
-
-    [Fact]
-    public void String_With_Decimal_Datatype_Sets_IsNumeric_True()
-    {
-        var f = Create("[[string:decimal:Amount]]");
-
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.String, f.Type);
-        Assert.Equal("Amount", f.Label);
-        Assert.True(f.IsNumeric);
-    }
-
-    [Fact]
-    public void String_With_Text_Parses()
-    {
-        var f = Create("[[string:string:Customer Name:Default Text]]");
-
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.String, f.Type);
-        Assert.Equal("Customer Name", f.Label);
-        Assert.Equal("Default Text", f.Text);
-    }
-
-    [Fact]
-    public void String_With_Text_Containing_Colon_Preserves_Colon()
-    {
-        var f = Create("[[string:string:Caption:A:B:C]]");
-
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.String, f.Type);
-        Assert.Equal("Caption", f.Label);
-        Assert.Equal("A:B:C", f.Text);
-    }
 
     [Fact]
     public void String_With_Invalid_Datatype_Has_Error()
@@ -229,7 +183,7 @@ public class SqlFilterDefTests
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Integer, f.Type);
         Assert.Equal("Customer Id", f.Label);
-        Assert.False(f.IsNumeric);
+        Assert.True(f.IsNumeric);
         Assert.Equal(string.Empty, f.Text);
     }
 
@@ -244,20 +198,17 @@ public class SqlFilterDefTests
     }
 
     [Fact]
-    public void Integer_With_String_Datatype_Parses()
+    public void Integer_With_More_Parts()
     {
         var f = Create("[[integer:string:Customer Id]]");
 
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.Integer, f.Type);
-        Assert.False(f.IsNumeric);
-        Assert.Equal("Customer Id", f.Label);
+        AssertHasErrors(f);
     }
 
     [Fact]
     public void Integer_With_Int_Datatype_Parses_As_Numeric()
     {
-        var f = Create("[[integer:int:Customer Id]]");
+        var f = Create("[[integer:Customer Id]]");
 
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Integer, f.Type);
@@ -266,15 +217,11 @@ public class SqlFilterDefTests
     }
 
     [Fact]
-    public void Integer_With_Text_Parses()
+    public void Integer_With_Text_IsError()
     {
-        var f = Create("[[int:int:Customer Id:42]]");
+        var f = Create("[[int:Customer Id:42]]");
 
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.Integer, f.Type);
-        Assert.True(f.IsNumeric);
-        Assert.Equal("Customer Id", f.Label);
-        Assert.Equal("42", f.Text);
+        AssertHasErrors(f);
     }
 
     [Fact]
@@ -309,9 +256,9 @@ public class SqlFilterDefTests
     }
 
     [Fact]
-    public void Decimal_With_Dec_Datatype_Parses_As_Numeric()
+    public void Decimal_Datatype_Parses_As_Numeric()
     {
-        var f = Create("[[decimal:dec:Amount]]");
+        var f = Create("[[decimal:Amount]]");
 
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Decimal, f.Type);
@@ -320,15 +267,11 @@ public class SqlFilterDefTests
     }
 
     [Fact]
-    public void Decimal_With_Text_Parses()
+    public void Decimal_With_Text_IsError()
     {
-        var f = Create("[[dec:decimal:Amount:10.5]]");
+        var f = Create("[[dec:Amount:10.5]]");
 
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.Decimal, f.Type);
-        Assert.True(f.IsNumeric);
-        Assert.Equal("Amount", f.Label);
-        Assert.Equal("10.5", f.Text);
+        AssertHasErrors(f);
     }
 
     [Fact]
@@ -343,15 +286,11 @@ public class SqlFilterDefTests
     // date
     // ------------------------------------------------------------
     [Fact]
-    public void Date_With_Label_Parses_As_Custom()
+    public void Date_With_Label_But_Not_Custom()
     {
         var f = Create("[[date:Order Date]]");
 
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.Date, f.Type);
-        Assert.Equal(DateRange.Custom, f.DateRange);
-        Assert.Equal("Order Date", f.Label);
-        Assert.Equal(string.Empty, f.Text);
+        AssertHasErrors(f);
     }
 
     [Fact]
@@ -421,14 +360,11 @@ public class SqlFilterDefTests
     }
 
     [Fact]
-    public void Date_With_Range_And_Label_Is_Tolerated()
+    public void Date_With_Range_And_More_Parts()
     {
         var f = Create("[[date:LastMonth:Sales Date]]");
 
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.Date, f.Type);
-        Assert.Equal(DateRange.LastMonth, f.DateRange);
-        Assert.Equal("Sales Date", f.Label);
+        AssertHasErrors(f);
     }
 
     [Fact]
@@ -444,10 +380,10 @@ public class SqlFilterDefTests
     {
         var f = Create("[[date:LastCentury]]");
 
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.Date, f.Type);
-        Assert.Equal(DateRange.Custom, f.DateRange);
-        Assert.Equal("LastCentury", f.Label);
+        AssertHasErrors(f);
+        //Assert.Equal(SqlFilterType.Date, f.Type);
+        //Assert.Equal(DateRange.Custom, f.DateRange);
+        //Assert.Equal("LastCentury", f.Label);
     }
 
     [Fact]
@@ -471,11 +407,8 @@ public class SqlFilterDefTests
     {
         var f = Create("[[date:Custom:Order Date:2025-01-15]]");
 
-        AssertNoErrors(f);
-        Assert.Equal(SqlFilterType.Date, f.Type);
-        Assert.Equal(DateRange.Custom, f.DateRange);
-        Assert.Equal("Order Date", f.Label);
-        Assert.Equal("2025-01-15", f.Text);
+        AssertHasErrors(f);
+ 
     }
 
     // ------------------------------------------------------------
@@ -493,37 +426,40 @@ public class SqlFilterDefTests
     [Fact]
     public void Lookup_With_String_Datatype_Parses()
     {
-        var f = Create("[[lookup:string:Customer]]");
+        var f = Create("[[lookup:string:Customer:select Id from anywhere]]");
 
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Lookup, f.Type);
         Assert.Equal("Customer", f.Label);
         Assert.False(f.IsNumeric);
         Assert.False(f.IsMultiple);
+        Assert.NotEmpty(f.Text);
     }
 
     [Fact]
     public void Lookup_With_Int_Datatype_Parses_As_Numeric()
     {
-        var f = Create("[[lookup:int:Customer Id]]");
+        var f = Create("[[lookup:int:Customer Id:select Id from anywhere]]");
 
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Lookup, f.Type);
         Assert.Equal("Customer Id", f.Label);
         Assert.True(f.IsNumeric);
         Assert.False(f.IsMultiple);
+        Assert.NotEmpty(f.Text);
     }
 
     [Fact]
     public void Lookup_With_Decimal_Datatype_Parses_As_Numeric()
     {
-        var f = Create("[[lookup:decimal:Amount Range]]");
+        var f = Create("[[lookup:decimal:Amount Range:select Amount from anywhere]]");
 
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Lookup, f.Type);
         Assert.Equal("Amount Range", f.Label);
         Assert.True(f.IsNumeric);
         Assert.False(f.IsMultiple);
+        Assert.NotEmpty(f.Text);
     }
 
  
@@ -531,13 +467,14 @@ public class SqlFilterDefTests
     [Fact]
     public void Lookup_With_Datatype_And_Multi_Parses()
     {
-        var f = Create("[[lookup:int:multi:Customer]]");
+        var f = Create("[[lookup:int:multi:Customer:select Id from Country]]");
 
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Lookup, f.Type);
         Assert.Equal("Customer", f.Label);
         Assert.True(f.IsMultiple);
         Assert.True(f.IsNumeric);
+        Assert.NotEmpty(f.Text);
     }
 
     [Fact]
@@ -577,20 +514,20 @@ public class SqlFilterDefTests
     [Fact]
     public void Enum_With_String_Datatype_Parses()
     {
-        var f = Create("[[enum:string:Status]]");
+        var f = Create("[[enum:string:Status:A;B;C]]");
 
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Enum, f.Type);
         Assert.Equal("Status", f.Label);
         Assert.False(f.IsNumeric);
         Assert.False(f.IsMultiple);
-        Assert.Equal(string.Empty, f.Text);
+        Assert.NotEmpty(f.Text);
     }
 
     [Fact]
     public void Enum_With_Int_Datatype_Parses_As_Numeric()
     {
-        var f = Create("[[enum:int:Status]]");
+        var f = Create("[[enum:int:Status:A;B;C]]");
 
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Enum, f.Type);
@@ -602,8 +539,9 @@ public class SqlFilterDefTests
     [Fact]
     public void Enum_With_Decimal_Datatype_Parses_As_Numeric()
     {
-        var f = Create("[[enum:decimal:Rate]]");
-
+        var f = Create("[[enum:decimal:Rate:A;B;C]]");
+ 
+        
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Enum, f.Type);
         Assert.Equal("Rate", f.Label);
@@ -711,13 +649,7 @@ public class SqlFilterDefTests
         Assert.Equal("Name", f.Label);
     }
 
-    [Fact]
-    public void ToString_Returns_Label_And_RawTag()
-    {
-        var f = Create("[[date:Order Date]]");
-
-        Assert.Equal("Order Date - [[date:Order Date]]", f.ToString());
-    }
+ 
 
     // ------------------------------------------------------------
     // extra edge cases
@@ -770,7 +702,8 @@ public class SqlFilterDefTests
     public void Enum_Text_Can_Be_Empty()
     {
         var f = Create("[[enum:string:Status:]]");
-
+        f.Statement = "A;B;C";
+ 
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Enum, f.Type);
         Assert.Equal("Status", f.Label);
@@ -778,10 +711,11 @@ public class SqlFilterDefTests
     }
 
     [Fact]
-    public void Lookup_Text_Can_Be_Empty()
+    public void Lookup_Text_Can_Be_Empty_When_Expression_Is_Given()
     {
         var f = Create("[[lookup:string:Customer:]]");
-
+        f.Statement = "select Id from Customer";
+        
         AssertNoErrors(f);
         Assert.Equal(SqlFilterType.Lookup, f.Type);
         Assert.Equal("Customer", f.Label);

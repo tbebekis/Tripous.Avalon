@@ -7,7 +7,10 @@ namespace Tripous.Data;
 
 public class SelectDef
 {
+ 
+    private string fSqlText;
     StringBuilder sbErrors = new();
+    private bool Parsing = false;
     
     // ● private
     private ObservableCollection<SqlFilterDef> fFilters;
@@ -52,89 +55,95 @@ public class SelectDef
         return Temp;
     }
     
+
     /// <summary>
-    /// If a SourceList element exists in Filters, then is updated.
+    /// Parses the SELECT statement and generates <see cref="SqlFilterDef"/> items.
+    /// <para>Returns true when there are no errors in the <see cref="Errors"/>.</para>
+    /// <para>WARNING: Existing <see cref="SqlFilterDef"/> items are discarded. </para>
+    /// </summary>
+    public bool Parse()
+    {
+        if (!Parsing)
+        {
+            Parsing = true;
+            try
+            {
+                sbErrors.Clear();
+        
+                if (string.IsNullOrWhiteSpace(SqlText))
+                {
+                    Filters.Clear();
+                    sbErrors.AppendLine("No SELECT provided");
+                    return false;
+                }
+
+                List<SqlFilterDef> NewFilterList = new List<SqlFilterDef>();
+
+                // Εντοπίζουμε όλα τα [[...]] tags
+                var matches = Regex.Matches(SqlText, @"\[\[.*?\]\]");
+
+                foreach (Match m in matches)
+                {
+                    string rawTag = m.Value;
+
+                    // create the filter, the RawTag setter calls the Parse()
+                    var newFilter = new SqlFilterDef { RawTag = rawTag };
+            
+                    if (string.IsNullOrEmpty(newFilter.Label))
+                    {
+                        sbErrors.AppendLine($"Filter {rawTag} has no Label.");
+                        return false;
+                    }
+
+                    var Old = NewFilterList.FirstOrDefault(x => x.Label.IsSameText(newFilter.Label));
+                    if (Old != null)
+                    {
+                        sbErrors.AppendLine($"Label {Old.Label} already exists.");
+                        return false;
+                    }    
+  
+                    NewFilterList.Add(newFilter);
+                }
+
+                // keep the old statements, i.e. SELECT and Constant Lists
+                UpdateFilterListFrom(NewFilterList);
+            }
+            finally
+            {
+                Parsing = false;
+            }
+        }
+        
+        return !HasErrors;
+    }
+    /// <summary>
+    /// If a SourceList element exists in Filters, then is updated its <see cref="SqlFilterDef.RawTag"/> and <see cref="SqlFilterDef.Statement"/>.
     /// Elements that exist in Filters but not in SourceList, are deleted from Filters
     /// </summary>
-    public void ReplaceFilters(ICollection<SqlFilterDef> SourceList)
+    void UpdateFilterListFrom(ICollection<SqlFilterDef> SourceList)
     {
-        // 1. Αφαιρούμε φίλτρα που δεν υπάρχουν πια στο SQL κείμενο
+        // removed non existed filters
         var toRemove = Filters.Where(old => !SourceList.Any(src => src.RawTag == old.RawTag)).ToList();
         foreach (var item in toRemove)
         {
             Filters.Remove(item);
         }
-
-        // 2. Επεξεργαζόμαστε τη νέα λίστα
+ 
         foreach (var src in SourceList)
         {
             var existing = Filters.FirstOrDefault(f => f.RawTag == src.RawTag);
 
             if (existing != null)
             {
-                // Αν υπάρχει ήδη, το RawTag Setter έχει ήδη ενημερώσει τα Metadata (Label, Type κλπ)
-                // απλώς σιγουρευόμαστε ότι το existing αντικείμενο συγχρονίστηκε με το src 
-                // σε περίπτωση που ο χρήστης άλλαξε το RawTag στο SQL (π.χ. από [[Label]] σε [[int:Label]])
+                // update existing filter from old filter
                 existing.RawTag = src.RawTag;
-            
-                // ΣΗΜΑΝΤΙΚΟ: Το .Text (Lookup SQL, Enum κλπ) και το .Value (Runtime) 
-                // παραμένουν ως έχουν για να μη χαθεί η δουλειά του χρήστη.
+                //existing.Statement = src.Statement;
             }
             else
             {
-                // Αν είναι νέο tag, το προσθέτουμε στη συλλογή
                 Filters.Add(src);
             }
         }
-    }
-    public bool ParseSqlText()
-    {
-        sbErrors.Clear();
-        
-        if (string.IsNullOrWhiteSpace(SqlText))
-        {
-            Filters.Clear();
-            sbErrors.AppendLine("No SELECT provided");
-            return false;
-        }
-
-        List<SqlFilterDef> sourceList = new List<SqlFilterDef>();
-
-        // Εντοπίζουμε όλα τα [[...]] tags
-        var matches = Regex.Matches(SqlText, @"\[\[.*?\]\]");
-
-        foreach (Match m in matches)
-        {
-            string rawTag = m.Value;
-
-            // Δημιουργούμε το φίλτρο. 
-            // Ο setter του RawTag θα καλέσει την Parse() εσωτερικά 
-            // και θα γεμίσει αυτόματα τα Label, Type, IsMultiple, DateRange.
-            var newFilter = new SqlFilterDef { RawTag = rawTag };
-
-            if (newFilter.HasErrors)
-            {
-                sbErrors.AppendLine(newFilter.Errors);
-                return false;
-            }
-            
-            // Αν για κάποιο λόγο το label βγήκε κενό, το αγνοούμε
-            if (string.IsNullOrEmpty(newFilter.Label))
-            {
-                sbErrors.AppendLine($"Filter {rawTag} has no Label.");
-                return false;
-            }
-
-            // Αποφεύγουμε τα διπλότυπα tags στο ίδιο query
-            if (!sourceList.Any(f => f.RawTag == rawTag))
-            {
-                sourceList.Add(newFilter);
-            }
-        }
-
-        // Συγχρονισμός με την υπάρχουσα λίστα
-        ReplaceFilters(sourceList);
-        return true;
     }
 
     /// <summary>
@@ -191,8 +200,19 @@ public class SelectDef
     public string ConnectionName { get; set; }
     public string Name { get; set; }
     public string Category { get; set; }
-
-    public string SqlText { get; set; }
+    /// <summary>
+    /// The SELECT statement text.
+    /// <para>NOTE: Assigning this text automatically calls the <see cref="Parse"/>() which creates the new <see cref="SqlFilterDef"/> items.</para>
+    /// </summary>
+    public string SqlText
+    {
+        get => fSqlText;
+        set
+        {
+            fSqlText = value;
+            Parse();
+        }
+    }
     public string Description { get; set; }
 
     public ObservableCollection<SqlFilterDef> Filters
@@ -205,9 +225,25 @@ public class SelectDef
         }
         set => fFilters = value;
     }
-    
+
     [JsonIgnore] 
-    public bool HasErrors => sbErrors.Length > 0;
+    public bool HasErrors => !string.IsNullOrWhiteSpace(Errors);
     [JsonIgnore] 
-    public string Errors => sbErrors.ToString();
+    public string Errors  
+    {
+        get
+        {
+            StringBuilder SB = new();
+            if (sbErrors.Length > 0)
+                SB.AppendLine(sbErrors.ToString());
+            
+            foreach (var Item in Filters)
+            {
+                if (Item.HasErrors)
+                    SB.AppendLine(Item.Errors);
+            }
+
+            return SB.ToString();
+        }
+    }
 }
