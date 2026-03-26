@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
     <ItemGroup>
@@ -17,7 +17,6 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Tripous.Avalon.Controls\Tripous.Avalon.Controls.csproj" />
         <ProjectReference Include="..\Tripous.Avalon\Tripous.Avalon.csproj" />
         <ProjectReference Include="..\Tripous\Tripous.csproj" />
     </ItemGroup>

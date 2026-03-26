@@ -11,7 +11,7 @@
 
         /* get column value by ColumnName */
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public object AsObject(this DataRow row, string ColumnName, object Default)
         {
@@ -21,84 +21,84 @@
             return AsObject(row, row.Table.Columns.IndexOf(ColumnName), Default);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public int AsInteger(this DataRow row, string ColumnName, int Default)
         {
             return AsInteger(row, row.Table.Columns.IndexOf(ColumnName), Default);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public int AsInteger(this DataRow row, string ColumnName)
         {
             return AsInteger(row, ColumnName, 0);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public string AsString(this DataRow row, string ColumnName, string Default)
         {
             return AsString(row, row.Table.Columns.IndexOf(ColumnName), Default);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public string AsString(this DataRow row, string ColumnName)
         {
             return AsString(row, ColumnName, string.Empty);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public double AsDouble(this DataRow row, string ColumnName, double Default)
         {
             return AsDouble(row, row.Table.Columns.IndexOf(ColumnName), Default);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public double AsDouble(this DataRow row, string ColumnName)
         {
             return AsDouble(row, ColumnName, 0);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public decimal AsDecimal(this DataRow row, string ColumnName, decimal Default)
         {
             return AsDecimal(row, row.Table.Columns.IndexOf(ColumnName), Default);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public decimal AsDecimal(this DataRow row, string ColumnName)
         {
             return AsDecimal(row, ColumnName, 0);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public bool AsBoolean(this DataRow row, string ColumnName, bool Default)
         {
             return AsBoolean(row, row.Table.Columns.IndexOf(ColumnName), Default);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public bool AsBoolean(this DataRow row, string ColumnName)
         {
             return AsBoolean(row, ColumnName, false);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public DateTime AsDateTime(this DataRow row, string ColumnName, DateTime Default)
         {
             return AsDateTime(row, row.Table.Columns.IndexOf(ColumnName), Default);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public DateTime AsDateTime(this DataRow row, string ColumnName)
         {
@@ -109,7 +109,7 @@
 
         /* get column value by ColumnIndex */
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public object AsObject(this DataRow row, int ColumnIndex, object Default)
         {
@@ -130,7 +130,7 @@
             return Default;
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public int AsInteger(this DataRow row, int ColumnIndex, int Default)
         {
@@ -159,14 +159,14 @@
             return Default;
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public int AsInteger(this DataRow row, int ColumnIndex)
         {
             return AsInteger(row, ColumnIndex, 0);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public string AsString(this DataRow row, int ColumnIndex, string Default)
         {
@@ -184,14 +184,14 @@
             return Default;
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public string AsString(this DataRow row, int ColumnIndex)
         {
             return AsString(row, ColumnIndex, string.Empty);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public double AsDouble(this DataRow row, int ColumnIndex, double Default)
         {
@@ -217,14 +217,14 @@
             return Default;
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public double AsDouble(this DataRow row, int ColumnIndex)
         {
             return AsDouble(row, ColumnIndex, 0);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnName of row, if any, else Default.
+        /// Returns the value of the field by ColumnName of row, if any, else Default.
         /// </summary>
         static public decimal AsDecimal(this DataRow row, int ColumnIndex, decimal Default)
         {
@@ -250,14 +250,14 @@
             return Default;
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public decimal AsDecimal(this DataRow row, int ColumnIndex)
         {
             return AsDecimal(row, ColumnIndex, 0);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public bool AsBoolean(this DataRow row, int ColumnIndex, bool Default)
         {
@@ -283,14 +283,14 @@
             return Default;
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public bool AsBoolean(this DataRow row, int ColumnIndex)
         {
             return AsBoolean(row, ColumnIndex, false);
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public DateTime AsDateTime(this DataRow row, int ColumnIndex, DateTime Default)
         {
@@ -317,7 +317,7 @@
             return Default;
         }
         /// <summary>
-        /// Retusn the value of the field by ColumnIndex of row, if any, else Default.
+        /// Returns the value of the field by ColumnIndex of row, if any, else Default.
         /// </summary>
         static public DateTime AsDateTime(this DataRow row, int ColumnIndex)
         {
@@ -501,6 +501,11 @@
             }
 
             return false;
+        }
+        
+        static public DataRowView GetDataRowView(this DataRow Row, DataView DataView)
+        {
+            return DataView.Cast<DataRowView>().FirstOrDefault(drv => drv.Row == Row);
         }
     }
 }

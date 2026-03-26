@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     </PropertyGroup>
@@ -21,8 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Tripous.Avalon.Controls\Tripous.Avalon.Controls.csproj" />
-        <ProjectReference Include="..\..\Tripous.Avalon\Tripous.Avalon.csproj" />
+        <ProjectReference Include="..\..\Tripous.Avalon.Old\Tripous.Avalon.Old.csproj" />
     </ItemGroup>
     
 </Project>

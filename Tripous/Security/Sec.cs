@@ -24,15 +24,13 @@ static public class Sec
     static public byte[] DeriveKey(string PasswordPlainText, string SaltBase64, int Iterations)
     {
         byte[] SaltBytes = Convert.FromBase64String(SaltBase64);
-
-        using (var Pbkdf2 = new Rfc2898DeriveBytes(
-                   PasswordPlainText,
-                   SaltBytes,
-                   Iterations,
-                   HashAlgorithmName.SHA256))
-        {
-            return Pbkdf2.GetBytes(32);
-        }
+        
+        return Rfc2898DeriveBytes.Pbkdf2(
+            PasswordPlainText,
+            SaltBytes,
+            Iterations,
+            HashAlgorithmName.SHA256,
+            32); //   (output length)
     }
     /// <summary>
     /// Creates a password hash using PBKDF2.
