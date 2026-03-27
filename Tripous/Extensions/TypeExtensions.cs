@@ -305,5 +305,26 @@
         {
             return IntegerTypeSet.Contains(T) || IntegerTypeSet.Contains(Nullable.GetUnderlyingType(T));
         }
+        
+        static public bool IsNumericType(this Type DataType)
+        {
+            return
+                DataType == typeof(byte) ||
+                DataType == typeof(sbyte) ||
+                DataType == typeof(short) ||
+                DataType == typeof(ushort) ||
+                DataType == typeof(int) ||
+                DataType == typeof(uint) ||
+                DataType == typeof(long) ||
+                DataType == typeof(ulong) ||
+                DataType == typeof(float) ||
+                DataType == typeof(double) ||
+                DataType == typeof(decimal);
+        }
+
+        static public bool IsDateType(this Type DataType)
+        {
+            return DataType == typeof(DateTime);
+        }
     }
 }

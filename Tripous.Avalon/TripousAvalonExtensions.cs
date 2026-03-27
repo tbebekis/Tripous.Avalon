@@ -1,37 +1,82 @@
 using System.Data;
 using Avalonia.Controls;
 using Avalonia.Data;
+using Avalonia.Interactivity;
+using AvaloniaEdit;
 
 namespace Tripous.Avalon;
 
 static public class TripousAvalonExtensions
 {
+    // ● DataGrid
+    static public Type GetColumnDataType(this DataGridColumn Column)
+    {
+        // 1. ΠΡΩΤΑ: GridColumnInfo στο Tag (κύρια πηγή αλήθειας)
+        if (Column.Tag is GridColumnInfo Info)
+        {
+            return Info.UnderlyingType;
+        }
+
+        // 2. Fallback: γνωστοί τύποι column
+        if (Column is DataGridCheckBoxColumn)
+            return typeof(bool);
+
+        if (Column is DataGridHyperlinkColumn)
+            return typeof(Uri);
+
+        if (Column is DataGridComboBoxColumn)
+            return typeof(object); // enum ή lookup, δεν ξέρουμε σίγουρα εδώ
+
+        // 3. Fallback: binding (best effort)
+        if (Column is DataGridBoundColumn BoundColumn)
+        {
+            if (BoundColumn.Binding is Binding binding)
+            {
+                if (binding.Source != null)
+                    return binding.Source.GetType();
+            }
+        }
+
+        // 4. Τελευταίο fallback
+        return typeof(object);
+    }
+    /// <summary>
+    /// Returns the path of a column, e.g. [Customer.Name]
+    /// </summary>
+    static public string GetColumnPath(this DataGridColumn column)
+    {
+        if (column is DataGridBoundColumn bound && bound.Binding is Binding b)
+            return b.Path;
+
+        return string.Empty;
+    }
     /// <summary>
     /// Returns the name of a Property/FieldName a column is bound to.
     /// </summary>
     static public string GetPropertyName(this DataGridBoundColumn column)
     {
-        if (column == null) return null;
-
-        // 1. Πρώτη προτεραιότητα στο Tag (το ελέγχουμε εμείς)
-        if (column.Tag is string tag && !string.IsNullOrWhiteSpace(tag))
-            return tag;
-
-        // 2. Δεύτερη προτεραιότητα στην ανάλυση του Binding
-        if (column.Binding is Binding b && !string.IsNullOrWhiteSpace(b.Path))
+        if (column != null)
         {
-            // Καθαρίζουμε brackets και παίρνουμε το τελευταίο μέρος του path
-            string path = b.Path.Replace("[", "").Replace("]", "");
-        
-            if (path.Contains("."))
+            // try get it from Binding
+            if (column.Binding is Binding b && !string.IsNullOrWhiteSpace(b.Path))
             {
-                return path.Split('.').Last();
-            }
+                // remove any brackets and get the last part
+                string path = b.Path.Replace("[", "").Replace("]", "");
         
-            return path;
-        }
+                if (path.Contains("."))
+                {
+                    return path.Split('.').Last();
+                }
+        
+                return path;
+            }
 
-        return null;
+            // try get it from Tag
+            if (column.Tag is string tag && !string.IsNullOrWhiteSpace(tag))
+                return tag;
+        }
+        
+        return string.Empty;
     }
     static public void ShowHideIdColumns(this DataGrid Grid, bool Value)
     {
@@ -77,29 +122,30 @@ static public class TripousAvalonExtensions
     /// </summary>
     static public void CreateColumns(this DataGrid Grid, DataTable Table)
     {
+        Grid.AutoGenerateColumns = false;
         Grid.Columns.Clear();
 
-        foreach (DataColumn Col in Table.Columns)
+        foreach (DataColumn TableColumn in Table.Columns)
         {
-            string BindingPath = GetBindingPath(Col.ColumnName);
-            Type DataType = Col.DataType;
+            string BindingPath = GetBindingPath(TableColumn.ColumnName);
+            Type DataType = TableColumn.DataType;
             Type CoreType = Nullable.GetUnderlyingType(DataType) ?? DataType;
 
-            DataGridColumn column;
+            DataGridColumn GridColumn;
 
             /* Booleans -> CheckBox column */
             if (CoreType == typeof(bool))
             {
-                column = new DataGridCheckBoxColumn
+                GridColumn = new DataGridCheckBoxColumn
                 {
                     Binding = new Binding(BindingPath),
-                    IsThreeState = Col.AllowDBNull
+                    IsThreeState = TableColumn.AllowDBNull
                 };
             }
             /* Enums -> ComboBox column */
             else if (CoreType.IsEnum)
             {
-                column = new DataGridComboBoxColumn
+                GridColumn = new DataGridComboBoxColumn
                 {
                     ItemsSource = Enum.GetValues(CoreType),
                     SelectedItemBinding = new Binding(BindingPath)
@@ -108,7 +154,7 @@ static public class TripousAvalonExtensions
             /* Uri -> Hyperlink column */
             else if (CoreType == typeof(Uri))
             {
-                column = new DataGridHyperlinkColumn
+                GridColumn = new DataGridHyperlinkColumn
                 {
                     Binding = new Binding(BindingPath),
                     ContentBinding = new Binding(BindingPath)
@@ -117,17 +163,41 @@ static public class TripousAvalonExtensions
             /* Fallback -> text column */
             else
             {
-                column = new DataGridTextColumn
+                GridColumn = new DataGridTextColumn
                 {
                     Binding = new Binding(BindingPath)
                 };
             }
 
-            column.Header = Col.ColumnName;
-            column.IsReadOnly = Col.ReadOnly;
+            GridColumn.Header = TableColumn.ColumnName;
+            GridColumn.IsReadOnly = TableColumn.ReadOnly;
+            GridColumn.ColumnKey = TableColumn.ColumnName;
+            GridColumn.SortMemberPath = TableColumn.ColumnName;
+            GridColumn.Tag = new GridColumnInfo(TableColumn, GridColumn);
 
-            Grid.Columns.Add(column);
+            Grid.Columns.Add(GridColumn);
         }
+    }
+    
+    // ● control text
+    static public string GetText(this TextBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
+    static public string GetText(this TextEditor Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
+    static public string GetText(this AutoCompleteBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
+    static public string GetText(this ComboBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
+
+    // ● Menu
+    static public MenuItem AddMenuItem(this List<object> MenuItems, string Header, EventHandler<RoutedEventArgs> Click = null, object Tag = null)
+    {
+        MenuItem Result = new MenuItem() { Header =  Header, Tag = Tag };
+        Result.Click += Click;
+        MenuItems.Add(Result);
+        return Result;
+    }
+    static public Separator AddSeparator(this List<object> MenuItems)
+    {
+        Separator Result = new Separator();
+        MenuItems.Add(Result);
+        return Result;
     }
     
 }

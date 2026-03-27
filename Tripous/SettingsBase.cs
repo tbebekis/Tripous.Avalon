@@ -7,7 +7,7 @@ namespace Tripous
     
     public abstract class SettingsBase
     {
-        protected abstract string FileName { get; }
+        protected virtual string FileName => $"{this.GetType().Name}.json";
 
         protected virtual void LoadBefore()
         {
