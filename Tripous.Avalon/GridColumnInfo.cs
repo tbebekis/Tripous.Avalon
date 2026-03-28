@@ -25,4 +25,19 @@ public class GridColumnInfo
     public string BindingPath { get; }
     public Type DataType  { get; }
     public Type UnderlyingType { get; }
+    
+    public bool IsStringColumn => UnderlyingType == typeof(string);
+
+    public bool IsDateColumn => UnderlyingType == typeof(DateTime);
+
+    public bool IsNumericColumn =>
+        UnderlyingType == typeof(byte) ||
+        UnderlyingType == typeof(short) ||
+        UnderlyingType == typeof(int) ||
+        UnderlyingType == typeof(long) ||
+        UnderlyingType == typeof(float) ||
+        UnderlyingType == typeof(double) ||
+        UnderlyingType == typeof(decimal);
+
+    public bool IsRowFilterSupportedColumn => IsStringColumn || IsNumericColumn || IsDateColumn;
 }

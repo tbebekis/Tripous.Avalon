@@ -118,6 +118,8 @@ static public class Db
                 {
                     DataTable Table = new DataTable();
                     Table.Load(Reader);
+                    Table.CaseSensitive = false;
+                    Table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                     return Table;
                 }
             }

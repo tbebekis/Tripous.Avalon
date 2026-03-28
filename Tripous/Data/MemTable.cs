@@ -17,6 +17,8 @@ public class MemTable : DataTable
     private string[] fDetailFields;
     private DataRow fCurrentRow;
     private MemTable fMaster;
+    private string fDetailRowFilter;
+    private string fUserRowFilter;
    
     
     //  ● private
@@ -332,7 +334,8 @@ public class MemTable : DataTable
         AutoGenerateGuidKeys = true;
         Details = new DetailList(this);
         DataView = new DataView(this);
- 
+        CaseSensitive = false;
+        Locale = System.Globalization.CultureInfo.InvariantCulture;
 
         /* The virtual OnTableNewRow() is not called if the invocation list of
            the TableNewRow event is empty. Microsoft says this is by design
@@ -512,7 +515,8 @@ public class MemTable : DataTable
         CurrentRow = Row;
         return Row;
     }
-    
+
+
     
     // ● properties 
     /// <summary>
@@ -534,6 +538,56 @@ public class MemTable : DataTable
     public DataView DataView { get; }
  
 
+    void RowFilterChanged()
+    {
+        string Normalize(string filter) => string.IsNullOrWhiteSpace(filter) ? null : filter.Trim();
+ 
+        if (DataView == null)
+            return;
+
+        string DetailFilter = Normalize(DetailRowFilter);
+        string UserFilter = Normalize(UserRowFilter);
+
+        string Filter;
+
+ 
+        if (!string.IsNullOrWhiteSpace(DetailFilter) && !string.IsNullOrWhiteSpace(UserFilter))
+            Filter = $"({DetailFilter}) AND ({UserFilter})";
+        else if (!string.IsNullOrWhiteSpace(DetailFilter))
+            Filter = DetailFilter;
+        else if (!string.IsNullOrWhiteSpace(UserFilter))
+            Filter = UserFilter;
+        else
+            Filter = string.Empty;
+
+        DataView.RowFilter = Filter;
+    }
+    
+    public string DetailRowFilter
+    {
+        get => fDetailRowFilter;
+        set
+        {
+            if (fDetailRowFilter != value)
+            {
+                fDetailRowFilter = value;
+                RowFilterChanged();
+            }
+        }
+    }
+    public string UserRowFilter
+    {
+        get => fUserRowFilter;
+        set
+        {
+            if (fUserRowFilter != value)
+            {
+                fUserRowFilter = value;
+                RowFilterChanged();
+            }
+        }    
+        
+    }
     /// <summary>
     /// The master table when this is a detail
     /// </summary>
