@@ -1,6 +1,3 @@
-using System.Data;
-using Avalonia.Controls;
-
 namespace Tripous.Avalon;
 
 public class GridColumnInfo

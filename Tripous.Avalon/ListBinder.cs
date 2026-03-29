@@ -1,10 +1,3 @@
-using System;
-using System.Data;
-using Avalonia.Controls;
-using Avalonia.Collections;
-using Avalonia.Data;
-using Tripous.Data;
-
 namespace Tripous.Avalon;
 
 
@@ -34,9 +27,9 @@ public class ListBinder: GridBinder
         Refresh();
     }
 
-    protected override void Initialize(DataGrid Grid, DataView DataView)
+    protected override void Initialize(DataGrid Grid, DataView DataView, bool UseGridViewHandler)
     {
-        base.Initialize(Grid, DataView);
+        base.Initialize(Grid, DataView, UseGridViewHandler);
 
         if (this.Table.IsDetail)
         {
@@ -55,8 +48,8 @@ public class ListBinder: GridBinder
     /// <summary>
     /// Constructor
     /// </summary>
-    public ListBinder(DataGrid Grid, MemTable Table)
-        : base(Grid, Table.DataView)
+    public ListBinder(DataGrid Grid, MemTable Table, bool UseGridViewHandler = false)
+        : base(Grid, Table.DataView, UseGridViewHandler)
     {
     }
  

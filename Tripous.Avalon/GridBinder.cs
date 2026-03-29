@@ -1,9 +1,3 @@
-using System.Data;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Collections;
-
-
 namespace Tripous.Avalon;
 
 /// <summary>
@@ -29,7 +23,7 @@ public class GridBinder: ObservableObject
         CurrentRowChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    protected virtual void Initialize(DataGrid Grid, DataView DataView)
+    protected virtual void Initialize(DataGrid Grid, DataView DataView, bool UseGridViewHandler)
     {
         this.DataView = DataView ?? throw new ArgumentNullException(nameof(DataView));
         this.Grid = Grid ?? throw new ArgumentNullException(nameof(Grid));
@@ -42,6 +36,9 @@ public class GridBinder: ObservableObject
         this.Grid.ItemsSource = CollectionView;
 
         CreateGridColumns();
+
+        if (UseGridViewHandler)
+            GridViewHandler = new DataGridViewHandler(Grid);
 
         this.Grid.EditTriggers = DataGridEditTriggers.TextInput; 
         this.Grid.SelectionChanged += (s, e) =>
@@ -74,16 +71,16 @@ public class GridBinder: ObservableObject
     /// <summary>
     /// Constructor
     /// </summary>
-    public GridBinder(DataGrid Grid, DataTable Table)
+    public GridBinder(DataGrid Grid, DataTable Table, bool UseGridViewHandler = false)
     {
-        Initialize(Grid, Table.DefaultView);
+        Initialize(Grid, Table.DefaultView, UseGridViewHandler);
     }
     /// <summary>
     /// Constructor
     /// </summary>
-    public GridBinder(DataGrid Grid, DataView DataView)
+    public GridBinder(DataGrid Grid, DataView DataView, bool UseGridViewHandler = false)
     {
-        Initialize(Grid, DataView);
+        Initialize(Grid, DataView, UseGridViewHandler);
     }
  
     // ● attached property
@@ -131,7 +128,13 @@ public class GridBinder: ObservableObject
             }
         }
     }
-    
+    /// <summary>
+    /// Handles a <see cref="Avalonia.Controls.DataGrid"/>
+    /// by displaying a context menu with items
+    /// for handling groups, summmaries, filters and column visibility.
+    /// </summary>
+    public DataGridViewHandler GridViewHandler { get; protected set; }
+
     // ● events
     /// <summary>
     /// Occurs when the current row changes in the grid, i.e. the position.

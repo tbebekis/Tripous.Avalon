@@ -1,8 +1,3 @@
-using System;
-using System.Data;
-using System.Globalization;
-using Avalonia.Collections;
-
 namespace Tripous.Avalon;
 
 public class DataRowViewGroupDescription : DataGridGroupDescription

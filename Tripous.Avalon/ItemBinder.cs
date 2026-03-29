@@ -1,16 +1,3 @@
-using System;
-using System.Data;
-using System.Linq;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
-using Avalonia.Controls.Templates;
-using Avalonia.Data;
-using Avalonia.Input;
-using Avalonia.VisualTree;
-using Tripous.Data;
- 
-
 namespace Tripous.Avalon;
 
 /// <summary>
@@ -63,7 +50,6 @@ public class ItemBinder : ObservableObject
     /// Returns the current row.
     /// </summary>
     public DataRow GetCurrentRow() => Table.Rows.Count > 0 ? Table.Rows[0] : null;
-
 
     // ● bind - simple controls
     /// <summary>

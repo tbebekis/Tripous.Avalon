@@ -1,0 +1,53 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Tripous.Avalon.MessageBox"
+        SizeToContent="WidthAndHeight"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        MinWidth="300" MaxWidth="500">
+        
+        <Grid Margin="20" ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
+                <Image Name="imgIcon" Grid.Column="0" Grid.Row="0" 
+                       Width="32" Height="32" Margin="0,0,15,0" 
+                       VerticalAlignment="Top"/>
+    
+                <TextBox Name="edtMessage" 
+                         Grid.Column="1" Grid.Row="0"
+                         TextWrapping="Wrap" 
+                         IsReadOnly="True"
+                         Focusable="False" 
+                         FocusAdorner="{x:Null}"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         CaretBrush="Transparent"
+                         MinWidth="300"
+                         MaxWidth="500" 
+                         FontSize="14" 
+                         VerticalAlignment="Center"/>
+
+                <StackPanel Name="pnlButtons" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                            Orientation="Horizontal" HorizontalAlignment="Right" 
+                            Spacing="10" Margin="0,20,0,0">
+                </StackPanel>
+        </Grid>
+        <!--
+        <StackPanel Margin="20" Spacing="15">
+                <StackPanel Orientation="Horizontal" Spacing="15">
+                        <Image Name="imgIcon" Width="32" Height="32" VerticalAlignment="Top"/>
+                        <SelectableTextBlock Name="edtMessage" 
+                                             TextWrapping="WrapWithOverflow" 
+                                             VerticalAlignment="Center" 
+                                             MinWidth="300"
+                                             MaxWidth="500" 
+                                             FontSize="14" />
+                </StackPanel>
+
+                <StackPanel Name="pnlButtons" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+                </StackPanel>
+        </StackPanel>    
+         -->
+   
+</Window>

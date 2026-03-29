@@ -1,9 +1,3 @@
-using System.Data;
-using Avalonia.Controls;
-using Avalonia.Data;
-using Avalonia.Interactivity;
-using AvaloniaEdit;
-
 namespace Tripous.Avalon;
 
 static public class TripousAvalonExtensions
@@ -43,9 +37,9 @@ static public class TripousAvalonExtensions
     /// <summary>
     /// Returns the path of a column, e.g. [Customer.Name]
     /// </summary>
-    static public string GetColumnPath(this DataGridColumn column)
+    static public string GetColumnPath(this DataGridColumn Column)
     {
-        if (column is DataGridBoundColumn bound && bound.Binding is Binding b)
+        if (Column is DataGridBoundColumn bound && bound.Binding is Binding b)
             return b.Path;
 
         return string.Empty;
@@ -53,12 +47,12 @@ static public class TripousAvalonExtensions
     /// <summary>
     /// Returns the name of a Property/FieldName a column is bound to.
     /// </summary>
-    static public string GetPropertyName(this DataGridBoundColumn column)
+    static public string GetPropertyName(this DataGridColumn Column)
     {
-        if (column != null)
+        if (Column != null && (Column is DataGridBoundColumn col))
         {
             // try get it from Binding
-            if (column.Binding is Binding b && !string.IsNullOrWhiteSpace(b.Path))
+            if (col.Binding is Binding b && !string.IsNullOrWhiteSpace(b.Path))
             {
                 // remove any brackets and get the last part
                 string path = b.Path.Replace("[", "").Replace("]", "");
@@ -72,26 +66,11 @@ static public class TripousAvalonExtensions
             }
 
             // try get it from Tag
-            if (column.Tag is string tag && !string.IsNullOrWhiteSpace(tag))
+            if (Column.Tag is string tag && !string.IsNullOrWhiteSpace(tag))
                 return tag;
         }
         
         return string.Empty;
-    }
-    static public void ShowHideIdColumns(this DataGrid Grid, bool Value)
-    {
-        string PropertyName;
-        foreach (var column in Grid.Columns)
-        {
-            if (column is DataGridBoundColumn Col)
-            {
-                PropertyName = Col.GetPropertyName();
-                if (!string.IsNullOrWhiteSpace(PropertyName) && PropertyName.EndsWith("Id", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    Col.IsVisible = Value;
-                }
-            }
-        }
     }
     /// <summary>
     /// Returns a binding path suitable in binding to a ProDataGrid column.
@@ -117,6 +96,7 @@ static public class TripousAvalonExtensions
 
         return RequiresIndexer ? $"[{PropertyName}]" : PropertyName;
     }
+ 
     /// <summary>
     /// Creates columns for a ProDataGrid based on a specified <see cref="DataTable"/>
     /// </summary>
@@ -169,13 +149,85 @@ static public class TripousAvalonExtensions
                 };
             }
 
-            GridColumn.Header = TableColumn.ColumnName;
+            GridColumn.Header = TableColumn.Caption;
             GridColumn.IsReadOnly = TableColumn.ReadOnly;
             GridColumn.ColumnKey = TableColumn.ColumnName;
             GridColumn.SortMemberPath = TableColumn.ColumnName;
             GridColumn.Tag = new GridColumnInfo(TableColumn, GridColumn);
 
             Grid.Columns.Add(GridColumn);
+        }
+    }
+ 
+    /// <summary>
+    /// Finds and returns a column by name (i.e. Header), if any, else null.
+    /// <para>NOTE: <see cref="ColumnName"/> is the Header of the column.</para>
+    /// </summary>
+    static public DataGridColumn FindColumn(this DataGrid Grid, string ColumnName)
+    {
+        foreach (DataGridColumn Column in Grid.Columns)
+            if (ColumnName.IsSameText(Column.Header.ToString()))
+                return Column;
+        return null;
+    } 
+    /// <summary>
+    /// Sets all columns to be editable (i.e. not read-only)
+    /// </summary>
+    static public void SetAllColumnsEditable(this DataGrid Grid)
+    {
+        foreach (DataGridColumn Column in Grid.Columns)
+            Column.IsReadOnly = false;    
+    }
+    /// <summary>
+    /// Columns found in <see cref="ColumnNames"/> are set to be editable. All other columns are set to read-only.
+    /// </summary>
+    static public void SetEditableColumns(this DataGrid Grid, List<string> ColumnNames)
+    {
+        foreach (DataGridColumn Column in Grid.Columns)
+            Column.IsReadOnly = !ColumnNames.ContainsText(Column.Header.ToString());
+    }
+    /// <summary>
+    /// Columns found in <see cref="ColumnNames"/> are set to be visible. All other columns are hidden.
+    /// </summary>
+    static public void SetVisibleColumns(this DataGrid Grid, List<string> ColumnNames)
+    {
+        foreach (DataGridColumn Column in Grid.Columns)
+            Column.IsVisible = ColumnNames.ContainsText(Column.Header.ToString());
+    }
+    /// <summary>
+    /// Sets a column editable (non read-only) by name.
+    /// <para>NOTE: <see cref="ColumnName"/> is the Header of the column.</para>
+    /// </summary>
+    static public void SetColumnEditable(this DataGrid Grid, string ColumnName, bool Value)
+    {
+        DataGridColumn Column = Grid.FindColumn(ColumnName);
+        if (Column != null)
+            Column.IsReadOnly = !Value;
+    }
+    /// <summary>
+    /// Sets a column visible by name.
+    /// <para>NOTE: <see cref="ColumnName"/> is the Header of the column.</para>
+    /// </summary>
+    static public void SetColumnVisible(this DataGrid Grid, string ColumnName, bool Value)
+    {
+        DataGridColumn Column = Grid.FindColumn(ColumnName);
+        if (Column != null)
+            Column.IsVisible = Value;
+    }
+ 
+    static public void ShowHideIdColumns(this DataGrid Grid, bool Value)
+    {
+        string PropertyName;
+        foreach (var column in Grid.Columns)
+        {
+            if (column is DataGridBoundColumn Col)
+            {
+                PropertyName = Col.GetPropertyName();
+                if (!string.IsNullOrWhiteSpace(PropertyName) && PropertyName.EndsWith("Id", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Col.IsVisible = Value;
+                }
+            }
         }
     }
     

@@ -1,10 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using Avalonia.Controls;
-
 namespace Tripous.Avalon;
 
 public class DataRowViewSummaryDescription : DataGridSummaryDescription
