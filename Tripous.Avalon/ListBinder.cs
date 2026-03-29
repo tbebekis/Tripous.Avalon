@@ -27,22 +27,7 @@ public class ListBinder: GridBinder
         Refresh();
     }
 
-    protected override void Initialize(DataGrid Grid, DataView DataView, bool UseGridViewHandler)
-    {
-        base.Initialize(Grid, DataView, UseGridViewHandler);
 
-        if (this.Table.IsDetail)
-        {
-            this.Table.MasterChanging += MasterTableChanging;
-            this.Table.MasterChanged += MasterTableChanged;
-
- 
-            if (MasterTable != null)
-                MasterTable.CurrentRowChanged += MasterRowChanged;
-
-            Refresh();
-        }
-    }
     
     // ● construction
     /// <summary>
@@ -54,6 +39,26 @@ public class ListBinder: GridBinder
     }
  
     // ● public
+    public override void SetGrid(DataGrid Grid, DataView DataView, bool UseGridViewHandler = false)
+    {
+        if (this.Table.IsDetail)
+            MasterTableChanging(null, null);
+        
+        base.SetGrid(Grid, DataView, UseGridViewHandler);
+        
+        MasterTableChanged(null, null);
+
+        if (this.Table.IsDetail)
+        {
+            this.Table.MasterChanging += MasterTableChanging;
+            this.Table.MasterChanged += MasterTableChanged;
+ 
+            if (MasterTable != null)
+                MasterTable.CurrentRowChanged += MasterRowChanged;
+
+            Refresh();
+        }
+    }
     /// <summary>
     /// Refreshes the associated <see cref="DataGridCollectionView"/>, the ProDataGrid ItemsSource and the associated <see cref="MemTable.CurrentRow"/>
     /// </summary>

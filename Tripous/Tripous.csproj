@@ -29,10 +29,6 @@
 
     <ItemGroup>
         <EmbeddedResource Include="Resources\Sql\**\*.sql" />
-    </ItemGroup>    
-
-    <ItemGroup>
-      <Folder Include="Data.Defs\" />
     </ItemGroup>
 
 </Project>

@@ -23,7 +23,45 @@ public class GridBinder: ObservableObject
         CurrentRowChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    protected virtual void Initialize(DataGrid Grid, DataView DataView, bool UseGridViewHandler)
+
+    // ● construction
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public GridBinder(DataGrid Grid, DataTable Table, bool UseGridViewHandler = false)
+    {
+        SetGrid(Grid, Table.DefaultView, UseGridViewHandler);
+    }
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public GridBinder(DataGrid Grid, DataView DataView, bool UseGridViewHandler = false)
+    {
+        SetGrid(Grid, DataView, UseGridViewHandler);
+    }
+ 
+    // ● attached property
+    /// <summary>
+    /// Defines the attached <see cref="GridBinder"/> property to the <see cref="DataGrid"/> class.
+    /// </summary>
+    public static readonly AttachedProperty<GridBinder> GridBinderProperty =
+        AvaloniaProperty.RegisterAttached<GridBinder, DataGrid, GridBinder>("GridBinder");
+
+    /// <summary>
+    /// Returns the <see cref="GridBinder"/> of a <see cref="DataGrid"/>
+    /// </summary>
+    public static GridBinder GetGridBinder(DataGrid element) => element.GetValue(GridBinderProperty);
+    /// <summary>
+    /// Sets the <see cref="GridBinder"/> of a <see cref="DataGrid"/>
+    /// </summary>
+    public static void SetGridBinder(DataGrid element, GridBinder value) => element.SetValue(GridBinderProperty, value);
+    
+    // ● public
+    public virtual void SetGrid(DataGrid Grid, DataTable Table, bool UseGridViewHandler = false)
+    {
+        SetGrid(Grid, Table.DefaultView, UseGridViewHandler);
+    }
+    public virtual void SetGrid(DataGrid Grid, DataView DataView, bool UseGridViewHandler = false)
     {
         this.DataView = DataView ?? throw new ArgumentNullException(nameof(DataView));
         this.Grid = Grid ?? throw new ArgumentNullException(nameof(Grid));
@@ -66,38 +104,8 @@ public class GridBinder: ObservableObject
             */
         };
     }
-    
-    // ● construction
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    public GridBinder(DataGrid Grid, DataTable Table, bool UseGridViewHandler = false)
-    {
-        Initialize(Grid, Table.DefaultView, UseGridViewHandler);
-    }
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    public GridBinder(DataGrid Grid, DataView DataView, bool UseGridViewHandler = false)
-    {
-        Initialize(Grid, DataView, UseGridViewHandler);
-    }
- 
-    // ● attached property
-    /// <summary>
-    /// Defines the attached <see cref="GridBinder"/> property to the <see cref="DataGrid"/> class.
-    /// </summary>
-    public static readonly AttachedProperty<GridBinder> GridBinderProperty =
-        AvaloniaProperty.RegisterAttached<GridBinder, DataGrid, GridBinder>("GridBinder");
 
-    /// <summary>
-    /// Returns the <see cref="GridBinder"/> of a <see cref="DataGrid"/>
-    /// </summary>
-    public static GridBinder GetGridBinder(DataGrid element) => element.GetValue(GridBinderProperty);
-    /// <summary>
-    /// Sets the <see cref="GridBinder"/> of a <see cref="DataGrid"/>
-    /// </summary>
-    public static void SetGridBinder(DataGrid element, GridBinder value) => element.SetValue(GridBinderProperty, value);
+    
     
     // ● properties
     public DataTable DataTable { get; protected set; }

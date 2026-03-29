@@ -157,7 +157,7 @@ public class RowFilterItem
                         if (FirstNonNull != null)
                             ItemType = FirstNonNull.GetType();
 
-                        fValueType = ItemType.AssemblyQualifiedName;
+                        fValueType = ItemType.FullName; //ItemType.AssemblyQualifiedName;
                         fValueText = string.Join("\u001F", Items.Select(ConvertToText));
 
                         fValue2 = null;
@@ -171,12 +171,12 @@ public class RowFilterItem
                 }
                 else
                 {
-                    fValueType = fValue.GetType().AssemblyQualifiedName;
+                    fValueType = fValue.GetType().FullName; //fValue.GetType().AssemblyQualifiedName;
                     fValueText = ConvertToText(fValue);
 
                     if (fValue2 != null)
                     {
-                        fValue2Type = fValue2.GetType().AssemblyQualifiedName;
+                        fValue2Type = fValue2.GetType().FullName; //fValue2.GetType().AssemblyQualifiedName;
                         fValue2Text = ConvertToText(fValue2);
                     }
                     else

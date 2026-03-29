@@ -22,5 +22,12 @@
     <ItemGroup>
       <ProjectReference Include="..\Tripous\Tripous.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Compile Update="Dialogs\InputBox.axaml.cs">
+        <DependentUpon>InputBox.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 
 </Project>

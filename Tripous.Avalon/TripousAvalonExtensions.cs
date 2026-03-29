@@ -159,6 +159,8 @@ static public class TripousAvalonExtensions
         }
     }
  
+    static public GridColumnInfo GetColumnInfo(this DataGridColumn Column) => Column.Tag as GridColumnInfo;
+    
     /// <summary>
     /// Finds and returns a column by name (i.e. Header), if any, else null.
     /// <para>NOTE: <see cref="ColumnName"/> is the Header of the column.</para>
@@ -252,4 +254,18 @@ static public class TripousAvalonExtensions
         return Result;
     }
     
+    // ● Miscs
+    static public DataGridAggregateType ToAvalonia(this AggregateType AggregateType)
+    {
+        switch (AggregateType)
+        {
+            case AggregateType.Count: return DataGridAggregateType.Count;
+            case AggregateType.Sum: return DataGridAggregateType.Sum;
+            case AggregateType.Min: return DataGridAggregateType.Min;
+            case AggregateType.Max: return DataGridAggregateType.Max;
+            case AggregateType.Avg: return DataGridAggregateType.Average;
+        }
+
+        return DataGridAggregateType.None;
+    }
 }

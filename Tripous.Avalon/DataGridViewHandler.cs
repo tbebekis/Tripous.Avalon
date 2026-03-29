@@ -24,34 +24,31 @@ public class DataGridViewHandler
     private MenuItem mnuAvg;        // numeric
     private MenuItem mnuNone;
     private MenuItem mnuClearSummaries;
-        
+    private MenuItem mnuExport;
+    private MenuItem mnuExportToCSV;
+    private MenuItem mnuExportToTabDelimited;
+    private MenuItem mnuExportToXML;
+    private MenuItem mnuExportToJSON;
+    private MenuItem mnuExportToHTML;
+    private MenuItem mnuExportToMarkdown;
+    private MenuItem mnuExportToYAML;
+       
     private DataGridColumn colSelected;
     List<DataGridColumn> GroupColumns = new();  
-    Dictionary<DataGridColumn, DataGridAggregateType> ColumnSummaries = new();
+    Dictionary<DataGridColumn, AggregateType> ColumnSummaries = new();
     Dictionary<DataGridColumn, RowFilterItem> ColumnFilters = new();
+    private GridExport GridExporter;
     
     // ● event handlers
     private async void AnyClick(object sender, RoutedEventArgs ea)
     {
         //
         if (mnuShowAllColumns == sender)
-            ShowAllColumns();
+            ClearHiddenColumns();
         else if (mnuClearGroup == sender)
             ClearGrouping();
         else if (mnuToggleGrouping == sender)
             ToggleGrouping();
-        else if (mnuCount == sender)
-            SetSummary(DataGridAggregateType.Count);
-        else if (mnuSum == sender)
-            SetSummary(DataGridAggregateType.Sum);
-        else if (mnuMin == sender)
-            SetSummary(DataGridAggregateType.Min);
-        else if (mnuMax == sender)
-            SetSummary(DataGridAggregateType.Max);
-        else if (mnuAvg == sender)
-            SetSummary(DataGridAggregateType.Average);
-        else if (mnuNone == sender)
-            SetSummary(DataGridAggregateType.None);
         else if (mnuClearSummaries == sender)
             ClearSummaries();
         else if (mnuShowFilterDialog == sender)
@@ -59,9 +56,25 @@ public class DataGridViewHandler
         else if (mnuClearFilter == sender)
             ClearFilter();
         else if (mnuClearAllFilters == sender)
-            ClearAllFilters();
- 
+            ClearFilters();
     }
+    private void AnySummaryClick(object sender, RoutedEventArgs ea)
+    {
+        MenuItem mnuItem = sender as MenuItem;
+        AggregateType AggregateType = (AggregateType)mnuItem.Tag;
+        SetSummary(AggregateType);
+    }
+    private async void AnyExportClick(object sender, RoutedEventArgs ea)
+    {
+        MenuItem mnuItem = sender as MenuItem;
+        DataGridClipboardExportFormat ExportFormat = (DataGridClipboardExportFormat)mnuItem.Tag;
+        
+        if (GridExporter == null)
+            GridExporter = new GridExport();
+        
+        await GridExporter.ExportToAsync(Grid, ExportFormat);
+    }
+
     
     // ● private
     string ObjectToString(object V) => V != null ? V.ToString() : string.Empty;
@@ -99,8 +112,9 @@ public class DataGridViewHandler
         }
 
         View.Refresh();
+        Grid.UpdateLayout();
     }
-    void SummariesChanged()
+    void ColumnSummariesChanged()
     {
         foreach (var Column in Grid.Columns)
             Column.Summaries.Clear();
@@ -108,17 +122,17 @@ public class DataGridViewHandler
         foreach (var Pair in ColumnSummaries)
         {
             DataGridColumn Column = Pair.Key;
-            DataGridAggregateType SumType = Pair.Value;
+            AggregateType SumType = Pair.Value;
             GridColumnInfo ColInfo = Column.Tag as GridColumnInfo;
 
-            if (SumType == DataGridAggregateType.None)
+            if (SumType == AggregateType.None)
                 continue;
 
             string SumTitle = SumType.ToString().ToLower();
             if (SumTitle == "average")
                 SumTitle = "avg";
             
-            var Summary = new DataRowViewSummaryDescription(SumType, ColInfo.FieldName)  
+            var Summary = new DataRowViewSummaryDescription(SumType.ToAvalonia(), ColInfo.FieldName)  
             {
                 Scope = DataGridSummaryScope.Both,
                 Title = $"{SumTitle}: "
@@ -127,7 +141,7 @@ public class DataGridViewHandler
             Column.Summaries.Add(Summary);
         }
 
-        bool HasSummaries = ColumnSummaries.Values.Any(v => v != DataGridAggregateType.None);
+        bool HasSummaries = ColumnSummaries.Values.Any(v => v != AggregateType.None);
 
         Grid.ShowTotalSummary = HasSummaries;
         Grid.ShowGroupSummary = HasSummaries;
@@ -182,13 +196,25 @@ public class DataGridViewHandler
         mnuSummaries        = list.AddMenuItem("Summaries", null);
         mnuClearSummaries   = list.AddMenuItem("Clear Summaries", AnyClick);
         List<object> SummaryList = new();
-        mnuCount    = SummaryList.AddMenuItem("Count", AnyClick);
-        mnuSum      = SummaryList.AddMenuItem("Sum", AnyClick);
-        mnuMin      = SummaryList.AddMenuItem("Min", AnyClick);
-        mnuMax      = SummaryList.AddMenuItem("Max", AnyClick);
-        mnuAvg      = SummaryList.AddMenuItem("Avg", AnyClick);
-        mnuNone      = SummaryList.AddMenuItem("None", AnyClick);
+        mnuCount    = SummaryList.AddMenuItem("Count", AnySummaryClick, AggregateType.Count);
+        mnuSum      = SummaryList.AddMenuItem("Sum", AnySummaryClick, AggregateType.Sum);
+        mnuMin      = SummaryList.AddMenuItem("Min", AnySummaryClick, AggregateType.Min);
+        mnuMax      = SummaryList.AddMenuItem("Max", AnySummaryClick, AggregateType.Max);
+        mnuAvg      = SummaryList.AddMenuItem("Avg", AnySummaryClick, AggregateType.Avg);
+        mnuNone      = SummaryList.AddMenuItem("None", AnySummaryClick, AggregateType.None);
         mnuSummaries.ItemsSource = SummaryList.ToArray();
+        list.AddSeparator();
+        mnuExport        = list.AddMenuItem("Export", null);
+        List<object> ExportList = new();
+        mnuExportToCSV = ExportList.AddMenuItem("CSV", AnyExportClick, DataGridClipboardExportFormat.Csv);
+        mnuExportToTabDelimited = ExportList.AddMenuItem("TAB", AnyExportClick, DataGridClipboardExportFormat.Text);
+        mnuExportToXML = ExportList.AddMenuItem("XML", AnyExportClick, DataGridClipboardExportFormat.Xml);
+        mnuExportToJSON = ExportList.AddMenuItem("JSON", AnyExportClick, DataGridClipboardExportFormat.Json);
+        mnuExportToHTML = ExportList.AddMenuItem("HTML", AnyExportClick, DataGridClipboardExportFormat.Html);
+        mnuExportToYAML = ExportList.AddMenuItem("YAML", AnyExportClick, DataGridClipboardExportFormat.Yaml);
+        mnuExportToMarkdown = ExportList.AddMenuItem("Markdown", AnyExportClick, DataGridClipboardExportFormat.Markdown);
+        
+        mnuExport.ItemsSource = ExportList.ToArray();
 
         mnuContextMenu = new ContextMenu();
         mnuContextMenu.ItemsSource = list.ToArray();
@@ -210,11 +236,11 @@ public class DataGridViewHandler
 
             mnuSummaries.IsEnabled = colSelected != null;
             mnuCount.IsEnabled = colSelected != null;
-            mnuSum.IsEnabled = colSelected != null && IsNumeric && ColumnSummaries[colSelected] != DataGridAggregateType.Sum;
-            mnuMin.IsEnabled = colSelected != null && (IsNumeric || IsDate) && ColumnSummaries[colSelected] != DataGridAggregateType.Min;
-            mnuMax.IsEnabled = colSelected != null && (IsNumeric || IsDate) && ColumnSummaries[colSelected] != DataGridAggregateType.Max;
-            mnuAvg.IsEnabled = colSelected != null && IsNumeric && ColumnSummaries[colSelected] != DataGridAggregateType.Average;
-            mnuNone.IsEnabled = colSelected != null && ColumnSummaries[colSelected] != DataGridAggregateType.None;
+            mnuSum.IsEnabled = colSelected != null && IsNumeric && ColumnSummaries[colSelected] != AggregateType.Sum;
+            mnuMin.IsEnabled = colSelected != null && (IsNumeric || IsDate) && ColumnSummaries[colSelected] != AggregateType.Min;
+            mnuMax.IsEnabled = colSelected != null && (IsNumeric || IsDate) && ColumnSummaries[colSelected] != AggregateType.Max;
+            mnuAvg.IsEnabled = colSelected != null && IsNumeric && ColumnSummaries[colSelected] != AggregateType.Avg;
+            mnuNone.IsEnabled = colSelected != null && ColumnSummaries[colSelected] != AggregateType.None;
  
             mnuClearFilter.IsEnabled = colSelected != null && HasFilter(colSelected);
             mnuClearAllFilters.IsEnabled = ColumnFilters.Count > 0;
@@ -276,7 +302,7 @@ public class DataGridViewHandler
         }
     }
     
-    void ShowAllColumns()
+    void ClearHiddenColumns()
     {
         foreach (var Column in Grid.Columns)
             Column.IsVisible = true;
@@ -289,6 +315,22 @@ public class DataGridViewHandler
             GroupColumnsChanged();
         }
     }
+    void ClearSummaries()
+    {
+        foreach (var Pair in ColumnSummaries)
+        {
+            DataGridColumn Column = Pair.Key;
+            ColumnSummaries[Column] = AggregateType.None;
+        }
+        
+        ColumnSummariesChanged();
+    }
+    void ClearFilters()
+    {
+        ColumnFilters.Clear();
+        ColumnFiltersChanged();
+    }
+    
     void ToggleGrouping()
     {
         if (colSelected != null)
@@ -301,23 +343,13 @@ public class DataGridViewHandler
             GroupColumnsChanged();
         }
     }
-    void SetSummary(DataGridAggregateType NewType)
+    void SetSummary(AggregateType NewType)
     {
         if (colSelected != null && ColumnSummaries[colSelected] != NewType)
         {
             ColumnSummaries[colSelected] = NewType;
-            SummariesChanged();
+            ColumnSummariesChanged();
         }
-    }
-    void ClearSummaries()
-    {
-        foreach (var Pair in ColumnSummaries)
-        {
-            DataGridColumn Column = Pair.Key;
-            ColumnSummaries[Column] = DataGridAggregateType.None;
-        }
-        
-        SummariesChanged();
     }
     async Task ShowFilterDialog()
     {
@@ -351,12 +383,6 @@ public class DataGridViewHandler
             ColumnFilters.Remove(colSelected);
             ColumnFiltersChanged();
         }
- 
-    }
-    void ClearAllFilters()
-    {
-        ColumnFilters.Clear();
-        ColumnFiltersChanged();
     }
  
     // ● construction
@@ -399,12 +425,98 @@ public class DataGridViewHandler
             
         ColumnSummaries.Clear();
         foreach (var Column in Grid.Columns)
-            ColumnSummaries[Column] = DataGridAggregateType.None;
+            ColumnSummaries[Column] = AggregateType.None;
         
         ColumnFilters.Clear();
         ColumnFiltersChanged();
     }
+    
+    
+    public void SaveTo(GridViewDef Def)
+    {
+        Def.ClearLists();
+        
+        List<DataGridColumn> ColumnList = Grid.Columns
+            .OrderBy(c => c.DisplayIndex)
+            .ToList();
 
+        GridColumnInfo CI;
+        foreach (DataGridColumn Col in ColumnList)
+        {
+            CI = Col.GetColumnInfo();
+            
+            // columns in visible order
+            Def.OrderList.Add(CI.FieldName);
+            
+            // hidden columns
+            if (!Col.IsVisible)
+                Def.HiddenList.Add(CI.FieldName);
+            
+            // column summaries
+            if (ColumnSummaries.Keys.Contains(Col))
+                Def.Summaries[CI.FieldName] = ColumnSummaries[Col];
+        }
+        
+        // columns in group
+        foreach (DataGridColumn Col in GroupColumns)
+        {
+            CI = Col.GetColumnInfo();
+            Def.GroupList.Add(CI.FieldName);
+        }
+
+        // DataView.RowFilter
+        foreach (var Entry in ColumnFilters)
+            Def.RowFilters.Add(Entry.Value);
+ 
+    }
+    public void Apply(GridViewDef Def)
+    {
+        GroupColumns.Clear();
+        ColumnSummaries.Clear();
+        ColumnFilters.Clear();
+        
+        ColumnFiltersChanged();
+        GroupColumnsChanged();
+        ColumnSummariesChanged();
+        
+        DataGridColumn Column;
+        RowFilterItem RowFilterItem;
+
+        string FieldName;
+        for (int i = 0; i < Def.OrderList.Count; i++)
+        {
+            FieldName = Def.OrderList[i];
+            Column = Grid.FindColumn(FieldName);
+            if (Column != null)
+            {
+                Column.DisplayIndex = i;
+                Column.IsVisible = !Def.HiddenList.Contains(FieldName);
+                ColumnSummaries[Column] = Def.Summaries.ContainsKey(FieldName) ? Def.Summaries[FieldName]: AggregateType.None;
+
+                RowFilterItem = Def.RowFilters.FirstOrDefault(x => FieldName.IsSameText(x.FieldName));
+                if (RowFilterItem != null)
+                    ColumnFilters[Column] = RowFilterItem;
+            }
+        }
+
+        for (int i = 0; i < Def.GroupList.Count; i++)
+        {
+            FieldName = Def.GroupList[i];
+            Column = Grid.FindColumn(FieldName);
+            if (Column != null)
+                GroupColumns.Add(Column);
+        }
+        
+        Dispatcher.UIThread.Post(() => 
+        {  
+            ColumnFiltersChanged();
+            GroupColumnsChanged();
+            ColumnSummariesChanged();
+
+        }, DispatcherPriority.Background);
+
+    }
+    
     // ● properties
     public DataGrid Grid { get;  }
 }

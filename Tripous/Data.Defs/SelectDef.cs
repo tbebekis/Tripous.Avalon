@@ -7,13 +7,13 @@ namespace Tripous.Data;
 
 public class SelectDef
 {
- 
     private string fSqlText;
     StringBuilder sbErrors = new();
     private bool Parsing = false;
     
     // ● private
     private ObservableCollection<SqlFilterDef> fFilters;
+    private ObservableCollection<GridViewDef> fGridViews;
     
     // ● construction
     public SelectDef()
@@ -180,17 +180,14 @@ public class SelectDef
 
         return finalSql;
     }
- 
     public DbConnectionInfo GetConnectionInfo()
     {
         return Db.Connections.Find(ConnectionName);
     }
-
     public DbServerType GetServerType()
     {
         return GetConnectionInfo().DbServerType;
     }
-
     public SqlStore GetSqlStore()
     {
         return new SqlStore(GetConnectionInfo());
@@ -214,6 +211,7 @@ public class SelectDef
         }
     }
     public string Description { get; set; }
+    public string LastSelectSqlText { get; set; }
 
     public ObservableCollection<SqlFilterDef> Filters
     {
@@ -224,6 +222,16 @@ public class SelectDef
             return fFilters;
         }
         set => fFilters = value;
+    }
+    public ObservableCollection<GridViewDef> GridViews
+    {
+        get
+        {
+            if (fGridViews == null)
+                fGridViews = new();
+            return fGridViews;
+        }
+        set => fGridViews = value;
     }
 
     [JsonIgnore] 
