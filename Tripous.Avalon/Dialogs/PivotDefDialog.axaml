@@ -1,0 +1,66 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="600"
+        x:Class="Tripous.Avalon.PivotDefDialog"
+        Title="Pivot Definition"
+        Width="880" 
+        MinWidth="500"
+        MaxWidth="1200"
+        MaxHeight="1200"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True">
+    
+    <DockPanel Margin="20">
+        <StackPanel DockPanel.Dock="Bottom" Spacing="15" Margin="0,20,0,0">
+            <Rectangle Height="1" Fill="#DDDDDD"/>
+            
+            <StackPanel Orientation="Horizontal" Spacing="25" HorizontalAlignment="Center">
+                <CheckBox Name="chkShowSubtotals" Content="Show Subtotals" IsChecked="True"/>
+                <CheckBox Name="chkShowGrandTotals" Content="Show Grand Totals" IsChecked="True"/>
+                <CheckBox Name="chkValuesOnRows" Content="Values On Rows"/>
+            </StackPanel>
+
+            <Rectangle Height="1" Fill="#DDDDDD"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="12">
+                <Button Name="btnOK" Content="OK" Width="90" HorizontalContentAlignment="Center" Click="AnyClick" IsDefault="True"/>
+                <Button Name="btnCancel" Content="Cancel" Width="90" HorizontalContentAlignment="Center" Click="AnyClick" IsCancel="True"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Spacing="10">
+            <DataGrid Name="Grid" Height="280" BorderBrush="#CCCCCC" BorderThickness="1"/>
+
+            <Grid ColumnDefinitions="155, 155, 155" RowDefinitions="Auto, Auto, Auto" HorizontalAlignment="Center">
+                
+                <Label Grid.Row="0" Grid.Column="0" Content="Rows" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                <Label Grid.Row="0" Grid.Column="1" Content="Columns" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                <Label Grid.Row="0" Grid.Column="2" Content="Values" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+
+                <ListBox Name="lboRows"    Grid.Row="1" Grid.Column="0" Width="140" Height="130" HorizontalAlignment="Center" BorderBrush="#CCCCCC" BorderThickness="1"/>
+                <ListBox Name="lboColumns" Grid.Row="1" Grid.Column="1" Width="140" Height="130" HorizontalAlignment="Center" BorderBrush="#CCCCCC" BorderThickness="1"/>
+                <ListBox Name="lboValues"  Grid.Row="1" Grid.Column="2" Width="140" Height="130" HorizontalAlignment="Center" BorderBrush="#CCCCCC" BorderThickness="1"/>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" Spacing="4" Margin="0,10,0,0" HorizontalAlignment="Center">
+                    <Button Name="btnUpRow"     Content="Up"      Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
+                    <Button Name="btnDownRow"   Content="Down"    Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="1" Spacing="4" Margin="0,10,0,0" HorizontalAlignment="Center">
+                    <Button Name="btnUpColumn"     Content="Up"      Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
+                    <Button Name="btnDownColumn"   Content="Down"    Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="2" Spacing="4" Margin="0,10,0,0" HorizontalAlignment="Center">
+                    <Button Name="btnUpValue"     Content="Up"      Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
+                    <Button Name="btnDownValue"   Content="Down"    Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
+                </StackPanel>
+
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+    
+</Window>

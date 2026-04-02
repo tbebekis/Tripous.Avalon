@@ -6,14 +6,24 @@ namespace Tripous.Avalon;
 /// </summary>
 public class GridBinder: ObservableObject
 {
+    /* The hierarchy is
+        Grid
+        DataTable
+        DataView
+        ViewDef
+     */  
+    
+    private DataGrid fGrid;
+    private DataView fDataView;
+    private GridViewDef fViewDef;
     DataRowView fCurrentRow;
 
-    /// <summary>
-    /// Creates the columns of the grid
-    /// </summary>
-    protected virtual void CreateGridColumns()
+
+    protected virtual void DataViewChanging()
     {
-        Grid.CreateColumns(this.DataView.Table);
+    }
+    protected virtual void DataViewChanged()
+    {
     }
     /// <summary>
     /// Triggers the associated event
@@ -22,101 +32,139 @@ public class GridBinder: ObservableObject
     {
         CurrentRowChanged?.Invoke(this, EventArgs.Empty);
     }
-
-
+ 
     // ● construction
     /// <summary>
     /// Constructor
     /// </summary>
-    public GridBinder(DataGrid Grid, DataTable Table, bool UseGridViewHandler = false)
+    public GridBinder(DataGrid Grid, DataTable Table, bool UseViewMenu = false)
+        : this(Grid, Table.DefaultView, UseViewMenu)
     {
-        SetGrid(Grid, Table.DefaultView, UseGridViewHandler);
     }
     /// <summary>
     /// Constructor
     /// </summary>
-    public GridBinder(DataGrid Grid, DataView DataView, bool UseGridViewHandler = false)
+    public GridBinder(DataGrid Grid, DataView DataView, bool UseViewMenu = false)
     {
-        SetGrid(Grid, DataView, UseGridViewHandler);
+        this.Grid = Grid;
+        this.DataView = DataView;
+        this.IsMenuEnabled = UseViewMenu;
     }
  
     // ● attached property
     /// <summary>
     /// Defines the attached <see cref="GridBinder"/> property to the <see cref="DataGrid"/> class.
     /// </summary>
-    public static readonly AttachedProperty<GridBinder> GridBinderProperty =
+    static public readonly AttachedProperty<GridBinder> GridBinderProperty =
         AvaloniaProperty.RegisterAttached<GridBinder, DataGrid, GridBinder>("GridBinder");
 
     /// <summary>
     /// Returns the <see cref="GridBinder"/> of a <see cref="DataGrid"/>
     /// </summary>
-    public static GridBinder GetGridBinder(DataGrid element) => element.GetValue(GridBinderProperty);
+    static public GridBinder GetGridBinder(DataGrid element) => element.GetValue(GridBinderProperty);
     /// <summary>
     /// Sets the <see cref="GridBinder"/> of a <see cref="DataGrid"/>
     /// </summary>
-    public static void SetGridBinder(DataGrid element, GridBinder value) => element.SetValue(GridBinderProperty, value);
-    
-    // ● public
-    public virtual void SetGrid(DataGrid Grid, DataTable Table, bool UseGridViewHandler = false)
-    {
-        SetGrid(Grid, Table.DefaultView, UseGridViewHandler);
-    }
-    public virtual void SetGrid(DataGrid Grid, DataView DataView, bool UseGridViewHandler = false)
-    {
-        this.DataView = DataView ?? throw new ArgumentNullException(nameof(DataView));
-        this.Grid = Grid ?? throw new ArgumentNullException(nameof(Grid));
-        this.Grid.Tag = this;
-        GridBinder.SetGridBinder(Grid, this);
-
-        this.DataTable = DataView.Table;
+    static public void SetGridBinder(DataGrid element, GridBinder value) => element.SetValue(GridBinderProperty, value);
  
-        CollectionView = new DataGridCollectionView(DataView);
-        this.Grid.ItemsSource = CollectionView;
-
-        CreateGridColumns();
-
-        if (UseGridViewHandler)
-            GridViewHandler = new DataGridViewHandler(Grid);
-
-        this.Grid.EditTriggers = DataGridEditTriggers.TextInput; 
-        this.Grid.SelectionChanged += (s, e) =>
-        {
-            if (this.Grid.SelectedItem is DataRowView DRV)
-                this.CurrentRow = DRV;
-            else
-                this.CurrentRow = null;
-        };
-        
-        // NOT WORKING
-        this.Grid.BeginningEdit += (s,e) =>
-        {
-            /*
-            if (e.EditingEventArgs is TextInputEventArgs TextArgs)
-            {
-                TextArgs.Text = "";
-                var targetColumn = e.Column;
-
-                Dispatcher.UIThread.Post(() =>
-                {
-                    Grid.CurrentColumn = targetColumn;
-                }, DispatcherPriority.Input);
-            }
-            */
-        };
-    }
-
-    
-    
     // ● properties
-    public DataTable DataTable { get; protected set; }
-    /// <summary>
-    /// The table this instance presents.
-    /// </summary>
-    public DataView DataView { get; protected set; }
     /// <summary>
     /// The grid where this instance presents the table
     /// </summary>
-    public DataGrid Grid { get; protected set; }
+    public DataGrid Grid
+    {
+        get => fGrid;
+        set
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(Grid));
+
+            if (value != null && value != fGrid)
+            {
+                fDataView = null;
+                fViewDef = null;
+                ColumnInfoList = null;
+                CollectionView = null;
+                fCurrentRow = null;
+                
+                fGrid = value;
+                fGrid.Tag = this;
+                SetGridBinder(Grid, this);
+                
+                this.Grid.EditTriggers = DataGridEditTriggers.TextInput; 
+                this.Grid.SelectionChanged += (s, e) =>
+                {
+                    CurrentRow = Grid.SelectedItem is DataRowView? Grid.SelectedItem as DataRowView: null;
+                };
+            
+                Menu = new ViewMenu(fGrid);
+            }
+        }
+    }
+    /// <summary>
+    /// The DataTable of the DataView
+    /// </summary>
+    public DataTable DataTable => DataView != null ? DataView.Table : null;
+    /// <summary>
+    /// The table this instance presents.
+    /// </summary>
+    public DataView DataView
+    {
+        get => fDataView;
+        set
+        {
+            if (value != null && fDataView != value)
+            {
+                if (Grid == null)
+                    throw new ApplicationException("Cannot set DataView without a Grid");
+
+                DataViewChanging();
+                
+                fViewDef = null;
+                ColumnInfoList = null;
+                CollectionView = null;
+                fCurrentRow = null;
+                
+                fDataView = value;
+                
+                CollectionView = new DataGridCollectionView(DataView);
+                Grid.ItemsSource = CollectionView;
+                
+                Grid.CreateColumns(DataTable);
+                ColumnInfoList = Grid.Columns.Select(x => x.Tag as GridColumnInfo).ToList();
+                
+                fViewDef = DataView.CreateViewDef();
+                
+                DataViewChanged();
+            }
+        }
+    }
+    /// <summary>
+    /// The definition of the view, i.e. groups, summaries, etc.
+    /// </summary>
+    public GridViewDef ViewDef
+    {
+        get => fViewDef;
+        set
+        {
+            if (value != null && fViewDef != value)
+            {
+                if (Grid == null)
+                    throw new ApplicationException("Cannot set ViewDef without a Grid");
+                if (DataView == null)
+                    throw new ApplicationException("Cannot set ViewDef without a DataView");
+                
+                fViewDef = value;
+                
+                // apply
+                Menu.Apply(ViewDef);
+            }
+        }
+    }
+    /// <summary>
+    ///  A list of <see cref="DataGridColumn"/> items based on the current <see cref="DataView"/>.
+    /// </summary>
+    public List<GridColumnInfo> ColumnInfoList { get; private set; }
     /// <summary>
     /// The ProDataGrid <see cref="DataGridCollectionView"/> which displays the table to the grid.
     /// </summary>
@@ -136,12 +184,21 @@ public class GridBinder: ObservableObject
             }
         }
     }
+    public bool IsMenuEnabled
+    {
+        get => Menu != null && Menu.IsEnabled;
+        set
+        {
+            if (Menu != null)
+                Menu.IsEnabled = value;
+        }
+    }
     /// <summary>
     /// Handles a <see cref="Avalonia.Controls.DataGrid"/>
     /// by displaying a context menu with items
     /// for handling groups, summmaries, filters and column visibility.
     /// </summary>
-    public DataGridViewHandler GridViewHandler { get; protected set; }
+    public ViewMenu Menu { get; protected set; }
 
     // ● events
     /// <summary>

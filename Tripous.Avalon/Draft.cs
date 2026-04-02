@@ -108,3 +108,21 @@ public class Locator
     }
     
 }
+
+public enum AggregateType
+{
+    None,
+    Sum,
+    Avg,
+    Count,
+    Min,
+    Max, 
+}
+
+public class PivotDef
+{
+    public string Name { get; set; }
+    public List<string> Vertical { get; set; } = new();
+    public List<string> Horizontal { get; set; } = new();
+    public Dictionary<string, AggregateType> Summaries { get; set; } = new();
+}

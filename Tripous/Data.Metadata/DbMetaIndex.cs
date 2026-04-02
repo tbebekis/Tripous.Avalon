@@ -1,6 +1,4 @@
-using System.Linq;
-
-namespace Tripous;
+namespace Tripous.Data;
 
 public class DbMetaIndex : DbMetaObject
 {

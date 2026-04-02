@@ -1,8 +1,3 @@
-using System;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-
 namespace Tripous.Data;
  
 public class SqlFilterDef
@@ -81,7 +76,6 @@ public class SqlFilterDef
  
 
     }
-
     private void SetDefaults()
     {
         Type = SqlFilterType.String;
@@ -92,7 +86,6 @@ public class SqlFilterDef
         Label = string.Empty;
         Value = string.Empty;
     }
-
     private string[] Tokenize(string rawTag)
     {
         string s = rawTag.Trim();
@@ -116,7 +109,6 @@ public class SqlFilterDef
             .Select(x => x.Trim())
             .ToArray();
     }
-
     private void ParseSimple(string[] parts)
     {
         // Supported:
@@ -141,7 +133,6 @@ public class SqlFilterDef
 
         IsNumeric = Type == SqlFilterType.Integer || Type == SqlFilterType.Decimal;
     }
-
     private void ParseDate(string[] parts)
     {
         // Supported:
@@ -194,7 +185,6 @@ public class SqlFilterDef
 
          
     }
-
     private void ParseLookup(string[] parts)
     {
         // Expected:
@@ -247,7 +237,6 @@ public class SqlFilterDef
         if (string.IsNullOrWhiteSpace(Text) && string.IsNullOrWhiteSpace(Statement))
             AddError($"{Type} filter requires a SELECT statement either inline or not.");
     }
-
     private void ParseEnum(string[] parts)
     {
         // Expected:
@@ -301,7 +290,6 @@ public class SqlFilterDef
             AddError($"{Type} filter requires a list of constant values either inline or not.");
             
     }
-
     private bool TryParseFilterType(string token, out SqlFilterType filterType)
     {
         filterType = SqlFilterType.String;
@@ -344,7 +332,6 @@ public class SqlFilterDef
 
         return false;
     }
-
     private bool TryParseDataType(string token, out bool isNumeric)
     {
         isNumeric = false;
@@ -369,22 +356,18 @@ public class SqlFilterDef
 
         return false;
     }
-
     private bool TryParseDateRange(string token, out DateRange range)
     {
         return Enum.TryParse(token, true, out range);
     }
-
     private bool IsMultiToken(string token)
     {
         return EqualsIgnoreCase(token, "multi");
     }
-
     private bool EqualsIgnoreCase(string a, string b)
     {
         return string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
     }
-
     private void AddError(string message)
     {
         if (!string.IsNullOrWhiteSpace(message))
@@ -417,7 +400,7 @@ public class SqlFilterDef
             }
         }
     }
-
+    
     /// <summary>
     /// When it is a LookUp or Enum filter, this is the SELECT statement or the list of constants the user enters inline in the SELECT statement.
     /// <para>When it is a LookUp filter this is a SELECT statement, e.g. [[lookup:int:Country:select Id from Country]]</para>
@@ -425,7 +408,6 @@ public class SqlFilterDef
     /// </summary>
     [JsonIgnore]
     public string Text { get; set; }
-
     /// <summary>
     /// When it is a LookUp or Enum filter, this is the SELECT statement or the list of constants the user enters in the design-time UI.
     /// <para>When it is a LookUp filter, this is a SELECT statement.</para>
@@ -460,20 +442,17 @@ public class SqlFilterDef
         }
  
     }
-    
     /// <summary>
     /// The label the user gives to the filter, e.g. A_Date as in [[date:A_Date]]
     /// <para>A label may contain spaces and characters other than english characters.</para>
     /// </summary>
     [JsonIgnore]
     public string Label { get; private set; }
-
     /// <summary>
     /// The type of the filter, e.g. String, Date, Integer, Decimal, LookUp, Enum
     /// </summary>
     [JsonIgnore]
     public SqlFilterType Type { get; private set; }
-
     /// <summary>
     /// The date range. Used when it is a Date filter only.
     /// <para>[[date:MyDate]] is a Custom date. The user must enter the date in the runtime UI.</para>
@@ -481,13 +460,11 @@ public class SqlFilterDef
     /// </summary>
     [JsonIgnore]
     public DateRange DateRange { get; private set; }
-
     /// <summary>
     /// True when 'multi' is included in the <see cref="RawTag"/>
     /// </summary>
     [JsonIgnore]
     public bool IsMultiple { get; private set; }
-
     /// <summary>
     /// True when in lookup or enum types a numeric modifier is used.
     /// <para>e.g.</para>
@@ -496,7 +473,6 @@ public class SqlFilterDef
     /// </summary>
     [JsonIgnore]
     public bool IsNumeric { get; private set; }
-
     /// <summary>
     /// The value the user enters in the runtime UI when the SELECT is executed.
     /// <para>When this is a Date filter with a value other than <see cref="DateRange.Custom"/>
@@ -504,10 +480,10 @@ public class SqlFilterDef
     /// </summary>
     [JsonIgnore]
     public string Value { get; set; }
-
     [JsonIgnore]
     public bool HasErrors => sbErrors.Length > 0;
-
     [JsonIgnore]
     public string Errors => sbErrors.ToString();
+    [JsonIgnore]
+    public object Tag { get; set; }
 }

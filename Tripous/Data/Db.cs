@@ -1,7 +1,4 @@
-using System.Data.Common;
-using System.Data;
-
-namespace Tripous;
+namespace Tripous.Data;
 
 /// <summary>
 /// The central point of this library
@@ -158,6 +155,79 @@ static public class Db
                 return rowsAffected;
             }
         }
+    }
+
+    static public AggregateType[] GetValidAggregates(this Type DataType)
+    {
+        if (DataType == null)
+            return Array.Empty<AggregateType>();
+
+        if (DataType.IsNumeric())
+        {
+            return new[]
+            {
+                AggregateType.Count,
+                AggregateType.Sum,
+                AggregateType.Avg,
+                AggregateType.Min,
+                AggregateType.Max
+            };
+        }
+
+        if (DataType.IsDateTime())
+        {
+            return new[]
+            {
+                AggregateType.Count,
+                AggregateType.Min,
+                AggregateType.Max
+            };
+        }
+
+        return new[]
+        {
+            AggregateType.Count
+        };
+    }
+    static public PivotValueAggregateType[] GetValidPivotAggregates(this Type DataType)
+    {
+        if (DataType == null)
+            return Array.Empty<PivotValueAggregateType>();
+
+        if (DataType.IsNumeric())
+        {
+            return new[]
+            {
+                PivotValueAggregateType.Count,
+                PivotValueAggregateType.Sum,
+                PivotValueAggregateType.Avg,
+                PivotValueAggregateType.Min,
+                PivotValueAggregateType.Max,
+                PivotValueAggregateType.StdDev,
+                PivotValueAggregateType.StdDevP,
+                PivotValueAggregateType.Variance,
+                PivotValueAggregateType.VarianceP,
+                PivotValueAggregateType.CountDistinct,
+                PivotValueAggregateType.Product
+            };
+        }
+
+        if (DataType.IsDateTime())
+        {
+            return new[]
+            {
+                PivotValueAggregateType.Count,
+                PivotValueAggregateType.Min,
+                PivotValueAggregateType.Max,
+                PivotValueAggregateType.CountDistinct
+            };
+        }
+
+        return new[]
+        {
+            PivotValueAggregateType.Count,
+            PivotValueAggregateType.CountDistinct
+        };
     }
     
     // ● properties

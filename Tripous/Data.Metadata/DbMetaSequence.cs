@@ -1,4 +1,4 @@
-namespace Tripous;
+namespace Tripous.Data;
 
 public class DbMetaSequence : DbMetaObject
 {

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Tripous;
+namespace Tripous.Data;
 
 /// <summary>
 /// Information about a connection to a database.

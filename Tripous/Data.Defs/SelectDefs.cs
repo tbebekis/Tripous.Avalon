@@ -1,5 +1,3 @@
-using System.Collections.ObjectModel;
-
 namespace Tripous.Data;
 
 public class SelectDefs: SettingsBase

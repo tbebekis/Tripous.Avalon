@@ -1,6 +1,4 @@
-using System.Data;
-
-namespace Tripous;
+namespace Tripous.Data;
  
 public class SqlStore
 {

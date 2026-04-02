@@ -27,25 +27,13 @@ public class ListBinder: GridBinder
         Refresh();
     }
 
-
-    
-    // ● construction
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    public ListBinder(DataGrid Grid, MemTable Table, bool UseGridViewHandler = false)
-        : base(Grid, Table.DataView, UseGridViewHandler)
-    {
-    }
- 
-    // ● public
-    public override void SetGrid(DataGrid Grid, DataView DataView, bool UseGridViewHandler = false)
+    protected override void DataViewChanging()
     {
         if (this.Table.IsDetail)
             MasterTableChanging(null, null);
-        
-        base.SetGrid(Grid, DataView, UseGridViewHandler);
-        
+    }
+    protected override void DataViewChanged()
+    {
         MasterTableChanged(null, null);
 
         if (this.Table.IsDetail)
@@ -59,6 +47,17 @@ public class ListBinder: GridBinder
             Refresh();
         }
     }
+    
+    // ● construction
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public ListBinder(DataGrid Grid, MemTable Table, bool UseGridViewHandler = false)
+        : base(Grid, Table.DataView, UseGridViewHandler)
+    {
+    }
+ 
+    // ● public
     /// <summary>
     /// Refreshes the associated <see cref="DataGridCollectionView"/>, the ProDataGrid ItemsSource and the associated <see cref="MemTable.CurrentRow"/>
     /// </summary>
@@ -112,7 +111,5 @@ public class ListBinder: GridBinder
     /// True when this binds to a grid with a non-detail <see cref="MemTable"/>
     /// </summary>
     public bool IsListBinder => !IsDetailBinder;
-    
- 
 }
  

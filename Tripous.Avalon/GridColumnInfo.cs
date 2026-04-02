@@ -2,6 +2,7 @@ namespace Tripous.Avalon;
 
 public class GridColumnInfo
 {
+    // ● constructor
     public GridColumnInfo(DataColumn TableColumn, DataGridColumn GridColumn)
     {
         this.TableColumn = TableColumn;
@@ -15,26 +16,22 @@ public class GridColumnInfo
         GridColumn.ColumnKey = TableColumn.ColumnName;
     }
 
-    
+    // ● public
+    public override string ToString() => !string.IsNullOrWhiteSpace(FieldName)? FieldName:  base.ToString();
+ 
+
+    // ● DataGrid
     public DataColumn TableColumn { get; }
     public DataGridColumn GridColumn { get; }
     public string FieldName { get; }
     public string BindingPath { get; }
     public Type DataType  { get; }
     public Type UnderlyingType { get; }
-    
-    public bool IsStringColumn => UnderlyingType == typeof(string);
+    public bool IsString => UnderlyingType.IsString(); //== typeof(string);
+    public bool IsDate => UnderlyingType.IsDateTime(); // == typeof(DateTime);
+    public bool IsNumeric => UnderlyingType.IsNumeric();
+    public bool IsRowFilterSupportedColumn => IsString || IsNumeric || IsDate;
 
-    public bool IsDateColumn => UnderlyingType == typeof(DateTime);
+    public AggregateType[] ValidAggregates => UnderlyingType.GetValidAggregates();
 
-    public bool IsNumericColumn =>
-        UnderlyingType == typeof(byte) ||
-        UnderlyingType == typeof(short) ||
-        UnderlyingType == typeof(int) ||
-        UnderlyingType == typeof(long) ||
-        UnderlyingType == typeof(float) ||
-        UnderlyingType == typeof(double) ||
-        UnderlyingType == typeof(decimal);
-
-    public bool IsRowFilterSupportedColumn => IsStringColumn || IsNumericColumn || IsDateColumn;
 }

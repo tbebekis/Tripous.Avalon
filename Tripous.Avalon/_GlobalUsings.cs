@@ -13,6 +13,7 @@ global using System.Data;
 global using System.Data.Common;
 global using System.Collections;
 global using System.Collections.Generic;
+global using System.Collections.ObjectModel;
 global using System.Reflection;
 //*/
 
@@ -35,9 +36,8 @@ global using Avalonia.Controls;
 global using Avalonia.Controls.Primitives;
 global using Avalonia.Controls.Templates;
 global using Avalonia.Controls.ApplicationLifetimes;
-
-
-
+global using Avalonia.Controls.DataGridPivoting;
+ 
 global using Tripous;
 global using Tripous.Data;
  

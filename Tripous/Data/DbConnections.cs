@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace Tripous;
+namespace Tripous.Data;
 
 /// <summary>
 /// A container of <see cref="DbConnectionInfo"/> objects.

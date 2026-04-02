@@ -118,8 +118,6 @@
             return (Instance != null) && InheritsFrom(Instance.GetType(), Value);
         }
 
-
-
         /// <summary>
         /// Returns true if the ClassType has a public instance property with PropertyName
         /// </summary>
@@ -284,7 +282,6 @@
             return (T != null) && (T == typeof(double)) || (T == typeof(Nullable<double>));
         }
 
-
         static HashSet<Type> IntegerTypeSet = new HashSet<Type>
         {
             typeof(Byte),
@@ -296,35 +293,19 @@
             typeof(UInt32),
             typeof(UInt64)
         };
-
-
+        static HashSet<Type> FloatTypeSet = new HashSet<Type>
+        {
+            typeof(float),
+            typeof(double),
+            typeof(decimal)
+        };
         /// <summary>
         /// Returns true if a specified type is an integer type, i.e. Byte, SByte, Int16, Int32, Int64, UInt16, UInt32, UInt64
         /// </summary>
-        static public bool IsIntegerType(this Type T)
-        {
-            return IntegerTypeSet.Contains(T) || IntegerTypeSet.Contains(Nullable.GetUnderlyingType(T));
-        }
-        
-        static public bool IsNumericType(this Type DataType)
-        {
-            return
-                DataType == typeof(byte) ||
-                DataType == typeof(sbyte) ||
-                DataType == typeof(short) ||
-                DataType == typeof(ushort) ||
-                DataType == typeof(int) ||
-                DataType == typeof(uint) ||
-                DataType == typeof(long) ||
-                DataType == typeof(ulong) ||
-                DataType == typeof(float) ||
-                DataType == typeof(double) ||
-                DataType == typeof(decimal);
-        }
-
-        static public bool IsDateType(this Type DataType)
-        {
-            return DataType == typeof(DateTime);
-        }
+        static public bool IsInteger(this Type DataType) => IntegerTypeSet.Contains(DataType) || IntegerTypeSet.Contains(Nullable.GetUnderlyingType(DataType));
+        static public bool IsFloat(this Type DataType) => FloatTypeSet.Contains(DataType) || FloatTypeSet.Contains(Nullable.GetUnderlyingType(DataType));
+        static public bool IsNumeric(this Type DataType) => IsInteger(DataType) || IsFloat(DataType);
+        static public bool IsDateTime(this Type DataType) => DataType == typeof(DateTime);
+        static public bool IsString(this Type DataType) => DataType == typeof(string);
     }
 }

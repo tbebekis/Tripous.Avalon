@@ -15,7 +15,21 @@ namespace Tripous.Avalon;
 
 public partial class RowFilterItemDialog : DialogWindow
 {
-    private RowFilterItem RowFilterItem;
+    private sealed class OpItem
+    {
+        public OpItem(string Text, ConditionOp Op)
+        {
+            this.Text = Text;
+            this.Op = Op;
+        }
+
+        public string Text { get; }
+        public ConditionOp Op { get; }
+
+        public override string ToString() => Text;
+    }
+    
+    private RowFilterDef RowFilterDef;
     private GridColumnInfo ColumnInfo; 
     private TextBlock lblInfo;
     private ComboBox cboOperator;
@@ -32,20 +46,7 @@ public partial class RowFilterItemDialog : DialogWindow
             await ControlsToItem();
     }
  
-    private sealed class OpItem
-    {
-        public OpItem(string Text, ConditionOp Op)
-        {
-            this.Text = Text;
-            this.Op = Op;
-        }
-
-        public string Text { get; }
-        public ConditionOp Op { get; }
-
-        public override string ToString() => Text;
-    }
-
+    // ● private
     private OpItem FindOpItem(ConditionOp Op)
     {
         if (cboOperator?.ItemsSource is IEnumerable Items)
@@ -59,7 +60,6 @@ public partial class RowFilterItemDialog : DialogWindow
 
         return null;
     }
-
     private void UpdateNullState()
     {
         bool IsNull = chkIsNull?.IsChecked == true;
@@ -73,7 +73,6 @@ public partial class RowFilterItemDialog : DialogWindow
         if (dtpValue != null)
             dtpValue.IsEnabled = !IsNull;
     }
-
     private static string GetTypeText(Type T)
     {
         if (T == typeof(string))
@@ -94,10 +93,10 @@ public partial class RowFilterItemDialog : DialogWindow
     // ● overrides
     protected override async Task WindowInitialize()
     {
-        RowFilterItem = InputData as RowFilterItem;
-        ColumnInfo = RowFilterItem.Tag as GridColumnInfo;
-        ResultData = RowFilterItem;
-        this.Title = $"Filter: {RowFilterItem.FieldName}";
+        RowFilterDef = InputData as RowFilterDef;
+        ColumnInfo = RowFilterDef.Tag as GridColumnInfo;
+        ResultData = RowFilterDef;
+        this.Title = $"Filter: {RowFilterDef.FieldName}";
         btnCancel.Focus();
         
         await Task.CompletedTask;
@@ -109,13 +108,13 @@ public partial class RowFilterItemDialog : DialogWindow
 
         lblInfo = new TextBlock
         {
-            Text = $"{RowFilterItem.FieldName} ({GetTypeText(ColumnInfo.UnderlyingType)})"
+            Text = $"{RowFilterDef.FieldName} ({GetTypeText(ColumnInfo.UnderlyingType)})"
         };
         pnlFilterItem.Children.Add(lblInfo);
 
         List<OpItem> Ops = new();
 
-        if (ColumnInfo.IsStringColumn)
+        if (ColumnInfo.IsString)
         {
             Ops.Add(new OpItem("Equal", ConditionOp.Equal));
             Ops.Add(new OpItem("Not Equal", ConditionOp.NotEqual));
@@ -123,7 +122,7 @@ public partial class RowFilterItemDialog : DialogWindow
             Ops.Add(new OpItem("Starts With", ConditionOp.StartsWith));
             Ops.Add(new OpItem("Ends With", ConditionOp.EndsWith));
         }
-        else if (ColumnInfo.IsNumericColumn || ColumnInfo.IsDateColumn)
+        else if (ColumnInfo.IsNumeric || ColumnInfo.IsDate)
         {
             Ops.Add(new OpItem("Equal", ConditionOp.Equal));
             Ops.Add(new OpItem("Not Equal", ConditionOp.NotEqual));
@@ -144,7 +143,7 @@ public partial class RowFilterItemDialog : DialogWindow
         };
         pnlFilterItem.Children.Add(cboOperator);
 
-        if (ColumnInfo.IsDateColumn)
+        if (ColumnInfo.IsDate)
         {
             dtpValue = new DatePicker();
             pnlFilterItem.Children.Add(dtpValue);
@@ -162,24 +161,24 @@ public partial class RowFilterItemDialog : DialogWindow
         chkIsNull.IsCheckedChanged += (_, _) => UpdateNullState();
         pnlFilterItem.Children.Add(chkIsNull);
 
-        if (RowFilterItem.ConditionOp == ConditionOp.Null)
+        if (RowFilterDef.ConditionOp == ConditionOp.Null)
         {
             chkIsNull.IsChecked = true;
         }
         else
         {
-            OpItem Op = FindOpItem(RowFilterItem.ConditionOp);
+            OpItem Op = FindOpItem(RowFilterDef.ConditionOp);
             if (Op != null)
                 cboOperator.SelectedItem = Op;
 
-            if (ColumnInfo.IsDateColumn)
+            if (ColumnInfo.IsDate)
             {
-                if (RowFilterItem.Value is DateTime DT)
+                if (RowFilterDef.Value is DateTime DT)
                     dtpValue.SelectedDate = DT.Date;
             }
             else
             {
-                edtValue.Text = RowFilterItem.Value?.ToString() ?? string.Empty;
+                edtValue.Text = RowFilterDef.Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -194,13 +193,13 @@ public partial class RowFilterItemDialog : DialogWindow
     }
     protected override async Task ControlsToItem()
     {
-        RowFilterItem.FieldName = ColumnInfo.FieldName;
-        RowFilterItem.Value2 = null;
+        RowFilterDef.FieldName = ColumnInfo.FieldName;
+        RowFilterDef.Value2 = null;
 
         if (chkIsNull?.IsChecked == true)
         {
-            RowFilterItem.ConditionOp = ConditionOp.Null;
-            RowFilterItem.Value = null;
+            RowFilterDef.ConditionOp = ConditionOp.Null;
+            RowFilterDef.Value = null;
             this.ModalResult = ModalResult.Ok;
             return;
         }
@@ -208,9 +207,9 @@ public partial class RowFilterItemDialog : DialogWindow
         if (cboOperator.SelectedItem is not OpItem Op)
             throw new ApplicationException("No operator selected.");
 
-        RowFilterItem.ConditionOp = Op.Op;
+        RowFilterDef.ConditionOp = Op.Op;
 
-        if (ColumnInfo.IsStringColumn)
+        if (ColumnInfo.IsString)
         {
             string S = edtValue?.Text ?? string.Empty;
 
@@ -218,26 +217,26 @@ public partial class RowFilterItemDialog : DialogWindow
             {
                 case ConditionOp.Equal:
                 case ConditionOp.NotEqual:
-                    RowFilterItem.Value = S;
+                    RowFilterDef.Value = S;
                     break;
 
                 case ConditionOp.Contains:
-                    RowFilterItem.Value = S;
+                    RowFilterDef.Value = S;
                     break;
 
                 case ConditionOp.StartsWith:
-                    RowFilterItem.Value = S;
+                    RowFilterDef.Value = S;
                     break;
 
                 case ConditionOp.EndsWith:
-                    RowFilterItem.Value = S;
+                    RowFilterDef.Value = S;
                     break;
 
                 default:
                     throw new ApplicationException($"Unsupported operator for string column: {Op.Op}");
             }
         }
-        else if (ColumnInfo.IsNumericColumn)
+        else if (ColumnInfo.IsNumeric)
         {
             string S = edtValue?.Text ?? string.Empty;
 
@@ -247,28 +246,28 @@ public partial class RowFilterItemDialog : DialogWindow
             Type T = ColumnInfo.UnderlyingType;
 
             if (T == typeof(byte))
-                RowFilterItem.Value = byte.Parse(S, CultureInfo.InvariantCulture);
+                RowFilterDef.Value = byte.Parse(S, CultureInfo.InvariantCulture);
             else if (T == typeof(short))
-                RowFilterItem.Value = short.Parse(S, CultureInfo.InvariantCulture);
+                RowFilterDef.Value = short.Parse(S, CultureInfo.InvariantCulture);
             else if (T == typeof(int))
-                RowFilterItem.Value = int.Parse(S, CultureInfo.InvariantCulture);
+                RowFilterDef.Value = int.Parse(S, CultureInfo.InvariantCulture);
             else if (T == typeof(long))
-                RowFilterItem.Value = long.Parse(S, CultureInfo.InvariantCulture);
+                RowFilterDef.Value = long.Parse(S, CultureInfo.InvariantCulture);
             else if (T == typeof(float))
-                RowFilterItem.Value = float.Parse(S, CultureInfo.InvariantCulture);
+                RowFilterDef.Value = float.Parse(S, CultureInfo.InvariantCulture);
             else if (T == typeof(double))
-                RowFilterItem.Value = double.Parse(S, CultureInfo.InvariantCulture);
+                RowFilterDef.Value = double.Parse(S, CultureInfo.InvariantCulture);
             else if (T == typeof(decimal))
-                RowFilterItem.Value = decimal.Parse(S, CultureInfo.InvariantCulture);
+                RowFilterDef.Value = decimal.Parse(S, CultureInfo.InvariantCulture);
             else
                 throw new ApplicationException($"Unsupported numeric type: {T}");
         }
-        else if (ColumnInfo.IsDateColumn)
+        else if (ColumnInfo.IsDate)
         {
             if (dtpValue?.SelectedDate == null)
                 throw new ApplicationException("A date value is required.");
 
-            RowFilterItem.Value = dtpValue.SelectedDate.Value.DateTime;
+            RowFilterDef.Value = dtpValue.SelectedDate.Value.DateTime;
         }
         else
         {

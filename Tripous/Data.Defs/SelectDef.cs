@@ -1,8 +1,3 @@
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
-
 namespace Tripous.Data;
 
 public class SelectDef
@@ -13,7 +8,8 @@ public class SelectDef
     
     // ● private
     private ObservableCollection<SqlFilterDef> fFilters;
-    private ObservableCollection<GridViewDef> fGridViews;
+    private ObservableCollection<GridViewDef> fViews;
+    private ObservableCollection<PivotDef> fPivots;
     
     // ● construction
     public SelectDef()
@@ -212,6 +208,8 @@ public class SelectDef
     }
     public string Description { get; set; }
     public string LastSelectSqlText { get; set; }
+    [JsonIgnore]
+    public object Tag { get; set; }
 
     public ObservableCollection<SqlFilterDef> Filters
     {
@@ -223,17 +221,27 @@ public class SelectDef
         }
         set => fFilters = value;
     }
-    public ObservableCollection<GridViewDef> GridViews
+    public ObservableCollection<GridViewDef> Views
     {
         get
         {
-            if (fGridViews == null)
-                fGridViews = new();
-            return fGridViews;
+            if (fViews == null)
+                fViews = new();
+            return fViews;
         }
-        set => fGridViews = value;
+        set => fViews = value;
     }
-
+    public ObservableCollection<PivotDef> Pivots
+    {
+        get
+        {
+            if (fPivots == null)
+                fPivots = new();
+            return fPivots;
+        }
+        set => fPivots = value;
+    }
+    
     [JsonIgnore] 
     public bool HasErrors => !string.IsNullOrWhiteSpace(Errors);
     [JsonIgnore] 

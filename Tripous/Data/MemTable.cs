@@ -373,8 +373,10 @@ public class MemTable : DataTable
         string format = UseBrackets ? "B" : "D";
         return Guid.NewGuid().ToString(format).ToUpper();
     }
-
-    static public void Clear(DataRow Row)
+    /// <summary>
+    /// Sets all data rows to <see cref="DBNull.Value"/>
+    /// </summary>
+    static public void SetAllRowsToNull(DataRow Row)
     {
         for (int i = 0; i < Row.Table.Columns.Count; i++)
             Row[i] = DBNull.Value;

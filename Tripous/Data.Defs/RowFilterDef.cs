@@ -1,130 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-
 namespace Tripous.Data;
 
-public enum BoolOp
-{
-    None = 0,
-    And = 1,
-    Or = 2,
-    AndNot = 4,
-    OrNot = 8
-}
-
-public enum ConditionOp
-{
-    None = 0,
-    Equal = 1,
-    NotEqual = 2,
-    Greater = 3,
-    GreaterOrEqual = 4,
-    Less = 5,
-    LessOrEqual = 6,
-    Like = 7,
-    Contains = 8,
-    StartsWith = 9,
-    EndsWith = 10,
-    Between = 11,
-    In = 12,
-    Null = 13
-}
-
-static public class RowFilterExtensions
-{
-    static public string GetText(this BoolOp Op)
-    {
-        switch (Op)
-        {
-            case BoolOp.And: return "and ";
-            case BoolOp.Or: return "or ";
-            case BoolOp.AndNot: return "and not ";
-            case BoolOp.OrNot: return "or not ";
-        }
-
-        return string.Empty;
-    }
-
-    static public string GetText(this ConditionOp Op)
-    {
-        switch (Op)
-        {
-            case ConditionOp.Equal: return " = ";
-            case ConditionOp.NotEqual: return " <> ";
-            case ConditionOp.Greater: return " > ";
-            case ConditionOp.GreaterOrEqual: return " >= ";
-            case ConditionOp.Less: return " < ";
-            case ConditionOp.LessOrEqual: return " <= ";
-            case ConditionOp.Like:
-            case ConditionOp.Contains:
-            case ConditionOp.StartsWith:
-            case ConditionOp.EndsWith:
-                return " like ";
-            case ConditionOp.Between: return " between ";
-            case ConditionOp.In: return " in ";
-            case ConditionOp.Null: return " is null ";
-        }
-
-        return string.Empty;
-    }
-}
-
-static class RowFilterFormatter
-{
-    public static string Field(string Name)
-        => $"[{Name.Replace("]", "]]")}]";
-
-    public static string Value(object Value)
-    {
-        if (Value == null || Value == DBNull.Value)
-            return "null";
-
-        switch (Value)
-        {
-            case string S:
-                return $"'{S.Replace("'", "''")}'";
-
-            case bool B:
-                return B ? "true" : "false";
-
-            case DateTime Dt:
-                return $"#{Dt:MM/dd/yyyy HH:mm:ss}#";
-
-            case DateTimeOffset Dto:
-                return $"#{Dto.DateTime:MM/dd/yyyy HH:mm:ss}#";
-
-            case int or long or short or byte:
-            case float or double or decimal:
-                return Convert.ToString(Value, CultureInfo.InvariantCulture);
-
-            case IEnumerable E when Value is not string:
-                return string.Join(", ", E.Cast<object>().Select(RowFilterFormatter.Value));
-
-            default:
-                return $"'{Value.ToString()?.Replace("'", "''")}'";
-        }
-    }
-
-    public static string LikePattern(ConditionOp ConditionOp, string Text)
-    {
-        Text ??= string.Empty;
-
-        return ConditionOp switch
-        {
-            ConditionOp.Contains => $"%{Text}%",
-            ConditionOp.StartsWith => $"{Text}%",
-            ConditionOp.EndsWith => $"%{Text}",
-            _ => Text,
-        };
-    }
-}
-
-public class RowFilterItem
+ public class RowFilterDef
 {
     private bool fCorrectingSerialization;
     private string fValueText;
@@ -134,6 +10,7 @@ public class RowFilterItem
     private object fValue;
     private object fValue2;
 
+    // ● overrides
     private void CorrectSerialization()
     {
         if (fCorrectingSerialization)
@@ -224,7 +101,6 @@ public class RowFilterItem
             fCorrectingSerialization = false;
         }
     }
-
     private static string ConvertToText(object Value)
     {
         if (Value == null)
@@ -255,7 +131,6 @@ public class RowFilterItem
 
         return Convert.ToString(Value, CultureInfo.InvariantCulture);
     }
-
     private static object ConvertFromText(string Text, Type T)
     {
         if (Text == null)
@@ -303,15 +178,15 @@ public class RowFilterItem
         return Convert.ChangeType(Text, T, CultureInfo.InvariantCulture);
     }
 
-    public RowFilterItem()
+    // ● construction
+    public RowFilterDef()
     {
     }
-
     /// <summary>
     /// Constructor
     /// <para>With <see cref="ConditionOp.In"/> a value could be an <see cref="IEnumerable"/>, e.g. new[] { "Open", "Closed", "Pending" }</para>
     /// </summary>
-    public RowFilterItem(BoolOp BoolOp, ConditionOp ConditionOp, string FieldName, object Value, object Value2 = null)
+    public RowFilterDef(BoolOp BoolOp, ConditionOp ConditionOp, string FieldName, object Value, object Value2 = null)
         : this()
     {
         this.BoolOp = BoolOp;
@@ -321,8 +196,8 @@ public class RowFilterItem
         this.Value2 = Value2;
     }
 
+    // ● public
     public override string ToString() => this.Text;
-
     public void Check()
     {
         if (ConditionOp == ConditionOp.None)
@@ -361,10 +236,10 @@ public class RowFilterItem
         }
     }
 
+    // ● properties
     public BoolOp BoolOp { get; set; }
     public ConditionOp ConditionOp { get; set; }
     public string FieldName { get; set; }
-
     [JsonIgnore]
     public object Value
     {
@@ -375,7 +250,6 @@ public class RowFilterItem
             CorrectSerialization();
         }
     }
-
     [JsonIgnore]
     public object Value2
     {
@@ -386,7 +260,6 @@ public class RowFilterItem
             CorrectSerialization();
         }
     }
-
     public string ValueText
     {
         get => fValueText;
@@ -396,7 +269,6 @@ public class RowFilterItem
             CorrectSerialization();
         }
     }
-
     public string Value2Text
     {
         get => fValue2Text;
@@ -406,7 +278,6 @@ public class RowFilterItem
             CorrectSerialization();
         }
     }
-
     public string ValueType
     {
         get => fValueType;
@@ -416,7 +287,6 @@ public class RowFilterItem
             CorrectSerialization();
         }
     }
-
     public string Value2Type
     {
         get => fValue2Type;
@@ -426,7 +296,6 @@ public class RowFilterItem
             CorrectSerialization();
         }
     }
-
     [JsonIgnore]
     public string Text
     {
@@ -489,54 +358,6 @@ public class RowFilterItem
             return Text;
         }
     }
-
     [JsonIgnore]
     public object Tag { get; set; }
-}
-
-public class RowFilterItemList : List<RowFilterItem>
-{
-    public RowFilterItemList()
-    {
-    }
-
-    public override string ToString() => this.Text;
-    public void Check() => ForEach(x => x.Check());
-
-    public RowFilterItem Add(BoolOp BoolOp, ConditionOp ConditionOp, string FieldName, object Value, object Value2 = null)
-    {
-        RowFilterItem Result = new RowFilterItem(BoolOp, ConditionOp, FieldName, Value, Value2);
-        this.Add(Result);
-        return Result;
-    }
-
-    [JsonIgnore]
-    public string Text
-    {
-        get
-        {
-            Check();
-            StringBuilder SB = new();
-
-            string Text;
-
-            for (int i = 0; i < Count; i++)
-            {
-                RowFilterItem Item = this[i];
-                Text = Item.Text;
-
-                if (i == 0)
-                {
-                    if (Text.StartsWith("and "))
-                        Text = Text.Remove(0, "and ".Length);
-                    else if (Text.StartsWith("or "))
-                        Text = Text.Remove(0, "or ".Length);
-                }
-
-                SB.Append(Text);
-            }
-
-            return SB.ToString();
-        }
-    }
 }

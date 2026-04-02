@@ -1,4 +1,4 @@
-namespace Tripous.Data;
+ namespace Tripous.Data;
 
 public class GridViewDef
 {
@@ -9,6 +9,31 @@ public class GridViewDef
 
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
+    public string GetDescription()
+    {
+        StringBuilder SB = new();
+        
+        // group
+        string S = string.Join(", ", GroupList);
+        SB.AppendLine($"Group: [{S}]");
+            
+        // hidden columns
+        S = string.Join(", ", HiddenList);
+        SB.AppendLine($"Hidden: {S}");
+            
+        // summaries
+        S = string.Join(", ", Summaries
+            .Where(x => x.Value != AggregateType.None)
+            .Select(x => $"{x.Key} = {x.Value}"));
+        SB.AppendLine($"Summaries: {S}");
+            
+        // row filters
+        S = RowFilters.Text;
+        SB.AppendLine($"RowFilter: {S}");
+            
+        S = SB.ToString();
+        return S;
+    }
     public void ClearLists()
     {
         OrderList.Clear();
@@ -42,5 +67,8 @@ public class GridViewDef
     /// <summary>
     /// RowFilter definitions for columns participating in the DataView filtering.
     /// </summary>
-    public RowFilterItemList RowFilters { get; set; } = new();
+    public RowFilterDefs RowFilters { get; set; } = new();
+    
+    [JsonIgnore]
+    public object Tag { get; set; }
 }

@@ -1,6 +1,4 @@
-using System.Text;
-
-namespace Tripous;
+namespace Tripous.Data;
 
 public class DbMetaTable : DbMetaObject
 {

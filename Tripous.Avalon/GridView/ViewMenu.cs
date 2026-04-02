@@ -6,8 +6,9 @@ namespace Tripous.Avalon;
 /// by displaying a context menu with items
 /// for handling groups, summmaries, filters and column visibility.
 /// </summary>
-public class DataGridViewHandler
+public class ViewMenu
 {
+    bool fIsEnabled;
     private ContextMenu mnuContextMenu;
     private MenuItem mnuToggleGrouping;
     private MenuItem mnuClearGroup;
@@ -36,7 +37,7 @@ public class DataGridViewHandler
     private DataGridColumn colSelected;
     List<DataGridColumn> GroupColumns = new();  
     Dictionary<DataGridColumn, AggregateType> ColumnSummaries = new();
-    Dictionary<DataGridColumn, RowFilterItem> ColumnFilters = new();
+    Dictionary<DataGridColumn, RowFilterDef> ColumnFilters = new();
     private GridExport GridExporter;
     
     // ● event handlers
@@ -159,9 +160,9 @@ public class DataGridViewHandler
             if (ColumnFilters.Count > 0)
             {
                 var List = ColumnFilters.Values.ToList();
-                RowFilterItemList FilterItemList = new();
-                FilterItemList.AddRange(List.ToArray());
-                Filter = FilterItemList.Text;
+                RowFilterDefs filterDefs = new();
+                filterDefs.AddRange(List.ToArray());
+                Filter = filterDefs.Text;
             }
             
             if (Binder.DataTable is MemTable)
@@ -219,7 +220,7 @@ public class DataGridViewHandler
         mnuContextMenu = new ContextMenu();
         mnuContextMenu.ItemsSource = list.ToArray();
  
-        Grid.ColumnHeaderContextMenu = mnuContextMenu;
+       
         
         //--------------------------------------------
         mnuContextMenu.Opening += (sender, args) =>
@@ -227,8 +228,8 @@ public class DataGridViewHandler
             colSelected = GetSelectedColumn();
             Type DataType = colSelected != null? colSelected.GetColumnDataType(): null;
 
-            bool IsNumeric = DataType != null? DataType.IsNumericType(): false;
-            bool IsDate = DataType != null? DataType.IsDateType(): false;
+            bool IsNumeric = DataType != null? DataType.IsNumeric(): false;
+            bool IsDate = DataType != null? DataType.IsDateTime(): false;
             
             
             // enabled
@@ -355,22 +356,22 @@ public class DataGridViewHandler
     {
         if (colSelected != null)
         {
-            RowFilterItem RowFilterItem = HasFilter(colSelected)? ColumnFilters[colSelected]: null;
-            bool IsNew = RowFilterItem == null;
+            RowFilterDef rowFilterDef = HasFilter(colSelected)? ColumnFilters[colSelected]: null;
+            bool IsNew = rowFilterDef == null;
             if (IsNew)
             {
-                RowFilterItem = new RowFilterItem();
-                RowFilterItem.BoolOp = BoolOp.And; // always AND
+                rowFilterDef = new RowFilterDef();
+                rowFilterDef.BoolOp = BoolOp.And; // always AND
                 GridColumnInfo ColumnInfo = colSelected.Tag as GridColumnInfo;
-                RowFilterItem.FieldName = ColumnInfo.FieldName;
-                RowFilterItem.Tag = ColumnInfo;
+                rowFilterDef.FieldName = ColumnInfo.FieldName;
+                rowFilterDef.Tag = ColumnInfo;
             }
             
-            DialogData Data = await DialogWindow.ShowModal<RowFilterItemDialog>(RowFilterItem);
-            if (Data.Result)
+            DialogData data = await DialogWindow.ShowModal<RowFilterItemDialog>(rowFilterDef);
+            if (data.Result)
             {
                 if (IsNew)
-                    ColumnFilters[colSelected] = RowFilterItem;
+                    ColumnFilters[colSelected] = rowFilterDef;
                 ColumnFiltersChanged();
             }
         }
@@ -386,31 +387,11 @@ public class DataGridViewHandler
     }
  
     // ● construction
-    public DataGridViewHandler(DataGrid Grid)
+    public ViewMenu(DataGrid Grid)
     {
         this.Grid = Grid;
         
-        Grid.IsReadOnly = true;
-        Grid.CanUserPaste = false;
-        
-        Grid.CanUserAddRows = false;
-        Grid.CanUserDeleteRows = false;
-        Grid.CanUserReorderRows = false;
-        Grid.CanUserSelectRows = false;
-        
-        Grid.CanUserReorderColumns = true;
-        Grid.CanUserHideColumns = true;
-        Grid.CanUserResizeColumns = true;
-        Grid.CanUserSelectColumns = true;
-        Grid.CanUserResizeColumnsOnDoubleClick = true;
-        
-        Grid.ShowTotalSummary = true;
-        Grid.ShowGroupSummary = true;
-        Grid.TotalSummaryPosition = DataGridSummaryRowPosition.Bottom;
-        Grid.GroupSummaryPosition = DataGridGroupSummaryPosition.Footer;
-         
-        CreateContextMenu();
-        ColumnListChanged();
+
     }
     
     // ● public
@@ -430,7 +411,6 @@ public class DataGridViewHandler
         ColumnFilters.Clear();
         ColumnFiltersChanged();
     }
-    
     
     public void SaveTo(GridViewDef Def)
     {
@@ -480,7 +460,7 @@ public class DataGridViewHandler
         ColumnSummariesChanged();
         
         DataGridColumn Column;
-        RowFilterItem RowFilterItem;
+        RowFilterDef RowFilterDef;
 
         string FieldName;
         for (int i = 0; i < Def.OrderList.Count; i++)
@@ -493,9 +473,9 @@ public class DataGridViewHandler
                 Column.IsVisible = !Def.HiddenList.Contains(FieldName);
                 ColumnSummaries[Column] = Def.Summaries.ContainsKey(FieldName) ? Def.Summaries[FieldName]: AggregateType.None;
 
-                RowFilterItem = Def.RowFilters.FirstOrDefault(x => FieldName.IsSameText(x.FieldName));
-                if (RowFilterItem != null)
-                    ColumnFilters[Column] = RowFilterItem;
+                RowFilterDef = Def.RowFilters.FirstOrDefault(x => FieldName.IsSameText(x.FieldName));
+                if (RowFilterDef != null)
+                    ColumnFilters[Column] = RowFilterDef;
             }
         }
 
@@ -519,4 +499,49 @@ public class DataGridViewHandler
     
     // ● properties
     public DataGrid Grid { get;  }
+    public bool IsEnabled 
+    {
+        get => fIsEnabled;
+        set
+        {
+            if (fIsEnabled != value)
+            {
+                fIsEnabled = value;
+                if (value)
+                {
+                    Grid.IsReadOnly = true;
+                    Grid.CanUserPaste = false;
+        
+                    Grid.CanUserAddRows = false;
+                    Grid.CanUserDeleteRows = false;
+                    Grid.CanUserReorderRows = false;
+                    Grid.CanUserSelectRows = false;
+        
+                    Grid.CanUserReorderColumns = true;
+                    Grid.CanUserHideColumns = true;
+                    Grid.CanUserResizeColumns = true;
+                    Grid.CanUserSelectColumns = true;
+                    Grid.CanUserResizeColumnsOnDoubleClick = true;
+        
+                    Grid.ShowTotalSummary = true;
+                    Grid.ShowGroupSummary = true;
+                    Grid.TotalSummaryPosition = DataGridSummaryRowPosition.Bottom;
+                    Grid.GroupSummaryPosition = DataGridGroupSummaryPosition.Footer;
+
+                    if (mnuContextMenu == null)
+                    {
+                        CreateContextMenu();
+                        Grid.ColumnHeaderContextMenu = mnuContextMenu;
+                    }
+                    
+                    ColumnListChanged();
+                }
+                else
+                {
+                    Grid.ColumnHeaderContextMenu = null;
+                }
+            }
+        }
+    }
+ 
 }

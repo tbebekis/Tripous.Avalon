@@ -25,7 +25,7 @@ public partial class MainWindow : Window
 
     void Test()
     {
-        RowFilterItemList RowFilterList = new();
+        RowFilterDefs RowFilterList = new();
 
         //RowFilterList.Add(BoolOp.And, ConditionOp.Equal, "Customer", "Takis");
         //RowFilterList.Add(BoolOp.AndNot, ConditionOp.GreaterOrEqual, "Amount", 123.5m);
@@ -42,7 +42,7 @@ public partial class MainWindow : Window
         string JsonText = Json.Serialize(RowFilterList);
         //edtLog.Text = JsonText;
         
-        RowFilterList = Json.Deserialize<RowFilterItemList>(JsonText);
+        RowFilterList = Json.Deserialize<RowFilterDefs>(JsonText);
         JsonText = Json.Serialize(RowFilterList);
         edtLog.Text = JsonText;
     }
