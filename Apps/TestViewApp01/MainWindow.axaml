@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ae="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TestViewApp01.MainWindow"
+        Width="1100"
+        Height="600"
+        WindowStartupLocation="CenterScreen"
+        Title="TestViewApp01">
+        
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top" 
+                    Orientation="Horizontal" 
+                    Spacing="10" 
+                    Margin="0,0,0,10">
+            
+            <Button x:Name="btnTest" 
+                    Content="Test" 
+                    Click="AnyClick" />
+            
+            <Button x:Name="btnTest2" 
+                    Content="Test 2" 
+                    Click="AnyClick" />
+        </StackPanel>
+
+        <TabControl>
+            <TabItem Header="Data">
+                <Border BorderBrush="Gray" BorderThickness="1">
+                    <DataGrid Name="gridView" 
+                              GridLinesVisibility="All" />
+                </Border>
+            </TabItem>
+            <TabItem Header="Log">
+                <Border BorderBrush="Gray" BorderThickness="1">
+                    <ae:TextEditor Name="edtLog"
+                                   FontFamily="Cascadia Code,Consolas,Monospace"
+                                   HorizontalScrollBarVisibility="Auto"
+                                   VerticalScrollBarVisibility="Visible"
+                                   FontWeight="Light"
+                                   FontSize="14" />
+                </Border>
+            </TabItem>
+
+
+        </TabControl>
+    </DockPanel>          
+</Window>

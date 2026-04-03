@@ -108,7 +108,7 @@ public class Locator
     }
     
 }
-
+/*
 public enum AggregateType
 {
     None,
@@ -118,11 +118,235 @@ public enum AggregateType
     Min,
     Max, 
 }
+*/
+ 
 
-public class PivotDef
+// ---------------------------------------------
+
+public enum DataGridExMode
 {
-    public string Name { get; set; }
-    public List<string> Vertical { get; set; } = new();
-    public List<string> Horizontal { get; set; } = new();
-    public Dictionary<string, AggregateType> Summaries { get; set; } = new();
+    None, // normal
+    Group,
+    Pivot,
+}
+
+public class DataGridExDataSource
+{
+    private object fDataSource;
+    
+    // ● overridable
+    protected virtual void DataSourceChanged()
+    {
+        // process fDataSource according to Grid.Mode and then assign the Grid.DataModel
+        Grid.DataModel = this.DataModel;
+    }
+    
+    // ● construction
+    public DataGridExDataSource(DataGridEx Grid)
+    {
+        this.Grid = Grid;
+    }
+
+    // ● properties
+    public DataGridEx Grid { get; }
+    public object DataSource
+    {
+        get => fDataSource;
+        set
+        {
+            if (fDataSource != value)
+            {
+                if (value == null || value is DataView || value is IEnumerable)
+                {
+                    fDataSource = null;
+                }
+                else if (value is DataTable)
+                {
+                    fDataSource = (value as DataTable).DefaultView;
+                }
+                else
+                {
+                    throw new ApplicationException($"DataSource not supported: {value.GetType()}");
+                }
+
+                DataSourceChanged();
+            }
+        }
+    }
+    public object DataModel { get; private set; }
+}
+
+public class DataGridExCustomButton
+{
+    public string ToolTip { get; set; }
+    public string Image { get; set; } // δεν ξέρω τι τύπο να βάλω, ποιο είναι το σωστό εδώ
+    public int OrdinalIndex { get; set; }
+
+    public event EventHandler<RoutedEventArgs> Click;
+}
+
+public class DataGridExColumnInfo
+{
+    internal DataGridExColumnInfo(DataGridColumn GridColumn, DataColumn TableColumn)
+    {
+        this.TableColumn = TableColumn;
+        this.GridColumn = GridColumn;
+
+        FieldName = TableColumn.ColumnName;
+        DataType = TableColumn.DataType;
+        UnderlyingType = Nullable.GetUnderlyingType(DataType) ?? DataType;
+        
+        GridColumn.ColumnKey = FieldName;
+    }
+    internal DataGridExColumnInfo(DataGridColumn GridColumn, PropertyInfo PropertyInfo)
+    {
+        this.PropertyInfo = PropertyInfo;
+        this.GridColumn = GridColumn;
+
+        FieldName = PropertyInfo.Name;
+        DataType = PropertyInfo.PropertyType;
+        UnderlyingType = Nullable.GetUnderlyingType(DataType) ?? DataType;
+        
+        GridColumn.ColumnKey = FieldName;
+    }
+    
+    public DataGridColumn GridColumn { get; }
+    public DataColumn TableColumn { get; }
+    public PropertyInfo PropertyInfo { get; }
+    public string FieldName { get; }
+    public Type DataType  { get; }
+    public Type UnderlyingType { get; }
+    public bool IsString => UnderlyingType.IsString();  
+    public bool IsDate => UnderlyingType.IsDateTime(); 
+    public bool IsNumeric => UnderlyingType.IsNumeric();
+    public bool IsRowFilterSupportedColumn => IsString || IsNumeric || IsDate;
+
+    public AggregateType[] ValidAggregates => UnderlyingType.GetValidAggregates();
+}
+
+/// <summary>
+/// No complex binding path for columns. We just use either the FieldName (DataView) or the PropertyName (Poco) 
+/// </summary>
+public class DataGridEx
+{
+    // ● private
+    private DataGridExMode fMode;
+    private DataGridExDataSource fDataSource;
+    private object fDataModel;
+    private GridViewDef fViewDef;
+    private PivotDef fPivotDef;
+    private List<DataGridExCustomButton> Buttons = new();
+    private List<DataGridExColumnInfo> ColumnInfoListInternal = new();
+    
+    // ● overridable
+    protected virtual void ModeChanged()
+    {
+        // whatever
+    }
+    protected virtual void DataSourceChanged()
+    {
+        // whatever
+    }
+    protected virtual void DataModelChanged()
+    {
+        // use DataModel to fill the ColumnInfoListInternal
+        // use DataModel according to Grid.Mode in order to bind to grid and render data using the proper renderer
+    }
+    protected virtual void ViewDefChanged()
+    {
+    }
+    protected virtual void PivotDefChanged()
+    {
+    }
+    
+    // ● construction
+    public DataGridEx()
+    {
+    }
+    
+    // ● public
+    public DataGridExCustomButton AddButton(string ToolTip, string Image)
+    {
+        DataGridExCustomButton Result = new() { ToolTip = ToolTip, Image = Image };
+        Buttons.Add(Result);
+        Result.OrdinalIndex = Buttons.IndexOf(Result);
+        // TODO: Adjust UI
+        return Result;
+    }
+    public void RemoveButton(DataGridExCustomButton CustomButton)
+    {
+        Buttons.Remove(CustomButton);
+        // TODO: Adjust UI
+    }
+    
+    // ● properties
+    public DataGridExMode Mode     {
+        get => fMode;
+        set
+        {
+            if (fMode != value)
+            {
+                fMode = value;
+                ModeChanged();
+            }
+        }
+    }
+    public DataGridExDataSource DataSource
+    {
+        get => fDataSource;
+        set
+        {
+            if (fDataSource != value)
+            {
+                fDataSource = value;
+                DataSourceChanged();
+            }
+        }
+    }
+    public object DataModel
+    {
+        get => fDataModel;
+        internal set
+        {
+            if (fDataModel != value)
+            {
+                fDataModel = value;
+                DataModelChanged();
+            }
+        }
+    }
+    public GridViewDef ViewDef
+    {
+        get => fViewDef;
+        set
+        {
+            if (fViewDef != value)
+            {
+                fViewDef = value;
+                ViewDefChanged();
+            }
+        }
+    }
+    public PivotDef PivotDef
+    {
+        get => fPivotDef;
+        set
+        {
+            if (fPivotDef != value)
+            {
+                fPivotDef = value;
+                PivotDefChanged();
+            }
+        }
+    }
+    
+    public bool IsGroupPanelVisible { get; set; }   // top panel where the user drags n drops column headers for grouping
+    public bool IsBottomPanelVisible { get; set; }  // bottom summary panel (grand totals, etc)
+    public bool IsToolBarVisible { get; set; }
+    public bool IsConfigButtonVisible { get; set; } // displays the proper configuration dialog, i.e. GroupSumDefDialog or PivotDefDialog
+    public bool IsAddButtonVisible { get; set; }
+    public bool IsEditButtonVisible { get; set; }
+    public bool IsDeleteButtonVisible { get; set; }
+
+    public IReadOnlyList<DataGridExColumnInfo> ColumnInfoList => ColumnInfoListInternal;
 }
