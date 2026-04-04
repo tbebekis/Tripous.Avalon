@@ -136,7 +136,7 @@ public class GridViewDef
     /// <summary>
     /// When true then grouped columns are displayed as data columns too.
     /// </summary>
-    public bool ShowGroupColumnsAsDataColumns { get; set; } = true;
+    public bool ShowGroupColumnsAsDataColumns { get; set; } = false;
 
     [JsonIgnore] 
     public GridViewColumnDef this[string FieldName] => Get(FieldName);

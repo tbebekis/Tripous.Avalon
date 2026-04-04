@@ -522,6 +522,7 @@ public class GridViewData: GridViewNode
     // ● private fields
     private List<GridViewNode> fVisibleNodes;
     private ObservableCollection<GridDataRow> fRows;
+    private int fPosition = -1;
 
     // ● private methods
     private void AddVisibleNode(GridViewNode Node)
@@ -553,6 +554,22 @@ public class GridViewData: GridViewNode
 
         return GridDataRowType.Data;
     }
+    private void OnPositionChanged()
+    {
+        PositionChanged?.Invoke(this, EventArgs.Empty);
+    }
+    private bool SetPositionInternal(int Index)
+    {
+        if (Index < -1 || Index >= Rows.Count)
+            return false;
+
+        if (fPosition == Index)
+            return false;
+
+        fPosition = Index;
+        OnPositionChanged();
+        return true;
+    }
 
     // ● constructors
     public GridViewData()
@@ -570,6 +587,9 @@ public class GridViewData: GridViewNode
 
         foreach (GridViewNode Item in Items)
             AddVisibleNode(Item);
+
+        if (GroupFootersVisible && Footer != null)
+            fVisibleNodes.Add(Footer);
     }
     public void RebuildRows()
     {
@@ -587,6 +607,40 @@ public class GridViewData: GridViewNode
 
             fRows.Add(Row);
         }
+
+        if (fRows.Count == 0)
+            SetPositionInternal(-1);
+        else if (fPosition < 0 || fPosition >= fRows.Count)
+            SetPositionInternal(0);
+        else
+            OnPositionChanged();
+    }
+
+    public bool MoveTo(int Index)
+    {
+        return SetPositionInternal(Index);
+    }
+    public bool MoveFirst()
+    {
+        return Rows.Count > 0 && SetPositionInternal(0);
+    }
+    public bool MoveLast()
+    {
+        return Rows.Count > 0 && SetPositionInternal(Rows.Count - 1);
+    }
+    public bool MoveNext()
+    {
+        if (fPosition < Rows.Count - 1)
+            return SetPositionInternal(fPosition + 1);
+
+        return false;
+    }
+    public bool MovePrior()
+    {
+        if (fPosition > 0)
+            return SetPositionInternal(fPosition - 1);
+
+        return false;
     }
 
     // ● properties
@@ -595,6 +649,12 @@ public class GridViewData: GridViewNode
     public List<GridViewNode> VisibleNodes => fVisibleNodes;
     public ObservableCollection<GridDataRow> Rows => fRows;
     public bool GroupFootersVisible { get; internal set; } = true;
+
+    public int Position => fPosition;
+    public GridDataRow Current => (fPosition >= 0 && fPosition < Rows.Count) ? Rows[fPosition] : null;
+
+    // ● events
+    public event EventHandler PositionChanged;
 }
 
 public class GridViewDataChangedEventArgs: EventArgs
@@ -614,6 +674,7 @@ public class GridViewDataChangedEventArgs: EventArgs
 public class GridViewController: IDisposable
 {
     // ● private fields
+    private static FieldInfo fIsExpandedField;
     private GridViewData fData;
     private bool fDisposed;
     private GridViewSource fSource;
@@ -621,6 +682,28 @@ public class GridViewController: IDisposable
     private GridViewDef fViewDef;
 
     // ● private methods
+    private void AttachData(GridViewData Data)
+    {
+        if (ReferenceEquals(fData, Data))
+            return;
+
+        DetachData();
+        fData = Data;
+
+        if (fData != null)
+            fData.PositionChanged += Data_PositionChanged;
+    }
+    private static void CollectExpandedState(GridViewNode Node, Dictionary<string, bool> Map)
+    {
+        if (Node == null)
+            return;
+
+        if (Node.IsGroup && !Node.IsRoot)
+            Map[GetGroupStateKey(Node)] = Node.IsExpanded;
+
+        foreach (GridViewNode Child in Node.Items)
+            CollectExpandedState(Child, Map);
+    }
     private void CloseSource()
     {
         if (fSource != null)
@@ -630,33 +713,20 @@ public class GridViewController: IDisposable
             fSource = null;
         }
 
-        fData = null;
+        AttachData(null);
         fViewDef = null;
     }
-    private void OnDataChanged(GridViewDataChangedEventArgs e)
+    private void Data_PositionChanged(object Sender, EventArgs e)
     {
-        DataChanged?.Invoke(this, e);
+        OnPositionChanged();
     }
-    private void Refresh(GridViewSourceChangedEventArgs e = null)
+    private void DetachData()
     {
-        if (fSource == null)
-        {
-            fData = null;
-            OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
-            return;
-        }
+        if (fData != null)
+            fData.PositionChanged -= Data_PositionChanged;
 
-        fData = GridViewEngine.Execute(fSource, fViewDef);
-        OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
+        fData = null;
     }
-    private void Source_SourceChanged(object sender, GridViewSourceChangedEventArgs e)
-    {
-        if (fSuppressSourceChanged)
-            return;
-
-        Refresh(e);
-    }
-
     private GridViewColumnDef FindColumn(string FieldName)
     {
         if (fViewDef == null || string.IsNullOrWhiteSpace(FieldName))
@@ -664,22 +734,148 @@ public class GridViewController: IDisposable
 
         return fViewDef.Columns.FirstOrDefault(x => string.Equals(x.FieldName, FieldName, StringComparison.OrdinalIgnoreCase));
     }
-    private bool RequiresRefresh(string FieldName)
+    private EditRefreshMode GetEditRefreshMode(string FieldName)
     {
         if (fViewDef == null || string.IsNullOrWhiteSpace(FieldName))
-            return true;
+            return EditRefreshMode.Full;
 
         GridViewColumnDef Column = FindColumn(FieldName);
         if (Column == null)
-            return true;
+            return EditRefreshMode.Full;
 
         if (Column.GroupIndex >= 0)
-            return true;
+            return EditRefreshMode.Full;
 
         if (Column.Aggregate != AggregateType.None)
-            return true;
+            return EditRefreshMode.Full;
 
-        return true;
+        return EditRefreshMode.RenderOnly;
+    }
+    private static string GetGroupStateKey(GridViewNode Node)
+    {
+        List<string> Parts = new();
+
+        while (Node != null && !Node.IsRoot)
+        {
+            if (Node.IsGroup)
+            {
+                string FieldName = Node.FieldName ?? string.Empty;
+                string KeyText = Convert.ToString(Node.Key, CultureInfo.InvariantCulture) ?? "<null>";
+                Parts.Add($"{Node.Level}:{FieldName}={KeyText}");
+            }
+
+            Node = Node.Parent;
+        }
+
+        Parts.Reverse();
+        return string.Join("\u001F", Parts);
+    }
+    private static FieldInfo GetIsExpandedField()
+    {
+        if (fIsExpandedField == null)
+            fIsExpandedField = typeof(GridViewNode).GetField("fIsExpanded", BindingFlags.Instance | BindingFlags.NonPublic);
+
+        return fIsExpandedField;
+    }
+    private void NotifyRenderOnlyChanged(GridViewSourceChangedEventArgs e = null)
+    {
+        OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
+    }
+    private void OnDataChanged(GridViewDataChangedEventArgs e)
+    {
+        DataChanged?.Invoke(this, e);
+    }
+    private void OnPositionChanged()
+    {
+        PositionChanged?.Invoke(this, EventArgs.Empty);
+    }
+    private void Refresh(GridViewSourceChangedEventArgs e = null)
+    {
+        if (fSource == null)
+        {
+            AttachData(null);
+            OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
+            return;
+        }
+
+        if (fData == null)
+        {
+            GridViewData NewData = GridViewEngine.Execute(fSource, fViewDef);
+            AttachData(NewData);
+            OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
+            return;
+        }
+
+        Dictionary<string, bool> ExpandedState = SaveExpandedState();
+        int Position = fData.Position;
+
+        GridViewEngine.Update(fData);
+        RestoreExpandedState(fData, ExpandedState);
+
+        if (Position >= 0)
+            fData.MoveTo(Math.Min(Position, fData.Rows.Count - 1));
+        else if (fData.Rows.Count == 0)
+            fData.MoveTo(-1);
+
+        OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
+    }
+    private static void RestoreExpandedState(GridViewData Data, Dictionary<string, bool> Map)
+    {
+        if (Data == null || Map == null || Map.Count == 0)
+            return;
+
+        foreach (GridViewNode Node in EnumerateNodes(Data))
+        {
+            if (Node.IsGroup && !Node.IsRoot)
+            {
+                string Key = GetGroupStateKey(Node);
+                if (Map.TryGetValue(Key, out bool IsExpanded))
+                    SetExpandedState(Node, IsExpanded);
+            }
+        }
+
+        Data.RebuildVisibleNodes();
+        Data.RebuildRows();
+    }
+    private static Dictionary<string, bool> SaveExpandedState(GridViewData Data)
+    {
+        Dictionary<string, bool> Result = new();
+
+        if (Data == null)
+            return Result;
+
+        CollectExpandedState(Data, Result);
+        return Result;
+    }
+    private Dictionary<string, bool> SaveExpandedState()
+    {
+        return SaveExpandedState(fData);
+    }
+    private static void SetExpandedState(GridViewNode Node, bool Value)
+    {
+        FieldInfo Field = GetIsExpandedField();
+        if (Field != null && Node != null && Node.IsGroup && !Node.IsRoot)
+            Field.SetValue(Node, Value);
+    }
+    private void Source_SourceChanged(object Sender, GridViewSourceChangedEventArgs e)
+    {
+        if (fSuppressSourceChanged)
+            return;
+
+        Refresh(e);
+    }
+    private static IEnumerable<GridViewNode> EnumerateNodes(GridViewNode Node)
+    {
+        if (Node == null)
+            yield break;
+
+        foreach (GridViewNode Child in Node.Items)
+        {
+            yield return Child;
+
+            foreach (GridViewNode Descendant in EnumerateNodes(Child))
+                yield return Descendant;
+        }
     }
 
     // ● constructors
@@ -715,7 +911,8 @@ public class GridViewController: IDisposable
         fViewDef = Def ?? GridViewEngine.CreateDefaultDef(Source);
         fSource.SourceChanged += Source_SourceChanged;
 
-        Refresh();
+        AttachData(GridViewEngine.Execute(fSource, fViewDef));
+        OnDataChanged(new GridViewDataChangedEventArgs(fData));
     }
     public void Open<T>(IEnumerable<T> Source, GridViewDef Def = null)
     {
@@ -728,7 +925,8 @@ public class GridViewController: IDisposable
         fViewDef = Def ?? GridViewEngine.CreateDefaultDef(typeof(T));
         fSource.SourceChanged += Source_SourceChanged;
 
-        Refresh();
+        AttachData(GridViewEngine.Execute(fSource, fViewDef));
+        OnDataChanged(new GridViewDataChangedEventArgs(fData));
     }
     public void Open(GridViewSource Source, GridViewDef Def = null)
     {
@@ -741,13 +939,13 @@ public class GridViewController: IDisposable
         fViewDef = Def ?? GridViewEngine.CreateDefaultDef(Source);
         fSource.SourceChanged += Source_SourceChanged;
 
-        Refresh();
+        AttachData(GridViewEngine.Execute(fSource, fViewDef));
+        OnDataChanged(new GridViewDataChangedEventArgs(fData));
     }
     public void Refresh()
     {
         Refresh(null);
     }
-
     public bool CanEdit(GridDataRow Row, string FieldName)
     {
         if (Row == null || !Row.IsData)
@@ -757,7 +955,109 @@ public class GridViewController: IDisposable
         if (Column == null)
             return false;
 
-        return !Column.IsReadOnly;
+        if (Column.IsReadOnly)
+            return false;
+
+        if (Column.GroupIndex >= 0 && fViewDef != null && !fViewDef.ShowGroupColumnsAsDataColumns)
+            return false;
+
+        return true;
+    }
+    public bool MoveTo(int Index)
+    {
+        return fData != null && fData.MoveTo(Index);
+    }
+    public bool MoveFirst()
+    {
+        return fData != null && fData.MoveFirst();
+    }
+    public bool MoveLast()
+    {
+        return fData != null && fData.MoveLast();
+    }
+    public bool MoveNext()
+    {
+        return fData != null && fData.MoveNext();
+    }
+    public bool MovePrior()
+    {
+        return fData != null && fData.MovePrior();
+    }
+    public bool MoveToData(int DataIndex)
+    {
+        if (Rows == null || Rows.Count == 0 || DataIndex < 0)
+            return false;
+
+        int Count = 0;
+
+        for (int i = 0; i < Rows.Count; i++)
+        {
+            if (Rows[i].IsData)
+            {
+                if (Count == DataIndex)
+                    return MoveTo(i);
+
+                Count++;
+            }
+        }
+
+        return false;
+    }
+    public bool MoveFirstData()
+    {
+        if (Rows == null || Rows.Count == 0)
+            return false;
+
+        for (int i = 0; i < Rows.Count; i++)
+        {
+            if (Rows[i].IsData)
+                return MoveTo(i);
+        }
+
+        return false;
+    }
+    public bool MoveLastData()
+    {
+        if (Rows == null || Rows.Count == 0)
+            return false;
+
+        for (int i = Rows.Count - 1; i >= 0; i--)
+        {
+            if (Rows[i].IsData)
+                return MoveTo(i);
+        }
+
+        return false;
+    }
+    public bool MoveNextData()
+    {
+        if (Rows == null || Rows.Count == 0)
+            return false;
+
+        int Start = Math.Max(Position + 1, 0);
+
+        for (int i = Start; i < Rows.Count; i++)
+        {
+            if (Rows[i].IsData)
+                return MoveTo(i);
+        }
+
+        return false;
+    }
+    public bool MovePriorData()
+    {
+        if (Rows == null || Rows.Count == 0)
+            return false;
+
+        int Start = Position >= 0 ? Position - 1 : Rows.Count - 1;
+
+        for (int i = Start; i >= 0; i--)
+        {
+            if (Rows[i].IsData)
+                return MoveTo(i);
+        }
+
+        return false;
     }
     public bool SetValue(GridDataRow Row, string FieldName, object Value)
     {
@@ -765,6 +1065,7 @@ public class GridViewController: IDisposable
             return false;
 
         bool Result = false;
+        EditRefreshMode RefreshMode = GetEditRefreshMode(FieldName);
 
         fSuppressSourceChanged = true;
         try
@@ -779,22 +1080,42 @@ public class GridViewController: IDisposable
         if (!Result)
             return false;
 
-        if (RequiresRefresh(FieldName))
+        if (RefreshMode == EditRefreshMode.Full)
             Refresh();
         else
-            Refresh();
+            NotifyRenderOnlyChanged(new GridViewSourceChangedEventArgs(GridViewSourceChangeType.ItemChanged, Row.DataItem));
 
         return true;
     }
 
     // ● properties
-    public GridViewData Data => fData;
+    internal GridViewData Data => fData;
+    public GridDataRow Current => fData != null ? fData.Current : null;
     public bool IsDisposed => fDisposed;
+    public int Position
+    {
+        get => fData != null ? fData.Position : -1;
+        set
+        {
+            if (fData != null)
+                fData.MoveTo(value);
+        }
+    }
+    public ObservableCollection<GridDataRow> Rows => fData != null ? fData.Rows : null;
     public GridViewSource Source => fSource;
+    public List<GridViewNode> VisibleNodes => fData != null ? fData.VisibleNodes : null;
     public GridViewDef ViewDef => fViewDef;
 
     // ● events
     public event EventHandler<GridViewDataChangedEventArgs> DataChanged;
+    public event EventHandler PositionChanged;
+
+    // ● private types
+    private enum EditRefreshMode
+    {
+        RenderOnly,
+        Full,
+    }
 }
 
 static public class GridViewEngine
@@ -891,33 +1212,32 @@ static public class GridViewEngine
 
         return string.Compare(Convert.ToString(A, CultureInfo.InvariantCulture), Convert.ToString(B, CultureInfo.InvariantCulture), StringComparison.Ordinal);
     }
-    private static GridViewData ExecuteCore(IEnumerable<object> Source, GridViewDef Def, GridViewSource GridSource)
+    private static void ExecuteCore(GridViewData Data)
     {
-        if (Source == null)
-            throw new ArgumentNullException(nameof(Source));
+        if (Data == null)
+            throw new ArgumentNullException(nameof(Data));
 
-        if (Def == null)
-            throw new ArgumentNullException(nameof(Def));
+        if (Data.Source == null)
+            throw new ArgumentNullException(nameof(Data.Source));
 
-        GridViewData Result = new()
-        {
-            ViewDef = Def,
-            Source = GridSource,
-        };
+        if (Data.ViewDef == null)
+            throw new ArgumentNullException(nameof(Data.ViewDef));
 
-        List<object> RowList = Source.ToList();
-        var GroupColumnList = Def.GetGroupColumns();
+        List<object> RowList = Data.Source.Items.ToList();
+        var GroupColumnList = Data.ViewDef.GetGroupColumns();
+
+        Data.Items.Clear();
+        Data.Summaries.Clear();
+        Data.Footer = null;
 
         if (GroupColumnList != null && GroupColumnList.Any())
-            BuildGroups(Result, RowList, Def, 0);
+            BuildGroups(Data, RowList, Data.ViewDef, 0);
         else
-            Result.Items.AddRange(RowList.Select(x => CreateRowNode(Result, x)));
+            Data.Items.AddRange(RowList.Select(x => CreateRowNode(Data, x)));
 
-        PopulateSummaries(Result, Def);
-        Result.RebuildVisibleNodes();
-        Result.RebuildRows();
-
-        return Result;
+        PopulateSummaries(Data, Data.ViewDef);
+        Data.RebuildVisibleNodes();
+        Data.RebuildRows();
     }
     private static object GetAverage(List<object> Values)
     {
@@ -1008,6 +1328,9 @@ static public class GridViewEngine
         if (!Node.IsGroup)
             return;
 
+        Node.Summaries.Clear();
+        Node.Footer = null;
+
         foreach (GridViewNode Child in Node.Items)
             PopulateSummaries(Child, Def);
 
@@ -1018,7 +1341,7 @@ static public class GridViewEngine
             Node.Summaries.Add(new GridViewSummary(Item.FieldName, Item.Aggregate, Value));
         }
 
-        if (!Node.IsRoot && Node.Summaries.Count > 0)
+        if (Node.Summaries.Count > 0)
             Node.Footer = CreateFooterNode(Node);
     }
     private static void UpdateColumnDataTypes(DataView Source, GridViewDef Def)
@@ -1107,7 +1430,14 @@ static public class GridViewEngine
         else
             UpdateColumnDataTypes(Source.ItemType, Def);
 
-        return ExecuteCore(Source.Items, Def, Source);
+        GridViewData Result = new()
+        {
+            ViewDef = Def,
+            Source = Source,
+        };
+
+        ExecuteCore(Result);
+        return Result;
     }
     static public GridViewData Execute<T>(IEnumerable<T> Source, GridViewDef Def = null)
     {
@@ -1117,7 +1447,14 @@ static public class GridViewEngine
         Def ??= CreateDefaultDef(typeof(T));
         UpdateColumnDataTypes(typeof(T), Def);
 
-        return ExecuteCore(Source.Cast<object>(), Def, new PocoGridViewSource<T>(Source));
+        GridViewData Result = new()
+        {
+            ViewDef = Def,
+            Source = new PocoGridViewSource<T>(Source),
+        };
+
+        ExecuteCore(Result);
+        return Result;
     }
     static public GridViewData Execute(DataView Source, GridViewDef Def = null)
     {
@@ -1127,7 +1464,32 @@ static public class GridViewEngine
         Def ??= CreateDefaultDef(Source);
         UpdateColumnDataTypes(Source, Def);
 
-        return ExecuteCore(Source.Cast<DataRowView>().Cast<object>(), Def, new DataViewGridViewSource(Source));
+        GridViewData Result = new()
+        {
+            ViewDef = Def,
+            Source = new DataViewGridViewSource(Source),
+        };
+
+        ExecuteCore(Result);
+        return Result;
+    }
+    static public void Update(GridViewData Data)
+    {
+        if (Data == null)
+            throw new ArgumentNullException(nameof(Data));
+
+        if (Data.Source == null)
+            throw new ArgumentNullException(nameof(Data.Source));
+
+        if (Data.ViewDef == null)
+            throw new ArgumentNullException(nameof(Data.ViewDef));
+
+        if (Data.Source is DataViewGridViewSource DataViewSource)
+            UpdateColumnDataTypes(DataViewSource.Source, Data.ViewDef);
+        else
+            UpdateColumnDataTypes(Data.Source.ItemType, Data.ViewDef);
+
+        ExecuteCore(Data);
     }
     internal static object GetValue(object Instance, string FieldName)
     {

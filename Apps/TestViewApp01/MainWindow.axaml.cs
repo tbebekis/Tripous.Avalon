@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data;
 using Avalonia.Controls;
+using Avalonia.Threading;
 using Tripous;
 using Tripous.Avalon;
 using Tripous.Data;
@@ -10,6 +11,12 @@ public partial class MainWindow : Window
 {
     
     bool IsWindowInitialized = false;
+    private GridViewController Controller;
+    private DataView DataView;
+    private DataTable Table;
+    private List<SalesLine> DataList;
+ 
+    
 
     // ● event handlers
     void AnyClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -28,26 +35,39 @@ public partial class MainWindow : Window
 
     void Test()
     {
-        //GridViewDef Def = Tests.CreateDefaultGridViewDef();
-        //List<SalesLine> Data = Tests.CreatePocoSalesLines(200);
-        //GridViewData ViewData = GridViewEngine.Execute(Data, Def);
-
-    }
-
-    void Test2()
-    {
-        //GridViewDef Def = Tests.CreateDefaultGridViewDef();
-        //DataTable Data = Tests.CreateTableSalesLines(100);
-        //GridViewData ViewData = GridViewEngine.Execute(Data.DefaultView, Def);
-        //GridViewGridBinder.Apply(gridView, ViewData, Def);
- 
-        DataTable Table = Tests.CreateTableSalesLines(100);
-        GridViewDef Def = GridViewEngine.CreateDefaultDef(Table.DefaultView);
+        DataList = Tests.CreatePocoSalesLines(150);
+        
+        GridViewDef Def = GridViewEngine.CreateDefaultDef(typeof(SalesLine));
         Def["Category"].GroupIndex = 0;
         Def["Product"].GroupIndex = 1;
         Def["Sales"].Aggregate = AggregateType.Sum;
         
-        GridViewController Controller = new(Table.DefaultView, Def);
+        Controller = new();
+        Controller.Open(DataList, Def);
+        GridViewGridBinder.Bind(gridView, Controller);
+
+    }
+
+    void TestValues()
+    {
+        var R = Controller.Rows[2];
+        R.SetValue("Sales", 999999m);
+        //gridView.CommitEdit();
+        Controller.Position = 4; //.MoveTo(2);
+    }
+
+    void Test2()
+    {
+        Table = Tests.CreateTableSalesLines(150);
+        DataView = Table.DefaultView;
+        
+        GridViewDef Def = GridViewEngine.CreateDefaultDef(DataView);
+        Def["Category"].GroupIndex = 0;
+        Def["Product"].GroupIndex = 1;
+        Def["Sales"].Aggregate = AggregateType.Sum;
+        
+        Controller = new(DataView, Def);
+         
         GridViewGridBinder.Bind(gridView, Controller);
     }  
 

@@ -6,6 +6,14 @@ using System.Data;
 
 namespace Tripous.Data;
 
+public enum LineStatus
+{
+    None,
+    New,
+    Active,
+    Done
+}
+
 public sealed class SalesLine
 {
     public DateTime OrderDate { get; set; }
@@ -16,6 +24,7 @@ public sealed class SalesLine
     public double Sales { get; set; }
     public double Profit { get; set; }
     public int Quantity { get; set; }
+    public LineStatus Status { get; set; }
 }
 
 static public partial class Tests
@@ -82,6 +91,7 @@ static public partial class Tests
         Table.Columns.Add("Sales", typeof(double));
         Table.Columns.Add("Profit", typeof(double));
         Table.Columns.Add("Quantity", typeof(int));
+        Table.Columns.Add("Status", typeof(LineStatus));
         
         var random = new Random(seed);
         var start = new DateTime(DateTime.Today.Year - 2, 1, 1);
@@ -111,6 +121,7 @@ static public partial class Tests
             Row["Sales"] = sales;
             Row["Profit"] = profit;
             Row["Quantity"] = quantity;
+            Row["Status"] = LineStatus.Active;
         }
 
 
@@ -189,6 +200,7 @@ static public partial class Tests
         Result.Columns.Add(new GridViewColumnDef() { FieldName = "Sales"});
         Result.Columns.Add(new GridViewColumnDef() { FieldName = "Profit"});
         Result.Columns.Add(new GridViewColumnDef() { FieldName = "Quantity"});
+        Result.Columns.Add(new GridViewColumnDef() { FieldName = "Status"});
 
         Result["Category"].GroupIndex = 0;
         Result["Product"].GroupIndex = 1;
