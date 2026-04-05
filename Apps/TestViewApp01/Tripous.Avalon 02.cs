@@ -15,6 +15,579 @@ using Tripous.Data;
 
 namespace Tripous.Avalon;
 
+internal class GridViewInplaceEditorContext
+{
+    // ● constructors
+    public GridViewInplaceEditorContext()
+    {
+    }
+
+    // ● properties
+    public DataGrid Grid { get; set; }
+    public GridViewController Controller { get; set; }
+    public GridViewData Data { get; set; }
+    public GridViewRenderRow Row { get; set; }
+    public GridViewColumnDef ColumnDef { get; set; }
+    public int ColumnIndex { get; set; }
+}
+ 
+internal enum GridViewEditCommitReason
+{
+    None,
+    Enter,
+    Tab,
+    Arrow,
+    LostFocus,
+    Pointer,
+}
+ 
+internal abstract class GridViewInplaceEditor
+{
+    // ● private fields
+    private bool fCanceled;
+    private bool fCompleted;
+    private GridViewInplaceEditorContext fContext;
+
+    // ● protected methods
+    protected object GetCellValue()
+    {
+        if (Context?.Row?.Values == null)
+            return null;
+
+        if (Context.ColumnIndex < 0 || Context.ColumnIndex >= Context.Row.Values.Length)
+            return null;
+
+        return Context.Row.Values[Context.ColumnIndex];
+    }
+    protected Type GetCoreDataType()
+    {
+        if (Context?.ColumnDef?.DataType == null)
+            return null;
+
+        return Nullable.GetUnderlyingType(Context.ColumnDef.DataType) ?? Context.ColumnDef.DataType;
+    }
+    protected static IBrush GetRowBackground(GridViewRenderRow Row)
+    {
+        if (Row != null && (Row.IsGroup || Row.IsFooter || Row.IsGrandTotal))
+            return Brushes.Gainsboro;
+
+        return Brushes.Transparent;
+    }
+    protected void RestoreCellFocus()
+    {
+        if (Context?.Grid == null)
+            return;
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (Context?.Grid == null)
+                return;
+
+            Context.Grid.Focus();
+
+            if (Context.ColumnIndex >= 0 && Context.ColumnIndex < Context.Grid.Columns.Count)
+                Context.Grid.CurrentColumn = Context.Grid.Columns[Context.ColumnIndex];
+        }, DispatcherPriority.Input);
+    }
+    protected void HandleFocusAfterCommit(GridViewEditCommitReason Reason)
+    {
+        if (Context?.Grid == null)
+            return;
+
+        switch (Reason)
+        {
+            case GridViewEditCommitReason.Enter:
+            case GridViewEditCommitReason.Arrow:
+            case GridViewEditCommitReason.LostFocus:
+            case GridViewEditCommitReason.Pointer:
+                RestoreCellFocus();
+                break;
+        }
+    }
+    protected void Complete(GridViewEditCommitReason Reason = GridViewEditCommitReason.None)
+    {
+        if (fCompleted || fCanceled)
+            return;
+
+        fCompleted = true;
+        HandleFocusAfterCommit(Reason);
+    }
+    protected void Commit(object Value, GridViewEditCommitReason Reason = GridViewEditCommitReason.None)
+    {
+        if (fCompleted || fCanceled)
+            return;
+
+        fCompleted = true;
+
+        if (Context?.Row == null || Context.Row.DataRow == null || Context.ColumnDef == null)
+            return;
+
+        if (Context.Controller != null)
+        {
+            Context.Controller.SetValue(Context.Row.DataRow, Context.ColumnDef.FieldName, Value);
+            HandleFocusAfterCommit(Reason);
+            return;
+        }
+
+        if (Context.Row.DataRow.SetValue(Context.ColumnDef.FieldName, Value) && Context.Data != null)
+        {
+            GridViewGridBinder.Refresh(Context.Grid);
+            HandleFocusAfterCommit(Reason);
+        }
+    }
+    protected void Cancel()
+    {
+        if (fCompleted)
+            return;
+
+        fCanceled = true;
+        fCompleted = true;
+
+        if (Context?.Grid != null)
+            GridViewGridBinder.Refresh(Context.Grid);
+
+        RestoreCellFocus();
+    }
+
+    // ● constructors
+    protected GridViewInplaceEditor(GridViewInplaceEditorContext Context)
+    {
+        fContext = Context ?? throw new ArgumentNullException(nameof(Context));
+    }
+
+    // ● public methods
+    public abstract Control Create();
+
+    // ● properties
+    public bool Canceled => fCanceled;
+    public bool Completed => fCompleted;
+    public GridViewInplaceEditorContext Context => fContext;
+}
+
+internal class GridViewTextInplaceEditor: GridViewInplaceEditor
+{
+    // ● private methods
+    private static HorizontalAlignment GetHorizontalAlignment(GridViewRenderRow Row, GridViewColumnDef ColumnDef, int ColumnIndex)
+    {
+        if (Row != null && (Row.IsGroup || Row.IsFooter || Row.IsGrandTotal) && Row.LabelColumnIndex == ColumnIndex)
+            return HorizontalAlignment.Left;
+
+        if (ColumnDef != null && (ColumnDef.IsNumeric || ColumnDef.IsDate))
+            return HorizontalAlignment.Right;
+
+        return HorizontalAlignment.Left;
+    }
+    private static string FormatValue(GridViewRenderRow Row, GridViewColumnDef ColumnDef, int ColumnIndex)
+    {
+        if (Row == null || Row.Values == null || ColumnIndex < 0 || ColumnIndex >= Row.Values.Length)
+            return string.Empty;
+
+        object Value = Row.Values[ColumnIndex];
+        if (Value == null || Value == DBNull.Value)
+            return string.Empty;
+
+        Type CoreType = ColumnDef?.DataType != null
+            ? Nullable.GetUnderlyingType(ColumnDef.DataType) ?? ColumnDef.DataType
+            : null;
+
+        if (CoreType != null && CoreType.IsEnum)
+        {
+            try
+            {
+                object EnumValue = Value.GetType().IsEnum
+                    ? Value
+                    : Enum.ToObject(CoreType, Value);
+
+                return EnumValue.ToString();
+            }
+            catch
+            {
+            }
+        }
+
+        return Convert.ToString(Value) ?? string.Empty;
+    }
+
+    // ● constructors
+    public GridViewTextInplaceEditor(GridViewInplaceEditorContext Context)
+        : base(Context)
+    {
+    }
+
+    // ● public methods
+    public override Control Create()
+    {
+        string OriginalText = FormatValue(Context.Row, Context.ColumnDef, Context.ColumnIndex);
+
+        TextBox Editor = new()
+        {
+            Text = OriginalText,
+            Margin = new Thickness(4, 1, 4, 1),
+            VerticalAlignment = VerticalAlignment.Center,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            HorizontalContentAlignment = GetHorizontalAlignment(Context.Row, Context.ColumnDef, Context.ColumnIndex),
+            IsReadOnly = false,
+        };
+
+        Editor.AttachedToVisualTree += (s, e) =>
+        {
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (Editor.IsVisible && Editor.IsEffectivelyEnabled)
+                {
+                    Editor.Focus();
+                    Editor.SelectAll();
+                }
+            }, DispatcherPriority.Input);
+        };
+
+        void CommitEdit(GridViewEditCommitReason Reason)
+        {
+            string NewText = Editor.Text ?? string.Empty;
+            if (string.Equals(NewText, OriginalText, StringComparison.Ordinal))
+            {
+                Complete(Reason);
+                return;
+            }
+
+            Commit(NewText, Reason);
+        }
+
+        Editor.LostFocus += (s, e) => CommitEdit(GridViewEditCommitReason.LostFocus);
+        Editor.KeyDown += (s, e) =>
+        {
+            if (e.Handled)
+                return;
+
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    Cancel();
+                    e.Handled = true;
+                    break;
+
+                case Key.Enter:
+                    CommitEdit(GridViewEditCommitReason.Enter);
+                    e.Handled = true;
+                    break;
+
+                case Key.Tab:
+                    CommitEdit(GridViewEditCommitReason.Arrow);
+                    e.Handled = true;
+                    break;
+
+                case Key.Left:
+                case Key.Right:
+                case Key.Up:
+                case Key.Down:
+                    CommitEdit(GridViewEditCommitReason.Arrow);
+                    break;
+            }
+        };
+
+        Border Result = new()
+        {
+            Background = GetRowBackground(Context.Row),
+            Child = Editor,
+        };
+
+        return Result;
+    }
+}
+
+internal class GridViewEnumInplaceEditor: GridViewInplaceEditor
+{
+    // ● private methods
+    private object GetEditorValue(object Value)
+    {
+        Type EnumType = GetCoreDataType();
+
+        if (EnumType == null || !EnumType.IsEnum || Value == null || Value == DBNull.Value)
+            return null;
+
+        if (Value.GetType().IsEnum)
+            return Value;
+
+        try
+        {
+            if (Value is string S && !string.IsNullOrWhiteSpace(S))
+                return Enum.Parse(EnumType, S, true);
+
+            return Enum.ToObject(EnumType, Value);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    // ● constructors
+    public GridViewEnumInplaceEditor(GridViewInplaceEditorContext Context)
+        : base(Context)
+    {
+    }
+
+    // ● public methods
+    public override Control Create()
+    {
+        Type EnumType = GetCoreDataType();
+        object OriginalValue = GetEditorValue(GetCellValue());
+
+        ComboBox Editor = new()
+        {
+            ItemsSource = Enum.GetValues(EnumType),
+            SelectedItem = OriginalValue,
+            Margin = new Thickness(4, 1, 4, 1),
+            VerticalAlignment = VerticalAlignment.Center,
+            IsEnabled = true,
+        };
+
+        Editor.AttachedToVisualTree += (s, e) =>
+        {
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (Editor.IsVisible && Editor.IsEffectivelyEnabled)
+                {
+                    Editor.Focus();
+                    Editor.IsDropDownOpen = true;
+                }
+            }, DispatcherPriority.Input);
+        };
+
+        void CommitEdit(GridViewEditCommitReason Reason)
+        {
+            object NewValue = Editor.SelectedItem;
+            if (Equals(NewValue, OriginalValue))
+            {
+                Complete(Reason);
+                return;
+            }
+
+            Commit(NewValue, Reason);
+        }
+
+        Editor.DropDownClosed += (s, e) =>
+        {
+            if (!Canceled && !Completed)
+                CommitEdit(GridViewEditCommitReason.Pointer);
+        };
+
+        Editor.LostFocus += (s, e) =>
+        {
+            if (!Canceled && !Completed && !Editor.IsDropDownOpen)
+                CommitEdit(GridViewEditCommitReason.LostFocus);
+        };
+
+        Editor.KeyDown += (s, e) =>
+        {
+            if (e.Handled)
+                return;
+
+            if (Editor.IsDropDownOpen)
+            {
+                switch (e.Key)
+                {
+                    case Key.Escape:
+                        Editor.IsDropDownOpen = false;
+                        e.Handled = true;
+                        break;
+
+                    case Key.Enter:
+                        CommitEdit(GridViewEditCommitReason.Enter);
+                        e.Handled = true;
+                        break;
+
+                    case Key.Tab:
+                        CommitEdit(GridViewEditCommitReason.Arrow);
+                        e.Handled = true;
+                        break;
+
+                    case Key.Left:
+                    case Key.Right:
+                    case Key.Up:
+                    case Key.Down:
+                        break;
+                }
+
+                return;
+            }
+
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    Cancel();
+                    e.Handled = true;
+                    break;
+
+                case Key.Enter:
+                    CommitEdit(GridViewEditCommitReason.Enter);
+                    e.Handled = true;
+                    break;
+
+                case Key.Tab:
+                    CommitEdit(GridViewEditCommitReason.Arrow);
+                    e.Handled = true;
+                    break;
+
+                case Key.Left:
+                case Key.Right:
+                case Key.Up:
+                case Key.Down:
+                    CommitEdit(GridViewEditCommitReason.Arrow);
+                    break;
+            }
+        };
+
+        Border Result = new()
+        {
+            Background = GetRowBackground(Context.Row),
+            Child = Editor,
+        };
+
+        return Result;
+    }
+}
+ 
+internal class GridViewBoolInplaceEditor: GridViewInplaceEditor
+{
+    // ● private methods
+    private static bool? GetEditorValue(object Value)
+    {
+        if (Value == null || Value == DBNull.Value)
+            return null;
+
+        if (Value is bool B)
+            return B;
+
+        try
+        {
+            return Convert.ToBoolean(Value);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    // ● constructors
+    public GridViewBoolInplaceEditor(GridViewInplaceEditorContext Context)
+        : base(Context)
+    {
+    }
+
+    // ● public methods
+    public override Control Create()
+    {
+        bool? OriginalValue = GetEditorValue(GetCellValue());
+
+        CheckBox Editor = new()
+        {
+            IsChecked = OriginalValue,
+            Margin = new Thickness(6, 1, 6, 1),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            IsThreeState = Context.ColumnDef?.DataType != typeof(bool),
+        };
+
+        Editor.AttachedToVisualTree += (s, e) =>
+        {
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (Editor.IsVisible && Editor.IsEffectivelyEnabled)
+                    Editor.Focus();
+            }, DispatcherPriority.Input);
+        };
+
+        void CommitEdit(GridViewEditCommitReason Reason)
+        {
+            bool? NewValue = Editor.IsChecked;
+            if (Nullable.Equals(NewValue, OriginalValue))
+            {
+                Complete(Reason);
+                return;
+            }
+
+            if (Context.ColumnDef?.DataType == typeof(bool))
+                Commit(NewValue == true, Reason);
+            else
+                Commit(NewValue, Reason);
+        }
+
+        Editor.IsCheckedChanged += (s, e) =>
+        {
+            if (!Canceled && !Completed)
+                CommitEdit(GridViewEditCommitReason.Pointer);
+        };
+
+        Editor.LostFocus += (s, e) =>
+        {
+            if (!Canceled && !Completed)
+                CommitEdit(GridViewEditCommitReason.LostFocus);
+        };
+
+        Editor.KeyDown += (s, e) =>
+        {
+            if (e.Handled)
+                return;
+
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    Cancel();
+                    e.Handled = true;
+                    break;
+
+                case Key.Enter:
+                    CommitEdit(GridViewEditCommitReason.Enter);
+                    e.Handled = true;
+                    break;
+
+                case Key.Tab:
+                    CommitEdit(GridViewEditCommitReason.Arrow);
+                    e.Handled = true;
+                    break;
+
+                case Key.Left:
+                case Key.Right:
+                case Key.Up:
+                case Key.Down:
+                    CommitEdit(GridViewEditCommitReason.Arrow);
+                    break;
+            }
+        };
+
+        Border Result = new()
+        {
+            Background = GetRowBackground(Context.Row),
+            Child = Editor,
+        };
+
+        return Result;
+    }
+}
+
+static internal class GridViewInplaceEditorFactory
+{
+    // ● static public methods
+    static public GridViewInplaceEditor Create(GridViewInplaceEditorContext Context)
+    {
+        if (Context == null)
+            throw new ArgumentNullException(nameof(Context));
+
+        Type CoreType = Context.ColumnDef?.DataType != null
+            ? Nullable.GetUnderlyingType(Context.ColumnDef.DataType) ?? Context.ColumnDef.DataType
+            : null;
+
+        if (CoreType == typeof(bool))
+            return new GridViewBoolInplaceEditor(Context);
+
+        if (CoreType != null && CoreType.IsEnum)
+            return new GridViewEnumInplaceEditor(Context);
+
+        return new GridViewTextInplaceEditor(Context);
+    }
+}
+
 internal class GridViewRenderRow
 {
     // ● constructors
@@ -371,123 +944,6 @@ static public class GridViewGridBinder
 
         return Nullable.GetUnderlyingType(ColumnDef.DataType) ?? ColumnDef.DataType;
     }
-    static private Control CreateEnumEditingCell(DataGrid Grid, GridState State, GridViewRenderRow Row, GridViewColumnDef ColumnDef, int ColumnIndex)
-    {
-        GridViewController Controller = State != null ? State.Controller : null;
-        GridViewData Data = State != null ? State.Data : null;
-
-        Type EnumType = GetCoreDataType(ColumnDef);
-        object OriginalValue = Row?.Values != null && ColumnIndex >= 0 && ColumnIndex < Row.Values.Length
-            ? GetEnumEditorValue(ColumnDef, Row.Values[ColumnIndex])
-            : null;
-
-        ComboBox Editor = new()
-        {
-            ItemsSource = Enum.GetValues(EnumType),
-            SelectedItem = OriginalValue,
-            Margin = new Thickness(4, 1, 4, 1),
-            VerticalAlignment = VerticalAlignment.Center,
-            IsEnabled = CanEditCell(Controller, Row, ColumnDef),
-        };
-
-        Editor.AttachedToVisualTree += (s, e) =>
-        {
-            Dispatcher.UIThread.Post(() =>
-            {
-                if (Editor.IsVisible && Editor.IsEffectivelyEnabled)
-                {
-                    Editor.Focus();
-                    Editor.IsDropDownOpen = true;
-                }
-            }, DispatcherPriority.Input);
-        };
-
-        bool Completed = false;
-        bool Canceled = false;
-
-        void Commit()
-        {
-            if (Completed || Canceled)
-                return;
-
-            Completed = true;
-
-            object NewValue = Editor.SelectedItem;
-            if (Equals(NewValue, OriginalValue))
-                return;
-
-            CommitCellEdit(Grid, Controller, Data, Row, ColumnDef, NewValue);
-        }
-
-        void Cancel()
-        {
-            if (Completed)
-                return;
-
-            Canceled = true;
-            Completed = true;
-        }
-
-        Editor.DropDownClosed += (s, e) => Commit();
-        //Editor.LostFocus += (s, e) => Commit();
-        Editor.KeyDown += (s, e) =>
-        {
-            if (e.Handled)
-                return;
-
-            switch (e.Key)
-            {
-                case Key.Escape:
-                    Cancel();
-                    e.Handled = true;
-                    break;
-
-                case Key.Enter:
-                    Commit();
-                    e.Handled = true;
-                    break;
-
-                case Key.Tab:
-                case Key.Left:
-                case Key.Right:
-                case Key.Up:
-                case Key.Down:
-                    Commit();
-                    break;
-            }
-        };
-
-        Border Result = new()
-        {
-            Background = GetRowBackground(Row),
-            Child = Editor,
-        };
-
-        return Result;
-    }
-    static private object GetEnumEditorValue(GridViewColumnDef ColumnDef, object Value)
-    {
-        Type EnumType = GetCoreDataType(ColumnDef);
-
-        if (EnumType == null || !EnumType.IsEnum || Value == null || Value == DBNull.Value)
-            return null;
-
-        if (Value.GetType().IsEnum)
-            return Value;
-
-        try
-        {
-            if (Value is string S && !string.IsNullOrWhiteSpace(S))
-                return Enum.Parse(EnumType, S, true);
-
-            return Enum.ToObject(EnumType, Value);
-        }
-        catch
-        {
-            return null;
-        }
-    }
-    
     static private void AttachEditHandlers(DataGrid Grid, GridState State)
     {
         if (Grid == null || State == null)
@@ -498,17 +954,6 @@ static public class GridViewGridBinder
 
         Grid.KeyDown += Grid_KeyDown;
         State.EditHandlersAttached = true;
-    }
-    static private void RestoreCurrentColumn(DataGrid Grid, int ColumnIndex)
-    {
-        if (Grid == null || ColumnIndex < 0)
-            return;
-
-        Dispatcher.UIThread.Post(() =>
-        {
-            if (Grid.Columns != null && ColumnIndex >= 0 && ColumnIndex < Grid.Columns.Count)
-                Grid.CurrentColumn = Grid.Columns[ColumnIndex];
-        }, DispatcherPriority.Input);
     }
     static private bool IsEditStartKey(KeyEventArgs e)
     {
@@ -536,12 +981,92 @@ static public class GridViewGridBinder
             _ => false,
         };
     }
+    /*
     static private void Grid_KeyDown(object Sender, KeyEventArgs e)
     {
         if (Sender is not DataGrid Grid)
             return;
 
         GridState State = GetState(Grid);
+        if (!IsEditStartKey(e))
+            return;
+
+        if (!CanBeginEditFromKeyboard(Grid, State))
+            return;
+
+        Grid.BeginEdit();
+    }
+    */
+
+    static private void Grid_KeyDown(object Sender, KeyEventArgs e)
+    {
+        if (Sender is not DataGrid Grid)
+            return;
+
+        GridState State = GetState(Grid);
+        if (State == null || State.Controller == null)
+            return;
+
+        if (!e.Handled && e.Key == Key.Space)
+        {
+            if (!Grid.IsReadOnly &&
+                Grid.SelectedItem is GridViewRenderRow Row &&
+                Row.IsData &&
+                Row.DataRow != null &&
+                Grid.CurrentColumn != null)
+            {
+                DataGridColumn GridColumn = Grid.CurrentColumn;
+                int ColumnIndex = Grid.Columns.IndexOf(GridColumn);
+                if (ColumnIndex >= 0 &&
+                    State.RenderData != null &&
+                    ColumnIndex < State.RenderData.Columns.Count)
+                {
+                    GridViewColumnDef ColumnDef = State.RenderData.Columns[ColumnIndex];
+                    Type CoreType = GetCoreDataType(ColumnDef);
+
+                    if (CoreType == typeof(bool) && State.Controller.CanEdit(Row.DataRow, ColumnDef.FieldName))
+                    {
+                        object Value = Row.Values != null && ColumnIndex < Row.Values.Length
+                            ? Row.Values[ColumnIndex]
+                            : null;
+
+                        bool CurrentValue = false;
+
+                        if (Value != null && Value != DBNull.Value)
+                        {
+                            try
+                            {
+                                CurrentValue = Convert.ToBoolean(Value);
+                            }
+                            catch
+                            {
+                            }
+                        }
+
+                        if (State.Controller.SetValue(Row.DataRow, ColumnDef.FieldName, !CurrentValue))
+                        {
+                            Dispatcher.UIThread.Post(() =>
+                            {
+                                if (Grid.IsVisible && Grid.IsEffectivelyEnabled)
+                                {
+                                    Grid.Focus();
+
+                                    if (ColumnIndex >= 0 && ColumnIndex < Grid.Columns.Count)
+                                        Grid.CurrentColumn = Grid.Columns[ColumnIndex];
+
+                                    if (Grid.SelectedItem != null)
+                                        Grid.SelectedItem = Grid.SelectedItem;
+                                }
+                            }, DispatcherPriority.Input);
+                        }
+
+                        e.Handled = true;
+                        return;
+                    }
+                }
+            }
+        }
+
         if (!IsEditStartKey(e))
             return;
 
@@ -678,28 +1203,7 @@ static public class GridViewGridBinder
         if (State.Rows != null)
             State.Rows.Clear();
     }
-    static private void CommitCellEdit(DataGrid Grid, GridViewController Controller, GridViewData Data, GridViewRenderRow Row, GridViewColumnDef ColumnDef, object Value)
-    {
-        if (Row == null || Row.DataRow == null || ColumnDef == null)
-            return;
-
-        int ColumnIndex = Grid != null && Grid.CurrentColumn != null
-            ? Grid.Columns.IndexOf(Grid.CurrentColumn)
-            : -1;
-
-        if (Controller != null)
-        {
-            Controller.SetValue(Row.DataRow, ColumnDef.FieldName, Value);
-            RestoreCurrentColumn(Grid, ColumnIndex);
-            return;
-        }
-
-        if (Row.DataRow.SetValue(ColumnDef.FieldName, Value) && Data != null)
-        {
-            Apply(Grid, Data);
-            RestoreCurrentColumn(Grid, ColumnIndex);
-        }
-    }
+    /*
     static private Control CreateCell(DataGrid Grid, GridState State, GridViewRenderRow Row, GridViewColumnDef ColumnDef, int ColumnIndex)
     {
         if (Row != null && Row.IsGroup && IsLabelCell(Row, ColumnIndex))
@@ -722,104 +1226,81 @@ static public class GridViewGridBinder
 
         return Result;
     }
+   */
     
-    static private Control CreateEditingCell(DataGrid Grid, GridState State, GridViewRenderRow Row, GridViewColumnDef ColumnDef, int ColumnIndex)
+    static private Control CreateCell(DataGrid Grid, GridState State, GridViewRenderRow Row, GridViewColumnDef ColumnDef, int ColumnIndex)
     {
-        GridViewController Controller = State != null ? State.Controller : null;
-        GridViewData Data = State != null ? State.Data : null;
+        if (Row != null && Row.IsGroup && IsLabelCell(Row, ColumnIndex))
+            return CreateGroupCell(Grid, State, Row, ColumnIndex);
 
-        if (!CanEditCell(Controller, Row, ColumnDef))
-            return CreateCell(Grid, State, Row, ColumnDef, ColumnIndex);
-        
         Type CoreType = GetCoreDataType(ColumnDef);
+        bool IsBool = CoreType == typeof(bool);
 
-        if (CoreType != null && CoreType.IsEnum)
-            return CreateEnumEditingCell(Grid, State, Row, ColumnDef, ColumnIndex);
-
-        string OriginalText = FormatValue(Row, ColumnDef, ColumnIndex);
-
-        TextBox Editor = new()
+        string TextValue;
+        if (IsBool)
         {
-            Text = OriginalText,
-            Margin = new Thickness(4, 1, 4, 1),
-            VerticalAlignment = VerticalAlignment.Center,
-            VerticalContentAlignment = VerticalAlignment.Center,
-            HorizontalContentAlignment = GetHorizontalAlignment(Row, ColumnDef, ColumnIndex),
-            IsReadOnly = !CanEditCell(Controller, Row, ColumnDef),
-        };
+            object Value = Row != null && Row.Values != null && ColumnIndex >= 0 && ColumnIndex < Row.Values.Length
+                ? Row.Values[ColumnIndex]
+                : null;
 
-        Editor.AttachedToVisualTree += (s, e) =>
-        {
-            Dispatcher.UIThread.Post(() =>
+            bool BoolValue = false;
+
+            if (Value != null && Value != DBNull.Value)
             {
-                if (Editor.IsVisible && Editor.IsEffectivelyEnabled)
+                try
                 {
-                    Editor.Focus();
-                    Editor.SelectAll();
+                    BoolValue = Convert.ToBoolean(Value);
                 }
-            }, DispatcherPriority.Input);
-        };
-
-        bool Completed = false;
-        bool Canceled = false;
-
-        void Commit()
-        {
-            if (Completed || Canceled)
-                return;
-
-            Completed = true;
-
-            string NewText = Editor.Text ?? string.Empty;
-            if (string.Equals(NewText, OriginalText, StringComparison.Ordinal))
-                return;
-
-            CommitCellEdit(Grid, Controller, Data, Row, ColumnDef, NewText);
-        }
-
-        void Cancel()
-        {
-            if (Completed)
-                return;
-
-            Canceled = true;
-            Completed = true;
-        }
-
-        Editor.LostFocus += (s, e) => Commit();
-        Editor.KeyDown += (s, e) =>
-        {
-            if (e.Handled)
-                return;
-            
-            switch (e.Key)
-            {
-                case Key.Escape:
-                    Cancel();
-                    break;
-
-                case Key.Enter:
-                    Commit();
-                    e.Handled = true;
-                    break; 
-                
-                case Key.Tab:
-                case Key.Left:
-                case Key.Right:
-                case Key.Up:
-                case Key.Down:
-                    Commit();
-                    break;
+                catch
+                {
+                }
             }
+
+            TextValue = BoolValue ? "x" : string.Empty;
+        }
+        else
+        {
+            TextValue = FormatValue(Row, ColumnDef, ColumnIndex);
+        }
+
+        TextBlock Text = new()
+        {
+            Text = TextValue,
+            Margin = new Thickness(6, 2, 6, 2),
+            HorizontalAlignment = IsBool ? HorizontalAlignment.Center : GetHorizontalAlignment(Row, ColumnDef, ColumnIndex),
+            TextAlignment = IsBool ? TextAlignment.Center : TextAlignment.Left,
+            FontWeight = GetFontWeight(Row, ColumnIndex),
+            VerticalAlignment = VerticalAlignment.Center,
         };
 
         Border Result = new()
         {
             Background = GetRowBackground(Row),
-            Child = Editor,
+            Child = Text,
         };
 
         return Result;
+    }
+    
+    static private Control CreateEditingCell(DataGrid Grid, GridState State, GridViewRenderRow Row, GridViewColumnDef ColumnDef, int ColumnIndex)
+    {
+        GridViewController Controller = State != null ? State.Controller : null;
+
+        if (!CanEditCell(Controller, Row, ColumnDef))
+            return CreateCell(Grid, State, Row, ColumnDef, ColumnIndex);
+
+        GridViewInplaceEditorContext Context = new()
+        {
+            Grid = Grid,
+            Controller = State != null ? State.Controller : null,
+            Data = State != null ? State.Data : null,
+            Row = Row,
+            ColumnDef = ColumnDef,
+            ColumnIndex = ColumnIndex,
+        };
+
+        GridViewInplaceEditor Editor = GridViewInplaceEditorFactory.Create(Context);
+        return Editor.Create();
     }
     static private Control CreateGroupCell(DataGrid Grid, GridState State, GridViewRenderRow Row, int ColumnIndex)
     {

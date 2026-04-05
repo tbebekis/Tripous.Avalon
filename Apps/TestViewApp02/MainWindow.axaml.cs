@@ -5,18 +5,13 @@ using Avalonia.Threading;
 using Tripous;
 using Tripous.Avalon;
 using Tripous.Data;
-namespace TestViewApp01;
+namespace TestViewApp02;
  
 public partial class MainWindow : Window
 {
-    
     bool IsWindowInitialized = false;
     private GridViewController Controller;
     private DataView DataView;
-    private DataTable Table;
-    private List<SalesLine> DataList;
- 
-    
 
     // ● event handlers
     void AnyClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -31,22 +26,28 @@ public partial class MainWindow : Window
     // ● private
     void WindowInitialize()
     {
+        Tests.Initialize(150);
         Test2();
     }
 
     void Test()
     {
-        DataList = Tests.CreatePocoSalesLines(150);
-        
         GridViewDef Def = GridViewEngine.CreateDefaultDef(typeof(SalesLine));
-        Def["Category"].GroupIndex = 0;
-        Def["Product"].GroupIndex = 1;
+        Def.ShowGroupColumnsAsDataColumns = true;
+        
+        Def["Product"].GroupIndex = 0;
         Def["Sales"].Aggregate = AggregateType.Sum;
+        Def["Sales"].DisplayFormat = "N3";
+
+        //Def["CategoryId"].GroupIndex = 1;
+        Def["CategoryId"].Title = "Category";
+        Def["CategoryId"].ValueMember = "Id";
+        Def["CategoryId"].DisplayMember = "Name";
+        Def["CategoryId"].LookupItemsSource = Tests.Categories;
         
         Controller = new();
-        Controller.Open(DataList, Def);
+        Controller.Open(Tests.SalesLines, Def);
         GridViewGridBinder.Bind(gridView, Controller);
-
     }
 
     void TestValues()
@@ -59,13 +60,22 @@ public partial class MainWindow : Window
 
     void Test2()
     {
-        Table = Tests.CreateTableSalesLines(150);
-        DataView = Table.DefaultView;
+        DataView = Tests.tblSalesLines.DefaultView;
         
         GridViewDef Def = GridViewEngine.CreateDefaultDef(DataView);
-        Def["Category"].GroupIndex = 0;
+        Def.ShowGroupColumnsAsDataColumns = true;
+        
+        Def["CategoryId"].GroupIndex = 0;
         Def["Product"].GroupIndex = 1;
+        
         Def["Sales"].Aggregate = AggregateType.Sum;
+        Def["Sales"].DisplayFormat = "N3";
+        
+        //Def["CategoryId"].GroupIndex = 1;
+        Def["CategoryId"].Title = "Category";
+        Def["CategoryId"].ValueMember = "Id";
+        Def["CategoryId"].DisplayMember = "Name";
+        Def["CategoryId"].LookupItemsSource = Tests.tblCategory.DefaultView;
         
         Controller = new(DataView, Def);
          

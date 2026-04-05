@@ -1,0 +1,150 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:AvaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+             x:Class="TestViewApp02.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+
+    <Application.Styles>
+        <FluentTheme />
+        
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
+ 
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>       
+        
+        <!-- ToolBar -->
+        <Style Selector="Border.ToolbarContainer">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar">
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="Spacing" Value="0" />
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar > Button">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar > Button > Image">
+            <Setter Property="Width" Value="24" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar > ToggleButton">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar > ToggleButton > Image">
+            <Setter Property="Width" Value="24" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar > Separator">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Background" Value="#CCCCCC" />
+            <Setter Property="Margin" Value="0,0"/>
+        </Style>
+        
+        <!-- ToolBar Separator -->
+        <Style Selector="StackPanel.ToolBar > Separator">
+            <Setter Property="Width" Value="1"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="2,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}"
+                            Margin="{TemplateBinding Margin}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        
+        
+        <Style Selector="GridSplitter">
+            <Setter Property="Background" Value="#CCCCCC" />
+        </Style>
+        
+        <!-- DataGrid -->
+        <Style Selector="DataGrid">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontFamily" Value="Cascadia Code, Consolas, Monospace"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="CanUserResizeColumns" Value="True" />
+    
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
+    
+            <Setter Property="HeadersVisibility" Value="All"/>
+            <Setter Property="RowBackground" Value="Transparent"/>
+        </Style>
+ 
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        
+        <Style Selector="DataGridCell">
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        
+        <Style Selector="DataGridRow:nth-child(even)">
+            <Setter Property="Background" Value="#10000000"/>
+        </Style>
+        
+        <Style Selector="DataGrid ComboBox">
+            <Setter Property="Margin" Value="4,0,4,0"/>
+            <Setter Property="Padding" Value="8,0,4,0"/>
+        </Style>
+ 
+        <!-- TreeView -->
+        <Style Selector="TreeViewItem">
+            <Setter Property="MinHeight" Value="24"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        
+        <!-- MenuItem -->
+        <Style Selector="MenuItem">
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        
+        <!-- AvaloniaEdit:TextEditor -->
+        <Style Selector="AvaloniaEdit|TextEditor">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Liberation Mono"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="ShowLineNumbers" Value="True"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
+        </Style>
+ 
+    </Application.Styles>
+             
+</Application>
