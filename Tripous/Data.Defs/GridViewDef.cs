@@ -125,6 +125,61 @@ public class GridViewDef
     {
     }
 
+    // ● static
+    /// <summary>
+    /// Creates and returns a default definition based on a specified source.
+    /// </summary>
+    static public GridViewDef Create(DataView Source)
+    {
+        if (Source == null)
+            throw new ArgumentNullException(nameof(Source));
+
+        GridViewDef Def = new();
+
+        foreach (DataColumn DataColumn in Source.Table.Columns)
+        {
+            GridViewColumnDef Column = new()
+            {
+                FieldName = DataColumn.ColumnName,
+                Title = DataColumn.ColumnName,
+                DataType = DataColumn.DataType,
+            };
+            
+            Column.SetAllowsNullFromSource(DataColumn.AllowDBNull);
+                
+            Def.Columns.Add(Column);
+            Column.VisibleIndex = Def.Columns.IndexOf(Column);
+        }
+
+        return Def;
+    }
+    /// <summary>
+    /// Creates and returns a default definition based on a specified source.
+    /// </summary>
+    static public GridViewDef Create(Type ItemType)
+    {
+        if (ItemType == null)
+            throw new ArgumentNullException(nameof(ItemType));
+
+        GridViewDef Def = new();
+        PropertyInfo[] Properties = ItemType.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+        foreach (PropertyInfo Prop in Properties)
+        {
+            GridViewColumnDef Column = new()
+            {
+                FieldName = Prop.Name,
+                Title = Prop.Name,
+                DataType = Prop.PropertyType,
+            };
+
+            Def.Columns.Add(Column);
+            Column.VisibleIndex = Def.Columns.IndexOf(Column);
+        }
+
+        return Def;
+    }
+    
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
     public string GetDescription()
@@ -150,6 +205,12 @@ public class GridViewDef
             
         S = SB.ToString();
         return S;
+    }
+
+    public void ClearLists()
+    {
+        Columns.Clear();
+        RowFilters.Clear();
     }
  
     /// <summary>

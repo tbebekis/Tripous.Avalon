@@ -132,8 +132,8 @@ public class GridBinder: ObservableObject
                 
                 Grid.CreateColumns(DataTable);
                 ColumnInfoList = Grid.Columns.Select(x => x.Tag as GridColumnInfo).ToList();
-                
-                fViewDef = DataView.CreateViewDef();
+
+                fViewDef = GridViewDef.Create(DataView);  
                 
                 DataViewChanged();
             }

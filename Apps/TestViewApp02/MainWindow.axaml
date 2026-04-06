@@ -11,18 +11,20 @@
         Title="TestViewApp02">
         
     <DockPanel Margin="10">
+        <Border DockPanel.Dock="Top" Classes="ToolbarContainer" Background="#F0F0F0" Margin="0,0,0,5">
+            <StackPanel Name="pnlToolBar" Classes="ToolBar" Orientation="Horizontal" MinHeight="32">
+                </StackPanel>
+        </Border>
+
         <StackPanel DockPanel.Dock="Top" 
                     Orientation="Horizontal" 
                     Spacing="10" 
                     Margin="0,0,0,10">
             
-            <Button x:Name="btnTest" 
-                    Content="Test" 
-                    Click="AnyClick" />
-            
-            <Button x:Name="btnTest2" 
-                    Content="Test 2" 
-                    Click="AnyClick" />
+            <Button x:Name="btnTest_DataView" Content="Test DataView" Click="AnyClick" />
+            <Button x:Name="btnTest_Poco" Content="Test Poco" Click="AnyClick" />
+            <Button x:Name="btnCloseGridView" Content="Close GridView" Click="AnyClick" />
+            <Button x:Name="btnTestExport" Content="Test Export" Click="AnyClick" />
         </StackPanel>
 
         <TabControl>
@@ -42,8 +44,6 @@
                                    FontSize="14" />
                 </Border>
             </TabItem>
-
-
         </TabControl>
     </DockPanel>          
 </Window>

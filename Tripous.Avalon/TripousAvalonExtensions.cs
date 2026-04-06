@@ -286,20 +286,7 @@ static public class TripousAvalonExtensions
         }
     }
     
-    // ● DataGrid - View related
-    /// <summary>
-    /// Creates a default <see cref="GridViewDef"/> based on a specified <see cref="DataView"/>.
-    /// </summary>
-    static public GridViewDef CreateViewDef(this DataView DataView)
-    {
-        GridViewDef Result = new();
-        DataTable Table = DataView.Table;
  
-        foreach (DataColumn Column in Table.Columns)
-            Result.OrderList.AddRange(Column.ColumnName);
- 
-        return Result;
-    }
     
     // ● DataGrid - Pivot related
     /// <summary>

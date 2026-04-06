@@ -361,6 +361,9 @@ public abstract class GridViewSource: IDisposable
     public bool IsDisposed => fDisposed;
     public abstract Type ItemType { get; }
     public abstract IEnumerable<object> Items { get; }
+    
+    public abstract object SourceObject { get; }
+    public virtual IList ListSource => null;
 
     // ● events
     public event EventHandler<GridViewSourceChangedEventArgs> SourceChanged;
@@ -409,6 +412,8 @@ public class DataViewGridViewSource: GridViewSource
     public DataView Source => fSource;
     public override Type ItemType => typeof(DataRowView);
     public override IEnumerable<object> Items => fSource.Cast<DataRowView>().Cast<object>();
+    public override object SourceObject => fSource;
+    public override IList ListSource => fSource;
 }
 
 public class PocoGridViewSource<T>: GridViewSource
@@ -416,6 +421,7 @@ public class PocoGridViewSource<T>: GridViewSource
     // ● private fields
     private readonly Dictionary<INotifyPropertyChanged, object> fObservedItems = new();
     private INotifyCollectionChanged fNotifyCollectionChanged;
+    private object fSourceObject;
     private IEnumerable<T> fSource;
 
     // ● private methods
@@ -491,7 +497,8 @@ public class PocoGridViewSource<T>: GridViewSource
     // ● constructors
     public PocoGridViewSource(IEnumerable<T> Source)
     {
-        fSource = Source ?? throw new ArgumentNullException(nameof(Source));
+        fSourceObject = Source ?? throw new ArgumentNullException(nameof(Source));
+        fSource = Source;
         fNotifyCollectionChanged = Source as INotifyCollectionChanged;
 
         if (fNotifyCollectionChanged != null)
@@ -499,7 +506,7 @@ public class PocoGridViewSource<T>: GridViewSource
 
         AttachItemHandlers();
     }
-
+    
     // ● public methods
     public override void Dispose()
     {
@@ -513,6 +520,8 @@ public class PocoGridViewSource<T>: GridViewSource
 
     // ● properties
     public IEnumerable<T> Source => fSource;
+    public override object SourceObject => fSourceObject;
+    public override IList ListSource => fSourceObject as IList;
     public override Type ItemType => typeof(T);
     public override IEnumerable<object> Items => fSource.Cast<object>();
 }
@@ -877,7 +886,32 @@ public class GridViewController: IDisposable
                 yield return Descendant;
         }
     }
+    private bool ExpandCollapseAll(bool Flag)
+    {
+        if (fData == null)
+            return false;
 
+        bool Changed = false;
+
+        foreach (GridViewNode Node in EnumerateNodes(fData))
+        {
+            if (Node.IsGroup && !Node.IsRoot && Node.IsExpanded != Flag)
+            {
+                SetExpandedState(Node, Flag);
+                Changed = true;
+            }
+        }
+
+        if (Changed)
+        {
+            fData.RebuildVisibleNodes();
+            fData.RebuildRows();
+            OnDataChanged(new GridViewDataChangedEventArgs(fData));
+        }
+
+        return Changed;
+    }
+    
     // ● constructors
     public GridViewController()
     {
@@ -946,6 +980,7 @@ public class GridViewController: IDisposable
     {
         Refresh(null);
     }
+    
     public bool CanEdit(GridDataRow Row, string FieldName)
     {
         if (Row == null || !Row.IsData)
@@ -963,27 +998,29 @@ public class GridViewController: IDisposable
 
         return true;
     }
-    public bool MoveTo(int Index)
+    
+    public bool MoveToAll(int Index)
     {
         return fData != null && fData.MoveTo(Index);
     }
-    public bool MoveFirst()
+    public bool MoveFirstAll()
     {
         return fData != null && fData.MoveFirst();
     }
-    public bool MoveLast()
+    public bool MoveLastAll()
     {
         return fData != null && fData.MoveLast();
     }
-    public bool MoveNext()
+    public bool MoveNextAll()
     {
         return fData != null && fData.MoveNext();
     }
-    public bool MovePrior()
+    public bool MovePriorAll()
     {
         return fData != null && fData.MovePrior();
     }
-    public bool MoveToData(int DataIndex)
+    
+    public bool MoveTo(int DataIndex)
     {
         if (Rows == null || Rows.Count == 0 || DataIndex < 0)
             return false;
@@ -995,7 +1032,7 @@ public class GridViewController: IDisposable
             if (Rows[i].IsData)
             {
                 if (Count == DataIndex)
-                    return MoveTo(i);
+                    return MoveToAll(i);
 
                 Count++;
             }
@@ -1003,7 +1040,7 @@ public class GridViewController: IDisposable
 
         return false;
     }
-    public bool MoveFirstData()
+    public bool MoveFirst()
     {
         if (Rows == null || Rows.Count == 0)
             return false;
@@ -1011,12 +1048,12 @@ public class GridViewController: IDisposable
         for (int i = 0; i < Rows.Count; i++)
         {
             if (Rows[i].IsData)
-                return MoveTo(i);
+                return MoveToAll(i);
         }
 
         return false;
     }
-    public bool MoveLastData()
+    public bool MoveLast()
     {
         if (Rows == null || Rows.Count == 0)
             return false;
@@ -1024,12 +1061,12 @@ public class GridViewController: IDisposable
         for (int i = Rows.Count - 1; i >= 0; i--)
         {
             if (Rows[i].IsData)
-                return MoveTo(i);
+                return MoveToAll(i);
         }
 
         return false;
     }
-    public bool MoveNextData()
+    public bool MoveNext()
     {
         if (Rows == null || Rows.Count == 0)
             return false;
@@ -1039,12 +1076,12 @@ public class GridViewController: IDisposable
         for (int i = Start; i < Rows.Count; i++)
         {
             if (Rows[i].IsData)
-                return MoveTo(i);
+                return MoveToAll(i);
         }
 
         return false;
     }
-    public bool MovePriorData()
+    public bool MovePrior()
     {
         if (Rows == null || Rows.Count == 0)
             return false;
@@ -1054,11 +1091,12 @@ public class GridViewController: IDisposable
         for (int i = Start; i >= 0; i--)
         {
             if (Rows[i].IsData)
-                return MoveTo(i);
+                return MoveToAll(i);
         }
 
         return false;
     }
+    
     public bool SetValue(GridDataRow Row, string FieldName, object Value)
     {
         if (!CanEdit(Row, FieldName))
@@ -1088,11 +1126,48 @@ public class GridViewController: IDisposable
         return true;
     }
 
+    public bool ExpandAll()
+    {
+        return ExpandCollapseAll(true);
+    }
+    public bool CollapseAll()
+    {
+        return ExpandCollapseAll(false);
+    }
+    
     // ● properties
     internal GridViewData Data => fData;
     public GridDataRow Current => fData != null ? fData.Current : null;
     public bool IsDisposed => fDisposed;
     public int Position
+    {
+        get
+        {
+            if (Rows == null || Rows.Count == 0 || PositionAll < 0)
+                return -1;
+
+            int Count = 0;
+
+            for (int i = 0; i < Rows.Count; i++)
+            {
+                if (Rows[i].IsData)
+                {
+                    if (i == PositionAll)
+                        return Count;
+
+                    Count++;
+                }
+            }
+
+            return -1;
+        }
+        set
+        {
+            MoveTo(value);
+        }
+    }
+
+    public int PositionAll
     {
         get => fData != null ? fData.Position : -1;
         set
@@ -1164,7 +1239,7 @@ static public class GridViewEngine
             Level = Parent != null ? Parent.Level + 1 : 0,
         };
     }
-    private static List<GroupBucket> CreateBuckets(List<object> RowList, string FieldName)
+    static private List<GroupBucket> CreateBuckets(List<object> RowList, string FieldName)
     {
         Dictionary<object, GroupBucket> Map = new();
         List<GroupBucket> Result = new();
@@ -1183,6 +1258,10 @@ static public class GridViewEngine
 
             Bucket.Rows.Add(Row);
         }
+
+        Result = Result
+            .OrderBy(x => x.Key, Comparer<object>.Create(Compare))
+            .ToList();
 
         return Result;
     }

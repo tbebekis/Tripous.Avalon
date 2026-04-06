@@ -33,9 +33,11 @@ public partial class MessageBox : Window
             _ => "information.png"
         };
 
+       Ui.SetImage(imgIcon, fileName);
+        
         // Φόρτωση του Asset (υποθέτοντας ότι είναι στο φάκελο Assets)
-        var uri = new Uri($"avares://DbPark/Images/{fileName}");
-        imgIcon.Source = new Avalonia.Media.Imaging.Bitmap(Avalonia.Platform.AssetLoader.Open(uri));
+        //var uri = new Uri($"avares://DbPark/Images/{fileName}");
+       //imgIcon.Source = new Avalonia.Media.Imaging.Bitmap(Avalonia.Platform.AssetLoader.Open(uri));
     }
     
     // ● Private Helper για την εμφάνιση

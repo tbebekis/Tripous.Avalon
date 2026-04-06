@@ -416,6 +416,7 @@ public class ViewMenu
     {
         Def.ClearLists();
         
+        /*
         List<DataGridColumn> ColumnList = Grid.Columns
             .OrderBy(c => c.DisplayIndex)
             .ToList();
@@ -443,6 +444,7 @@ public class ViewMenu
             CI = Col.GetColumnInfo();
             Def.GroupList.Add(CI.FieldName);
         }
+        */
 
         // DataView.RowFilter
         foreach (var Entry in ColumnFilters)
@@ -459,9 +461,10 @@ public class ViewMenu
         GroupColumnsChanged();
         ColumnSummariesChanged();
         
-        DataGridColumn Column;
-        RowFilterDef RowFilterDef;
+        //DataGridColumn Column;
+        //RowFilterDef RowFilterDef;
 
+        /*
         string FieldName;
         for (int i = 0; i < Def.OrderList.Count; i++)
         {
@@ -486,6 +489,7 @@ public class ViewMenu
             if (Column != null)
                 GroupColumns.Add(Column);
         }
+        */
         
         Dispatcher.UIThread.Post(() => 
         {  

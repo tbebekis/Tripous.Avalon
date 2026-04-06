@@ -182,7 +182,7 @@ public class DataGridExCustomButton
     public string Image { get; set; } // δεν ξέρω τι τύπο να βάλω, ποιο είναι το σωστό εδώ
     public int OrdinalIndex { get; set; }
 
-    public event EventHandler<RoutedEventArgs> Click;
+    //public event EventHandler<RoutedEventArgs> Click;
 }
 
 public class DataGridExColumnInfo

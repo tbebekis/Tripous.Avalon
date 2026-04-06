@@ -808,338 +808,7 @@ static internal class GridViewLookupHelper
         return Convert.ToString(Value, CultureInfo.InvariantCulture) ?? string.Empty;
     }
 }
-
-/*
-internal class GridViewLookupInplaceEditor: GridViewInplaceEditor
-{
-    private IEnumerable GetItems()
-    {
-        List<object> Result = new();
-
-        if (Context.ColumnDef != null && Context.ColumnDef.IsNullable)
-            Result.Add(null);
-
-        IEnumerable Source = GridViewLookupHelper.GetItems(Context.ColumnDef);
-        if (Source != null)
-        {
-            foreach (object Item in Source)
-                Result.Add(Item);
-        }
-
-        return Result;
-    }
-    
-    // ● constructors
-    public GridViewLookupInplaceEditor(GridViewInplaceEditorContext Context)
-        : base(Context)
-    {
-    }
-
-    // ● public methods
-    public override Control Create()
-    {
-        IEnumerable Items = GetItems(); // IEnumerable Items = GridViewLookupHelper.GetItems(Context.ColumnDef);
-        object OriginalValue = GetCellValue();
-        object OriginalItem = GridViewLookupHelper.FindItemByValue(Context.ColumnDef, OriginalValue);
-
-        ComboBox Editor = new()
-        {
-            ItemsSource = Items,
-            SelectedItem = OriginalItem,
-            Margin = new Thickness(4, 1, 4, 1),
-            VerticalAlignment = VerticalAlignment.Center,
-            IsEnabled = true,
-        };
-
-        Editor.ItemTemplate = new FuncDataTemplate<object>((Item, _) =>
-        {
-            TextBlock Result = new()
-            {
-                Text = Item != null ? GridViewLookupHelper.GetItemDisplayText(Item, Context.ColumnDef) : string.Empty,
-                Margin = new Thickness(4, 2, 4, 2),
-                VerticalAlignment = VerticalAlignment.Center,
-            };
-
-            return Result;
-        });
-
-        Editor.AttachedToVisualTree += (s, e) =>
-        {
-            Dispatcher.UIThread.Post(() =>
-            {
-                if (Editor.IsVisible && Editor.IsEffectivelyEnabled)
-                {
-                    Editor.Focus();
-                    Editor.IsDropDownOpen = true;
-                }
-            }, DispatcherPriority.Input);
-        };
-
-        void CommitEdit(GridViewEditCommitReason Reason)
-        {
-            object Item = Editor.SelectedItem;
-            object NewValue = GridViewLookupHelper.GetItemValue(Item, Context.ColumnDef);
-
-            if (Equals(NewValue, OriginalValue))
-            {
-                Complete(Reason);
-                return;
-            }
-
-            Commit(NewValue, Reason);
-        }
-
-        Editor.DropDownClosed += (s, e) =>
-        {
-            if (!Canceled && !Completed)
-                CommitEdit(GridViewEditCommitReason.Pointer);
-        };
-
-        Editor.LostFocus += (s, e) =>
-        {
-            if (!Canceled && !Completed && !Editor.IsDropDownOpen)
-                CommitEdit(GridViewEditCommitReason.LostFocus);
-        };
-
-        Editor.KeyDown += (s, e) =>
-        {
-            if (e.Handled)
-                return;
-
-            if (Editor.IsDropDownOpen)
-            {
-                switch (e.Key)
-                {
-                    case Key.Escape:
-                        Editor.IsDropDownOpen = false;
-                        e.Handled = true;
-                        break;
-
-                    case Key.Enter:
-                        CommitEdit(GridViewEditCommitReason.Enter);
-                        e.Handled = true;
-                        break;
-
-                    case Key.Tab:
-                        CommitEdit(GridViewEditCommitReason.Arrow);
-                        e.Handled = true;
-                        break;
-                }
-
-                return;
-            }
-
-            switch (e.Key)
-            {
-                case Key.Escape:
-                    Cancel();
-                    e.Handled = true;
-                    break;
-
-                case Key.Enter:
-                    CommitEdit(GridViewEditCommitReason.Enter);
-                    e.Handled = true;
-                    break;
-
-                case Key.Tab:
-                    CommitEdit(GridViewEditCommitReason.Arrow);
-                    e.Handled = true;
-                    break;
-            }
-        };
-
-        Border Result = new()
-        {
-            Background = GetRowBackground(Context.Row),
-            Child = Editor,
-        };
-
-        return Result;
-    }
-}
-
-internal class GridViewEnumInplaceEditor: GridViewInplaceEditor
-{
-    // ● private methods
-    private object GetEditorValue(object Value)
-    {
-        Type EnumType = GetCoreDataType();
-
-        if (EnumType == null || !EnumType.IsEnum || Value == null || Value == DBNull.Value)
-            return null;
-
-        if (Value.GetType().IsEnum)
-            return Value;
-
-        try
-        {
-            if (Value is string S && !string.IsNullOrWhiteSpace(S))
-                return Enum.Parse(EnumType, S, true);
-
-            return Enum.ToObject(EnumType, Value);
-        }
-        catch
-        {
-            return null;
-        }
-    }
-    private IEnumerable GetItems()
-    {
-        List<object> Result = new();
-
-        if (Context.ColumnDef != null && Context.ColumnDef.IsNullable)
-            Result.Add(null);
-
-        Type EnumType = GetCoreDataType();
-        if (EnumType != null)
-        {
-            foreach (object Item in Enum.GetValues(EnumType))
-                Result.Add(Item);
-        }
-
-        return Result;
-    }
-    
-    // ● constructors
-    public GridViewEnumInplaceEditor(GridViewInplaceEditorContext Context)
-        : base(Context)
-    {
-    }
-
-    // ● public methods
-    public override Control Create()
-    {
-        Type EnumType = GetCoreDataType();
-        object OriginalValue = GetEditorValue(GetCellValue());
-
-        ComboBox Editor = new()
-        {
-            ItemsSource = GetItems(), //Enum.GetValues(EnumType),
-            SelectedItem = OriginalValue,
-            Margin = new Thickness(4, 1, 4, 1),
-            VerticalAlignment = VerticalAlignment.Center,
-            IsEnabled = true,
-        };
-        
-        Editor.ItemTemplate = new FuncDataTemplate<object>((Item, _) =>
-        {
-            TextBlock Result = new()
-            {
-                Text = Item != null ? Item.ToString() : string.Empty,
-                Margin = new Thickness(4, 2, 4, 2),
-                VerticalAlignment = VerticalAlignment.Center,
-            };
-
-            return Result;
-        });
-
-        Editor.AttachedToVisualTree += (s, e) =>
-        {
-            Dispatcher.UIThread.Post(() =>
-            {
-                if (Editor.IsVisible && Editor.IsEffectivelyEnabled)
-                {
-                    Editor.Focus();
-                    Editor.IsDropDownOpen = true;
-                }
-            }, DispatcherPriority.Input);
-        };
-
-        void CommitEdit(GridViewEditCommitReason Reason)
-        {
-            object NewValue = Editor.SelectedItem;
-            if (Equals(NewValue, OriginalValue))
-            {
-                Complete(Reason);
-                return;
-            }
-
-            Commit(NewValue, Reason);
-        }
-
-        Editor.DropDownClosed += (s, e) =>
-        {
-            if (!Canceled && !Completed)
-                CommitEdit(GridViewEditCommitReason.Pointer);
-        };
-
-        Editor.LostFocus += (s, e) =>
-        {
-            if (!Canceled && !Completed && !Editor.IsDropDownOpen)
-                CommitEdit(GridViewEditCommitReason.LostFocus);
-        };
-
-        Editor.KeyDown += (s, e) =>
-        {
-            if (e.Handled)
-                return;
-
-            if (Editor.IsDropDownOpen)
-            {
-                switch (e.Key)
-                {
-                    case Key.Escape:
-                        Editor.IsDropDownOpen = false;
-                        e.Handled = true;
-                        break;
-
-                    case Key.Enter:
-                        CommitEdit(GridViewEditCommitReason.Enter);
-                        e.Handled = true;
-                        break;
-
-                    case Key.Tab:
-                        CommitEdit(GridViewEditCommitReason.Arrow);
-                        e.Handled = true;
-                        break;
-
-                    case Key.Left:
-                    case Key.Right:
-                    case Key.Up:
-                    case Key.Down:
-                        break;
-                }
-
-                return;
-            }
-
-            switch (e.Key)
-            {
-                case Key.Escape:
-                    Cancel();
-                    e.Handled = true;
-                    break;
-
-                case Key.Enter:
-                    CommitEdit(GridViewEditCommitReason.Enter);
-                    e.Handled = true;
-                    break;
-
-                case Key.Tab:
-                    CommitEdit(GridViewEditCommitReason.Arrow);
-                    e.Handled = true;
-                    break;
-
-                case Key.Left:
-                case Key.Right:
-                case Key.Up:
-                case Key.Down:
-                    CommitEdit(GridViewEditCommitReason.Arrow);
-                    break;
-            }
-        };
-
-        Border Result = new()
-        {
-            Background = GetRowBackground(Context.Row),
-            Child = Editor,
-        };
-
-        return Result;
-    }
-}
-*/
-
+ 
 internal abstract class GridViewComboBoxInplaceEditor: GridViewInplaceEditor
 {
     // ● protected methods
@@ -2021,13 +1690,7 @@ static internal class GridViewRenderer
         List<GridViewColumnDef> NonGroupColumns = VisibleColumns.Where(x => x.GroupIndex < 0).OrderBy(x => x.VisibleIndex).ToList();
         return GroupColumns.Concat(NonGroupColumns).ToList();
     }
-    static private string GetFooterLabel(GridViewNode Node)
-    {
-        if (Node == null || Node.OwnerGroup == null || Node.OwnerGroup.IsRoot)
-            return "Grand Total";
 
-        return $"Total ({Node.OwnerGroup.FieldName} = {Node.OwnerGroup.Key})";
-    }
     static private int GetGroupLabelColumnIndex(GridViewNode Node, int ColumnCount)
     {
         if (ColumnCount <= 0)
@@ -2039,94 +1702,140 @@ static internal class GridViewRenderer
     {
         return Row != null ? Row.GetValue(FieldName) : null;
     }
-
-    // ● static public methods
-    static public GridViewRenderData Render(GridViewData Data)
+    static private string FormatGroupKey(GridViewColumnDef ColumnDef, object Value)
     {
-        if (Data == null)
-            throw new ArgumentNullException(nameof(Data));
+        if (Value == null || Value == DBNull.Value)
+            return string.Empty;
 
-        if (Data.ViewDef == null)
-            throw new ArgumentNullException(nameof(Data.ViewDef));
+        if (ColumnDef != null && ColumnDef.IsLookup)
+            return GridViewLookupHelper.GetDisplayTextByValue(ColumnDef, Value);
 
-        GridViewRenderData Result = new();
-        List<GridViewColumnDef> Columns = GetDisplayColumns(Data.ViewDef);
-
-        Result.Columns.AddRange(Columns);
-
-        foreach (GridDataRow DataRow in Data.Rows)
+        if (ColumnDef.UnderlyingType != null && ColumnDef.UnderlyingType.IsEnum)
         {
-            GridViewRenderRow Row = new()
+            try
             {
-                DataRow = DataRow,
-                Values = new object[Columns.Count],
-            };
+                object EnumValue = Value.GetType().IsEnum
+                    ? Value
+                    : Enum.ToObject(ColumnDef.UnderlyingType, Value);
 
-            if (DataRow.IsGroup)
-            {
-                int ColumnIndex = GetGroupLabelColumnIndex(DataRow.Node, Columns.Count);
-                Row.LabelColumnIndex = ColumnIndex;
-
-                if (ColumnIndex >= 0)
-                    Row.Values[ColumnIndex] = $"{DataRow.Node.FieldName} = {DataRow.Node.Key}";
-
-                if (DataRow.Node != null && !DataRow.Node.IsExpanded)
-                {
-                    foreach (GridViewSummary Summary in DataRow.Node.Summaries)
-                    {
-                        int SummaryColumnIndex = Columns.FindIndex(x => string.Equals(x.FieldName, Summary.FieldName, StringComparison.OrdinalIgnoreCase));
-                        if (SummaryColumnIndex >= 0 && SummaryColumnIndex != Row.LabelColumnIndex)
-                            Row.Values[SummaryColumnIndex] = Summary.Value;
-                    }
-                }
+                return EnumValue.ToString();
             }
-            else if (DataRow.IsFooter || DataRow.IsGrandTotal)
+            catch
             {
-                if (Columns.Count > 0)
-                {
-                    int LabelColumnIndex = 0;
-
-                    if (DataRow.IsFooter && DataRow.Node?.OwnerGroup != null && !DataRow.Node.OwnerGroup.IsRoot)
-                    {
-                        LabelColumnIndex = Columns.FindIndex(x =>
-                            string.Equals(x.FieldName, DataRow.Node.OwnerGroup.FieldName, StringComparison.OrdinalIgnoreCase));
-
-                        if (LabelColumnIndex < 0)
-                            LabelColumnIndex = 0;
-                    }
-
-                    Row.LabelColumnIndex = LabelColumnIndex;
-                    Row.Values[LabelColumnIndex] = GetFooterLabel(DataRow.Node);
-                }
-
-                if (DataRow.Node != null)
-                {
-                    foreach (GridViewSummary Summary in DataRow.Node.Summaries)
-                    {
-                        int ColumnIndex = Columns.FindIndex(x => string.Equals(x.FieldName, Summary.FieldName, StringComparison.OrdinalIgnoreCase));
-                        if (ColumnIndex >= 0)
-                            Row.Values[ColumnIndex] = Summary.Value;
-                    }
-                }
             }
-            else if (DataRow.IsData)
-            {
-                for (int i = 0; i < Columns.Count; i++)
-                {
-                    GridViewColumnDef ColumnDef = Columns[i];
-
-                    if (!Data.ViewDef.ShowGroupColumnsAsDataColumns && ColumnDef.GroupIndex >= 0)
-                        Row.Values[i] = null;
-                    else
-                        Row.Values[i] = GetRowValue(DataRow, ColumnDef.FieldName);
-                }
-            }
-
-            Result.Rows.Add(Row);
         }
 
-        return Result;
+        string DisplayFormat = ColumnDef != null ? ColumnDef.DisplayFormat : string.Empty;
+        if (!string.IsNullOrWhiteSpace(DisplayFormat) && Value is IFormattable Formattable)
+            return Formattable.ToString(DisplayFormat, CultureInfo.InvariantCulture);
+
+        return Convert.ToString(Value, CultureInfo.InvariantCulture) ?? string.Empty;
     }
+    static private string GetFooterLabel(GridViewNode Node, List<GridViewColumnDef> Columns)
+    {
+        if (Node == null || Node.OwnerGroup == null || Node.OwnerGroup.IsRoot)
+            return "Grand Total";
+
+        GridViewColumnDef ColumnDef = Columns.FirstOrDefault(x =>
+            string.Equals(x.FieldName, Node.OwnerGroup.FieldName, StringComparison.OrdinalIgnoreCase));
+
+        string Title = ColumnDef != null ? ColumnDef.Title : Node.OwnerGroup.FieldName;
+        string Text = FormatGroupKey(ColumnDef, Node.OwnerGroup.Key);
+
+        return $"Total ({Title} = {Text})";
+    }
+    
+    // ● static public methods
+
+    static public GridViewRenderData Render(GridViewData Data)
+{
+    if (Data == null)
+        throw new ArgumentNullException(nameof(Data));
+
+    if (Data.ViewDef == null)
+        throw new ArgumentNullException(nameof(Data.ViewDef));
+
+    GridViewRenderData Result = new();
+    List<GridViewColumnDef> Columns = GetDisplayColumns(Data.ViewDef);
+
+    Result.Columns.AddRange(Columns);
+
+    foreach (GridDataRow DataRow in Data.Rows)
+    {
+        GridViewRenderRow Row = new()
+        {
+            DataRow = DataRow,
+            Values = new object[Columns.Count],
+        };
+
+        if (DataRow.IsGroup)
+        {
+            int ColumnIndex = GetGroupLabelColumnIndex(DataRow.Node, Columns.Count);
+            Row.LabelColumnIndex = ColumnIndex;
+
+            if (ColumnIndex >= 0)
+            {
+                GridViewColumnDef ColumnDef = Columns[ColumnIndex];
+                Row.Values[ColumnIndex] = $"{ColumnDef.Title} = {FormatGroupKey(ColumnDef, DataRow.Node.Key)}";
+            }
+
+            if (DataRow.Node != null && !DataRow.Node.IsExpanded)
+            {
+                foreach (GridViewSummary Summary in DataRow.Node.Summaries)
+                {
+                    int SummaryColumnIndex = Columns.FindIndex(x => string.Equals(x.FieldName, Summary.FieldName, StringComparison.OrdinalIgnoreCase));
+                    if (SummaryColumnIndex >= 0 && SummaryColumnIndex != Row.LabelColumnIndex)
+                        Row.Values[SummaryColumnIndex] = Summary.Value;
+                }
+            }
+        }
+        else if (DataRow.IsFooter || DataRow.IsGrandTotal)
+        {
+            if (Columns.Count > 0)
+            {
+                int LabelColumnIndex = 0;
+
+                if (DataRow.IsFooter && DataRow.Node?.OwnerGroup != null && !DataRow.Node.OwnerGroup.IsRoot)
+                {
+                    LabelColumnIndex = Columns.FindIndex(x =>
+                        string.Equals(x.FieldName, DataRow.Node.OwnerGroup.FieldName, StringComparison.OrdinalIgnoreCase));
+
+                    if (LabelColumnIndex < 0)
+                        LabelColumnIndex = 0;
+                }
+
+                Row.LabelColumnIndex = LabelColumnIndex;
+                Row.Values[LabelColumnIndex] = GetFooterLabel(DataRow.Node, Columns);
+            }
+
+            if (DataRow.Node != null)
+            {
+                foreach (GridViewSummary Summary in DataRow.Node.Summaries)
+                {
+                    int ColumnIndex = Columns.FindIndex(x => string.Equals(x.FieldName, Summary.FieldName, StringComparison.OrdinalIgnoreCase));
+                    if (ColumnIndex >= 0)
+                        Row.Values[ColumnIndex] = Summary.Value;
+                }
+            }
+        }
+        else if (DataRow.IsData)
+        {
+            for (int i = 0; i < Columns.Count; i++)
+            {
+                GridViewColumnDef ColumnDef = Columns[i];
+
+                if (!Data.ViewDef.ShowGroupColumnsAsDataColumns && ColumnDef.GroupIndex >= 0)
+                    Row.Values[i] = null;
+                else
+                    Row.Values[i] = GetRowValue(DataRow, ColumnDef.FieldName);
+            }
+        }
+
+        Result.Rows.Add(Row);
+    }
+
+    return Result;
+}
 }
 
 static public class GridViewGridBinder

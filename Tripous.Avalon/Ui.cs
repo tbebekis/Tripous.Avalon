@@ -1,7 +1,212 @@
+using ProDataGrid.FormulaEngine;
+
 namespace Tripous.Avalon;
 
+/// <summary>
+/// Helper for the Ui
+/// </summary>
 static public class Ui
 {
+    // ● public
+    /// <summary>
+    /// Returns true if an image resource path exists, e.g. avares://Tripous.Avalon/Images/MyImage.png
+    /// </summary>
+    static public Uri FindImageUriByPath(string ImageResourcePath)
+    {
+        if (System.Uri.TryCreate(ImageResourcePath, UriKind.Absolute, out Uri Uri))
+            if (AssetLoader.Exists(Uri))
+                return Uri;
+        return null;
+    }
+    /// <summary>
+    /// Returns true if if finds an image resource along with its full path.
+    /// </summary>
+    static public Uri FindImageUri(Assembly Assembly, string FileName)
+    {
+        Uri Result = null;
+        
+        if (!string.IsNullOrWhiteSpace(FileName) && (Assembly != null))
+        {
+            string AssemblyName = Assembly.GetName().Name;
+            string S = $"avares://{AssemblyName}/Images/{FileName}";
+            Result = FindImageUriByPath(S);
+        }
+
+        return Result;
+    }
+    /// <summary>
+    /// Finds and returns the full path of an image resource, if any, else null.
+    /// </summary>
+    static public Uri FindImageUri(string FileName)
+    {
+        Uri Result = FindImageUriByPath(FileName);
+        
+        if (Result == null)
+            Result = FindImageUri(Assembly.GetEntryAssembly(), FileName);
+        
+        if (Result == null)
+            Result = FindImageUri(Assembly.GetCallingAssembly(), FileName);
+
+        if (Result == null)
+            Result = FindImageUri(typeof(Ui).Assembly, FileName);
+
+        return Result;
+    }
+
+    static public bool SetImage(Image Image, string FileName)
+    {
+        if (Image != null)
+        {
+            Uri Uri = FindImageUri(FileName);
+            if (Uri != null)
+            {
+                Image.Source = new Bitmap(AssetLoader.Open(Uri));
+                return true;
+            }
+        }
+        return false;
+    }
+    static public bool SetImage(this Button Button, string FileName)
+    {
+        if (Button != null)
+        {
+            Uri Uri = FindImageUri(FileName);
+            if (Uri != null)
+            {
+                Button.Content = new Image() { Source = new Bitmap(AssetLoader.Open(Uri)) };
+                return true;
+            }
+        }
+
+        return false;
+    }
+    static public bool SetImage(this MenuItem MenuItem, string FileName)
+    {
+        if (MenuItem != null)
+        {
+            Uri Uri = FindImageUri(FileName);
+            if (Uri != null)
+            {
+                MenuItem.Icon = new Image() { Source = new Bitmap(AssetLoader.Open(Uri)) };
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    static public MenuItem AddMenuItem(this MenuBase ParentMenu, string Header, EventHandler<RoutedEventArgs> Click = null,
+        object Tag = null)
+    {
+        MenuItem Result = new MenuItem() { Header =  Header, Tag = Tag };
+        if (Click != null)
+            Result.Click += Click;
+        ParentMenu.Items.Add(Result);
+        return Result;
+    }
+    static public MenuItem AddMenuItem(this MenuItem ParentMenu, string Header, EventHandler<RoutedEventArgs> Click = null,
+        object Tag = null)
+    {
+        MenuItem Result = new MenuItem() { Header =  Header, Tag = Tag };
+        if (Click != null)
+            Result.Click += Click;
+        ParentMenu.Items.Add(Result);
+        return Result;
+    }
+
+    static public async Task<string> SaveFileDialog(params string[] Extensions)
+    {
+        if (MainWindow == null)
+            return null;
+
+        var topLevel = TopLevel.GetTopLevel(MainWindow);
+        if (topLevel?.StorageProvider == null)
+            return null;
+
+        Extensions ??= Array.Empty<string>();
+
+        var fileTypes = new List<FilePickerFileType>();
+
+        foreach (string ext in Extensions.Where(x => !string.IsNullOrWhiteSpace(x)))
+        {
+            string cleanExt = ext.Trim().TrimStart('.').ToLowerInvariant();
+
+            fileTypes.Add(new FilePickerFileType($"{cleanExt.ToUpper()} files")
+            {
+                Patterns = new[] { $"*.{cleanExt}" }
+            });
+        }
+
+        // All files *.*
+        fileTypes.Add(new FilePickerFileType("All files")
+        {
+            Patterns = new[] { "*.*" }
+        });
+
+        var options = new FilePickerSaveOptions
+        {
+            Title = "Save file",
+            SuggestedFileName = Extensions.Length > 0 ? $"file.{Extensions[0].TrimStart('.')}" : "file",
+            DefaultExtension = Extensions.Length > 0 ? Extensions[0].TrimStart('.') : null,
+            FileTypeChoices = fileTypes
+        };
+
+        var file = await topLevel.StorageProvider.SaveFilePickerAsync(options);
+
+        return file?.Path?.LocalPath;
+    }
+    static public async Task<string> OpenFileDialog(params string[] Extensions)
+    {
+        if (MainWindow == null)
+            return null;
+
+        var topLevel = TopLevel.GetTopLevel(MainWindow);
+        if (topLevel?.StorageProvider == null)
+            return null;
+
+        Extensions ??= Array.Empty<string>();
+
+        var fileTypes = new List<FilePickerFileType>();
+
+        foreach (string ext in Extensions.Where(x => !string.IsNullOrWhiteSpace(x)))
+        {
+            string cleanExt = ext.Trim().TrimStart('.').ToLowerInvariant();
+
+            fileTypes.Add(new FilePickerFileType($"{cleanExt.ToUpper()} files")
+            {
+                Patterns = new[] { $"*.{cleanExt}" }
+            });
+        }
+
+        // All files *.*
+        fileTypes.Add(new FilePickerFileType("All files")
+        {
+            Patterns = new[] { "*.*" }
+        });
+
+        var options = new FilePickerOpenOptions
+        {
+            Title = "Open file",
+            AllowMultiple = false,
+            FileTypeFilter = fileTypes
+        };
+
+        var files = await topLevel.StorageProvider.OpenFilePickerAsync(options);
+
+        if (files == null || files.Count == 0)
+            return null;
+
+        return files[0]?.Path?.LocalPath;
+    }
+ 
+    
+    // ● properties
+    /// <summary>
+    /// The main windows
+    /// </summary>
     static public Window MainWindow { get; set; }
+    /// <summary>
+    /// When true the a grid must display columns ending with Id
+    /// </summary>
     static public bool IdColumnsVisible { get; set; } = true;
 }
