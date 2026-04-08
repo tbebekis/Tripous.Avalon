@@ -40,10 +40,10 @@ namespace Tripous
         {
             LoadBefore();
             
-            if (!File.Exists(FilePath))
+            if (!File.Exists(SettingsFilePath))
                 return;
 
-            string JsonText = File.ReadAllText(FilePath);
+            string JsonText = File.ReadAllText(SettingsFilePath);
             Json.PopulateObject(this, JsonText);
             
             IsLoaded  = true;
@@ -56,13 +56,13 @@ namespace Tripous
         {
             SaveBefore();
             
-            string DirectoryPath = Path.GetDirectoryName(FilePath);
+            string DirectoryPath = Path.GetDirectoryName(SettingsFilePath);
 
             if (!Directory.Exists(DirectoryPath))
                 Directory.CreateDirectory(DirectoryPath);
         
             string JsonText = Json.Serialize(this);
-            File.WriteAllText(FilePath, JsonText);
+            File.WriteAllText(SettingsFilePath, JsonText);
             
             SaveAfter();
         }
@@ -72,7 +72,7 @@ namespace Tripous
         /// The full path where this instance is saved.
         /// </summary>
         [JsonIgnore]
-        public string FilePath => GetFilePath();
+        public string SettingsFilePath => GetFilePath();
         [JsonIgnore] 
         public virtual bool IsLoaded { get; protected set; }
     }    

@@ -374,7 +374,7 @@ public abstract class GridViewSource: IDisposable
 public class DataViewGridViewSource: GridViewSource
 {
     // ● private fields
-    private DataView fSource;
+     
 
     // ● private methods
     private void Source_ListChanged(object sender, ListChangedEventArgs e)
@@ -388,24 +388,24 @@ public class DataViewGridViewSource: GridViewSource
         };
 
         object Item = null;
-        if (e.NewIndex >= 0 && e.NewIndex < fSource.Count)
-            Item = fSource[e.NewIndex];
+        if (e.NewIndex >= 0 && e.NewIndex < Source.Count)
+            Item = Source[e.NewIndex];
 
         OnSourceChanged(new GridViewSourceChangedEventArgs(ChangeType, Item));
     }
 
     // ● constructors
-    public DataViewGridViewSource(DataView Source)
+    public DataViewGridViewSource(DataView DataViewSource)
     {
-        fSource = Source ?? throw new ArgumentNullException(nameof(Source));
-        fSource.ListChanged += Source_ListChanged;
+        Source = DataViewSource ?? throw new ArgumentNullException(nameof(DataViewSource));
+        Source.ListChanged += Source_ListChanged;
     }
 
     // ● public methods
     public override void Dispose()
     {
-        if (!IsDisposed && fSource != null)
-            fSource.ListChanged -= Source_ListChanged;
+        if (!IsDisposed && Source != null)
+            Source.ListChanged -= Source_ListChanged;
 
         base.Dispose();
     }
@@ -413,11 +413,11 @@ public class DataViewGridViewSource: GridViewSource
  
     
     // ● properties
-    public DataView Source => fSource;
+    public DataView Source { get; private set; }
     public override Type ItemType => typeof(DataRowView);
-    public override IEnumerable<object> Items => fSource.Cast<DataRowView>().Cast<object>();
-    public override object SourceObject => fSource;
-    public override IList ListSource => fSource;
+    public override IEnumerable<object> Items => Source.Cast<DataRowView>().Cast<object>();
+    public override object SourceObject => Source;
+    public override IList ListSource => Source;
 }
 
 public class PocoGridViewSource<T>: GridViewSource
@@ -426,14 +426,14 @@ public class PocoGridViewSource<T>: GridViewSource
     private readonly Dictionary<INotifyPropertyChanged, object> fObservedItems = new();
     private INotifyCollectionChanged fNotifyCollectionChanged;
     private object fSourceObject;
-    private IEnumerable<T> fSource;
+ 
 
     // ● private methods
     private void AttachItemHandlers()
     {
         DetachItemHandlers();
 
-        foreach (T Item in fSource ?? Enumerable.Empty<T>())
+        foreach (T Item in Source ?? Enumerable.Empty<T>())
         {
             if (Item is INotifyPropertyChanged NotifyItem)
             {
@@ -499,10 +499,10 @@ public class PocoGridViewSource<T>: GridViewSource
     }
 
     // ● constructors
-    public PocoGridViewSource(IEnumerable<T> Source)
+    public PocoGridViewSource(IEnumerable<T> SequenceSource)
     {
-        fSourceObject = Source ?? throw new ArgumentNullException(nameof(Source));
-        fSource = Source;
+        fSourceObject = SequenceSource ?? throw new ArgumentNullException(nameof(SequenceSource));
+        Source = SequenceSource;
         fNotifyCollectionChanged = Source as INotifyCollectionChanged;
 
         if (fNotifyCollectionChanged != null)
@@ -524,13 +524,12 @@ public class PocoGridViewSource<T>: GridViewSource
  
 
     // ● properties
-    public IEnumerable<T> Source => fSource;
+    public IEnumerable<T> Source { get; private set; }
     public override object SourceObject => fSourceObject;
     public override IList ListSource => fSourceObject as IList;
     public override Type ItemType => typeof(T);
-    public override IEnumerable<object> Items => fSource.Cast<object>();
+    public override IEnumerable<object> Items => Source.Cast<object>();
 }
-
 
 public class GridViewData: GridViewNode
 {
@@ -688,11 +687,18 @@ public class GridViewDataChangedEventArgs: EventArgs
 
 public class GridViewController: IDisposable
 {
+    // ● private types
+    private enum EditRefreshMode
+    {
+        RenderOnly,
+        Full,
+    }
+    
     // ● private fields
     private static FieldInfo fIsExpandedField;
     private GridViewData fData;
     private bool fDisposed;
-    private GridViewSource fSource;
+   
     private bool fSuppressSourceChanged;
     private GridViewDef fViewDef;
  
@@ -721,11 +727,11 @@ public class GridViewController: IDisposable
     }
     private void CloseSource()
     {
-        if (fSource != null)
+        if (ViewSource != null)
         {
-            fSource.SourceChanged -= Source_SourceChanged;
-            fSource.Dispose();
-            fSource = null;
+            ViewSource.SourceChanged -= ViewSourceViewSourceChanged;
+            ViewSource.Dispose();
+            ViewSource = null;
         }
 
         AttachData(null);
@@ -806,7 +812,7 @@ public class GridViewController: IDisposable
     }
     private void Refresh(GridViewSourceChangedEventArgs e = null)
     {
-        if (fSource == null)
+        if (ViewSource == null)
         {
             AttachData(null);
             OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
@@ -815,7 +821,7 @@ public class GridViewController: IDisposable
 
         if (fData == null)
         {
-            GridViewData NewData = GridViewEngine.Execute(fSource, fViewDef);
+            GridViewData NewData = GridViewEngine.Execute(ViewSource, fViewDef);
             AttachData(NewData);
             OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
             return;
@@ -872,7 +878,7 @@ public class GridViewController: IDisposable
         if (Field != null && Node != null && Node.IsGroup && !Node.IsRoot)
             Field.SetValue(Node, Value);
     }
-    private void Source_SourceChanged(object Sender, GridViewSourceChangedEventArgs e)
+    private void ViewSourceViewSourceChanged(object Sender, GridViewSourceChangedEventArgs e)
     {
         if (fSuppressSourceChanged)
             return;
@@ -922,10 +928,13 @@ public class GridViewController: IDisposable
     public GridViewController()
     {
     }
-    public GridViewController(DataView Source, GridViewDef Def = null)
+    
+    /*
+    public GridViewController(DataView DataViewSource, GridViewDef Def = null)
     {
-        Open(Source, Def);
+        Open(DataViewSource, Def);
     }
+    */
 
     // ● public methods
     public void Close()
@@ -940,53 +949,50 @@ public class GridViewController: IDisposable
             fDisposed = true;
         }
     }
-    public void Open(DataView Source, GridViewDef Def = null)
-    {
-        CloseSource();
-
-        if (Source == null)
-            return;
-
-        fSource = new DataViewGridViewSource(Source);
-        fViewDef = Def ?? GridViewEngine.CreateDefaultDef(Source);
-        fSource.SourceChanged += Source_SourceChanged;
-
-        AttachData(GridViewEngine.Execute(fSource, fViewDef));
-        OnDataChanged(new GridViewDataChangedEventArgs(fData));
-    }
-    public void Open<T>(IEnumerable<T> Source, GridViewDef Def = null)
-    {
-        CloseSource();
-
-        if (Source == null)
-            return;
-
-        fSource = new PocoGridViewSource<T>(Source);
-        fViewDef = Def ?? GridViewEngine.CreateDefaultDef(typeof(T));
-        fSource.SourceChanged += Source_SourceChanged;
-
-        AttachData(GridViewEngine.Execute(fSource, fViewDef));
-        OnDataChanged(new GridViewDataChangedEventArgs(fData));
-    }
-    public void Open(GridViewSource Source, GridViewDef Def = null)
-    {
-        CloseSource();
-
-        if (Source == null)
-            return;
-
-        fSource = Source;
-        fViewDef = Def ?? GridViewEngine.CreateDefaultDef(Source);
-        fSource.SourceChanged += Source_SourceChanged;
-
-        AttachData(GridViewEngine.Execute(fSource, fViewDef));
-        OnDataChanged(new GridViewDataChangedEventArgs(fData));
-    }
-    public void Refresh()
-    {
-        Refresh(null);
-    }
     
+    /*
+    public void Open(DataView DataViewSource, GridViewDef Def = null)
+    {
+        CloseSource();
+
+        if (DataViewSource == null)
+            return;
+
+        Source = new DataViewGridViewSource(DataViewSource);
+        fViewDef = Def ?? GridViewEngine.CreateDefaultDef(DataViewSource);
+        Source.SourceChanged += Source_SourceChanged;
+
+        AttachData(GridViewEngine.Execute(Source, fViewDef));
+        OnDataChanged(new GridViewDataChangedEventArgs(fData));
+    }
+    public void Open<T>(IEnumerable<T> SequenceSource, GridViewDef Def = null)
+    {
+        CloseSource();
+
+        if (SequenceSource == null)
+            return;
+
+        Source = new PocoGridViewSource<T>(SequenceSource);
+        fViewDef = Def ?? GridViewEngine.CreateDefaultDef(typeof(T));
+        Source.SourceChanged += Source_SourceChanged;
+
+        AttachData(GridViewEngine.Execute(Source, fViewDef));
+        OnDataChanged(new GridViewDataChangedEventArgs(fData));
+    }
+    public void Open(GridViewSource ViewSource, GridViewDef Def = null)
+    {
+        CloseSource();
+
+        if (ViewSource == null)
+            return;
+
+        Source = ViewSource;
+        fViewDef = Def ?? GridViewEngine.CreateDefaultDef(ViewSource);
+        Source.SourceChanged += Source_SourceChanged;
+
+        AttachData(GridViewEngine.Execute(Source, fViewDef));
+        OnDataChanged(new GridViewDataChangedEventArgs(fData));
+    }
     public void ApplyViewDef(GridViewDef Def)
     {
         if (Def == null)
@@ -995,6 +1001,34 @@ public class GridViewController: IDisposable
         fViewDef = Def;
         Refresh();
     }
+    */
+    
+    /////////////////////////////
+    public void SetSource(DataView DataViewSource)
+    {
+        CloseSource();
+
+        if (DataViewSource == null)
+            return;
+        
+        ViewSource = new DataViewGridViewSource(DataViewSource);
+        ViewSource.SourceChanged += ViewSourceViewSourceChanged;
+    }
+    public void SetSource<T>(IEnumerable<T> SequenceSource)
+    {
+        CloseSource();
+
+        if (SequenceSource == null)
+            return;
+ 
+        ViewSource = new PocoGridViewSource<T>(SequenceSource);
+        ViewSource.SourceChanged += ViewSourceViewSourceChanged;
+    }
+    public void Refresh()
+    {
+        Refresh(null);
+    }
+    ////////////////////////////
     
     public bool CanEdit(GridDataRow Row, string FieldName)
     {
@@ -1154,9 +1188,34 @@ public class GridViewController: IDisposable
     }
     
     // ● properties
+    public DataView DataView
+    {
+        get => ViewSource is DataViewGridViewSource ? (ViewSource as DataViewGridViewSource).Source : null;
+        set => SetSource(value);
+    }
+    public GridViewDef ViewDef
+    {
+        get => fViewDef;
+        set
+        {
+            if (fViewDef != value)
+            {
+                if (value == null)
+                    throw new ArgumentNullException(nameof(ViewDef));
+
+                fViewDef = value;
+                fData = null;
+                //CloseSource();
+                Refresh();
+            }
+        }
+    }
+    
+    public GridViewSource ViewSource { get; private set; }
     internal GridViewData Data => fData;
     public GridDataRow Current => fData != null ? fData.Current : null;
     public bool IsDisposed => fDisposed;
+    
     public int Position
     {
         get
@@ -1184,7 +1243,6 @@ public class GridViewController: IDisposable
             MoveTo(value);
         }
     }
-
     public int PositionAll
     {
         get => fData != null ? fData.Position : -1;
@@ -1195,20 +1253,14 @@ public class GridViewController: IDisposable
         }
     }
     public ObservableCollection<GridDataRow> Rows => fData != null ? fData.Rows : null;
-    public GridViewSource Source => fSource;
+    
     public List<GridViewNode> VisibleNodes => fData != null ? fData.VisibleNodes : null;
-    public GridViewDef ViewDef => fViewDef;
-
+ 
     // ● events
     public event EventHandler<GridViewDataChangedEventArgs> DataChanged;
     public event EventHandler PositionChanged;
 
-    // ● private types
-    private enum EditRefreshMode
-    {
-        RenderOnly,
-        Full,
-    }
+
 }
 
 static public class GridViewEngine
@@ -1460,62 +1512,15 @@ static public class GridViewEngine
     }
 
     // ● static public methods
-    static public GridViewDef CreateDefaultDef(DataView Source)
-    {
-        if (Source == null)
-            throw new ArgumentNullException(nameof(Source));
-
-        GridViewDef Def = new();
-
-        foreach (DataColumn DataColumn in Source.Table.Columns)
-        {
-            GridViewColumnDef Column = new()
-            {
-                FieldName = DataColumn.ColumnName,
-                Title = DataColumn.ColumnName,
-                DataType = DataColumn.DataType,
-            };
-            
-            Column.SetAllowsNullFromSource(DataColumn.AllowDBNull);
-                
-            Def.Columns.Add(Column);
-            Column.VisibleIndex = Def.Columns.IndexOf(Column);
-        }
-
-        return Def;
-    }
-    static public GridViewDef CreateDefaultDef(Type ItemType)
-    {
-        if (ItemType == null)
-            throw new ArgumentNullException(nameof(ItemType));
-
-        GridViewDef Def = new();
-        PropertyInfo[] Properties = ItemType.GetProperties(BindingFlags.Instance | BindingFlags.Public);
-
-        foreach (PropertyInfo Prop in Properties)
-        {
-            GridViewColumnDef Column = new()
-            {
-                FieldName = Prop.Name,
-                Title = Prop.Name,
-                DataType = Prop.PropertyType,
-            };
-
-            Def.Columns.Add(Column);
-            Column.VisibleIndex = Def.Columns.IndexOf(Column);
-        }
-
-        return Def;
-    }
     static public GridViewDef CreateDefaultDef(GridViewSource Source)
     {
         if (Source == null)
             throw new ArgumentNullException(nameof(Source));
 
         if (Source is DataViewGridViewSource DataViewSource)
-            return CreateDefaultDef(DataViewSource.Source);
+            return GridViewDef.Create(DataViewSource.Source);
 
-        return CreateDefaultDef(Source.ItemType);
+        return GridViewDef.Create(Source.ItemType);
     }
     static public GridViewData Execute(GridViewSource Source, GridViewDef Def = null)
     {
@@ -1543,7 +1548,7 @@ static public class GridViewEngine
         if (Source == null)
             throw new ArgumentNullException(nameof(Source));
 
-        Def ??= CreateDefaultDef(typeof(T));
+        Def ??= GridViewDef.Create(typeof(T));
         UpdateColumnDataTypes(typeof(T), Def);
 
         GridViewData Result = new()
@@ -1560,7 +1565,7 @@ static public class GridViewEngine
         if (Source == null)
             throw new ArgumentNullException(nameof(Source));
 
-        Def ??= CreateDefaultDef(Source);
+        Def ??= GridViewDef.Create(Source);
         UpdateColumnDataTypes(Source, Def);
 
         GridViewData Result = new()

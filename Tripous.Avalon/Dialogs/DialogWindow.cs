@@ -32,24 +32,21 @@ public class DialogWindow: Window
     }
  
     // ● static
-    static public async Task<DialogData> ShowModal<T>(Window Parent) where T : DialogWindow, new()
+    static public async Task<DialogData> ShowModal<T>(Control Caller) where T : DialogWindow, new()
     {
-        if (Parent == null)
-            throw new ArgumentNullException(nameof(Parent));
-        return await ShowModal<T>(Parent, null);
+        return await ShowModal<T>(Caller, null);
     }
     static public async Task<DialogData> ShowModal<T>(object InputData) where T : DialogWindow, new()
     {
         if (InputData == null)
             throw new ArgumentNullException(nameof(InputData));
-        return await ShowModal<T>(null, InputData);
+        return await ShowModal<T>(InputData,null);
     }
-    static public async Task<DialogData> ShowModal<T>(Window Parent = null, object InputData = null)
+    static public async Task<DialogData> ShowModal<T>(object InputData = null, Control Caller = null)
         where T : DialogWindow, new()
     {
-       
         DialogData Data = new DialogData();
-        await Data.ShowModal<T>(Parent, InputData);
+        await Data.ShowModal<T>(InputData, Caller);
         return Data;
     }
     

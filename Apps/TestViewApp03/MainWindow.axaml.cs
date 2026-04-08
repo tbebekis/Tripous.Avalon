@@ -6,13 +6,12 @@ using Avalonia.Threading;
 using Tripous;
 using Tripous.Avalon;
 using Tripous.Data;
-namespace TestViewApp02;
+namespace TestViewApp03;
  
 public partial class MainWindow : Window
 {
     bool IsWindowInitialized = false;
     private ToolBar ToolBar;
-    private DataView DataView;
     private GridView GridView;
 
     // ● event handlers
@@ -40,7 +39,9 @@ public partial class MainWindow : Window
 
     void CreateToolBar()
     {
-        ToolBar = new ToolBar(pnlToolBar);
+        ToolBar = new ToolBar();
+        ToolBar.Panel = pnlToolBar;
+        
         Button btnClose = ToolBar.AddButton("door_out.png", "Exit", (s,e) => Close());
         ToolBar.AddSeparator();
         ToolBar.AddButton("application_add.png", "App", (s,e) => Close());
@@ -79,7 +80,8 @@ public partial class MainWindow : Window
     {
         CloseGridView();
         
-        GridViewDef Def = GridViewEngine.CreateDefaultDef(typeof(SalesLine));
+        GridViewDefs ViewDefs = new();
+        GridViewDef Def = ViewDefs.Add(typeof(SalesLine));  
         Def.ShowGroupColumnsAsDataColumns = true;
         
         Def["Product"].GroupIndex = 0;
@@ -93,16 +95,21 @@ public partial class MainWindow : Window
         Def["CategoryId"].DisplayMember = "Name";
         Def["CategoryId"].LookupItemsSource = Tests.Categories;
         
-        GridView = new GridView(gridView, pnlToolBar);
-        GridView.Open(DataView, Def);
+        GridView = new GridView();
+        GridView.Grid = gridView;
+        GridView.SetSource(Tests.SalesLines);
+        GridView.ViewDefs = ViewDefs;
+        GridView.ToolBar.Panel = pnlToolBar;
+        GridView.ToolBar.IsMultiDef = true;
     }
     void Test_DataView()
     {
         CloseGridView();
         
-        DataView = Tests.tblSalesLines.DefaultView;
+        DataView DataView = Tests.tblSalesLines.DefaultView;
         
-        GridViewDef Def = GridViewEngine.CreateDefaultDef(DataView);
+        GridViewDefs ViewDefs = new();
+        GridViewDef Def = ViewDefs.Add(DataView); 
         Def.ShowGroupColumnsAsDataColumns = true;
         
         Def["CategoryId"].GroupIndex = 0;
@@ -116,16 +123,18 @@ public partial class MainWindow : Window
         Def["CategoryId"].DisplayMember = "Name";
         Def["CategoryId"].LookupItemsSource = Tests.tblCategory.DefaultView;
 
-        GridViewDefs ViewDefs = new();
-        ViewDefs.DefList.Add(Def);
-        
-        GridView = new GridView(gridView, DataView, ViewDefs, pnlToolBar);
-        //GridView.Open(DataView, Def);
+        GridView = new GridView();
+        GridView.Grid = gridView;
+        GridView.DataView = DataView;
+        GridView.ViewDefs = ViewDefs;
+        GridView.ToolBar.Panel = pnlToolBar;
+        GridView.ToolBar.IsMultiDef = true;
+        //GridView.ToolBar.IsReadOnlyView = true;
     }
 
     async Task TestExport()
     {
-        string FilePath = await Ui.SaveFileDialog("html");
+        string FilePath = await Ui.SaveFileDialog(this,"html");
         if (!string.IsNullOrWhiteSpace(FilePath))
         {
             GridViewExportOptions Options = new();

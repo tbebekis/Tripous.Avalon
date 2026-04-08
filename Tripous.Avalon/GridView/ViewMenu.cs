@@ -367,6 +367,7 @@ public class ViewMenu
                 rowFilterDef.Tag = ColumnInfo;
             }
             
+            /*
             DialogData data = await DialogWindow.ShowModal<RowFilterItemDialog>(rowFilterDef);
             if (data.Result)
             {
@@ -374,6 +375,7 @@ public class ViewMenu
                     ColumnFilters[colSelected] = rowFilterDef;
                 ColumnFiltersChanged();
             }
+            */
         }
  
     }

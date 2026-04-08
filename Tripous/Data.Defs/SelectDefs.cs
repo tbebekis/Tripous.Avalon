@@ -72,14 +72,14 @@ public class SelectDefs: SettingsBase
     {
         SaveBefore();
             
-        string DirectoryPath = Path.GetDirectoryName(FilePath);
+        string DirectoryPath = Path.GetDirectoryName(SettingsFilePath);
 
         if (!Directory.Exists(DirectoryPath))
             Directory.CreateDirectory(DirectoryPath);
 
         foreach (SelectDef Def in List)
         {
-            Def.Save(FilePath);
+            Def.Save(SettingsFilePath);
         }
         
         SaveAfter();

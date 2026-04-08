@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ae="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TestViewApp03.MainWindow"
+        Width="1200"
+        Height="700"
+        WindowStartupLocation="CenterScreen"
+        Title="TestViewApp03">
+        
+    <DockPanel Margin="10">
+        <Border DockPanel.Dock="Top" Classes="ToolbarContainer" Background="#F0F0F0" Margin="0,0,0,5">
+            <StackPanel Name="pnlToolBar" Classes="ToolBar" Orientation="Horizontal" MinHeight="32">
+                </StackPanel>
+        </Border>
+
+        <StackPanel DockPanel.Dock="Top" 
+                    Orientation="Horizontal" 
+                    Spacing="10" 
+                    Margin="0,0,0,10">
+            
+            <Button x:Name="btnTest_DataView" Content="Test DataView" Click="AnyClick" />
+            <Button x:Name="btnTest_Poco" Content="Test Poco" Click="AnyClick" />
+            <Button x:Name="btnCloseGridView" Content="Close GridView" Click="AnyClick" />
+            <Button x:Name="btnTestExport" Content="Test Export" Click="AnyClick" />
+        </StackPanel>
+
+        <TabControl>
+            <TabItem Header="Data">
+                <Border BorderBrush="Gray" BorderThickness="1">
+                    <DataGrid Name="gridView" 
+                              GridLinesVisibility="All" />
+                </Border>
+            </TabItem>
+            <TabItem Header="Log">
+                <Border BorderBrush="Gray" BorderThickness="1">
+                    <ae:TextEditor Name="edtLog"
+                                   FontFamily="Cascadia Code,Consolas,Monospace"
+                                   HorizontalScrollBarVisibility="Auto"
+                                   VerticalScrollBarVisibility="Visible"
+                                   FontWeight="Light"
+                                   FontSize="14" />
+                </Border>
+            </TabItem>
+        </TabControl>
+    </DockPanel>          
+</Window>

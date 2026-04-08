@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Tripous.Data;
@@ -30,8 +29,7 @@ public class GridView
 {
     // ● private fields
     private DataGrid fGrid;
-    private GridViewController fController;
-    private GridViewToolBar fToolBar;
+    private GridViewDefs fViewDefs;
     //private ContextMenu fMenu;
  
     // ● overridables
@@ -54,16 +52,7 @@ public class GridView
     protected virtual void GridSelectionChanged(object Sender, SelectionChangedEventArgs e)
     {
     }
-
-    protected virtual void Bind()
-    {
-        GridViewGridBinder.Bind(fGrid, fController);
-    }
-    protected virtual void Unbind()
-    {
-        GridViewGridBinder.Unbind(fGrid);
-    }
-    
+ 
     protected virtual GridViewItemEventArgs CreateArgs(GridViewAction Action)
     {
         return new GridViewItemEventArgs()
@@ -81,10 +70,10 @@ public class GridView
     
     protected virtual bool AddDataItem(object DataItem)
     {
-        if (DataItem == null || Controller == null || Controller.Source == null)
+        if (DataItem == null || Controller == null || Controller.ViewSource == null)
             return false;
 
-        if (Controller.Source is DataViewGridViewSource DataViewSource)
+        if (Controller.ViewSource is DataViewGridViewSource DataViewSource)
         {
             if (DataItem is DataRowView RowView)
             {
@@ -103,7 +92,7 @@ public class GridView
             return false;
         }
 
-        IList ListSource = Controller.Source.ListSource;
+        IList ListSource = Controller.ViewSource.ListSource;
         if (ListSource != null)
         {
             ListSource.Add(DataItem);
@@ -115,7 +104,7 @@ public class GridView
     }
     protected virtual bool DeleteDataItem(object DataItem)
     {
-        if (DataItem == null || Controller == null || Controller.Source == null)
+        if (DataItem == null || Controller == null || Controller.ViewSource == null)
             return false;
 
         if (DataItem is DataRowView RowView)
@@ -132,7 +121,7 @@ public class GridView
             return true;
         }
 
-        IList ListSource = Controller.Source.ListSource;
+        IList ListSource = Controller.ViewSource.ListSource;
         if (ListSource != null)
         {
             ListSource.Remove(DataItem);
@@ -144,136 +133,101 @@ public class GridView
     }
     
     // ● constructors
-    GridView(DataGrid Grid, DataView DataView, GridViewDef ViewDef, StackPanel ToolBarPanel, GridViewDefs ViewDefs)
+    public GridView()
     {
-        fGrid = Grid ?? throw new ArgumentNullException(nameof(Grid));
-        this.ViewDefs = ViewDefs;
-
-        if (DataView != null)
-        {
-            if (ViewDef == null && ViewDefs != null && ViewDefs.DefList.Count > 0)
-                ViewDef = ViewDefs.DefList[0];
-            else
-                ViewDef = GridViewEngine.CreateDefaultDef(DataView);
-        }
-        
-        fController = new GridViewController();
-        fController.DataChanged += ControllerDataChanged;
-        fController.PositionChanged += ControllerPositionChanged;
-
-        fGrid.SelectionChanged += GridSelectionChanged;
-        
-        Bind();
-        
-        if (DataView != null && ViewDef != null)
-            Open(DataView, ViewDef);
-        
-        if (ToolBarPanel != null)
-            fToolBar = new GridViewToolBar(ToolBarPanel, this);
+        ToolBar.GridView = this;
     }
     
-    public GridView(DataGrid Grid, DataView DataView)
-        :this(Grid, DataView, null, null, null)
-    {
-    }
-    public GridView(DataGrid Grid, DataView DataView, GridViewDef ViewDef)
-        :this(Grid, DataView, ViewDef, null, null)
-    {
-    }
-    public GridView(DataGrid Grid, DataView DataView, GridViewDef ViewDef, StackPanel ToolBarPanel)
-        :this(Grid, DataView, ViewDef, ToolBarPanel, null)
-    {
-    }
-    public GridView(DataGrid Grid, DataView DataView, GridViewDefs ViewDefs, StackPanel ToolBarPanel)
-        :this(Grid, DataView, null, ToolBarPanel, ViewDefs)
-    {
-    }
-
-    public GridView(DataGrid Grid, StackPanel ToolBarPanel = null, GridViewDefs ViewDefs = null)
-        :this(Grid, null, null, ToolBarPanel, ViewDefs)
-    {
-    }
-
     // ● public methods
+    /*
     public void Open(DataView Source, GridViewDef Def = null)
     {
-        fController.Open(Source, Def);
+        Controller.Open(Source, Def);
     }
     public void Open<T>(IEnumerable<T> Source, GridViewDef Def = null)
     {
-        fController.Open(Source, Def);
+        Controller.Open(Source, Def);
     }
     public void Open(GridViewSource Source, GridViewDef Def = null)
     {
-        fController.Open(Source, Def);
+        Controller.Open(Source, Def);
     }
+    public void ApplyViewDef(GridViewDef Def)
+    {
+        if (Controller == null)
+            throw new ApplicationException("GridView has no controller.");
+
+        Controller.ApplyViewDef(Def);
+    }
+    */
+    public void SetSource(DataView DataViewSource)
+    {
+        this.DataView = DataViewSource;
+    }
+    public void SetSource<T>(IEnumerable<T> SequenceSource)
+    {
+        this.Controller.SetSource(SequenceSource);
+    }
+    
     public void Close()
     {
-        fController.Close();
+        Controller.Close();
         GridViewGridBinder.Refresh(fGrid);
     }
     public void Refresh()
     {
-        fController.Refresh();
+        Controller.Refresh();
     }
-    
-    public void ApplyViewDef(GridViewDef Def)
-    {
-        if (fController == null)
-            throw new ApplicationException("GridView has no controller.");
-
-        fController.ApplyViewDef(Def);
-    }
-
+ 
     public bool MoveTo(int DataIndex)
     {
-        return fController != null && fController.MoveTo(DataIndex);
+        return Controller != null && Controller.MoveTo(DataIndex);
     }
     public bool MoveFirst()
     {
-        return fController != null && fController.MoveFirst();
+        return Controller != null && Controller.MoveFirst();
     }
     public bool MoveLast()
     {
-        return fController != null && fController.MoveLast();
+        return Controller != null && Controller.MoveLast();
     }
     public bool MoveNext()
     {
-        return fController != null && fController.MoveNext();
+        return Controller != null && Controller.MoveNext();
     }
     public bool MovePrior()
     {
-        return fController != null && fController.MovePrior();
+        return Controller != null && Controller.MovePrior();
     }
 
     public bool MoveToAll(int Index)
     {
-        return fController != null && fController.MoveToAll(Index);
+        return Controller != null && Controller.MoveToAll(Index);
     }
     public bool MoveFirstAll()
     {
-        return fController != null && fController.MoveFirstAll();
+        return Controller != null && Controller.MoveFirstAll();
     }
     public bool MoveLastAll()
     {
-        return fController != null && fController.MoveLastAll();
+        return Controller != null && Controller.MoveLastAll();
     }
     public bool MoveNextAll()
     {
-        return fController != null && fController.MoveNextAll();
+        return Controller != null && Controller.MoveNextAll();
     }
     public bool MovePriorAll()
     {
-        return fController != null && fController.MovePriorAll();
+        return Controller != null && Controller.MovePriorAll();
     }
     
     public bool ExpandAll()
     {
-        return fController != null && fController.ExpandAll();
+        return Controller != null && Controller.ExpandAll();
     }
     public bool CollapseAll()
     {
-        return fController != null && fController.CollapseAll();
+        return Controller != null && Controller.CollapseAll();
     }
 
     public virtual async Task AddItemAsync()
@@ -295,7 +249,7 @@ public class GridView
             return;
         }
 
-        if (Controller != null && Controller.Source is DataViewGridViewSource DataViewSource)
+        if (Controller != null && Controller.ViewSource is DataViewGridViewSource DataViewSource)
         {
             DataRow Row = DataViewSource.Source.Table.NewRow();
             DataViewSource.Source.Table.Rows.Add(Row);
@@ -348,34 +302,88 @@ public class GridView
     }
     
     // ● properties
-    public DataGrid Grid => fGrid;
-    public GridViewController Controller => fController;
-    public GridDataRow Current => fController != null ? fController.Current : null;
-    
-    //public ContextMenu Menu => fMenu;
-    public int Position
+    public DataGrid Grid
     {
-        get => fController != null ? fController.Position : -1;
+        get => fGrid;
         set
         {
-            if (fController != null)
-                fController.Position = value;
+            if (fGrid != value)
+            {
+                if (fGrid != null)
+                {
+                    fGrid.SelectionChanged -= GridSelectionChanged;
+                    
+                    Controller.DataChanged -= ControllerDataChanged;
+                    Controller.PositionChanged -= ControllerPositionChanged;
+ 
+                    Controller = null;
+                    GridViewGridBinder.Unbind(fGrid);
+                }
+
+                fGrid = value;
+
+                if (fGrid != null)
+                {
+                    Controller = new();
+                    GridViewGridBinder.Bind(fGrid, Controller);
+                    fGrid.SelectionChanged += GridSelectionChanged;
+                }
+            }
+        }
+    }
+    public DataView DataView
+    {
+        get => Controller.DataView ;
+        set => Controller.DataView = value;
+    }
+    public GridViewDefs ViewDefs
+    {
+        get => fViewDefs;
+        set
+        {
+            if (fViewDefs != value)
+            {
+                if (value == null)
+                    throw new ApplicationException(nameof(GridViewDefs));
+                fViewDefs = value;
+                if (fViewDefs.DefList.Count > 0)
+                    ViewDef = fViewDefs.DefList[0];
+            }
+        }
+    }
+    public GridViewDef ViewDef
+    {
+        get => Controller != null ? Controller.ViewDef : null;
+        set => Controller.ViewDef = value;
+    }
+    public GridViewToolBar ToolBar { get; } = new();
+    //public ContextMenu Menu => fMenu; // EDW
+
+    public int Position
+    {
+        get => Controller != null ? Controller.Position : -1;
+        set
+        {
+            if (Controller != null)
+                Controller.Position = value;
         }
     }
     public int PositionAll
     {
-        get => fController != null ? fController.PositionAll : -1;
+        get => Controller != null ? Controller.PositionAll : -1;
         set
         {
-            if (fController != null)
-                fController.PositionAll = value;
+            if (Controller != null)
+                Controller.PositionAll = value;
         }
     }
-    public ObservableCollection<GridDataRow> Rows => fController != null ? fController.Rows : null;
-    public GridViewToolBar ToolBar => fToolBar;
-    public GridViewDef ViewDef => fController != null ? fController.ViewDef : null;
-    public GridViewDefs ViewDefs { get; private set; }
-
+    public ObservableCollection<GridDataRow> Rows => Controller != null ? Controller.Rows : null;
+    public bool IsEmpty => Rows == null || Rows.Count == 0;
+    
+    public GridViewController Controller { get; private set; } = new();
+    public GridDataRow Current => Controller != null ? Controller.Current : null;
+    public GridViewSource ViewSource => Controller != null ? Controller.ViewSource : null;
+    
     // ● events
     public event EventHandler<GridViewDataChangedEventArgs> DataChanged;
     public event EventHandler PositionChanged;

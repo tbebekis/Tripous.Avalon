@@ -25,18 +25,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Tripous.Avalon\Tripous.Avalon.csproj" />
         <ProjectReference Include="..\..\Tripous\Tripous.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Dialogs\GridViewDefDialog.axaml.cs">
-        <DependentUpon>GridViewDefDialog.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Dialogs\GridViewExportDialog.axaml.cs">
-        <DependentUpon>GridViewExportDialog.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-    </ItemGroup>
+    </ItemGroup>  
 
 
 </Project>

@@ -114,12 +114,17 @@ static public class Ui
         return Result;
     }
 
-    static public async Task<string> SaveFileDialog(params string[] Extensions)
+    static public async Task<string> SaveFileDialog(Control Caller, params string[] Extensions)
     {
-        if (MainWindow == null)
+        if (Caller == null)
+            Caller = Ui.MainWindow;
+
+        Window ParentWindow = Caller is Window? Caller as Window: Caller.GetParentWindow(); 
+ 
+        if (ParentWindow == null)
             return null;
 
-        var topLevel = TopLevel.GetTopLevel(MainWindow);
+        var topLevel = TopLevel.GetTopLevel(ParentWindow);
         if (topLevel?.StorageProvider == null)
             return null;
 
@@ -155,12 +160,17 @@ static public class Ui
 
         return file?.Path?.LocalPath;
     }
-    static public async Task<string> OpenFileDialog(params string[] Extensions)
+    static public async Task<string> OpenFileDialog(Control Caller,params string[] Extensions)
     {
-        if (MainWindow == null)
+        if (Caller == null)
+            Caller = Ui.MainWindow;
+
+        Window ParentWindow = Caller is Window? Caller as Window: Caller.GetParentWindow(); 
+ 
+        if (ParentWindow == null)
             return null;
 
-        var topLevel = TopLevel.GetTopLevel(MainWindow);
+        var topLevel = TopLevel.GetTopLevel(ParentWindow);
         if (topLevel?.StorageProvider == null)
             return null;
 
@@ -199,6 +209,12 @@ static public class Ui
         return files[0]?.Path?.LocalPath;
     }
  
+    static public Window GetParentWindow(this Control Control) => TopLevel.GetTopLevel(Control) as Window;
+
+    static public async Task<DialogData> InputBox(string Message, string Value = "", Control Caller = null)
+    {
+        return await Tripous.Avalon.InputBox.ShowModal(Message, Value, Caller);
+    }
     
     // ● properties
     /// <summary>

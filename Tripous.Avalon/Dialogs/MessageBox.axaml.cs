@@ -20,7 +20,6 @@ public partial class MessageBox : Window
     private Button btnNo;
     private Button btnClose;
     
-    
     private void SetIcon(MessageBoxMode boxMode)
     {
         BoxMode = boxMode;
@@ -41,11 +40,11 @@ public partial class MessageBox : Window
     }
     
     // ● Private Helper για την εμφάνιση
-    private static async Task<bool> ShowDialog(string title, string message, bool isQuestion, MessageBoxMode boxMode, Window ParentWindow)
+    private static async Task<bool> ShowDialog(string title, string Message, bool isQuestion, MessageBoxMode boxMode, Control Caller)
     {
         var Dlg = new MessageBox();
         Dlg.Title = title;
-        Dlg.edtMessage.Text = message;
+        Dlg.edtMessage.Text = Message;
         Dlg.SetIcon(boxMode); // <--- Ορισμός εικονιδίου
 
         // Δυναμική δημιουργία Buttons
@@ -81,14 +80,13 @@ public partial class MessageBox : Window
             };
             Dlg.btnClose.Click += (s, e) => Dlg.Close();
             Dlg.pnlButtons.Children.Add(Dlg.btnClose);
- 
         }
 
-        if (ParentWindow == null)
-        {
-            ParentWindow = Ui.MainWindow;
-        }
+        if (Caller == null)
+            Caller = Ui.MainWindow;
         
+        Window ParentWindow = Caller is Window? Caller as Window: Caller.GetParentWindow(); 
+ 
         await Dlg.ShowDialog(ParentWindow);
         return Dlg.DialogResultValue;
     }
@@ -109,17 +107,17 @@ public partial class MessageBox : Window
     }
     
     // ● Static Methods
-    public static async Task Info(string message, Window ParentWindow = null) 
-        => await ShowDialog("Information", message, false, MessageBoxMode.Info, ParentWindow);
+    public static async Task Info(string Message, Control Caller = null) 
+        => await ShowDialog("Information", Message, false, MessageBoxMode.Info, Caller);
 
-    public static async Task Error(string message, Window ParentWindow = null) 
-        => await ShowDialog("Error", message, false, MessageBoxMode.Error, ParentWindow);
+    public static async Task Error(string Message, Control Caller = null) 
+        => await ShowDialog("Error", Message, false, MessageBoxMode.Error, Caller);
 
-    public static async Task Error(Exception e, Window ParentWindow = null) 
-        => await ShowDialog("Error", e.Message, false, MessageBoxMode.Error, ParentWindow);
+    public static async Task Error(Exception e, Control Caller = null) 
+        => await ShowDialog("Error", e.Message, false, MessageBoxMode.Error, Caller);
 
-    public static async Task<bool> YesNo(string message, Window ParentWindow = null) 
-        => await ShowDialog("Question", message, true, MessageBoxMode.Question, ParentWindow);
+    public static async Task<bool> YesNo(string Message, Control Caller = null) 
+        => await ShowDialog("Question", Message, true, MessageBoxMode.Question, Caller);
     
  
     public bool DialogResultValue { get; private set; }

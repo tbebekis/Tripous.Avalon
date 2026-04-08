@@ -58,7 +58,16 @@ namespace Tripous
             throw (new Exception(Text));
         }    
         
-     
+        /// <summary>
+        /// Unlocks all Code Pages (Greek, DOS, etc.) for the entire application.
+        /// </summary>
+        public static void RegisterAllEncodings()
+        {
+            // This line is the "magic" one.
+            // Registers the CodePagesEncodingProvider, which contains
+            // hundreds of legacy encodings that are not standard in .NET Core/5+.
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
         
         // ●  Convertions 
         /// <summary>

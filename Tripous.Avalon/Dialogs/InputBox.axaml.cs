@@ -3,6 +3,7 @@ namespace Tripous.Avalon;
 public partial class InputBox : DialogWindow
 {
     private InputBoxData BoxData;
+    
     // ● event handlers
     async void AnyClick(object sender, RoutedEventArgs e)
     {
@@ -37,12 +38,17 @@ public partial class InputBox : DialogWindow
         }
         await Task.CompletedTask;
     }
- 
     
     // ● construction
     public InputBox()
     {
         InitializeComponent();
+    }
+
+    static public async Task<DialogData> ShowModal(string Message, string Value = "", Control Caller = null)
+    {
+        InputBoxData BoxData = new() { Message = Message, Value = Value };
+        return await  ShowModal<InputBox>(BoxData, Caller);
     }
 }
 

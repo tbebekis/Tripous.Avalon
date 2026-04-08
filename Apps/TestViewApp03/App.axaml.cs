@@ -1,10 +1,10 @@
-using System.Text;
+ 
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Tripous;
 
-namespace TestViewApp02;
+namespace TestViewApp03;
 
 public partial class App : Application
 {

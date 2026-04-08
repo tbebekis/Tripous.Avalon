@@ -6,9 +6,13 @@ public class DialogData
     {
     }
 
-    public async Task<DialogData> ShowModal<T>(Window Parent, object InputData = null) where T : DialogWindow, new()
+    public async Task<DialogData> ShowModal<T>(object InputData = null, Control Caller = null) where T : DialogWindow, new()
     {
-        this.Parent = Parent ?? Ui.MainWindow;
+        if (Caller == null)
+            Caller = Ui.MainWindow;
+
+        this.Caller = Caller;
+        this.Parent = Caller is Window? Caller as Window: Caller.GetParentWindow(); 
         this.InputData = InputData?? this;
     
         Dialog = Activator.CreateInstance<T>() as DialogWindow;
@@ -20,6 +24,7 @@ public class DialogData
 
     public DialogWindow Dialog { get; private set; }
     public Window Parent { get; private set; }
+    public Control Caller  { get; private set; }
     public object InputData { get; private set; }
 
     public ModalResult ModalResult { get; internal set; }

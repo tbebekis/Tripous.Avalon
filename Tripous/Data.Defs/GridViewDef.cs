@@ -1,12 +1,457 @@
 namespace Tripous.Data;
 
+public class RowFilterDef
+{
+    private bool fCorrectingSerialization;
+    private string fValueText;
+    private string fValue2Text;
+    private string fValueType;
+    private string fValue2Type;
+    private object fValue;
+    private object fValue2;
+
+    // ● overrides
+    private void CorrectSerialization()
+    {
+        if (fCorrectingSerialization)
+            return;
+
+        try
+        {
+            fCorrectingSerialization = true;
+
+            /* Runtime -> Serializable */
+            if (fValue != null)
+            {
+                if (ConditionOp == ConditionOp.In)
+                {
+                    if (fValue is IEnumerable List && fValue is not string)
+                    {
+                        object[] Items = List.Cast<object>().ToArray();
+
+                        Type ItemType = typeof(string);
+                        object FirstNonNull = Items.FirstOrDefault(x => x != null);
+                        if (FirstNonNull != null)
+                            ItemType = FirstNonNull.GetType();
+
+                        fValueType = ItemType.FullName; //ItemType.AssemblyQualifiedName;
+                        fValueText = string.Join("\u001F", Items.Select(ConvertToText));
+
+                        fValue2 = null;
+                        fValue2Text = null;
+                        fValue2Type = null;
+                    }
+                    else
+                    {
+                        throw new ApplicationException("IN requires an IEnumerable value.");
+                    }
+                }
+                else
+                {
+                    fValueType = fValue.GetType().FullName; //fValue.GetType().AssemblyQualifiedName;
+                    fValueText = ConvertToText(fValue);
+
+                    if (fValue2 != null)
+                    {
+                        fValue2Type = fValue2.GetType().FullName; //fValue2.GetType().AssemblyQualifiedName;
+                        fValue2Text = ConvertToText(fValue2);
+                    }
+                    else
+                    {
+                        fValue2Type = null;
+                        fValue2Text = null;
+                    }
+                }
+
+                return;
+            }
+
+            /* Serializable -> Runtime */
+            if (!string.IsNullOrWhiteSpace(fValueType))
+            {
+                Type T1 = Type.GetType(fValueType, throwOnError: false);
+                if (T1 != null)
+                {
+                    if (ConditionOp == ConditionOp.In)
+                    {
+                        string[] Parts = string.IsNullOrWhiteSpace(fValueText)
+                            ? Array.Empty<string>()
+                            : fValueText.Split('\u001F');
+
+                        fValue = Parts.Select(x => ConvertFromText(x, T1)).ToArray();
+                        fValue2 = null;
+                    }
+                    else
+                    {
+                        fValue = fValueText != null ? ConvertFromText(fValueText, T1) : null;
+
+                        Type T2 = !string.IsNullOrWhiteSpace(fValue2Type)
+                            ? Type.GetType(fValue2Type, throwOnError: false)
+                            : T1;
+
+                        fValue2 = (T2 != null && fValue2Text != null)
+                            ? ConvertFromText(fValue2Text, T2)
+                            : null;
+                    }
+                }
+            }
+        }
+        finally
+        {
+            fCorrectingSerialization = false;
+        }
+    }
+    private static string ConvertToText(object Value)
+    {
+        if (Value == null)
+            return null;
+
+        Type T = Value.GetType();
+
+        if (T == typeof(DateTime))
+            return ((DateTime)Value).ToString("O", CultureInfo.InvariantCulture);
+
+        if (T == typeof(DateTimeOffset))
+            return ((DateTimeOffset)Value).ToString("O", CultureInfo.InvariantCulture);
+
+        if (T == typeof(decimal))
+            return ((decimal)Value).ToString(CultureInfo.InvariantCulture);
+
+        if (T == typeof(double))
+            return ((double)Value).ToString(CultureInfo.InvariantCulture);
+
+        if (T == typeof(float))
+            return ((float)Value).ToString(CultureInfo.InvariantCulture);
+
+        if (T == typeof(Guid))
+            return Value.ToString();
+
+        if (T.IsEnum)
+            return Convert.ToInt32(Value, CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
+
+        return Convert.ToString(Value, CultureInfo.InvariantCulture);
+    }
+    private static object ConvertFromText(string Text, Type T)
+    {
+        if (Text == null)
+            return null;
+
+        if (T == typeof(string))
+            return Text;
+
+        if (T == typeof(int))
+            return int.Parse(Text, CultureInfo.InvariantCulture);
+
+        if (T == typeof(long))
+            return long.Parse(Text, CultureInfo.InvariantCulture);
+
+        if (T == typeof(short))
+            return short.Parse(Text, CultureInfo.InvariantCulture);
+
+        if (T == typeof(byte))
+            return byte.Parse(Text, CultureInfo.InvariantCulture);
+
+        if (T == typeof(decimal))
+            return decimal.Parse(Text, CultureInfo.InvariantCulture);
+
+        if (T == typeof(double))
+            return double.Parse(Text, CultureInfo.InvariantCulture);
+
+        if (T == typeof(float))
+            return float.Parse(Text, CultureInfo.InvariantCulture);
+
+        if (T == typeof(bool))
+            return bool.Parse(Text);
+
+        if (T == typeof(DateTime))
+            return DateTime.Parse(Text, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
+
+        if (T == typeof(DateTimeOffset))
+            return DateTimeOffset.Parse(Text, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
+
+        if (T == typeof(Guid))
+            return Guid.Parse(Text);
+
+        if (T.IsEnum)
+            return Enum.ToObject(T, int.Parse(Text, CultureInfo.InvariantCulture));
+
+        return Convert.ChangeType(Text, T, CultureInfo.InvariantCulture);
+    }
+
+    // ● construction
+    public RowFilterDef()
+    {
+    }
+    /// <summary>
+    /// Constructor
+    /// <para>With <see cref="ConditionOp.In"/> a value could be an <see cref="IEnumerable"/>, e.g. new[] { "Open", "Closed", "Pending" }</para>
+    /// </summary>
+    public RowFilterDef(BoolOp BoolOp, ConditionOp ConditionOp, string FieldName, object Value, object Value2 = null)
+        : this()
+    {
+        this.BoolOp = BoolOp;
+        this.ConditionOp = ConditionOp;
+        this.FieldName = FieldName;
+        this.Value = Value;
+        this.Value2 = Value2;
+    }
+
+    // ● public
+    public override string ToString() => this.Text;
+    public void Check()
+    {
+        if (ConditionOp == ConditionOp.None)
+            throw new ApplicationException("A WHERE item must have a condition operator.");
+
+        if (!Enum.IsDefined(typeof(ConditionOp), ConditionOp))
+            throw new ApplicationException($"Invalid condition operator: {ConditionOp}");
+
+        if (!Enum.IsDefined(typeof(BoolOp), BoolOp))
+            throw new ApplicationException($"Invalid boolean operator: {BoolOp}");
+
+        if (string.IsNullOrWhiteSpace(FieldName))
+            throw new ApplicationException("A WHERE item must have a field name");
+
+        switch (ConditionOp)
+        {
+            case ConditionOp.Equal:
+            case ConditionOp.NotEqual:
+            case ConditionOp.Greater:
+            case ConditionOp.GreaterOrEqual:
+            case ConditionOp.Less:
+            case ConditionOp.LessOrEqual:
+            case ConditionOp.Like:
+            case ConditionOp.Contains:
+            case ConditionOp.StartsWith:
+            case ConditionOp.EndsWith:
+            case ConditionOp.In:
+                if (Value == null)
+                    throw new ApplicationException($"Operator {ConditionOp} requires a value: {FieldName}");
+                break;
+
+            case ConditionOp.Between:
+                if (Value == null || Value2 == null)
+                    throw new ApplicationException($"A BETWEEN expression requires two values: {FieldName}");
+                break;
+        }
+    }
+
+    // ● properties
+    public BoolOp BoolOp { get; set; }
+    public ConditionOp ConditionOp { get; set; }
+    public string FieldName { get; set; }
+    [JsonIgnore]
+    public object Value
+    {
+        get => fValue;
+        set
+        {
+            fValue = value;
+            CorrectSerialization();
+        }
+    }
+    [JsonIgnore]
+    public object Value2
+    {
+        get => fValue2;
+        set
+        {
+            fValue2 = value;
+            CorrectSerialization();
+        }
+    }
+    public string ValueText
+    {
+        get => fValueText;
+        set
+        {
+            fValueText = value;
+            CorrectSerialization();
+        }
+    }
+    public string Value2Text
+    {
+        get => fValue2Text;
+        set
+        {
+            fValue2Text = value;
+            CorrectSerialization();
+        }
+    }
+    public string ValueType
+    {
+        get => fValueType;
+        set
+        {
+            fValueType = value;
+            CorrectSerialization();
+        }
+    }
+    public string Value2Type
+    {
+        get => fValue2Type;
+        set
+        {
+            fValue2Type = value;
+            CorrectSerialization();
+        }
+    }
+    [JsonIgnore]
+    public string Text
+    {
+        get
+        {
+            Check();
+            string Text = string.Empty;
+
+            string SFieldName = RowFilterFormatter.Field(FieldName);
+            string V1 = RowFilterFormatter.Value(Value);
+            string V2 = RowFilterFormatter.Value(Value2);
+
+            string S = Convert.ToString(Value, CultureInfo.InvariantCulture) ?? string.Empty;
+
+            switch (ConditionOp)
+            {
+                case ConditionOp.Equal: Text += $"{SFieldName} = {V1}"; break;
+                case ConditionOp.NotEqual: Text += $"{SFieldName} <> {V1}"; break;
+                case ConditionOp.Greater: Text += $"{SFieldName} > {V1}"; break;
+                case ConditionOp.GreaterOrEqual: Text += $"{SFieldName} >= {V1}"; break;
+                case ConditionOp.Less: Text += $"{SFieldName} < {V1}"; break;
+                case ConditionOp.LessOrEqual: Text += $"{SFieldName} <= {V1}"; break;
+                case ConditionOp.Like: Text += $"{SFieldName} like {V1}"; break;
+
+                case ConditionOp.Contains:
+                case ConditionOp.StartsWith:
+                case ConditionOp.EndsWith:
+                    Text += $"{SFieldName} like {RowFilterFormatter.Value(RowFilterFormatter.LikePattern(ConditionOp, S))}";
+                    break;
+
+                case ConditionOp.Between:
+                    Text += $"{SFieldName} between {V1} and {V2}";
+                    break;
+
+                case ConditionOp.In:
+                    if (Value is IEnumerable List && Value is not string)
+                    {
+                        var Items = List.Cast<object>().Select(RowFilterFormatter.Value);
+                        Text += $"{SFieldName} in ({string.Join(", ", Items)})";
+                    }
+                    else
+                    {
+                        throw new ApplicationException("IN requires a collection value.");
+                    }
+                    break;
+
+                case ConditionOp.Null:
+                    Text += $"{SFieldName} is null";
+                    break;
+            }
+
+            switch (BoolOp)
+            {
+                case BoolOp.And: Text = $"and ({Text}) "; break;
+                case BoolOp.Or: Text = $"or ({Text}) "; break;
+                case BoolOp.AndNot: Text = $"and (not {Text}) "; break;
+                case BoolOp.OrNot: Text = $"or (not {Text}) "; break;
+            }
+
+            return Text;
+        }
+    }
+    [JsonIgnore]
+    public GridViewColumnDef ColumnDef { get; set; }
+    [JsonIgnore]
+    public object Tag { get; set; }
+}
+
+public class RowFilterDefs : List<RowFilterDef>
+{
+    public RowFilterDefs()
+    {
+    }
+
+    public override string ToString() => this.Text;
+    public void Check() => ForEach(x => x.Check());
+
+    public RowFilterDef Add(BoolOp BoolOp, ConditionOp ConditionOp, string FieldName, object Value, object Value2 = null)
+    {
+        RowFilterDef Result = new RowFilterDef(BoolOp, ConditionOp, FieldName, Value, Value2);
+        this.Add(Result);
+        return Result;
+    }
+
+    public RowFilterDef Find(string FieldName) => this.FirstOrDefault(x => FieldName.IsSameText(x.FieldName));
+    public bool Contains(string FieldName) => this.Any(x => x.FieldName.IsSameText(FieldName));
+    public RowFilterDef Get(string FieldName)
+    {
+        RowFilterDef Result = Find(FieldName);
+        if (Result == null)
+            throw new ApplicationException($"Filter Item not found: {FieldName}");
+        return Result;
+    }
+    
+    
+    [JsonIgnore]
+    public string Text
+    {
+        get
+        {
+            Check();
+            StringBuilder SB = new();
+
+            string Text;
+
+            for (int i = 0; i < Count; i++)
+            {
+                RowFilterDef def = this[i];
+                Text = def.Text;
+
+                if (i == 0)
+                {
+                    if (Text.StartsWith("and "))
+                        Text = Text.Remove(0, "and ".Length);
+                    else if (Text.StartsWith("or "))
+                        Text = Text.Remove(0, "or ".Length);
+                }
+
+                SB.Append(Text);
+            }
+
+            return SB.ToString();
+        }
+    }
+}
+
+public enum BlobType
+{
+    None,
+    Text,
+    Image,
+    Binary,
+}
+
 public class GridViewColumnDef
 {
     // ● private fields
     private string fDisplayFormat;
     private string fEditFormat;
     private string fTitle;
-    private bool fAllowsNullFromSource;
+    private Type fDataType;
+    private bool fSourceAllowsNull;
+
+    protected void DataTypeChanged()
+    {
+        UnderlyingType = DataType != null ? Nullable.GetUnderlyingType(DataType) ?? DataType : null;
+        IsString = UnderlyingType != null && UnderlyingType.IsString();
+        IsDateTime = UnderlyingType != null && UnderlyingType.IsDateTime();
+        IsNumeric = UnderlyingType != null && UnderlyingType.IsNumeric();
+        IsBool = UnderlyingType != null && (UnderlyingType == typeof(bool));
+        IsBlob = UnderlyingType == typeof(byte[]) || UnderlyingType.InheritsFrom(typeof(Stream));
+        IsNullableType = (DataType != null && Nullable.GetUnderlyingType(DataType) != null);
+        IsNullable = IsNullableType || SourceAllowsNull;
+        IsRowFilterSupportedColumn = IsString || IsNumeric || IsDateTime;
+        ValidAggregates = UnderlyingType != null ? UnderlyingType.GetValidAggregates() : Array.Empty<AggregateType>();
+    }
 
     // ● construction
     public GridViewColumnDef()
@@ -17,7 +462,8 @@ public class GridViewColumnDef
     public override string ToString() => !string.IsNullOrWhiteSpace(FieldName) ? FieldName : base.ToString();
     public void SetAllowsNullFromSource(bool Value)
     {
-        fAllowsNullFromSource = Value;
+        fSourceAllowsNull = Value;
+        DataTypeChanged();
     }
     
     // ● properties
@@ -49,6 +495,10 @@ public class GridViewColumnDef
     /// When true the column is not editable.
     /// </summary>
     public bool IsReadOnly { get; set; }
+    /// <summary>
+    /// An integer field acting as a bool field, i.e. 0 = false, else is true
+    /// </summary>
+    public bool IsIntAsBool{ get; set; }
     /// <summary>
     /// The display format used by the grid cell when no explicit value is assigned.
     /// </summary>
@@ -90,42 +540,74 @@ public class GridViewColumnDef
     public string LookupSql { get; set; }
     public string DisplayMember { get; set; }
     public string ValueMember { get; set; }
-    
+    public BlobType BlobType { get; set; }
+    public bool SourceAllowsNull
+    {
+        get => fSourceAllowsNull;
+        set
+        {
+            if (fSourceAllowsNull != value)
+            {
+                fSourceAllowsNull = value;
+                DataTypeChanged();
+            }
+        }
+    }
+
     [JsonIgnore]
     public IEnumerable LookupItemsSource { get; set; }
     [JsonIgnore]
     public Func<IEnumerable> LookupItemsProvider { get; set; }
     [JsonIgnore]
     public bool IsLookup => LookupItemsSource != null || LookupItemsProvider != null;
-    
+
     [JsonIgnore]
-    public Type DataType { get; set; }
+    public Type DataType
+    {
+        get => fDataType;
+        set
+        {
+            if (fDataType != value)
+            {
+                fDataType = value;
+                DataTypeChanged();
+            }
+        }
+    }
+
+    [JsonIgnore] 
+    public Type UnderlyingType { get; private set; }
     [JsonIgnore]
-    public Type UnderlyingType => DataType != null ? Nullable.GetUnderlyingType(DataType) ?? DataType : null;
+    public bool IsString { get; private set; }
     [JsonIgnore]
-    public bool IsString => UnderlyingType != null && UnderlyingType.IsString();
+    public bool IsDateTime { get; private set; }
     [JsonIgnore]
-    public bool IsDateTime => UnderlyingType != null && UnderlyingType.IsDateTime();
+    public bool IsNumeric { get; private set; }
     [JsonIgnore]
-    public bool IsNumeric => UnderlyingType != null && UnderlyingType.IsNumeric();
+    public bool IsBool { get; private set; }
     [JsonIgnore]
-    public bool IsRowFilterSupportedColumn => IsString || IsNumeric || IsDateTime;
+    public bool IsBlob { get; private set; }
     [JsonIgnore]
-    public bool IsNullable => 
-        (DataType != null && Nullable.GetUnderlyingType(DataType) != null) 
-        || fAllowsNullFromSource;
+    public bool IsNullable { get; private set; }
     [JsonIgnore]
-    public AggregateType[] ValidAggregates => UnderlyingType != null ? UnderlyingType.GetValidAggregates() : Array.Empty<AggregateType>();
+    public bool IsNullableType { get; private set; }
+    [JsonIgnore]
+    public bool IsRowFilterSupportedColumn { get; private set; }
+    [JsonIgnore]
+    public AggregateType[] ValidAggregates { get; private set; }
 }
  
 public class GridViewDef
 {
+    private string fName;
+    
     // ● construction
     public GridViewDef()
     {
     }
 
     // ● static
+
     /// <summary>
     /// Creates and returns a default definition based on a specified source.
     /// </summary>
@@ -189,19 +671,19 @@ public class GridViewDef
         // group
         string S = string.Join(", ", GetGroupColumns() );
         SB.AppendLine($"Group: [{S}]");
-            
-        // hidden columns
-        S = string.Join(", ", GetHiddenColumns());
-        SB.AppendLine($"Hidden: {S}");
-            
+        
         // summaries
         S = string.Join(", ", GetAggregateColumns()
             .Select(x => $"{x.FieldName} = {x.Aggregate}"));
         SB.AppendLine($"Summaries: {S}");
-            
+        
         // row filters
         S = RowFilters.Text;
         SB.AppendLine($"RowFilter: {S}");
+            
+        // hidden columns
+        S = string.Join(", ", GetHiddenColumns());
+        SB.AppendLine($"Hidden: {S}");
             
         S = SB.ToString();
         return S;
@@ -246,7 +728,11 @@ public class GridViewDef
     /// <summary>
     /// The name of this grid view
     /// </summary>
-    public string Name { get; set; }
+    public string Name
+    {
+        get => !string.IsNullOrWhiteSpace(fName) ? fName : Sys.GenId();
+        set => fName = value;
+    }
     /// <summary>
     /// Returns all columns
     /// </summary>
@@ -262,7 +748,97 @@ public class GridViewDef
 
     [JsonIgnore] 
     public GridViewColumnDef this[string FieldName] => Get(FieldName);
-    
     [JsonIgnore]
     public object Tag { get; set; }
+    [JsonIgnore]
+    public bool IsNameReadOnly { get; set; }
+}
+
+public class GridViewDefs
+{
+    private string fName;
+    
+    // ● construction
+    public GridViewDefs()
+    {
+    }
+ 
+    // ● public
+    public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
+    public void LoadFromFile()
+    {
+        if (string.IsNullOrWhiteSpace(FilePath) || !File.Exists(FilePath))
+            throw new ApplicationException($"Cannot load {nameof(GridViewDefs)}. Invalid file path");
+        DefList.Clear();
+        Json.LoadFromFile(this, FilePath);
+    }
+    public void SaveToFile()
+    {
+        if (string.IsNullOrWhiteSpace(FilePath) || !File.Exists(FilePath))
+            throw new ApplicationException($"Cannot save {nameof(GridViewDefs)}. Invalid file path");
+        Json.SaveToFile(this, FilePath);
+    }
+    
+    public GridViewDef Find(string Name) => DefList.FirstOrDefault(x => Name.IsSameText(x.Name));
+    public bool Contains(string Name) => DefList.Any(x => x.Name.IsSameText(Name));
+    public GridViewDef Get(string Name)
+    {
+        GridViewDef Result = Find(Name);
+        if (Result == null)
+            throw new ApplicationException($"{nameof(GridViewDef)} not found: {Name}");
+        return Result;
+    }
+
+    GridViewDef AddInternal(GridViewDef ViewDef, string Name = "")
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            ViewDef.Name = Name;
+        
+        if (string.IsNullOrWhiteSpace(ViewDef.Name)) 
+            ViewDef.Name = Sys.GenId();
+        
+        if (DefList.Count == 0)
+            ViewDef.Name = "Default";
+
+        if (Contains(ViewDef.Name))
+            throw new ApplicationException($"{nameof(GridViewDef)} already exists in list: {ViewDef.Name}");
+
+        DefList.Add(ViewDef);
+        return ViewDef;
+    }
+    public GridViewDef Add(DataView Source, string Name = "")
+    {
+        GridViewDef ViewDef = GridViewDef.Create(Source);
+        return AddInternal(ViewDef, Name);
+    }
+    public GridViewDef Add(Type ItemType, string Name = "")
+    {
+        GridViewDef ViewDef = GridViewDef.Create(ItemType);
+        return AddInternal(ViewDef, Name);
+    }
+    public void Remove(GridViewDef ViewDef)
+    {
+        if (DefList.Contains(ViewDef))
+        {
+            if (DefList.Count == 1)
+                throw new ApplicationException($"Cannot delete the last {nameof(GridViewDef)} from list.");
+            if (DefList.Count > 1)
+                DefList.Remove(ViewDef);
+        }
+    }
+    
+    // ● properties
+    /// <summary>
+    /// The name of this grid view
+    /// </summary>
+    public string Name
+    {
+        get => !string.IsNullOrWhiteSpace(fName) ? fName : nameof(GridViewDefs);
+        set => fName = value;
+    }
+
+    [JsonIgnore] 
+    public string FilePath { get; set; }
+
+    public List<GridViewDef> DefList { get; set; } = new();
 }

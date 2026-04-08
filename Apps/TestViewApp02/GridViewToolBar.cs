@@ -8,6 +8,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using Tripous.Data;
 
 namespace Tripous.Avalon;
 
@@ -20,7 +21,7 @@ public enum GridViewToolBarButtons : ulong
     Delete = 4,
     ExpandAll = 8,
     CollapseAll = 0x10,
-    Export = 0x20,
+    ExportDialog = 0x20,
     ViewDefDialog = 0x40,
 
     All = 0xFFFFFFFF
@@ -32,7 +33,8 @@ public class GridViewToolBar: ToolBar
     private Border sepEdit;
     private Border sepExpand;
 
-    void CreateContextMenu()
+    // ● private
+    void CreateControls()
     {
         mnuExport = new ContextMenu();
         
@@ -52,13 +54,50 @@ public class GridViewToolBar: ToolBar
             (s, e) => GridView.CollapseAll());
         
         sepExpand = AddSeparator();
-        btnExport = AddDropDownButton("table_export.png", "Export", mnuExport);
+        btnExport = AddButton("table_export.png", "Export", 
+            async (sender, args) => await ShowGridViewExportDialog());
         btnViewDefDialog = AddButton("setting_tools.png", "View Configuration", 
-            async (sender, args) => await ButtonClicked(sender as Button));
+            async (sender, args) => await ShowViewDefDialog());
+
+        if (GridView.ViewDefs != null && GridView.ViewDefs.DefList.Count > 0)
+        {
+            var ViewDefs = GridView.ViewDefs.DefList;
+            int Index = GridView.ViewDefs.DefList.IndexOf(GridView.ViewDef);
+            cboViewDefs = AddComboBox(ViewDefs, Index != -1 ? Index : 0);
+            cboViewDefs.SelectionChanged += cboViewDefs_SelectionChanged;
+            btnAddViewDef = AddButton("application_add.png", "Add View Def",
+                async (sender, args) => await AddViewDef());
+            btnEditViewDef = AddButton("application_edit.png", "Edit View Def",
+                async (sender, args) => await EditViewDef());
+            btnDeleteViewDef = AddButton("application_delete.png", "Delete View Def",
+            async (sender, args) => await DeleteViewDef());
+        }
         
         VisibleButtonsChanged();
     }
-    protected virtual void VisibleButtonsChanged()
+    async Task ShowGridViewExportDialog()
+    {
+        GridViewExportOptions Options = new();
+        Options.Load();
+        
+        DialogData data = await DialogWindow.ShowModal<GridViewExportDialog>(Options);
+        if (data.Result)
+        {
+            Options.Save();
+            GridViewExporter.Export(GridView, Options);
+            await MessageBox.Info("Done.");
+        }
+    }
+    async Task ShowViewDefDialog()
+    {
+        DialogData data = await DialogWindow.ShowModal<GridViewDefDialog>(GridView.ViewDef);
+        if (data.Result)
+        {
+            //string JsonText = Json.Serialize(GridView.ViewDef);
+            GridView.Refresh();
+        }
+    }
+    void VisibleButtonsChanged()
     {
         btnAdd.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.Add);
         btnEdit.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.Edit);
@@ -67,23 +106,53 @@ public class GridViewToolBar: ToolBar
         btnExpandAll.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.ExpandAll);
         btnCollapseAll.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.CollapseAll);
         
-        btnExport.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.Export);
+        btnExport.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.ExportDialog);
         btnViewDefDialog.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.ViewDefDialog);
 
         sepEdit.IsVisible = btnAdd.IsVisible || btnEdit.IsVisible || btnDelete.IsVisible;
         sepExpand.IsVisible = btnExpandAll.IsVisible || btnCollapseAll.IsVisible;
         
     }
-    protected virtual async Task ButtonClicked(Button Button)
+
+    async Task AddViewDef()
     {
+        DialogData Data = await Ui.InputBox($"Provide a {nameof(GridViewDef)} Name", "", this.Panel);
+        if (Data.Result && Data.ResultData is InputBoxData InputBoxData)
+        {
+            if (GridView.ViewDefs.Contains(InputBoxData.Value))
+            {
+                await MessageBox.Error($"{nameof(GridViewDef)} already exists in list: {InputBoxData.Value}");
+                return;
+            }
+            
+            GridViewDef ViewDef = GridView.Controller.Source.CreateDefaultViewDef();
+            ViewDef.Name = InputBoxData.Value;
+            GridView.ViewDefs.DefList.Add(ViewDef);
+            cboViewDefs.ItemsSource = GridView.ViewDefs.DefList;
+            cboViewDefs.SelectedItem = ViewDef;
+        }
     }
+    async Task EditViewDef()
+    {
+        
+    }
+    async Task DeleteViewDef()
+    {
+        
+    }
+    void cboViewDefs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (cboViewDefs.SelectedItem is GridViewDef ViewDef)
+            GridView.ApplyViewDef(ViewDef);
+    }
+    
     
     // ● construction
     public GridViewToolBar(StackPanel Panel, GridView GridView)
         : base(Panel)
     {
         this.GridView = GridView;
-        CreateContextMenu();
+        CreateControls();
     }
    
     // ● properties
@@ -99,6 +168,11 @@ public class GridViewToolBar: ToolBar
     
     public Button btnExport { get; protected set; }
     public Button btnViewDefDialog { get; protected set; }
+    
+    public ComboBox cboViewDefs { get; protected set; }
+    public Button btnAddViewDef { get; protected set; }
+    public Button btnEditViewDef { get; protected set; }
+    public Button btnDeleteViewDef { get; protected set; }
 
     public GridViewToolBarButtons VisibleButtons
     {
