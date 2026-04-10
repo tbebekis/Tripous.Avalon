@@ -2,9 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Tripous.Data;
 
 namespace Tripous.Avalon;
@@ -43,6 +50,11 @@ public class GridView
     }
     protected virtual void ControllerDataChanged(object Sender, GridViewDataChangedEventArgs e)
     {
+        Dispatcher.UIThread.Post(() =>
+        {
+            UpdateColumnTitles();
+        }, DispatcherPriority.Input);
+        
         OnDataChanged(e);
     }
     protected virtual void ControllerPositionChanged(object Sender, EventArgs e)
@@ -136,37 +148,25 @@ public class GridView
     public GridView()
     {
         ToolBar.GridView = this;
+        Menu.GridView = this;
+    }
+
+    void GridViewSourceChanged()
+    {
+        Menu.IsEnabled = Controller.ViewSource != null;
     }
     
+    
     // ● public methods
-    /*
-    public void Open(DataView Source, GridViewDef Def = null)
-    {
-        Controller.Open(Source, Def);
-    }
-    public void Open<T>(IEnumerable<T> Source, GridViewDef Def = null)
-    {
-        Controller.Open(Source, Def);
-    }
-    public void Open(GridViewSource Source, GridViewDef Def = null)
-    {
-        Controller.Open(Source, Def);
-    }
-    public void ApplyViewDef(GridViewDef Def)
-    {
-        if (Controller == null)
-            throw new ApplicationException("GridView has no controller.");
-
-        Controller.ApplyViewDef(Def);
-    }
-    */
     public void SetSource(DataView DataViewSource)
     {
-        this.DataView = DataViewSource;
+        this.Controller.SetSource(DataViewSource);
+        GridViewSourceChanged();
     }
     public void SetSource<T>(IEnumerable<T> SequenceSource)
     {
         this.Controller.SetSource(SequenceSource);
+        GridViewSourceChanged();
     }
     
     public void Close()
@@ -300,6 +300,29 @@ public class GridView
 
         DeleteDataItem(e.DataItem);
     }
+
+    public DataGridColumn GetColumn(string FieldName) => Grid.Columns.FirstOrDefault(x => FieldName.IsSameText((x.Tag as GridViewColumnDef).FieldName));
+    public GridViewColumnDef GetColumnDef(DataGridColumn Column) => Column.Tag as GridViewColumnDef;
+
+    public void UpdateColumnTitles()
+    {
+        foreach (DataGridColumn Column in Grid.Columns)
+            UpdateColumnTitle(Column);
+    }
+    public void UpdateColumnTitle(DataGridColumn Column)
+    {
+        if (ViewDef == null)
+            return;
+        
+        GridViewColumnDef ColumnDef = GetColumnDef(Column);
+        if (ColumnDef != null)
+        {
+            string S = ColumnDef.Title;
+            if (ColumnDef.SortIndex >= 0)
+            S += ColumnDef.SortDirection == ListSortDirection.Ascending ? $" ↓" : $" ↑";
+            Column.Header = S;
+        }
+    }
     
     // ● properties
     public DataGrid Grid
@@ -325,6 +348,10 @@ public class GridView
                 if (fGrid != null)
                 {
                     Controller = new();
+                    Controller.DataChanged += ControllerDataChanged;
+                    Controller.PositionChanged += ControllerPositionChanged;
+                    Controller.Context = this.Context;
+                    
                     GridViewGridBinder.Bind(fGrid, Controller);
                     fGrid.SelectionChanged += GridSelectionChanged;
                 }
@@ -334,7 +361,7 @@ public class GridView
     public DataView DataView
     {
         get => Controller.DataView ;
-        set => Controller.DataView = value;
+        set => SetSource(value);
     }
     public GridViewDefs ViewDefs
     {
@@ -357,7 +384,7 @@ public class GridView
         set => Controller.ViewDef = value;
     }
     public GridViewToolBar ToolBar { get; } = new();
-    //public ContextMenu Menu => fMenu; // EDW
+    public GridViewMenu Menu { get; } = new();
 
     public int Position
     {
@@ -383,6 +410,9 @@ public class GridView
     public GridViewController Controller { get; private set; } = new();
     public GridDataRow Current => Controller != null ? Controller.Current : null;
     public GridViewSource ViewSource => Controller != null ? Controller.ViewSource : null;
+     
+    public GridViewContext Context { get; } = new();
+    public LookupRegistry LookupRegistry => Context.LookupRegistry;
     
     // ● events
     public event EventHandler<GridViewDataChangedEventArgs> DataChanged;

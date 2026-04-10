@@ -91,13 +91,13 @@ public class GridBinder: ObservableObject
                 fGrid.Tag = this;
                 SetGridBinder(Grid, this);
                 
-                this.Grid.EditTriggers = DataGridEditTriggers.TextInput; 
-                this.Grid.SelectionChanged += (s, e) =>
-                {
-                    CurrentRow = Grid.SelectedItem is DataRowView? Grid.SelectedItem as DataRowView: null;
-                };
-            
-                Menu = new ViewMenu(fGrid);
+                // CHECK
+                // this.Grid.EditTriggers = DataGridEditTriggers.TextInput; 
+                // this.Grid.SelectionChanged += (s, e) =>
+                // {
+                //     CurrentRow = Grid.SelectedItem is DataRowView? Grid.SelectedItem as DataRowView: null;
+                // };
+                // Menu = new ViewMenu(fGrid);
             }
         }
     }
@@ -130,7 +130,7 @@ public class GridBinder: ObservableObject
                 CollectionView = new DataGridCollectionView(DataView);
                 Grid.ItemsSource = CollectionView;
                 
-                Grid.CreateColumns(DataTable);
+                // CHECK: Grid.CreateColumns(DataTable);
                 ColumnInfoList = Grid.Columns.Select(x => x.Tag as GridColumnInfo).ToList();
 
                 fViewDef = GridViewDef.Create(DataView);  
@@ -157,7 +157,7 @@ public class GridBinder: ObservableObject
                 fViewDef = value;
                 
                 // apply
-                Menu.Apply(ViewDef);
+                // CHECK:Menu.Apply(ViewDef);
             }
         }
     }
@@ -186,19 +186,17 @@ public class GridBinder: ObservableObject
     }
     public bool IsMenuEnabled
     {
-        get => Menu != null && Menu.IsEnabled;
-        set
-        {
-            if (Menu != null)
-                Menu.IsEnabled = value;
-        }
+        get;
+        set;
+        // CHECK:
+        // get => Menu != null && Menu.IsEnabled;
+        // set
+        // {
+        //     if (Menu != null)
+        //         Menu.IsEnabled = value;
+        // }
     }
-    /// <summary>
-    /// Handles a <see cref="Avalonia.Controls.DataGrid"/>
-    /// by displaying a context menu with items
-    /// for handling groups, summmaries, filters and column visibility.
-    /// </summary>
-    public ViewMenu Menu { get; protected set; }
+ 
 
     // ● events
     /// <summary>

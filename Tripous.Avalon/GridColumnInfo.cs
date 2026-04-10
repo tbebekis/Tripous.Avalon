@@ -13,7 +13,7 @@ public class GridColumnInfo
         DataType = TableColumn.DataType;
         UnderlyingType = Nullable.GetUnderlyingType(DataType) ?? DataType;
         
-        GridColumn.ColumnKey = TableColumn.ColumnName;
+      
     }
 
     // ● public

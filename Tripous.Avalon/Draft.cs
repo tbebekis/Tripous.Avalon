@@ -196,7 +196,7 @@ public class DataGridExColumnInfo
         DataType = TableColumn.DataType;
         UnderlyingType = Nullable.GetUnderlyingType(DataType) ?? DataType;
         
-        GridColumn.ColumnKey = FieldName;
+        //GridColumn.ColumnKey = FieldName;
     }
     internal DataGridExColumnInfo(DataGridColumn GridColumn, PropertyInfo PropertyInfo)
     {
@@ -207,7 +207,7 @@ public class DataGridExColumnInfo
         DataType = PropertyInfo.PropertyType;
         UnderlyingType = Nullable.GetUnderlyingType(DataType) ?? DataType;
         
-        GridColumn.ColumnKey = FieldName;
+        //GridColumn.ColumnKey = FieldName;
     }
     
     public DataGridColumn GridColumn { get; }
@@ -234,7 +234,7 @@ public class DataGridEx
     private DataGridExDataSource fDataSource;
     private object fDataModel;
     private GridViewDef fViewDef;
-    private PivotDef fPivotDef;
+    // CHECK private PivotDef fPivotDef;
     private List<DataGridExCustomButton> Buttons = new();
     private List<DataGridExColumnInfo> ColumnInfoListInternal = new();
     
@@ -327,18 +327,19 @@ public class DataGridEx
             }
         }
     }
-    public PivotDef PivotDef
-    {
-        get => fPivotDef;
-        set
-        {
-            if (fPivotDef != value)
-            {
-                fPivotDef = value;
-                PivotDefChanged();
-            }
-        }
-    }
+    // CHECK
+    // public PivotDef PivotDef
+    // {
+    //     get => fPivotDef;
+    //     set
+    //     {
+    //         if (fPivotDef != value)
+    //         {
+    //             fPivotDef = value;
+    //             PivotDefChanged();
+    //         }
+    //     }
+    // }
     
     public bool IsGroupPanelVisible { get; set; }   // top panel where the user drags n drops column headers for grouping
     public bool IsBottomPanelVisible { get; set; }  // bottom summary panel (grand totals, etc)

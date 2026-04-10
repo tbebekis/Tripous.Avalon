@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Threading;
 using Tripous;
 using Tripous.Avalon;
@@ -70,6 +71,22 @@ public partial class MainWindow : Window
         }
     }
 
+    void CheckColumnFieldNames()
+    {
+        DataGridBoundColumn Column;
+        foreach (DataGridColumn C in gridView.Columns)
+        {
+            Column = C as DataGridBoundColumn;
+            if (Column != null)
+            {
+                var binding = Column.Binding as Binding;
+                string fieldName = binding?.Path;
+            }
+
+        }
+    }
+    
+    
     void CloseGridView()
     {
         if (GridView != null)
@@ -93,14 +110,17 @@ public partial class MainWindow : Window
         Def["CategoryId"].Title = "Category";
         Def["CategoryId"].ValueMember = "Id";
         Def["CategoryId"].DisplayMember = "Name";
-        Def["CategoryId"].LookupItemsSource = Tests.Categories;
+        Def["CategoryId"].LookupSourceName = "Category";
         
         GridView = new GridView();
+        GridView.LookupRegistry.Add(new CategoryLookupSourcePoco());
         GridView.Grid = gridView;
         GridView.SetSource(Tests.SalesLines);
         GridView.ViewDefs = ViewDefs;
         GridView.ToolBar.Panel = pnlToolBar;
         GridView.ToolBar.IsMultiDef = true;
+
+        CheckColumnFieldNames();
     }
     void Test_DataView()
     {
@@ -121,15 +141,18 @@ public partial class MainWindow : Window
         Def["CategoryId"].Title = "Category";
         Def["CategoryId"].ValueMember = "Id";
         Def["CategoryId"].DisplayMember = "Name";
-        Def["CategoryId"].LookupItemsSource = Tests.tblCategory.DefaultView;
+        Def["CategoryId"].LookupSourceName = "Category";
 
         GridView = new GridView();
+        GridView.LookupRegistry.Add(new CategoryLookupSourceDataView());
         GridView.Grid = gridView;
         GridView.DataView = DataView;
         GridView.ViewDefs = ViewDefs;
         GridView.ToolBar.Panel = pnlToolBar;
         GridView.ToolBar.IsMultiDef = true;
         //GridView.ToolBar.IsReadOnlyView = true;
+
+        CheckColumnFieldNames();
     }
 
     async Task TestExport()

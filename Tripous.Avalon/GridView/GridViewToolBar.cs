@@ -43,13 +43,11 @@ public class GridViewToolBar: ToolBar
     // ● private
     void CreateControls()
     {
-        mnuExport = new ContextMenu();
-        
-        btnAdd = AddButton("table_add.png", "Add", 
+        btnAdd = AddButton("table_add.png", "Add Row", 
             async (sender, args) => await GridView.AddItemAsync());
-        btnEdit = AddButton("table_edit.png", "Edit", 
+        btnEdit = AddButton("table_edit.png", "Edit Row", 
             async (sender, args) => await GridView.EditItemAsync());
-        btnDelete = AddButton("table_delete.png", "Delete", 
+        btnDelete = AddButton("table_delete.png", "Delete Row", 
             async (sender, args) => await GridView.DeleteItemAsync());
         
         sepEdit = AddSeparator();
@@ -244,9 +242,7 @@ public class GridViewToolBar: ToolBar
             }
         }
     }
-
-    public ContextMenu mnuExport { get; protected set; }
-    
+ 
     public Button btnAdd { get; protected set; }
     public Button btnEdit { get; protected set; }
     public Button btnDelete { get; protected set; }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -13,6 +14,12 @@ public enum LineStatus
     New,
     Active,
     Done
+}
+
+public class CategoryLookupSourcePoco : ILookupSource
+{
+    public string Name { get; } = "Category";
+    public IEnumerable Items { get; } = Tests.Categories;
 }
 
 public sealed class SalesLine
@@ -35,6 +42,13 @@ public class Category
     public int Id { get; set; }
     public string Name { get; set; }
 }
+
+public class CategoryLookupSourceDataView : ILookupSource
+{
+    public string Name { get; } = "Category";
+    public IEnumerable Items { get; } = Tests.tblCategory.DefaultView;
+}
+
 
 static public partial class Tests
 {

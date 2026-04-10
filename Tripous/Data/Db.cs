@@ -189,46 +189,6 @@ static public class Db
             AggregateType.Count
         };
     }
-    static public PivotValueAggregateType[] GetValidPivotAggregates(this Type DataType)
-    {
-        if (DataType == null)
-            return Array.Empty<PivotValueAggregateType>();
-
-        if (DataType.IsNumeric())
-        {
-            return new[]
-            {
-                PivotValueAggregateType.Count,
-                PivotValueAggregateType.Sum,
-                PivotValueAggregateType.Avg,
-                PivotValueAggregateType.Min,
-                PivotValueAggregateType.Max,
-                PivotValueAggregateType.StdDev,
-                PivotValueAggregateType.StdDevP,
-                PivotValueAggregateType.Variance,
-                PivotValueAggregateType.VarianceP,
-                PivotValueAggregateType.CountDistinct,
-                PivotValueAggregateType.Product
-            };
-        }
-
-        if (DataType.IsDateTime())
-        {
-            return new[]
-            {
-                PivotValueAggregateType.Count,
-                PivotValueAggregateType.Min,
-                PivotValueAggregateType.Max,
-                PivotValueAggregateType.CountDistinct
-            };
-        }
-
-        return new[]
-        {
-            PivotValueAggregateType.Count,
-            PivotValueAggregateType.CountDistinct
-        };
-    }
     
     // ● properties
     static public DbConnections Connections = new DbConnections();

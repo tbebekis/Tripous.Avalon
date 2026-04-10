@@ -11,6 +11,7 @@ using System.Reflection;
 
 namespace Tripous.Data;
 
+
 public enum GridNodeType
 {
     None,
@@ -34,6 +35,94 @@ public enum GridViewSourceChangeType
     ItemAdded,
     ItemRemoved,
     ItemChanged,
+}
+
+static public class GridViewLookupHelper
+{
+    // ● private methods
+    static private bool AreEqual(object A, object B)
+    {
+        if (A == null && B == null)
+            return true;
+
+        if (A == null || B == null)
+            return false;
+
+        if (Equals(A, B))
+            return true;
+
+        try
+        {
+            string SA = Convert.ToString(A, CultureInfo.InvariantCulture);
+            string SB = Convert.ToString(B, CultureInfo.InvariantCulture);
+            return string.Equals(SA, SB, StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+        }
+
+        return false;
+    }
+    static private object GetMemberValue(object Item, string MemberName)
+    {
+        if (Item == null)
+            return null;
+
+        if (string.IsNullOrWhiteSpace(MemberName))
+            return Item;
+
+        return GridViewEngine.GetValue(Item, MemberName);
+    }
+
+    // ● static public methods
+    static public IEnumerable GetItems(GridViewColumnDef ColumnDef)
+    {
+        if (ColumnDef == null)
+            return null;
+
+        return ColumnDef.LookupSource != null ? ColumnDef.LookupSource.Items : null;
+    }
+    static public object GetItemValue(object Item, GridViewColumnDef ColumnDef)
+    {
+        if (Item == null || ColumnDef == null)
+            return null;
+
+        return GetMemberValue(Item, ColumnDef.ValueMember);
+    }
+    static public string GetItemDisplayText(object Item, GridViewColumnDef ColumnDef)
+    {
+        if (Item == null || ColumnDef == null)
+            return string.Empty;
+
+        object Value = GetMemberValue(Item, ColumnDef.DisplayMember);
+        return Convert.ToString(Value, CultureInfo.InvariantCulture) ?? string.Empty;
+    }
+    static public object FindItemByValue(GridViewColumnDef ColumnDef, object Value)
+    {
+        IEnumerable Items = GetItems(ColumnDef);
+        if (Items == null)
+            return null;
+
+        foreach (object Item in Items)
+        {
+            object ItemValue = GetItemValue(Item, ColumnDef);
+            if (AreEqual(ItemValue, Value))
+                return Item;
+        }
+
+        return null;
+    }
+    static public string GetDisplayTextByValue(GridViewColumnDef ColumnDef, object Value)
+    {
+        if (ColumnDef == null)
+            return string.Empty;
+
+        object Item = FindItemByValue(ColumnDef, Value);
+        if (Item != null)
+            return GetItemDisplayText(Item, ColumnDef);
+
+        return Convert.ToString(Value, CultureInfo.InvariantCulture) ?? string.Empty;
+    }
 }
 
 public class GridViewSummary
@@ -325,7 +414,6 @@ public class GridViewSourceChangedEventArgs: EventArgs
     public object Item { get; }
 }
 
-
 public abstract class GridViewSource: IDisposable
 {
     // ● private fields
@@ -409,9 +497,7 @@ public class DataViewGridViewSource: GridViewSource
 
         base.Dispose();
     }
-
  
-    
     // ● properties
     public DataView Source { get; private set; }
     public override Type ItemType => typeof(DataRowView);
@@ -810,6 +896,36 @@ public class GridViewController: IDisposable
     {
         PositionChanged?.Invoke(this, EventArgs.Empty);
     }
+    private void Refresh2(GridViewSourceChangedEventArgs e = null)
+    {
+        if (ViewSource == null)
+        {
+            AttachData(null);
+            OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
+            return;
+        }
+
+        if (fData == null)
+        {
+            GridViewData NewData = GridViewEngine.Execute(ViewSource, fViewDef);
+            AttachData(NewData);
+            OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
+            return;
+        }
+
+        Dictionary<string, bool> ExpandedState = SaveExpandedState();
+        int Position = fData.Position;
+
+        GridViewEngine.Update(fData);
+        RestoreExpandedState(fData, ExpandedState);
+
+        if (Position >= 0)
+            fData.MoveTo(Math.Min(Position, fData.Rows.Count - 1));
+        else if (fData.Rows.Count == 0)
+            fData.MoveTo(-1);
+
+        OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
+    }
     private void Refresh(GridViewSourceChangedEventArgs e = null)
     {
         if (ViewSource == null)
@@ -818,6 +934,8 @@ public class GridViewController: IDisposable
             OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
             return;
         }
+
+        ResolveLookups();
 
         if (fData == null)
         {
@@ -923,18 +1041,30 @@ public class GridViewController: IDisposable
 
         return Changed;
     }
+    private void ResolveLookups()
+    {
+        if (fViewDef == null || Context == null || Context.LookupRegistry == null )
+            return;
+
+        LookupRegistry LookupRegistry = Context.LookupRegistry;
+
+        foreach (GridViewColumnDef Column in fViewDef.Columns)
+        {
+            Column.LookupSource = null;
+
+            if (string.IsNullOrWhiteSpace(Column.LookupSourceName))
+                continue;
+
+            ILookupSource LookupSource = LookupRegistry.Find(Column.LookupSourceName);
+            if (LookupSource != null)
+                Column.LookupSource = LookupSource;
+        }
+    }
     
     // ● constructors
     public GridViewController()
     {
     }
-    
-    /*
-    public GridViewController(DataView DataViewSource, GridViewDef Def = null)
-    {
-        Open(DataViewSource, Def);
-    }
-    */
 
     // ● public methods
     public void Close()
@@ -949,61 +1079,7 @@ public class GridViewController: IDisposable
             fDisposed = true;
         }
     }
-    
-    /*
-    public void Open(DataView DataViewSource, GridViewDef Def = null)
-    {
-        CloseSource();
 
-        if (DataViewSource == null)
-            return;
-
-        Source = new DataViewGridViewSource(DataViewSource);
-        fViewDef = Def ?? GridViewEngine.CreateDefaultDef(DataViewSource);
-        Source.SourceChanged += Source_SourceChanged;
-
-        AttachData(GridViewEngine.Execute(Source, fViewDef));
-        OnDataChanged(new GridViewDataChangedEventArgs(fData));
-    }
-    public void Open<T>(IEnumerable<T> SequenceSource, GridViewDef Def = null)
-    {
-        CloseSource();
-
-        if (SequenceSource == null)
-            return;
-
-        Source = new PocoGridViewSource<T>(SequenceSource);
-        fViewDef = Def ?? GridViewEngine.CreateDefaultDef(typeof(T));
-        Source.SourceChanged += Source_SourceChanged;
-
-        AttachData(GridViewEngine.Execute(Source, fViewDef));
-        OnDataChanged(new GridViewDataChangedEventArgs(fData));
-    }
-    public void Open(GridViewSource ViewSource, GridViewDef Def = null)
-    {
-        CloseSource();
-
-        if (ViewSource == null)
-            return;
-
-        Source = ViewSource;
-        fViewDef = Def ?? GridViewEngine.CreateDefaultDef(ViewSource);
-        Source.SourceChanged += Source_SourceChanged;
-
-        AttachData(GridViewEngine.Execute(Source, fViewDef));
-        OnDataChanged(new GridViewDataChangedEventArgs(fData));
-    }
-    public void ApplyViewDef(GridViewDef Def)
-    {
-        if (Def == null)
-            throw new ArgumentNullException(nameof(Def));
-
-        fViewDef = Def;
-        Refresh();
-    }
-    */
-    
-    /////////////////////////////
     public void SetSource(DataView DataViewSource)
     {
         CloseSource();
@@ -1028,7 +1104,6 @@ public class GridViewController: IDisposable
     {
         Refresh(null);
     }
-    ////////////////////////////
     
     public bool CanEdit(GridDataRow Row, string FieldName)
     {
@@ -1212,7 +1287,7 @@ public class GridViewController: IDisposable
     }
     
     public GridViewSource ViewSource { get; private set; }
-    internal GridViewData Data => fData;
+    public GridViewData Data => fData;
     public GridDataRow Current => fData != null ? fData.Current : null;
     public bool IsDisposed => fDisposed;
     
@@ -1253,14 +1328,322 @@ public class GridViewController: IDisposable
         }
     }
     public ObservableCollection<GridDataRow> Rows => fData != null ? fData.Rows : null;
-    
     public List<GridViewNode> VisibleNodes => fData != null ? fData.VisibleNodes : null;
- 
+
+    public GridViewContext Context { get; set; }
+
     // ● events
     public event EventHandler<GridViewDataChangedEventArgs> DataChanged;
     public event EventHandler PositionChanged;
+    
+}
 
+static class GridViewFilterEngine
+{
+    // ● private types
+    enum StringOpType
+    {
+        Contains,
+        StartsWith,
+        EndsWith,
+    }
 
+    // ● private methods
+    static private bool EvaluateRow(object Row, List<RowFilterDef> Filters)
+    {
+        bool Result = true;
+        bool First = true;
+
+        foreach (RowFilterDef Filter in Filters)
+        {
+            bool Condition = EvaluateCondition(Row, Filter);
+
+            if (First)
+            {
+                Result = Condition;
+                First = false;
+                continue;
+            }
+
+            switch (Filter.BoolOp)
+            {
+                case BoolOp.And:
+                    Result = Result && Condition;
+                    break;
+
+                case BoolOp.Or:
+                    Result = Result || Condition;
+                    break;
+
+                case BoolOp.AndNot:
+                    Result = Result && !Condition;
+                    break;
+
+                case BoolOp.OrNot:
+                    Result = Result || !Condition;
+                    break;
+
+                default:
+                    Result = Condition;
+                    break;
+            }
+        }
+
+        return Result;
+    }
+    static private bool EvaluateCondition(object Row, RowFilterDef Filter)
+    {
+        object Value = GridViewEngine.GetValue(Row, Filter.FieldName);
+
+        bool IsNull = Value == null || Value == DBNull.Value;
+
+        switch (Filter.ConditionOp)
+        {
+            case ConditionOp.Null:
+                return IsNull;
+
+            case ConditionOp.Equal:
+                return Compare(Value, Filter.Value) == 0;
+
+            case ConditionOp.NotEqual:
+                return Compare(Value, Filter.Value) != 0;
+
+            case ConditionOp.Greater:
+                return Compare(Value, Filter.Value) > 0;
+
+            case ConditionOp.GreaterOrEqual:
+                return Compare(Value, Filter.Value) >= 0;
+
+            case ConditionOp.Less:
+                return Compare(Value, Filter.Value) < 0;
+
+            case ConditionOp.LessOrEqual:
+                return Compare(Value, Filter.Value) <= 0;
+
+            case ConditionOp.Contains:
+                return StringOp(Value, Filter.Value, StringOpType.Contains);
+
+            case ConditionOp.StartsWith:
+                return StringOp(Value, Filter.Value, StringOpType.StartsWith);
+
+            case ConditionOp.EndsWith:
+                return StringOp(Value, Filter.Value, StringOpType.EndsWith);
+
+            case ConditionOp.Like:
+                return StringOp(Value, Filter.Value, StringOpType.Contains);
+
+            case ConditionOp.Between:
+                return Compare(Value, Filter.Value) >= 0 && Compare(Value, Filter.Value2) <= 0;
+
+            case ConditionOp.In:
+                return InOp(Value, Filter.Value);
+
+            default:
+                return false;
+        }
+    }
+    static private int Compare(object A, object B)
+    {
+        if (A == null || A == DBNull.Value)
+            return (B == null || B == DBNull.Value) ? 0 : -1;
+
+        if (B == null || B == DBNull.Value)
+            return 1;
+
+        if (A is string SA && B is string SB)
+            return string.Compare(SA, SB, StringComparison.OrdinalIgnoreCase);
+
+        if (A is IComparable Comparable)
+            return Comparable.CompareTo(Convert.ChangeType(B, A.GetType(), CultureInfo.InvariantCulture));
+
+        string S1 = Convert.ToString(A, CultureInfo.InvariantCulture);
+        string S2 = Convert.ToString(B, CultureInfo.InvariantCulture);
+
+        return string.Compare(S1, S2, StringComparison.OrdinalIgnoreCase);
+    }
+    static private bool StringOp(object Value, object FilterValue, StringOpType Op)
+    {
+        if (Value == null || FilterValue == null)
+            return false;
+
+        string S1 = Convert.ToString(Value, CultureInfo.InvariantCulture) ?? string.Empty;
+        string S2 = Convert.ToString(FilterValue, CultureInfo.InvariantCulture) ?? string.Empty;
+
+        switch (Op)
+        {
+            case StringOpType.Contains:
+                return S1.IndexOf(S2, StringComparison.OrdinalIgnoreCase) >= 0;
+
+            case StringOpType.StartsWith:
+                return S1.StartsWith(S2, StringComparison.OrdinalIgnoreCase);
+
+            case StringOpType.EndsWith:
+                return S1.EndsWith(S2, StringComparison.OrdinalIgnoreCase);
+        }
+
+        return false;
+    }
+    static private bool InOp(object Value, object FilterValue)
+    {
+        if (FilterValue is IEnumerable List && FilterValue is not string)
+        {
+            foreach (object Item in List)
+            {
+                if (Compare(Value, Item) == 0)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    // ● static public methods
+    static public List<object> Apply(List<object> Rows, List<RowFilterDef> Filters)
+    {
+        if (Rows == null || Rows.Count == 0)
+            return Rows;
+
+        if (Filters == null || Filters.Count == 0)
+            return Rows;
+
+        List<object> Result = new();
+
+        foreach (object Row in Rows)
+        {
+            if (EvaluateRow(Row, Filters))
+                Result.Add(Row);
+        }
+
+        return Result;
+    }
+}
+
+static class GridViewSortEngine
+{
+    // ● private methods
+    static private int CompareRows(object A, object B, List<GridViewColumnDef> SortColumns)
+    {
+        foreach (GridViewColumnDef Column in SortColumns)
+        {
+            object VA = GridViewEngine.GetValue(A, Column.FieldName);
+            object VB = GridViewEngine.GetValue(B, Column.FieldName);
+
+            int Result = CompareValues(VA, VB, Column);
+            if (Result != 0)
+            {
+                if (Column.SortDirection == ListSortDirection.Descending)
+                    Result = -Result;
+
+                return Result;
+            }
+        }
+
+        return 0;
+    }
+    static private int CompareValues(object A, object B, GridViewColumnDef ColumnDef)
+    {
+        if (A == null || A == DBNull.Value)
+            return (B == null || B == DBNull.Value) ? 0 : -1;
+
+        if (B == null || B == DBNull.Value)
+            return 1;
+
+        if (ColumnDef != null)
+        {
+            if (ColumnDef.IsLookup)
+            {
+                string SA = GridViewLookupHelper.GetDisplayTextByValue(ColumnDef, A) ?? string.Empty;
+                string SB = GridViewLookupHelper.GetDisplayTextByValue(ColumnDef, B) ?? string.Empty;
+                return string.Compare(SA, SB, StringComparison.OrdinalIgnoreCase);
+            }
+
+            if (ColumnDef.UnderlyingType != null && ColumnDef.UnderlyingType.IsEnum)
+            {
+                string SA;
+
+                try
+                {
+                    object EA = A.GetType().IsEnum ? A : Enum.ToObject(ColumnDef.UnderlyingType, A);
+                    SA = EA.ToString();
+                }
+                catch
+                {
+                    SA = Convert.ToString(A, CultureInfo.InvariantCulture) ?? string.Empty;
+                }
+
+                string SB;
+
+                try
+                {
+                    object EB = B.GetType().IsEnum ? B : Enum.ToObject(ColumnDef.UnderlyingType, B);
+                    SB = EB.ToString();
+                }
+                catch
+                {
+                    SB = Convert.ToString(B, CultureInfo.InvariantCulture) ?? string.Empty;
+                }
+
+                return string.Compare(SA, SB, StringComparison.OrdinalIgnoreCase);
+            }
+        }
+
+        if (A is string SA2 && B is string SB2)
+            return string.Compare(SA2, SB2, StringComparison.OrdinalIgnoreCase);
+
+        try
+        {
+            Type TA = A.GetType();
+            Type TB = B.GetType();
+
+            TA = Nullable.GetUnderlyingType(TA) ?? TA;
+            TB = Nullable.GetUnderlyingType(TB) ?? TB;
+
+            if (TA.IsEnum)
+                A = Convert.ToInt32(A, CultureInfo.InvariantCulture);
+
+            if (TB.IsEnum)
+                B = Convert.ToInt32(B, CultureInfo.InvariantCulture);
+
+            if (A is IComparable Comparable)
+            {
+                if (A.GetType() != B.GetType())
+                    B = Convert.ChangeType(B, A.GetType(), CultureInfo.InvariantCulture);
+
+                return Comparable.CompareTo(B);
+            }
+        }
+        catch
+        {
+        }
+
+        string S1 = Convert.ToString(A, CultureInfo.InvariantCulture) ?? string.Empty;
+        string S2 = Convert.ToString(B, CultureInfo.InvariantCulture) ?? string.Empty;
+
+        return string.Compare(S1, S2, StringComparison.OrdinalIgnoreCase);
+    }
+    
+    // ● static public methods
+    static public List<object> Apply(List<object> Rows, GridViewDef Def)
+    {
+        if (Rows == null || Rows.Count == 0)
+            return Rows;
+
+        if (Def == null || Def.Columns == null || Def.Columns.Count == 0)
+            return Rows;
+
+        List<GridViewColumnDef> SortColumns = Def.Columns
+            .Where(x => x.SortIndex >= 0)
+            .OrderBy(x => x.SortIndex)
+            .ToList();
+
+        if (SortColumns.Count == 0)
+            return Rows;
+
+        List<object> Result = Rows.ToList();
+        Result.Sort((A, B) => CompareRows(A, B, SortColumns));
+
+        return Result;
+    }
 }
 
 static public class GridViewEngine
@@ -1371,10 +1754,12 @@ static public class GridViewEngine
 
         if (Data.ViewDef == null)
             throw new ArgumentNullException(nameof(Data.ViewDef));
-
+        
         List<object> RowList = Data.Source.Items.ToList();
+        RowList = GridViewFilterEngine.Apply(RowList, Data.ViewDef.RowFilters);
+        RowList = GridViewSortEngine.Apply(RowList, Data.ViewDef);
+        
         var GroupColumnList = Data.ViewDef.GetGroupColumns();
-
         Data.Items.Clear();
         Data.Summaries.Clear();
         Data.Footer = null;

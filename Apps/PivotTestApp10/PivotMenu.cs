@@ -1,3 +1,8 @@
+using System.Threading.Tasks;
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Tripous.Data;
+
 namespace Tripous.Avalon;
 
 public class PivotMenu
@@ -32,7 +37,7 @@ public class PivotMenu
         mnuRemoveAll = mnuContextMenu.Items.AddMenuItem("Remove All", AnyClick);
         mnuPivot = mnuContextMenu.Items.AddMenuItem("Show Config", AnyClick);
  
-        Grid.ColumnHeaderContextMenu = mnuContextMenu;
+        // CHECK: Grid.ColumnHeaderContextMenu = mnuContextMenu;
         //--------------------------------------------
         mnuContextMenu.Opening += (sender, args) =>
         {
@@ -59,26 +64,23 @@ public class PivotMenu
     {
         this.Grid = Grid;
 
-        PivotBinder = PivotBinder.GetGridPivotBinderBinder(Grid);
+        // CHECK: PivotBinder = PivotBinder.GetGridPivotBinderBinder(Grid);
         
         Grid.IsReadOnly = true;
-        Grid.CanUserPaste = false;
-        
-        Grid.CanUserAddRows = false;
-        Grid.CanUserDeleteRows = false;
-        Grid.CanUserReorderRows = false;
-        Grid.CanUserSelectRows = false;
-        
-        Grid.CanUserReorderColumns = true;
-        Grid.CanUserHideColumns = true;
-        Grid.CanUserResizeColumns = true;
-        Grid.CanUserSelectColumns = true;
-        Grid.CanUserResizeColumnsOnDoubleClick = true;
-        
-        Grid.ShowTotalSummary = true;
-        Grid.ShowGroupSummary = true;
-        Grid.TotalSummaryPosition = DataGridSummaryRowPosition.Bottom;
-        Grid.GroupSummaryPosition = DataGridGroupSummaryPosition.Footer;
+        // CHECK: Grid.CanUserPaste = false;
+        // CHECK: Grid.CanUserAddRows = false;
+        // CHECK: Grid.CanUserDeleteRows = false;
+        // CHECK: Grid.CanUserReorderRows = false;
+        // CHECK: Grid.CanUserSelectRows = false;
+        // CHECK: Grid.CanUserReorderColumns = true;
+        // CHECK: Grid.CanUserHideColumns = true;
+        // CHECK: Grid.CanUserResizeColumns = true;
+        // CHECK: Grid.CanUserSelectColumns = true;
+        // CHECK: Grid.CanUserResizeColumnsOnDoubleClick = true;
+        // CHECK: Grid.ShowTotalSummary = true;
+        // CHECK: Grid.ShowGroupSummary = true;
+        // CHECK: Grid.TotalSummaryPosition = DataGridSummaryRowPosition.Bottom;
+        // CHECK: Grid.GroupSummaryPosition = DataGridGroupSummaryPosition.Footer;
          
         CreateContextMenu();
     }

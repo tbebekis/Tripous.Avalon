@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
@@ -55,6 +56,19 @@ public partial class GridViewDefDialog : DialogWindow
             await EditRowFilter(); 
         else if (btnDeleteRowFilter == sender)
             await DeleteRowFilter(); 
+        
+        else if (btnToSorted == sender)
+            ToSorted(); 
+        else if (btnToSortedAll == sender)
+            ToSortedAll(); 
+        else if (btnToNotSorted == sender)
+            ToNotSorted(); 
+        else if (btnToNotSortedAll == sender)
+            ToNotSortedAll(); 
+        else if (btnSortedUp == sender)
+            MoveSorted(true); 
+        else if (btnSortedDown == sender)
+            MoveSorted(false); 
     }
     void lboColumns_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -87,7 +101,17 @@ public partial class GridViewDefDialog : DialogWindow
         else if (sender == lboNotGroupedColumns)
             ToGrouped();
     }
-    
+    async void lboRowFilters_DoubleClick(object sender, RoutedEventArgs e)
+    {
+        await EditRowFilter();
+    }
+    void SortedList_DoubleClick(object sender, RoutedEventArgs e)
+    {
+        if (sender == lboSortedColumns)
+            ToNotSorted();
+        else if (sender == lboNotSortedColumns)
+            ToSorted();
+    }
     
     // ● private
     void ToHidden()
@@ -306,6 +330,84 @@ public partial class GridViewDefDialog : DialogWindow
         edtSummary.Text = ViewDef.GetDescription();
     }
 
+    void ToNotSorted()
+    {
+        if (lboSortedColumns.SelectedItem is not GridViewColumnDef Col)
+            return;
+
+        Col.SortIndex = -1;
+        RefreshSortedLists();
+    }
+    void ToNotSortedAll()
+    {
+        foreach (GridViewColumnDef Col in ViewDef.Columns)
+            Col.SortIndex = -1;
+
+        RefreshSortedLists();
+    }
+    void ToSorted()
+    {
+        if (lboNotSortedColumns.SelectedItem is not GridViewColumnDef Col)
+            return;
+
+        int Max = ViewDef.Columns
+            .Where(x => x.SortIndex >= 0)
+            .Select(x => x.SortIndex)
+            .DefaultIfEmpty(-1).Max();
+        Col.SortIndex = Max + 1;
+
+        RefreshSortedLists();
+    }
+    void ToSortedAll()
+    {
+        int Index = 0;
+
+        foreach (GridViewColumnDef Col in ViewDef.Columns)
+            Col.SortIndex = Index++;
+
+        RefreshSortedLists();
+    }
+    void MoveSorted(bool Up)
+    {
+        if (lboSortedColumns.SelectedItem is not GridViewColumnDef Col)
+            return;
+
+        var List = ViewDef.Columns
+            .Where(x => x.SortIndex >= 0)
+            .OrderBy(x => x.SortIndex)
+            .ToList();
+
+        int i = List.IndexOf(Col);
+        if (i < 0)
+            return;
+
+        int j = Up ? i - 1 : i + 1;
+        if (j < 0 || j >= List.Count)
+            return;
+
+        int Temp = List[i].SortIndex;
+        List[i].SortIndex = List[j].SortIndex;
+        List[j].SortIndex = Temp;
+
+        RefreshSortedLists();
+    }
+    void RefreshSortedLists()
+    {
+        var Sorted = ViewDef.Columns
+            .Where(x => x.SortIndex >= 0)
+            .OrderBy(x => x.SortIndex)
+            .ToList();
+
+        var NotSorted = ViewDef.Columns
+            .Where(x => x.SortIndex < 0)
+            .OrderBy(x => x.Title)
+            .ToList();
+
+        lboSortedColumns.ItemsSource = Sorted;
+        lboNotSortedColumns.ItemsSource = NotSorted;
+        edtSummary.Text = ViewDef.GetDescription();
+    }
+    
     void ColumnToControls(GridViewColumnDef Column)
     {
         if (Column == null)
@@ -318,6 +420,7 @@ public partial class GridViewDefDialog : DialogWindow
         edtEditFormat.Text = Column.EditFormat;
 
         cboAggregate.SelectedItem = Column.Aggregate;
+        cboSortDirection.SelectedItem = Column.SortDirection;
         cboBlobType.SelectedItem = Column.BlobType;
 
         chIsReadOnly.IsChecked = Column.IsReadOnly;
@@ -326,6 +429,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         edtDisplayMember.Text = Column.DisplayMember;
         edtValueMember.Text = Column.ValueMember;
+        edtLookupSourceName.Text = Column.LookupSourceName;
         edtLookupSql.Text = Column.LookupSql;
     }
     void ControlsToColumn(GridViewColumnDef Column)
@@ -340,6 +444,9 @@ public partial class GridViewDefDialog : DialogWindow
         if (cboAggregate.SelectedItem is AggregateType Aggregate)
             Column.Aggregate = Aggregate;
 
+        if (cboSortDirection.SelectedItem is ListSortDirection SortDirection)
+            Column.SortDirection = SortDirection;
+
         if (cboBlobType.SelectedItem is BlobType BlobType)
             Column.BlobType = BlobType;
 
@@ -348,6 +455,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         Column.DisplayMember = edtDisplayMember.Text;
         Column.ValueMember = edtValueMember.Text;
+        Column.LookupSourceName = edtLookupSourceName.Text;
         Column.LookupSql = edtLookupSql.Text;
         
         edtSummary.Text = ViewDef.GetDescription();
@@ -415,12 +523,29 @@ public partial class GridViewDefDialog : DialogWindow
 
         // ● Row Filters
         lboRowFilters.ItemsSource = ViewDef.RowFilters;
+        
+        // ● Sorting
+        cboSortDirection.ItemsSource = Enum.GetValues(typeof(ListSortDirection));
+        
+        var Sorted = ViewDef.Columns
+            .Where(x => x.SortIndex >= 0)
+            .OrderBy(x => x.SortIndex)
+            .ToList();
+
+        var NotSorted = ViewDef.Columns
+            .Where(x => x.SortIndex < 0)
+            .OrderBy(x => x.Title)
+            .ToList();
+
+        lboSortedColumns.ItemsSource = Sorted;
+        lboNotSortedColumns.ItemsSource = NotSorted;
 
         // miscs
         lboColumns.SelectionChanged += lboColumns_SelectionChanged;
         lboColumns.DoubleTapped += lboColumns_DoubleClick;
 
         cboAggregate.SelectionChanged += AnyColumnCombo_SelectionChanged;
+        cboSortDirection.SelectionChanged += AnyColumnCombo_SelectionChanged;
         cboBlobType.SelectionChanged += AnyColumnCombo_SelectionChanged;
 
         if (ViewDef.Columns.Count > 0)
@@ -431,6 +556,11 @@ public partial class GridViewDefDialog : DialogWindow
         
         lboGroupedColumns.DoubleTapped += GroupedList_DoubleClick;
         lboNotGroupedColumns.DoubleTapped += GroupedList_DoubleClick;
+
+        lboRowFilters.DoubleTapped += lboRowFilters_DoubleClick;
+
+        lboSortedColumns.DoubleTapped += SortedList_DoubleClick;
+        lboNotSortedColumns.DoubleTapped += SortedList_DoubleClick;
 
         await Task.CompletedTask;
     }

@@ -430,6 +430,12 @@ public enum BlobType
     Binary,
 }
 
+public interface ILookupSource
+{
+    string Name { get; }
+    IEnumerable Items { get; }
+}
+
 public class GridViewColumnDef
 {
     // ● private fields
@@ -487,18 +493,17 @@ public class GridViewColumnDef
     /// When below zero the column is not part of the group. Else this value is the column index in the group.
     /// </summary>
     public int GroupIndex { get; set; } = -1;
+    public int SortIndex { get; set; } = -1;     
+    public ListSortDirection SortDirection { get; set; } // Asc / Desc
     /// <summary>
     /// The aggregate type of the column. <see cref="AggregateType.None"/> means no aggregate is applied.
     /// </summary>
     public AggregateType Aggregate { get; set; } = AggregateType.None;
     /// <summary>
-    /// When true the column is not editable.
+    /// Valid only when is a blob
     /// </summary>
-    public bool IsReadOnly { get; set; }
-    /// <summary>
-    /// An integer field acting as a bool field, i.e. 0 = false, else is true
-    /// </summary>
-    public bool IsIntAsBool{ get; set; }
+    public BlobType BlobType { get; set; }
+
     /// <summary>
     /// The display format used by the grid cell when no explicit value is assigned.
     /// </summary>
@@ -537,10 +542,17 @@ public class GridViewColumnDef
         set => fEditFormat = value;
     }
     
-    public string LookupSql { get; set; }
-    public string DisplayMember { get; set; }
-    public string ValueMember { get; set; }
-    public BlobType BlobType { get; set; }
+    /// <summary>
+    /// When true the column is not editable.
+    /// </summary>
+    public bool IsReadOnly { get; set; }
+    /// <summary>
+    /// An integer field acting as a bool field, i.e. 0 = false, else is true
+    /// </summary>
+    public bool IsIntAsBool{ get; set; }
+    /// <summary>
+    /// True when the source column is nullable
+    /// </summary>
     public bool SourceAllowsNull
     {
         get => fSourceAllowsNull;
@@ -553,13 +565,16 @@ public class GridViewColumnDef
             }
         }
     }
+ 
+    public string DisplayMember { get; set; }
+    public string ValueMember { get; set; }
+    public string LookupSourceName { get; set; }
+    public string LookupSql { get; set; }
 
     [JsonIgnore]
-    public IEnumerable LookupItemsSource { get; set; }
+    public ILookupSource LookupSource { get; set; }
     [JsonIgnore]
-    public Func<IEnumerable> LookupItemsProvider { get; set; }
-    [JsonIgnore]
-    public bool IsLookup => LookupItemsSource != null || LookupItemsProvider != null;
+    public bool IsLookup => LookupSource != null;
 
     [JsonIgnore]
     public Type DataType
@@ -666,6 +681,12 @@ public class GridViewDef
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
     public string GetDescription()
     {
+        // --------------------------------------------
+        string SortDescription(GridViewColumnDef Column) => 
+            Column.FieldName + " " +
+            (Column.SortDirection == ListSortDirection.Ascending ? "" : "desc");
+        // --------------------------------------------
+        
         StringBuilder SB = new();
         
         // group
@@ -684,6 +705,11 @@ public class GridViewDef
         // hidden columns
         S = string.Join(", ", GetHiddenColumns());
         SB.AppendLine($"Hidden: {S}");
+
+        // sorting
+        S = string.Join(", ", GetSortedColumns()
+            .Select(x => SortDescription(x)));
+        SB.AppendLine($"Sorting: {S}");
             
         S = SB.ToString();
         return S;
@@ -713,7 +739,13 @@ public class GridViewDef
     /// Executes get values.
     /// </summary>
     public List<GridViewColumnDef> GetHiddenColumns() => Columns.Where(x => x.VisibleIndex < 0).ToList();
-
+    /// <summary>
+    /// Returns the list of sorted columns, if any, else empty list.
+    /// </summary>
+    /// <returns></returns>
+    public List<GridViewColumnDef> GetSortedColumns() 
+        => Columns.Where(x => x.SortIndex >= 0).OrderBy(x => x.SortIndex).ToList();
+    
     public GridViewColumnDef Find(string FieldName) => Columns.FirstOrDefault(x => FieldName.IsSameText(x.FieldName));
     public bool Contains(string FieldName) => Columns.Any(x => x.FieldName.IsSameText(FieldName));
     public GridViewColumnDef Get(string FieldName)
@@ -841,4 +873,89 @@ public class GridViewDefs
     public string FilePath { get; set; }
 
     public List<GridViewDef> DefList { get; set; } = new();
+}
+
+public class LookupRegistry
+{
+    // ● private fields
+    private readonly List<ILookupSource> fItems = new();
+
+    // ● private methods
+    private static void CheckName(string Name)
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new ArgumentException("Lookup source name is required.", nameof(Name));
+    }
+    private ILookupSource FindInternal(string Name)
+    {
+        return fItems.FirstOrDefault(x => string.Equals(x.Name, Name, StringComparison.OrdinalIgnoreCase));
+    }
+
+    // ● constructors
+    public LookupRegistry()
+    {
+    }
+
+    // ● public methods
+    public void Add(ILookupSource Source)
+    {
+        if (Source == null)
+            throw new ArgumentNullException(nameof(Source));
+
+        CheckName(Source.Name);
+
+        if (FindInternal(Source.Name) != null)
+            throw new ApplicationException($"Lookup source already exists: {Source.Name}");
+
+        fItems.Add(Source);
+    }
+    public bool Remove(string Name)
+    {
+        CheckName(Name);
+
+        ILookupSource Item = FindInternal(Name);
+        if (Item != null)
+            return fItems.Remove(Item);
+
+        return false;
+    }
+    public bool Contains(string Name)
+    {
+        CheckName(Name);
+        return FindInternal(Name) != null;
+    }
+    public ILookupSource Find(string Name)
+    {
+        CheckName(Name);
+        return FindInternal(Name);
+    }
+    public ILookupSource Get(string Name)
+    {
+        CheckName(Name);
+
+        ILookupSource Result = FindInternal(Name);
+        if (Result == null)
+            throw new ApplicationException($"Lookup source not found: {Name}");
+
+        return Result;
+    }
+    public IEnumerable<ILookupSource> GetAll()
+    {
+        return fItems;
+    }
+    public void Clear()
+    {
+        fItems.Clear();
+    }
+}
+
+public class GridViewContext
+{
+    // ● construction
+    public GridViewContext()
+    {
+    }
+
+    // ● properties
+    public LookupRegistry LookupRegistry { get; } = new();
 }

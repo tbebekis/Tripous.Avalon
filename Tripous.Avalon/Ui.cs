@@ -1,5 +1,3 @@
-using ProDataGrid.FormulaEngine;
-
 namespace Tripous.Avalon;
 
 /// <summary>

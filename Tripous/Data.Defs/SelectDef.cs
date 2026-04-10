@@ -9,7 +9,7 @@ public class SelectDef
     // ● private
     private ObservableCollection<SqlFilterDef> fFilters;
     private ObservableCollection<GridViewDef> fViews;
-    private ObservableCollection<PivotDef> fPivots;
+    // CHECK private ObservableCollection<PivotDef> fPivots;
     
     // ● construction
     public SelectDef()
@@ -231,6 +231,8 @@ public class SelectDef
         }
         set => fViews = value;
     }
+    
+    /* CHECK
     public ObservableCollection<PivotDef> Pivots
     {
         get
@@ -241,7 +243,7 @@ public class SelectDef
         }
         set => fPivots = value;
     }
-    
+    */
     [JsonIgnore] 
     public bool HasErrors => !string.IsNullOrWhiteSpace(Errors);
     [JsonIgnore] 

@@ -716,100 +716,6 @@ internal class GridViewDateInplaceEditor: GridViewInplaceEditor
     }
 }
 
-static internal class GridViewLookupHelper
-{
-    // ● private methods
-    static private bool AreEqual(object A, object B)
-    {
-        if (A == null && B == null)
-            return true;
-
-        if (A == null || B == null)
-            return false;
-
-        if (Equals(A, B))
-            return true;
-
-        try
-        {
-            string SA = Convert.ToString(A, CultureInfo.InvariantCulture);
-            string SB = Convert.ToString(B, CultureInfo.InvariantCulture);
-            return string.Equals(SA, SB, StringComparison.OrdinalIgnoreCase);
-        }
-        catch
-        {
-        }
-
-        return false;
-    }
-    static private object GetMemberValue(object Item, string MemberName)
-    {
-        if (Item == null)
-            return null;
-
-        if (string.IsNullOrWhiteSpace(MemberName))
-            return Item;
-
-        return GridViewEngine.GetValue(Item, MemberName);
-    }
-
-    // ● static public methods
-    static public IEnumerable GetItems(GridViewColumnDef ColumnDef)
-    {
-        if (ColumnDef == null)
-            return null;
-
-        if (ColumnDef.LookupItemsSource != null)
-            return ColumnDef.LookupItemsSource;
-
-        if (ColumnDef.LookupItemsProvider != null)
-            return ColumnDef.LookupItemsProvider();
-
-        return null;
-    }
-    static public object GetItemValue(object Item, GridViewColumnDef ColumnDef)
-    {
-        if (Item == null || ColumnDef == null)
-            return null;
-
-        return GetMemberValue(Item, ColumnDef.ValueMember);
-    }
-    static public string GetItemDisplayText(object Item, GridViewColumnDef ColumnDef)
-    {
-        if (Item == null || ColumnDef == null)
-            return string.Empty;
-
-        object Value = GetMemberValue(Item, ColumnDef.DisplayMember);
-        return Convert.ToString(Value, CultureInfo.InvariantCulture) ?? string.Empty;
-    }
-    static public object FindItemByValue(GridViewColumnDef ColumnDef, object Value)
-    {
-        IEnumerable Items = GetItems(ColumnDef);
-        if (Items == null)
-            return null;
-
-        foreach (object Item in Items)
-        {
-            object ItemValue = GetItemValue(Item, ColumnDef);
-            if (AreEqual(ItemValue, Value))
-                return Item;
-        }
-
-        return null;
-    }
-    static public string GetDisplayTextByValue(GridViewColumnDef ColumnDef, object Value)
-    {
-        if (ColumnDef == null)
-            return string.Empty;
-
-        object Item = FindItemByValue(ColumnDef, Value);
-        if (Item != null)
-            return GetItemDisplayText(Item, ColumnDef);
-
-        return Convert.ToString(Value, CultureInfo.InvariantCulture) ?? string.Empty;
-    }
-}
- 
 internal abstract class GridViewComboBoxInplaceEditor: GridViewInplaceEditor
 {
     // ● protected methods
@@ -2083,6 +1989,7 @@ static public class GridViewGridBinder
 
             DataGridTemplateColumn Column = new()
             {
+                Tag = ColumnDef,
                 Header = !string.IsNullOrWhiteSpace(ColumnDef.Title) ? ColumnDef.Title : ColumnDef.FieldName,
                 Width = DataGridLength.Auto,
                 IsReadOnly = ColumnDef.IsReadOnly,

@@ -5,37 +5,7 @@ namespace Tripous.Avalon;
 static public class TripousAvalonExtensions
 {
     // ● DataGrid
-    static public Type GetColumnDataType(this DataGridColumn Column)
-    {
-        // 1. ΠΡΩΤΑ: GridColumnInfo στο Tag (κύρια πηγή αλήθειας)
-        if (Column.Tag is GridColumnInfo Info)
-        {
-            return Info.UnderlyingType;
-        }
-
-        // 2. Fallback: γνωστοί τύποι column
-        if (Column is DataGridCheckBoxColumn)
-            return typeof(bool);
-
-        if (Column is DataGridHyperlinkColumn)
-            return typeof(Uri);
-
-        if (Column is DataGridComboBoxColumn)
-            return typeof(object); // enum ή lookup, δεν ξέρουμε σίγουρα εδώ
-
-        // 3. Fallback: binding (best effort)
-        if (Column is DataGridBoundColumn BoundColumn)
-        {
-            if (BoundColumn.Binding is Binding binding)
-            {
-                if (binding.Source != null)
-                    return binding.Source.GetType();
-            }
-        }
-
-        // 4. Τελευταίο fallback
-        return typeof(object);
-    }
+ 
     /// <summary>
     /// Returns the path of a column, e.g. [Customer.Name]
     /// </summary>
@@ -99,121 +69,8 @@ static public class TripousAvalonExtensions
         return RequiresIndexer ? $"[{PropertyName}]" : PropertyName;
     }
  
-    /// <summary>
-    /// Creates columns for a ProDataGrid based on a specified <see cref="DataTable"/>
-    /// </summary>
-    static public void CreateColumns(this DataGrid Grid, DataTable Table)
-    {
-        Grid.AutoGenerateColumns = false;
-        Grid.Columns.Clear();
-
-        foreach (DataColumn TableColumn in Table.Columns)
-        {
-            string BindingPath = GetBindingPath(TableColumn.ColumnName);
-            Type DataType = TableColumn.DataType;
-            Type CoreType = Nullable.GetUnderlyingType(DataType) ?? DataType;
-
-            DataGridColumn GridColumn;
-
-            /* Booleans -> CheckBox column */
-            if (CoreType == typeof(bool))
-            {
-                GridColumn = new DataGridCheckBoxColumn
-                {
-                    Binding = new Binding(BindingPath),
-                    IsThreeState = TableColumn.AllowDBNull
-                };
-            }
-            /* Enums -> ComboBox column */
-            else if (CoreType.IsEnum)
-            {
-                GridColumn = new DataGridComboBoxColumn
-                {
-                    ItemsSource = Enum.GetValues(CoreType),
-                    SelectedItemBinding = new Binding(BindingPath)
-                };
-            }
-            /* Uri -> Hyperlink column */
-            else if (CoreType == typeof(Uri))
-            {
-                GridColumn = new DataGridHyperlinkColumn
-                {
-                    Binding = new Binding(BindingPath),
-                    ContentBinding = new Binding(BindingPath)
-                };
-            }
-            /* Fallback -> text column */
-            else
-            {
-                GridColumn = new DataGridTextColumn
-                {
-                    Binding = new Binding(BindingPath)
-                };
-            }
-
-            GridColumn.Header = TableColumn.Caption;
-            GridColumn.IsReadOnly = TableColumn.ReadOnly;
-            GridColumn.ColumnKey = TableColumn.ColumnName;
-            GridColumn.SortMemberPath = TableColumn.ColumnName;
-            GridColumn.Tag = new GridColumnInfo(TableColumn, GridColumn);
-
-            Grid.Columns.Add(GridColumn);
-        }
-    }
-
-    static public DataGridColumn CreateColumn(this DataGrid Grid, Type DataType, string FieldName, string Caption, bool IsReadOnly = true)
-    {
-        
-        DataGridColumn GridColumn = null;
-        Type CoreType = Nullable.GetUnderlyingType(DataType) ?? DataType;
-
-        /* Booleans -> CheckBox column */
-        if (CoreType == typeof(bool))
-        {
-            GridColumn = new DataGridCheckBoxColumn
-            {
-                Binding = new Binding(FieldName),
-                IsThreeState = false
-            };
-        }
-        /* Enums -> ComboBox column */
-        else if (CoreType.IsEnum)
-        {
-            GridColumn = new DataGridComboBoxColumn
-            {
-                ItemsSource = Enum.GetValues(CoreType),
-                SelectedItemBinding = new Binding(FieldName)
-            };
-        }
-        /* Uri -> Hyperlink column */
-        else if (CoreType == typeof(Uri))
-        {
-            GridColumn = new DataGridHyperlinkColumn
-            {
-                Binding = new Binding(FieldName),
-                ContentBinding = new Binding(FieldName)
-            };
-        }
-        /* Fallback -> text column */
-        else
-        {
-            GridColumn = new DataGridTextColumn
-            {
-                Binding = new Binding(FieldName)
-            };
-        }
-        
-        GridColumn.Header = Caption;
-        GridColumn.IsReadOnly = IsReadOnly;
-        GridColumn.ColumnKey = FieldName;
-        GridColumn.SortMemberPath = FieldName;
-
-        Grid.Columns.Add(GridColumn);
-
-        return GridColumn;
-    }
-    static public GridColumnInfo GetColumnInfo(this DataGridColumn Column) => Column.Tag as GridColumnInfo;
-    
+ 
+ 
     /// <summary>
     /// Finds and returns a column by name (i.e. Header), if any, else null.
     /// <para>NOTE: <see cref="ColumnName"/> is the Header of the column.</para>
@@ -287,127 +144,8 @@ static public class TripousAvalonExtensions
     }
     
  
-    
-    // ● DataGrid - Pivot related
-    /// <summary>
-    /// Converts a Tripous <see cref="PivotValueAggregateType"/> to a ProDataGrid <see cref="PivotAggregateType"/>
-    /// </summary>
-    static public PivotAggregateType ToPivotAggregateType(this PivotValueAggregateType AggregateType)
-    {
-        return AggregateType switch
-        {
-            PivotValueAggregateType.Sum => PivotAggregateType.Sum,
-            PivotValueAggregateType.Avg => PivotAggregateType.Average,
-            PivotValueAggregateType.Count => PivotAggregateType.Count,
-            PivotValueAggregateType.Min => PivotAggregateType.Min,
-            PivotValueAggregateType.Max => PivotAggregateType.Max,
-            PivotValueAggregateType.StdDev => PivotAggregateType.StdDev,
-            PivotValueAggregateType.StdDevP => PivotAggregateType.StdDevP,
-            PivotValueAggregateType.Variance => PivotAggregateType.Variance,
-            PivotValueAggregateType.VarianceP => PivotAggregateType.VarianceP,
-            PivotValueAggregateType.CountDistinct => PivotAggregateType.CountDistinct,
-            PivotValueAggregateType.Product => PivotAggregateType.Product,
-            _ => PivotAggregateType.Count,
-        };
-    }
- 
-    static public bool IsPivotSupportedType(this Type T)
-    {
-        Type ActualType = Nullable.GetUnderlyingType(T) ?? T;
-        return ActualType.IsString() || ActualType.IsNumeric() || ActualType.IsDateTime();
-    }
-    /// <summary>
-    /// Creates a default <see cref="PivotDef"/> based on a specified <see cref="DataView"/>.
-    /// </summary>
-    static public PivotDef CreateDefaultPivotDef(this DataView DataView)
-    {
-        if (DataView == null)
-            throw new ArgumentNullException(nameof(DataView));
 
-        PivotDef Result = new();
 
-        List<DataColumn> Columns = DataView.Table.Columns.Cast<DataColumn>().ToList();
-
-        List<DataColumn> StringCols = Columns.Where(c => c.DataType == typeof(string)).ToList();
-        List<DataColumn> DateCols = Columns.Where(c => c.DataType == typeof(DateTime)).ToList();
-        List<DataColumn> NumericCols = Columns.Where(c => c.DataType.IsNumeric()).ToList();
-
-        List<DataColumn> Eligible = Columns
-            .Where(c => c.DataType == typeof(string) || c.DataType == typeof(DateTime) || c.DataType.IsNumeric())
-            .ToList();
-
-        foreach (DataColumn Col in Eligible)
-        {
-            Result.Columns.Add(new PivotColumnDef
-            {
-                FieldName = Col.ColumnName,
-                Caption = Col.Caption ?? Col.ColumnName,
-                Axis = PivotAxis.None,
-                IsValue = false,
-                ValueAggregateType = PivotValueAggregateType.None,
-                SortByValue = true,
-                SortDescending = false,
-                Format = Col.DataType == typeof(DateTime) ? "d" : null
-            });
-        }
-
-        PivotColumnDef FirstRow = null;
-        PivotColumnDef SecondRow = null;
-        PivotColumnDef FirstValue = null;
-
-        DataColumn RowCol1 = StringCols.FirstOrDefault() ?? DateCols.FirstOrDefault();
-        DataColumn RowCol2 = StringCols.Skip(1).FirstOrDefault() ?? DateCols.Skip(1).FirstOrDefault();
-
-        if (RowCol1 != null)
-        {
-            FirstRow = Result.Columns.First(x => x.FieldName == RowCol1.ColumnName);
-            FirstRow.Axis = PivotAxis.Row;
-        }
-
-        if (RowCol2 != null)
-        {
-            SecondRow = Result.Columns.First(x => x.FieldName == RowCol2.ColumnName);
-            SecondRow.Axis = PivotAxis.Column;
-        }
-
-        DataColumn ValueCol = NumericCols.FirstOrDefault();
-
-        if (ValueCol != null)
-        {
-            FirstValue = Result.Columns.First(x => x.FieldName == ValueCol.ColumnName);
-            FirstValue.IsValue = true;
-            FirstValue.ValueAggregateType = PivotValueAggregateType.Sum;
-        }
-        else
-        {
-            PivotColumnDef Fallback = Result.Columns.FirstOrDefault(x => x.Axis == PivotAxis.None);
-
-            if (Fallback != null)
-            {
-                Fallback.IsValue = true;
-                Fallback.ValueAggregateType = PivotValueAggregateType.Count;
-            }
-        }
-
-        return Result;
-    }
-    /// <summary>
-    /// Creates a list of <see cref="PivotColumnInfo"/> items based on a specified <see cref="DataView"/>.
-    /// </summary>
-    static public List<PivotColumnInfo> CreatePivotColumnInfoList(this DataView DataView)
-    {
-        List<PivotColumnInfo> Result = new();
-        
-        DataTable Table = DataView.Table;
-  
-        foreach (DataColumn Column in Table.Columns)
-        {
-            if (Column.DataType.IsPivotSupportedType())
-                Result.Add(new PivotColumnInfo(Column));
-        }
-        
-        return Result;
-    }
 
  
     
@@ -454,19 +192,6 @@ static public class TripousAvalonExtensions
         return Result;
     }
     
-    // ● Miscs
-    static public DataGridAggregateType ToAvalonia(this AggregateType AggregateType)
-    {
-        switch (AggregateType)
-        {
-            case AggregateType.Count: return DataGridAggregateType.Count;
-            case AggregateType.Sum: return DataGridAggregateType.Sum;
-            case AggregateType.Min: return DataGridAggregateType.Min;
-            case AggregateType.Max: return DataGridAggregateType.Max;
-            case AggregateType.Avg: return DataGridAggregateType.Average;
-        }
-
-        return DataGridAggregateType.None;
-    }
+ 
 }
 
