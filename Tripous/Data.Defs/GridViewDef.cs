@@ -622,7 +622,6 @@ public class GridViewDef
     }
 
     // ● static
-
     /// <summary>
     /// Creates and returns a default definition based on a specified source.
     /// </summary>
@@ -823,7 +822,7 @@ public class GridViewDefs
 
     GridViewDef AddInternal(GridViewDef ViewDef, string Name = "")
     {
-        if (string.IsNullOrWhiteSpace(Name))
+        if (!string.IsNullOrWhiteSpace(Name))
             ViewDef.Name = Name;
         
         if (string.IsNullOrWhiteSpace(ViewDef.Name)) 
@@ -865,14 +864,12 @@ public class GridViewDefs
     /// </summary>
     public string Name
     {
-        get => !string.IsNullOrWhiteSpace(fName) ? fName : nameof(GridViewDefs);
+        get => !string.IsNullOrWhiteSpace(fName) ? fName : Sys.GenId();
         set => fName = value;
     }
-
+    public List<GridViewDef> DefList { get; set; } = new();
     [JsonIgnore] 
     public string FilePath { get; set; }
-
-    public List<GridViewDef> DefList { get; set; } = new();
 }
 
 public class LookupRegistry
@@ -907,7 +904,14 @@ public class LookupRegistry
         if (FindInternal(Source.Name) != null)
             throw new ApplicationException($"Lookup source already exists: {Source.Name}");
 
+        
         fItems.Add(Source);
+    }
+
+    public void AddRange(IEnumerable<ILookupSource> Sources)
+    {
+        foreach (var Source in Sources)
+            Add(Source);
     }
     public bool Remove(string Name)
     {

@@ -115,8 +115,9 @@ public partial class MainWindow : Window
         GridView = new GridView();
         GridView.LookupRegistry.Add(new CategoryLookupSourcePoco());
         GridView.Grid = gridView;
-        GridView.SetSource(Tests.SalesLines);
         GridView.ViewDefs = ViewDefs;
+        GridView.SetSource(Tests.SalesLines);
+        
         GridView.ToolBar.Panel = pnlToolBar;
         GridView.ToolBar.IsMultiDef = true;
 
@@ -148,6 +149,7 @@ public partial class MainWindow : Window
         GridView.Grid = gridView;
         GridView.DataView = DataView;
         GridView.ViewDefs = ViewDefs;
+        
         GridView.ToolBar.Panel = pnlToolBar;
         GridView.ToolBar.IsMultiDef = true;
         //GridView.ToolBar.IsReadOnlyView = true;

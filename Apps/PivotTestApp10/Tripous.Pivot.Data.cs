@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json.Serialization;
@@ -186,19 +187,21 @@ public class PivotFieldDef
 /// </summary>
 public class PivotDef
 {
+    private string fName;
+    
+    // ● construction
     public PivotDef()
     {
     }
 
-    public override string ToString()
-    {
-        return $"Fields: {Fields.Count}";
-    }
+    // ● public
+    public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
     public void Normalize()
     {
         foreach (PivotFieldDef Field in Fields)
             Field?.Normalize();
     }
+    
     public IEnumerable<PivotFieldDef> GetRowFields()
     {
         return Fields.Where(x => x.Axis == PivotAxis.Row);
@@ -212,6 +215,59 @@ public class PivotDef
         return Fields.Where(x => x.IsValue);
     }
 
+    public PivotFieldDef Find(string FieldName) => Fields.FirstOrDefault(x => FieldName.IsSameText(x.FieldName));
+    public bool Contains(string FieldName) => Fields.Any(x => x.FieldName.IsSameText(FieldName));
+    public PivotFieldDef Get(string FieldName)
+    {
+        PivotFieldDef Result = Find(FieldName);
+        if (Result == null)
+            throw new ApplicationException($"{nameof(PivotFieldDef)} not found: {FieldName}");
+        return Result;
+    }
+    
+    
+    PivotFieldDef AddInternal(PivotFieldDef FieldDef)
+    {
+      
+        if (string.IsNullOrWhiteSpace(FieldDef.FieldName)) 
+            throw new ApplicationException($"Cannot add a {nameof(PivotFieldDef)} without FieldName");
+
+        if (Contains(FieldDef.FieldName))
+            throw new ApplicationException($"{nameof(PivotFieldDef)} already exists in list: {FieldDef.FieldName}");
+
+        Fields.Add(FieldDef);
+        return FieldDef;
+    }
+    public PivotFieldDef AddRow(string FieldName, string Caption = null)
+    {
+        PivotFieldDef Result = PivotFieldDef.CreateRow(FieldName, Caption);
+        AddInternal(Result);
+        return Result;
+    }
+    public PivotFieldDef AddColumn(string FieldName, string Caption = null)
+    {
+        PivotFieldDef Result = PivotFieldDef.CreateColumn(FieldName, Caption);
+        AddInternal(Result);
+        return Result;
+    }
+    public PivotFieldDef AddValue(string FieldName, PivotValueAggregateType AggregateType, string Caption = null,
+        string Format = null)
+    {
+        PivotFieldDef Result = PivotFieldDef.CreateValue(FieldName, AggregateType, Caption, Format);
+        AddInternal(Result);
+        return Result;
+    }
+    
+    // ● properties
+    /// <summary>
+    /// The name of this grid view
+    /// </summary>
+    public string Name
+    {
+        get => !string.IsNullOrWhiteSpace(fName) ? fName : Sys.GenId();
+        set => fName = value;
+    }
+    
     public ObservableCollection<PivotFieldDef> Fields { get; set; } = new();
     public bool ShowSubtotals { get; set; } = true;
     public bool ShowGrandTotals { get; set; } = true;
@@ -220,6 +276,89 @@ public class PivotDef
     
     [JsonIgnore]
     public object Tag { get; set; }
+}
+
+public class PivotDefs
+{
+    private string fName;
+
+    // ● construction
+    public PivotDefs()
+    {
+    }
+
+    // ● public
+    public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
+        
+    public void LoadFromFile()
+    {
+        if (string.IsNullOrWhiteSpace(FilePath) || !File.Exists(FilePath))
+            throw new ApplicationException($"Cannot load {nameof(PivotDefs)}. Invalid file path");
+        DefList.Clear();
+        Json.LoadFromFile(this, FilePath);
+    }
+    public void SaveToFile()
+    {
+        if (string.IsNullOrWhiteSpace(FilePath) || !File.Exists(FilePath))
+            throw new ApplicationException($"Cannot save {nameof(PivotDefs)}. Invalid file path");
+        Json.SaveToFile(this, FilePath);
+    }
+    
+    public PivotDef Find(string Name) => DefList.FirstOrDefault(x => Name.IsSameText(x.Name));
+    public bool Contains(string Name) => DefList.Any(x => x.Name.IsSameText(Name));
+    public PivotDef Get(string Name)
+    {
+        PivotDef Result = Find(Name);
+        if (Result == null)
+            throw new ApplicationException($"{nameof(PivotDef)} not found: {Name}");
+        return Result;
+    }
+
+    PivotDef AddInternal(PivotDef PivotDef, string Name = "")
+    {
+        if (!string.IsNullOrWhiteSpace(Name))
+            PivotDef.Name = Name;
+        
+        if (string.IsNullOrWhiteSpace(PivotDef.Name)) 
+            PivotDef.Name = Sys.GenId();
+        
+        if (DefList.Count == 0)
+            PivotDef.Name = "Default";
+
+        if (Contains(PivotDef.Name))
+            throw new ApplicationException($"{nameof(PivotDef)} already exists in list: {PivotDef.Name}");
+
+        DefList.Add(PivotDef);
+        return PivotDef;
+    }
+    public PivotDef Add(string Name = "")
+    {
+        PivotDef PivotDef = new();
+        return AddInternal(PivotDef, Name);
+    }
+    public void Remove(PivotDef PivotDef)
+    {
+        if (DefList.Contains(PivotDef))
+        {
+            if (DefList.Count == 1)
+                throw new ApplicationException($"Cannot delete the last {nameof(PivotDef)} from list.");
+            if (DefList.Count > 1)
+                DefList.Remove(PivotDef);
+        }
+    }
+    
+    // ● properties
+    /// <summary>
+    /// The name of this grid view
+    /// </summary>
+    public string Name
+    {
+        get => !string.IsNullOrWhiteSpace(fName) ? fName : Sys.GenId();
+        set => fName = value;
+    }
+    public List<PivotDef> DefList { get; set; } = new();
+    [JsonIgnore] 
+    public string FilePath { get; set; }
 }
 
 /// <summary>

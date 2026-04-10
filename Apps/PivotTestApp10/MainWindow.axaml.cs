@@ -15,20 +15,20 @@ public partial class MainWindow : Window
     async void AnyClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (btnTest == sender)
-            Test();
+            Test_Poco();
         else if (btnTest2 == sender)
-            Test2();
+            Test_DataView();
     }
     
     // ● private
     void WindowInitialize()
     {
-        Test2();
+        Test_DataView2();
     }
 
     private int LineCount = 300;
     
-    void Test()
+    void Test_Poco()
     {
         PivotDef PivotDef = Tests.CreateDefaultPivotDef();
         List<SalesLine> source = Tests.CreatePocoSalesLines(LineCount);
@@ -36,13 +36,27 @@ public partial class MainWindow : Window
         PivotGridRenderer.Show(Grid, Result,  PivotDef);
     }
 
-    void Test2()
+    void Test_Poco2()
+    {
+        PivotDef PivotDef = Tests.CreateDefaultPivotDef();
+        List<SalesLine> Source = Tests.CreatePocoSalesLines(LineCount);
+        
+        PivotView PivotView = PivotView.Create(Grid, Source, PivotDef);
+    }
+    void Test_DataView()
     {
         PivotDef PivotDef = Tests.CreateDefaultPivotDef();
         DataTable table = Tests.CreateTableSalesLines(LineCount);
         PivotData Result = PivotEngine.Execute(table.DefaultView, PivotDef);
         PivotGridRenderer.Show(Grid, Result, PivotDef);
-    }  
+    }
+    void Test_DataView2()
+    {
+        PivotDef PivotDef = Tests.CreateDefaultPivotDef();
+        DataTable Table = Tests.CreateTableSalesLines(LineCount);
+        
+        PivotView PivotView = PivotView.Create(Grid, Table.DefaultView, PivotDef);
+    }
     
     // ● construction
     public MainWindow()

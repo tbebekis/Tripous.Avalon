@@ -191,62 +191,7 @@ static public partial class Tests
         return Table;
     }
     
-    static PivotDef CreateDefaultPivotDef()
-    {
-        PivotDef def = new PivotDef();
-
-        def.Columns.Add(new PivotColumnDef
-        {
-            FieldName = "Region",
-            Axis = PivotAxis.Row,
-        });
-
-        def.Columns.Add(new PivotColumnDef
-        {
-            FieldName = "CategoryId",
-            Axis = PivotAxis.Row
-        });
-
-        def.Columns.Add(new PivotColumnDef
-        {
-            FieldName = "Segment",
-            Axis = PivotAxis.Column
-            
-        });
-        
-        def.Columns.Add(new PivotColumnDef { FieldName = "Product", Axis = PivotAxis.Column });
-        
-
-        def.Columns.Add(new PivotColumnDef
-        {
-            FieldName = "Sales",
-            IsValue = true,
-            ValueAggregateType = PivotValueAggregateType.Sum,
-            Caption = "Sales",
-            Format = "N2"
-        });
-
-        def.Columns.Add(new PivotColumnDef
-        {
-            FieldName = "Profit",
-            IsValue = true,
-            ValueAggregateType = PivotValueAggregateType.Sum,
-            Caption = "Profit",
-            Format = "N2"
-        });
-
-        def.Columns.Add(new PivotColumnDef
-        {
-            FieldName = "Quantity",
-            IsValue = true,
-            ValueAggregateType = PivotValueAggregateType.Sum,
-            Caption = "Qty",
-            Format = "N0"
-        });
-
-        return def;
-    }
-
+ 
     static GridViewDef CreateDefaultGridViewDef()
     {
         GridViewDef Result = new();
