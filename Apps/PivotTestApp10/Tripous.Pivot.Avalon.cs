@@ -49,7 +49,6 @@ static public class PivotAvalonExtensions
                 IsValue = false,
                 ValueAggregateType = PivotValueAggregateType.None,
                 SortByValue = true,
-                SortDescending = false,
                 Format = Col.DataType == typeof(DateTime) ? "d" : null
             });
         }
@@ -92,7 +91,7 @@ static public class PivotAvalonExtensions
             }
         }
 
-        Result.Normalize();
+        //Result.Normalize();
 
         return Result;
     }
@@ -185,7 +184,7 @@ public class PivotBinder: ObservableObject
             fGrid.Tag = this;
             fGrid.SetValue(GridPivotBinderProperty, this);
 
-            Menu = new PivotMenu(fGrid);
+            // CHECK: ViewMenu = new PivotViewMenu(fGrid);
         }
     }
     /// <summary>
@@ -267,7 +266,7 @@ public class PivotBinder: ObservableObject
     /// <summary>
     /// Handles the UI menus, etc.
     /// </summary>
-    public PivotMenu Menu { get; protected set; }
+    public PivotViewMenu ViewMenu { get; protected set; }
 }
  
 /// <summary>

@@ -1646,7 +1646,7 @@ static internal class GridViewRenderer
         GridViewColumnDef ColumnDef = Columns.FirstOrDefault(x =>
             string.Equals(x.FieldName, Node.OwnerGroup.FieldName, StringComparison.OrdinalIgnoreCase));
 
-        string Title = ColumnDef != null ? ColumnDef.Title : Node.OwnerGroup.FieldName;
+        string Title = ColumnDef != null ? ColumnDef.Caption : Node.OwnerGroup.FieldName;
         string Text = FormatGroupKey(ColumnDef, Node.OwnerGroup.Key);
 
         return $"Total ({Title} = {Text})";
@@ -1683,7 +1683,7 @@ static internal class GridViewRenderer
             if (ColumnIndex >= 0)
             {
                 GridViewColumnDef ColumnDef = Columns[ColumnIndex];
-                Row.Values[ColumnIndex] = $"{ColumnDef.Title} = {FormatGroupKey(ColumnDef, DataRow.Node.Key)}";
+                Row.Values[ColumnIndex] = $"{ColumnDef.Caption} = {FormatGroupKey(ColumnDef, DataRow.Node.Key)}";
             }
 
             if (DataRow.Node != null && !DataRow.Node.IsExpanded)
@@ -1990,7 +1990,7 @@ static public class GridViewGridBinder
             DataGridTemplateColumn Column = new()
             {
                 Tag = ColumnDef,
-                Header = !string.IsNullOrWhiteSpace(ColumnDef.Title) ? ColumnDef.Title : ColumnDef.FieldName,
+                Header = !string.IsNullOrWhiteSpace(ColumnDef.Caption) ? ColumnDef.Caption : ColumnDef.FieldName,
                 Width = DataGridLength.Auto,
                 IsReadOnly = ColumnDef.IsReadOnly,
                 CellTemplate = new FuncDataTemplate<GridViewRenderRow>((Row, _) =>
@@ -2242,7 +2242,7 @@ static public class GridViewGridBinder
         return string.Join("\u001F", RenderData.Columns.Select(x =>
         {
             string FieldName = x.FieldName ?? string.Empty;
-            string Title = x.Title ?? string.Empty;
+            string Title = x.Caption ?? string.Empty;
             string DataType = x.DataType != null ? x.DataType.FullName : string.Empty;
             return $"{FieldName}|{Title}|{x.IsReadOnly}|{x.VisibleIndex}|{x.GroupIndex}|{x.Aggregate}|{DataType}";
         }));

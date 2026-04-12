@@ -88,7 +88,7 @@ public partial class MainWindow : Window
         Def["Sales"].Aggregate = AggregateType.Sum;
         Def["Sales"].DisplayFormat = "N3";
         
-        Def["CategoryId"].Title = "Category";
+        Def["CategoryId"].Caption = "Category";
         Def["CategoryId"].ValueMember = "Id";
         Def["CategoryId"].DisplayMember = "Name";
         Def["CategoryId"].LookupItemsSource = Tests.Categories;
@@ -111,7 +111,7 @@ public partial class MainWindow : Window
         Def["Sales"].Aggregate = AggregateType.Sum;
         Def["Sales"].DisplayFormat = "N3";
  
-        Def["CategoryId"].Title = "Category";
+        Def["CategoryId"].Caption = "Category";
         Def["CategoryId"].ValueMember = "Id";
         Def["CategoryId"].DisplayMember = "Name";
         Def["CategoryId"].LookupItemsSource = Tests.tblCategory.DefaultView;

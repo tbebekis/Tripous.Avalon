@@ -236,6 +236,28 @@ public class RowFilterDef
         }
     }
 
+    public void AssignFrom(RowFilterDef Source)
+    {
+        BoolOp = Source.BoolOp;
+        ConditionOp = Source.ConditionOp;
+        FieldName = Source.FieldName;
+        fValue = Source.Value;
+        fValue2 = Source.Value2;
+        fValueText = Source.ValueText;
+        fValue2Text = Source.Value2Text;
+        fValueType = Source.ValueType;
+        fValue2Type = Source.Value2Type;
+        ColumnDef = Source.ColumnDef;
+        Tag = Source.Tag;
+    }
+    public RowFilterDef Clone()
+    {
+        RowFilterDef Result = new();
+        Result.AssignFrom(this);
+        return Result;
+    }
+    
+    
     // ● properties
     public BoolOp BoolOp { get; set; }
     public ConditionOp ConditionOp { get; set; }
@@ -390,7 +412,6 @@ public class RowFilterDefs : List<RowFilterDef>
         return Result;
     }
     
-    
     [JsonIgnore]
     public string Text
     {
@@ -441,7 +462,7 @@ public class GridViewColumnDef
     // ● private fields
     private string fDisplayFormat;
     private string fEditFormat;
-    private string fTitle;
+    private string fCaption;
     private Type fDataType;
     private bool fSourceAllowsNull;
 
@@ -471,7 +492,41 @@ public class GridViewColumnDef
         fSourceAllowsNull = Value;
         DataTypeChanged();
     }
-    
+
+    public void AssignFrom(GridViewColumnDef Source)
+    {
+        FieldName = Source.FieldName;
+        fCaption = Source.fCaption;
+        VisibleIndex = Source.VisibleIndex;
+        GroupIndex = Source.GroupIndex;
+        SortIndex = Source.SortIndex;
+        SortDirection = Source.SortDirection;
+        Aggregate = Source.Aggregate;
+        BlobType = Source.BlobType;
+        
+        fDisplayFormat = Source.fDisplayFormat;
+        fEditFormat = Source.fEditFormat;
+        
+        IsReadOnly = Source.IsReadOnly;
+        IsIntAsBool = Source.IsIntAsBool;
+        fSourceAllowsNull = Source.fSourceAllowsNull;
+
+        DisplayMember = Source.DisplayMember;
+        ValueMember = Source.ValueMember;
+        LookupSourceName = Source.LookupSourceName;
+        LookupSql = Source.LookupSql;
+
+        LookupSource = Source.LookupSource;
+
+        DataType = Source.DataType;
+    }
+    public GridViewColumnDef Clone()
+    {
+        GridViewColumnDef Result = new();
+        Result.AssignFrom(this);
+        return Result;
+    }
+
     // ● properties
     /// <summary>
     /// Gets or sets the field name.
@@ -480,10 +535,10 @@ public class GridViewColumnDef
     /// <summary>
     /// The caption, header, of the column.
     /// </summary>
-    public string Title
+    public string Caption
     {
-        get => !string.IsNullOrWhiteSpace(fTitle) ? fTitle : FieldName;
-        set => fTitle = value;
+        get => !string.IsNullOrWhiteSpace(fCaption) ? fCaption : FieldName;
+        set => fCaption = value;
     }
     /// <summary>
     /// When below zero the column is not visible. Else this value is the order of the column in the visible columns.
@@ -637,7 +692,7 @@ public class GridViewDef
             GridViewColumnDef Column = new()
             {
                 FieldName = DataColumn.ColumnName,
-                Title = DataColumn.ColumnName,
+                Caption = DataColumn.ColumnName,
                 DataType = DataColumn.DataType,
             };
             
@@ -665,7 +720,7 @@ public class GridViewDef
             GridViewColumnDef Column = new()
             {
                 FieldName = Prop.Name,
-                Title = Prop.Name,
+                Caption = Prop.Name,
                 DataType = Prop.PropertyType,
             };
 
@@ -678,6 +733,7 @@ public class GridViewDef
     
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
+    
     public string GetDescription()
     {
         // --------------------------------------------
@@ -713,13 +769,36 @@ public class GridViewDef
         S = SB.ToString();
         return S;
     }
-
     public void ClearLists()
     {
         Columns.Clear();
         RowFilters.Clear();
     }
- 
+
+    public void AssignFrom(GridViewDef Source)
+    {
+        ClearLists();
+        
+        fName = Source.fName;
+        ShowGroupColumnsAsDataColumns = Source.ShowGroupColumnsAsDataColumns;
+        IsNameReadOnly = Source.IsNameReadOnly;
+        Tag = Source.Tag;
+        
+        foreach (var SourceColumn in Source.Columns)
+            Columns.Add(SourceColumn.Clone());
+
+        foreach (var SourceFilterItem in Source.RowFilters)
+            RowFilters.Add(SourceFilterItem.Clone());
+        
+         
+    }
+    public GridViewDef Clone()
+    {
+        GridViewDef Result = new();
+        Result.AssignFrom(this);
+        return Result;
+    }
+    
     /// <summary>
     /// Returns columns that participate in the group
     /// </summary>

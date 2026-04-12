@@ -1157,7 +1157,7 @@ static public class GridViewGridBinder
 
             DataGridTemplateColumn Column = new()
             {
-                Header = !string.IsNullOrWhiteSpace(ColumnDef.Title) ? ColumnDef.Title : ColumnDef.FieldName,
+                Header = !string.IsNullOrWhiteSpace(ColumnDef.Caption) ? ColumnDef.Caption : ColumnDef.FieldName,
                 Width = DataGridLength.Auto,
                 IsReadOnly = ColumnDef.IsReadOnly,
                 CellTemplate = new FuncDataTemplate<GridViewRenderRow>((Row, _) =>
@@ -1416,7 +1416,7 @@ static public class GridViewGridBinder
         return string.Join("\u001F", RenderData.Columns.Select(x =>
         {
             string FieldName = x.FieldName ?? string.Empty;
-            string Title = x.Title ?? string.Empty;
+            string Title = x.Caption ?? string.Empty;
             string DataType = x.DataType != null ? x.DataType.FullName : string.Empty;
             return $"{FieldName}|{Title}|{x.IsReadOnly}|{x.VisibleIndex}|{x.GroupIndex}|{x.Aggregate}|{DataType}";
         }));

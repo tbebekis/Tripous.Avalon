@@ -398,7 +398,7 @@ static internal class GridViewExportBuilder
         return new GridViewExportColumn()
         {
             FieldName = Source.FieldName,
-            Title = Source.Title,
+            Title = Source.Caption,
             DataType = Source.DataType,
             VisibleIndex = Source.VisibleIndex,
             GroupIndex = Source.GroupIndex,

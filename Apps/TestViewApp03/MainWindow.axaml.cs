@@ -107,7 +107,7 @@ public partial class MainWindow : Window
         Def["Sales"].Aggregate = AggregateType.Sum;
         Def["Sales"].DisplayFormat = "N3";
         
-        Def["CategoryId"].Title = "Category";
+        Def["CategoryId"].Caption = "Category";
         Def["CategoryId"].ValueMember = "Id";
         Def["CategoryId"].DisplayMember = "Name";
         Def["CategoryId"].LookupSourceName = "Category";
@@ -139,7 +139,7 @@ public partial class MainWindow : Window
         Def["Sales"].Aggregate = AggregateType.Sum;
         Def["Sales"].DisplayFormat = "N3";
  
-        Def["CategoryId"].Title = "Category";
+        Def["CategoryId"].Caption = "Category";
         Def["CategoryId"].ValueMember = "Id";
         Def["CategoryId"].DisplayMember = "Name";
         Def["CategoryId"].LookupSourceName = "Category";
@@ -153,6 +153,7 @@ public partial class MainWindow : Window
         GridView.ToolBar.Panel = pnlToolBar;
         GridView.ToolBar.IsMultiDef = true;
         //GridView.ToolBar.IsReadOnlyView = true;
+        GridView.Menu.IsEnabled = true;
 
         CheckColumnFieldNames();
     }

@@ -157,7 +157,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         var Hidden = ViewDef.Columns
             .Where(x => x.VisibleIndex < 0)
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Caption)
             .ToList();
 
         lboVisibleColumns.ItemsSource = Visible;
@@ -233,7 +233,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         var NotGrouped = ViewDef.Columns
             .Where(x => x.GroupIndex < 0)
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Caption)
             .ToList();
 
         lboGroupedColumns.ItemsSource = Grouped;
@@ -312,7 +312,7 @@ public partial class GridViewDefDialog : DialogWindow
             return;
 
         edtFieldName.Text = Column.FieldName;
-        edtTitle.Text = Column.Title;
+        edtTitle.Text = Column.Caption;
         edtDataType.Text = Column.DataType != null ? Column.DataType.Name : string.Empty;
         edtDisplayFormat.Text = Column.DisplayFormat;
         edtEditFormat.Text = Column.EditFormat;
@@ -333,7 +333,7 @@ public partial class GridViewDefDialog : DialogWindow
         if (Column == null)
             return;
 
-        Column.Title = edtTitle.Text;
+        Column.Caption = edtTitle.Text;
         Column.DisplayFormat = edtDisplayFormat.Text;
         Column.EditFormat = edtEditFormat.Text;
         
@@ -392,7 +392,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         var Hidden = ViewDef.Columns
             .Where(x => x.VisibleIndex < 0)
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Caption)
             .ToList();
 
         lboVisibleColumns.ItemsSource = Visible;
@@ -406,7 +406,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         var NotGrouped = ViewDef.Columns
             .Where(x => x.GroupIndex < 0)
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Caption)
             .ToList();
 
         lboGroupedColumns.ItemsSource = Grouped;

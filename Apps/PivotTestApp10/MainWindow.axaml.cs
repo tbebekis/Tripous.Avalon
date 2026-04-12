@@ -42,6 +42,7 @@ public partial class MainWindow : Window
         List<SalesLine> Source = Tests.CreatePocoSalesLines(LineCount);
         
         PivotView PivotView = PivotView.Create(Grid, Source, PivotDef);
+        PivotView.Menu.IsEnabled = true;
     }
     void Test_DataView()
     {
@@ -56,6 +57,7 @@ public partial class MainWindow : Window
         DataTable Table = Tests.CreateTableSalesLines(LineCount);
         
         PivotView PivotView = PivotView.Create(Grid, Table.DefaultView, PivotDef);
+        PivotView.Menu.IsEnabled = true;
     }
     
     // ● construction

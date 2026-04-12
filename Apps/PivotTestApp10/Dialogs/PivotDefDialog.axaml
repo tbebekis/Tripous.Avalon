@@ -1,66 +1,120 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="600"
         x:Class="Tripous.Avalon.PivotDefDialog"
         Title="Pivot Definition"
-        Width="880" 
-        MinWidth="500"
-        MaxWidth="1200"
-        MaxHeight="1200"
-        SizeToContent="Height"
+        Width="680" 
+        Height="620"
         WindowStartupLocation="CenterOwner"
         CanResize="True">
-    
-    <DockPanel Margin="20">
-        <StackPanel DockPanel.Dock="Bottom" Spacing="15" Margin="0,20,0,0">
-            <Rectangle Height="1" Fill="#DDDDDD"/>
+
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="8,4"/>
+        </Style>
+    </Window.Styles>
+
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Bottom" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Spacing="10" 
+                    Margin="0,15,0,0">
+            <Button Name="btnOK" Content="OK" Click="AnyClick" IsDefault="True" Width="80"/>
+            <Button Name="btnCancel" Content="Cancel" Click="AnyClick" IsCancel="True" Width="80"/>
+        </StackPanel>
+
+        <TabControl Name="Pager">
             
-            <StackPanel Orientation="Horizontal" Spacing="25" HorizontalAlignment="Center">
-                <CheckBox Name="chkShowSubtotals" Content="Show Subtotals" IsChecked="True"/>
-                <CheckBox Name="chkShowGrandTotals" Content="Show Grand Totals" IsChecked="True"/>
-                <CheckBox Name="chkValuesOnRows" Content="Values On Rows"/>
-            </StackPanel>
+            <TabItem Header="General" Name="tabGeneral">
+                <ScrollViewer>
+                    <StackPanel Spacing="10" Margin="5">
+                        <Label Content="Pivot Name" Target="edtName" />
+                        <TextBox Name="edtName" />
+                        
+                        <CheckBox Name="chShowSubtotals" Content="Show Subtotals" />
+                        <CheckBox Name="chShowGrandTotals" Content="Show Grand Totals" />
+                        <CheckBox Name="chShowValuesOnRows" Content="Show Values on Rows" />
+                        <CheckBox Name="chRepeatRowHeaders" Content="Repeat Row Headers" />
+                        
+                        <Separator Height="1" Margin="0,5"/>
+                        <Label Content="Summary" Target="edtSummary" />
+                        <TextBox Name="edtSummary" Height="200" AcceptsReturn="True" IsReadOnly="True" TextWrapping="Wrap" />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
 
-            <Rectangle Height="1" Fill="#DDDDDD"/>
+            <TabItem Header="Columns" Name="tabColumns">
+                <Grid ColumnDefinitions="200, 8, *">
+                    <ListBox Name="lboFields" Grid.Column="0" />
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="12">
-                <Button Name="btnOK" Content="OK" Width="90" HorizontalContentAlignment="Center" Click="AnyClick" IsDefault="True"/>
-                <Button Name="btnCancel" Content="Cancel" Width="90" HorizontalContentAlignment="Center" Click="AnyClick" IsCancel="True"/>
-            </StackPanel>
-        </StackPanel>
+                    <GridSplitter Grid.Column="1" Background="Transparent" />
 
-        <StackPanel Spacing="10">
-            <DataGrid Name="Grid" Height="280" BorderBrush="#CCCCCC" BorderThickness="1"/>
+                    <ScrollViewer Grid.Column="2" Padding="10">
+                        <StackPanel Spacing="10">
+                            <Grid ColumnDefinitions="140, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                                <Label Grid.Row="0" Content="Field Name" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" Name="edtFieldName" IsReadOnly="True" Margin="0,2"/>
 
-            <Grid ColumnDefinitions="155, 155, 155" RowDefinitions="Auto, Auto, Auto" HorizontalAlignment="Center">
-                
-                <Label Grid.Row="0" Grid.Column="0" Content="Rows" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
-                <Label Grid.Row="0" Grid.Column="1" Content="Columns" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
-                <Label Grid.Row="0" Grid.Column="2" Content="Values" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                                <Label Grid.Row="1" Content="Caption" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" Name="edtCaption" Margin="0,2"/>
 
-                <ListBox Name="lboRows"    Grid.Row="1" Grid.Column="0" Width="140" Height="130" HorizontalAlignment="Center" BorderBrush="#CCCCCC" BorderThickness="1"/>
-                <ListBox Name="lboColumns" Grid.Row="1" Grid.Column="1" Width="140" Height="130" HorizontalAlignment="Center" BorderBrush="#CCCCCC" BorderThickness="1"/>
-                <ListBox Name="lboValues"  Grid.Row="1" Grid.Column="2" Width="140" Height="130" HorizontalAlignment="Center" BorderBrush="#CCCCCC" BorderThickness="1"/>
+                                <Label Grid.Row="2" Content="Data Type" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <TextBox Grid.Row="2" Grid.Column="1" Name="edtDataType" IsReadOnly="True" Margin="0,2"/>
 
-                <StackPanel Grid.Row="2" Grid.Column="0" Spacing="4" Margin="0,10,0,0" HorizontalAlignment="Center">
-                    <Button Name="btnUpRow"     Content="Up"      Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
-                    <Button Name="btnDownRow"   Content="Down"    Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
-                </StackPanel>
+                                <Label Grid.Row="3" Content="Axis" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <ComboBox Grid.Row="3" Grid.Column="1" Name="cboAxis" HorizontalAlignment="Stretch" Margin="0,2"/>
 
-                <StackPanel Grid.Row="2" Grid.Column="1" Spacing="4" Margin="0,10,0,0" HorizontalAlignment="Center">
-                    <Button Name="btnUpColumn"     Content="Up"      Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
-                    <Button Name="btnDownColumn"   Content="Down"    Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
-                </StackPanel>
+                                <Label Grid.Row="4" Content="Sort Direction" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <ComboBox Grid.Row="4" Grid.Column="1" Name="cboSortDirection" HorizontalAlignment="Stretch" Margin="0,2"/>
 
-                <StackPanel Grid.Row="2" Grid.Column="2" Spacing="4" Margin="0,10,0,0" HorizontalAlignment="Center">
-                    <Button Name="btnUpValue"     Content="Up"      Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
-                    <Button Name="btnDownValue"   Content="Down"    Width="120" HorizontalContentAlignment="Center" Click="AnyClick"/>
-                </StackPanel>
+                                <Label Grid.Row="5" Content="Format" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <TextBox Grid.Row="5" Grid.Column="1" Name="edtFormat" Margin="0,2"/>
 
-            </Grid>
-        </StackPanel>
+                                <Label Grid.Row="6" Content="Aggregate Type" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <ComboBox Grid.Row="6" Grid.Column="1" Name="cboValueAggregateType" HorizontalAlignment="Stretch" Margin="0,2"/>
+                            </Grid>
+
+                            <Separator Height="1" Margin="0,5"/>
+                            <CheckBox Name="chIsValue" Content="Is Value Field" />
+                            <CheckBox Name="chSortByValue" Content="Sort by Value" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Distribution" Name="tabDistribution">
+                <ScrollViewer Padding="10">
+                    <Grid ColumnDefinitions="155, 155, 155" RowDefinitions="Auto, Auto, Auto" HorizontalAlignment="Center">
+                        
+                        <Label Grid.Row="0" Grid.Column="0" Content="Rows" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                        <Label Grid.Row="0" Grid.Column="1" Content="Columns" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                        <Label Grid.Row="0" Grid.Column="2" Content="Values" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+
+                        <ListBox Name="lboRows"    Grid.Row="1" Grid.Column="0" Width="140" Height="250" HorizontalAlignment="Center" BorderBrush="#CCCCCC" BorderThickness="1"/>
+                        <ListBox Name="lboColumns" Grid.Row="1" Grid.Column="1" Width="140" Height="250" HorizontalAlignment="Center" BorderBrush="#CCCCCC" BorderThickness="1"/>
+                        <ListBox Name="lboValues"  Grid.Row="1" Grid.Column="2" Width="140" Height="250" HorizontalAlignment="Center" BorderBrush="#CCCCCC" BorderThickness="1"/>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0" Spacing="4" Margin="0,10,0,0" HorizontalAlignment="Center">
+                            <Button Name="btnUpRow"     Content="Up"      Width="120" Click="AnyClick"/>
+                            <Button Name="btnDownRow"   Content="Down"    Width="120" Click="AnyClick"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="1" Spacing="4" Margin="0,10,0,0" HorizontalAlignment="Center">
+                            <Button Name="btnUpColumn"   Content="Up"      Width="120" Click="AnyClick"/>
+                            <Button Name="btnDownColumn" Content="Down"    Width="120" Click="AnyClick"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="2" Spacing="4" Margin="0,10,0,0" HorizontalAlignment="Center">
+                            <Button Name="btnUpValue"    Content="Up"      Width="120" Click="AnyClick"/>
+                            <Button Name="btnDownValue"  Content="Down"    Width="120" Click="AnyClick"/>
+                        </StackPanel>
+
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            
+        </TabControl>
     </DockPanel>
-    
 </Window>

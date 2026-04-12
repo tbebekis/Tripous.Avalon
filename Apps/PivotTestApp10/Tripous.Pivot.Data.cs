@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace Tripous.Data;
@@ -109,7 +111,9 @@ static public class DbExtensions
 public class PivotFieldDef
 {
     private string fCaption;
-
+    private PivotAxis fAxis;
+    private bool fIsValue;
+ 
     public PivotFieldDef()
     {
     }
@@ -144,10 +148,9 @@ public class PivotFieldDef
         };
     }
 
-    public override string ToString()
-    {
-        return $"{FieldName}, Axis: {Axis}, IsValue: {IsValue}";
-    }
+    public override string ToString() => Caption; //   $"{FieldName}, Axis: {Axis}, IsValue: {IsValue}";
+ 
+    /*
     public void Normalize()
     {
         if (IsValue)
@@ -162,24 +165,92 @@ public class PivotFieldDef
         if (Axis == PivotAxis.None)
         {
             SortByValue = false;
-            SortDescending = false;
+            SortDirection = ListSortDirection.Ascending;
         }
+    }
+    */
+
+    public void AssignFrom(PivotFieldDef Source)
+    {
+        FieldName = Source.FieldName;
+        fCaption = Source.fCaption;
+        fAxis = Source.fAxis;
+        SortDirection = Source.SortDirection;
+        Format = Source.Format;
+        fIsValue = Source.fIsValue;
+        SortByValue = Source.SortByValue;
+        ValueAggregateType = Source.ValueAggregateType;
+
+        Tag = Source.Tag;
+        DataType = Source.DataType;
+
+    }
+    public PivotFieldDef Clone()
+    {
+        PivotFieldDef Result = new();
+        Result.AssignFrom(this);
+        return Result;
     }
 
     public string FieldName { get; set; }
-    public PivotAxis Axis { get; set; }
-    public bool IsValue { get; set; }
-    public PivotValueAggregateType ValueAggregateType { get; set; }
     public string Caption
     {
         get => !string.IsNullOrWhiteSpace(fCaption) ? fCaption : FieldName;
         set => fCaption = value;
     }
+    public PivotAxis Axis
+    {
+        get => fAxis;
+        set
+        {
+            if (fAxis != value)
+            {
+                fAxis = value;
+                if (fAxis != PivotAxis.None)
+                {
+                    fIsValue = false;
+                }
+                else
+                {
+                    SortByValue = false;
+                    SortDirection = ListSortDirection.Ascending;
+                }
+            }
+        }
+    }
+    public ListSortDirection SortDirection { get; set; } // Asc / Desc
     public string Format { get; set; }
-    public bool SortDescending { get; set; }
+    public bool IsValue
+    {
+        get => fIsValue;
+        set
+        {
+            if (fIsValue != value)
+            {
+                fIsValue = value;
+                
+                if (fIsValue)
+                    fAxis = PivotAxis.None;
+                else
+                    ValueAggregateType = PivotValueAggregateType.None;
+            }
+        }
+    }
     public bool SortByValue { get; set; } = true;
+    public PivotValueAggregateType ValueAggregateType { get; set; }
+    public int OrdinalIndex { get; set; } // the index in Rows, Columns or Values
+
     [JsonIgnore]
     public object Tag { get; set; }
+    [JsonIgnore]
+    public Type DataType { get; set; }
+
+    [JsonIgnore]
+    public bool IsRow => Axis == PivotAxis.Row;
+    [JsonIgnore]
+    public bool IsColumn => Axis == PivotAxis.Column;
+    [JsonIgnore]
+    public bool IsNone => !IsRow && !IsColumn && !IsValue;
 }
 
 /// <summary>
@@ -196,24 +267,71 @@ public class PivotDef
 
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
+    public string GetDescription()
+    {
+        // --------------------------------------------
+        string ValueFieldDefDescription(PivotFieldDef FieldDef) => 
+            FieldDef.FieldName + " " +
+            FieldDef.ValueAggregateType.ToString() + " " +
+            (FieldDef.SortDirection == ListSortDirection.Ascending ? "" : "desc");
+        // --------------------------------------------
+ 
+        string S = string.Empty;
+        
+        StringBuilder SB = new();
+        
+        // rows
+        S = string.Join(", ", GetRowFields());
+        SB.AppendLine($"Rows: {S}");
+        
+        // columns
+        S = string.Join(", ", GetColumnFields());
+        SB.AppendLine($"Columns: {S}");
+        
+        // values
+        S = string.Join(", ", GetValueFields()
+            .Select(x => ValueFieldDefDescription(x)));
+        SB.AppendLine($"Values: {S}");
+        
+        S = SB.ToString();
+        return S;
+    }
+    /*
     public void Normalize()
     {
         foreach (PivotFieldDef Field in Fields)
             Field?.Normalize();
     }
+    */
     
-    public IEnumerable<PivotFieldDef> GetRowFields()
+    public void AssignFrom(PivotDef Source)
     {
-        return Fields.Where(x => x.Axis == PivotAxis.Row);
+        Fields.Clear();
+        
+        fName = Source.fName;
+
+        ShowSubtotals = Source.ShowSubtotals;
+        ShowGrandTotals = Source.ShowGrandTotals;
+        ShowValuesOnRows = Source.ShowValuesOnRows;
+        RepeatRowHeaders = Source.RepeatRowHeaders;
+        
+        Tag = Source.Tag;
+        IsNameReadOnly = Source.IsNameReadOnly;
+ 
+        foreach (var SourceField in Source.Fields)
+            Fields.Add(SourceField.Clone());
+         
     }
-    public IEnumerable<PivotFieldDef> GetColumnFields()
+    public PivotDef Clone()
     {
-        return Fields.Where(x => x.Axis == PivotAxis.Column);
+        PivotDef Result = new();
+        Result.AssignFrom(this);
+        return Result;
     }
-    public IEnumerable<PivotFieldDef> GetValueFields()
-    {
-        return Fields.Where(x => x.IsValue);
-    }
+    
+    public IEnumerable<PivotFieldDef> GetRowFields() => Fields.Where(x => x.Axis == PivotAxis.Row).OrderBy(x => x.OrdinalIndex);
+    public IEnumerable<PivotFieldDef> GetColumnFields() => Fields.Where(x => x.Axis == PivotAxis.Column).OrderBy(x => x.OrdinalIndex);
+    public IEnumerable<PivotFieldDef> GetValueFields() => Fields.Where(x => x.IsValue).OrderBy(x => x.OrdinalIndex);
 
     public PivotFieldDef Find(string FieldName) => Fields.FirstOrDefault(x => FieldName.IsSameText(x.FieldName));
     public bool Contains(string FieldName) => Fields.Any(x => x.FieldName.IsSameText(FieldName));
@@ -257,6 +375,31 @@ public class PivotDef
         AddInternal(Result);
         return Result;
     }
+
+    public bool IsRow(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.Axis == PivotAxis.Row;
+    public bool IsColumn(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.Axis == PivotAxis.Row;
+    public bool IsValue(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.IsValue;
+    
+    public bool IsRow(string FieldName) => IsRow(Fields.FirstOrDefault(x => FieldName.IsSameText(x.FieldName)));
+    public bool IsColumn(string FieldName) => IsColumn(Fields.FirstOrDefault(x => FieldName.IsSameText(x.FieldName)));
+    public bool IsValue(string FieldName) => IsValue(Fields.FirstOrDefault(x => FieldName.IsSameText(x.FieldName)));
+
+    public bool CanBeRow(PivotFieldDef FieldDef)
+    {
+        return !FieldDef.IsRow
+               && (FieldDef.IsNone
+                   || (FieldDef.IsColumn && ColumnCount > 1)
+                   || (FieldDef.IsValue && ValueCount > 1));
+    }
+    public bool CanBeColumn(PivotFieldDef FieldDef)
+    {
+        return !FieldDef.IsColumn
+               && (FieldDef.IsNone
+                   || (FieldDef.IsRow && RowCount > 1)
+                   || (FieldDef.IsValue && ValueCount > 1));
+    }
+    public bool CanBeValue(PivotFieldDef FieldDef) => !FieldDef.IsValue;
+     
     
     // ● properties
     /// <summary>
@@ -273,9 +416,14 @@ public class PivotDef
     public bool ShowGrandTotals { get; set; } = true;
     public bool ShowValuesOnRows { get; set; }
     public bool RepeatRowHeaders { get; set; } = false;
-    
+
     [JsonIgnore]
     public object Tag { get; set; }
+    [JsonIgnore]
+    public bool IsNameReadOnly { get; set; }
+    public int RowCount => Fields.Where(x => x.IsRow).Count();
+    public int ColumnCount => Fields.Where(x => x.IsColumn).Count();
+    public int ValueCount => Fields.Where(x => x.IsValue).Count();
 }
 
 public class PivotDefs
@@ -1345,7 +1493,7 @@ static public class PivotEngine
                 Group.SortValue = GetGroupSortValue(Group.Items[0].Value, Level, ValueField, IsRowAxis, SortBucketsByLevel);
         }
 
-        Groups.Sort((A, B) => CompareGroups(A, B, AxisField.SortByValue, AxisField.SortDescending));
+        Groups.Sort((A, B) => CompareGroups(A, B, AxisField.SortByValue, AxisField.SortDirection == ListSortDirection.Descending));
 
         List<KeyValuePair<string, object[]>> Result = new();
 
@@ -1678,7 +1826,7 @@ static public class PivotEngine
         if (Def == null)
             throw new ArgumentNullException(nameof(Def));
 
-        Def.Normalize();
+        //Def.Normalize();
         ValidateDef(Def);
 
         List<PivotFieldDef> RowFields = Def.GetRowFields().ToList();

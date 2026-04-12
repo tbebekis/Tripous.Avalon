@@ -26,6 +26,7 @@ public class PivotView
     // ● constructor
     public PivotView()
     {
+        Menu.PivotView = this;
     }
     
     // ● public
@@ -68,7 +69,7 @@ public class PivotView
         if (PivotDef == null)
             throw  new ApplicationException($"No {nameof(PivotDef)} defined");
         
-        PivotData PivotData = PivotEngine.Execute(DataView, PivotDef);
+        PivotData = PivotEngine.Execute(DataView, PivotDef);
         PivotGridRenderer.Show(Grid, PivotData, PivotDef);
     }
     public void SetSource<T>(IEnumerable<T> Sequence)
@@ -80,8 +81,17 @@ public class PivotView
         if (PivotDef == null)
             throw  new ApplicationException($"No {nameof(PivotDef)} defined");
         
-        PivotData PivotData = PivotEngine.Execute(Sequence, PivotDef);
+        PivotData = PivotEngine.Execute(Sequence, PivotDef);
         PivotGridRenderer.Show(Grid, PivotData, PivotDef);
+    }
+    
+    public DataGridColumn GetColumn(string FieldName) => Grid.Columns.FirstOrDefault(x => FieldName.IsSameText((x.Tag as PivotFieldDef).FieldName));
+    public PivotFieldDef GetFieldDef(DataGridColumn Column) => Column.Tag as PivotFieldDef;
+
+    public void Refresh()
+    {
+        if (Grid != null && PivotData != null && PivotDef != null)
+            PivotGridRenderer.Show(Grid, PivotData, PivotDef);
     }
     
     // ● properties
@@ -133,4 +143,7 @@ public class PivotView
             }
         }
     }
+
+    public PivotData PivotData { get; private set; }
+    public PivotViewMenu Menu { get; } = new();
 }

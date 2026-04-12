@@ -142,13 +142,7 @@ static public class TripousAvalonExtensions
             }
         }
     }
-    
- 
 
-
-
- 
-    
     // ● control text
     static public string GetText(this TextBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
     static public string GetText(this TextEditor Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
@@ -156,18 +150,19 @@ static public class TripousAvalonExtensions
     static public string GetText(this ComboBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
 
     static public bool GetValue(this CheckBox Box) => Box != null && Box.IsChecked.HasValue? Box.IsChecked.Value : false;
+    
     // ● Menu
-    static public MenuItem AddMenuItem(this List<object> MenuItems, string Header, EventHandler<RoutedEventArgs> Click = null, object Tag = null)
+    static public MenuItem AddMenuItem(this List<object> Items, string Header, EventHandler<RoutedEventArgs> Click = null, object Tag = null)
     {
         MenuItem Result = new MenuItem() { Header =  Header, Tag = Tag };
         Result.Click += Click;
-        MenuItems.Add(Result);
+        Items.Add(Result);
         return Result;
     }
-    static public Separator AddSeparator(this List<object> MenuItems)
+    static public Separator AddSeparator(this List<object> Items)
     {
         Separator Result = new Separator();
-        MenuItems.Add(Result);
+        Items.Add(Result);
         return Result;
     }
     static public MenuItem AddMenuItem(this MenuItem MenuItem, string Header, EventHandler<RoutedEventArgs> Click = null, object Tag = null)
@@ -190,6 +185,34 @@ static public class TripousAvalonExtensions
         Separator Result = new Separator();
         Items.Add(Result);
         return Result;
+    }
+
+    static public MenuItem AddCheckBoxMenuItem(this ItemCollection Items, string Header, bool IsChecked = true, EventHandler<RoutedEventArgs> Click = null, object Tag = null)
+    {
+        MenuItem Result = new();
+        Result.Header = Header;
+        Result.Tag = Tag;
+        Result.ToggleType = MenuItemToggleType.CheckBox;
+        
+        Result.Click += Click;
+        Items.Add(Result);
+        Result.IsChecked = IsChecked;
+
+        return Result;
+    }
+    static public MenuItem AddCheckBoxMenuItem(this IList<object> Items, string Header, bool IsChecked = true, EventHandler<RoutedEventArgs> Click = null, object Tag = null)
+    {
+        MenuItem Result = new();
+        Result.Header = Header;
+        Result.Tag = Tag;
+        Result.ToggleType = MenuItemToggleType.CheckBox;
+        
+        Result.Click += Click;
+        Items.Add(Result);
+        Result.IsChecked = IsChecked;
+
+        return Result;
+ 
     }
     
  

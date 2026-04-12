@@ -24,6 +24,7 @@ public class GridViewMenu
     private MenuItem mnuClearSorting;
     private MenuItem mnuShowAllColumns;
     private MenuItem mnuVisibleColumns;
+    private MenuItem mnuShowViewDefDialog;
     private MenuItem mnuShowFilterDialog;
     private MenuItem mnuClearColumnFilter;
     private MenuItem mnuClearAllFilters;
@@ -51,6 +52,8 @@ public class GridViewMenu
             ToggleGrouping();
         else if (mnuClearSummaries == sender)
             ClearSummaries();
+        else if (mnuShowViewDefDialog == sender)
+            await ShowViewDefDialog();
         else if (mnuShowFilterDialog == sender)
             await ShowFilterDialog();
         else if (mnuClearColumnFilter == sender)
@@ -107,15 +110,6 @@ public class GridViewMenu
     void GridColumnListChanged()
     {
     }
-    void GroupColumnsChanged()
-    {
-    }
-    void ColumnSummariesChanged()
-    {
-    }
-    void ColumnFiltersChanged()
-    {
-    }
     
     // ● menu functions
     void CreateContextMenu()
@@ -142,6 +136,7 @@ public class GridViewMenu
         mnuNone     = SummaryList.AddMenuItem("None", AnySummaryClick, AggregateType.None);
         mnuSummaries.ItemsSource = SummaryList.ToArray();
         list.AddSeparator();
+        mnuShowViewDefDialog  = list.AddMenuItem("Edit View", AnyClick);
         mnuShowFilterDialog       = list.AddMenuItem("Edit Filter", AnyClick);
         mnuClearColumnFilter      = list.AddMenuItem("Clear Filter", AnyClick);
         mnuClearAllFilters  = list.AddMenuItem("Clear All Filters", AnyClick);
@@ -168,7 +163,6 @@ public class GridViewMenu
             GridViewColumnDef ColumnDef = GridView.GetColumnDef(Column);
             
             mnuColumn = new MenuItem() { Header = Column.Header,  StaysOpenOnClick = true };
-            mnuColumn.Click += AnyClick;
  
             chIsVisible = new CheckBox { IsChecked = Column.IsVisible, Margin = new Thickness(0, 0, 10, 0) };
             mnuColumn.Icon = chIsVisible;
@@ -213,22 +207,22 @@ public class GridViewMenu
             mnuToggleSorting.IsVisible = IsSortable;
             
             // headers
-            string Title = SelectedColumnDef.Title;
+            string Caption = SelectedColumnDef.Caption;
             
             if (SelectedColumnDef.GroupIndex >= 0)
-                mnuToggleGrouping.Header = $"Remove from Group [{Title}]";
+                mnuToggleGrouping.Header = $"Remove from Group [{Caption}]";
             else
-                mnuToggleGrouping.Header = $"Add to Group [{Title}]";
+                mnuToggleGrouping.Header = $"Add to Group [{Caption}]";
 
-            mnuSummaries.Header = $"Summaries [{Title}]";
+            mnuSummaries.Header = $"Summaries [{Caption}]";
             
-            mnuShowFilterDialog.Header = $"Edit Filter  [{Title}]";
-            mnuClearColumnFilter.Header = $"Clear Filter  [{Title}]" ;
+            mnuShowFilterDialog.Header = $"Edit Filter  [{Caption}]";
+            mnuClearColumnFilter.Header = $"Clear Filter  [{Caption}]" ;
             
             if (SelectedColumnDef.SortIndex >= 0)
-                mnuToggleSorting.Header = $"Remove from Sorted [{Title}]";
+                mnuToggleSorting.Header = $"Remove from Sorted [{Caption}]";
             else
-                mnuToggleSorting.Header = $"Add to Sorted [{Title}]";
+                mnuToggleSorting.Header = $"Add to Sorted [{Caption}]";
         }
         else
         {
@@ -325,7 +319,20 @@ public class GridViewMenu
             GridView.Refresh();
         }
     }
-    
+
+    async Task ShowViewDefDialog()
+    {
+        GridViewDef ViewDef2 = ViewDef.Clone();
+        ViewDef2.IsNameReadOnly = true;
+        
+        DialogData data = await DialogWindow.ShowModal<GridViewDefDialog>(ViewDef2);
+        if (data.Result)
+        {
+            ViewDef.AssignFrom(ViewDef2);
+            //string JsonText = Json.Serialize(ViewDef);
+            GridView.Refresh();
+        }
+    }
     async Task ShowFilterDialog()
     {
         if (SelectedColumnDef != null)

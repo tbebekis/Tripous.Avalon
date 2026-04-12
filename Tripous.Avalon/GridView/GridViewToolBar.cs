@@ -106,7 +106,7 @@ public class GridViewToolBar: ToolBar
         int Index = GridView.ViewDefs.DefList.IndexOf(GridView.ViewDef);
         cboViewDefs = AddComboBox(ViewDefs, Index != -1 ? Index : 0);
         cboViewDefs.SelectionChanged += cboViewDefs_SelectionChanged;
-        btnViewDefDialog = AddButton("setting_tools.png", "View Configuration", 
+        btnViewDefDialog = AddButton("setting_tools.png", "Edit Configuration", 
             async (sender, args) => await ShowViewDefDialog());
         btnAddViewDef = AddButton("application_add.png", "Add View Def",
             async (sender, args) => await AddViewDef());
@@ -161,11 +161,14 @@ public class GridViewToolBar: ToolBar
     }
     async Task ShowViewDefDialog()
     {
-        GridView.ViewDef.IsNameReadOnly = true;
-        DialogData data = await DialogWindow.ShowModal<GridViewDefDialog>(GridView.ViewDef);
+        GridViewDef ViewDef2 = GridView.ViewDef.Clone();
+        ViewDef2.IsNameReadOnly = true;
+        
+        DialogData data = await DialogWindow.ShowModal<GridViewDefDialog>(ViewDef2);
         if (data.Result)
         {
-            //string JsonText = Json.Serialize(GridView.ViewDef);
+            GridView.ViewDef.AssignFrom(ViewDef2);
+            //string JsonText = Json.Serialize(ViewDef);
             GridView.Refresh();
         }
     }
@@ -188,11 +191,15 @@ public class GridViewToolBar: ToolBar
         if (cboViewDefs.SelectedItem is GridViewDef ViewDef)
         {
             int Index = GridView.ViewDefs.DefList.IndexOf(ViewDef);
-            GridView.ViewDef.IsNameReadOnly = Index == 0; // not the default
+            ViewDef.IsNameReadOnly = Index == 0; // not the default
             
-            DialogData data = await DialogWindow.ShowModal<GridViewDefDialog>(ViewDef);
+            GridViewDef ViewDef2 = ViewDef.Clone();
+            
+            DialogData data = await DialogWindow.ShowModal<GridViewDefDialog>(ViewDef2);
             if (data.Result)
             {
+                ViewDef.AssignFrom(ViewDef2);
+                
                 Index = ViewDefs.IndexOf(ViewDef);
                 if (Index != -1)
                     ViewDefs[Index] = ViewDef; // force ObservableCollection to re-read the item

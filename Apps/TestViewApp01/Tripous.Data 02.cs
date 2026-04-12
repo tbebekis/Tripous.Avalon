@@ -1375,7 +1375,7 @@ static public class GridViewEngine
             GridViewColumnDef Column = new()
             {
                 FieldName = DataColumn.ColumnName,
-                Title = DataColumn.ColumnName,
+                Caption = DataColumn.ColumnName,
                 DataType = DataColumn.DataType,
             };
 
@@ -1398,7 +1398,7 @@ static public class GridViewEngine
             GridViewColumnDef Column = new()
             {
                 FieldName = Prop.Name,
-                Title = Prop.Name,
+                Caption = Prop.Name,
                 DataType = Prop.PropertyType,
             };
 

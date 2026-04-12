@@ -43,7 +43,7 @@ public class GridView
     // ● overridables
     protected virtual void GridViewSourceChanged()
     {
-        Menu.IsEnabled = Controller.ViewSource != null;
+       // Menu.IsEnabled = Controller.ViewSource != null;
     }
     protected virtual void OnDataChanged(GridViewDataChangedEventArgs e)
     {
@@ -413,7 +413,7 @@ public class GridView
         GridViewColumnDef ColumnDef = GetColumnDef(Column);
         if (ColumnDef != null)
         {
-            string S = ColumnDef.Title;
+            string S = ColumnDef.Caption;
             if (ColumnDef.SortIndex >= 0)
             S += ColumnDef.SortDirection == ListSortDirection.Ascending ? $" ↓" : $" ↑";
             Column.Header = S;

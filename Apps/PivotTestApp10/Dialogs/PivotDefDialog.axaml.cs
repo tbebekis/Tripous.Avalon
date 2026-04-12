@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -10,19 +14,8 @@ namespace Tripous.Avalon;
 public partial class PivotDefDialog : DialogWindow
 {
 
-    async void AnyClick(object sender, RoutedEventArgs e)
-    {
-    }
-    /*
     private PivotDef PivotDef;
-    private DataView DataView;
-
-    private ObservableCollection<PivotColumnDefRow> AllColumns = new();
-    private ObservableCollection<PivotColumnDefRow> RowColumnList = new();
-    private ObservableCollection<PivotColumnDefRow> ColumnColumnList = new();
-    private ObservableCollection<PivotColumnDefRow> ValueColumnList = new();
-
-    // ● event handlers
+    
     async void AnyClick(object sender, RoutedEventArgs e)
     {
         if (btnCancel == sender)
@@ -45,60 +38,112 @@ public partial class PivotDefDialog : DialogWindow
         else if (btnDownValue == sender)
             MoveValue(false);
     }
+    void lboFields_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        // 1. save previous
+        if (e.RemovedItems.Count > 0 && e.RemovedItems[0] is PivotFieldDef OldItem)
+            ControlsToField(OldItem); 
 
+        // 2. load new
+        if (e.AddedItems.Count > 0 && e.AddedItems[0] is PivotFieldDef NewItem)
+            FieldToControls(NewItem);
+    }
+    void AnyColumnCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (lboColumns.SelectedItem is PivotFieldDef FieldDef)
+            ControlsToField(FieldDef);
+    }
+
+    
     // ● private
-    void MoveRow(bool Up)
+    void Move(ListBox Box, List<PivotFieldDef> List, bool Up)
     {
-        PivotColumnDefRow CI = lboRows.SelectedItem as PivotColumnDefRow;
-        if (CI != null)
-        {
-            int Index = RowColumnList.IndexOf(CI);
-            if (Index >= 0)
-            {
-                int NewIndex = Up ? Index - 1 : Index + 1;
-                if (NewIndex >= 0 && NewIndex < RowColumnList.Count)
-                {
-                    RowColumnList.Move(Index, NewIndex);
-                    lboRows.SelectedItem = CI;
-                }
-            }
-        }
+        if (Box.SelectedItem is not PivotFieldDef FieldDef)
+            return;
+
+        int i = List.IndexOf(FieldDef);
+        if (i < 0)
+            return;
+
+        int j = Up ? i - 1 : i + 1;
+        if (j < 0 || j >= List.Count)
+            return;
+
+        int Temp = List[i].OrdinalIndex;
+        List[i].OrdinalIndex = List[j].OrdinalIndex;
+        List[j].OrdinalIndex = Temp;
+
+        RefreshListBoxes();
     }
-    void MoveColumn(bool Up)
+    void MoveRow(bool Up) =>  Move(lboRows, PivotDef.GetRowFields().ToList(), Up);
+    void MoveColumn(bool Up) =>  Move(lboColumns, PivotDef.GetColumnFields().ToList(), Up);
+    void MoveValue(bool Up) =>  Move(lboRows, PivotDef.GetValueFields().ToList(), Up);
+
+    void RefreshListBoxes()
     {
-        PivotColumnDefRow CI = lboColumns.SelectedItem as PivotColumnDefRow;
-        if (CI != null)
-        {
-            int Index = ColumnColumnList.IndexOf(CI);
-            if (Index >= 0)
-            {
-                int NewIndex = Up ? Index - 1 : Index + 1;
-                if (NewIndex >= 0 && NewIndex < ColumnColumnList.Count)
-                {
-                    ColumnColumnList.Move(Index, NewIndex);
-                    lboColumns.SelectedItem = CI;
-                }
-            }
-        }
-    }
-    void MoveValue(bool Up)
-    {
-        PivotColumnDefRow ValueDef = lboValues.SelectedItem as PivotColumnDefRow;
-        if (ValueDef != null)
-        {
-            int Index = ValueColumnList.IndexOf(ValueDef);
-            if (Index >= 0)
-            {
-                int NewIndex = Up ? Index - 1 : Index + 1;
-                if (NewIndex >= 0 && NewIndex < ValueColumnList.Count)
-                {
-                    ValueColumnList.Move(Index, NewIndex);
-                    lboValues.SelectedItem = ValueDef;
-                }
-            }
-        }
+        var RowFields = PivotDef.GetRowFields();
+        lboRows.ItemsSource = RowFields;
+
+        var ColumnFields = PivotDef.GetColumnFields();
+        lboColumns.ItemsSource = ColumnFields;
+
+        var ValueFields = PivotDef.GetValueFields();
+        lboValues.ItemsSource = ValueFields;
+        
+        edtSummary.Text = PivotDef.GetDescription();
     }
 
+    void FieldToControls(PivotFieldDef FieldDef)
+    {
+        if (FieldDef == null)
+            return;
+        
+        edtFieldName.Text = FieldDef.FieldName;
+        edtCaption.Text = FieldDef.Caption;
+        edtDataType.Text = FieldDef.DataType != null ? FieldDef.DataType.Name : string.Empty;
+        
+        cboAxis.SelectedItem = FieldDef.Axis;
+        cboSortDirection.SelectedItem = FieldDef.SortDirection;
+        edtFormat.Text = FieldDef.Format;
+        chIsValue.IsChecked = FieldDef.IsValue;
+        chSortByValue.IsChecked = FieldDef.SortByValue;
+        cboValueAggregateType.SelectedItem = FieldDef.ValueAggregateType;
+/*
+ *
+        edtFieldName ( Read Only)
+   edtCaption
+   edtDataType ( Read Only)
+   cboAxis
+   cboSortDirection
+   edtFormat
+   chIsValue
+   chSortByValue
+   cboValueAggregateType
+ */
+    }
+    void ControlsToField(PivotFieldDef FieldDef)
+    {
+        if (FieldDef == null)
+            return;
+        
+        FieldDef.Caption = edtCaption.Text;
+        
+        if (cboAxis.SelectedItem is PivotAxis Axis)
+            FieldDef.Axis = Axis;
+        
+        if (cboSortDirection.SelectedItem is ListSortDirection SortDirection)
+            FieldDef.SortDirection = SortDirection;
+
+        FieldDef.Format = edtFormat.Text;
+        FieldDef.IsValue = chIsValue.IsChecked == true;
+        FieldDef.SortByValue = chSortByValue.IsChecked == true;
+        
+        if (cboValueAggregateType.SelectedItem is PivotValueAggregateType ValueAggregateType)
+            FieldDef.ValueAggregateType = ValueAggregateType;
+        
+        edtSummary.Text = PivotDef.GetDescription();
+    }
+    
     // ● overrides
     protected override async Task WindowInitialize()
     {
@@ -106,8 +151,8 @@ public partial class PivotDefDialog : DialogWindow
             return;
 
         PivotDef = InputData as PivotDef;
-        // CHECK DataView = PivotDef.DataView;
         ResultData = PivotDef;
+        
         btnCancel.Focus();
 
         await Task.CompletedTask;
@@ -117,48 +162,45 @@ public partial class PivotDefDialog : DialogWindow
         if (Design.IsDesignMode)
             return;
 
-        PivotColumnDefRow ColumnDefRow;
-        DataColumn Column;
-        foreach (PivotFieldDef PivotColumnDef in PivotDef.Fields)
-        {
-            Column = DataView.Table.FindColumn(PivotColumnDef.FieldName);
-            if (Column != null)
-            {
-                ColumnDefRow = new PivotColumnDefRow(PivotColumnDef, Column);
-                AllColumns.Add(ColumnDefRow);
+        if (PivotDef == null)
+            return;
+        
+        // ● General
+        edtName.Text = PivotDef.Name;
+        edtName.IsReadOnly = PivotDef.IsNameReadOnly;
+        chShowSubtotals.IsChecked = PivotDef.ShowSubtotals;
+        chShowGrandTotals.IsChecked = PivotDef.ShowGrandTotals;
+        chShowValuesOnRows.IsChecked = PivotDef.ShowValuesOnRows;
+        chRepeatRowHeaders.IsChecked = PivotDef.RepeatRowHeaders;
+        edtSummary.Text = PivotDef.GetDescription();
+        
+        // ● Columns
+        lboFields.ItemsSource = PivotDef.Fields;
+        cboAxis.ItemsSource = Enum.GetValues(typeof(PivotAxis));
+        cboSortDirection.ItemsSource = Enum.GetValues(typeof(ListSortDirection));
+        cboValueAggregateType.ItemsSource = Enum.GetValues(typeof(PivotValueAggregateType));
 
-                if (PivotColumnDef.Axis == PivotAxis.Row)
-                    RowColumnList.Add(ColumnDefRow);
-                else if (PivotColumnDef.Axis == PivotAxis.Column)
-                    ColumnColumnList.Add(ColumnDefRow);
+        RefreshListBoxes();
+        /*
+        var RowFields = PivotDef.GetRowFields();
+        lboRows.ItemsSource = RowFields;
 
-                if (PivotColumnDef.IsValue)
-                    ValueColumnList.Add(ColumnDefRow);
-            }
-        }
+        var ColumnFields = PivotDef.GetColumnFields();
+        lboColumns.ItemsSource = ColumnFields;
 
-        // grid columns
-        Grid.AutoGenerateColumns = false;
-
-
-        // CHECK: Grid.CanUserAddRows = false;
-        // CHECK: Grid.CanUserDeleteRows = false;
-
-        // CHECK: DataGridColumn GridColumn;
-        // CHECK: GridColumn = Grid.CreateColumn(typeof(string), "FieldName", "Field", true);
-        // CHECK: GridColumn = Grid.CreateColumn(typeof(string), "Caption", "Caption", false);
-        // CHECK: GridColumn = Grid.CreateColumn(typeof(PivotAxis), "Axis", "Axis", false);
-        // CHECK: GridColumn = Grid.CreateColumn(typeof(bool), "IsValue", "Is Value", false);
-        // CHECK: GridColumn = Grid.CreateColumn(typeof(PivotValueAggregateType), "ValueAggregateType", "Aggregate", false);
-        // CHECK: GridColumn = Grid.CreateColumn(typeof(string), "Format", "Format", false);
-        // CHECK: GridColumn = Grid.CreateColumn(typeof(bool), "SortByValue", "Sort By Value", false);
-        // CHECK: GridColumn = Grid.CreateColumn(typeof(bool), "SortDescending", "Sort Descending", false);
-        Grid.ItemsSource = AllColumns;
-
-        // list boxes
-        lboRows.ItemsSource = RowColumnList;
-        lboColumns.ItemsSource = ColumnColumnList;
-        lboValues.ItemsSource = ValueColumnList;
+        var ValueFields = PivotDef.GetValueFields();
+        lboValues.ItemsSource = ValueFields;
+        */
+        
+        // miscs
+        lboFields.SelectionChanged += lboFields_SelectionChanged;
+        
+        if (PivotDef.Fields.Count > 0)
+            lboColumns.SelectedIndex = 0;
+        
+        cboAxis.SelectionChanged += AnyColumnCombo_SelectionChanged;
+        cboSortDirection.SelectionChanged += AnyColumnCombo_SelectionChanged;
+        cboValueAggregateType.SelectionChanged += AnyColumnCombo_SelectionChanged;
 
         await Task.CompletedTask;
     }
@@ -167,11 +209,13 @@ public partial class PivotDefDialog : DialogWindow
         if (Design.IsDesignMode)
             return;
 
+        if (PivotDef == null)
+            return;
+        
+        
         await Task.CompletedTask;
-
         this.ModalResult = ModalResult.Ok;
     }
-    */
     
     // ● construction
     public PivotDefDialog()

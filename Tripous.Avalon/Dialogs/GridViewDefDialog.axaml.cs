@@ -181,7 +181,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         var Hidden = ViewDef.Columns
             .Where(x => x.VisibleIndex < 0)
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Caption)
             .ToList();
 
         lboVisibleColumns.ItemsSource = Visible;
@@ -257,7 +257,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         var NotGrouped = ViewDef.Columns
             .Where(x => x.GroupIndex < 0)
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Caption)
             .ToList();
 
         lboGroupedColumns.ItemsSource = Grouped;
@@ -400,7 +400,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         var NotSorted = ViewDef.Columns
             .Where(x => x.SortIndex < 0)
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Caption)
             .ToList();
 
         lboSortedColumns.ItemsSource = Sorted;
@@ -408,55 +408,55 @@ public partial class GridViewDefDialog : DialogWindow
         edtSummary.Text = ViewDef.GetDescription();
     }
     
-    void ColumnToControls(GridViewColumnDef Column)
+    void ColumnToControls(GridViewColumnDef ColumnDef)
     {
-        if (Column == null)
+        if (ColumnDef == null)
             return;
 
-        edtFieldName.Text = Column.FieldName;
-        edtTitle.Text = Column.Title;
-        edtDataType.Text = Column.DataType != null ? Column.DataType.Name : string.Empty;
-        edtDisplayFormat.Text = Column.DisplayFormat;
-        edtEditFormat.Text = Column.EditFormat;
+        edtFieldName.Text = ColumnDef.FieldName;
+        edtTitle.Text = ColumnDef.Caption;
+        edtDataType.Text = ColumnDef.DataType != null ? ColumnDef.DataType.Name : string.Empty;
+        edtDisplayFormat.Text = ColumnDef.DisplayFormat;
+        edtEditFormat.Text = ColumnDef.EditFormat;
 
-        cboAggregate.SelectedItem = Column.Aggregate;
-        cboSortDirection.SelectedItem = Column.SortDirection;
-        cboBlobType.SelectedItem = Column.BlobType;
+        cboAggregate.SelectedItem = ColumnDef.Aggregate;
+        cboSortDirection.SelectedItem = ColumnDef.SortDirection;
+        cboBlobType.SelectedItem = ColumnDef.BlobType;
 
-        chIsReadOnly.IsChecked = Column.IsReadOnly;
-        chSourceAllowsNull.IsChecked = Column.SourceAllowsNull;
-        chIsIntAsBool.IsChecked = Column.IsIntAsBool;
+        chIsReadOnly.IsChecked = ColumnDef.IsReadOnly;
+        chSourceAllowsNull.IsChecked = ColumnDef.SourceAllowsNull;
+        chIsIntAsBool.IsChecked = ColumnDef.IsIntAsBool;
 
-        edtDisplayMember.Text = Column.DisplayMember;
-        edtValueMember.Text = Column.ValueMember;
-        edtLookupSourceName.Text = Column.LookupSourceName;
-        edtLookupSql.Text = Column.LookupSql;
+        edtDisplayMember.Text = ColumnDef.DisplayMember;
+        edtValueMember.Text = ColumnDef.ValueMember;
+        edtLookupSourceName.Text = ColumnDef.LookupSourceName;
+        edtLookupSql.Text = ColumnDef.LookupSql;
     }
-    void ControlsToColumn(GridViewColumnDef Column)
+    void ControlsToColumn(GridViewColumnDef ColumnDef)
     {
-        if (Column == null)
+        if (ColumnDef == null)
             return;
 
-        Column.Title = edtTitle.Text;
-        Column.DisplayFormat = edtDisplayFormat.Text;
-        Column.EditFormat = edtEditFormat.Text;
+        ColumnDef.Caption = edtTitle.Text;
+        ColumnDef.DisplayFormat = edtDisplayFormat.Text;
+        ColumnDef.EditFormat = edtEditFormat.Text;
         
         if (cboAggregate.SelectedItem is AggregateType Aggregate)
-            Column.Aggregate = Aggregate;
+            ColumnDef.Aggregate = Aggregate;
 
         if (cboSortDirection.SelectedItem is ListSortDirection SortDirection)
-            Column.SortDirection = SortDirection;
+            ColumnDef.SortDirection = SortDirection;
 
         if (cboBlobType.SelectedItem is BlobType BlobType)
-            Column.BlobType = BlobType;
+            ColumnDef.BlobType = BlobType;
 
-        Column.IsReadOnly  = chIsReadOnly.IsChecked == true;
-        Column.IsIntAsBool = chIsIntAsBool.IsChecked == true;
+        ColumnDef.IsReadOnly  = chIsReadOnly.IsChecked == true;
+        ColumnDef.IsIntAsBool = chIsIntAsBool.IsChecked == true;
 
-        Column.DisplayMember = edtDisplayMember.Text;
-        Column.ValueMember = edtValueMember.Text;
-        Column.LookupSourceName = edtLookupSourceName.Text;
-        Column.LookupSql = edtLookupSql.Text;
+        ColumnDef.DisplayMember = edtDisplayMember.Text;
+        ColumnDef.ValueMember = edtValueMember.Text;
+        ColumnDef.LookupSourceName = edtLookupSourceName.Text;
+        ColumnDef.LookupSql = edtLookupSql.Text;
         
         edtSummary.Text = ViewDef.GetDescription();
     }
@@ -501,7 +501,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         var Hidden = ViewDef.Columns
             .Where(x => x.VisibleIndex < 0)
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Caption)
             .ToList();
 
         lboVisibleColumns.ItemsSource = Visible;
@@ -515,7 +515,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         var NotGrouped = ViewDef.Columns
             .Where(x => x.GroupIndex < 0)
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Caption)
             .ToList();
 
         lboGroupedColumns.ItemsSource = Grouped;
@@ -534,7 +534,7 @@ public partial class GridViewDefDialog : DialogWindow
 
         var NotSorted = ViewDef.Columns
             .Where(x => x.SortIndex < 0)
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Caption)
             .ToList();
 
         lboSortedColumns.ItemsSource = Sorted;
