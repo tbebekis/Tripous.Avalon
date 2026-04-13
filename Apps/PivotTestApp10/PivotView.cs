@@ -22,6 +22,9 @@ public class PivotView
     private DataGrid fGrid;
     private PivotDefs fPivotDefs;
     private PivotDef fPivotDef;
+
+    private DataView LastSourceDataView;
+    private Type LastSourceType;
     
     // ● constructor
     public PivotView()
@@ -68,6 +71,11 @@ public class PivotView
             throw  new ApplicationException($"No {nameof(DataGrid)} defined");
         if (PivotDef == null)
             throw  new ApplicationException($"No {nameof(PivotDef)} defined");
+
+        LastSourceDataView = DataView;
+        LastSourceType = null;
+        
+        PivotDef.UpdateDataTypes(DataView);
         
         PivotData = PivotEngine.Execute(DataView, PivotDef);
         PivotGridRenderer.Show(Grid, PivotData, PivotDef);
@@ -80,6 +88,11 @@ public class PivotView
             throw  new ApplicationException($"No {nameof(DataGrid)} defined");
         if (PivotDef == null)
             throw  new ApplicationException($"No {nameof(PivotDef)} defined");
+
+        LastSourceType = typeof(T);
+        LastSourceDataView = null;
+        
+        PivotDef.UpdateDataTypes(LastSourceType);
         
         PivotData = PivotEngine.Execute(Sequence, PivotDef);
         PivotGridRenderer.Show(Grid, PivotData, PivotDef);
@@ -87,6 +100,14 @@ public class PivotView
     
     public DataGridColumn GetColumn(string FieldName) => Grid.Columns.FirstOrDefault(x => FieldName.IsSameText((x.Tag as PivotFieldDef).FieldName));
     public PivotFieldDef GetFieldDef(DataGridColumn Column) => Column.Tag as PivotFieldDef;
+
+    public void UpdateDataTypes(PivotDef Def)
+    {
+        if (LastSourceDataView != null)
+            Def.UpdateDataTypes(LastSourceDataView);
+        else if (LastSourceType != null)
+            Def.UpdateDataTypes(LastSourceType);
+    }
 
     public void Refresh()
     {

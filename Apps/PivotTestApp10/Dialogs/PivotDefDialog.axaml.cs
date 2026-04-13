@@ -13,7 +13,6 @@ namespace Tripous.Avalon;
 
 public partial class PivotDefDialog : DialogWindow
 {
-
     private PivotDef PivotDef;
     
     async void AnyClick(object sender, RoutedEventArgs e)
@@ -102,10 +101,9 @@ public partial class PivotDefDialog : DialogWindow
         edtCaption.Text = FieldDef.Caption;
         edtDataType.Text = FieldDef.DataType != null ? FieldDef.DataType.Name : string.Empty;
         
-        cboAxis.SelectedItem = FieldDef.Axis;
+        cboAxis.SelectedItem = FieldDef.FieldMode;
         cboSortDirection.SelectedItem = FieldDef.SortDirection;
         edtFormat.Text = FieldDef.Format;
-        chIsValue.IsChecked = FieldDef.IsValue;
         chSortByValue.IsChecked = FieldDef.SortByValue;
         cboValueAggregateType.SelectedItem = FieldDef.ValueAggregateType;
 /*
@@ -116,7 +114,6 @@ public partial class PivotDefDialog : DialogWindow
    cboAxis
    cboSortDirection
    edtFormat
-   chIsValue
    chSortByValue
    cboValueAggregateType
  */
@@ -128,14 +125,13 @@ public partial class PivotDefDialog : DialogWindow
         
         FieldDef.Caption = edtCaption.Text;
         
-        if (cboAxis.SelectedItem is PivotAxis Axis)
-            FieldDef.Axis = Axis;
+        if (cboAxis.SelectedItem is PivotFieldMode Axis)
+            FieldDef.FieldMode = Axis;
         
         if (cboSortDirection.SelectedItem is ListSortDirection SortDirection)
             FieldDef.SortDirection = SortDirection;
 
         FieldDef.Format = edtFormat.Text;
-        FieldDef.IsValue = chIsValue.IsChecked == true;
         FieldDef.SortByValue = chSortByValue.IsChecked == true;
         
         if (cboValueAggregateType.SelectedItem is PivotValueAggregateType ValueAggregateType)
@@ -176,7 +172,7 @@ public partial class PivotDefDialog : DialogWindow
         
         // ● Columns
         lboFields.ItemsSource = PivotDef.Fields;
-        cboAxis.ItemsSource = Enum.GetValues(typeof(PivotAxis));
+        cboAxis.ItemsSource = Enum.GetValues(typeof(PivotFieldMode));
         cboSortDirection.ItemsSource = Enum.GetValues(typeof(ListSortDirection));
         cboValueAggregateType.ItemsSource = Enum.GetValues(typeof(PivotValueAggregateType));
 
@@ -202,6 +198,9 @@ public partial class PivotDefDialog : DialogWindow
         cboSortDirection.SelectionChanged += AnyColumnCombo_SelectionChanged;
         cboValueAggregateType.SelectionChanged += AnyColumnCombo_SelectionChanged;
 
+        if (PivotDef.Fields.Count > 0)
+            lboFields.SelectedIndex = 0;
+
         await Task.CompletedTask;
     }
     protected override async Task ControlsToItem()
@@ -211,10 +210,17 @@ public partial class PivotDefDialog : DialogWindow
 
         if (PivotDef == null)
             return;
+
+        string Errors = PivotDef.GetErrors();
+        if (!string.IsNullOrWhiteSpace(Errors))
+        {
+            await MessageBox.Error(Errors, this);
+            return;
+        }
         
         
         await Task.CompletedTask;
-        this.ModalResult = ModalResult.Ok;
+        //this.ModalResult = ModalResult.Ok;
     }
     
     // ● construction

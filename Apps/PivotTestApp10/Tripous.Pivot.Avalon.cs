@@ -13,112 +13,11 @@ using Tripous.Data;
 
 namespace Tripous.Avalon;
 
-static public class PivotAvalonExtensions
-{
-    static public bool IsPivotSupportedType(this Type T)
-    {
-        Type ActualType = Nullable.GetUnderlyingType(T) ?? T;
-        return ActualType.IsString() || ActualType.IsNumeric() || ActualType.IsDateTime();
-    }
-    /// <summary>
-    /// Creates a default <see cref="PivotDef"/> based on a specified <see cref="DataView"/>.
-    /// </summary>
-    static public PivotDef CreateDefaultPivotDef(this DataView DataView)
-    {
-        if (DataView == null)
-            throw new ArgumentNullException(nameof(DataView));
 
-        PivotDef Result = new();
-
-        List<DataColumn> Columns = DataView.Table.Columns.Cast<DataColumn>().ToList();
-        List<DataColumn> StringCols = Columns.Where(x => x.DataType == typeof(string)).ToList();
-        List<DataColumn> DateCols = Columns.Where(x => x.DataType == typeof(DateTime)).ToList();
-        List<DataColumn> NumericCols = Columns.Where(x => x.DataType.IsNumeric()).ToList();
-
-        List<DataColumn> Eligible = Columns
-            .Where(x => x.DataType.IsPivotSupportedType())
-            .ToList();
-
-        foreach (DataColumn Col in Eligible)
-        {
-            Result.Fields.Add(new PivotFieldDef
-            {
-                FieldName = Col.ColumnName,
-                Caption = string.IsNullOrWhiteSpace(Col.Caption) ? Col.ColumnName : Col.Caption,
-                Axis = PivotAxis.None,
-                IsValue = false,
-                ValueAggregateType = PivotValueAggregateType.None,
-                SortByValue = true,
-                Format = Col.DataType == typeof(DateTime) ? "d" : null
-            });
-        }
-
-        DataColumn FirstRowCol = StringCols.FirstOrDefault() ?? DateCols.FirstOrDefault();
-        DataColumn FirstColumnCol = StringCols.Skip(1).FirstOrDefault() ?? DateCols.Skip(1).FirstOrDefault();
-        DataColumn FirstValueCol = NumericCols.FirstOrDefault();
-
-        if (FirstRowCol != null)
-        {
-            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstRowCol.ColumnName);
-            if (Field != null)
-                Field.Axis = PivotAxis.Row;
-        }
-
-        if (FirstColumnCol != null)
-        {
-            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstColumnCol.ColumnName);
-            if (Field != null)
-                Field.Axis = PivotAxis.Column;
-        }
-
-        if (FirstValueCol != null)
-        {
-            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstValueCol.ColumnName);
-            if (Field != null)
-            {
-                Field.IsValue = true;
-                Field.ValueAggregateType = PivotValueAggregateType.Sum;
-            }
-        }
-        else
-        {
-            PivotFieldDef Fallback = Result.Fields.FirstOrDefault(x => x.Axis == PivotAxis.None);
-
-            if (Fallback != null)
-            {
-                Fallback.IsValue = true;
-                Fallback.ValueAggregateType = PivotValueAggregateType.Count;
-            }
-        }
-
-        //Result.Normalize();
-
-        return Result;
-    }
-    /// <summary>
-    /// Returns the supported source columns of a specified <see cref="DataView"/>.
-    /// </summary>
-    static public List<DataColumn> GetPivotSupportedColumns(this DataView DataView)
-    {
-        if (DataView == null)
-            throw new ArgumentNullException(nameof(DataView));
-
-        return DataView.Table.Columns
-            .Cast<DataColumn>()
-            .Where(x => x.DataType.IsPivotSupportedType())
-            .ToList();
-    }
-}
-
+/*
 public class PivotBinder: ObservableObject
 {
-    /* The hierarchy is
-        Grid
-        DataTable
-        DataView
-        PivotDef
-        PivotData
-     */
+
 
     private DataGrid fGrid;
     private DataView fDataView;
@@ -268,7 +167,8 @@ public class PivotBinder: ObservableObject
     /// </summary>
     public PivotViewMenu ViewMenu { get; protected set; }
 }
- 
+*/ 
+
 /// <summary>
 /// Renders PivotData to an Avalonia DataGrid / ProDataGrid.
 /// </summary>

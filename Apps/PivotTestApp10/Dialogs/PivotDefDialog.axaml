@@ -77,7 +77,6 @@
                             </Grid>
 
                             <Separator Height="1" Margin="0,5"/>
-                            <CheckBox Name="chIsValue" Content="Is Value Field" />
                             <CheckBox Name="chSortByValue" Content="Sort by Value" />
                         </StackPanel>
                     </ScrollViewer>

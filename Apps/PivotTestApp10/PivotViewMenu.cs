@@ -151,6 +151,7 @@ public class PivotViewMenu
  
     async Task ShowPivotDefDialog()
     {
+        PivotView.UpdateDataTypes(PivotDef);
         
         PivotDef PivotDef2 = PivotDef.Clone();
         PivotDef2.IsNameReadOnly = true;

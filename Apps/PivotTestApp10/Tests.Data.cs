@@ -122,16 +122,16 @@ static public partial class Tests
         PivotDef def = new PivotDef();
 
         //SortDescending = true
-        def.Fields.Add(new PivotFieldDef { FieldName = "Region", Axis = PivotAxis.Row, });
-        def.Fields.Add(new PivotFieldDef { FieldName = "Category", Axis = PivotAxis.Row });
+        def.Fields.Add(new PivotFieldDef { FieldName = "Region", FieldMode = PivotFieldMode.Row, });
+        def.Fields.Add(new PivotFieldDef { FieldName = "Category", FieldMode = PivotFieldMode.Row });
         
-        def.Fields.Add(new PivotFieldDef { FieldName = "Segment", Axis = PivotAxis.Column });
+        def.Fields.Add(new PivotFieldDef { FieldName = "Segment", FieldMode = PivotFieldMode.Column });
         //def.Fields.Add(new PivotFieldDef { FieldName = "Product", Axis = PivotAxis.Column });
         
         def.Fields.Add(new PivotFieldDef
         {
             FieldName = "Sales",
-            IsValue = true,
+            FieldMode = PivotFieldMode.Value,
             ValueAggregateType = PivotValueAggregateType.Sum,
             Caption = "Sales",
             Format = "N2"
@@ -140,7 +140,7 @@ static public partial class Tests
         def.Fields.Add(new PivotFieldDef
         {
             FieldName = "Profit",
-            IsValue = true,
+            FieldMode = PivotFieldMode.Value,
             ValueAggregateType = PivotValueAggregateType.Sum,
             Caption = "Profit",
             Format = "N2"
@@ -149,7 +149,7 @@ static public partial class Tests
         def.Fields.Add(new PivotFieldDef
         {
             FieldName = "Quantity",
-            IsValue = true,
+            FieldMode = PivotFieldMode.Value,
             ValueAggregateType = PivotValueAggregateType.Sum,
             Caption = "Qty",
             Format = "N0"

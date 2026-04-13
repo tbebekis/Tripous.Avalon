@@ -10,16 +10,18 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 
+
 namespace Tripous.Data;
 
 /// <summary>
 /// Specifies pivot axis.
 /// </summary>
-public enum PivotAxis
+public enum PivotFieldMode
 {
     None,
     Row,
-    Column
+    Column,
+    Value
 }
 
 /// <summary>
@@ -61,7 +63,7 @@ public enum PivotDataColumnKind
     Value
 }
 
-static public class DbExtensions
+static public class PivotDataExtensions
 {
     static public PivotValueAggregateType[] GetValidPivotAggregates(this Type DataType)
     {
@@ -103,6 +105,164 @@ static public class DbExtensions
             PivotValueAggregateType.CountDistinct
         };
     }
+    static public bool IsPivotSupportedType(this Type T)
+    {
+        Type ActualType = Nullable.GetUnderlyingType(T) ?? T;
+        return ActualType.IsString() || ActualType.IsNumeric() || ActualType.IsDateTime();
+    }
+    
+    /// <summary>
+    /// Creates a default <see cref="PivotDef"/> based on a specified <see cref="DataView"/>.
+    /// </summary>
+    static public PivotDef CreateDefaultPivotDef(this DataView DataView)
+    {
+        if (DataView == null)
+            throw new ArgumentNullException(nameof(DataView));
+
+        PivotDef Result = new();
+
+        var All = DataView.Table.Columns.Cast<DataColumn>().ToList();
+        var Strings = All.Where(x => x.DataType == typeof(string)).ToList();
+        var Dates = All.Where(x => x.DataType == typeof(DateTime)).ToList();
+        var Numerics = All.Where(x => x.DataType.IsNumeric()).ToList();
+
+        var Eligible = All
+            .Where(x => x.DataType.IsPivotSupportedType())
+            .ToList();
+
+        foreach (DataColumn Col in Eligible)
+        {
+            Result.Fields.Add(new PivotFieldDef
+            {
+                FieldName = Col.ColumnName,
+                Caption = string.IsNullOrWhiteSpace(Col.Caption) ? Col.ColumnName : Col.Caption,
+                FieldMode = PivotFieldMode.None,
+                ValueAggregateType = PivotValueAggregateType.None,
+                SortByValue = true,
+                Format = Col.DataType == typeof(DateTime) ? "d" : null
+            });
+        }
+
+        var FirstRow = Strings.FirstOrDefault() ?? Dates.FirstOrDefault();
+        var FirstColumn = Strings.Skip(1).FirstOrDefault() ?? Dates.Skip(1).FirstOrDefault();
+        var FirstValue = Numerics.FirstOrDefault();
+
+        if (FirstRow != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstRow.ColumnName);
+            if (Field != null)
+                Field.FieldMode = PivotFieldMode.Row;
+        }
+
+        if (FirstColumn != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstColumn.ColumnName);
+            if (Field != null)
+                Field.FieldMode = PivotFieldMode.Column;
+        }
+
+        if (FirstValue != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstValue.ColumnName);
+            if (Field != null)
+            {
+                Field.FieldMode = PivotFieldMode.Value;
+                Field.ValueAggregateType = PivotValueAggregateType.Sum;
+            }
+        }
+        else
+        {
+            PivotFieldDef Fallback = Result.Fields.FirstOrDefault(x => x.FieldMode == PivotFieldMode.None);
+
+            if (Fallback != null)
+            {
+                Fallback.FieldMode = PivotFieldMode.Value;
+                Fallback.ValueAggregateType = PivotValueAggregateType.Count;
+            }
+        }
+
+        return Result;
+    }
+    static public PivotDef CreateDefaultPivotDef(this Type T)
+    {
+        PivotDef Result = new();
+                
+        var All = T.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList(); 
+        var Strings = All.Where(x => x.PropertyType == typeof(string)).ToList();
+        var Dates = All.Where(x => x.PropertyType == typeof(DateTime)).ToList();
+        var Numerics = All.Where(x => x.PropertyType.IsNumeric()).ToList();
+
+        var Eligible = All
+            .Where(x => x.PropertyType.IsPivotSupportedType())
+            .ToList();
+
+        foreach (PropertyInfo Col in Eligible)
+        {
+            Result.Fields.Add(new PivotFieldDef
+            {
+                FieldName = Col.Name,
+                FieldMode = PivotFieldMode.None,
+                ValueAggregateType = PivotValueAggregateType.None,
+                SortByValue = true,
+                Format = Col.PropertyType == typeof(DateTime) ? "d" : null
+            });
+        }
+
+        var FirstRow = Strings.FirstOrDefault() ?? Dates.FirstOrDefault();
+        var FirstColumn = Strings.Skip(1).FirstOrDefault() ?? Dates.Skip(1).FirstOrDefault();
+        var FirstValue = Numerics.FirstOrDefault();
+
+        if (FirstRow != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstRow.Name);
+            if (Field != null)
+                Field.FieldMode = PivotFieldMode.Row;
+        }
+
+        if (FirstColumn != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstColumn.Name);
+            if (Field != null)
+                Field.FieldMode = PivotFieldMode.Column;
+        }
+
+        if (FirstValue != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstValue.Name);
+            if (Field != null)
+            {
+                Field.FieldMode = PivotFieldMode.Value;
+                Field.ValueAggregateType = PivotValueAggregateType.Sum;
+            }
+        }
+        else
+        {
+            PivotFieldDef Fallback = Result.Fields.FirstOrDefault(x => x.FieldMode == PivotFieldMode.None);
+
+            if (Fallback != null)
+            {
+                Fallback.FieldMode = PivotFieldMode.Value;
+                Fallback.ValueAggregateType = PivotValueAggregateType.Count;
+            }
+        }
+
+
+        return Result;
+    }
+    
+    /// <summary>
+    /// Returns the supported source columns of a specified <see cref="DataView"/>.
+    /// </summary>
+    static public List<DataColumn> GetPivotSupportedColumns(this DataView DataView)
+    {
+        if (DataView == null)
+            throw new ArgumentNullException(nameof(DataView));
+
+        return DataView.Table.Columns
+            .Cast<DataColumn>()
+            .Where(x => x.DataType.IsPivotSupportedType())
+            .ToList();
+    }
 }
 
 /// <summary>
@@ -111,20 +271,24 @@ static public class DbExtensions
 public class PivotFieldDef
 {
     private string fCaption;
-    private PivotAxis fAxis;
-    private bool fIsValue;
+    private PivotFieldMode fFieldMode;
+
+    private PivotValueAggregateType fValueAggregateType;
  
+ 
+    // ● construction
     public PivotFieldDef()
     {
     }
 
+    // ● static
     static public PivotFieldDef CreateRow(string FieldName, string Caption = null)
     {
         return new PivotFieldDef
         {
             FieldName = FieldName,
             Caption = Caption,
-            Axis = PivotAxis.Row
+            FieldMode = PivotFieldMode.Row
         };
     }
     static public PivotFieldDef CreateColumn(string FieldName, string Caption = null)
@@ -133,7 +297,7 @@ public class PivotFieldDef
         {
             FieldName = FieldName,
             Caption = Caption,
-            Axis = PivotAxis.Column
+            FieldMode = PivotFieldMode.Column
         };
     }
     static public PivotFieldDef CreateValue(string FieldName, PivotValueAggregateType AggregateType, string Caption = null, string Format = null)
@@ -142,42 +306,23 @@ public class PivotFieldDef
         {
             FieldName = FieldName,
             Caption = Caption,
-            IsValue = true,
+            FieldMode = PivotFieldMode.Value,
             ValueAggregateType = AggregateType,
             Format = Format
         };
     }
 
-    public override string ToString() => Caption; //   $"{FieldName}, Axis: {Axis}, IsValue: {IsValue}";
+    // ● public
+    public override string ToString() => FieldName; //   $"{FieldName}, Axis: {Axis}, IsValue: {IsValue}";
  
-    /*
-    public void Normalize()
-    {
-        if (IsValue)
-            Axis = PivotAxis.None;
-
-        if (Axis != PivotAxis.None)
-            IsValue = false;
-
-        if (!IsValue)
-            ValueAggregateType = PivotValueAggregateType.None;
-
-        if (Axis == PivotAxis.None)
-        {
-            SortByValue = false;
-            SortDirection = ListSortDirection.Ascending;
-        }
-    }
-    */
-
     public void AssignFrom(PivotFieldDef Source)
     {
         FieldName = Source.FieldName;
         fCaption = Source.fCaption;
-        fAxis = Source.fAxis;
+        fFieldMode = Source.fFieldMode;
         SortDirection = Source.SortDirection;
         Format = Source.Format;
-        fIsValue = Source.fIsValue;
+ 
         SortByValue = Source.SortByValue;
         ValueAggregateType = Source.ValueAggregateType;
 
@@ -192,52 +337,48 @@ public class PivotFieldDef
         return Result;
     }
 
+    // ● properties
     public string FieldName { get; set; }
     public string Caption
     {
         get => !string.IsNullOrWhiteSpace(fCaption) ? fCaption : FieldName;
         set => fCaption = value;
     }
-    public PivotAxis Axis
+    public PivotFieldMode FieldMode
     {
-        get => fAxis;
+        get => fFieldMode;
         set
         {
-            if (fAxis != value)
+            if (fFieldMode != value)
             {
-                fAxis = value;
-                if (fAxis != PivotAxis.None)
+                fFieldMode = value;
+                
+                SortByValue = false;
+                ValueAggregateType = PivotValueAggregateType.None;
+                SortDirection = ListSortDirection.Ascending;
+
+                switch (fFieldMode)
                 {
-                    fIsValue = false;
-                }
-                else
-                {
-                    SortByValue = false;
-                    SortDirection = ListSortDirection.Ascending;
+                    case PivotFieldMode.None: break;
+                    case PivotFieldMode.Row: break;
+                    case PivotFieldMode.Column: break;
+                    case PivotFieldMode.Value:
+                        SortByValue = true;
+                        break;
                 }
             }
         }
     }
     public ListSortDirection SortDirection { get; set; } // Asc / Desc
     public string Format { get; set; }
-    public bool IsValue
-    {
-        get => fIsValue;
-        set
-        {
-            if (fIsValue != value)
-            {
-                fIsValue = value;
-                
-                if (fIsValue)
-                    fAxis = PivotAxis.None;
-                else
-                    ValueAggregateType = PivotValueAggregateType.None;
-            }
-        }
-    }
+ 
     public bool SortByValue { get; set; } = true;
-    public PivotValueAggregateType ValueAggregateType { get; set; }
+
+    public PivotValueAggregateType ValueAggregateType
+    {
+        get => IsValue ? fValueAggregateType : PivotValueAggregateType.None;
+        set => fValueAggregateType = value;
+    }
     public int OrdinalIndex { get; set; } // the index in Rows, Columns or Values
 
     [JsonIgnore]
@@ -246,9 +387,11 @@ public class PivotFieldDef
     public Type DataType { get; set; }
 
     [JsonIgnore]
-    public bool IsRow => Axis == PivotAxis.Row;
+    public bool IsRow => FieldMode == PivotFieldMode.Row;
     [JsonIgnore]
-    public bool IsColumn => Axis == PivotAxis.Column;
+    public bool IsColumn => FieldMode == PivotFieldMode.Column;
+    [JsonIgnore]
+    public bool IsValue => FieldMode == PivotFieldMode.Value;
     [JsonIgnore]
     public bool IsNone => !IsRow && !IsColumn && !IsValue;
 }
@@ -296,14 +439,7 @@ public class PivotDef
         S = SB.ToString();
         return S;
     }
-    /*
-    public void Normalize()
-    {
-        foreach (PivotFieldDef Field in Fields)
-            Field?.Normalize();
-    }
-    */
-    
+ 
     public void AssignFrom(PivotDef Source)
     {
         Fields.Clear();
@@ -329,8 +465,8 @@ public class PivotDef
         return Result;
     }
     
-    public IEnumerable<PivotFieldDef> GetRowFields() => Fields.Where(x => x.Axis == PivotAxis.Row).OrderBy(x => x.OrdinalIndex);
-    public IEnumerable<PivotFieldDef> GetColumnFields() => Fields.Where(x => x.Axis == PivotAxis.Column).OrderBy(x => x.OrdinalIndex);
+    public IEnumerable<PivotFieldDef> GetRowFields() => Fields.Where(x => x.IsRow).OrderBy(x => x.OrdinalIndex);
+    public IEnumerable<PivotFieldDef> GetColumnFields() => Fields.Where(x => x.IsColumn).OrderBy(x => x.OrdinalIndex);
     public IEnumerable<PivotFieldDef> GetValueFields() => Fields.Where(x => x.IsValue).OrderBy(x => x.OrdinalIndex);
 
     public PivotFieldDef Find(string FieldName) => Fields.FirstOrDefault(x => FieldName.IsSameText(x.FieldName));
@@ -342,7 +478,6 @@ public class PivotDef
             throw new ApplicationException($"{nameof(PivotFieldDef)} not found: {FieldName}");
         return Result;
     }
-    
     
     PivotFieldDef AddInternal(PivotFieldDef FieldDef)
     {
@@ -376,8 +511,8 @@ public class PivotDef
         return Result;
     }
 
-    public bool IsRow(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.Axis == PivotAxis.Row;
-    public bool IsColumn(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.Axis == PivotAxis.Row;
+    public bool IsRow(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.FieldMode == PivotFieldMode.Row;
+    public bool IsColumn(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.FieldMode == PivotFieldMode.Row;
     public bool IsValue(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.IsValue;
     
     public bool IsRow(string FieldName) => IsRow(Fields.FirstOrDefault(x => FieldName.IsSameText(x.FieldName)));
@@ -398,8 +533,86 @@ public class PivotDef
                    || (FieldDef.IsRow && RowCount > 1)
                    || (FieldDef.IsValue && ValueCount > 1));
     }
-    public bool CanBeValue(PivotFieldDef FieldDef) => !FieldDef.IsValue;
-     
+    public bool CanBeValue(PivotFieldDef FieldDef) 
+    {
+        return !FieldDef.IsValue
+               && (FieldDef.IsNone
+                   || (FieldDef.IsRow && RowCount > 1)
+                   || (FieldDef.IsColumn && ColumnCount > 1));
+    }
+
+    public string GetErrors()
+    {
+        StringBuilder SB = new();
+
+        if (Fields == null || Fields.Count == 0)
+            SB.AppendLine("PivotDef contains no fields.");
+
+        if (!GetValueFields().Any())
+            SB.AppendLine("PivotDef contains no value fields.");
+        
+        if (Fields.Any(x => x == null))
+            SB.AppendLine("PivotDef contains null fields.");
+        
+        if (Fields.Any(x => string.IsNullOrWhiteSpace(x.FieldName)))
+            SB.AppendLine("PivotDef contains field with empty FieldName.");
+        
+        if (Fields.Any(x => x.DataType == null))
+            SB.AppendLine("PivotDef contains fields with null DataTypes.");
+
+        HashSet<string> FieldNames = new(StringComparer.OrdinalIgnoreCase);
+
+        foreach (PivotFieldDef Field in Fields)
+        {
+            if (!FieldNames.Add(Field.FieldName))
+                SB.AppendLine($"Duplicate pivot field: '{Field.FieldName}'.");
+
+            if (Field.IsValue)
+            {
+                if (Field.ValueAggregateType == PivotValueAggregateType.None)
+                {
+                    SB.AppendLine($"Value pivot field with no aggregate: '{Field.FieldName}'.");
+                }
+                else if (!Field.DataType.GetValidPivotAggregates().ToList().Contains(Field.ValueAggregateType))
+                {
+                    SB.AppendLine($"Value pivot field with no valid aggregate: '{Field.FieldName}'.");
+                }
+            }
+        }
+
+        return SB.ToString();
+    }
+    public bool HasErrors() => !string.IsNullOrWhiteSpace(GetErrors());
+    public void Check()
+    {
+        string Errors = GetErrors();
+        if (!string.IsNullOrWhiteSpace(Errors))
+            throw new ApplicationException(Errors);
+    }
+
+    public void UpdateDataTypes(DataView DataView)
+    {
+        var All = DataView.Table.Columns.Cast<DataColumn>().ToList();
+        DataColumn Column;
+        foreach (PivotFieldDef FieldDef in Fields)
+        {
+            Column = All.FirstOrDefault(x => x.ColumnName.IsSameText(FieldDef.FieldName));
+            if (Column != null)
+                FieldDef.DataType = Column.DataType;
+        }
+    }
+    public void UpdateDataTypes(Type T)
+    {
+        var All = T.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
+        PropertyInfo PropInfo;
+        foreach (PivotFieldDef FieldDef in Fields)
+        {
+            PropInfo = All.FirstOrDefault(x => x.Name.IsSameText(FieldDef.FieldName));
+            if (PropInfo != null)
+                FieldDef.DataType = PropInfo.PropertyType;
+        }
+    }
+
     
     // ● properties
     /// <summary>
@@ -779,6 +992,7 @@ static public class PivotEngine
 
     static private void ValidateDef(PivotDef Def)
     {
+        /*
         if (Def.Fields == null || Def.Fields.Count == 0)
             throw new ApplicationException("PivotDef contains no fields.");
 
@@ -797,10 +1011,9 @@ static public class PivotEngine
 
             if (!FieldNames.Add(Field.FieldName))
                 throw new ApplicationException($"Duplicate pivot field '{Field.FieldName}'.");
-
-            if (Field.IsValue && Field.Axis != PivotAxis.None)
-                throw new ApplicationException($"Field '{Field.FieldName}' cannot be both axis and value field.");
         }
+        */
+        Def.Check();
     }
     static private CollectResult Collect<T>(
         IEnumerable<T> Source,
