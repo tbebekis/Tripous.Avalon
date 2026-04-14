@@ -15,9 +15,9 @@ public partial class MainWindow : Window
     async void AnyClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (btnTest == sender)
-            Test_Poco();
+            Test_Poco2();
         else if (btnTest2 == sender)
-            Test_DataView();
+            Test_DataView2();
     }
     
     // ● private
@@ -27,36 +27,29 @@ public partial class MainWindow : Window
     }
 
     private int LineCount = 300;
-    
-    void Test_Poco()
-    {
-        PivotDef PivotDef = Tests.CreateDefaultPivotDef();
-        List<SalesLine> source = Tests.CreatePocoSalesLines(LineCount);
-        PivotData Result = PivotEngine.Execute(source, PivotDef);
-        PivotGridRenderer.Show(Grid, Result,  PivotDef);
-    }
-
+ 
     void Test_Poco2()
     {
-        PivotDef PivotDef = Tests.CreateDefaultPivotDef();
+        PivotViewDef PivotViewDef = Tests.CreateDefaultPivotDef();
         List<SalesLine> Source = Tests.CreatePocoSalesLines(LineCount);
         
-        PivotView PivotView = PivotView.Create(Grid, Source, PivotDef);
+        PivotView PivotView = PivotView.Create(Grid, Source, PivotViewDef);
+
+        PivotView.ToolBar.Panel = pnlToolBar;
+        PivotView.ToolBar.IsMultiDef = true;
+        //PivotView.ToolBar.IsReadOnlyView = true;
         PivotView.Menu.IsEnabled = true;
-    }
-    void Test_DataView()
-    {
-        PivotDef PivotDef = Tests.CreateDefaultPivotDef();
-        DataTable table = Tests.CreateTableSalesLines(LineCount);
-        PivotData Result = PivotEngine.Execute(table.DefaultView, PivotDef);
-        PivotGridRenderer.Show(Grid, Result, PivotDef);
     }
     void Test_DataView2()
     {
-        PivotDef PivotDef = Tests.CreateDefaultPivotDef();
+        PivotViewDef PivotViewDef = Tests.CreateDefaultPivotDef();
         DataTable Table = Tests.CreateTableSalesLines(LineCount);
         
-        PivotView PivotView = PivotView.Create(Grid, Table.DefaultView, PivotDef);
+        PivotView PivotView = PivotView.Create(Grid, Table.DefaultView, PivotViewDef);
+ 
+        PivotView.ToolBar.Panel = pnlToolBar;
+        PivotView.ToolBar.IsMultiDef = true;
+        //PivotView.ToolBar.IsReadOnlyView = true;
         PivotView.Menu.IsEnabled = true;
     }
     

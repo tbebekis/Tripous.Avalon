@@ -117,18 +117,18 @@ static public partial class Tests
         return Table;
     }
 
-    static public PivotDef CreateDefaultPivotDef()
+    static public PivotViewDef CreateDefaultPivotDef()
     {
-        PivotDef def = new PivotDef();
+        PivotViewDef ViewDef = new PivotViewDef();
 
         //SortDescending = true
-        def.Fields.Add(new PivotFieldDef { FieldName = "Region", FieldMode = PivotFieldMode.Row, });
-        def.Fields.Add(new PivotFieldDef { FieldName = "Category", FieldMode = PivotFieldMode.Row });
+        ViewDef.Fields.Add(new PivotFieldDef { FieldName = "Region", FieldMode = PivotFieldMode.Row, });
+        ViewDef.Fields.Add(new PivotFieldDef { FieldName = "Category", FieldMode = PivotFieldMode.Row });
         
-        def.Fields.Add(new PivotFieldDef { FieldName = "Segment", FieldMode = PivotFieldMode.Column });
+        ViewDef.Fields.Add(new PivotFieldDef { FieldName = "Segment", FieldMode = PivotFieldMode.Column });
         //def.Fields.Add(new PivotFieldDef { FieldName = "Product", Axis = PivotAxis.Column });
         
-        def.Fields.Add(new PivotFieldDef
+        ViewDef.Fields.Add(new PivotFieldDef
         {
             FieldName = "Sales",
             FieldMode = PivotFieldMode.Value,
@@ -137,7 +137,7 @@ static public partial class Tests
             Format = "N2"
         });
 
-        def.Fields.Add(new PivotFieldDef
+        ViewDef.Fields.Add(new PivotFieldDef
         {
             FieldName = "Profit",
             FieldMode = PivotFieldMode.Value,
@@ -146,7 +146,7 @@ static public partial class Tests
             Format = "N2"
         });
 
-        def.Fields.Add(new PivotFieldDef
+        ViewDef.Fields.Add(new PivotFieldDef
         {
             FieldName = "Quantity",
             FieldMode = PivotFieldMode.Value,
@@ -155,6 +155,6 @@ static public partial class Tests
             Format = "N0"
         });
 
-        return def;
+        return ViewDef;
     }
 }

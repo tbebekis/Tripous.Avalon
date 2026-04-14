@@ -35,7 +35,6 @@
                         
                         <CheckBox Name="chShowSubtotals" Content="Show Subtotals" />
                         <CheckBox Name="chShowGrandTotals" Content="Show Grand Totals" />
-                        <CheckBox Name="chShowValuesOnRows" Content="Show Values on Rows" />
                         <CheckBox Name="chRepeatRowHeaders" Content="Repeat Row Headers" />
                         
                         <Separator Height="1" Margin="0,5"/>

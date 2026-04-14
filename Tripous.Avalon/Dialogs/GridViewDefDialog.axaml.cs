@@ -85,7 +85,7 @@ public partial class GridViewDefDialog : DialogWindow
     void AnyColumnCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (lboColumns.SelectedItem is GridViewColumnDef ColumnDef)
-            ControlsToColumn(ColumnDef);
+            ComboBoxesToColumn(ColumnDef);
     }
     void VisibleList_DoubleClick(object sender, RoutedEventArgs e)
     {
@@ -440,7 +440,21 @@ public partial class GridViewDefDialog : DialogWindow
         ColumnDef.Caption = edtTitle.Text;
         ColumnDef.DisplayFormat = edtDisplayFormat.Text;
         ColumnDef.EditFormat = edtEditFormat.Text;
+
+        ComboBoxesToColumn(ColumnDef);
+ 
+        ColumnDef.IsReadOnly  = chIsReadOnly.IsChecked == true;
+        ColumnDef.IsIntAsBool = chIsIntAsBool.IsChecked == true;
+
+        ColumnDef.DisplayMember = edtDisplayMember.Text;
+        ColumnDef.ValueMember = edtValueMember.Text;
+        ColumnDef.LookupSourceName = edtLookupSourceName.Text;
+        ColumnDef.LookupSql = edtLookupSql.Text;
         
+        edtSummary.Text = ViewDef.GetDescription();
+    }
+    void ComboBoxesToColumn(GridViewColumnDef ColumnDef)
+    {
         if (cboAggregate.SelectedItem is AggregateType Aggregate)
             ColumnDef.Aggregate = Aggregate;
 
@@ -449,14 +463,6 @@ public partial class GridViewDefDialog : DialogWindow
 
         if (cboBlobType.SelectedItem is BlobType BlobType)
             ColumnDef.BlobType = BlobType;
-
-        ColumnDef.IsReadOnly  = chIsReadOnly.IsChecked == true;
-        ColumnDef.IsIntAsBool = chIsIntAsBool.IsChecked == true;
-
-        ColumnDef.DisplayMember = edtDisplayMember.Text;
-        ColumnDef.ValueMember = edtValueMember.Text;
-        ColumnDef.LookupSourceName = edtLookupSourceName.Text;
-        ColumnDef.LookupSql = edtLookupSql.Text;
         
         edtSummary.Text = ViewDef.GetDescription();
     }
@@ -577,6 +583,13 @@ public partial class GridViewDefDialog : DialogWindow
 
         ViewDef.Name = edtName.Text;
         ViewDef.ShowGroupColumnsAsDataColumns = chShowGroupColumnsAsDataColumns.IsChecked == true;
+        
+        string Errors = ViewDef.GetErrors();
+        if (!string.IsNullOrWhiteSpace(Errors))
+        {
+            await MessageBox.Error(Errors, this);
+            return;
+        }
 
         this.ModalResult = ModalResult.Ok;
         await Task.CompletedTask;

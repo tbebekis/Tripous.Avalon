@@ -14,15 +14,9 @@ using Tripous.Data;
 namespace Tripous.Avalon;
 
 [Flags]
-public enum GridViewToolBarButtons : ulong
+public enum PivotViewToolBarButtons : ulong
 {
     None = 0,
-    Add = 0x1,
-    Edit = 0x2,
-    Delete = 0x4,
-    
-    ExpandAll = 0x8,
-    CollapseAll = 0x10,
     
     Save = 0x20,
     SaveAs = 0x40,
@@ -37,15 +31,9 @@ public enum GridViewToolBarButtons : ulong
     All = 0xFFFFFFFF
 }
 
-public class GridViewToolBar: ToolBar
+
+public class PivotViewToolBar: ToolBar
 {
-    Button btnAdd;
-    Button btnEdit;
-    Button btnDelete;
-    
-    Button btnExpandAll;
-    Button btnCollapseAll;
-    
     Button btnSave;
     Button btnSaveAs;
     
@@ -58,56 +46,43 @@ public class GridViewToolBar: ToolBar
     
     ComboBox cboViewDefs;
     
-    private GridViewToolBarButtons fVisibleButtons = GridViewToolBarButtons.All;
-    private Border sepEdit;
+    private PivotViewToolBarButtons fVisibleButtons = PivotViewToolBarButtons.All;
+ 
     private Border sepSave;
-    private Border sepExpand;
+ 
     
     private bool fIsMultiDef;
     private bool fIsReadOnlyView;
-    private GridView fGridView;
+    private PivotView fPivotView;
     private bool ControlsCreated;
-    private ObservableCollection<GridViewDef> ViewDefs;
+    private ObservableCollection<PivotViewDef> ViewDefs;
     
-    // ● event handlers
+    
+        // ● event handlers
     void cboViewDefs_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (cboViewDefs.SelectedItem is GridViewDef ViewDef)
-            GridView.ViewDef = ViewDef;
+        if (cboViewDefs.SelectedItem is PivotViewDef ViewDef)
+            PivotView.ViewDef = ViewDef;
     }
     
     // ● private
     void CreateControls()
     {
-        btnAdd = AddButton("table_add.png", "Add Row", 
-            async (sender, args) => await GridView.AddItemAsync());
-        btnEdit = AddButton("table_edit.png", "Edit Row", 
-            async (sender, args) => await GridView.EditItemAsync());
-        btnDelete = AddButton("table_delete.png", "Delete Row", 
-            async (sender, args) => await GridView.DeleteItemAsync());
-        
-        sepEdit = AddSeparator();
-        btnExpandAll = AddButton("arrow_out.png", "Expand All", 
-            (s, e) => GridView.ExpandAll());
-        btnCollapseAll = AddButton("arrow_in.png", "Collapse All", 
-            (s, e) => GridView.CollapseAll());
-        
-        sepExpand = AddSeparator();
         btnExportDialog = AddButton("table_export.png", "Export", 
             async (sender, args) => await ShowExportDialog());
         
         sepSave = AddSeparator();
         btnSave = AddButton("disk.png", "Save Definitions", 
-            async (s, e) => await GridView.SaveViewDefs());
+            async (s, e) => await PivotView.SaveViewDefs());
         btnSaveAs = AddButton("disk_multiple.png", "Save Definitions As", 
-            async (s, e) => await GridView.SaveViewDefsAs());
+            async (s, e) => await PivotView.SaveViewDefsAs());
 
-        ViewDefs = new ObservableCollection<GridViewDef>(GridView.ViewDefs.DefList) ;
-        int Index = GridView.ViewDefs.DefList.IndexOf(GridView.ViewDef);
+        ViewDefs = new ObservableCollection<PivotViewDef>(PivotView.ViewDefs.DefList) ;
+        int Index = PivotView.ViewDefs.DefList.IndexOf(PivotView.ViewDef);
         cboViewDefs = AddComboBox(ViewDefs, Index != -1 ? Index : 0);
         cboViewDefs.SelectionChanged += cboViewDefs_SelectionChanged;
         btnViewDefDialog = AddButton("setting_tools.png", "Edit Configuration", 
-            async (sender, args) => await ShowViewDefDialog());
+            async (sender, args) => await ShowDefDialog());
         btnAddViewDef = AddButton("application_add.png", "Add View Def",
             async (sender, args) => await AddViewDef());
         btnEditViewDef = AddButton("application_edit.png", "Edit View Def",
@@ -123,22 +98,13 @@ public class GridViewToolBar: ToolBar
         if (!ControlsCreated)
             return;
         
-        btnAdd.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.Add);
-        btnEdit.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.Edit);
-        btnDelete.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.Delete);
+        btnSave.IsVisible = fVisibleButtons.HasFlag(PivotViewToolBarButtons.Save);
+        btnSaveAs.IsVisible = fVisibleButtons.HasFlag(PivotViewToolBarButtons.SaveAs);
         
-        btnExpandAll.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.ExpandAll);
-        btnCollapseAll.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.CollapseAll);
-        
-        btnSave.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.Save);
-        btnSaveAs.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.SaveAs);
-        
-        btnExportDialog.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.ExportDialog);
-        btnViewDefDialog.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.ViewDefDialog) && !IsMultiDef;
+        btnExportDialog.IsVisible = fVisibleButtons.HasFlag(PivotViewToolBarButtons.ExportDialog);
+        btnViewDefDialog.IsVisible = fVisibleButtons.HasFlag(PivotViewToolBarButtons.ViewDefDialog) && !IsMultiDef;
 
-        sepEdit.IsVisible = btnAdd.IsVisible || btnEdit.IsVisible || btnDelete.IsVisible;
         sepSave.IsVisible = btnSave.IsVisible || btnSaveAs.IsVisible;
-        sepExpand.IsVisible = btnExpandAll.IsVisible || btnCollapseAll.IsVisible;
  
         cboViewDefs.IsVisible = IsMultiDef; 
         btnAddViewDef.IsVisible = IsMultiDef;  
@@ -148,6 +114,7 @@ public class GridViewToolBar: ToolBar
 
     async Task ShowExportDialog()
     {
+        /*
         GridViewExportOptions Options = new();
         Options.Load();
         
@@ -158,44 +125,49 @@ public class GridViewToolBar: ToolBar
             GridViewExporter.Export(GridView, Options);
             await MessageBox.Info("Done.");
         }
+        */
     }
-    async Task ShowViewDefDialog()
+    async Task ShowDefDialog()
     {
-        GridViewDef ViewDef2 = GridView.ViewDef.Clone();
+        PivotView.UpdateDataTypes(PivotView.ViewDef);
+        PivotViewDef ViewDef2  = PivotView.ViewDef.Clone();
+ 
         ViewDef2.IsNameReadOnly = true;
         
-        DialogData data = await DialogWindow.ShowModal<GridViewDefDialog>(ViewDef2);
+        DialogData data = await DialogWindow.ShowModal<PivotDefDialog>(ViewDef2);
         if (data.Result)
         {
-            GridView.ViewDef.AssignFrom(ViewDef2);
-            //string JsonText = Json.Serialize(ViewDef);
-            GridView.Refresh();
+            PivotView.ViewDef.AssignFrom(ViewDef2);
+            PivotView.Refresh();
         }
+            
+        await Task.CompletedTask;
+ 
     }
 
     async Task AddViewDef()
     {
-        GridViewDef ViewDef = GridView.CreateDefaultViewDef();
-        GridView.ViewDef.IsNameReadOnly = false;
-        DialogData data = await DialogWindow.ShowModal<GridViewDefDialog>(ViewDef);
+        PivotViewDef ViewDef = PivotView.CreateDefaultViewDef();
+        PivotView.ViewDef.IsNameReadOnly = false;
+        DialogData data = await DialogWindow.ShowModal<PivotDefDialog>(ViewDef);
         if (data.Result)
         {
             //string JsonText = Json.Serialize(ViewDef);
-            GridView.ViewDefs.DefList.Add(ViewDef);
+            PivotView.ViewDefs.DefList.Add(ViewDef);
             ViewDefs.Add(ViewDef);
             cboViewDefs.SelectedItem = ViewDef;
         }
     }
     async Task EditViewDef()
     {
-        if (cboViewDefs.SelectedItem is GridViewDef ViewDef)
+        if (cboViewDefs.SelectedItem is PivotViewDef ViewDef)
         {
-            int Index = GridView.ViewDefs.DefList.IndexOf(ViewDef);
+            int Index = PivotView.ViewDefs.DefList.IndexOf(ViewDef);
             ViewDef.IsNameReadOnly = Index == 0; // not the default
             
-            GridViewDef ViewDef2 = ViewDef.Clone();
+            PivotViewDef ViewDef2 = ViewDef.Clone();
             
-            DialogData data = await DialogWindow.ShowModal<GridViewDefDialog>(ViewDef2);
+            DialogData data = await DialogWindow.ShowModal<PivotDefDialog>(ViewDef2);
             if (data.Result)
             {
                 ViewDef.AssignFrom(ViewDef2);
@@ -204,22 +176,22 @@ public class GridViewToolBar: ToolBar
                 if (Index != -1)
                     ViewDefs[Index] = ViewDef; // force ObservableCollection to re-read the item
                 cboViewDefs.SelectedItem = ViewDef;
-                GridView.Refresh();
+                PivotView.Refresh();
             }
         }
     }
     async Task DeleteViewDef()
     {
-        if (cboViewDefs.SelectedItem is GridViewDef ViewDef)
+        if (cboViewDefs.SelectedItem is PivotViewDef ViewDef)
         {
-            int Index = GridView.ViewDefs.DefList.IndexOf(ViewDef);
+            int Index = PivotView.ViewDefs.DefList.IndexOf(ViewDef);
             if (Index == 0)
                 return; // not the default
-            string Message = $"Delete selected {nameof(GridViewDef)}: {ViewDef.Name}?";
+            string Message = $"Delete selected {nameof(PivotViewDef)}: {ViewDef.Name}?";
             bool Flag = await MessageBox.YesNo(Message, this.Panel);
             if (Flag)
             {
-                GridView.ViewDefs.Remove(ViewDef);
+                PivotView.ViewDefs.Remove(ViewDef);
                 ViewDefs.Remove(ViewDef);
                 cboViewDefs.SelectedIndex = 0;
             }
@@ -235,12 +207,7 @@ public class GridViewToolBar: ToolBar
         cboViewDefs.SelectionChanged -= cboViewDefs_SelectionChanged;
         
         fIsMultiDef = false;
-
-        btnAdd = null;
-        btnEdit  = null;
-        btnDelete = null;
-        btnExpandAll = null;
-        btnCollapseAll = null;
+ 
         btnExportDialog = null;
         btnViewDefDialog = null;
         cboViewDefs = null;
@@ -258,21 +225,21 @@ public class GridViewToolBar: ToolBar
             CreateControls();
         }
     }
-
+    
     // ● construction
-    public GridViewToolBar()
+    public PivotViewToolBar()
     {
     }
-   
+    
     // ● properties
-    public GridView GridView
+    public PivotView PivotView
     {
-        get => fGridView;
+        get => fPivotView;
         set
         {
-            if (fGridView != value)
+            if (fPivotView != value)
             {
-                fGridView = value;
+                fPivotView = value;
                 VisibleControlsChanged();
             }
         }
@@ -290,7 +257,7 @@ public class GridViewToolBar: ToolBar
         }
     }
  
-    public GridViewToolBarButtons VisibleButtons
+    public PivotViewToolBarButtons VisibleButtons
     {
         get => fVisibleButtons;
         set
@@ -309,12 +276,7 @@ public class GridViewToolBar: ToolBar
         {
             if (fIsReadOnlyView != value)
             {
-                var Buttons = GridViewToolBarButtons.Add | GridViewToolBarButtons.Edit | GridViewToolBarButtons.Delete;
                 fIsReadOnlyView = value;
-                if (value)
-                    VisibleButtons &= ~(Buttons);
-                else
-                    VisibleButtons |= Buttons;
             }
         }
     }

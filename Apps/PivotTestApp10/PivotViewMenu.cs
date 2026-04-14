@@ -13,36 +13,29 @@ public class PivotViewMenu
     bool fIsEnabled;
     
     ContextMenu mnuContextMenu;
-    MenuItem mnuAddToRows;
-    MenuItem mnuAddToColumns;
-    MenuItem mnuAddToValues;
-    Separator sepAdd;
-    MenuItem mnuPivotDefDialog;
+    
     MenuItem mnuShowSubtotals;
     MenuItem mnuShowGrandTotals;
-    MenuItem mnuShowValuesOnRows;
     MenuItem mnuRepeatRowHeaders;
-    
+    MenuItem mnuShowDefDialog;
 
-    private PivotDef PivotDef => PivotView.PivotDef;
+    private PivotViewDef ViewDef => PivotView.ViewDef;
     private DataGridColumn SelectedColumn;
     private PivotFieldDef SelectedFieldDef => SelectedColumn != null? PivotView.GetFieldDef(SelectedColumn) : null;
   
     // ● event handlers
     private async void AnyClick(object sender, RoutedEventArgs ea)
     {
-        if (mnuPivotDefDialog == sender)
-            await ShowPivotDefDialog();
-        else if (mnuShowSubtotals== sender)
+        if (mnuShowSubtotals== sender)
             ShowSubtotalsChanged();
         else if (mnuShowGrandTotals == sender)
             ShowGrandTotalsChanged();
-        else if (mnuShowValuesOnRows == sender)
-            ShowValuesOnRowsChanged();
         else if (mnuRepeatRowHeaders == sender)
             RepeatRowHeaders();
+        
+        else if (mnuShowDefDialog == sender)
+            await ShowDefDialog();
     }
- 
     private void Grid_PointerPressed(object sender, PointerPressedEventArgs e)
     {
         var props = e.GetCurrentPoint(Grid).Properties;
@@ -71,100 +64,62 @@ public class PivotViewMenu
         }
     }
 
+    // ● private
     void ShowSubtotalsChanged()
     {
-        PivotDef.ShowSubtotals = mnuShowSubtotals.IsChecked;
+        ViewDef.ShowSubtotals = mnuShowSubtotals.IsChecked;
         PivotView.Refresh();
     }
     void ShowGrandTotalsChanged()
     {
-        PivotDef.ShowGrandTotals = mnuShowGrandTotals.IsChecked;
-        PivotView.Refresh();
-    }
-    void ShowValuesOnRowsChanged()
-    {
-        PivotDef.ShowValuesOnRows = mnuShowValuesOnRows.IsChecked;
+        ViewDef.ShowGrandTotals = mnuShowGrandTotals.IsChecked;
         PivotView.Refresh();
     }
     void RepeatRowHeaders()
     {
-        PivotDef.RepeatRowHeaders = mnuRepeatRowHeaders.IsChecked;
+        ViewDef.RepeatRowHeaders = mnuRepeatRowHeaders.IsChecked;
         PivotView.Refresh();
         
     }
-
-    // ● private
+    
     void CreateContextMenu()
     {
         mnuContextMenu = new ContextMenu();
-   
-        mnuAddToRows = mnuContextMenu.Items.AddMenuItem("Add to Rows", null);
-        mnuAddToColumns = mnuContextMenu.Items.AddMenuItem("Add to Columns", null);
-        mnuAddToValues = mnuContextMenu.Items.AddMenuItem("Add to Values", null);
-        sepAdd = mnuContextMenu.Items.AddSeparator();
+
         mnuShowSubtotals = mnuContextMenu.Items.AddCheckBoxMenuItem("Show Subtotals", false, AnyClick);
         mnuShowGrandTotals = mnuContextMenu.Items.AddCheckBoxMenuItem("Show Grand Totals", false, AnyClick);
-        mnuShowValuesOnRows = mnuContextMenu.Items.AddCheckBoxMenuItem("Show Values on Rows", false, AnyClick);
         mnuRepeatRowHeaders = mnuContextMenu.Items.AddCheckBoxMenuItem("Repeat Row Headers", false, AnyClick);
         mnuContextMenu.Items.AddSeparator();
-        mnuPivotDefDialog = mnuContextMenu.Items.AddMenuItem("Edit Pivot", AnyClick);
+        mnuShowDefDialog = mnuContextMenu.Items.AddMenuItem("Edit Pivot", AnyClick);
     }
     void UpdateContextMenu()
     {
-        if (SelectedFieldDef != null)
-        {
-            string Caption = SelectedFieldDef.Caption;
-            
-            if (PivotDef.CanBeRow(SelectedFieldDef))
-                mnuAddToRows.Header = $"Add to Rows [{Caption}]";
-            else
-                mnuAddToRows.IsVisible = false;
-            
-            if (PivotDef.CanBeColumn(SelectedFieldDef))
-                mnuAddToColumns.Header = $"Add to Columns [{Caption}]";
-            else
-                mnuAddToColumns.IsVisible = false;
-            
-            if (PivotDef.CanBeValue(SelectedFieldDef))
-                mnuAddToValues.Header = $"Add to Values [{Caption}]";
-            else
-                mnuAddToValues.IsVisible = false;
-
-            sepAdd.IsVisible = mnuAddToRows.IsVisible || mnuAddToColumns.IsVisible || mnuAddToValues.IsVisible;
-        }
-        else
-        {
-            mnuAddToRows.IsVisible = false;
-            mnuAddToColumns.IsVisible = false;
-            mnuAddToValues.IsVisible = false;
-            sepAdd.IsVisible = false;
-        }
-        
-        
-        mnuShowSubtotals.IsChecked = PivotDef.ShowSubtotals;
-        mnuShowGrandTotals.IsChecked = PivotDef.ShowGrandTotals;
-        mnuShowValuesOnRows.IsChecked = PivotDef.ShowValuesOnRows;
+        mnuShowSubtotals.IsChecked = ViewDef.ShowSubtotals;
+        mnuShowGrandTotals.IsChecked = ViewDef.ShowGrandTotals;
     }
     void GridColumnListChanged()
     {
     }
  
-    async Task ShowPivotDefDialog()
+    async Task ShowDefDialog()
     {
-        PivotView.UpdateDataTypes(PivotDef);
+        PivotView.UpdateDataTypes(ViewDef);
         
-        PivotDef PivotDef2 = PivotDef.Clone();
-        PivotDef2.IsNameReadOnly = true;
+        PivotViewDef PivotViewDef2 = ViewDef.Clone();
+        PivotViewDef2.IsNameReadOnly = true;
         
-        DialogData data = await DialogWindow.ShowModal<PivotDefDialog>(PivotDef2);
+        DialogData data = await DialogWindow.ShowModal<PivotDefDialog>(PivotViewDef2);
         if (data.Result)
         {
-            // ΕΔΩ
+            ViewDef.AssignFrom(PivotViewDef2);
+            PivotView.Refresh();
         }
             
         await Task.CompletedTask;
     }
-    
+
+
+
     // ● construction
     public PivotViewMenu()
     {

@@ -61,8 +61,6 @@ public class GridViewExportOptions: SettingsBase
     public string ExportFilePath { get; set; }
     public string Culture { get; set; } = "en-US";
     public string Encoding { get; set; } = "utf-8";
-    //public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
-    //public Encoding Encoding { get; set; } = new UTF8Encoding(true);
     public string DateTimeFormat { get; set; } = "yyyy-MM-dd HH:mm";
     public string NumberFormat { get; set; } = "N2";
     public bool IncludeHeaders { get; set; } = true;

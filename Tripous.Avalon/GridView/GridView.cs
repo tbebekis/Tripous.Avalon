@@ -420,6 +420,8 @@ public class GridView
         }
     }
     
+    public GridViewDef CreateDefaultViewDef() => Controller.ViewSource.CreateDefaultViewDef();
+    
     // ● properties
     public DataGrid Grid
     {

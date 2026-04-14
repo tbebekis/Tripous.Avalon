@@ -13,7 +13,7 @@ namespace Tripous.Avalon;
 
 public partial class PivotDefDialog : DialogWindow
 {
-    private PivotDef PivotDef;
+    private PivotViewDef PivotViewDef;
     
     async void AnyClick(object sender, RoutedEventArgs e)
     {
@@ -49,11 +49,10 @@ public partial class PivotDefDialog : DialogWindow
     }
     void AnyColumnCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (lboColumns.SelectedItem is PivotFieldDef FieldDef)
-            ControlsToField(FieldDef);
+        if (lboFields.SelectedItem is PivotFieldDef FieldDef)
+            ComboBoxesToField(FieldDef); 
     }
 
-    
     // ● private
     void Move(ListBox Box, List<PivotFieldDef> List, bool Up)
     {
@@ -74,22 +73,22 @@ public partial class PivotDefDialog : DialogWindow
 
         RefreshListBoxes();
     }
-    void MoveRow(bool Up) =>  Move(lboRows, PivotDef.GetRowFields().ToList(), Up);
-    void MoveColumn(bool Up) =>  Move(lboColumns, PivotDef.GetColumnFields().ToList(), Up);
-    void MoveValue(bool Up) =>  Move(lboRows, PivotDef.GetValueFields().ToList(), Up);
+    void MoveRow(bool Up) =>  Move(lboRows, PivotViewDef.GetRowFields().ToList(), Up);
+    void MoveColumn(bool Up) =>  Move(lboColumns, PivotViewDef.GetColumnFields().ToList(), Up);
+    void MoveValue(bool Up) =>  Move(lboValues, PivotViewDef.GetValueFields().ToList(), Up);
 
     void RefreshListBoxes()
     {
-        var RowFields = PivotDef.GetRowFields();
+        var RowFields = PivotViewDef.GetRowFields();
         lboRows.ItemsSource = RowFields;
 
-        var ColumnFields = PivotDef.GetColumnFields();
+        var ColumnFields = PivotViewDef.GetColumnFields();
         lboColumns.ItemsSource = ColumnFields;
 
-        var ValueFields = PivotDef.GetValueFields();
+        var ValueFields = PivotViewDef.GetValueFields();
         lboValues.ItemsSource = ValueFields;
         
-        edtSummary.Text = PivotDef.GetDescription();
+        edtSummary.Text = PivotViewDef.GetDescription();
     }
 
     void FieldToControls(PivotFieldDef FieldDef)
@@ -124,20 +123,26 @@ public partial class PivotDefDialog : DialogWindow
             return;
         
         FieldDef.Caption = edtCaption.Text;
+        FieldDef.Format = edtFormat.Text;
+        FieldDef.SortByValue = chSortByValue.IsChecked == true;
+
+        ComboBoxesToField(FieldDef);
         
+        edtSummary.Text = PivotViewDef.GetDescription();
+    }
+    void ComboBoxesToField(PivotFieldDef FieldDef)
+    {
         if (cboAxis.SelectedItem is PivotFieldMode Axis)
             FieldDef.FieldMode = Axis;
         
         if (cboSortDirection.SelectedItem is ListSortDirection SortDirection)
             FieldDef.SortDirection = SortDirection;
-
-        FieldDef.Format = edtFormat.Text;
-        FieldDef.SortByValue = chSortByValue.IsChecked == true;
         
         if (cboValueAggregateType.SelectedItem is PivotValueAggregateType ValueAggregateType)
             FieldDef.ValueAggregateType = ValueAggregateType;
-        
-        edtSummary.Text = PivotDef.GetDescription();
+
+        RefreshListBoxes();
+        edtSummary.Text = PivotViewDef.GetDescription();
     }
     
     // ● overrides
@@ -146,8 +151,8 @@ public partial class PivotDefDialog : DialogWindow
         if (Design.IsDesignMode)
             return;
 
-        PivotDef = InputData as PivotDef;
-        ResultData = PivotDef;
+        PivotViewDef = InputData as PivotViewDef;
+        ResultData = PivotViewDef;
         
         btnCancel.Focus();
 
@@ -158,20 +163,19 @@ public partial class PivotDefDialog : DialogWindow
         if (Design.IsDesignMode)
             return;
 
-        if (PivotDef == null)
+        if (PivotViewDef == null)
             return;
         
         // ● General
-        edtName.Text = PivotDef.Name;
-        edtName.IsReadOnly = PivotDef.IsNameReadOnly;
-        chShowSubtotals.IsChecked = PivotDef.ShowSubtotals;
-        chShowGrandTotals.IsChecked = PivotDef.ShowGrandTotals;
-        chShowValuesOnRows.IsChecked = PivotDef.ShowValuesOnRows;
-        chRepeatRowHeaders.IsChecked = PivotDef.RepeatRowHeaders;
-        edtSummary.Text = PivotDef.GetDescription();
+        edtName.Text = PivotViewDef.Name;
+        edtName.IsReadOnly = PivotViewDef.IsNameReadOnly;
+        chShowSubtotals.IsChecked = PivotViewDef.ShowSubtotals;
+        chShowGrandTotals.IsChecked = PivotViewDef.ShowGrandTotals;
+        chRepeatRowHeaders.IsChecked = PivotViewDef.RepeatRowHeaders;
+        edtSummary.Text = PivotViewDef.GetDescription();
         
         // ● Columns
-        lboFields.ItemsSource = PivotDef.Fields;
+        lboFields.ItemsSource = PivotViewDef.Fields;
         cboAxis.ItemsSource = Enum.GetValues(typeof(PivotFieldMode));
         cboSortDirection.ItemsSource = Enum.GetValues(typeof(ListSortDirection));
         cboValueAggregateType.ItemsSource = Enum.GetValues(typeof(PivotValueAggregateType));
@@ -191,14 +195,14 @@ public partial class PivotDefDialog : DialogWindow
         // miscs
         lboFields.SelectionChanged += lboFields_SelectionChanged;
         
-        if (PivotDef.Fields.Count > 0)
+        if (PivotViewDef.Fields.Count > 0)
             lboColumns.SelectedIndex = 0;
         
         cboAxis.SelectionChanged += AnyColumnCombo_SelectionChanged;
         cboSortDirection.SelectionChanged += AnyColumnCombo_SelectionChanged;
         cboValueAggregateType.SelectionChanged += AnyColumnCombo_SelectionChanged;
 
-        if (PivotDef.Fields.Count > 0)
+        if (PivotViewDef.Fields.Count > 0)
             lboFields.SelectedIndex = 0;
 
         await Task.CompletedTask;
@@ -208,19 +212,28 @@ public partial class PivotDefDialog : DialogWindow
         if (Design.IsDesignMode)
             return;
 
-        if (PivotDef == null)
+        if (PivotViewDef == null)
             return;
+        
+        // ● General
+        PivotViewDef.Name = edtName.Text;
 
-        string Errors = PivotDef.GetErrors();
+        PivotViewDef.ShowSubtotals = chShowSubtotals.IsChecked == true;
+        PivotViewDef.ShowGrandTotals = chShowGrandTotals.IsChecked == true;
+        PivotViewDef.RepeatRowHeaders = chRepeatRowHeaders.IsChecked == true; 
+        
+        if (lboFields.SelectedItem is PivotFieldDef FieldDef)
+            ComboBoxesToField(FieldDef); 
+
+        string Errors = PivotViewDef.GetErrors();
         if (!string.IsNullOrWhiteSpace(Errors))
         {
             await MessageBox.Error(Errors, this);
             return;
         }
         
-        
         await Task.CompletedTask;
-        //this.ModalResult = ModalResult.Ok;
+        this.ModalResult = ModalResult.Ok;
     }
     
     // ● construction

@@ -112,14 +112,14 @@ static public class PivotDataExtensions
     }
     
     /// <summary>
-    /// Creates a default <see cref="PivotDef"/> based on a specified <see cref="DataView"/>.
+    /// Creates a default <see cref="PivotViewDef"/> based on a specified <see cref="DataView"/>.
     /// </summary>
-    static public PivotDef CreateDefaultPivotDef(this DataView DataView)
+    static public PivotViewDef CreateDefaultPivotDef(this DataView DataView)
     {
         if (DataView == null)
             throw new ArgumentNullException(nameof(DataView));
 
-        PivotDef Result = new();
+        PivotViewDef Result = new();
 
         var All = DataView.Table.Columns.Cast<DataColumn>().ToList();
         var Strings = All.Where(x => x.DataType == typeof(string)).ToList();
@@ -183,9 +183,9 @@ static public class PivotDataExtensions
 
         return Result;
     }
-    static public PivotDef CreateDefaultPivotDef(this Type T)
+    static public PivotViewDef CreateDefaultPivotDef(this Type T)
     {
-        PivotDef Result = new();
+        PivotViewDef Result = new();
                 
         var All = T.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList(); 
         var Strings = All.Where(x => x.PropertyType == typeof(string)).ToList();
@@ -399,12 +399,12 @@ public class PivotFieldDef
 /// <summary>
 /// Pivot definition.
 /// </summary>
-public class PivotDef
+public class PivotViewDef
 {
     private string fName;
     
     // ● construction
-    public PivotDef()
+    public PivotViewDef()
     {
     }
 
@@ -440,7 +440,7 @@ public class PivotDef
         return S;
     }
  
-    public void AssignFrom(PivotDef Source)
+    public void AssignFrom(PivotViewDef Source)
     {
         Fields.Clear();
         
@@ -448,7 +448,6 @@ public class PivotDef
 
         ShowSubtotals = Source.ShowSubtotals;
         ShowGrandTotals = Source.ShowGrandTotals;
-        ShowValuesOnRows = Source.ShowValuesOnRows;
         RepeatRowHeaders = Source.RepeatRowHeaders;
         
         Tag = Source.Tag;
@@ -458,9 +457,9 @@ public class PivotDef
             Fields.Add(SourceField.Clone());
          
     }
-    public PivotDef Clone()
+    public PivotViewDef Clone()
     {
-        PivotDef Result = new();
+        PivotViewDef Result = new();
         Result.AssignFrom(this);
         return Result;
     }
@@ -511,14 +510,6 @@ public class PivotDef
         return Result;
     }
 
-    public bool IsRow(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.FieldMode == PivotFieldMode.Row;
-    public bool IsColumn(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.FieldMode == PivotFieldMode.Row;
-    public bool IsValue(PivotFieldDef FieldDef) => FieldDef != null && FieldDef.IsValue;
-    
-    public bool IsRow(string FieldName) => IsRow(Fields.FirstOrDefault(x => FieldName.IsSameText(x.FieldName)));
-    public bool IsColumn(string FieldName) => IsColumn(Fields.FirstOrDefault(x => FieldName.IsSameText(x.FieldName)));
-    public bool IsValue(string FieldName) => IsValue(Fields.FirstOrDefault(x => FieldName.IsSameText(x.FieldName)));
-
     public bool CanBeRow(PivotFieldDef FieldDef)
     {
         return !FieldDef.IsRow
@@ -544,38 +535,41 @@ public class PivotDef
     public string GetErrors()
     {
         StringBuilder SB = new();
+        
+        if (string.IsNullOrWhiteSpace(Name))
+            SB.AppendLine($"{nameof(PivotViewDef)} name is empty.");
 
         if (Fields == null || Fields.Count == 0)
-            SB.AppendLine("PivotDef contains no fields.");
+            SB.AppendLine($"{nameof(PivotViewDef)} contains no fields.");
 
         if (!GetValueFields().Any())
-            SB.AppendLine("PivotDef contains no value fields.");
+            SB.AppendLine($"{nameof(PivotViewDef)} contains no value fields.");
         
         if (Fields.Any(x => x == null))
-            SB.AppendLine("PivotDef contains null fields.");
+            SB.AppendLine($"{nameof(PivotViewDef)} contains null fields.");
         
         if (Fields.Any(x => string.IsNullOrWhiteSpace(x.FieldName)))
-            SB.AppendLine("PivotDef contains field with empty FieldName.");
+            SB.AppendLine($"{nameof(PivotViewDef)} contains field with empty FieldName.");
         
         if (Fields.Any(x => x.DataType == null))
-            SB.AppendLine("PivotDef contains fields with null DataTypes.");
+            SB.AppendLine($"{nameof(PivotViewDef)} contains fields with null DataTypes.");
 
         HashSet<string> FieldNames = new(StringComparer.OrdinalIgnoreCase);
 
         foreach (PivotFieldDef Field in Fields)
         {
             if (!FieldNames.Add(Field.FieldName))
-                SB.AppendLine($"Duplicate pivot field: '{Field.FieldName}'.");
+                SB.AppendLine($"Duplicate field: '{Field.FieldName}'.");
 
             if (Field.IsValue)
             {
                 if (Field.ValueAggregateType == PivotValueAggregateType.None)
                 {
-                    SB.AppendLine($"Value pivot field with no aggregate: '{Field.FieldName}'.");
+                    SB.AppendLine($"Value field with no aggregate: '{Field.FieldName}'.");
                 }
                 else if (!Field.DataType.GetValidPivotAggregates().ToList().Contains(Field.ValueAggregateType))
                 {
-                    SB.AppendLine($"Value pivot field with no valid aggregate: '{Field.FieldName}'.");
+                    SB.AppendLine($"Value field with no valid aggregate: '{Field.FieldName}'.");
                 }
             }
         }
@@ -627,7 +621,7 @@ public class PivotDef
     public ObservableCollection<PivotFieldDef> Fields { get; set; } = new();
     public bool ShowSubtotals { get; set; } = true;
     public bool ShowGrandTotals { get; set; } = true;
-    public bool ShowValuesOnRows { get; set; }
+    //public bool ShowValuesOnRows { get; set; }
     public bool RepeatRowHeaders { get; set; } = false;
 
     [JsonIgnore]
@@ -639,12 +633,12 @@ public class PivotDef
     public int ValueCount => Fields.Where(x => x.IsValue).Count();
 }
 
-public class PivotDefs
+public class PivotViewDefs
 {
     private string fName;
 
     // ● construction
-    public PivotDefs()
+    public PivotViewDefs()
     {
     }
 
@@ -654,57 +648,57 @@ public class PivotDefs
     public void LoadFromFile()
     {
         if (string.IsNullOrWhiteSpace(FilePath) || !File.Exists(FilePath))
-            throw new ApplicationException($"Cannot load {nameof(PivotDefs)}. Invalid file path");
+            throw new ApplicationException($"Cannot load {nameof(PivotViewDefs)}. Invalid file path");
         DefList.Clear();
         Json.LoadFromFile(this, FilePath);
     }
     public void SaveToFile()
     {
         if (string.IsNullOrWhiteSpace(FilePath) || !File.Exists(FilePath))
-            throw new ApplicationException($"Cannot save {nameof(PivotDefs)}. Invalid file path");
+            throw new ApplicationException($"Cannot save {nameof(PivotViewDefs)}. Invalid file path");
         Json.SaveToFile(this, FilePath);
     }
     
-    public PivotDef Find(string Name) => DefList.FirstOrDefault(x => Name.IsSameText(x.Name));
+    public PivotViewDef Find(string Name) => DefList.FirstOrDefault(x => Name.IsSameText(x.Name));
     public bool Contains(string Name) => DefList.Any(x => x.Name.IsSameText(Name));
-    public PivotDef Get(string Name)
+    public PivotViewDef Get(string Name)
     {
-        PivotDef Result = Find(Name);
+        PivotViewDef Result = Find(Name);
         if (Result == null)
-            throw new ApplicationException($"{nameof(PivotDef)} not found: {Name}");
+            throw new ApplicationException($"{nameof(PivotViewDef)} not found: {Name}");
         return Result;
     }
 
-    PivotDef AddInternal(PivotDef PivotDef, string Name = "")
+    PivotViewDef AddInternal(PivotViewDef PivotViewDef, string Name = "")
     {
         if (!string.IsNullOrWhiteSpace(Name))
-            PivotDef.Name = Name;
+            PivotViewDef.Name = Name;
         
-        if (string.IsNullOrWhiteSpace(PivotDef.Name)) 
-            PivotDef.Name = Sys.GenId();
+        if (string.IsNullOrWhiteSpace(PivotViewDef.Name)) 
+            PivotViewDef.Name = Sys.GenId();
         
         if (DefList.Count == 0)
-            PivotDef.Name = "Default";
+            PivotViewDef.Name = "Default";
 
-        if (Contains(PivotDef.Name))
-            throw new ApplicationException($"{nameof(PivotDef)} already exists in list: {PivotDef.Name}");
+        if (Contains(PivotViewDef.Name))
+            throw new ApplicationException($"{nameof(PivotViewDef)} already exists in list: {PivotViewDef.Name}");
 
-        DefList.Add(PivotDef);
-        return PivotDef;
+        DefList.Add(PivotViewDef);
+        return PivotViewDef;
     }
-    public PivotDef Add(string Name = "")
+    public PivotViewDef Add(string Name = "")
     {
-        PivotDef PivotDef = new();
-        return AddInternal(PivotDef, Name);
+        PivotViewDef PivotViewDef = new();
+        return AddInternal(PivotViewDef, Name);
     }
-    public void Remove(PivotDef PivotDef)
+    public void Remove(PivotViewDef PivotViewDef)
     {
-        if (DefList.Contains(PivotDef))
+        if (DefList.Contains(PivotViewDef))
         {
             if (DefList.Count == 1)
-                throw new ApplicationException($"Cannot delete the last {nameof(PivotDef)} from list.");
+                throw new ApplicationException($"Cannot delete the last {nameof(PivotViewDef)} from list.");
             if (DefList.Count > 1)
-                DefList.Remove(PivotDef);
+                DefList.Remove(PivotViewDef);
         }
     }
     
@@ -717,7 +711,7 @@ public class PivotDefs
         get => !string.IsNullOrWhiteSpace(fName) ? fName : Sys.GenId();
         set => fName = value;
     }
-    public List<PivotDef> DefList { get; set; } = new();
+    public List<PivotViewDef> DefList { get; set; } = new();
     [JsonIgnore] 
     public string FilePath { get; set; }
 }
@@ -990,7 +984,7 @@ static public class PivotEngine
         }
     }
 
-    static private void ValidateDef(PivotDef Def)
+    static private void ValidateDef(PivotViewDef ViewDef)
     {
         /*
         if (Def.Fields == null || Def.Fields.Count == 0)
@@ -1013,11 +1007,11 @@ static public class PivotEngine
                 throw new ApplicationException($"Duplicate pivot field '{Field.FieldName}'.");
         }
         */
-        Def.Check();
+        ViewDef.Check();
     }
     static private CollectResult Collect<T>(
         IEnumerable<T> Source,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> RowFields,
         List<PivotFieldDef> ColumnFields,
         List<PivotFieldDef> ValueFields)
@@ -1027,14 +1021,14 @@ static public class PivotEngine
         Result.RowEntries.AddRange(Source.Select(CreateRowSourceEntry));
 
         foreach (RowSourceEntry Entry in Result.RowEntries)
-            CollectEntry(Result, Entry, Def, RowFields, ColumnFields, ValueFields);
+            CollectEntry(Result, Entry, ViewDef, RowFields, ColumnFields, ValueFields);
 
         return Result;
     }
     static private void CollectEntry(
         CollectResult Result,
         RowSourceEntry Entry,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> RowFields,
         List<PivotFieldDef> ColumnFields,
         List<PivotFieldDef> ValueFields)
@@ -1045,17 +1039,17 @@ static public class PivotEngine
         string DetailRowKey = ComposeKey(RowValues);
         string DetailColumnKey = ComposeKey(ColumnValues);
 
-        RegisterDetailKeys(Result, Def, RowFields, ColumnFields, RowValues, ColumnValues, DetailRowKey, DetailColumnKey);
+        RegisterDetailKeys(Result, ViewDef, RowFields, ColumnFields, RowValues, ColumnValues, DetailRowKey, DetailColumnKey);
 
         foreach (PivotFieldDef ValueField in ValueFields)
         {
             object Value = GetValue(Entry, ValueField.FieldName);
-            CollectValue(Result, Def, RowFields, ColumnFields, ValueField, Value, RowValues, ColumnValues, DetailRowKey, DetailColumnKey);
+            CollectValue(Result, ViewDef, RowFields, ColumnFields, ValueField, Value, RowValues, ColumnValues, DetailRowKey, DetailColumnKey);
         }
     }
     static private void RegisterDetailKeys(
         CollectResult Result,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> RowFields,
         List<PivotFieldDef> ColumnFields,
         object[] RowValues,
@@ -1069,7 +1063,7 @@ static public class PivotEngine
         if (!Result.DetailColumnKeyMap.ContainsKey(DetailColumnKey))
             Result.DetailColumnKeyMap[DetailColumnKey] = ColumnValues;
 
-        if (!Def.ShowSubtotals)
+        if (!ViewDef.ShowSubtotals)
             return;
 
         RegisterSubtotalRowKeys(Result, RowFields, RowValues);
@@ -1107,7 +1101,7 @@ static public class PivotEngine
     }
     static private void CollectValue(
         CollectResult Result,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> RowFields,
         List<PivotFieldDef> ColumnFields,
         PivotFieldDef ValueField,
@@ -1120,10 +1114,10 @@ static public class PivotEngine
         UpdateBucket(Result.DetailBuckets, DetailRowKey, DetailColumnKey, ValueField, Value);
         CollectRowSortBuckets(Result, RowFields, ValueField, Value, RowValues);
         CollectColumnSortBuckets(Result, ColumnFields, ValueField, Value, ColumnValues);
-        CollectDetailGrandTotal(Result, Def, ValueField, Value, DetailRowKey);
-        CollectRowSubtotals(Result, Def, RowFields, ValueField, Value, RowValues, DetailColumnKey);
-        CollectColumnSubtotals(Result, Def, RowFields, ColumnFields, ValueField, Value, RowValues, ColumnValues, DetailRowKey);
-        CollectGrandTotals(Result, Def, ValueField, Value, DetailColumnKey);
+        CollectDetailGrandTotal(Result, ViewDef, ValueField, Value, DetailRowKey);
+        CollectRowSubtotals(Result, ViewDef, RowFields, ValueField, Value, RowValues, DetailColumnKey);
+        CollectColumnSubtotals(Result, ViewDef, RowFields, ColumnFields, ValueField, Value, RowValues, ColumnValues, DetailRowKey);
+        CollectGrandTotals(Result, ViewDef, ValueField, Value, DetailColumnKey);
     }
     static private void CollectRowSortBuckets(
         CollectResult Result,
@@ -1165,26 +1159,26 @@ static public class PivotEngine
     }
     static private void CollectDetailGrandTotal(
         CollectResult Result,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         PivotFieldDef ValueField,
         object Value,
         string DetailRowKey)
     {
-        if (!Def.ShowGrandTotals)
+        if (!ViewDef.ShowGrandTotals)
             return;
 
         UpdateBucket(Result.DetailBuckets, DetailRowKey, string.Empty, ValueField, Value);
     }
     static private void CollectRowSubtotals(
         CollectResult Result,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> RowFields,
         PivotFieldDef ValueField,
         object Value,
         object[] RowValues,
         string DetailColumnKey)
     {
-        if (!Def.ShowSubtotals || RowFields.Count == 0)
+        if (!ViewDef.ShowSubtotals || RowFields.Count == 0)
             return;
 
         for (int RowLevel = 0; RowLevel < RowFields.Count; RowLevel++)
@@ -1195,13 +1189,13 @@ static public class PivotEngine
 
             UpdateBucket(BucketMap, SubtotalGroupKey, DetailColumnKey, ValueField, Value);
 
-            if (Def.ShowGrandTotals)
+            if (ViewDef.ShowGrandTotals)
                 UpdateBucket(BucketMap, SubtotalGroupKey, string.Empty, ValueField, Value);
         }
     }
     static private void CollectColumnSubtotals(
         CollectResult Result,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> RowFields,
         List<PivotFieldDef> ColumnFields,
         PivotFieldDef ValueField,
@@ -1210,7 +1204,7 @@ static public class PivotEngine
         object[] ColumnValues,
         string DetailRowKey)
     {
-        if (!Def.ShowSubtotals || ColumnFields.Count == 0)
+        if (!ViewDef.ShowSubtotals || ColumnFields.Count == 0)
             return;
 
         for (int ColumnLevel = 0; ColumnLevel < ColumnFields.Count; ColumnLevel++)
@@ -1221,7 +1215,7 @@ static public class PivotEngine
             UpdateBucket(Result.DetailBuckets, DetailRowKey, SubtotalColumnKey, ValueField, Value);
             CollectRowColumnSubtotalCross(Result, RowFields, ValueField, Value, RowValues, SubtotalColumnKey);
 
-            if (Def.ShowGrandTotals)
+            if (ViewDef.ShowGrandTotals)
                 UpdateBucket(Result.GrandBuckets, GrandRowKey, SubtotalColumnKey, ValueField, Value);
         }
     }
@@ -1247,19 +1241,19 @@ static public class PivotEngine
     }
     static private void CollectGrandTotals(
         CollectResult Result,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         PivotFieldDef ValueField,
         object Value,
         string DetailColumnKey)
     {
-        if (!Def.ShowGrandTotals)
+        if (!ViewDef.ShowGrandTotals)
             return;
 
         UpdateBucket(Result.GrandBuckets, GrandRowKey, DetailColumnKey, ValueField, Value);
         UpdateBucket(Result.GrandBuckets, GrandRowKey, string.Empty, ValueField, Value);
     }
     static private PivotData BuildPivotData(
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> RowFields,
         List<PivotFieldDef> ColumnFields,
         List<PivotFieldDef> ValueFields,
@@ -1279,7 +1273,7 @@ static public class PivotEngine
 
         BuildColumnsResult ColumnsResult = BuildValueColumns(
             Result,
-            Def,
+            ViewDef,
             ColumnFields,
             ValueFields,
             DetailColumnKeyMap,
@@ -1287,7 +1281,7 @@ static public class PivotEngine
             ColumnSortBucketsByLevel);
 
         List<RowOutputEntry> OutputRows = BuildOutputRows(
-            Def,
+            ViewDef,
             RowFields,
             ValueFields,
             DetailRowKeyMap,
@@ -1325,7 +1319,7 @@ static public class PivotEngine
     }
     static private BuildColumnsResult BuildValueColumns(
         PivotData Result,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> ColumnFields,
         List<PivotFieldDef> ValueFields,
         Dictionary<string, object[]> DetailColumnKeyMap,
@@ -1335,7 +1329,7 @@ static public class PivotEngine
         BuildColumnsResult BuildResult = new();
 
         BuildResult.OutputColumns.AddRange(BuildOutputColumns(
-            Def,
+            ViewDef,
             ColumnFields,
             ValueFields,
             DetailColumnKeyMap,
@@ -1421,7 +1415,7 @@ static public class PivotEngine
         }
     }
     static private List<RowOutputEntry> BuildOutputRows(
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> RowFields,
         List<PivotFieldDef> ValueFields,
         Dictionary<string, object[]> DetailRowKeyMap,
@@ -1432,7 +1426,7 @@ static public class PivotEngine
 
         if (RowFields.Count == 0)
         {
-            AddNoRowFieldsEntries(Result, Def);
+            AddNoRowFieldsEntries(Result, ViewDef);
             return Result;
         }
 
@@ -1445,12 +1439,12 @@ static public class PivotEngine
         if (OrderedDetailRows.Count == 0)
             return Result;
 
-        AppendRowLevel(Result, Def, RowFields, SubtotalRowKeyMaps, OrderedDetailRows, 0);
-        AddGrandTotalRow(Result, Def, RowFields);
+        AppendRowLevel(Result, ViewDef, RowFields, SubtotalRowKeyMaps, OrderedDetailRows, 0);
+        AddGrandTotalRow(Result, ViewDef, RowFields);
 
         return Result;
     }
-    static private void AddNoRowFieldsEntries(List<RowOutputEntry> Result, PivotDef Def)
+    static private void AddNoRowFieldsEntries(List<RowOutputEntry> Result, PivotViewDef ViewDef)
     {
         Result.Add(new RowOutputEntry
         {
@@ -1460,7 +1454,7 @@ static public class PivotEngine
             Level = -1
         });
 
-        if (Def.ShowGrandTotals)
+        if (ViewDef.ShowGrandTotals)
         {
             Result.Add(new RowOutputEntry
             {
@@ -1486,10 +1480,10 @@ static public class PivotEngine
     }
     static private void AddGrandTotalRow(
         List<RowOutputEntry> Result,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> RowFields)
     {
-        if (!Def.ShowGrandTotals)
+        if (!ViewDef.ShowGrandTotals)
             return;
 
         object[] GrandValues = new object[RowFields.Count];
@@ -1505,7 +1499,7 @@ static public class PivotEngine
     }
     static private void AppendRowLevel(
         List<RowOutputEntry> Output,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> RowFields,
         Dictionary<int, Dictionary<string, object[]>> SubtotalRowKeyMaps,
         List<KeyValuePair<string, object[]>> Rows,
@@ -1525,11 +1519,11 @@ static public class PivotEngine
             List<KeyValuePair<string, object[]>> GroupRows = Rows.GetRange(GroupStart, Index - GroupStart);
 
             if (Level < RowFields.Count - 1)
-                AppendRowLevel(Output, Def, RowFields, SubtotalRowKeyMaps, GroupRows, Level + 1);
+                AppendRowLevel(Output, ViewDef, RowFields, SubtotalRowKeyMaps, GroupRows, Level + 1);
             else
                 AppendDetailRows(Output, GroupRows);
 
-            if (Def.ShowSubtotals && GroupRows.Count > 1)
+            if (ViewDef.ShowSubtotals && GroupRows.Count > 1)
             {
                 object[] SubtotalGroupValues = GetSubtotalGroupValues(GroupRows[0].Value, Level);
                 string SubtotalGroupKey = ComposeKey(SubtotalGroupValues);
@@ -1545,7 +1539,7 @@ static public class PivotEngine
         }
     }
     static private List<ColumnOutputEntry> BuildOutputColumns(
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> ColumnFields,
         List<PivotFieldDef> ValueFields,
         Dictionary<string, object[]> DetailColumnKeyMap,
@@ -1568,12 +1562,12 @@ static public class PivotEngine
 
         if (OrderedDetailColumns.Count == 0)
         {
-            AddGrandTotalColumnIfNeeded(Result, Def);
+            AddGrandTotalColumnIfNeeded(Result, ViewDef);
             return Result;
         }
 
-        AppendColumnLevel(Result, Def, ColumnFields, SubtotalColumnKeyMaps, OrderedDetailColumns, 0);
-        AddGrandTotalColumnIfNeeded(Result, Def);
+        AppendColumnLevel(Result, ViewDef, ColumnFields, SubtotalColumnKeyMaps, OrderedDetailColumns, 0);
+        AddGrandTotalColumnIfNeeded(Result, ViewDef);
 
         return Result;
     }
@@ -1600,9 +1594,9 @@ static public class PivotEngine
             false,
             ColumnSortBucketsByLevel);
     }
-    static private void AddGrandTotalColumnIfNeeded(List<ColumnOutputEntry> Result, PivotDef Def)
+    static private void AddGrandTotalColumnIfNeeded(List<ColumnOutputEntry> Result, PivotViewDef ViewDef)
     {
-        if (!Def.ShowGrandTotals)
+        if (!ViewDef.ShowGrandTotals)
             return;
 
         Result.Add(new ColumnOutputEntry
@@ -1615,7 +1609,7 @@ static public class PivotEngine
     }
     static private void AppendColumnLevel(
         List<ColumnOutputEntry> Output,
-        PivotDef Def,
+        PivotViewDef ViewDef,
         List<PivotFieldDef> ColumnFields,
         Dictionary<int, Dictionary<string, object[]>> SubtotalColumnKeyMaps,
         List<KeyValuePair<string, object[]>> Columns,
@@ -1635,11 +1629,11 @@ static public class PivotEngine
             List<KeyValuePair<string, object[]>> GroupColumns = Columns.GetRange(GroupStart, Index - GroupStart);
 
             if (Level < ColumnFields.Count - 1)
-                AppendColumnLevel(Output, Def, ColumnFields, SubtotalColumnKeyMaps, GroupColumns, Level + 1);
+                AppendColumnLevel(Output, ViewDef, ColumnFields, SubtotalColumnKeyMaps, GroupColumns, Level + 1);
             else
                 AppendDetailColumns(Output, GroupColumns);
 
-            if (Def.ShowSubtotals && GroupColumns.Count > 1)
+            if (ViewDef.ShowSubtotals && GroupColumns.Count > 1)
             {
                 object[] SubtotalGroupValues = GetSubtotalGroupValues(GroupColumns[0].Value, Level);
                 string SubtotalGroupKey = ComposeKey(SubtotalGroupValues);
@@ -2025,31 +2019,31 @@ static public class PivotEngine
         return Current;
     }
 
-    static public PivotData Execute(DataView Source, PivotDef Def)
+    static public PivotData Execute(DataView Source, PivotViewDef ViewDef)
     {
         if (Source == null)
             throw new ArgumentNullException(nameof(Source));
 
-        return Execute(Source.Cast<DataRowView>(), Def);
+        return Execute(Source.Cast<DataRowView>(), ViewDef);
     }
-    static public PivotData Execute<T>(IEnumerable<T> Source, PivotDef Def)
+    static public PivotData Execute<T>(IEnumerable<T> Source, PivotViewDef ViewDef)
     {
         if (Source == null)
             throw new ArgumentNullException(nameof(Source));
-        if (Def == null)
-            throw new ArgumentNullException(nameof(Def));
+        if (ViewDef == null)
+            throw new ArgumentNullException(nameof(ViewDef));
 
         //Def.Normalize();
-        ValidateDef(Def);
+        ValidateDef(ViewDef);
 
-        List<PivotFieldDef> RowFields = Def.GetRowFields().ToList();
-        List<PivotFieldDef> ColumnFields = Def.GetColumnFields().ToList();
-        List<PivotFieldDef> ValueFields = Def.GetValueFields().ToList();
+        List<PivotFieldDef> RowFields = ViewDef.GetRowFields().ToList();
+        List<PivotFieldDef> ColumnFields = ViewDef.GetColumnFields().ToList();
+        List<PivotFieldDef> ValueFields = ViewDef.GetValueFields().ToList();
 
-        CollectResult Collected = Collect(Source, Def, RowFields, ColumnFields, ValueFields);
+        CollectResult Collected = Collect(Source, ViewDef, RowFields, ColumnFields, ValueFields);
 
         return BuildPivotData(
-            Def,
+            ViewDef,
             RowFields,
             ColumnFields,
             ValueFields,

@@ -16,11 +16,7 @@
                 </StackPanel>
         </Border>
 
-        <StackPanel DockPanel.Dock="Top" 
-                    Orientation="Horizontal" 
-                    Spacing="10" 
-                    Margin="0,0,0,10">
-            
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
             <Button x:Name="btnTest_DataView" Content="Test DataView" Click="AnyClick" />
             <Button x:Name="btnTest_Poco" Content="Test Poco" Click="AnyClick" />
             <Button x:Name="btnCloseGridView" Content="Close GridView" Click="AnyClick" />

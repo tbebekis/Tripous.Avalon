@@ -834,6 +834,47 @@ public class GridViewDef
         return Result;
     }
 
+    public string GetErrors()
+    {
+        StringBuilder SB = new();
+        
+        if (string.IsNullOrWhiteSpace(Name))
+            SB.AppendLine($"{nameof(GridViewDef)} name is empty.");
+
+        if (Columns == null || Columns.Count == 0)
+            SB.AppendLine($"{nameof(GridViewDef)} contains no columns.");
+
+        if (!GetVisibleColumns().Any())
+            SB.AppendLine($"{nameof(GridViewDef)} contains no visible columns.");
+        
+        if (Columns.Any(x => x == null))
+            SB.AppendLine($"{nameof(GridViewDef)} contains null GridViewDef.");
+        
+        if (Columns.Any(x => string.IsNullOrWhiteSpace(x.FieldName)))
+            SB.AppendLine($"{nameof(GridViewDef)} contains columns with empty FieldName.");
+        
+        if (Columns.Any(x => x.DataType == null))
+            SB.AppendLine($"{nameof(GridViewDef)} contains columns with null DataTypes.");
+
+        HashSet<string> FieldNames = new(StringComparer.OrdinalIgnoreCase);
+
+        foreach (GridViewColumnDef Column in Columns)
+        {
+            if (!FieldNames.Add(Column.FieldName))
+                SB.AppendLine($"Duplicate field: '{Column.FieldName}'.");
+        }
+
+        return SB.ToString();
+    }
+    public bool HasErrors() => !string.IsNullOrWhiteSpace(GetErrors());
+    public void Check()
+    {
+        string Errors = GetErrors();
+        if (!string.IsNullOrWhiteSpace(Errors))
+            throw new ApplicationException(Errors);
+    }
+    
+    
     // ● properties
     /// <summary>
     /// The name of this grid view

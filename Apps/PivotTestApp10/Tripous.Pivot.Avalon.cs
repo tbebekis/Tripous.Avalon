@@ -187,9 +187,9 @@ public static class PivotGridRenderer
 
         return Result;
     }
-    private static List<PivotGridRow> CreateGridRows(PivotData PivotData, PivotDef PivotDef, Dictionary<string, int> Indexes)
+    private static List<PivotGridRow> CreateGridRows(PivotData PivotData, PivotViewDef PivotViewDef, Dictionary<string, int> Indexes)
     {
-        List<PivotDataRow> SourceRows = PivotDef != null && !PivotDef.RepeatRowHeaders
+        List<PivotDataRow> SourceRows = PivotViewDef != null && !PivotViewDef.RepeatRowHeaders
             ? CreateDisplayRows(PivotData)
             : PivotData.Rows;
 
@@ -341,7 +341,7 @@ public static class PivotGridRenderer
     /// <summary>
     /// Shows pivot data in a grid.
     /// </summary>
-    public static void Show(DataGrid Grid, PivotData PivotData, PivotDef PivotDef)
+    public static void Show(DataGrid Grid, PivotData PivotData, PivotViewDef PivotViewDef)
     {
         if (Grid == null)
             throw new ArgumentNullException(nameof(Grid));
@@ -353,7 +353,7 @@ public static class PivotGridRenderer
         Grid.IsReadOnly = true;
 
         Dictionary<string, int> Indexes = CreateIndexes(PivotData.Columns);
-        List<PivotGridRow> Rows = CreateGridRows(PivotData, PivotDef, Indexes);
+        List<PivotGridRow> Rows = CreateGridRows(PivotData, PivotViewDef, Indexes);
 
         foreach (PivotDataColumn Col in PivotData.Columns)
             Grid.Columns.Add(CreateColumn(Col));
