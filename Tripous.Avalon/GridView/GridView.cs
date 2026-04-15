@@ -37,8 +37,6 @@ public class GridView
 {
     // ● private fields
     private DataGrid fGrid;
-    private GridViewDefs fViewDefs;
-
  
     // ● overridables
     protected virtual void GridViewSourceChanged()
@@ -163,36 +161,15 @@ public class GridView
     }
     static public GridView Create(DataGrid Grid, DataView DataView, GridViewDef ViewDef, StackPanel ToolBarPanel = null, ILookupSource[] LookupSources = null)
     {
-        GridViewDefs ViewDefs = new();
-        ViewDefs.DefList.Add(ViewDef);
-        return Create(Grid, DataView, ViewDefs, ToolBarPanel, LookupSources);
-    }
-    static public GridView Create(DataGrid Grid, DataView DataView, GridViewDefs ViewDefs = null, StackPanel ToolBarPanel = null, ILookupSource[] LookupSources = null)
-    {
         GridView Result = new();
         
         if (LookupSources != null && LookupSources.Length > 0)
             Result.LookupRegistry.AddRange(LookupSources);
         
         Result.Grid = Grid;
+        Result.ViewDefs.Add(ViewDef);
+        Result.Controller.ViewDef = ViewDef;
         Result.SetSource(DataView);
-
-        if (ViewDefs != null)
-        {
-            if (ViewDefs.DefList.Count == 0)
-            {
-                GridViewDef ViewDef = GridViewDef.Create(DataView);
-                ViewDefs.DefList.Add(ViewDef);
-            }
-            
-            Result.ViewDefs = ViewDefs;
-        }
-        else
-        {
-            GridViewDef ViewDef = GridViewDef.Create(DataView);
-            Result.ViewDefs.DefList.Add(ViewDef);
-            Result.ViewDef = ViewDef;
-        }
 
         if (ToolBarPanel != null)
             Result.ToolBar.Panel = ToolBarPanel;
@@ -207,53 +184,36 @@ public class GridView
     }
     static public GridView Create<T>(DataGrid Grid, IEnumerable<T> Sequence, GridViewDef ViewDef, StackPanel ToolBarPanel = null, ILookupSource[] LookupSources = null)
     {
-        GridViewDefs ViewDefs = new();
-        ViewDefs.DefList.Add(ViewDef);
-        return Create(Grid, Sequence, ViewDefs, ToolBarPanel, LookupSources);
-    }
-    static public GridView Create<T>(DataGrid Grid, IEnumerable<T> Sequence, GridViewDefs ViewDefs = null, StackPanel ToolBarPanel = null, ILookupSource[] LookupSources = null)
-    {
         GridView Result = new();
         
         if (LookupSources != null && LookupSources.Length > 0)
             Result.LookupRegistry.AddRange(LookupSources);
         
         Result.Grid = Grid;
+        Result.ViewDefs.Add(ViewDef);
+        Result.Controller.ViewDef = ViewDef;
         Result.SetSource(Sequence);
-        
-        if (ViewDefs != null)
-        {
-            if (ViewDefs.DefList.Count == 0)
-            {
-                GridViewDef ViewDef = GridViewDef.Create(typeof(T));
-                ViewDefs.DefList.Add(ViewDef);
-            }
-            
-            Result.ViewDefs = ViewDefs;
-        }
-        else
-        {
-            GridViewDef ViewDef = GridViewDef.Create(typeof(T));
-            Result.ViewDefs.DefList.Add(ViewDef);
-            Result.ViewDef = ViewDef;
-        }
 
         if (ToolBarPanel != null)
             Result.ToolBar.Panel = ToolBarPanel;
 
         return Result;
     }
-    
+ 
     // ● public methods
     public void SetSource(DataView DataViewSource)
     {
         this.Controller.SetSource(DataViewSource);
         GridViewSourceChanged();
+        if (CanRefresh())
+            Refresh();
     }
     public void SetSource<T>(IEnumerable<T> SequenceSource)
     {
         this.Controller.SetSource(SequenceSource);
         GridViewSourceChanged();
+        if (CanRefresh())
+            Refresh();
     }
     
     public void Close()
@@ -261,9 +221,13 @@ public class GridView
         Controller.Close();
         GridViewGridBinder.Refresh(fGrid);
     }
+    public bool CanRefresh() => Grid != null && ViewSource != null && ViewDef != null; 
     public void Refresh()
     {
-        Controller.Refresh();
+        if (CanRefresh())
+        {
+            Ui.ShowWaitCursor(Controller.Refresh, Grid);
+        } 
     }
  
     public bool MoveTo(int DataIndex)
@@ -390,11 +354,44 @@ public class GridView
 
     public virtual async Task SaveViewDefs()
     {
-        // TODO: SaveViewDefs όπως και η  AddItemAsync
+        if (!string.IsNullOrWhiteSpace(ViewDefs.FilePath))
+            ViewDefs.SaveToFile();
+        else
+            await SaveViewDefsAs();
     }
     public virtual async Task SaveViewDefsAs()
     {
-        // TODO: SaveViewDefsAs όπως και η  AddItemAsync
+        string FilePath = null;
+        if (DefsFilePathNeeded != null)
+        {
+            FilePathEventArgs Args = new();
+            DefsFilePathNeeded(this, Args);
+            if (!string.IsNullOrWhiteSpace(Args.FilePath))
+                FilePath = Args.FilePath;
+        }
+        else
+        {
+            FilePath = await Ui.SaveFileDialog(Grid, "json");
+        }
+
+        if (!string.IsNullOrWhiteSpace(FilePath))
+        {
+            ViewDefs.FilePath = FilePath;
+            ViewDefs.SaveToFile();
+        }
+    }
+
+    public virtual async Task Export(GridViewExportOptions Options = null)
+    {
+        Options = Options ?? new();
+        
+        if (string.IsNullOrWhiteSpace(Options.ExportFilePath))
+            Options.ExportFilePath = await Ui.SaveFileDialog(Grid, Options.Format.GetExportFileExtension());
+        
+        if (!string.IsNullOrWhiteSpace(Options.ExportFilePath))
+            GridViewExporter.Export(this, Options);
+
+        await Task.CompletedTask;
     }
     
     public DataGridColumn GetColumn(string FieldName) => Grid.Columns.FirstOrDefault(x => FieldName.IsSameText((x.Tag as GridViewColumnDef).FieldName));
@@ -461,27 +458,10 @@ public class GridView
         get => Controller.DataView ;
         set => SetSource(value);
     }
-    public GridViewDefs ViewDefs
-    {
-        get
-        {
-            if (fViewDefs == null)
-                fViewDefs = new();
-            
-            return  fViewDefs;
-        }
-        set
-        {
-            if (fViewDefs != value)
-            {
-                if (value == null || value.DefList.Count == 0)
-                    throw new ApplicationException($"No {nameof(GridViewDefs)} defined");
-                fViewDefs = value;
-                if (fViewDefs.DefList.Count > 0)
-                    ViewDef = fViewDefs.DefList[0];
-            }
-        }
-    }
+    public GridViewDefs ViewDefs { get; } = new();
+    /// <summary>
+    /// Setting this to a non-null value, it triggers the whole operation
+    /// </summary>
     public GridViewDef ViewDef
     {
         get => Controller != null ? Controller.ViewDef : null;
@@ -489,11 +469,12 @@ public class GridView
         {
             if (ViewDef != value)
             {
-                
                 if (value == null)
                     throw new ArgumentNullException(nameof(GridViewDef));
-                if (!ViewDefs.DefList.Contains(value))
-                    throw new ApplicationException($"{nameof(GridViewDef)} not in {nameof(GridViewDefs)} list");
+                
+                if (!ViewDefs.Contains(value))
+                    ViewDefs.Add(value);
+                //    throw new ApplicationException($"{nameof(GridViewDef)} not in {nameof(GridViewDefs)} list");
                 Controller.ViewDef = value;
             }
         }
@@ -533,4 +514,5 @@ public class GridView
     public event EventHandler<GridViewDataChangedEventArgs> DataChanged;
     public event EventHandler PositionChanged;
     public event EventHandler<GridViewItemEventArgs> DataItemAction;
+    public event EventHandler<FilePathEventArgs> DefsFilePathNeeded;
 }

@@ -873,7 +873,18 @@ public class GridViewDef
         if (!string.IsNullOrWhiteSpace(Errors))
             throw new ApplicationException(Errors);
     }
-    
+
+    public void ResetColumns()
+    {
+        foreach (var Column in Columns)
+        {
+            Column.VisibleIndex = 0;
+            Column.GroupIndex = -1;
+            Column.SortIndex = -1;
+            Column.SortDirection = ListSortDirection.Ascending;
+            Column.Aggregate = AggregateType.None;
+        }
+    }
     
     // ● properties
     /// <summary>
@@ -916,6 +927,23 @@ public class GridViewDefs
  
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
+    
+    public void AssignFrom(GridViewDefs Source)
+    {
+        fName = Source.fName;
+        FilePath = Source.FilePath;
+ 
+        DefList.Clear();
+        foreach (var Def in Source.DefList)
+            Add(Def);
+    }
+    public GridViewDefs Clone()
+    {
+        GridViewDefs Result = new();
+        Result.AssignFrom(this);
+        return Result;
+    }
+    
     public void LoadFromFile()
     {
         if (string.IsNullOrWhiteSpace(FilePath) || !File.Exists(FilePath))
@@ -925,13 +953,12 @@ public class GridViewDefs
     }
     public void SaveToFile()
     {
-        if (string.IsNullOrWhiteSpace(FilePath) || !File.Exists(FilePath))
-            throw new ApplicationException($"Cannot save {nameof(GridViewDefs)}. Invalid file path");
         Json.SaveToFile(this, FilePath);
     }
     
     public GridViewDef Find(string Name) => DefList.FirstOrDefault(x => Name.IsSameText(x.Name));
     public bool Contains(string Name) => DefList.Any(x => x.Name.IsSameText(Name));
+    public bool Contains(GridViewDef Def) => DefList.IndexOf(Def) >= 0;
     public GridViewDef Get(string Name)
     {
         GridViewDef Result = Find(Name);
@@ -940,7 +967,7 @@ public class GridViewDefs
         return Result;
     }
 
-    GridViewDef AddInternal(GridViewDef ViewDef, string Name = "")
+    public GridViewDef Add(GridViewDef ViewDef, string Name = "")
     {
         if (!string.IsNullOrWhiteSpace(Name))
             ViewDef.Name = Name;
@@ -960,12 +987,12 @@ public class GridViewDefs
     public GridViewDef Add(DataView Source, string Name = "")
     {
         GridViewDef ViewDef = GridViewDef.Create(Source);
-        return AddInternal(ViewDef, Name);
+        return Add(ViewDef, Name);
     }
     public GridViewDef Add(Type ItemType, string Name = "")
     {
         GridViewDef ViewDef = GridViewDef.Create(ItemType);
-        return AddInternal(ViewDef, Name);
+        return Add(ViewDef, Name);
     }
     public void Remove(GridViewDef ViewDef)
     {

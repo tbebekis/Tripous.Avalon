@@ -114,18 +114,17 @@ public class PivotViewToolBar: ToolBar
 
     async Task ShowExportDialog()
     {
-        /*
-        GridViewExportOptions Options = new();
+        PivotViewExportOptions Options = new();
         Options.Load();
         
-        DialogData data = await DialogWindow.ShowModal<GridViewExportDialog>(Options);
+        DialogData data = await DialogWindow.ShowModal<PivotViewExportDialog>(Options);
         if (data.Result)
         {
             Options.Save();
-            GridViewExporter.Export(GridView, Options);
+            await PivotView.Export(Options);
             await MessageBox.Info("Done.");
         }
-        */
+        
     }
     async Task ShowDefDialog()
     {
@@ -142,12 +141,12 @@ public class PivotViewToolBar: ToolBar
         }
             
         await Task.CompletedTask;
- 
     }
 
     async Task AddViewDef()
     {
         PivotViewDef ViewDef = PivotView.CreateDefaultViewDef();
+        PivotView.UpdateDataTypes(ViewDef);
         PivotView.ViewDef.IsNameReadOnly = false;
         DialogData data = await DialogWindow.ShowModal<PivotDefDialog>(ViewDef);
         if (data.Result)

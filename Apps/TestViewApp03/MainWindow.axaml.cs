@@ -96,10 +96,9 @@ public partial class MainWindow : Window
     void Test_Poco()
     {
         CloseGridView();
-        
-        GridViewDefs ViewDefs = new();
-        GridViewDef Def = ViewDefs.Add(typeof(SalesLine));  
-        Def.ShowGroupColumnsAsDataColumns = true;
+ 
+        GridViewDef Def = GridViewDef.Create(typeof(SalesLine));  
+        Def.ShowGroupColumnsAsDataColumns = false;
         
         Def["Product"].GroupIndex = 0;
         Def["CategoryId"].GroupIndex = 1;
@@ -111,12 +110,12 @@ public partial class MainWindow : Window
         Def["CategoryId"].ValueMember = "Id";
         Def["CategoryId"].DisplayMember = "Name";
         Def["CategoryId"].LookupSourceName = "Category";
-        
+       
         GridView = new GridView();
         GridView.LookupRegistry.Add(new CategoryLookupSourcePoco());
         GridView.Grid = gridView;
-        GridView.ViewDefs = ViewDefs;
         GridView.SetSource(Tests.SalesLines);
+        GridView.ViewDef = Def; // this triggers the whole procedure
         
         GridView.ToolBar.Panel = pnlToolBar;
         GridView.ToolBar.IsMultiDef = true;
@@ -126,12 +125,11 @@ public partial class MainWindow : Window
     void Test_DataView()
     {
         CloseGridView();
-        
+ 
         DataView DataView = Tests.tblSalesLines.DefaultView;
-        
-        GridViewDefs ViewDefs = new();
-        GridViewDef Def = ViewDefs.Add(DataView); 
-        Def.ShowGroupColumnsAsDataColumns = true;
+        GridViewDef Def = GridViewDef.Create(DataView);
+ 
+        Def.ShowGroupColumnsAsDataColumns = false;
         
         Def["CategoryId"].GroupIndex = 0;
         Def["Product"].GroupIndex = 1;
@@ -143,12 +141,12 @@ public partial class MainWindow : Window
         Def["CategoryId"].ValueMember = "Id";
         Def["CategoryId"].DisplayMember = "Name";
         Def["CategoryId"].LookupSourceName = "Category";
-
+        
         GridView = new GridView();
         GridView.LookupRegistry.Add(new CategoryLookupSourceDataView());
         GridView.Grid = gridView;
         GridView.DataView = DataView;
-        GridView.ViewDefs = ViewDefs;
+        GridView.ViewDef = Def; // this triggers the whole procedure
         
         GridView.ToolBar.Panel = pnlToolBar;
         GridView.ToolBar.IsMultiDef = true;

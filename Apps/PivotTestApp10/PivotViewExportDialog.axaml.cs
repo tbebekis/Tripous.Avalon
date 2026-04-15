@@ -1,8 +1,8 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -10,9 +10,10 @@ using Avalonia.Markup.Xaml;
 
 namespace Tripous.Avalon;
 
-public partial class GridViewExportDialog : DialogWindow
+public partial class PivotViewExportDialog : DialogWindow
 {
-    private GridViewExportOptions Options;
+    
+    private PivotViewExportOptions Options;
     
     // ● event handlers
     async void AnyClick(object sender, RoutedEventArgs e)
@@ -27,7 +28,7 @@ public partial class GridViewExportDialog : DialogWindow
 
     async Task ShowExportFilePathDialog()
     {
-        GridViewExportFormat Format = (GridViewExportFormat)cboFormat.SelectedItem;
+        PivotViewExportFormat Format = (PivotViewExportFormat)cboFormat.SelectedItem;
         string FilePath = await Ui.SaveFileDialog(this, Format.GetExportFileExtension());
         if (!string.IsNullOrWhiteSpace(FilePath))
             edtExportFilePath.Text = FilePath;
@@ -37,8 +38,8 @@ public partial class GridViewExportDialog : DialogWindow
     {
         if (Design.IsDesignMode)
             return;
-        
-        Options = InputData as GridViewExportOptions;
+
+        Options = InputData as PivotViewExportOptions;
         ResultData = Options;
  
         btnCancel.Focus();
@@ -49,20 +50,15 @@ public partial class GridViewExportDialog : DialogWindow
     {
         if (Design.IsDesignMode)
             return;
-        
         // tabGeneral
-        cboFormat.ItemsSource = Enum.GetValues(typeof(GridViewExportFormat));
+        cboFormat.ItemsSource = Enum.GetValues(typeof(PivotViewExportFormat));
         cboFormat.SelectedItem = Options.Format;
         edtExportFilePath.IsReadOnly = true;
         edtExportFilePath.Text = Options.ExportFilePath;
         // tabGeneral - General Options
         chIncludeHeaders.IsChecked = Options.IncludeHeaders;
-        chOnlyVisibleColumns.IsChecked = Options.OnlyVisibleColumns;
         chUseFormattedValues.IsChecked = Options.UseFormattedValues;
-        // tabGeneral - Grouping and Totals
-        chIncludeGroups.IsChecked = Options.IncludeGroups;
-        chIncludeFooters.IsChecked = Options.IncludeFooters;
-        chIncludeGrandTotal.IsChecked = Options.IncludeGrandTotal;
+        chBooleanAsCheckMark.IsChecked = Options.BooleanAsCheckMark;
         
         // tabData
         var Cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
@@ -75,10 +71,6 @@ public partial class GridViewExportDialog : DialogWindow
         edtNumberFormat.Text = Options.NumberFormat;
         edtBooleanTrueValue.Text = Options.BooleanTrueValue;
         edtBooleanFalseValue.Text = Options.BooleanFalseValue;
-        cboBlobMode.ItemsSource = Enum.GetValues(typeof(GridViewBlobExportMode));
-        cboBlobMode.SelectedItem = Options.BlobMode;
-        edtBlobPlaceholderText.Text = Options.BlobPlaceholderText;
-        edtMemoPlaceholderText.Text = Options.MemoPlaceholderText;
         
         // tabSpecific
         var Encodings = CodePage.GetSupportedCodePages().OrderBy(c => c.Name).Select(x => x.Name).ToList();
@@ -98,12 +90,13 @@ public partial class GridViewExportDialog : DialogWindow
             string FilePath = edtExportFilePath.GetText();
             if (!string.IsNullOrWhiteSpace(FilePath))
             {
-                GridViewExportFormat Format = (GridViewExportFormat)cboFormat.SelectedItem;
+                PivotViewExportFormat Format = (PivotViewExportFormat)cboFormat.SelectedItem;
 
                 FilePath = Path.ChangeExtension(FilePath, Format.GetExportFileExtension());
                 edtExportFilePath.Text = FilePath;
             }
         };
+
     }
     protected override async Task ControlsToItem()
     {
@@ -114,16 +107,12 @@ public partial class GridViewExportDialog : DialogWindow
             return;
         
         // tabGeneral
-        Options.Format = (GridViewExportFormat)cboFormat.SelectedItem;
+        Options.Format = (PivotViewExportFormat)cboFormat.SelectedItem;
         Options.ExportFilePath = edtExportFilePath.Text.Trim();
         // tabGeneral - General Options
         Options.IncludeHeaders = chIncludeHeaders.GetValue();
-        Options.OnlyVisibleColumns = chOnlyVisibleColumns.GetValue();
         Options.UseFormattedValues = chUseFormattedValues.GetValue();
-        // tabGeneral - Grouping and Totals
-        Options.IncludeGroups = chIncludeGroups.GetValue();
-        Options.IncludeFooters = chIncludeFooters.GetValue();
-        Options.IncludeGrandTotal = chIncludeGrandTotal.GetValue();
+        Options.BooleanAsCheckMark = chBooleanAsCheckMark.GetValue();
         
         // tabData
         Options.Culture = cboCulture.SelectedItem.ToString();
@@ -131,9 +120,6 @@ public partial class GridViewExportDialog : DialogWindow
         Options.NumberFormat = edtNumberFormat.GetText();
         Options.BooleanTrueValue  = edtBooleanTrueValue.GetText();
         Options.BooleanFalseValue   = edtBooleanFalseValue.GetText();
-        Options.BlobMode = (GridViewBlobExportMode)cboBlobMode.SelectedItem;
-        Options.BlobPlaceholderText = edtBlobPlaceholderText.GetText();
-        Options.MemoPlaceholderText = edtMemoPlaceholderText.GetText();
  
         // tabSpecific
         Options.Encoding = cboEncoding.SelectedItem.ToString();
@@ -149,7 +135,7 @@ public partial class GridViewExportDialog : DialogWindow
     }
     
     // ● construction
-    public GridViewExportDialog()
+    public PivotViewExportDialog()
     {
         InitializeComponent();
     }

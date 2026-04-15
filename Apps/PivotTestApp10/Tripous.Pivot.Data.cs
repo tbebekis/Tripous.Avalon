@@ -111,144 +111,7 @@ static public class PivotDataExtensions
         return ActualType.IsString() || ActualType.IsNumeric() || ActualType.IsDateTime();
     }
     
-    /// <summary>
-    /// Creates a default <see cref="PivotViewDef"/> based on a specified <see cref="DataView"/>.
-    /// </summary>
-    static public PivotViewDef CreateDefaultPivotDef(this DataView DataView)
-    {
-        if (DataView == null)
-            throw new ArgumentNullException(nameof(DataView));
 
-        PivotViewDef Result = new();
-
-        var All = DataView.Table.Columns.Cast<DataColumn>().ToList();
-        var Strings = All.Where(x => x.DataType == typeof(string)).ToList();
-        var Dates = All.Where(x => x.DataType == typeof(DateTime)).ToList();
-        var Numerics = All.Where(x => x.DataType.IsNumeric()).ToList();
-
-        var Eligible = All
-            .Where(x => x.DataType.IsPivotSupportedType())
-            .ToList();
-
-        foreach (DataColumn Col in Eligible)
-        {
-            Result.Fields.Add(new PivotFieldDef
-            {
-                FieldName = Col.ColumnName,
-                Caption = string.IsNullOrWhiteSpace(Col.Caption) ? Col.ColumnName : Col.Caption,
-                FieldMode = PivotFieldMode.None,
-                ValueAggregateType = PivotValueAggregateType.None,
-                SortByValue = true,
-                Format = Col.DataType == typeof(DateTime) ? "d" : null
-            });
-        }
-
-        var FirstRow = Strings.FirstOrDefault() ?? Dates.FirstOrDefault();
-        var FirstColumn = Strings.Skip(1).FirstOrDefault() ?? Dates.Skip(1).FirstOrDefault();
-        var FirstValue = Numerics.FirstOrDefault();
-
-        if (FirstRow != null)
-        {
-            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstRow.ColumnName);
-            if (Field != null)
-                Field.FieldMode = PivotFieldMode.Row;
-        }
-
-        if (FirstColumn != null)
-        {
-            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstColumn.ColumnName);
-            if (Field != null)
-                Field.FieldMode = PivotFieldMode.Column;
-        }
-
-        if (FirstValue != null)
-        {
-            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstValue.ColumnName);
-            if (Field != null)
-            {
-                Field.FieldMode = PivotFieldMode.Value;
-                Field.ValueAggregateType = PivotValueAggregateType.Sum;
-            }
-        }
-        else
-        {
-            PivotFieldDef Fallback = Result.Fields.FirstOrDefault(x => x.FieldMode == PivotFieldMode.None);
-
-            if (Fallback != null)
-            {
-                Fallback.FieldMode = PivotFieldMode.Value;
-                Fallback.ValueAggregateType = PivotValueAggregateType.Count;
-            }
-        }
-
-        return Result;
-    }
-    static public PivotViewDef CreateDefaultPivotDef(this Type T)
-    {
-        PivotViewDef Result = new();
-                
-        var All = T.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList(); 
-        var Strings = All.Where(x => x.PropertyType == typeof(string)).ToList();
-        var Dates = All.Where(x => x.PropertyType == typeof(DateTime)).ToList();
-        var Numerics = All.Where(x => x.PropertyType.IsNumeric()).ToList();
-
-        var Eligible = All
-            .Where(x => x.PropertyType.IsPivotSupportedType())
-            .ToList();
-
-        foreach (PropertyInfo Col in Eligible)
-        {
-            Result.Fields.Add(new PivotFieldDef
-            {
-                FieldName = Col.Name,
-                FieldMode = PivotFieldMode.None,
-                ValueAggregateType = PivotValueAggregateType.None,
-                SortByValue = true,
-                Format = Col.PropertyType == typeof(DateTime) ? "d" : null
-            });
-        }
-
-        var FirstRow = Strings.FirstOrDefault() ?? Dates.FirstOrDefault();
-        var FirstColumn = Strings.Skip(1).FirstOrDefault() ?? Dates.Skip(1).FirstOrDefault();
-        var FirstValue = Numerics.FirstOrDefault();
-
-        if (FirstRow != null)
-        {
-            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstRow.Name);
-            if (Field != null)
-                Field.FieldMode = PivotFieldMode.Row;
-        }
-
-        if (FirstColumn != null)
-        {
-            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstColumn.Name);
-            if (Field != null)
-                Field.FieldMode = PivotFieldMode.Column;
-        }
-
-        if (FirstValue != null)
-        {
-            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstValue.Name);
-            if (Field != null)
-            {
-                Field.FieldMode = PivotFieldMode.Value;
-                Field.ValueAggregateType = PivotValueAggregateType.Sum;
-            }
-        }
-        else
-        {
-            PivotFieldDef Fallback = Result.Fields.FirstOrDefault(x => x.FieldMode == PivotFieldMode.None);
-
-            if (Fallback != null)
-            {
-                Fallback.FieldMode = PivotFieldMode.Value;
-                Fallback.ValueAggregateType = PivotValueAggregateType.Count;
-            }
-        }
-
-
-        return Result;
-    }
     
     /// <summary>
     /// Returns the supported source columns of a specified <see cref="DataView"/>.
@@ -408,6 +271,146 @@ public class PivotViewDef
     {
     }
 
+    // ● static public
+    /// <summary>
+    /// Creates a default <see cref="PivotViewDef"/> based on a specified <see cref="DataView"/>.
+    /// </summary>
+    static public PivotViewDef Create(DataView DataView)
+    {
+        if (DataView == null)
+            throw new ArgumentNullException(nameof(DataView));
+
+        PivotViewDef Result = new();
+
+        var All = DataView.Table.Columns.Cast<DataColumn>().ToList();
+        var Strings = All.Where(x => x.DataType == typeof(string)).ToList();
+        var Dates = All.Where(x => x.DataType == typeof(DateTime)).ToList();
+        var Numerics = All.Where(x => x.DataType.IsNumeric()).ToList();
+
+        var Eligible = All
+            .Where(x => x.DataType.IsPivotSupportedType())
+            .ToList();
+
+        foreach (DataColumn Col in Eligible)
+        {
+            Result.Fields.Add(new PivotFieldDef
+            {
+                FieldName = Col.ColumnName,
+                Caption = string.IsNullOrWhiteSpace(Col.Caption) ? Col.ColumnName : Col.Caption,
+                FieldMode = PivotFieldMode.None,
+                ValueAggregateType = PivotValueAggregateType.None,
+                SortByValue = true,
+                Format = Col.DataType == typeof(DateTime) ? "d" : null
+            });
+        }
+
+        var FirstRow = Strings.FirstOrDefault() ?? Dates.FirstOrDefault();
+        var FirstColumn = Strings.Skip(1).FirstOrDefault() ?? Dates.Skip(1).FirstOrDefault();
+        var FirstValue = Numerics.FirstOrDefault();
+
+        if (FirstRow != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstRow.ColumnName);
+            if (Field != null)
+                Field.FieldMode = PivotFieldMode.Row;
+        }
+
+        if (FirstColumn != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstColumn.ColumnName);
+            if (Field != null)
+                Field.FieldMode = PivotFieldMode.Column;
+        }
+
+        if (FirstValue != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstValue.ColumnName);
+            if (Field != null)
+            {
+                Field.FieldMode = PivotFieldMode.Value;
+                Field.ValueAggregateType = PivotValueAggregateType.Sum;
+            }
+        }
+        else
+        {
+            PivotFieldDef Fallback = Result.Fields.FirstOrDefault(x => x.FieldMode == PivotFieldMode.None);
+
+            if (Fallback != null)
+            {
+                Fallback.FieldMode = PivotFieldMode.Value;
+                Fallback.ValueAggregateType = PivotValueAggregateType.Count;
+            }
+        }
+
+        return Result;
+    }
+    static public PivotViewDef Create(Type T)
+    {
+        PivotViewDef Result = new();
+                
+        var All = T.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList(); 
+        var Strings = All.Where(x => x.PropertyType == typeof(string)).ToList();
+        var Dates = All.Where(x => x.PropertyType == typeof(DateTime)).ToList();
+        var Numerics = All.Where(x => x.PropertyType.IsNumeric()).ToList();
+
+        var Eligible = All
+            .Where(x => x.PropertyType.IsPivotSupportedType())
+            .ToList();
+
+        foreach (PropertyInfo Col in Eligible)
+        {
+            Result.Fields.Add(new PivotFieldDef
+            {
+                FieldName = Col.Name,
+                FieldMode = PivotFieldMode.None,
+                ValueAggregateType = PivotValueAggregateType.None,
+                SortByValue = true,
+                Format = Col.PropertyType == typeof(DateTime) ? "d" : null
+            });
+        }
+
+        var FirstRow = Strings.FirstOrDefault() ?? Dates.FirstOrDefault();
+        var FirstColumn = Strings.Skip(1).FirstOrDefault() ?? Dates.Skip(1).FirstOrDefault();
+        var FirstValue = Numerics.FirstOrDefault();
+
+        if (FirstRow != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstRow.Name);
+            if (Field != null)
+                Field.FieldMode = PivotFieldMode.Row;
+        }
+
+        if (FirstColumn != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstColumn.Name);
+            if (Field != null)
+                Field.FieldMode = PivotFieldMode.Column;
+        }
+
+        if (FirstValue != null)
+        {
+            PivotFieldDef Field = Result.Fields.FirstOrDefault(x => x.FieldName == FirstValue.Name);
+            if (Field != null)
+            {
+                Field.FieldMode = PivotFieldMode.Value;
+                Field.ValueAggregateType = PivotValueAggregateType.Sum;
+            }
+        }
+        else
+        {
+            PivotFieldDef Fallback = Result.Fields.FirstOrDefault(x => x.FieldMode == PivotFieldMode.None);
+
+            if (Fallback != null)
+            {
+                Fallback.FieldMode = PivotFieldMode.Value;
+                Fallback.ValueAggregateType = PivotValueAggregateType.Count;
+            }
+        }
+
+
+        return Result;
+    }
+    
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
     public string GetDescription()
@@ -644,6 +647,21 @@ public class PivotViewDefs
 
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
+    public void AssignFrom(PivotViewDefs Source)
+    {
+        fName = Source.fName;
+        FilePath = Source.FilePath;
+ 
+        DefList.Clear();
+        foreach (var Def in Source.DefList)
+            Add(Def);
+    }
+    public PivotViewDefs Clone()
+    {
+        PivotViewDefs Result = new();
+        Result.AssignFrom(this);
+        return Result;
+    }
         
     public void LoadFromFile()
     {
@@ -661,6 +679,7 @@ public class PivotViewDefs
     
     public PivotViewDef Find(string Name) => DefList.FirstOrDefault(x => Name.IsSameText(x.Name));
     public bool Contains(string Name) => DefList.Any(x => x.Name.IsSameText(Name));
+    public bool Contains(PivotViewDef Def) => DefList.IndexOf(Def) >= 0;
     public PivotViewDef Get(string Name)
     {
         PivotViewDef Result = Find(Name);
@@ -669,7 +688,7 @@ public class PivotViewDefs
         return Result;
     }
 
-    PivotViewDef AddInternal(PivotViewDef PivotViewDef, string Name = "")
+    public PivotViewDef Add(PivotViewDef PivotViewDef, string Name = "")
     {
         if (!string.IsNullOrWhiteSpace(Name))
             PivotViewDef.Name = Name;
@@ -686,10 +705,15 @@ public class PivotViewDefs
         DefList.Add(PivotViewDef);
         return PivotViewDef;
     }
-    public PivotViewDef Add(string Name = "")
+    public PivotViewDef Add(DataView Source, string Name = "")
     {
-        PivotViewDef PivotViewDef = new();
-        return AddInternal(PivotViewDef, Name);
+        PivotViewDef PivotViewDef = PivotViewDef.Create(Source);
+        return Add(PivotViewDef, Name);
+    }
+    public PivotViewDef Add(Type ItemType, string Name = "")
+    {
+        PivotViewDef PivotViewDef = PivotViewDef.Create(ItemType);
+        return Add(PivotViewDef, Name);
     }
     public void Remove(PivotViewDef PivotViewDef)
     {

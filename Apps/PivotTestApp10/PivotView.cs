@@ -22,12 +22,10 @@ public class PivotView
 {
     // ● private fields
     private DataGrid fGrid;
-    private PivotViewDefs fViewDefs;
     private PivotViewDef fViewDef;
-
-    private DataView LastSourceDataView;
-    private IEnumerable LastSourceEnumerable;
-    private Type LastSourceType;
+    private DataView fDataView;
+    private IEnumerable EnumerableSource;
+    private Type EnumerableSourceType;
     
     // ● constructor
     public PivotView()
@@ -37,65 +35,24 @@ public class PivotView
     }
     
     // ● public
-    static public PivotView Create(DataGrid Grid, DataView DataView, PivotViewDef PivotViewDef)
-    {
-        PivotViewDefs ViewDefs = new();
-        ViewDefs.DefList.Add(PivotViewDef);
-        return Create(Grid, DataView, ViewDefs);
-    }
-    static public PivotView Create(DataGrid Grid, DataView DataView, PivotViewDefs ViewDefs)
+    static public PivotView Create(DataGrid Grid, DataView DataView, PivotViewDef ViewDef)
     {
         PivotView Result = new();
         Result.Grid = Grid;
-        Result.ViewDefs = ViewDefs;
         Result.SetSource(DataView);
+        Result.ViewDef = ViewDef;
         return Result;
     }
-    
-    static public PivotView Create<T>(DataGrid Grid, IEnumerable<T> Sequence, PivotViewDef PivotViewDef)
-    {
-        PivotViewDefs ViewDefs = new();
-        ViewDefs.DefList.Add(PivotViewDef);
-        return Create(Grid, Sequence, ViewDefs);
-    }
-    static public PivotView Create<T>(DataGrid Grid, IEnumerable<T> Sequence, PivotViewDefs ViewDefs)
+    static public PivotView Create<T>(DataGrid Grid, IEnumerable<T> Sequence, PivotViewDef ViewDef)
     {
         PivotView Result = new();
         Result.Grid = Grid;
-        Result.ViewDefs = ViewDefs;
         Result.SetSource(Sequence);
+        Result.ViewDef = ViewDef;
         return Result;
     }
-    
-    public void SetSource(DataView DataView)
-    {
-        if (DataView == null)
-            throw new ArgumentNullException(nameof(DataView));
-        if (Grid == null)
-            throw  new ApplicationException($"No {nameof(DataGrid)} defined");
-        if (ViewDef == null)
-            throw  new ApplicationException($"No {nameof(ViewDef)} defined");
 
-        LastSourceDataView = DataView;
-        LastSourceEnumerable = null;
-        LastSourceType = null;
-        
-        ViewDef.UpdateDataTypes(DataView);
-        
-        var top = TopLevel.GetTopLevel(Grid);
-
-        top.Cursor = new Cursor(StandardCursorType.Wait);
-        try
-        {
-            PivotData = PivotEngine.Execute(DataView, ViewDef);
-            PivotGridRenderer.Show(Grid, PivotData, ViewDef);
-        }
-        finally
-        {
-            top.Cursor = new Cursor(StandardCursorType.Arrow);
-        }
-        
-    }
+    public void SetSource(DataView DataView) => this.DataView = DataView;
     public void SetSource<T>(IEnumerable<T> Sequence)
     {
         if (Sequence == null)
@@ -105,24 +62,14 @@ public class PivotView
         if (ViewDef == null)
             throw  new ApplicationException($"No {nameof(ViewDef)} defined");
 
-        LastSourceType = typeof(T);
-        LastSourceEnumerable = Sequence;
-        LastSourceDataView = null;
+        EnumerableSourceType = typeof(T);
+        EnumerableSource = Sequence;
+        fDataView = null;
         
-        ViewDef.UpdateDataTypes(LastSourceType);
+        ViewDef.UpdateDataTypes(EnumerableSourceType);
         
-        var top = TopLevel.GetTopLevel(Grid);
-        top.Cursor = new Cursor(StandardCursorType.Wait);
-        try
-        {
-            PivotData = PivotEngine.Execute(Sequence, ViewDef);
-            PivotGridRenderer.Show(Grid, PivotData, ViewDef);
-        }
-        finally
-        {
-            top.Cursor = new Cursor(StandardCursorType.Arrow);
-        }
-
+        if (CanRefresh())
+            Refresh();
     }
     
     public DataGridColumn GetColumn(string FieldName) => Grid.Columns.FirstOrDefault(x => FieldName.IsSameText((x.Tag as PivotFieldDef).FieldName));
@@ -130,30 +77,26 @@ public class PivotView
 
     public void UpdateDataTypes(PivotViewDef ViewDef)
     {
-        if (LastSourceDataView != null)
-            ViewDef.UpdateDataTypes(LastSourceDataView);
-        else if (LastSourceType != null)
-            ViewDef.UpdateDataTypes(LastSourceType);
+        if (DataView != null)
+            ViewDef.UpdateDataTypes(DataView);
+        else if (EnumerableSourceType != null)
+            ViewDef.UpdateDataTypes(EnumerableSourceType);
     }
 
+    public bool CanRefresh() => Grid != null && (DataView != null || EnumerableSource != null) && ViewDef != null;
     public void Refresh()
     {
-        if (Grid == null)
-            throw new ApplicationException($"No {nameof(DataGrid)} defined");
-        if (ViewDef == null)
-            throw new ApplicationException($"No {nameof(ViewDef)} defined");
-
-        if (LastSourceDataView != null)
+        // -----------------------------------------------------------
+        void RefreshWithDataView()
         {
-            ViewDef.UpdateDataTypes(LastSourceDataView);
-            PivotData = PivotEngine.Execute(LastSourceDataView, ViewDef);
+            ViewDef.UpdateDataTypes(DataView);
+            PivotData = PivotEngine.Execute(DataView, ViewDef);
             PivotGridRenderer.Show(Grid, PivotData, ViewDef);
-            return;
         }
-
-        if (LastSourceEnumerable != null && LastSourceType != null)
+        // -----------------------------------------------------------
+        void RefreshWithEnumerable()
         {
-            ViewDef.UpdateDataTypes(LastSourceType);
+            ViewDef.UpdateDataTypes(EnumerableSourceType);
 
             MethodInfo Method = typeof(PivotEngine)
                 .GetMethods(BindingFlags.Static | BindingFlags.Public)
@@ -161,21 +104,26 @@ public class PivotView
                             && x.IsGenericMethodDefinition
                             && x.GetParameters().Length == 2);
 
-            MethodInfo GenericMethod = Method.MakeGenericMethod(LastSourceType);
+            MethodInfo GenericMethod = Method.MakeGenericMethod(EnumerableSourceType);
+            PivotData = (PivotData)GenericMethod.Invoke(null, new object[] { EnumerableSource, ViewDef });
+            PivotGridRenderer.Show(Grid, PivotData, ViewDef);
+        }
+        // -----------------------------------------------------------
+        
+        if (Grid == null)
+            throw new ApplicationException($"No {nameof(DataGrid)} defined");
+        if (ViewDef == null)
+            throw new ApplicationException($"No {nameof(ViewDef)} defined");
 
-            var top = TopLevel.GetTopLevel(Grid);
+        if (DataView != null)
+        {
+            Ui.ShowWaitCursor(RefreshWithDataView, Grid);
+            return;
+        }
 
-            top.Cursor = new Cursor(StandardCursorType.Wait);
-            try
-            {
-                PivotData = (PivotData)GenericMethod.Invoke(null, new object[] { LastSourceEnumerable, ViewDef });
-                PivotGridRenderer.Show(Grid, PivotData, ViewDef);
-            }
-            finally
-            {
-                top.Cursor = new Cursor(StandardCursorType.Arrow);
-            }
-
+        if (EnumerableSource != null && EnumerableSourceType != null)
+        {
+            Ui.ShowWaitCursor(RefreshWithEnumerable, Grid);
             return;
         }
 
@@ -184,19 +132,52 @@ public class PivotView
     
     public virtual async Task SaveViewDefs()
     {
-        // TODO: SaveViewDefs όπως και η  AddItemAsync
+        if (!string.IsNullOrWhiteSpace(ViewDefs.FilePath))
+            ViewDefs.SaveToFile();
+        else
+            await SaveViewDefsAs();
     }
     public virtual async Task SaveViewDefsAs()
     {
-        // TODO: SaveViewDefsAs όπως και η  AddItemAsync
+        string FilePath = null;
+        if (DefsFilePathNeeded != null)
+        {
+            FilePathEventArgs Args = new();
+            DefsFilePathNeeded(this, Args);
+            if (!string.IsNullOrWhiteSpace(Args.FilePath))
+                FilePath = Args.FilePath;
+        }
+        else
+        {
+            FilePath = await Ui.SaveFileDialog(Grid, "json");
+        }
+
+        if (!string.IsNullOrWhiteSpace(FilePath))
+        {
+            ViewDefs.FilePath = FilePath;
+            ViewDefs.SaveToFile();
+        }
+    }
+ 
+    public virtual async Task Export(PivotViewExportOptions Options = null)
+    {
+        Options = Options ?? new();
+        
+        if (string.IsNullOrWhiteSpace(Options.ExportFilePath))
+            Options.ExportFilePath = await Ui.SaveFileDialog(Grid, Options.Format.GetExportFileExtension());
+
+        if (!string.IsNullOrWhiteSpace(Options.ExportFilePath))
+            PivotViewExporter.Export(this, Options);
+        
+        await Task.CompletedTask;
     }
 
     public PivotViewDef CreateDefaultViewDef()
     {
-        if (LastSourceDataView != null)
-            return LastSourceDataView.CreateDefaultPivotDef();
-        if (LastSourceType != null)
-            LastSourceType.CreateDefaultPivotDef();
+        if (DataView != null)
+            return PivotViewDef.Create(DataView);
+        if (EnumerableSourceType != null)
+            return PivotViewDef.Create(EnumerableSourceType);
         return null;
     }
     
@@ -213,27 +194,31 @@ public class PivotView
             fGrid = value;
         }
     }
-    public PivotViewDefs ViewDefs
+    public DataView DataView
     {
-        get
-        {
-            if (fViewDefs == null)
-                fViewDefs = new();
-            
-            return  fViewDefs;
-        }
+        get => fDataView;
         set
         {
-            if (fViewDefs != value)
+            if (fDataView != value)
             {
-                if (value == null || value.DefList.Count == 0)
-                    throw new ApplicationException($"No {nameof(ViewDefs)} defined");
-                fViewDefs = value;
-                if (fViewDefs.DefList.Count > 0)
-                    ViewDef = fViewDefs.DefList[0];
+                fDataView = value;
+                if (value != null)
+                {
+                    EnumerableSource = null;
+                    EnumerableSourceType = null;
+                }
+                else
+                {
+                    if (ViewDef != null)
+                        ViewDef.UpdateDataTypes(DataView);
+                }
+                
+                if (CanRefresh())
+                    Refresh();
             }
         }
     }
+    public PivotViewDefs ViewDefs { get; } = new();
     public PivotViewDef ViewDef
     {
         get => fViewDef;
@@ -243,9 +228,19 @@ public class PivotView
             {
                 if (value == null)
                     throw new ArgumentNullException(nameof(ViewDef));
-                if (!ViewDefs.DefList.Contains(value))
-                    throw new ApplicationException($"{nameof(ViewDef)} not in {nameof(ViewDefs)} list");
+                
+                if (!ViewDefs.Contains(value))
+                    ViewDefs.Add(value);
+                
                 fViewDef = value;     
+                
+                if (DataView != null)
+                    ViewDef.UpdateDataTypes(DataView);
+                else if (EnumerableSourceType != null)
+                    ViewDef.UpdateDataTypes(EnumerableSourceType);
+                
+                if (CanRefresh())
+                    Refresh();
             }
         }
     }
@@ -253,4 +248,7 @@ public class PivotView
     public PivotData PivotData { get; private set; }
     public PivotViewToolBar ToolBar { get; } = new();
     public PivotViewMenu Menu { get; } = new();
+    
+    // ● events
+    public event EventHandler<FilePathEventArgs> DefsFilePathNeeded;
 }

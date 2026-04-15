@@ -155,7 +155,7 @@ public class GridViewToolBar: ToolBar
         if (data.Result)
         {
             Options.Save();
-            GridViewExporter.Export(GridView, Options);
+            await GridView.Export(Options);
             await MessageBox.Info("Done.");
         }
     }

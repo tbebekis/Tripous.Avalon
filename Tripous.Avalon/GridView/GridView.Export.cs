@@ -57,7 +57,7 @@ public class GridViewExportOptions: SettingsBase
     public Encoding GetEncoding() => System.Text.Encoding.GetEncoding(Encoding);
     
     // ● properties
-    public GridViewExportFormat Format { get; set; }
+    public GridViewExportFormat Format { get; set; } = GridViewExportFormat.Csv;
     public string ExportFilePath { get; set; }
     public string Culture { get; set; } = "en-US";
     public string Encoding { get; set; } = "utf-8";

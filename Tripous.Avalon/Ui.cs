@@ -213,6 +213,40 @@ static public class Ui
     {
         return await Tripous.Avalon.InputBox.ShowModal(Message, Value, Caller);
     }
+
+    static public void ShowWaitCursor(Action Proc, Control Caller = null)
+    {
+        if (Caller == null)
+            Caller = Ui.MainWindow;
+        
+        var top = TopLevel.GetTopLevel(Caller);        
+        top.Cursor = new Cursor(StandardCursorType.Wait);
+        try
+        {
+            Proc();
+        }
+        finally
+        {
+            top.Cursor = new Cursor(StandardCursorType.Arrow);
+        }
+    }
+    static public void ShowWaitCursor<T>(Action<T> Proc, T Info, Control Caller = null)
+    {
+        if (Caller == null)
+            Caller = Ui.MainWindow;
+        
+        var top = TopLevel.GetTopLevel(Caller);        
+        top.Cursor = new Cursor(StandardCursorType.Wait);
+        try
+        {
+            Proc(Info);
+        }
+        finally
+        {
+            top.Cursor = new Cursor(StandardCursorType.Arrow);
+        }
+    }
+    
     
     // ● properties
     /// <summary>
