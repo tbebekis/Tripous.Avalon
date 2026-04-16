@@ -112,6 +112,19 @@ public class ToolBar
 
         return Result;
     }
+    public ToggleButton AddToggleButton(string ImageFileName = null, string ToolTipText = null, EventHandler<RoutedEventArgs> OnCheckedChanged = null)
+    {
+        ToggleButton Result = new ToggleButton();
+
+        SetupButton(Result, ImageFileName, ToolTipText);
+
+        if (OnCheckedChanged != null)
+            Result.IsCheckedChanged += (Sender, Args) => OnCheckedChanged(Sender, Args);
+ 
+        Panel.Children.Add(Result);
+
+        return Result;
+    }
     public TextBox AddTextBox(string Text = null, double Width = double.NaN)
     {
         TextBox Result = new TextBox();
@@ -190,8 +203,27 @@ public class ToolBar
             {
                 PanelChanging();
                 fPanel = value;
+                Container = value != null? value.FindAncestorOfType<Border>(): null;
                 PanelChanged();
             }
         }
     }
+    public virtual Border Container { get; private set; }
+    public bool IsVisible
+    {
+        get
+        {
+            if (Container != null)
+                return Container.IsVisible;
+            return Panel.IsVisible;
+        }
+        set
+        {
+            if (Container != null)
+                Container.IsVisible = value;
+            else
+                Panel.IsVisible = value;
+        }
+    }
+
 }

@@ -17,7 +17,9 @@ static public class DbSchemaLoader
             _ => throw new Exception($"Unsupported DbServerType: {DbServerType}")
         };
 
-        return $"{typeof(DbSchema).Namespace}.Resources.Sql.{folder}";
+        string ResourceBasePath = $"Tripous.Data.Metadata.Resources.Sql.{folder}";
+
+        return ResourceBasePath; // $"{typeof(DbSchema).Namespace}.Resources.Sql.{folder}";
     }
     static void Clear(DbSchema Schema)
     {
@@ -43,10 +45,10 @@ static public class DbSchemaLoader
         }
 
         string foundName = string.Empty;
-        foreach (string resourceName in assembly.GetManifestResourceNames())
+        string[] ManifestResourceNames = assembly.GetManifestResourceNames();
+        foreach (string resourceName in ManifestResourceNames)
         {
-            if (resourceName.Equals(exactName, StringComparison.OrdinalIgnoreCase) ||
-                resourceName.EndsWith($".{fileStem}.sql", StringComparison.OrdinalIgnoreCase))
+            if (resourceName.Equals(exactName, StringComparison.OrdinalIgnoreCase))
             {
                 foundName = resourceName;
                 break;
@@ -60,11 +62,14 @@ static public class DbSchemaLoader
         if (foundStream == null)
             return string.Empty;
 
+        string SqlText = string.Empty;
         using (foundStream)
         using (StreamReader foundReader = new StreamReader(foundStream))
         {
-            return foundReader.ReadToEnd();
+            SqlText = foundReader.ReadToEnd();
         }
+
+        return SqlText;
     }
 
     static string ProcessReplacementsInMetadataSql(DbConnectionInfo ConInfo, string SqlText)

@@ -24,6 +24,7 @@ global using Avalonia.Platform.Storage;
 global using Avalonia.Threading;
 global using Avalonia.Input;
 global using Avalonia.VisualTree;
+global using Avalonia.LogicalTree;
 global using Avalonia.Markup.Xaml;
 global using Avalonia.Layout;
 global using Avalonia.Media;

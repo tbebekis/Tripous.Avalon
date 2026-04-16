@@ -37,6 +37,7 @@ public class GridView
 {
     // ● private fields
     private DataGrid fGrid;
+    private bool fIdColumnsVisible = true;
  
     // ● overridables
     protected virtual void GridViewSourceChanged()
@@ -147,6 +148,24 @@ public class GridView
         return false;
     }
     
+    protected virtual void ToggleIdColumns()
+    {
+        if (Grid != null && ViewDef != null)
+        {
+            foreach (var ColumnDef in ViewDef.Columns)
+            {
+                if (!string.IsNullOrWhiteSpace(ColumnDef.FieldName) && ColumnDef.FieldName.EndsWith("Id", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    DataGridColumn Column = FindGridColumn(ColumnDef.FieldName);
+                    if (Column != null)
+                        Column.IsVisible = IdColumnsVisible;
+                }
+            }
+            
+            IdColumnsVisibleChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+    
     // ● constructor
     public GridView()
     {
@@ -167,9 +186,9 @@ public class GridView
             Result.LookupRegistry.AddRange(LookupSources);
         
         Result.Grid = Grid;
+        Result.SetSource(DataView);
         Result.ViewDefs.Add(ViewDef);
         Result.Controller.ViewDef = ViewDef;
-        Result.SetSource(DataView);
 
         if (ToolBarPanel != null)
             Result.ToolBar.Panel = ToolBarPanel;
@@ -190,9 +209,9 @@ public class GridView
             Result.LookupRegistry.AddRange(LookupSources);
         
         Result.Grid = Grid;
+        Result.SetSource(Sequence);
         Result.ViewDefs.Add(ViewDef);
         Result.Controller.ViewDef = ViewDef;
-        Result.SetSource(Sequence);
 
         if (ToolBarPanel != null)
             Result.ToolBar.Panel = ToolBarPanel;
@@ -201,19 +220,25 @@ public class GridView
     }
  
     // ● public methods
-    public void SetSource(DataView DataViewSource)
+    public void SetSource(DataView DataViewSource, bool GenerateDef = false)
     {
         this.Controller.SetSource(DataViewSource);
         GridViewSourceChanged();
         if (CanRefresh())
             Refresh();
+        
+        if (GenerateDef)
+            this.ViewDef = GridViewDef.Create(DataViewSource);
     }
-    public void SetSource<T>(IEnumerable<T> SequenceSource)
+    public void SetSource<T>(IEnumerable<T> SequenceSource, bool GenerateDef = false)
     {
         this.Controller.SetSource(SequenceSource);
         GridViewSourceChanged();
         if (CanRefresh())
             Refresh();
+        
+        if (GenerateDef)
+            this.ViewDef = GridViewDef.Create(typeof(T));
     }
     
     public void Close()
@@ -280,7 +305,7 @@ public class GridView
     {
         return Controller != null && Controller.CollapseAll();
     }
-
+ 
     public virtual async Task AddItemAsync()
     {
         GridViewItemEventArgs e = CreateArgs(GridViewAction.Add);
@@ -394,7 +419,7 @@ public class GridView
         await Task.CompletedTask;
     }
     
-    public DataGridColumn GetColumn(string FieldName) => Grid.Columns.FirstOrDefault(x => FieldName.IsSameText((x.Tag as GridViewColumnDef).FieldName));
+    public DataGridColumn FindGridColumn(string FieldName) => Grid.Columns.FirstOrDefault(x => FieldName.IsSameText((x.Tag as GridViewColumnDef).FieldName));
     public GridViewColumnDef GetColumnDef(DataGridColumn Column) => Column.Tag as GridViewColumnDef;
 
     public void UpdateColumnTitles()
@@ -509,10 +534,24 @@ public class GridView
      
     public GridViewContext Context { get; } = new();
     public LookupRegistry LookupRegistry => Context.LookupRegistry;
+
+    public bool IdColumnsVisible
+    {
+        get => fIdColumnsVisible;
+        set
+        {
+            if (Grid != null && ViewDef != null && fIdColumnsVisible != value)
+            {
+                fIdColumnsVisible = value;
+                ToggleIdColumns();
+            }
+        }
+    }
     
     // ● events
     public event EventHandler<GridViewDataChangedEventArgs> DataChanged;
     public event EventHandler PositionChanged;
     public event EventHandler<GridViewItemEventArgs> DataItemAction;
     public event EventHandler<FilePathEventArgs> DefsFilePathNeeded;
+    public event EventHandler IdColumnsVisibleChanged;
 }

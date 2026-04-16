@@ -1,3 +1,4 @@
+using Avalonia.LogicalTree;
 using Avalonia.Styling;
 
 namespace Tripous.Avalon;
@@ -68,8 +69,6 @@ static public class TripousAvalonExtensions
 
         return RequiresIndexer ? $"[{PropertyName}]" : PropertyName;
     }
- 
- 
  
     /// <summary>
     /// Finds and returns a column by name (i.e. Header), if any, else null.
@@ -215,6 +214,43 @@ static public class TripousAvalonExtensions
  
     }
     
- 
+    // ● Button
+    static public void PerformClick(this Button Button)
+    {
+        if (Button != null)
+        {
+            var clickArgs = new RoutedEventArgs(Button.ClickEvent);
+            Button.RaiseEvent(clickArgs);
+        }
+    }
+    
+    // ● TabItem
+    static public void TabItem_MiddleClick(object sender, PointerPressedEventArgs e)
+    {
+        if (e.GetCurrentPoint(null).Properties.PointerUpdateKind == PointerUpdateKind.MiddleButtonPressed)
+        {
+            if (sender is TabItem Page)
+            {
+                var Pager = Page.FindLogicalAncestorOfType<TabControl>();
+
+                if (Pager != null)
+                {
+                    Pager.Items.Remove(Page);
+                }
+            }
+        }
+    }
+    static public void Close(this TabItem Page)
+    {
+        if (Page != null)
+        {
+            var Pager = Page.FindLogicalAncestorOfType<TabControl>();
+
+            if (Pager != null)
+            {
+                Pager.Items.Remove(Page);
+            }
+        }
+    }
 }
 

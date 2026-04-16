@@ -30,7 +30,7 @@
     </ItemGroup>    
 
     <ItemGroup>
-        <EmbeddedResource Include="Resources\Sql\**\*.sql" />
+        <EmbeddedResource Include="Data.Metadata\Resources\Sql\**\*.sql" />
     </ItemGroup>
 
 </Project>

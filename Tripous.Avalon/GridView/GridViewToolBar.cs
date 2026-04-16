@@ -24,16 +24,23 @@ public enum GridViewToolBarButtons : ulong
     ExpandAll = 0x8,
     CollapseAll = 0x10,
     
-    Save = 0x20,
-    SaveAs = 0x40,
+    ToggleIds = 0x20,
     
-    ExportDialog = 0x80,
-    ViewDefDialog = 0x100,
+    Save = 0x40,
+    SaveAs = 0x80,
     
-    AddViewDef = 0x200,
-    EditViewDef = 0x400,
-    DeleteViewDef = 0x800,
+    ExportDialog = 0x100,
+    ViewDefDialog = 0x200,
+    
+    AddViewDef = 0x400,
+    EditViewDef = 0x800,
+    DeleteViewDef = 0x1000,
 
+    EditRowButtons = Add | Edit | Delete,
+    EditViewButtons = AddViewDef | EditViewDef | DeleteViewDef,
+    ExpandButtons = ExpandAll | CollapseAll,
+    SaveButtons = Save | SaveAs,
+    
     All = 0xFFFFFFFF
 }
 
@@ -45,6 +52,8 @@ public class GridViewToolBar: ToolBar
     
     Button btnExpandAll;
     Button btnCollapseAll;
+
+    ToggleButton btnToggleIds;
     
     Button btnSave;
     Button btnSaveAs;
@@ -64,7 +73,6 @@ public class GridViewToolBar: ToolBar
     private Border sepExpand;
     
     private bool fIsMultiDef;
-    private bool fIsReadOnlyView;
     private GridView fGridView;
     private bool ControlsCreated;
     private ObservableCollection<GridViewDef> ViewDefs;
@@ -89,8 +97,11 @@ public class GridViewToolBar: ToolBar
         sepEdit = AddSeparator();
         btnExpandAll = AddButton("arrow_out.png", "Expand All", 
             (s, e) => GridView.ExpandAll());
-        btnCollapseAll = AddButton("arrow_in.png", "Collapse All", 
+        btnCollapseAll = AddButton("arrow_in.png", "Collapse All",
             (s, e) => GridView.CollapseAll());
+
+        btnToggleIds = AddToggleButton("table_select_column.png", "Hide Ids",
+            (s, e) => btnToggleIds_Clicked());
         
         sepExpand = AddSeparator();
         btnExportDialog = AddButton("table_export.png", "Export", 
@@ -118,6 +129,13 @@ public class GridViewToolBar: ToolBar
         ControlsCreated = true;
         VisibleControlsChanged();
     }
+    void btnToggleIds_Clicked()
+    {
+        bool Flag = !(btnToggleIds.IsChecked == true); // Checked = hide, else = show
+        GridView.IdColumnsVisible = Flag;  
+        string S = GridView.IdColumnsVisible ? "Hide Ids" : "Show Ids";
+        ToolTip.SetTip(btnToggleIds, S);
+    }
     void VisibleControlsChanged()
     {
         if (!ControlsCreated)
@@ -129,6 +147,8 @@ public class GridViewToolBar: ToolBar
         
         btnExpandAll.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.ExpandAll);
         btnCollapseAll.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.CollapseAll);
+        
+        btnToggleIds.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.ToggleIds);
         
         btnSave.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.Save);
         btnSaveAs.IsVisible = fVisibleButtons.HasFlag(GridViewToolBarButtons.SaveAs);
@@ -304,17 +324,21 @@ public class GridViewToolBar: ToolBar
     }
     public bool IsReadOnlyView
     {
-        get => fIsReadOnlyView;
+        get 
+        {
+            var Buttons = GridViewToolBarButtons.Add | GridViewToolBarButtons.Edit | GridViewToolBarButtons.Delete;
+            return (VisibleButtons & Buttons) == 0;
+        }
         set
         {
-            if (fIsReadOnlyView != value)
+            if (IsReadOnlyView != value)
             {
                 var Buttons = GridViewToolBarButtons.Add | GridViewToolBarButtons.Edit | GridViewToolBarButtons.Delete;
-                fIsReadOnlyView = value;
+            
                 if (value)
-                    VisibleButtons &= ~(Buttons);
+                    VisibleButtons &= ~Buttons; // Αφαίρεση (Bitwise NAND)
                 else
-                    VisibleButtons |= Buttons;
+                    VisibleButtons |= Buttons;  // Προσθήκη (Bitwise OR)
             }
         }
     }

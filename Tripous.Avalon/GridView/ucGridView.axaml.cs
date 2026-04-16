@@ -1,0 +1,102 @@
+namespace Tripous.Avalon;
+
+public partial class ucGridView : UserControl
+{
+    // ● private
+    void AfterCreate()
+    {
+        View = new();
+        View.Grid = ViewGrid;
+        View.ToolBar.Panel = pnlToolBar;
+    }
+    
+    
+    // ● constructor
+    public ucGridView()
+    {
+        InitializeComponent();
+        
+        if (!Design.IsDesignMode)
+            AfterCreate();
+    }
+    
+    // ● public methods
+    public void SetSource(DataView DataViewSource, bool GenerateDef = false)
+    {
+        View.SetSource(DataViewSource, GenerateDef);
+    }
+    public void SetSource<T>(IEnumerable<T> SequenceSource, bool GenerateDef = false)
+    {
+        View.SetSource(SequenceSource, GenerateDef);
+    }
+
+    public void CloseParentTabPage()
+    {
+        TabItem Page = this.FindLogicalAncestorOfType<TabItem>();
+        if (Page != null)
+        {
+            TabControl Pager = Page.FindLogicalAncestorOfType<TabControl>();
+            if (Pager != null)
+                Pager.Items.Remove(Page);
+        }
+    }
+    
+    // ● properties
+    public GridView View { get; private set;  }
+    public DataGrid Grid => View.Grid;
+    public GridViewToolBar ToolBar => View.ToolBar;
+    public GridViewMenu Menu => View.Menu;
+    public GridViewDefs ViewDefs  => View.ViewDefs;
+    public GridViewDef ViewDef
+    {
+        get => View.ViewDef;
+        set => View.ViewDef = value;
+    }
+    public DataView DataView
+    {
+        get => View.DataView;
+        set => View.DataView = value;
+    }
+    public int Position
+    {
+        get => View.Position;
+        set => View.Position = value;
+    }
+    public ObservableCollection<GridDataRow> Rows => View.Rows;
+    public bool IsEmpty => View.IsEmpty;
+
+    public GridViewController Controller => View.Controller;
+    public GridDataRow Current => View.Current;
+    public GridViewSource ViewSource => View.ViewSource;
+
+    public GridViewContext Context => View.Context;
+    public LookupRegistry LookupRegistry => View.LookupRegistry;
+
+    public bool IsToolBarVisible
+    {
+        get => ToolBar.IsVisible;
+        set => ToolBar.IsVisible = value;
+    }
+    public bool IsGridVisible
+    {
+        get => GridContainer.IsVisible;
+        set => GridContainer.IsVisible = value;
+    }
+    public bool IsMenuEnabled
+    {
+        get => View.Menu.IsEnabled;
+        set => View.Menu.IsEnabled = value;
+    }
+    public bool IsMultiDef
+    {
+        get => View.ToolBar.IsMultiDef;
+        set => View.ToolBar.IsMultiDef = value;
+    }
+    public bool IsReadOnlyView
+    {
+        get => View.ToolBar.IsReadOnlyView;
+        set => View.ToolBar.IsReadOnlyView = value;
+    }
+    
+ 
+}

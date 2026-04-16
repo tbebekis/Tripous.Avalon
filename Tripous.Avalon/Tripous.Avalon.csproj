@@ -31,6 +31,14 @@
         <DependentUpon>InputBox.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="GridView\ucGridView.axaml.cs">
+        <DependentUpon>ucGridView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Editor\ucEditor.axaml.cs">
+        <DependentUpon>ucEditor.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
