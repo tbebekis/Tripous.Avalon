@@ -71,7 +71,21 @@ public class ToolBar
 
         return Result;
     }
-    public Button AddButton(string ImageFileName = null, string ToolTipText = null, EventHandler<RoutedEventArgs> OnClick = null)
+
+    public Button AddButton()
+    {
+        string ImageFileName = "";
+        string ToolTipText = "";
+        EventHandler<RoutedEventArgs> OnClick = null;
+        return AddButton(ImageFileName, ToolTipText, OnClick);
+    }
+    public Button AddButton(string ImageFileName)
+    {
+        string ToolTipText = "";
+        EventHandler<RoutedEventArgs> OnClick = null;
+        return AddButton(ImageFileName, ToolTipText, OnClick);
+    }
+    public Button AddButton(string ImageFileName, string ToolTipText, EventHandler<RoutedEventArgs> OnClick)
     {
         Button Result = new Button();
 
@@ -84,6 +98,20 @@ public class ToolBar
 
         return Result;
     }
+    public Button AddButton(string ImageFileName, string ToolTipText, Action Action)
+    {
+        Button Result = new Button();
+
+        SetupButton(Result, ImageFileName, ToolTipText);
+
+        if (Action != null)
+            Result.Click += (Sender, Args) => Action();
+ 
+        Panel.Children.Add(Result);
+
+        return Result;
+    }
+    
     public Button AddDropDownButton(string ImageFileName = null, string ToolTipText = null, ContextMenu Menu = null, CancelEventHandler OnOpening = null)
     {
         Button Result = new Button();

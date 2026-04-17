@@ -222,25 +222,34 @@ public class GridView
     // ● public methods
     public void SetSource(DataView DataViewSource, bool GenerateDef = false)
     {
-        this.Controller.SetSource(DataViewSource);
-        GridViewSourceChanged();
-        if (CanRefresh())
-            Refresh();
-        
         if (GenerateDef)
             this.ViewDef = GridViewDef.Create(DataViewSource);
+        else
+            AddViewDefColumnsWhenEmpty();
+        
+        this.Controller.SetSource(DataViewSource);
+        GridViewSourceChanged();
+        
+        if (CanRefresh())
+            Refresh();
     }
     public void SetSource<T>(IEnumerable<T> SequenceSource, bool GenerateDef = false)
     {
-        this.Controller.SetSource(SequenceSource);
-        GridViewSourceChanged();
-        if (CanRefresh())
-            Refresh();
-        
         if (GenerateDef)
             this.ViewDef = GridViewDef.Create(typeof(T));
+        else
+            AddViewDefColumnsWhenEmpty();
+        
+        this.Controller.SetSource(SequenceSource);
+        GridViewSourceChanged();
+        
+        if (CanRefresh())
+            Refresh();
     }
     
+    /// <summary>
+    /// Discards the ViewSource and the ViewDef.
+    /// </summary>
     public void Close()
     {
         Controller.Close();
@@ -443,6 +452,22 @@ public class GridView
     }
     
     public GridViewDef CreateDefaultViewDef() => Controller.ViewSource.CreateDefaultViewDef();
+
+    void AddViewDefColumnsWhenEmpty()
+    {
+        if (ViewDef != null && ViewDef.Columns.Count == 0 && ViewSource != null)
+        {
+            if (ViewSource is DataViewGridViewSource)
+            {
+                DataView DataViewSource = (ViewSource as DataViewGridViewSource).Source;
+                ViewDef.SetColumnsFrom(DataViewSource);
+            }
+            else  
+            {
+                ViewDef.SetColumnsFrom(ViewSource.ItemType);
+            }
+        }
+    }
     
     // ● properties
     public DataGrid Grid
@@ -499,7 +524,9 @@ public class GridView
                 
                 if (!ViewDefs.Contains(value))
                     ViewDefs.Add(value);
-                //    throw new ApplicationException($"{nameof(GridViewDef)} not in {nameof(GridViewDefs)} list");
+
+                AddViewDefColumnsWhenEmpty();
+                
                 Controller.ViewDef = value;
             }
         }

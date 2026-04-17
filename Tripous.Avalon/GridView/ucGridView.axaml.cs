@@ -5,7 +5,7 @@ public partial class ucGridView : UserControl
     // ● private
     void AfterCreate()
     {
-        View = new();
+     
         View.Grid = ViewGrid;
         View.ToolBar.Panel = pnlToolBar;
     }
@@ -21,6 +21,14 @@ public partial class ucGridView : UserControl
     }
     
     // ● public methods
+    /// <summary>
+    /// Discards the ViewSource and the ViewDef.
+    /// </summary>
+    public void Close()
+    {
+        View.Close();
+    }
+    
     public void SetSource(DataView DataViewSource, bool GenerateDef = false)
     {
         View.SetSource(DataViewSource, GenerateDef);
@@ -42,7 +50,7 @@ public partial class ucGridView : UserControl
     }
     
     // ● properties
-    public GridView View { get; private set;  }
+    public GridView View { get; } = new();
     public DataGrid Grid => View.Grid;
     public GridViewToolBar ToolBar => View.ToolBar;
     public GridViewMenu Menu => View.Menu;

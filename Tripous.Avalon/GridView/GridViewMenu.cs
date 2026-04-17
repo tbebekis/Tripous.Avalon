@@ -119,13 +119,13 @@ public class GridViewMenu
         
         List<object> list = new();
        
-        mnuVisibleColumns          = list.AddMenuItem("Visible Columns", null);
+        mnuVisibleColumns   = list.AddMenuItem("Visible Columns");
         mnuShowAllColumns   = list.AddMenuItem("Show All Columns", AnyClick);
         list.AddSeparator();
         mnuToggleGrouping   = list.AddMenuItem("Toggle Grouping", AnyClick);
         mnuClearGroup       = list.AddMenuItem("Clear Group", AnyClick);
         list.AddSeparator();
-        mnuSummaries        = list.AddMenuItem("Summaries", null);
+        mnuSummaries        = list.AddMenuItem("Summaries");
         mnuClearSummaries   = list.AddMenuItem("Clear Summaries", AnyClick);
         List<object> SummaryList = new();
         mnuCount    = SummaryList.AddMenuItem("Count", AnySummaryClick, AggregateType.Count);

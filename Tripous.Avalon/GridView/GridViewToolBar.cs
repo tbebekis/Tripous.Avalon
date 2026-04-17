@@ -75,13 +75,23 @@ public class GridViewToolBar: ToolBar
     private bool fIsMultiDef;
     private GridView fGridView;
     private bool ControlsCreated;
-    private ObservableCollection<GridViewDef> ViewDefs;
+   
     
     // ● event handlers
     void cboViewDefs_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        PreviouslySelectedDef = (e.RemovedItems != null && e.RemovedItems.Count > 0)
+            ? e.RemovedItems[0] as GridViewDef
+            : null;
+
         if (cboViewDefs.SelectedItem is GridViewDef ViewDef)
-            GridView.ViewDef = ViewDef;
+        {
+            Dispatcher.UIThread.Post(() => 
+            {  
+                GridView.ViewDef = ViewDef;
+
+            }, DispatcherPriority.Background);
+        }
     }
     
     // ● private
@@ -112,10 +122,9 @@ public class GridViewToolBar: ToolBar
             async (s, e) => await GridView.SaveViewDefs());
         btnSaveAs = AddButton("disk_multiple.png", "Save Definitions As", 
             async (s, e) => await GridView.SaveViewDefsAs());
-
-        ViewDefs = new ObservableCollection<GridViewDef>(GridView.ViewDefs.DefList) ;
-        int Index = GridView.ViewDefs.DefList.IndexOf(GridView.ViewDef);
-        cboViewDefs = AddComboBox(ViewDefs, Index != -1 ? Index : 0);
+ 
+        int Index = ViewDefList.IndexOf(GridView.ViewDef);
+        cboViewDefs = AddComboBox(ViewDefList, Index != -1 ? Index : 0);
         cboViewDefs.SelectionChanged += cboViewDefs_SelectionChanged;
         btnViewDefDialog = AddButton("setting_tools.png", "Edit Configuration", 
             async (sender, args) => await ShowViewDefDialog());
@@ -202,7 +211,7 @@ public class GridViewToolBar: ToolBar
         {
             //string JsonText = Json.Serialize(ViewDef);
             GridView.ViewDefs.DefList.Add(ViewDef);
-            ViewDefs.Add(ViewDef);
+            ViewDefList.Add(ViewDef);
             cboViewDefs.SelectedItem = ViewDef;
         }
     }
@@ -220,9 +229,9 @@ public class GridViewToolBar: ToolBar
             {
                 ViewDef.AssignFrom(ViewDef2);
                 
-                Index = ViewDefs.IndexOf(ViewDef);
+                Index = ViewDefList.IndexOf(ViewDef);
                 if (Index != -1)
-                    ViewDefs[Index] = ViewDef; // force ObservableCollection to re-read the item
+                    ViewDefList[Index] = ViewDef; // force ObservableCollection to re-read the item
                 cboViewDefs.SelectedItem = ViewDef;
                 GridView.Refresh();
             }
@@ -240,7 +249,7 @@ public class GridViewToolBar: ToolBar
             if (Flag)
             {
                 GridView.ViewDefs.Remove(ViewDef);
-                ViewDefs.Remove(ViewDef);
+                ViewDefList.Remove(ViewDef);
                 cboViewDefs.SelectedIndex = 0;
             }
         }
@@ -250,8 +259,7 @@ public class GridViewToolBar: ToolBar
     protected override void RemovedAll()
     {
         base.RemovedAll();
-
-        ViewDefs = null;
+ 
         cboViewDefs.SelectionChanged -= cboViewDefs_SelectionChanged;
         
         fIsMultiDef = false;
@@ -297,6 +305,30 @@ public class GridViewToolBar: ToolBar
             }
         }
     }
+    public ObservableCollection<GridViewDef> ViewDefList => GridView != null? GridView.ViewDefs.DefList: null;
+    public GridViewDef SelectedDef
+    {
+        get => (cboViewDefs != null && cboViewDefs.SelectedItem != null)
+            ? cboViewDefs.SelectedItem as GridViewDef
+            : null;
+        set
+        {
+            if (cboViewDefs != null)
+            {
+                if (value == null)
+                {
+                    cboViewDefs.SelectedItem = null;
+                }
+                else
+                {
+                    if (ViewDefList.Contains(value) && cboViewDefs.Items.IndexOf(value) != -1)
+                        cboViewDefs.SelectedItem = value;
+                }
+            }
+
+        }
+    }
+    public GridViewDef PreviouslySelectedDef { get; private set; }
     public bool IsMultiDef
     {
         get => fIsMultiDef;

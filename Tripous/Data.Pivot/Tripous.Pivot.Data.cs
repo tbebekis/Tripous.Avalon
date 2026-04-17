@@ -647,14 +647,19 @@ public class PivotViewDefs
 
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
+    public void AssignFrom(IList<PivotViewDef> SourceList)
+    {
+        DefList.Clear();
+        foreach (var Def in SourceList)
+            Add(Def);
+    }
     public void AssignFrom(PivotViewDefs Source)
     {
         fName = Source.fName;
         FilePath = Source.FilePath;
+
+        AssignFrom(Source.DefList);
  
-        DefList.Clear();
-        foreach (var Def in Source.DefList)
-            Add(Def);
     }
     public PivotViewDefs Clone()
     {
@@ -735,7 +740,7 @@ public class PivotViewDefs
         get => !string.IsNullOrWhiteSpace(fName) ? fName : Sys.GenId();
         set => fName = value;
     }
-    public List<PivotViewDef> DefList { get; set; } = new();
+    public ObservableCollection<PivotViewDef> DefList { get; set; } = new();
     [JsonIgnore] 
     public string FilePath { get; set; }
 }

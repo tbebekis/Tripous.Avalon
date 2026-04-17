@@ -461,9 +461,7 @@ public abstract class GridViewSource: IDisposable
 
 public class DataViewGridViewSource: GridViewSource
 {
-    // ● private fields
-     
-
+ 
     // ● private methods
     private void Source_ListChanged(object sender, ListChangedEventArgs e)
     {
@@ -821,7 +819,6 @@ public class GridViewController: IDisposable
         }
 
         AttachData(null);
-        fViewDef = null;
     }
     private void Data_PositionChanged(object Sender, EventArgs e)
     {
@@ -895,36 +892,6 @@ public class GridViewController: IDisposable
     private void OnPositionChanged()
     {
         PositionChanged?.Invoke(this, EventArgs.Empty);
-    }
-    private void Refresh2(GridViewSourceChangedEventArgs e = null)
-    {
-        if (ViewSource == null)
-        {
-            AttachData(null);
-            OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
-            return;
-        }
-
-        if (fData == null)
-        {
-            GridViewData NewData = GridViewEngine.Execute(ViewSource, fViewDef);
-            AttachData(NewData);
-            OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
-            return;
-        }
-
-        Dictionary<string, bool> ExpandedState = SaveExpandedState();
-        int Position = fData.Position;
-
-        GridViewEngine.Update(fData);
-        RestoreExpandedState(fData, ExpandedState);
-
-        if (Position >= 0)
-            fData.MoveTo(Math.Min(Position, fData.Rows.Count - 1));
-        else if (fData.Rows.Count == 0)
-            fData.MoveTo(-1);
-
-        OnDataChanged(new GridViewDataChangedEventArgs(fData, e));
     }
     private void Refresh(GridViewSourceChangedEventArgs e = null)
     {
@@ -1067,9 +1034,13 @@ public class GridViewController: IDisposable
     }
 
     // ● public methods
+    /// <summary>
+    /// Discards the ViewSource and the ViewDef.
+    /// </summary>
     public void Close()
     {
         CloseSource();
+        fViewDef = null;
     }
     public void Dispose()
     {
@@ -1280,7 +1251,6 @@ public class GridViewController: IDisposable
 
                 fViewDef = value;
                 fData = null;
-                //CloseSource();
                 Refresh();
             }
         }
@@ -1756,7 +1726,7 @@ static public class GridViewEngine
             throw new ArgumentNullException(nameof(Data.ViewDef));
         
         List<object> RowList = Data.Source.Items.ToList();
-        RowList = GridViewFilterEngine.Apply(RowList, Data.ViewDef.RowFilters);
+        RowList = GridViewFilterEngine.Apply(RowList, Data.ViewDef.RowFilters.ToList());
         RowList = GridViewSortEngine.Apply(RowList, Data.ViewDef);
         
         var GroupColumnList = Data.ViewDef.GetGroupColumns();

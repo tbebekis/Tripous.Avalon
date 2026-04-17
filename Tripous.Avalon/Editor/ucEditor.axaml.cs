@@ -9,7 +9,6 @@ public partial class ucEditor : UserControl
     // ● private
     void AfterCreate()
     {
-        ToolBar = new();
         ToolBar.Panel = pnlToolBar;
     }
     
@@ -42,6 +41,7 @@ public partial class ucEditor : UserControl
     }
     
     // ● properties
+    public ToolBar ToolBar { get;  } = new();
     public TextEditor Editor => TextEditor;
     public string EditorText
     {
@@ -60,6 +60,6 @@ public partial class ucEditor : UserControl
             }
         }
     }
-    public ToolBar ToolBar { get; private set; }
+    
  
 }

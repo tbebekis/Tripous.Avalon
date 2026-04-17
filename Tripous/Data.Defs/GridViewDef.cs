@@ -386,15 +386,16 @@ public class RowFilterDef
     public object Tag { get; set; }
 }
 
-public class RowFilterDefs : List<RowFilterDef>
+public class RowFilterDefs : ObservableCollection<RowFilterDef>
 {
     public RowFilterDefs()
     {
     }
 
     public override string ToString() => this.Text;
-    public void Check() => ForEach(x => x.Check());
 
+    public void Check() => this.ToList().ForEach(x => x.Check());
+    
     public RowFilterDef Add(BoolOp BoolOp, ConditionOp ConditionOp, string FieldName, object Value, object Value2 = null)
     {
         RowFilterDef Result = new RowFilterDef(BoolOp, ConditionOp, FieldName, Value, Value2);
@@ -682,26 +683,8 @@ public class GridViewDef
     /// </summary>
     static public GridViewDef Create(DataView Source)
     {
-        if (Source == null)
-            throw new ArgumentNullException(nameof(Source));
-
         GridViewDef Def = new();
-
-        foreach (DataColumn DataColumn in Source.Table.Columns)
-        {
-            GridViewColumnDef Column = new()
-            {
-                FieldName = DataColumn.ColumnName,
-                Caption = DataColumn.ColumnName,
-                DataType = DataColumn.DataType,
-            };
-            
-            Column.SetAllowsNullFromSource(DataColumn.AllowDBNull);
-                
-            Def.Columns.Add(Column);
-            Column.VisibleIndex = Def.Columns.IndexOf(Column);
-        }
-
+        Def.SetColumnsFrom(Source);
         return Def;
     }
     /// <summary>
@@ -709,27 +692,12 @@ public class GridViewDef
     /// </summary>
     static public GridViewDef Create(Type ItemType)
     {
-        if (ItemType == null)
-            throw new ArgumentNullException(nameof(ItemType));
-
         GridViewDef Def = new();
-        PropertyInfo[] Properties = ItemType.GetProperties(BindingFlags.Instance | BindingFlags.Public);
-
-        foreach (PropertyInfo Prop in Properties)
-        {
-            GridViewColumnDef Column = new()
-            {
-                FieldName = Prop.Name,
-                Caption = Prop.Name,
-                DataType = Prop.PropertyType,
-            };
-
-            Def.Columns.Add(Column);
-            Column.VisibleIndex = Def.Columns.IndexOf(Column);
-        }
-
+        Def.SetColumnsFrom(ItemType);
         return Def;
     }
+    
+    
     
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
@@ -775,6 +743,51 @@ public class GridViewDef
         RowFilters.Clear();
     }
 
+    public void SetColumnsFrom(DataView Source)
+    {
+        if (Source == null)
+            throw new ArgumentNullException(nameof(Source));
+        
+        this.Columns.Clear();
+        
+        foreach (DataColumn DataColumn in Source.Table.Columns)
+        {
+            GridViewColumnDef Column = new()
+            {
+                FieldName = DataColumn.ColumnName,
+                Caption = DataColumn.ColumnName,
+                DataType = DataColumn.DataType,
+            };
+            
+            Column.SetAllowsNullFromSource(DataColumn.AllowDBNull);
+                
+            this.Columns.Add(Column);
+            Column.VisibleIndex = this.Columns.IndexOf(Column);
+        }
+    }
+    public void SetColumnsFrom(Type ItemType)
+    {
+        if (ItemType == null)
+            throw new ArgumentNullException(nameof(ItemType));
+        
+        this.Columns.Clear();
+ 
+        PropertyInfo[] Properties = ItemType.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+        foreach (PropertyInfo Prop in Properties)
+        {
+            GridViewColumnDef Column = new()
+            {
+                FieldName = Prop.Name,
+                Caption = Prop.Name,
+                DataType = Prop.PropertyType,
+            };
+
+            this.Columns.Add(Column);
+            Column.VisibleIndex = this.Columns.IndexOf(Column);
+        }
+    }
+    
     public void AssignFrom(GridViewDef Source)
     {
         ClearLists();
@@ -789,8 +802,6 @@ public class GridViewDef
 
         foreach (var SourceFilterItem in Source.RowFilters)
             RowFilters.Add(SourceFilterItem.Clone());
-        
-         
     }
     public GridViewDef Clone()
     {
@@ -898,7 +909,7 @@ public class GridViewDef
     /// <summary>
     /// Returns all columns
     /// </summary>
-    public List<GridViewColumnDef> Columns { get; set; } = new();
+    public ObservableCollection<GridViewColumnDef> Columns { get; set; } = new();
     /// <summary>
     /// RowFilter definitions for columns participating in the DataView filtering.
     /// </summary>
@@ -927,15 +938,19 @@ public class GridViewDefs
  
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
-    
+
+    public void AssignFrom(IList<GridViewDef> SourceList)
+    {
+        DefList.Clear();
+        foreach (var Def in SourceList)
+            Add(Def);
+    }
     public void AssignFrom(GridViewDefs Source)
     {
         fName = Source.fName;
         FilePath = Source.FilePath;
- 
-        DefList.Clear();
-        foreach (var Def in Source.DefList)
-            Add(Def);
+
+        AssignFrom(Source.DefList);
     }
     public GridViewDefs Clone()
     {
@@ -1014,7 +1029,7 @@ public class GridViewDefs
         get => !string.IsNullOrWhiteSpace(fName) ? fName : Sys.GenId();
         set => fName = value;
     }
-    public List<GridViewDef> DefList { get; set; } = new();
+    public ObservableCollection<GridViewDef> DefList { get; set; } = new();
     [JsonIgnore] 
     public string FilePath { get; set; }
 }

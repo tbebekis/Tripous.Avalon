@@ -37,6 +37,9 @@ static public class Ui
     /// </summary>
     static public Uri FindImageUri(string FileName)
     {
+        if (string.IsNullOrWhiteSpace(FileName))
+            return null;
+        
         Uri Result = FindImageUriByPath(FileName);
         
         if (Result == null)
@@ -219,32 +222,48 @@ static public class Ui
         if (Caller == null)
             Caller = Ui.MainWindow;
         
-        var top = TopLevel.GetTopLevel(Caller);        
-        top.Cursor = new Cursor(StandardCursorType.Wait);
-        try
+        var top = TopLevel.GetTopLevel(Caller);
+        if (top == null)
         {
             Proc();
         }
-        finally
+        else
         {
-            top.Cursor = new Cursor(StandardCursorType.Arrow);
+            top.Cursor = new Cursor(StandardCursorType.Wait);
+            try
+            {
+                Proc();
+            }
+            finally
+            {
+                top.Cursor = new Cursor(StandardCursorType.Arrow);
+            }
         }
+
     }
     static public void ShowWaitCursor<T>(Action<T> Proc, T Info, Control Caller = null)
     {
         if (Caller == null)
             Caller = Ui.MainWindow;
         
-        var top = TopLevel.GetTopLevel(Caller);        
-        top.Cursor = new Cursor(StandardCursorType.Wait);
-        try
+        var top = TopLevel.GetTopLevel(Caller);   
+        if (top == null)
         {
             Proc(Info);
         }
-        finally
+        else
         {
-            top.Cursor = new Cursor(StandardCursorType.Arrow);
+            top.Cursor = new Cursor(StandardCursorType.Wait);
+            try
+            {
+                Proc(Info);
+            }
+            finally
+            {
+                top.Cursor = new Cursor(StandardCursorType.Arrow);
+            }
         }
+
     }
     
     
