@@ -1,0 +1,56 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TestDataBinderApp00.MainWindow"
+        Width="1200"
+        Height="700"
+        WindowStartupLocation="CenterScreen"
+        Title="TestDataBinderApp00">
+        <DockPanel Margin="20">
+    
+                <StackPanel DockPanel.Dock="Top" 
+                            Orientation="Horizontal" 
+                            Spacing="5" 
+                            Margin="0,0,0,20">
+                    <Button Name="btnFirst" Content="First" Width="80" />
+                    <Button Name="btnPrior" Content="Prior" Width="80" />
+                    <Button Name="btnNext" Content="Next" Width="80" />
+                    <Button Name="btnLast" Content="Last" Width="80" />
+                    <Button Name="btnNew" Content="New" Width="80" />
+                    <Button Name="btnDelete" Content="Delete" Width="80" />
+                </StackPanel>
+
+                <Grid ColumnDefinitions="Auto, *" 
+                      RowDefinitions="Auto, Auto, Auto" 
+                      HorizontalAlignment="Left">
+        
+                        <Label Grid.Row="0" Grid.Column="0" 
+                               Content="Region" 
+                               VerticalAlignment="Center" 
+                               Margin="0,0,10,10" />
+                        <TextBox Name="edtRegion" 
+                                 Grid.Row="0" Grid.Column="1" 
+                                 Width="300" 
+                                 Margin="0,0,0,10" />
+
+                        <Label Grid.Row="1" Grid.Column="0" 
+                               Content="Segment" 
+                               VerticalAlignment="Center" 
+                               Margin="0,0,10,0" />
+                        <TextBox Name="edtSegment" 
+                                 Grid.Row="1" Grid.Column="1" 
+                                 Width="300"
+                                 Margin="0,0,0,10"/>
+                        
+                        <Label Grid.Row="2" Grid.Column="0" 
+                               Content="Region" 
+                               VerticalAlignment="Center" 
+                               Margin="0,0,10,10" />
+                        <ComboBox Name="cboCategory" Grid.Row="2" Grid.Column="1" Width="300"  >
+                        </ComboBox>
+                </Grid>
+    
+        </DockPanel>
+</Window>

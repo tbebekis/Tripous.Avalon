@@ -8,6 +8,8 @@ public partial class ucGridView : UserControl
      
         View.Grid = ViewGrid;
         View.ToolBar.Panel = pnlToolBar;
+        View.SelectedDefChanged += (sender, args) => SelectedDefChanged?.Invoke(this, EventArgs.Empty);
+ 
     }
     
     
@@ -29,13 +31,13 @@ public partial class ucGridView : UserControl
         View.Close();
     }
     
-    public void SetSource(DataView DataViewSource, bool GenerateDef = false)
+    public void SetSource(DataView DataViewSource)
     {
-        View.SetSource(DataViewSource, GenerateDef);
+        View.SetSource(DataViewSource);
     }
-    public void SetSource<T>(IEnumerable<T> SequenceSource, bool GenerateDef = false)
+    public void SetSource<T>(IEnumerable<T> SequenceSource)
     {
-        View.SetSource(SequenceSource, GenerateDef);
+        View.SetSource(SequenceSource);
     }
 
     public void CloseParentTabPage()
@@ -58,7 +60,14 @@ public partial class ucGridView : UserControl
     public GridViewDef ViewDef
     {
         get => View.ViewDef;
-        set => View.ViewDef = value;
+        set
+        {
+            if (View.ViewDef != value)
+            {
+                View.ViewDef = value;
+                SelectedDefChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
     }
     public DataView DataView
     {
@@ -73,32 +82,37 @@ public partial class ucGridView : UserControl
     public ObservableCollection<GridDataRow> Rows => View.Rows;
     public bool IsEmpty => View.IsEmpty;
 
-    public GridViewController Controller => View.Controller;
+    //public GridViewController Controller => View.Controller;
     public GridDataRow Current => View.Current;
-    public GridViewSource ViewSource => View.ViewSource;
 
-    public GridViewContext Context => View.Context;
+    //public GridViewContext Context => View.Context;
     public LookupRegistry LookupRegistry => View.LookupRegistry;
 
-    public bool IsToolBarVisible
-    {
-        get => ToolBar.IsVisible;
-        set => ToolBar.IsVisible = value;
-    }
     public bool IsGridVisible
     {
         get => GridContainer.IsVisible;
         set => GridContainer.IsVisible = value;
     }
-    public bool IsMenuEnabled
+    public bool IsToolBarVisible
     {
-        get => View.Menu.IsEnabled;
-        set => View.Menu.IsEnabled = value;
+        get => ToolBar.IsVisible;
+        set => ToolBar.IsVisible = value;
+    }
+    public GridViewToolBarButtons VisibleButtons
+    {
+        get => ToolBar.VisibleButtons;
+        set => ToolBar.VisibleButtons = value;
     }
     public bool IsMultiDef
     {
         get => View.ToolBar.IsMultiDef;
         set => View.ToolBar.IsMultiDef = value;
+    }
+    
+    public bool IsMenuEnabled
+    {
+        get => View.Menu.IsEnabled;
+        set => View.Menu.IsEnabled = value;
     }
     public bool IsReadOnlyView
     {
@@ -106,5 +120,6 @@ public partial class ucGridView : UserControl
         set => View.ToolBar.IsReadOnlyView = value;
     }
     
- 
+    // ● events
+    public event EventHandler SelectedDefChanged;
 }

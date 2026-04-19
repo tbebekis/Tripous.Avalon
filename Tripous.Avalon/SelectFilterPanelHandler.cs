@@ -111,7 +111,7 @@ public class SelectFilterPanelHandler
             ItemsSource = List.ToArray()
         };
     }
-    Control CreateLookupControl(SqlFilterDef FilterDef, DataTable tblLookUp)
+    Control CreateLookupGrid(SqlFilterDef FilterDef, DataTable tblLookUp)
     {
         // grid
         var gridLookUp = new DataGrid
@@ -119,7 +119,7 @@ public class SelectFilterPanelHandler
             CanUserResizeColumns = true,
             Height = GridHeight,
             MaxHeight = 350,
-            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
             HeadersVisibility = DataGridHeadersVisibility.All,
             SelectionMode = DataGridSelectionMode.Single,
             IsReadOnly = true,
@@ -128,8 +128,6 @@ public class SelectFilterPanelHandler
             GridLinesVisibility = DataGridGridLinesVisibility.All
         };
         
-        // load data
-        //DataTable tblLookUp = SqlStore.Select(FilterDef.LookUpSelectSqlText);
         
         // context menu
         AddGridContextMenu(gridLookUp, tblLookUp, FilterDef.IsMultiple);
@@ -268,8 +266,7 @@ public class SelectFilterPanelHandler
     /// </summary>
     public async Task<int> ItemToControls()
     {
-        DataTable tblLookUp = null;
-        DataTable tblEnum = null;
+ 
         
         pnlFilters.Children.Clear();
         ControlsDic.Clear();
@@ -306,27 +303,16 @@ public class SelectFilterPanelHandler
 
                 case SqlFilterType.Enum:
                     var options = filter.Text?.Split(';', StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>();
-                    tblEnum = new DataTable();
+                    DataTable tblEnum = new();
                     tblEnum.Columns.Add("Value");
                     foreach (var sValue in options)
                         tblEnum.Rows.Add(sValue);
-                    ctrl = CreateLookupControl(filter, tblEnum);
-                    /*
-                    if (filter.IsMultiple) {
-                        var lb = new ListBox { ItemsSource = options, SelectionMode = SelectionMode.Multiple, MaxHeight = 100 };
-                        ctrl = lb;
-                    } else {
-                        var cb = new ComboBox { ItemsSource = options, HorizontalAlignment = HorizontalAlignment.Stretch };
-                        if (options.Length > 0)
-                            cb.SelectedIndex = 0;
-                        ctrl = cb;
-                    }
-                    */
+                    ctrl = CreateLookupGrid(filter, tblEnum);
                     break;
 
                 case SqlFilterType.Lookup:
-                    tblLookUp = SqlStore.Select(filter.LookUpSelectSqlText);
-                    ctrl = CreateLookupControl(filter, tblLookUp);
+                    DataTable tblLookUp = SqlStore.Select(filter.LookUpSelectSqlText);
+                    ctrl = CreateLookupGrid(filter, tblLookUp);
                     break;
 
                 default: // String, Int, Dec

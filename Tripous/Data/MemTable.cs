@@ -381,9 +381,7 @@ public class MemTable : DataTable
         for (int i = 0; i < Row.Table.Columns.Count; i++)
             Row[i] = DBNull.Value;
     }
-   
-    
-    
+ 
     // ● public 
     public DataColumn[] GetColumns(string[] ColumnNames)
     {

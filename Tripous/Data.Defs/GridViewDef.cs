@@ -570,10 +570,10 @@ public class GridViewColumnDef
             if (!string.IsNullOrWhiteSpace(fDisplayFormat))
                 return fDisplayFormat;
 
-            if (UnderlyingType.IsNumeric() && !UnderlyingType.IsInteger())
+            if (UnderlyingType != null && UnderlyingType.IsNumeric() && !UnderlyingType.IsInteger())
                 return "N2";
 
-            if (UnderlyingType.IsDateTime())
+            if (UnderlyingType != null && UnderlyingType.IsDateTime())
                 return "yyyy-MM-dd HH:mm";
 
             return string.Empty;
@@ -590,7 +590,7 @@ public class GridViewColumnDef
             if (!string.IsNullOrWhiteSpace(fEditFormat))
                 return fEditFormat;
 
-            if (UnderlyingType.IsDateTime())
+            if (UnderlyingType != null && UnderlyingType.IsDateTime())
                 return "yyyy-MM-dd HH:mm";
 
             return string.Empty;
@@ -696,9 +696,7 @@ public class GridViewDef
         Def.SetColumnsFrom(ItemType);
         return Def;
     }
-    
-    
-    
+ 
     // ● public
     public override string ToString() => !string.IsNullOrWhiteSpace(Name) ? Name: base.ToString();
     
@@ -743,6 +741,29 @@ public class GridViewDef
         RowFilters.Clear();
     }
 
+    public void UpdateDataTypes(DataView DataView)
+    {
+        var All = DataView.Table.Columns.Cast<DataColumn>().ToList();
+        DataColumn Column;
+        foreach (var Item in Columns)
+        {
+            Column = All.FirstOrDefault(x => x.ColumnName.IsSameText(Item.FieldName));
+            if (Column != null)
+                Item.DataType = Column.DataType;
+        }
+    }
+    public void UpdateDataTypes(Type T)
+    {
+        var All = T.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
+        PropertyInfo PropInfo;
+        foreach (var Item in Columns)
+        {
+            PropInfo = All.FirstOrDefault(x => x.Name.IsSameText(Item.FieldName));
+            if (PropInfo != null)
+                Item.DataType = PropInfo.PropertyType;
+        }
+    }
+    
     public void SetColumnsFrom(DataView Source)
     {
         if (Source == null)

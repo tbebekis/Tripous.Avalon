@@ -1234,11 +1234,11 @@ public class GridViewController: IDisposable
     }
     
     // ● properties
-    public DataView DataView
-    {
-        get => ViewSource is DataViewGridViewSource ? (ViewSource as DataViewGridViewSource).Source : null;
-        set => SetSource(value);
-    }
+    // public DataView DataView
+    // {
+    //     get => ViewSource is DataViewGridViewSource ? (ViewSource as DataViewGridViewSource).Source : null;
+    //     set => SetSource(value);
+    // }
     public GridViewDef ViewDef
     {
         get => fViewDef;
@@ -1251,7 +1251,7 @@ public class GridViewController: IDisposable
 
                 fViewDef = value;
                 fData = null;
-                Refresh();
+                // Refresh();
             }
         }
     }

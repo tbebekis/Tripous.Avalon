@@ -75,7 +75,6 @@ public class GridViewToolBar: ToolBar
     private bool fIsMultiDef;
     private GridView fGridView;
     private bool ControlsCreated;
-   
     
     // ● event handlers
     void cboViewDefs_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -89,6 +88,7 @@ public class GridViewToolBar: ToolBar
             Dispatcher.UIThread.Post(() => 
             {  
                 GridView.ViewDef = ViewDef;
+                SelectedDefChanged?.Invoke(this, EventArgs.Empty);
 
             }, DispatcherPriority.Background);
         }
@@ -374,4 +374,7 @@ public class GridViewToolBar: ToolBar
             }
         }
     }
+    
+    // ● events
+    public event EventHandler SelectedDefChanged;
 }

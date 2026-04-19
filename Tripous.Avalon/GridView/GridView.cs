@@ -38,12 +38,12 @@ public class GridView
     // ● private fields
     private DataGrid fGrid;
     private bool fIdColumnsVisible = true;
+    private GridViewDef fViewDef;
+    private DataView fDataView;
+    private IEnumerable fEnumerableSource;
+    private Type fEnumerableSourceType;
  
     // ● overridables
-    protected virtual void GridViewSourceChanged()
-    {
-       // Menu.IsEnabled = Controller.ViewSource != null;
-    }
     protected virtual void OnDataChanged(GridViewDataChangedEventArgs e)
     {
         DataChanged?.Invoke(this, e);
@@ -166,6 +166,21 @@ public class GridView
         }
     }
     
+    protected virtual void AddViewDefColumnsWhenEmpty()
+    {
+        if (fViewDef != null && fViewDef.Columns.Count == 0)
+        {
+            if (fDataView != null)
+            {
+                fViewDef.SetColumnsFrom(fDataView);
+            }
+            else if (fEnumerableSourceType != null)
+            {
+                fViewDef.SetColumnsFrom(fEnumerableSourceType);
+            }
+        }
+    }
+    
     // ● constructor
     public GridView()
     {
@@ -220,31 +235,19 @@ public class GridView
     }
  
     // ● public methods
-    public void SetSource(DataView DataViewSource, bool GenerateDef = false)
+    public void SetSource(DataView DataView)
     {
-        if (GenerateDef)
-            this.ViewDef = GridViewDef.Create(DataViewSource);
-        else
-            AddViewDefColumnsWhenEmpty();
-        
-        this.Controller.SetSource(DataViewSource);
-        GridViewSourceChanged();
-        
-        if (CanRefresh())
-            Refresh();
+        fDataView = DataView;
+        fEnumerableSource = null;
+        fEnumerableSourceType = null;
+        Refresh();
     }
-    public void SetSource<T>(IEnumerable<T> SequenceSource, bool GenerateDef = false)
+    public void SetSource<T>(IEnumerable<T> Sequence)
     {
-        if (GenerateDef)
-            this.ViewDef = GridViewDef.Create(typeof(T));
-        else
-            AddViewDefColumnsWhenEmpty();
-        
-        this.Controller.SetSource(SequenceSource);
-        GridViewSourceChanged();
-        
-        if (CanRefresh())
-            Refresh();
+        fEnumerableSource = Sequence;
+        fEnumerableSourceType = Sequence != null ? typeof(T) : null;
+        fDataView = null;
+        Refresh();
     }
     
     /// <summary>
@@ -255,13 +258,43 @@ public class GridView
         Controller.Close();
         GridViewGridBinder.Refresh(fGrid);
     }
-    public bool CanRefresh() => Grid != null && ViewSource != null && ViewDef != null; 
+    public bool CanRefresh() => Grid != null && fViewDef != null && (fDataView != null || fEnumerableSource != null); 
     public void Refresh()
     {
-        if (CanRefresh())
+        if (fDataView == null && fEnumerableSource == null & fViewDef == null)
         {
-            Ui.ShowWaitCursor(Controller.Refresh, Grid);
-        } 
+            Controller.Close();
+            return;
+        }
+
+        if (fViewDef != null)
+        {
+            AddViewDefColumnsWhenEmpty();
+            Controller.Close();
+            Controller.ViewDef = fViewDef;
+            
+            if (fDataView != null)
+            {
+                Controller.SetSource(DataView);
+                Controller.Refresh();
+            }
+            else if (fEnumerableSource != null)
+            {
+                Controller.Close();
+                
+                // public void SetSource<T>(IEnumerable<T> SequenceSource)
+                MethodInfo Method = typeof(GridViewController)
+                    .GetMethods(BindingFlags.Instance | BindingFlags.Public)
+                    .First(x => x.Name == nameof(GridViewController.SetSource)
+                                && x.IsGenericMethodDefinition
+                                && x.GetParameters().Length == 1);
+
+                MethodInfo GenericMethod = Method.MakeGenericMethod(fEnumerableSourceType);
+                GenericMethod.Invoke(Controller, new object[] { fEnumerableSource });
+                
+                Controller.Refresh();
+            }
+        }
     }
  
     public bool MoveTo(int DataIndex)
@@ -452,23 +485,7 @@ public class GridView
     }
     
     public GridViewDef CreateDefaultViewDef() => Controller.ViewSource.CreateDefaultViewDef();
-
-    void AddViewDefColumnsWhenEmpty()
-    {
-        if (ViewDef != null && ViewDef.Columns.Count == 0 && ViewSource != null)
-        {
-            if (ViewSource is DataViewGridViewSource)
-            {
-                DataView DataViewSource = (ViewSource as DataViewGridViewSource).Source;
-                ViewDef.SetColumnsFrom(DataViewSource);
-            }
-            else  
-            {
-                ViewDef.SetColumnsFrom(ViewSource.ItemType);
-            }
-        }
-    }
-    
+ 
     // ● properties
     public DataGrid Grid
     {
@@ -505,7 +522,7 @@ public class GridView
     }
     public DataView DataView
     {
-        get => Controller.DataView ;
+        get => fDataView; // Controller.DataView ;
         set => SetSource(value);
     }
     public GridViewDefs ViewDefs { get; } = new();
@@ -514,20 +531,24 @@ public class GridView
     /// </summary>
     public GridViewDef ViewDef
     {
-        get => Controller != null ? Controller.ViewDef : null;
+        get => fViewDef; //Controller != null ? Controller.ViewDef : null;
         set
         {
-            if (ViewDef != value)
+            if (fViewDef != value)
             {
                 if (value == null)
                     throw new ArgumentNullException(nameof(GridViewDef));
+
+                fViewDef = value;
                 
                 if (!ViewDefs.Contains(value))
                     ViewDefs.Add(value);
-
-                AddViewDefColumnsWhenEmpty();
                 
-                Controller.ViewDef = value;
+                AddViewDefColumnsWhenEmpty();
+                SelectedDefChanged?.Invoke(this, EventArgs.Empty);
+                
+                //Controller.ViewDef = value;
+                Refresh();
             }
         }
     }
@@ -552,12 +573,13 @@ public class GridView
                 Controller.PositionAll = value;
         }
     }
-    public ObservableCollection<GridDataRow> Rows => Controller != null ? Controller.Rows : null;
+
+    public ObservableCollection<GridDataRow> Rows => Controller.Rows;
     public bool IsEmpty => Rows == null || Rows.Count == 0;
     
     public GridViewController Controller { get; private set; } = new();
-    public GridDataRow Current => Controller != null ? Controller.Current : null;
-    public GridViewSource ViewSource => Controller != null ? Controller.ViewSource : null;
+    public GridDataRow Current => Controller.Current;
+    //public GridViewSource ViewSource => Controller.ViewSource;
      
     public GridViewContext Context { get; } = new();
     public LookupRegistry LookupRegistry => Context.LookupRegistry;
@@ -581,4 +603,5 @@ public class GridView
     public event EventHandler<GridViewItemEventArgs> DataItemAction;
     public event EventHandler<FilePathEventArgs> DefsFilePathNeeded;
     public event EventHandler IdColumnsVisibleChanged;
+    public event EventHandler SelectedDefChanged;
 }
