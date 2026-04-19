@@ -15,6 +15,7 @@ public partial class MainWindow : Window
     bool IsWindowInitialized = false;
     private DataSource DS;
     private DataBinder Binder;
+    private DataGridHost GridHost;
 
     // ● event handlers
     async void AnyClick(object sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -84,6 +85,10 @@ public partial class MainWindow : Window
         Binder.Bind(edtSegment, "Segment");
         //cboRegion.ItemsSource = TestData.s_regions;
         Binder.Bind(cboCategory, "Category", "CategoryId", "Name", "Id", AllowNullSelection: true);
+        Binder.Bind(gridSales);
+        
+        GridHost = new DataGridHost(gridSales);
+        GridHost.Initialize();
     }
 
     void Test_DataView()

@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using Avalonia.Controls;
 
 namespace Tripous.Data;
 
@@ -27,14 +29,27 @@ public class DataSourceColumn
 {
     // ● private
     string fCaption;
+    private bool fReadOnly;
+    private string fDisplayFormat;
+    private string fEditFormat;
+    ILookupSource fLookupSource;
+    string fLookupSourceName;
+    string fDisplayMember;
+    string fValueMember;
+    private string fNullText;
 
+    void OnChanged()
+    {
+        Changed?.Invoke(this, EventArgs.Empty);
+    }
+    
     // ● constructor
     public DataSourceColumn(string Name, Type DataType, bool AllowsNull = true, bool ReadOnly = false, string Caption = null)
     {
         this.Name = !string.IsNullOrWhiteSpace(Name) ? Name : throw new ArgumentNullException(nameof(Name));
         this.DataType = DataType ?? typeof(object);
         this.AllowsNull = AllowsNull;
-        this.ReadOnly = ReadOnly;
+        fReadOnly = ReadOnly;
         fCaption = Caption;
     }
 
@@ -52,10 +67,121 @@ public class DataSourceColumn
 
     // ● properties
     public string Name { get; }
-    public string Caption => string.IsNullOrWhiteSpace(fCaption) ? Name : fCaption;
+    public string Caption
+    {
+        get => string.IsNullOrWhiteSpace(fCaption) ? Name : fCaption;
+        set
+        {
+            if (fCaption != value)
+            {
+                fCaption = value;
+                OnChanged();
+            }
+        }
+    }
     public Type DataType { get; }
-    public bool AllowsNull { get; }
-    public bool ReadOnly { get; }
+    public bool AllowsNull { get; set; }
+    public string DisplayFormat
+    {
+        get => fDisplayFormat;
+        set
+        {
+            if (fDisplayFormat != value)
+            {
+                fDisplayFormat = value;
+                OnChanged();
+            }
+        }
+    }
+    public string EditFormat
+    {
+        get => fEditFormat;
+        set
+        {
+            if (fEditFormat != value)
+            {
+                fEditFormat = value;
+                OnChanged();
+            }
+        }
+    }
+    public bool ReadOnly
+    {
+        get => fReadOnly;
+        set
+        {
+            if (fReadOnly != value)
+            {
+                fReadOnly = value;
+                OnChanged();
+            }
+        }
+    }
+    public string NullText
+    {
+        get => fNullText;
+        set
+        {
+            if (fNullText != value)
+            {
+                fNullText = value;
+                OnChanged();
+            }
+        }
+    }
+
+    public ILookupSource LookupSource
+    {
+        get => fLookupSource;
+        set
+        {
+            if (!ReferenceEquals(fLookupSource, value))
+            {
+                fLookupSource = value;
+                OnChanged();
+            }
+        }
+    }
+    public string LookupSourceName
+    {
+        get => fLookupSourceName;
+        set
+        {
+            if (fLookupSourceName != value)
+            {
+                fLookupSourceName = value;
+                OnChanged();
+            }
+        }
+    }
+    public string DisplayMember
+    {
+        get => fDisplayMember;
+        set
+        {
+            if (fDisplayMember != value)
+            {
+                fDisplayMember = value;
+                OnChanged();
+            }
+        }
+    }
+    public string ValueMember
+    {
+        get => fValueMember;
+        set
+        {
+            if (fValueMember != value)
+            {
+                fValueMember = value;
+                OnChanged();
+            }
+        }
+    }
+    public bool HasLookup => LookupSource != null || !string.IsNullOrWhiteSpace(LookupSourceName);
+    
+    // ● events
+    public event EventHandler Changed;
 }
 /// <summary>
 /// Relation column mapping
@@ -114,8 +240,18 @@ public class DataSourceRelation
 /// <summary>
 /// Row wrapper
 /// </summary>
-public class DataSourceRow
+public class DataSourceRow: INotifyPropertyChanged
 {
+    // ● private methods
+    internal void NotifyValueChanged(string ColumnName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item"));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
+
+        if (!string.IsNullOrWhiteSpace(ColumnName))
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs($"Item[{ColumnName}]"));
+    }
+    
     // ● constructor
     internal DataSourceRow(DataSource Source, object SourceItem, DataSourceRowState State)
     {
@@ -302,6 +438,9 @@ public class DataSourceRow
         get => Source.GetValue(this, ColumnName);
         set => Source.SetValue(this, ColumnName, value);
     }
+    
+    // ● events
+    public event PropertyChangedEventHandler PropertyChanged;
 }
 /// <summary>
 /// Evaluates RowFilterDef / RowFilterDefs on DataSourceRow sequences
@@ -602,7 +741,29 @@ public abstract class DataSource
             _ => DataRowState.Unchanged,
         };
     }
+    static public bool AreEqual(object A, object B)
+    {
+        if (A == null && B == null)
+            return true;
 
+        if (A == null || B == null)
+            return false;
+
+        if (Equals(A, B))
+            return true;
+
+        try
+        {
+            string SA = Convert.ToString(A, CultureInfo.InvariantCulture);
+            string SB = Convert.ToString(B, CultureInfo.InvariantCulture);
+            return string.Equals(SA, SB, StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
     // ● public methods
     public object GetValue(DataSourceRow Row, string ColumnName)
     {
@@ -620,14 +781,13 @@ public abstract class DataSource
         if (string.IsNullOrWhiteSpace(ColumnName))
             throw new ArgumentNullException(nameof(ColumnName));
 
+        object OldValue = GetValue(Row, ColumnName);
+
+        if (AreEqual(OldValue, Value))
+            return;
+
         SetValueCore(Row, ColumnName, Value);
-
-        if (Row.State == DataSourceRowState.Unchanged)
-        {
-            Row.State = DataSourceRowState.Modified;
-            OnRowStateChanged(Row);
-        }
-
+        Row.NotifyValueChanged(ColumnName);
         OnDataChanged();
     }
     public bool IsSameItem(object A, object B)
@@ -823,7 +983,11 @@ public abstract class DataSource
     // ● properties
     public IReadOnlyList<DataSourceColumn> Columns => fColumns;
     public IReadOnlyList<DataSourceRow> Rows => fRows;
-    public DataSourceRow CurrentRow => fCurrentIndex >= 0 && fCurrentIndex < fRows.Count ? fRows[fCurrentIndex] : null;
+    public DataSourceRow CurrentRow
+    {
+        get => fCurrentIndex >= 0 && fCurrentIndex < fRows.Count ? fRows[fCurrentIndex] : null;
+        set => SetCurrentInternal(value);
+    }
     public object CurrentItem => CurrentRow?.SourceItem;
     public IList<string> KeyColumns => fKeyColumns;
     public IReadOnlyList<DataSourceRelation> Relations => fRelations;
@@ -840,6 +1004,7 @@ public abstract class DataSource
                 CurrentRow[ColumnName] = value;
         }
     }
+
 
     // ● properties
     public bool IsBof => fRows.Count == 0 || fCurrentIndex <= 0;
@@ -1105,3 +1270,4 @@ public class ObjectDataSource<T> : DataSource where T : class, new()
         return DataSourceFilterEngine.Apply(Rows, UserFilters);
     }
 }
+
