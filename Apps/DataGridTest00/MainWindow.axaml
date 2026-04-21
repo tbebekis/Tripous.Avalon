@@ -1,0 +1,56 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DataGridTest00.MainWindow"
+        Width="1200"
+        Height="550"
+        WindowStartupLocation="CenterScreen"
+        Title="DataGridTest00">
+        <DockPanel Margin="10">
+    
+                <StackPanel DockPanel.Dock="Top" 
+                            Orientation="Horizontal" 
+                            Spacing="8" 
+                            Margin="0,0,0,10">
+        
+                        <Button Name="btnLoadPoco" Content="Load POCO" />
+                        <Button Name="btnLoadDataTable" Content="Load DataTable" />
+                        <Button Name="btnClearLog" Content="Clear Log" />
+        
+                        <Separator Width="1" Height="20" Background="Gray" Margin="5,0"/>
+        
+                        <ComboBox Name="cboColumnType" SelectedIndex="0" Width="200">
+                                <ComboBoxItem>Use Text Columns</ComboBoxItem>
+                                <ComboBoxItem>Use Template Columns</ComboBoxItem>
+                        </ComboBox>
+        
+                        <CheckBox Name="chUseLookupColumn" Content="Use Lookup Column" VerticalAlignment="Center" />
+                        <CheckBox Name="chAttachTypist" Content="Attach Typist" VerticalAlignment="Center" />
+                </StackPanel>
+
+                <Grid RowDefinitions="*, 4, 150">
+        
+                        <DataGrid Name="gridTest" 
+                                  Grid.Row="0"
+                                  GridLinesVisibility="All"
+                                  BorderThickness="1"
+                                  BorderBrush="Gray" />
+        
+                        <GridSplitter Grid.Row="1" 
+                                      Background="#F0F0F0" 
+                                      ResizeDirection="Rows" />
+
+                        <TextBox Name="edtLog" 
+                                 Grid.Row="2"
+                                 AcceptsReturn="True"
+                                 IsReadOnly="True"
+                                 TextWrapping="Wrap"
+                                 Watermark="Log information here..."
+                                 BorderThickness="1"
+                                 BorderBrush="Gray" />
+                </Grid>
+    
+        </DockPanel>
+</Window>

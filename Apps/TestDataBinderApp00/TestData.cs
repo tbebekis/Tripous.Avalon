@@ -5,7 +5,6 @@ using Tripous.Data;
  
 using System.Collections;
  
-
 namespace TestDataBinderApp00;
 
 public enum LineStatus

@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
@@ -14,7 +15,11 @@ using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
+using Avalonia.Media;
+using Avalonia.Threading;
 using Tripous.Data;
+using Avalonia.VisualTree;
 using InputElement = Avalonia.Input.InputElement;
 using KeyEventArgs = Avalonia.Input.KeyEventArgs;
 using KeyModifiers = Avalonia.Input.KeyModifiers;
@@ -51,22 +56,56 @@ static public class DataGridExtensions
             return Value;
         }
     }
+    private class TextValueConverter: IValueConverter
+    {
+        DataSourceColumn fColumn;
+
+        // ● constructor
+        public TextValueConverter(DataSourceColumn Column)
+        {
+            fColumn = Column;
+        }
+
+        // ● public methods
+        public object Convert(object Value, Type TargetType, object Parameter, CultureInfo Culture)
+        {
+            return FormatDisplayValue(fColumn, Value);
+        }
+        public object ConvertBack(object Value, Type TargetType, object Parameter, CultureInfo Culture)
+        {
+            return Value;
+        }
+    }
 
     // ● private methods
     static private object GetPropertyValue(object Instance, string PropertyName)
     {
-        if (Instance == null || string.IsNullOrWhiteSpace(PropertyName))
+        if (Instance == null)
             return null;
+
+        if (string.IsNullOrWhiteSpace(PropertyName))
+            return Instance;
 
         try
         {
-            var Prop = Instance.GetType().GetProperty(PropertyName);
-            return Prop != null ? Prop.GetValue(Instance) : null;
+            if (Instance is DataSourceRow SourceRow)
+                return SourceRow[PropertyName];
+
+            if (Instance is DataRowView RowView)
+                return RowView[PropertyName];
+
+            if (Instance is DataRow Row)
+                return Row[PropertyName];
+
+            PropertyInfo Prop = Instance.GetType().GetProperty(PropertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase);
+            if (Prop != null)
+                return Prop.GetValue(Instance);
         }
         catch
         {
-            return null;
         }
+
+        return null;
     }
     static private Binding CreateColumnBinding(string ColumnName)
     {
@@ -89,6 +128,159 @@ static public class DataGridExtensions
 
         return null;
     }
+    static private Type GetCoreType(Type DataType)
+    {
+        return Nullable.GetUnderlyingType(DataType) ?? DataType;
+    }
+    static private bool IsNumericType(Type DataType)
+    {
+        Type CoreType = GetCoreType(DataType);
+
+        return CoreType == typeof(byte)
+            || CoreType == typeof(short)
+            || CoreType == typeof(int)
+            || CoreType == typeof(long)
+            || CoreType == typeof(float)
+            || CoreType == typeof(double)
+            || CoreType == typeof(decimal);
+    }
+    static private bool IsDateType(Type DataType)
+    {
+        Type CoreType = GetCoreType(DataType);
+        return CoreType == typeof(DateTime) || CoreType == typeof(DateTimeOffset);
+    }
+    static private HorizontalAlignment GetDisplayHorizontalAlignment(DataSourceColumn Column)
+    {
+        if (Column?.DataType == null)
+            return HorizontalAlignment.Left;
+
+        Type CoreType = GetCoreType(Column.DataType);
+
+        if (CoreType == typeof(bool))
+            return HorizontalAlignment.Center;
+
+        if (IsNumericType(CoreType) || IsDateType(CoreType))
+            return HorizontalAlignment.Right;
+
+        return HorizontalAlignment.Left;
+    }
+    static private HorizontalAlignment GetEditorHorizontalAlignment(DataSourceColumn Column)
+    {
+        if (Column?.DataType == null)
+            return HorizontalAlignment.Left;
+
+        Type CoreType = GetCoreType(Column.DataType);
+
+        if (IsNumericType(CoreType) || IsDateType(CoreType))
+            return HorizontalAlignment.Right;
+
+        return HorizontalAlignment.Left;
+    }
+    static private string FormatDisplayValue(DataSourceColumn Column, object Value)
+    {
+        if (Value == null || Value == DBNull.Value)
+            return string.Empty;
+
+        if (Column?.DataType != null)
+        {
+            Type CoreType = GetCoreType(Column.DataType);
+
+            if (CoreType == typeof(bool))
+            {
+                try
+                {
+                    return Convert.ToBoolean(Value, CultureInfo.InvariantCulture) ? "x" : string.Empty;
+                }
+                catch
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        if (Column != null && !string.IsNullOrWhiteSpace(Column.DisplayFormat) && Value is IFormattable Formattable)
+        {
+            try
+            {
+                return Formattable.ToString(Column.DisplayFormat, CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+            }
+        }
+
+        return Convert.ToString(Value, CultureInfo.InvariantCulture) ?? string.Empty;
+    }
+    static private string FormatEditValue(DataSourceColumn Column, object Value)
+    {
+        if (Value == null || Value == DBNull.Value)
+            return string.Empty;
+
+        if (Column != null && !string.IsNullOrWhiteSpace(Column.EditFormat) && Value is IFormattable Formattable)
+        {
+            try
+            {
+                return Formattable.ToString(Column.EditFormat, CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+            }
+        }
+
+        return Convert.ToString(Value, CultureInfo.InvariantCulture) ?? string.Empty;
+    }
+    static private object ConvertTextValue(DataSourceColumn Column, string Text, object OriginalValue)
+    {
+        if (Column?.DataType == null)
+            return Text;
+
+        Type DataType = Column.DataType;
+        Type CoreType = GetCoreType(DataType);
+        bool IsNullable = Nullable.GetUnderlyingType(DataType) != null || Column.AllowsNull;
+
+        if (string.IsNullOrWhiteSpace(Text))
+        {
+            if (CoreType == typeof(string))
+                return string.Empty;
+
+            if (IsNullable)
+                return null;
+        }
+
+        try
+        {
+            if (CoreType == typeof(string))
+                return Text;
+            if (CoreType == typeof(byte))
+                return byte.Parse(Text, CultureInfo.InvariantCulture);
+            if (CoreType == typeof(short))
+                return short.Parse(Text, CultureInfo.InvariantCulture);
+            if (CoreType == typeof(int))
+                return int.Parse(Text, CultureInfo.InvariantCulture);
+            if (CoreType == typeof(long))
+                return long.Parse(Text, CultureInfo.InvariantCulture);
+            if (CoreType == typeof(float))
+                return float.Parse(Text, CultureInfo.InvariantCulture);
+            if (CoreType == typeof(double))
+                return double.Parse(Text, CultureInfo.InvariantCulture);
+            if (CoreType == typeof(decimal))
+                return decimal.Parse(Text, CultureInfo.InvariantCulture);
+            if (CoreType == typeof(DateTime))
+                return DateTime.Parse(Text, CultureInfo.InvariantCulture);
+            if (CoreType == typeof(DateTimeOffset))
+                return DateTimeOffset.Parse(Text, CultureInfo.InvariantCulture);
+            if (CoreType == typeof(Guid))
+                return Guid.Parse(Text);
+            if (CoreType.IsEnum)
+                return Enum.Parse(CoreType, Text, true);
+
+            return Convert.ChangeType(Text, CoreType, CultureInfo.InvariantCulture);
+        }
+        catch
+        {
+            return OriginalValue;
+        }
+    }
     static private object GetItemValue(object Item, string ValueMember)
     {
         if (Item == null)
@@ -107,7 +299,6 @@ static public class DataGridExtensions
         object Value = string.IsNullOrWhiteSpace(DisplayMember) ? Item : GetPropertyValue(Item, DisplayMember);
         return Value != null ? Convert.ToString(Value, CultureInfo.InvariantCulture) : null;
     }
-
     static private object FindItemByValue(DataSource Source, DataSourceColumn Column, object Value)
     {
         ILookupSource LookupSource = GetLookupSource(Source, Column);
@@ -136,10 +327,29 @@ static public class DataGridExtensions
 
         return Value != null ? Convert.ToString(Value, CultureInfo.InvariantCulture) : null;
     }
-    static private DataGridColumn CreateLookupColumn(DataSource Source, DataSourceColumn Column)
+    static private Border CreateCellBorder(Control Child)
     {
-        if (Source == null)
-            throw new ArgumentNullException(nameof(Source));
+        return new Border
+        {
+            Padding = new Thickness(0),
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            VerticalAlignment = VerticalAlignment.Stretch,
+            Child = Child
+        };
+    }
+    static private Grid CreateStretchHost(Control Child)
+    {
+        Grid Result = new()
+        {
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            VerticalAlignment = VerticalAlignment.Stretch
+        };
+
+        Result.Children.Add(Child);
+        return Result;
+    }
+    static private DataGridTemplateColumn CreateTextColumn(DataSourceColumn Column)
+    {
         if (Column == null)
             throw new ArgumentNullException(nameof(Column));
 
@@ -147,65 +357,154 @@ static public class DataGridExtensions
 
         Result.CellTemplate = new FuncDataTemplate<object>((Item, _) =>
         {
-            TextBlock TextBox = new();
+            TextBlock Text = new()
+            {
+                Margin = new Thickness(6, 2, 6, 2),
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                TextAlignment = GetDisplayHorizontalAlignment(Column) == HorizontalAlignment.Right ? TextAlignment.Right : GetDisplayHorizontalAlignment(Column) == HorizontalAlignment.Center ? TextAlignment.Center : TextAlignment.Left,
+            };
 
-            TextBox.Bind(TextBlock.TextProperty, new Binding(".")
+            Text.Bind(TextBlock.TextProperty, new Binding($"[{Column.Name}]")
             {
                 Mode = BindingMode.OneWay,
-                Converter = new LookupDisplayConverter(Source, Column)
+                Converter = new TextValueConverter(Column)
             });
 
-            return TextBox;
+            return CreateCellBorder(CreateStretchHost(Text));
         });
 
         Result.CellEditingTemplate = new FuncDataTemplate<object>((Item, _) =>
         {
-            ComboBox Box = new();
-            List<object> Items = BuildLookupItems(Source, Column);
-
-            Box.DataContext = Item;
-            Box.ItemsSource = Items;
-            Box.SelectedValueBinding = new Binding(Column.Name)
+            TextBox Box = new()
             {
-                Mode = BindingMode.TwoWay
+                Margin = new Thickness(4, 1, 4, 1),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = GetEditorHorizontalAlignment(Column),
+                IsReadOnly = Column.ReadOnly,
             };
 
-            Box.ItemTemplate = new FuncDataTemplate<object>((LookupItem, _) =>
+            if (Item is DataSourceRow Row)
+                Box.Text = FormatEditValue(Column, Row[Column.Name]);
+ 
+            Box.AttachedToVisualTree += (s, e) =>
             {
-                return new TextBlock
+                Dispatcher.UIThread.Post(() =>
                 {
-                    Text = GetLookupEditorItemText(LookupItem, Column)
-                };
-            });
+                    if (!Box.IsVisible || !Box.IsEffectivelyEnabled)
+                        return;
 
-            Box.SelectionBoxItemTemplate = Box.ItemTemplate;
+                    Box.Focus();
 
-            return Box;
+                    DataGrid Grid = Box.GetVisualAncestors().OfType<DataGrid>().FirstOrDefault();
+                    DataGridHost Host = Grid != null ? Grid.Tag as DataGridHost : null;
+
+                    if (Host != null && Host.TryConsumePendingEditText(Box))
+                        return;
+
+                    Box.SelectAll();
+                }, DispatcherPriority.Input);
+            };
+
+            void CommitEdit()
+            {
+                if (Item is not DataSourceRow Row)
+                    return;
+
+                object OriginalValue = Row[Column.Name];
+                object NewValue = ConvertTextValue(Column, Box.Text ?? string.Empty, OriginalValue);
+
+                if (!DataSource.AreEqual(OriginalValue, NewValue))
+                    Row[Column.Name] = NewValue;
+            }
+
+            Box.LostFocus += (s, e) =>
+            {
+                CommitEdit();
+            };
+
+            Box.KeyDown += (s, e) =>
+            {
+                if (e.Handled)
+                    return;
+
+                switch (e.Key)
+                {
+                    case Key.Enter:
+                    case Key.Tab:
+                        CommitEdit();
+                        break;
+                }
+            };
+
+            return CreateCellBorder(CreateStretchHost(Box));
         });
 
-        ApplyLookupColumnState(Result, Column);
         return Result;
     }
-    static private void ApplyLookupColumnState(DataGridTemplateColumn GridColumn, DataSourceColumn Column)
+    static private DataGridTemplateColumn CreateBoolColumn(DataSourceColumn Column)
     {
-        if (GridColumn == null)
-            throw new ArgumentNullException(nameof(GridColumn));
         if (Column == null)
             throw new ArgumentNullException(nameof(Column));
 
-        GridColumn.Header = Column.Caption;
-        GridColumn.IsReadOnly = Column.ReadOnly;
-        GridColumn.Tag = Column;
-        GridColumn.CellStyleClasses.Add("LookupColumn");
+        DataGridTemplateColumn Result = new();
+
+        Result.CellTemplate = new FuncDataTemplate<object>((Item, _) =>
+        {
+            CheckBox Box = new()
+            {
+                Margin = new Thickness(6, 1, 6, 1),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                IsHitTestVisible = false,
+                Focusable = false,
+                IsThreeState = GetCoreType(Column.DataType) != typeof(bool),
+            };
+
+            Box.Bind(ToggleButton.IsCheckedProperty, new Binding($"[{Column.Name}]")
+            {
+                Mode = BindingMode.OneWay
+            });
+
+            return CreateCellBorder(CreateStretchHost(Box));
+        });
+
+        Result.CellEditingTemplate = new FuncDataTemplate<object>((Item, _) =>
+        {
+            CheckBox Box = new()
+            {
+                Margin = new Thickness(6, 1, 6, 1),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                IsThreeState = GetCoreType(Column.DataType) != typeof(bool),
+                IsEnabled = !Column.ReadOnly,
+            };
+
+            Box.Bind(ToggleButton.IsCheckedProperty, CreateColumnBinding(Column.Name));
+
+            Box.AttachedToVisualTree += (s, e) =>
+            {
+                Dispatcher.UIThread.Post(() =>
+                {
+                    if (Box.IsVisible && Box.IsEffectivelyEnabled)
+                        Box.Focus();
+                }, DispatcherPriority.Input);
+            };
+
+            return CreateCellBorder(CreateStretchHost(Box));
+        });
+
+        return Result;
     }
-    
     static private bool GetAllowNullSelection(DataSourceColumn Column)
     {
         return Column != null && Column.AllowsNull;
     }
-    static private string GetNullText()
+    static private string GetNullText(DataSourceColumn Column)
     {
-        return "(None)";
+        return !string.IsNullOrWhiteSpace(Column?.NullText) ? Column.NullText : "(None)";
     }
     static private List<object> BuildLookupItems(DataSource Source, DataSourceColumn Column)
     {
@@ -216,7 +515,7 @@ static public class DataGridExtensions
             return Result;
 
         if (GetAllowNullSelection(Column))
-            Result.Add(new LookupNullItem(GetNullText()));
+            Result.Add(new LookupNullItem(GetNullText(Column)));
 
         if (LookupSource.Items != null)
         {
@@ -226,7 +525,6 @@ static public class DataGridExtensions
 
         return Result;
     }
-    
     static private object GetLookupEditorItemValue(object Item, DataSourceColumn Column)
     {
         if (Item == null)
@@ -247,7 +545,6 @@ static public class DataGridExtensions
 
         return GetItemDisplayText(Item, Column.DisplayMember) ?? string.Empty;
     }
-    
     static private object FindLookupEditorItem(List<object> Items, DataSourceColumn Column, object Value)
     {
         if (Items == null || Column == null)
@@ -276,33 +573,123 @@ static public class DataGridExtensions
 
         return null;
     }
-    
+    static private DataGridTemplateColumn CreateLookupColumn(DataSource Source, DataSourceColumn Column)
+    {
+        if (Source == null)
+            throw new ArgumentNullException(nameof(Source));
+        if (Column == null)
+            throw new ArgumentNullException(nameof(Column));
+
+        DataGridTemplateColumn Result = new();
+
+        Result.CellTemplate = new FuncDataTemplate<object>((Item, _) =>
+        {
+            TextBlock Text = new()
+            {
+                Margin = new Thickness(6, 2, 6, 2),
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                TextAlignment = TextAlignment.Left,
+            };
+
+            Text.Bind(TextBlock.TextProperty, new Binding(".")
+            {
+                Mode = BindingMode.OneWay,
+                Converter = new LookupDisplayConverter(Source, Column)
+            });
+
+            return CreateCellBorder(CreateStretchHost(Text));
+        });
+
+        Result.CellEditingTemplate = new FuncDataTemplate<object>((Item, _) =>
+        {
+            ComboBox Box = new()
+            {
+                Margin = new Thickness(0),
+                Padding = new Thickness(4, 1, 4, 1),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                IsEnabled = !Column.ReadOnly,
+            };
+
+            List<object> Items = BuildLookupItems(Source, Column);
+
+            Box.ItemsSource = Items;
+
+            Box.ItemTemplate = new FuncDataTemplate<object>((LookupItem, _) =>
+            {
+                return new TextBlock
+                {
+                    Text = GetLookupEditorItemText(LookupItem, Column),
+                    Margin = new Thickness(4, 2, 4, 2),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    TextAlignment = TextAlignment.Left,
+                };
+            });
+
+            Box.SelectionBoxItemTemplate = Box.ItemTemplate;
+
+            if (Item is DataSourceRow Row)
+                Box.SelectedItem = FindLookupEditorItem(Items, Column, Row[Column.Name]);
+
+            Box.AttachedToVisualTree += (s, e) =>
+            {
+                Dispatcher.UIThread.Post(() =>
+                {
+                    if (Box.IsVisible && Box.IsEffectivelyEnabled)
+                        Box.Focus();
+                }, DispatcherPriority.Input);
+            };
+
+            void CommitSelection()
+            {
+                if (Item is not DataSourceRow Row)
+                    return;
+
+                object OriginalValue = Row[Column.Name];
+                object NewValue = GetLookupEditorItemValue(Box.SelectedItem, Column);
+
+                if (!DataSource.AreEqual(OriginalValue, NewValue))
+                    Row[Column.Name] = NewValue;
+            }
+
+            Box.SelectionChanged += (s, e) =>
+            {
+                CommitSelection();
+            };
+
+            Box.DropDownClosed += (s, e) =>
+            {
+                CommitSelection();
+            };
+
+            Box.LostFocus += (s, e) =>
+            {
+                CommitSelection();
+            };
+
+            return CreateCellBorder(CreateStretchHost(Box));
+        });
+
+        Result.CellStyleClasses.Add("LookupColumn");
+        return Result;
+    }
+
     // ● static public methods
     static public DataGridColumn CreateColumn(DataSource Source, DataSourceColumn Column)
     {
         if (Column == null)
             throw new ArgumentNullException(nameof(Column));
 
-        DataGridColumn Result;
+        DataGridTemplateColumn Result;
 
         if (Column.HasLookup)
-        {
             Result = CreateLookupColumn(Source, Column);
-        }
-        else if (Column.DataType == typeof(bool))
-        {
-            Result = new DataGridCheckBoxColumn
-            {
-                Binding = CreateColumnBinding(Column.Name)
-            };
-        }
+        else if (GetCoreType(Column.DataType) == typeof(bool))
+            Result = CreateBoolColumn(Column);
         else
-        {
-            Result = new DataGridTextColumn
-            {
-                Binding = CreateColumnBinding(Column.Name)
-            };
-        }
+            Result = CreateTextColumn(Column);
 
         ApplyColumnState(Result, Column);
         return Result;
@@ -866,7 +1253,6 @@ static internal class DataBinderControlBindingHelper
         return BindLookupSelector(Binder, Box, LookupSource, TargetColumnName, DisplayMember, ValueMember, AllowNullSelection, NullText);
     }
     
-    
     static public ControlBinding Bind(DataBinder Binder, DatePicker Box, string ColumnName)
     {
         if (Binder == null)
@@ -1224,6 +1610,8 @@ public class InplaceEditorController
 public class DataGridHost: IInplaceEditorRowProvider, IInplaceEditorColumnProvider, IInplaceEditorCellActivator
 {
     // ● private fields
+    private string fPendingEditText;
+    private bool fReplacePendingEditText;
     private DataGrid fGrid;
     private InplaceEditorContext fContext;
     private InplaceEditorNavigator fNavigator;
@@ -1231,6 +1619,86 @@ public class DataGridHost: IInplaceEditorRowProvider, IInplaceEditorColumnProvid
     private EventHandler<DataGridCellEditEndedEventArgs> fCellEditEndedHandler;
 
     // ● private methods
+    private static bool IsEditorControl(Control Control)
+    {
+        return Control is TextBox
+               || Control is ComboBox
+               || Control is CheckBox;
+    }
+    private static bool ComesFromEditor(KeyEventArgs e)
+    {
+        Control Control = e?.Source as Control;
+
+        while (Control != null)
+        {
+            if (IsEditorControl(Control))
+                return true;
+
+            Control = Control.Parent as Control;
+        }
+
+        return false;
+    }
+    private static string GetEditStartText(KeyEventArgs e)
+    {
+        if (e == null)
+            return null;
+
+        return e.Key switch
+        {
+            >= Key.A and <= Key.Z => e.Key.ToString().ToLowerInvariant(),
+            >= Key.D0 and <= Key.D9 => ((char)('0' + (e.Key - Key.D0))).ToString(),
+            >= Key.NumPad0 and <= Key.NumPad9 => ((char)('0' + (e.Key - Key.NumPad0))).ToString(),
+            Key.Space => " ",
+            Key.OemPlus => "+",
+            Key.OemMinus => "-",
+            Key.OemComma => ",",
+            Key.OemPeriod => ".",
+            _ => null,
+        };
+    }
+    private bool TryBeginEditCurrentCell(string InitialText = null)
+    {
+        InplaceEditorCellInfo CellInfo = fController?.GetCurrentCell();
+        if (CellInfo == null)
+            return false;
+
+        fPendingEditText = InitialText;
+        fReplacePendingEditText = !string.IsNullOrEmpty(InitialText);
+
+        bool Result = fController.BeginEdit(CellInfo);
+
+        if (!Result)
+        {
+            fPendingEditText = null;
+            fReplacePendingEditText = false;
+        }
+
+        return Result;
+    }
+    public bool TryConsumePendingEditText(TextBox Editor)
+    {
+        if (Editor == null)
+            return false;
+
+        if (!fReplacePendingEditText)
+            return false;
+
+        Editor.Text = fPendingEditText ?? string.Empty;
+        Editor.CaretIndex = Editor.Text?.Length ?? 0;
+        Editor.SelectionStart = Editor.CaretIndex;
+        Editor.SelectionEnd = Editor.CaretIndex;
+
+        fPendingEditText = null;
+        fReplacePendingEditText = false;
+        return true;
+    }
+    public void ClearPendingEditText()
+    {
+        fPendingEditText = null;
+        fReplacePendingEditText = false;
+    }
+ 
     private static bool IsEditStartKey(KeyEventArgs e)
     {
         if (e == null || e.Handled)
@@ -1260,10 +1728,12 @@ public class DataGridHost: IInplaceEditorRowProvider, IInplaceEditorColumnProvid
         if (fGrid == null)
             return;
 
-        fGrid.AddHandler(InputElement.KeyDownEvent, Grid_KeyDown, RoutingStrategies.Tunnel | RoutingStrategies.Bubble, true);
+        fGrid.AddHandler(InputElement.KeyDownEvent, Grid_KeyDown, RoutingStrategies.Bubble, true);
 
         fCellEditEndedHandler = (Sender, Args) =>
         {
+            ClearPendingEditText();
+
             if (fController != null)
                 fController.HandleExternalEditEnd();
         };
@@ -1289,6 +1759,9 @@ public class DataGridHost: IInplaceEditorRowProvider, IInplaceEditorColumnProvid
 
         if (fController.IsEditing)
         {
+            if (ComesFromEditor(e))
+                return;
+
             HandleEditModeKeys(e);
             return;
         }
@@ -1324,7 +1797,7 @@ public class DataGridHost: IInplaceEditorRowProvider, IInplaceEditorColumnProvid
         }
 
         if (!Handled && IsEditStartKey(e))
-            Handled = TryBeginEditCurrentCell();
+            Handled = TryBeginEditCurrentCell(GetEditStartText(e));
 
         if (Handled)
             e.Handled = true;
@@ -1384,7 +1857,28 @@ public class DataGridHost: IInplaceEditorRowProvider, IInplaceEditorColumnProvid
 
         return Result;
     }
+    private void FocusCurrentEditor()
+    {
+        if (fGrid == null)
+            return;
 
+        Control Editor = fGrid.GetVisualDescendants()
+            .OfType<Control>()
+            .FirstOrDefault(x =>
+                x.IsVisible &&
+                x.IsEffectivelyEnabled &&
+                (x is TextBox || x is ComboBox || x is CheckBox));
+
+        if (Editor == null)
+            return;
+
+        Editor.Focus();
+
+        if (Editor is TextBox TextEditor)
+            TextEditor.SelectAll();
+    }
+
+    
     // ● constructors
     public DataGridHost(DataGrid Grid)
     {
@@ -1458,6 +1952,12 @@ public class DataGridHost: IInplaceEditorRowProvider, IInplaceEditorColumnProvid
             return false;
 
         fGrid.BeginEdit();
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            FocusCurrentEditor();
+        }, DispatcherPriority.Background);
+
         return true;
     }
     public bool CommitGridEdit()

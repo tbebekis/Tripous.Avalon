@@ -1,0 +1,59 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DataTest00.MainWindow"
+        Width="1200"
+        Height="550"
+        WindowStartupLocation="CenterScreen"
+        Title="DataTest00">
+<DockPanel Margin="10">
+    
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="0,0,0,15">
+        <Button Name="btnFirst" Content="First" Width="70" />
+        <Button Name="btnPrev"  Content="Prev"  Width="70" />
+        <Button Name="btnNext"  Content="Next"  Width="70" />
+        <Button Name="btnLast"  Content="Last"  Width="70" />
+        
+        <Separator Width="1" Height="20" Background="Gray" Margin="5,0"/>
+        
+        <Button Name="btnNew"    Content="New"    Width="80" Background="#E3F2FD" />
+        <Button Name="btnDelete" Content="Delete" Width="80" Background="#FFEBEE" />
+        <Button Name="btnApply"  Content="Apply"  Width="80" Background="#E8F5E9" />
+    </StackPanel>
+
+    <Grid ColumnDefinitions="300, 15, *" RowDefinitions="Auto, 15, *">
+        
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
+            <Label DockPanel.Dock="Top" Content="Customers List" FontWeight="Bold" Margin="0,0,0,5"/>
+            <ListBox Name="lstCustomers" BorderThickness="1" BorderBrush="Gray" />
+        </DockPanel>
+
+        <Border Grid.Row="0" Grid.Column="2" 
+                BorderBrush="#E0E0E0" BorderThickness="1" 
+                CornerRadius="4" Padding="15" Background="#FAFAFA">
+            <StackPanel Spacing="10">
+                <Label Content="Customer Details" FontWeight="Bold" Margin="0,0,0,5"/>
+                
+                <Grid ColumnDefinitions="80, *" RowDefinitions="Auto, Auto">
+                    <Label Grid.Row="0" Grid.Column="0" Content="Name" VerticalAlignment="Center" />
+                    <TextBox Name="edtName" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Country" VerticalAlignment="Center" />
+                    <ComboBox Name="cboCountry" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <DockPanel Grid.Row="2" Grid.Column="2">
+            <Label DockPanel.Dock="Top" Content="All Customers Data" FontWeight="Bold" Margin="0,0,0,5"/>
+            <DataGrid Name="gridCustomers" 
+                      GridLinesVisibility="All" 
+                      BorderThickness="1" 
+                      BorderBrush="Gray" />
+        </DockPanel>
+
+    </Grid>
+</DockPanel>
+</Window>
