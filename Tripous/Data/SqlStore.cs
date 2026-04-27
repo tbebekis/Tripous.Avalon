@@ -288,18 +288,18 @@ public class SqlStore
             return Con.GetSchema(collectionName, restrictionValues);
     }
 
-    public void GetNativeSchemaFromTableName(string StatementName, string TableName, ref DataTable Table)
+    public DataTable GetNativeSchemaFromTableName(string StatementName, string TableName)
     {
         if (string.IsNullOrWhiteSpace(TableName))
             throw new ApplicationException($"Cannot get table schema. No table name defined");
         string SqlText = $"select * from {TableName}";
-        GetNativeSchemaFromSelect(StatementName, SqlText, ref Table);
+        return GetNativeSchemaFromSelect(StatementName, SqlText);
     }
-    public void GetNativeSchemaFromSelect(string StatementName, string SqlText, ref DataTable Table)
+    public DataTable GetNativeSchemaFromSelect(string StatementName, string SqlText)
     {
         if (SqlCache.Contains(this.ConnectionInfo.Name, StatementName))
         {
-            Table = SqlCache.Find(this.ConnectionInfo.Name, StatementName);
+            return SqlCache.Find(this.ConnectionInfo.Name, StatementName);
         }
         else
         {
@@ -312,107 +312,16 @@ public class SqlStore
  
                     using (DbDataReader Reader = Cmd.ExecuteReader(CommandBehavior.SchemaOnly))
                     {
-                        Table = Reader.GetSchemaTable();
+                        DataTable Table = Reader.GetSchemaTable();
                         SqlCache.Add(this.ConnectionInfo.Name, StatementName, Table);
+                        return Table;
                     }
                 }
             }
         }
     }
     
-    /// <summary>
-    /// Executes either SqlText or a "select * from TableName", and stores the result schema
-    /// to the <see cref="SqlCache"/> list, under the SchemaName, if given, else under the TableName.
-    /// <para></para>
-    /// <para>Either SqlText or TableName MUST be NOT null or empty.</para>
-    /// <para>If SqlText is null or empty then SqlText becomes SELECT * FROM TableName.</para>
-    /// <para>If TableName is null or empty then this function tries to extract it from SqlText.</para>
-    /// <para>If SchemaName is null or empty then SchemaName = TableName. </para>
-    /// <para>Table can be null. If it is not null then the result schema is merged to that Table schema.</para>
-    /// </summary>
-    public void GetNativeSchema(string SqlText, string TableName, string SchemaName, DataTable Table)
-    {
-        string PrepareSchemaSql(string SqlText, string TableName)
-        {
-            if (!string.IsNullOrWhiteSpace(TableName))
-                return string.Format("select * from {0} where 1 > 2", TableName);
 
-            SqlText = SqlText.Trim().TrimEnd(';');
-            return string.Format("select * from ({0}) X where 1 > 2", SqlText);
-        }
-        
-        if (string.IsNullOrWhiteSpace(SqlText) && string.IsNullOrWhiteSpace(TableName))
-            Sys.Throw("GetNativeSchema(): SqlText and TableName are both null or empty!");
-
-        if (string.IsNullOrWhiteSpace(SqlText) && !string.IsNullOrWhiteSpace(TableName))
-            SqlText = string.Format("select * from {0}", TableName);
-
-        if (string.IsNullOrWhiteSpace(TableName))
-            TableName = SqlHelper.GetMainTableName(SqlText);
-
-        if (string.IsNullOrWhiteSpace(SchemaName))
-            SchemaName = !string.IsNullOrWhiteSpace(TableName) ? TableName : "SqlText";
-
-        DataTable SchemaTable = null;
-        StringBuilder SB = new StringBuilder();
-
-        if (SqlCache.Contains(this.ConnectionInfo.Name, SchemaName))
-        {
-            SchemaTable = SqlCache.Find(this.ConnectionInfo.Name, SchemaName);
-        }
-        else
-        {
-            string sSqlText = PrepareSchemaSql(SqlText, TableName);
-
-            try
-            {
-                SchemaTable = GetSchemaFromReader(sSqlText);
-                SqlCache.Add(this.ConnectionInfo.Name, SchemaName, SchemaTable);
-            }
-            catch (Exception ex)
-            {
-                SB.AppendLine();
-                SB.AppendLine("[0]");
-                SB.AppendLine(ex.Message);
-                SB.AppendLine();
-                SB.AppendLine(sSqlText);
-                SB.AppendLine("==========================================");
-            }
-        }
-
-        if (SchemaTable == null)
-        {
-            string Message = "GetNativeSchema(): Can not get schema for: ";
-            Message = !string.IsNullOrWhiteSpace(SqlText) ? Message + Environment.NewLine + SqlText : Message + TableName;
-
-            if (SB.Length > 0)
-                Message += Environment.NewLine + SB.ToString();
-
-            throw new ApplicationException(Message);
-        }
-
-        if (Table != null)
-            SchemaTable.MergeStructure(Table);
-    }
-    /// <summary>
-    /// Updates the SchemaTable with schema retrieved by using a DbDataReader.
-    /// </summary>
-    protected virtual DataTable GetSchemaFromReader(string SqlText)
-    {
-        using (DbConnection Con = this.OpenConnection())
-        {
-            using (DbCommand Cmd = Con.CreateCommand())
-            {
-                Cmd.CommandText = SqlText;
-
-                using (DbDataReader Reader = Cmd.ExecuteReader())
-                {
-                    DataTable Table = Reader.GetSchemaTable();
-                    return Table;
-                }
-            }
-        }
-    }
     
     /// <summary>
     /// Returns a string list with the table names in the database.

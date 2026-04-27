@@ -17,8 +17,9 @@ public static class SqlStatementBuilder
         if (Store.Provider.OidMode == OidMode.Generator)
             Flags |= BuildSqlFlags.OidModeIsBefore;
 
-        DataTable SchemaTable = new DataTable("SchemaTable");
-        Store.GetNativeSchema("", TableName, TableName, SchemaTable);
+        //DataTable SchemaTable = new DataTable("SchemaTable");
+        DataTable SchemaTable = Store.GetNativeSchemaFromTableName(TableName, TableName);
+ 
 
         DataColumn PkColumn = SchemaTable.FindColumn(PrimaryKeyField);
         if (PkColumn == null)
