@@ -1,6 +1,3 @@
-using System.Collections.ObjectModel;
-using System.Data;
-
 namespace Tripous.Data;
 
 /// <summary>
@@ -10,6 +7,10 @@ namespace Tripous.Data;
 /// </summary>
 public class DetailList : Collection<MemTable>
 {
+    // ● private
+    private MemTable OwnerTable = null; // the owner table, which becomes the master of any other table added
+    private int ActiveCount = 0;
+    
     private static void ClearMasterRecursive(MemTable table)
     {
         MemTable[] children = table.GetDetails().ToArray();
@@ -43,9 +44,6 @@ public class DetailList : Collection<MemTable>
 
         detail.ValidateRelationSchema();
     }
-    
-    private MemTable OwnerTable = null; // the owner table, which becomes the master of any other table added
-    private int ActiveCount = 0;
 
     /// <summary>
     /// Throws an exception if the master and the detail MemTable instances
@@ -121,7 +119,6 @@ public class DetailList : Collection<MemTable>
         if (this.Active)
             ActivateDetail(DetailTable);
     }
-
     protected override void RemoveItem(int index)
     {
         MemTable DetailTable = this[index];
@@ -136,13 +133,13 @@ public class DetailList : Collection<MemTable>
 
         ClearMasterRecursive(DetailTable);
     }
-
     protected override void ClearItems()
     {
         while (this.Count > 0)
             RemoveItem(this.Count - 1);
     }
 
+    // ● construction
     /// <summary>
     /// Constructor
     /// </summary>
@@ -152,6 +149,18 @@ public class DetailList : Collection<MemTable>
         OwnerTable.CurrentRowChanged += OwnerTable_CurrentRowChanged;
     }
 
+    // ● public
+    public bool Contains(string TableName) => this.FirstOrDefault(x => Sys.IsSameText(TableName, x.TableName)) != null;
+    public MemTable Find(string TableName) => this.FirstOrDefault(x => Sys.IsSameText(TableName, x.TableName));
+    public MemTable Get(string TableName)
+    {
+        MemTable Result = this.FirstOrDefault(x => Sys.IsSameText(TableName, x.TableName));
+        if (Result == null)
+            throw new ApplicationException($"Table not found in {OwnerTable.TableName} details: {TableName}");
+        return Result;
+    }
+    
+    // ● properties
     /// <summary>
     /// Activates and de-activates the master-detail relation-ship between
     /// the master MemTable and the details.

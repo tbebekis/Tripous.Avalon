@@ -13,7 +13,7 @@ static public class DbSchemaLoader
             DbServerType.Firebird   => "FirebirdSql",
             DbServerType.Oracle     => "Oracle",
             DbServerType.Sqlite     => "Sqlite",
-            DbServerType.Odbc       => "Odbc",
+   
             _ => throw new Exception($"Unsupported DbServerType: {DbServerType}")
         };
 
@@ -84,19 +84,20 @@ static public class DbSchemaLoader
             case DbServerType.Firebird:break;
             case DbServerType.Oracle:break;
             case DbServerType.Sqlite:break;
-            case DbServerType.Odbc:break;
+ 
         }        
         return SqlText;       
     }
     static DataTable ExecuteResourceSql(DbConnectionInfo ConInfo, string baseResourcePath, string fileName)
     {
-        string sqlText = ReadEmbeddedSql(baseResourcePath, fileName);
-        sqlText = ProcessReplacementsInMetadataSql(ConInfo, sqlText);
+        string SqlText = ReadEmbeddedSql(baseResourcePath, fileName);
+        SqlText = ProcessReplacementsInMetadataSql(ConInfo, SqlText);
 
-        if (string.IsNullOrWhiteSpace(sqlText))
+        if (string.IsNullOrWhiteSpace(SqlText))
             return null;
 
-        return Db.Select(ConInfo, sqlText);
+        SqlProvider Provider = ConInfo.GetSqlProvider();
+        return Provider.Select(ConInfo, SqlText);
     }
 
     // ● Load
@@ -133,7 +134,7 @@ static public class DbSchemaLoader
         MetaField.IsNullable      = Row.AsInteger("IsNullable") == 1;
         MetaField.SizeInChars     = Row.AsInteger("SizeInChars");
         MetaField.SizeInBytes     = Row.AsInteger("SizeInBytes");
-        MetaField.Precision       = Row.AsInteger("DecimalPrecision'");
+        MetaField.Precision       = Row.AsInteger("DecimalPrecision");
         MetaField.Scale           = Row.AsInteger("DecimalScale");
         MetaField.DefaultValue    = Row.AsString("DefaultValue");
         MetaField.Expression      = Row.AsString("Expression");

@@ -455,7 +455,6 @@
             }
             else // if ((DataType == typeof(byte[]) || (DataType == typeof(object))))
             {
-                // Μετατροπή του string σε byte array χρησιμοποιώντας UTF8
                 byte[] bytes = System.Text.Encoding.UTF8.GetBytes(Value);
                 Row[BlobFieldName] = bytes;
             }
@@ -478,8 +477,7 @@
                 byte[] bytes = Row[BlobFieldName] as byte[];
                 if (bytes == null || bytes.Length == 0)
                     return string.Empty;
-
-                // Μετατροπή των bytes πίσω σε string
+ 
                 return System.Text.Encoding.UTF8.GetString(bytes);
             }
         }

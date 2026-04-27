@@ -1,5 +1,3 @@
-using System.Collections.ObjectModel;
-
 namespace Tripous.Data;
 
 /// <summary>
@@ -25,9 +23,17 @@ public class DbConnections: SettingsBase
     
     // ● public
     public DbConnectionInfo Find(string Name) => List.FirstOrDefault(x => Name.IsSameText(x.Name));
+
+    public DbConnectionInfo Get(string Name)
+    {
+        DbConnectionInfo Result  = List.FirstOrDefault(x => Name.IsSameText(x.Name));
+        if (Result == null)
+            throw new ApplicationException($"Cannot get {typeof(DbConnectionInfo)}: {Name}");
+        return Result;
+    }
     public bool Contains(string Name) => List.Any(x => Name.IsSameText(x.Name));
 
-    public DbConnectionInfo Add(string Name, DbServerType dbServerType, string ConnectionString, int CommandTimeoutSeconds = DbConnectionInfo.DefaultCommandTimeoutSeconds)
+    public DbConnectionInfo Add(string Name, DbServerType dbServerType, string ConnectionString, int CommandTimeoutSeconds)
     {
         var Result = Find(Name);
 

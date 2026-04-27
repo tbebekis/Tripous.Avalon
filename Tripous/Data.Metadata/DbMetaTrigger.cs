@@ -2,7 +2,7 @@ namespace Tripous.Data;
 
 public class DbMetaTrigger : DbMetaObject
 {
-    public string TableName { get; set; }            // σε ποια table (ή null αν database-level)
+    public string TableName { get; set; }                 
     public string TriggerType { get; set; }                // INSERT, UPDATE, DELETE BEFORE, AFTER
  
     public override string DisplayText

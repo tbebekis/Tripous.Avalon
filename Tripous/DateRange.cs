@@ -1,5 +1,4 @@
-﻿namespace Tripous
-{
+namespace Tripous;
 
     /// <summary>
     /// Indicates how to construct a range between two dates.
@@ -96,28 +95,35 @@
     }
 
 
-    static public class DateRangeExtensions
+    /// <summary>
+    /// DateRange extensions
+    /// </summary>
+    static public class DateRanges
     {
         /// <summary>
-        /// Constant. The range values than can be used to a WHERE clause filter.
+        /// Constant
+        /// </summary>
+        static public readonly string PrefixFrom = "FROM_DATE_RANGE_";
+        /// <summary>
+        /// Constant
+        /// </summary>
+        static public readonly string PrefixTo = "TO_DATE_RANGE_";
+        /// <summary>
+        /// Constant
         /// </summary>
         static public readonly DateRange[] WhereRanges = {
-            DateRange.Custom,
-            DateRange.Today,
-            DateRange.Yesterday,
-            DateRange.LastWeek,
-            DateRange.LastTwoWeeks,
-            DateRange.LastMonth,
-            DateRange.LastTwoMonths,
-            DateRange.LastThreeMonths,
-            DateRange.LastSemester,
-            DateRange.LastYear,
-            DateRange.LastTwoYears,
-        };
-        /// <summary>
-        /// Returns the range values than can be used to a WHERE clause filter.
-        /// </summary>
-        static public DateRange[] GetWhereRanges() => WhereRanges;
+                                                        DateRange.Custom,
+                                                        DateRange.Today,
+                                                        DateRange.Yesterday,
+                                                        DateRange.LastWeek,
+                                                        DateRange.LastTwoWeeks,
+                                                        DateRange.LastMonth,
+                                                        DateRange.LastTwoMonths,
+                                                        DateRange.LastThreeMonths,
+                                                        DateRange.LastSemester,
+                                                        DateRange.LastYear,
+                                                        DateRange.LastTwoYears,
+                                                    };
 
         /// <summary>
         /// Converts a <see cref="DateRange"/> to two DateTime values.
@@ -166,5 +172,27 @@
 
             return Result;
         }
+        /// <summary>
+        /// True if Range denotes a past time (Today included)
+        /// </summary>
+        static public bool IsPast(this DateRange Range)
+        {
+            switch (Range)
+            {
+                case DateRange.Today:
+                case DateRange.Yesterday:
+
+                case DateRange.LastWeek:
+                case DateRange.LastTwoWeeks:
+                case DateRange.LastMonth:
+                case DateRange.LastTwoMonths:
+                case DateRange.LastThreeMonths:
+                case DateRange.LastSemester:
+                case DateRange.LastYear:
+                case DateRange.LastTwoYears:
+                    return true;
+            }
+
+            return false;
+        }
     }
-}

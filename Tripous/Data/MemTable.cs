@@ -1,10 +1,3 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Data;
-using System.Text;
-
 namespace Tripous.Data;
 
 public class MemTable : DataTable
@@ -12,15 +5,14 @@ public class MemTable : DataTable
     static private int TableNameCounter = 0;
     protected int EventsDisableCounter = 0;
     private bool hasExpressionsChecked;
- 
+
     private bool hasExpressions;
     private string[] fDetailFields;
     private DataRow fCurrentRow;
     private MemTable fMaster;
     private string fDetailRowFilter;
     private string fUserRowFilter;
-   
-    
+
     //  ● private
     private bool IsValidRow(DataRow row)
     {
@@ -29,7 +21,9 @@ public class MemTable : DataTable
                && row.RowState != DataRowState.Deleted
                && row.RowState != DataRowState.Detached;
     }
+
     private DataRow FirstRowOrNull() => Rows.Count > 0 ? Rows[0] : null;
+
     private void EnsureCurrentRow()
     {
         if (IsValidRow(fCurrentRow))
@@ -38,15 +32,18 @@ public class MemTable : DataTable
         fCurrentRow = Rows.Count > 0 ? Rows[0] : null;
         OnCurrentRowChanged();
     }
+
     protected virtual void OnCurrentRowChanged()
     {
         CurrentRowChanged?.Invoke(this, EventArgs.Empty);
     }
+
     private static string QuoteColumnName(string ColumnName)
     {
-       // return $"[{ColumnName.Replace("]", "]]")}]";
-       return ColumnName;
+        // return $"[{ColumnName.Replace("]", "]]")}]";
+        return ColumnName;
     }
+
     private static bool IsIntegerType(Type DataType)
     {
         return DataType == typeof(byte)
@@ -58,10 +55,12 @@ public class MemTable : DataTable
                || DataType == typeof(long)
                || DataType == typeof(ulong);
     }
+
     private static bool IsSupportedRelationFieldType(Type DataType)
     {
         return DataType == typeof(string) || IsIntegerType(DataType);
     }
+
     private static string FormatRowFilterValue(object Value, Type DataType)
     {
         if (Value == null || Value == DBNull.Value)
@@ -75,7 +74,9 @@ public class MemTable : DataTable
 
         throw new ApplicationException($"Unsupported relation field type '{DataType.FullName}'.");
     }
-    private static string CreateRowFilter(DataRow MasterRow, string[] MasterFields, string[] DetailFields, DataColumn[] MasterColumns, DataColumn[] DetailColumns)
+
+    private static string CreateRowFilter(DataRow MasterRow, string[] MasterFields, string[] DetailFields,
+        DataColumn[] MasterColumns, DataColumn[] DetailColumns)
     {
         var SB = new StringBuilder();
 
@@ -89,12 +90,14 @@ public class MemTable : DataTable
             if (Value == DBNull.Value)
                 SB.Append($"{QuoteColumnName(DetailFields[i])} IS NULL");
             else
-                SB.Append($"{QuoteColumnName(DetailFields[i])} = {FormatRowFilterValue(Value, DetailColumns[i].DataType)}");
+                SB.Append(
+                    $"{QuoteColumnName(DetailFields[i])} = {FormatRowFilterValue(Value, DetailColumns[i].DataType)}");
         }
 
         string Result = SB.ToString();
         return Result;
     }
+
     internal void ValidateRelationSchema()
     {
         if (Master == null)
@@ -118,16 +121,19 @@ public class MemTable : DataTable
             Type ChildType = ChildColumns[i].DataType;
 
             if (!IsSupportedRelationFieldType(ParentType))
-                throw new ApplicationException($"Table '{Master.TableName}': Column '{ParentColumns[i].ColumnName}' has unsupported relation type '{ParentType.Name}'.");
+                throw new ApplicationException(
+                    $"Table '{Master.TableName}': Column '{ParentColumns[i].ColumnName}' has unsupported relation type '{ParentType.Name}'.");
 
             if (!IsSupportedRelationFieldType(ChildType))
-                throw new ApplicationException($"Table '{TableName}': Column '{ChildColumns[i].ColumnName}' has unsupported relation type '{ChildType.Name}'.");
+                throw new ApplicationException(
+                    $"Table '{TableName}': Column '{ChildColumns[i].ColumnName}' has unsupported relation type '{ChildType.Name}'.");
 
             if (ParentType != ChildType)
-                throw new ApplicationException($"Table '{Master.TableName}' -> '{TableName}': Field type mismatch between '{ParentColumns[i].ColumnName}' and '{ChildColumns[i].ColumnName}'.");
+                throw new ApplicationException(
+                    $"Table '{Master.TableName}' -> '{TableName}': Field type mismatch between '{ParentColumns[i].ColumnName}' and '{ChildColumns[i].ColumnName}'.");
         }
     }
- 
+
     //  ● private
     /// <summary>
     /// The virtual OnTableNewRow() is not called if the invocation list of 
@@ -138,7 +144,7 @@ public class MemTable : DataTable
     void Table_TableNewRow(object sender, DataTableNewRowEventArgs e)
     {
     }
- 
+
     /* overrides - event activation */
     /// <summary>
     /// Calls the base method, only if <see cref="EventsDisabled"/> is false, eventually
@@ -148,7 +154,8 @@ public class MemTable : DataTable
     {
         if (!EventsDisabled)
             base.OnColumnChanging(e);
-    }    
+    }
+
     /// <summary>
     /// Calls the base method, only if <see cref="EventsDisabled"/> is false, eventually
     /// deactivating the method.
@@ -179,6 +186,7 @@ public class MemTable : DataTable
             }
         }
     }
+
     /// <summary>
     /// Calls the base method, only if <see cref="EventsDisabled"/> is false, eventually
     /// deactivating the method.
@@ -187,7 +195,8 @@ public class MemTable : DataTable
     {
         if (!EventsDisabled)
             base.OnRowChanging(e);
-    }    
+    }
+
     /// <summary>
     /// Calls the base method, only if <see cref="EventsDisabled"/> is false, eventually
     /// deactivating the method.
@@ -196,14 +205,14 @@ public class MemTable : DataTable
     {
         //if (!ReferenceEquals(CurrentRow, e.Row) && Rows.Count == 1)
         //    CurrentRow = e.Row;
-        
+
         if (e.Action == DataRowAction.Add && e.Row.RowState != DataRowState.Deleted)
             CurrentRow = e.Row;
 
         if (!EventsDisabled)
         {
             base.OnRowChanged(e);
-            
+
             // our own event on new row added
             if (e.Action == DataRowAction.Add && e.Row.RowState != DataRowState.Deleted)
             {
@@ -212,6 +221,7 @@ public class MemTable : DataTable
             }
         }
     }
+
     /// <summary>
     /// Calls the base method, only if <see cref="EventsDisabled"/> is false, eventually
     /// deactivating the method.
@@ -221,6 +231,7 @@ public class MemTable : DataTable
         if (!EventsDisabled)
             base.OnRowDeleting(e);
     }
+
     /// <summary>
     /// Calls the base method, only if <see cref="EventsDisabled"/> is false, eventually
     /// deactivating the method.
@@ -229,10 +240,11 @@ public class MemTable : DataTable
     {
         if (!EventsDisabled)
             base.OnRowDeleted(e);
-        
+
         if (!IsValidRow(fCurrentRow) && !IsDetail)
             CurrentRow = FirstRowOrNull();
     }
+
     /// <summary>
     /// Calls the base method, only if <see cref="EventsDisabled"/> is false, eventually
     /// deactivating the method.
@@ -242,6 +254,7 @@ public class MemTable : DataTable
         if (!EventsDisabled)
             base.OnTableClearing(e);
     }
+
     /// <summary>
     /// Calls the base method, only if <see cref="EventsDisabled"/> is false, eventually
     /// deactivating the method.
@@ -258,6 +271,7 @@ public class MemTable : DataTable
                 OnCurrentRowChanged();
         }
     }
+
     /// <summary>
     /// Calls the base method, only if <see cref="EventsDisabled"/> is false, eventually
     /// deactivating the method.
@@ -266,7 +280,7 @@ public class MemTable : DataTable
     {
         if (e.Row == null)
             throw new ArgumentNullException(nameof(e.Row));
-        
+
         // auto-generated Guid Key
         if (AutoGenerateGuidKeys && KeyFields != null && KeyFields.Length == 1)
         {
@@ -286,7 +300,8 @@ public class MemTable : DataTable
                 throw new ApplicationException($"Table '{TableName}' has no master.");
 
             if (Master.CurrentRow == null)
-                throw new ApplicationException($"Table '{TableName}': master table '{Master.TableName}' has no current row.");
+                throw new ApplicationException(
+                    $"Table '{TableName}': master table '{Master.TableName}' has no current row.");
 
             ValidateRelationSchema();
 
@@ -302,14 +317,14 @@ public class MemTable : DataTable
         if (!EventsDisabled)
         {
             base.OnTableNewRow(e);
-            
+
             // our own event on new row adding, 
             // WARNING: the new row is not in rows yet
             NewRowAdding?.Invoke(this, e);
         }
     }
-    
-    
+
+
     //  ● construction
     /// <summary>
     /// Constructor.
@@ -318,6 +333,7 @@ public class MemTable : DataTable
         : this(NextTableName())
     {
     }
+
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -325,6 +341,7 @@ public class MemTable : DataTable
         : this(tableName, string.Empty)
     {
     }
+
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -351,9 +368,10 @@ public class MemTable : DataTable
     /// </summary>
     static public string NextTableName()
     {
-        TableNameCounter++;
-        return "Table_" + TableNameCounter.ToString();
+        int Value = Interlocked.Increment(ref TableNameCounter);
+        return "Table_" + Value.ToString();
     }
+
     /// <summary>
     /// Adds Table to the DS.Tables
     /// </summary>
@@ -364,6 +382,7 @@ public class MemTable : DataTable
 
         DS.Tables.Add(Table);
     }
+
     /// <summary>
     /// Creates and returns a new Guid.
     /// <para>If UseBrackets is true, the new guid is surrounded by {}</para>
@@ -373,6 +392,7 @@ public class MemTable : DataTable
         string format = UseBrackets ? "B" : "D";
         return Guid.NewGuid().ToString(format).ToUpper();
     }
+
     /// <summary>
     /// Sets all data rows to <see cref="DBNull.Value"/>
     /// </summary>
@@ -381,7 +401,10 @@ public class MemTable : DataTable
         for (int i = 0; i < Row.Table.Columns.Count; i++)
             Row[i] = DBNull.Value;
     }
- 
+
+    static public DataRowView GetDataRowView(DataRow Row, DataView DataView) =>
+        DataView.Cast<DataRowView>().FirstOrDefault(drv => drv.Row == Row);
+
     // ● public 
     public DataColumn[] GetColumns(string[] ColumnNames)
     {
@@ -394,6 +417,7 @@ public class MemTable : DataTable
                 : throw new ApplicationException($"Table {TableName}: Column '{name}' not found."))
             .ToArray();
     }
+
     public void AddDetail(MemTable tblDetail)
     {
         if (this.DataSet == null)
@@ -404,6 +428,7 @@ public class MemTable : DataTable
 
         this.Details.Add(tblDetail);
     }
+
     public void RemoveDetail(MemTable tblDetail)
     {
         if (tblDetail == null)
@@ -417,7 +442,9 @@ public class MemTable : DataTable
 
         Details.Remove(tblDetail);
     }
+
     public MemTable[] GetDetails() => Details.ToArray();
+
     /// <summary>
     /// Returns the child rows (belonging to this table) of a specified master row, belonging to the master table.
     /// </summary>
@@ -440,7 +467,7 @@ public class MemTable : DataTable
 
         return Select(Filter);
     }
- 
+
     /// <summary>
     /// If Table has a single field as Key and that DataColumn is of type System.Int32,
     /// then initializes the properties  of the DataColumn,
@@ -452,7 +479,7 @@ public class MemTable : DataTable
         {
             int Index = Columns.IndexOf(KeyFields[0]);
             DataColumn Column = Columns[Index];
-            
+
             if (Column.DataType == typeof(System.Int32))
             {
                 Column.AutoIncrement = true;
@@ -461,6 +488,7 @@ public class MemTable : DataTable
             }
         }
     }
+
     public void MasterRowChanged()
     {
         if (IsDetail)
@@ -484,7 +512,7 @@ public class MemTable : DataTable
 
             string Filter = CreateRowFilter(Master.CurrentRow, MasterFields, DetailFields, ParentColumns, ChildColumns);
             DataView.Sort = "";
-            DataView.RowFilter = Filter;     
+            DataView.RowFilter = Filter;
         }
     }
 
@@ -495,15 +523,16 @@ public class MemTable : DataTable
     {
         foreach (MemTable Detail in Details)
             Detail.ClearAll();
-        
+
         Clear();
         AcceptChanges();
     }
+
     public void SetCurrentRowToNull()
     {
         CurrentRow = null;
     }
-    
+
     /// <summary>
     /// Adds and returns a new row. The new row is added to rows.
     /// </summary>
@@ -516,17 +545,102 @@ public class MemTable : DataTable
         return Row;
     }
 
+    public void CopyFrom(MemTable Source, bool IncludeDetails = true)
+    {
+        this.EventsDisabled = true;
 
-    
+        try
+        {
+            this.DetailsActive = false;
+
+            foreach (MemTable Detail in this.GetDetails())
+                this.RemoveDetail(Detail);
+
+            this.CopyStructureAndRowsFrom(Source);
+
+            this.KeyFields = Source.KeyFields?.ToArray();
+            this.MasterFields = Source.MasterFields?.ToArray();
+            this.DetailFields = Source.DetailFields?.ToArray();
+            this.AutoGenerateGuidKeys = Source.AutoGenerateGuidKeys;
+
+            if (IncludeDetails)
+            {
+                foreach (MemTable SourceDetail in Source.GetDetails())
+                {
+                    MemTable thisDetail = new MemTable(SourceDetail.TableName);
+                    thisDetail.CopyFrom(SourceDetail, true);
+                    this.AddDetail(thisDetail);
+                }
+            }
+
+            this.CurrentRow = this.Rows.Count > 0 ? this.Rows[0] : null;
+            this.DetailsActive = Source.DetailsActive;
+        }
+        finally
+        {
+            this.EventsDisabled = false;
+        }
+    }
+
+    public string GetTopTableErrors()
+    {
+        StringBuilder SB = new();
+
+        List<MemTable> Tables = new();
+
+        void AddErrors(MemTable Table)
+        {
+            if (Tables.Contains(Table))
+                SB.AppendLine($"Table '{Table.TableName}' is already in the table tree.");
+            
+            if (string.IsNullOrWhiteSpace(Table.TableName))
+                SB.AppendLine($"Table '{Table.TableName}' has no table name.");
+            
+            if (Table.KeyFields == null || Table.KeyFields.Length == 0 || string.IsNullOrWhiteSpace(Table.KeyField))
+                SB.AppendLine($"Table '{Table.TableName}' has no key fields.");
+
+            if (Table.Master != null)
+            {
+                if (string.IsNullOrWhiteSpace(Table.MasterField))
+                    SB.AppendLine($"Detail Table '{Table.TableName}' has no master field.");
+                
+                if (string.IsNullOrWhiteSpace(Table.DetailField))
+                    SB.AppendLine($"Detail Table '{Table.TableName}' has no detail field.");
+                
+                if (Master.FindColumn(Table.MasterField) == null)
+                    SB.AppendLine($"Detail Table '{Table.TableName}' has no matching master field.");
+                
+                if (Table.FindColumn(Table.DetailField) == null)
+                    SB.AppendLine($"Detail Table '{Table.TableName}' has no matching detail field.");
+            }
+
+            if (Details.Count > 0)
+            {
+                foreach (var tblDetail in Details)
+                    AddErrors(tblDetail);
+            }
+        }
+
+        AddErrors(this);
+            
+        return SB.ToString();
+    }
+    public void CheckTopTableErrors()
+    {
+        string ErrorText = GetTopTableErrors();
+        if (!string.IsNullOrWhiteSpace(ErrorText))
+            throw new ApplicationException(ErrorText);
+    }
+
     // ● properties 
     /// <summary>
     /// Primary key fields
     /// </summary>
-    public string[] KeyFields { get; set; }  
+    public string[] KeyFields { get; set; } = new[] { "Id" }; 
     /// <summary>
     /// When this is a detail table, these are the fields from its master
     /// </summary>
-    public string[] MasterFields { get; set; }
+    public string[] MasterFields { get; set; } = new[] { "Id" }; 
     /// <summary>
     /// When this is a detail table, these fields from this table are mapped to master fields.
     /// </summary>
@@ -535,9 +649,34 @@ public class MemTable : DataTable
         get => fDetailFields != null ? fDetailFields : KeyFields;
         set => fDetailFields = value;
     }
+
+    public string KeyField
+    {
+        get => KeyFields != null && KeyFields.Length > 0? KeyFields[0] : string.Empty;
+        set
+        {
+            if (KeyFields != null && KeyFields.Length > 0) KeyFields[0] = value;
+        }
+    }
+    public string MasterField
+    {
+        get => MasterFields != null && MasterFields.Length > 0? MasterFields[0] : string.Empty;
+        set
+        {
+            if (MasterFields != null && MasterFields.Length > 0) MasterFields[0] = value;
+        }
+    }
+    public string DetailField
+    {
+        get => DetailFields != null && DetailFields.Length > 0? DetailFields[0] : string.Empty;
+        set
+        {
+            if (DetailFields != null && DetailFields.Length > 0) DetailFields[0] = value;
+        }
+    }
+    
     public DataView DataView { get; }
  
-
     void RowFilterChanged()
     {
         string Normalize(string filter) => string.IsNullOrWhiteSpace(filter) ? null : filter.Trim();
@@ -607,6 +746,16 @@ public class MemTable : DataTable
     }
 
     internal DetailList Details { get; set; }
+    /// <summary>
+    /// The Sql statements for the table
+    /// </summary>
+    public TableSqls SqlStatements { get; set; } = new TableSqls();
+
+    /// <summary>
+    /// Gets the StockTables of this instance.
+    /// </summary>
+    public List<MemTable> StockTables { get; } = new();
+
 
     /// <summary>
     /// Returns true if this is a detail table.
@@ -661,8 +810,6 @@ public class MemTable : DataTable
     /// </summary>
     public bool AutoGenerateGuidKeys { get; set; }
 
-    
-    
     public DataRow CurrentRow
     {
         get
@@ -686,7 +833,7 @@ public class MemTable : DataTable
 
     public DataRowView CurrentRowView
     {
-        get => CurrentRow == null? null: CurrentRow.GetDataRowView(this.DataView);
+        get => CurrentRow == null? null: GetDataRowView(CurrentRow, DataView);
         set => CurrentRow = value == null ? null : value.Row;
     }
     

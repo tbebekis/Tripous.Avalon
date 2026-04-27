@@ -20,7 +20,9 @@ static public class Db
         DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
         //*/
     }
- 
+
+    static DbIni fMainIni;
+    
     // ● construction
     /// <summary>
     /// Static constructor
@@ -35,161 +37,96 @@ static public class Db
     /// </summary>
     static public void Initialize()
     {
-        Connections.Load();
     }
-    
-    // ● public - data
-    /// <summary>
-    /// Returns the <see cref="DbProviderFactory"/>
-    /// </summary>
-    static public DbProviderFactory GetDbProviderFactory(DbServerType DbType)
-    {
-        string ProviderInvariantName =  DbType.GetProviderInvariantName();
-        DbProviderFactory Factory = DbProviderFactories.GetFactory(ProviderInvariantName);
-        return Factory;
-    }
-    /// <summary>
-    /// Tests a database connection. Returns true if successful, otherwise throws an exception.
-    /// </summary>
-    static public bool CheckConnection(DbServerType dbType, string connectionString)
-    {
-        // Παίρνουμε το σωστό Factory βάσει του Enum (RDBMS-neutral)
-        DbProviderFactory factory = GetDbProviderFactory(dbType);
-
-        using (DbConnection connection = factory.CreateConnection())
-        {
-            if (connection == null)
-                throw new Exception($"Could not create a connection for {dbType}.");
-
-            connection.ConnectionString = connectionString;
         
-            // Προσπάθεια ανοίγματος. Αν αποτύχει, θα πετάξει Exception
-            // το οποίο θα πιάσεις στο UI (AnyClick) για να δείξεις το μήνυμα λάθους.
-            connection.Open();
-        
-            return true; 
-        }
-    }
+    // ● db connections
     /// <summary>
-    /// Returns true if a connection can be made to a database.
+    /// Loads connections from a .json file, using the <see cref="SysConfig.SqlConnectionsFilePath"/> setting.
     /// </summary>
-    static public bool CanConnect(DbServerType dbType, string connectionString)
-    {
-        try
-        {
-            CheckConnection(dbType, connectionString);
-            return true;
-        }
-        catch  
-        {
-            return false;
-        }
-    }
+    static public void LoadConnections() =>  Connections.Load();
+    static public DbConnectionInfo GetConnectionInfo(string Name) => Connections.Get(Name);
     /// <summary>
-    /// Executes a SELECT statement and returns the result as a DataTable.
+    /// Returns the default connection string, if any, else throws an exception.
     /// </summary>
-    static public DataTable Select(DbConnectionInfo ConnectionInfo, string SqlText, int? CommandTimeoutSeconds = null)
-    {
-        var Timeout = CommandTimeoutSeconds ?? ConnectionInfo.CommandTimeoutSeconds;
-        return Select(ConnectionInfo.ConnectionString, SqlText, ConnectionInfo.DbServerType, Timeout);
-    }
+    static public DbConnectionInfo GetDefaultConnectionInfo() => Connections.Get(SysConfig.DefaultConnectionName);
+ 
+    // ● to/from base64  
     /// <summary>
-    /// Executes a SELECT statement and returns the result as a DataTable.
+    /// Converts Table to Base64 string
     /// </summary>
-    static public DataTable Select(string ConnectionString, string SqlText, DbServerType DbType, int? CommandTimeoutSeconds = null)
+    static public string TableToToBase64(DataTable Table)
     {
-        DbProviderFactory Factory = GetDbProviderFactory(DbType);
-        var Timeout = CommandTimeoutSeconds ?? DbConnectionInfo.DefaultCommandTimeoutSeconds;
-
-        using (DbConnection Connection = Factory.CreateConnection())
+        if (Table != null)
         {
-            Connection.ConnectionString = ConnectionString;
-            Connection.Open();
-
-            using (DbCommand Command = Connection.CreateCommand())
+            using (MemoryStream MS = new MemoryStream())
             {
-                Command.CommandText = SqlText;
-                Command.CommandTimeout = Timeout;
-
-                using (DbDataReader Reader = Command.ExecuteReader())
-                {
-                    DataTable Table = new DataTable();
-                    Table.Load(Reader);
-                    Table.CaseSensitive = false;
-                    Table.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                    return Table;
-                }
+                Table.WriteXml(MS, XmlWriteMode.WriteSchema);
+                return Convert.ToBase64String(MS.ToArray());
             }
         }
-    }
-    /// <summary>
-    /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
-    /// </summary>
-    static public int ExecSql(DbConnectionInfo ConnectionInfo, string SqlText, int? CommandTimeoutSeconds = null)
-    {
-        var Timeout = CommandTimeoutSeconds ?? ConnectionInfo.CommandTimeoutSeconds;
-        return ExecSql(ConnectionInfo.ConnectionString, SqlText, ConnectionInfo.DbServerType, Timeout);
-    }
-    /// <summary>
-    /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
-    /// </summary>
-    static public int ExecSql(string ConnectionString, string SqlText, DbServerType DbType, int? CommandTimeoutSeconds = null)
-    {
-        DbProviderFactory Factory = GetDbProviderFactory(DbType);
-        var Timeout = CommandTimeoutSeconds ?? DbConnectionInfo.DefaultCommandTimeoutSeconds;
 
-        using (DbConnection Connection = Factory.CreateConnection())
+        return string.Empty;
+    }
+    /// <summary>
+    /// Converts the Base64 Text to a DataTable
+    /// </summary>
+    static public DataTable Base64ToTable(string Text)
+    {
+        if (!string.IsNullOrWhiteSpace(Text))
         {
-            if (Connection == null)
-                throw new Exception($"Could not create a connection for {DbType}.");
-
-            Connection.ConnectionString = ConnectionString;
-            Connection.Open();
-
-            using (DbCommand Command = Connection.CreateCommand())
+            using (MemoryStream MS = new MemoryStream(Convert.FromBase64String(Text)))
             {
-                Command.CommandText = SqlText;
-                Command.CommandTimeout = Timeout;
-
-                int rowsAffected = Command.ExecuteNonQuery();
-                return rowsAffected;
+                MS.Position = 0;
+                DataTable Table = new MemTable("");
+                Table.ReadXml(MS);
+                Table.AcceptChanges();
+                return Table;
             }
         }
-    }
 
-    static public AggregateType[] GetValidAggregates(this Type DataType)
+        return null;
+    }
+    /// <summary>
+    /// Converts DataSet to Base64 string
+    /// </summary>
+    static public string DataSetToToBase64(DataSet DS)
     {
-        if (DataType == null)
-            return Array.Empty<AggregateType>();
-
-        if (DataType.IsNumeric())
+        if (DS != null)
         {
-            return new[]
+            using (MemoryStream MS = new MemoryStream())
             {
-                AggregateType.Count,
-                AggregateType.Sum,
-                AggregateType.Avg,
-                AggregateType.Min,
-                AggregateType.Max
-            };
+                DS.WriteXml(MS, XmlWriteMode.WriteSchema);
+                return Convert.ToBase64String(MS.ToArray());
+            }
         }
 
-        if (DataType.IsDateTime())
-        {
-            return new[]
-            {
-                AggregateType.Count,
-                AggregateType.Min,
-                AggregateType.Max
-            };
-        }
-
-        return new[]
-        {
-            AggregateType.Count
-        };
+        return string.Empty;
     }
+    /// <summary>
+    /// Converts the Base64 Text to a DataSet
+    /// </summary>
+    static public DataSet Base64ToDataSet(string Text)
+    {
+        if (!string.IsNullOrWhiteSpace(Text))
+        {
+            using (MemoryStream MS = new MemoryStream(Convert.FromBase64String(Text)))
+            {
+                MS.Position = 0;
+                DataSet ds = new DataSet("DataSet");
+                ds.ReadXml(MS);
+                ds.AcceptChanges();
+                return ds;
+            }
+        }
+
+        return null;
+    }    
     
+ 
+ 
     // ● properties
     static public DbConnections Connections = new DbConnections();
+    static public DbIni MainIni => fMainIni ?? (fMainIni = new DbIni(GetDefaultConnectionInfo()));
+    static public readonly string StandardDefaultValues = "CompanyId;EmptyString;AppDate;SysDate;SysTime;DbServerTime;AppUserName;AppUserId;NetUserName;Guid";
+
 }

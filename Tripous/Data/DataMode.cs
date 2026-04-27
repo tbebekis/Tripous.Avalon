@@ -10,12 +10,10 @@ public enum DataMode
     /// None
     /// </summary>
     None = 0,
-
     /// <summary>
     /// Browse
     /// </summary>
     Browse = 1,
-
     /// <summary>
     /// Insert
     /// </summary>
@@ -28,7 +26,6 @@ public enum DataMode
     /// Delete
     /// </summary>
     Delete = 8,
-
     /// <summary>
     /// Commit
     /// </summary>
@@ -37,5 +34,4 @@ public enum DataMode
     /// Cancel
     /// </summary>
     Cancel = 0x20,
- 
 }

@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Tripous.Desktop.DataForm">
+    <DockPanel Margin="10">
+        <Border Name="ToolBarContainer" DockPanel.Dock="Top" Classes="ToolbarContainer" >
+            <StackPanel Name="pnlToolBar" Classes="ToolBar" MinHeight="32">
+            </StackPanel>
+        </Border>
+
+        <Grid>
+            <Grid Name="pnlList" ColumnDefinitions="250, Auto, *" IsVisible="True">
+                <DockPanel Name="pnlSideBar" Grid.Column="0" Background="#F5F5F5">
+                    <Border DockPanel.Dock="Top" BorderBrush="Gray" BorderThickness="0,0,0,1">
+                        <StackPanel Name="pnlSelectListToolBar"  Classes="ToolBar" MinHeight="32" >
+                        </StackPanel>
+                    </Border>
+                    <ScrollViewer>
+                        <StackPanel Name="pnlFilters" Margin="10" Spacing="10">
+                            <TextBlock Text="No Filters" FontWeight="Bold" TextAlignment="Center" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+                <GridSplitter Grid.Column="1" Width="4" Background="#E0E0E0" ResizeBehavior="PreviousAndNext" />
+                <DataGrid Name="gridList" Grid.Column="2" BorderThickness="1,0,0,0" BorderBrush="Gray" />
+            </Grid>
+
+            <Panel Name="pnlItem" IsVisible="False">
+                <TextBlock Text="Item Details Content Goes Here" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Panel>
+        </Grid>
+ 
+    </DockPanel>  
+</UserControl>

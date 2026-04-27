@@ -30,7 +30,31 @@
 
             return false;
         }
+        /// <summary>
+        /// Returns true if Instance starts with Value.
+        /// Performs a case-insensitive check using the invariant culture.
+        /// </summary>
+        static public bool StartsWithText(this string Instance, string Value) => !string.IsNullOrWhiteSpace(Instance) && Instance.StartsWith(Value, StringComparison.InvariantCultureIgnoreCase);
+        /// <summary>
+        /// Returns true if Instance ends with Value.
+        /// Performs a case-insensitive check using the invariant culture.
+        /// </summary>
+        static public bool EndsWithText(this string Instance, string Value) => !string.IsNullOrWhiteSpace(Instance) && Instance.EndsWith(Value, StringComparison.InvariantCultureIgnoreCase);
+ 
+        
+        /// <summary>
+        /// Splits the specified Text into lines, taking the Environment.NewLine as separator.
+        /// </summary>
+        static public string[] ToLines(this string Text)
+        {
+            if (string.IsNullOrWhiteSpace(Text))
+                return new string[0];
 
+            Regex rx = new Regex(Environment.NewLine);
+            return rx.Split(Text);
+
+        }
+        
         /// <summary>
         /// Quotes S, that is returns S surrounded by ' (single quotes)
         /// </summary>
@@ -50,9 +74,9 @@
         {
             return Quote(S);
         }
-
-
-
+        
+        static public int ToIntOrDefault(this string S, int DefaultValue = 0) => int.TryParse(S, out int Result) ? Result : DefaultValue;
+ 
         /// <summary>
         /// Returns true if a specified string is made up of numeric digits.
         /// </summary>
@@ -67,7 +91,6 @@
 
             return true;
         }
-
         /// <summary>
         /// Converts accented characters of the specified Text into non-accented characters
         /// <para>From: http://stackoverflow.com/questions/359827/ignoring-accented-letters-in-string-comparison</para>
@@ -84,7 +107,6 @@
 
             return Text;
         }
-
         /// <summary>
         /// Splits a camel case string by adding spaces between words.
         /// <para>It handles acronyms too, i.e. ABCamelDECase</para>

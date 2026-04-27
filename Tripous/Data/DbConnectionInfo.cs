@@ -1,5 +1,3 @@
-﻿using System.Text.Json.Serialization;
-
 namespace Tripous.Data;
 
 /// <summary>
@@ -7,8 +5,9 @@ namespace Tripous.Data;
 /// </summary>
 public class DbConnectionInfo
 {
-    public const int DefaultCommandTimeoutSeconds = 300;
-
+    
+    private int fCommandTimeoutSeconds;
+    
     /// <summary>
     /// Constructor
     /// </summary>
@@ -30,6 +29,11 @@ public class DbConnectionInfo
     {
         return DbServerType.GetProviderInvariantName();
     }
+    /// <summary>
+    /// Returns the <see cref="SqlProvider"/> of this connection string. If the provider is not registered with <see cref="SqlProviders"/> an exception is thrown.
+    /// </summary>
+    public SqlProvider GetSqlProvider() => SqlProviders.GetSqlProvider(DbServerType);
+ 
     
     // ● properties
     /// <summary>
@@ -47,7 +51,18 @@ public class DbConnectionInfo
     /// <summary>
     /// The time in seconds to wait for an SELECT/INSERT/UPDATE/DELETE/CREATE TABLE ect. command to execute. Zero means the default timeout.
     /// </summary>
-    public int CommandTimeoutSeconds { get; set; } = DefaultCommandTimeoutSeconds;
+    public int CommandTimeoutSeconds
+    {
+        get => fCommandTimeoutSeconds >= SysConfig.DefaultCommandTimeoutSeconds
+            ? fCommandTimeoutSeconds
+            : SysConfig.DefaultCommandTimeoutSeconds;
+        set => fCommandTimeoutSeconds = value;
+    }
+    /// <summary>
+    /// True to autocreate generators/sequencers
+    /// </summary>
+    public bool AutoCreateGenerators { get; set; }
+
     /// <summary>
     /// The <see cref="DbSchema"/> associated to this connection
     /// </summary>
@@ -58,5 +73,5 @@ public class DbConnectionInfo
     /// </summary>
     [JsonIgnore]
     public object Tag { get; set; }
-  
+
 }
