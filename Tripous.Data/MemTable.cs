@@ -2,45 +2,74 @@ namespace Tripous.Data;
 
 public class MemTable : DataTable
 {
-    static private int TableNameCounter = 0;
+    static int TableNameCounter = 0;
     protected int EventsDisableCounter = 0;
-    private bool hasExpressionsChecked;
+    bool hasExpressionsChecked;
 
-    private bool hasExpressions;
-    private string[] fDetailFields;
-    private DataRow fCurrentRow;
-    private MemTable fMaster;
-    private string fDetailRowFilter;
-    private string fUserRowFilter;
+    bool hasExpressions;
+    string[] fDetailFields;
+    DataView fDataView;
+    DataRow fCurrentRow;
+    MemTable fMaster;
+    string fDetailRowFilter;
+    string fUserRowFilter;
+
+    DetailList fDetails;
+    TableSqls fSqls;
+    List<MemTable> fStocks;
+ 
 
     //  ● private
-    private bool IsValidRow(DataRow row)
+    bool IsValidRow(DataRow row)
     {
         return row != null
                && ReferenceEquals(row.Table, this)
                && row.RowState != DataRowState.Deleted
                && row.RowState != DataRowState.Detached;
     }
-    private DataRow FirstRowOrNull() => Rows.Count > 0 ? Rows[0] : null;
-    private void EnsureCurrentRow()
+    DataRow FirstRowOrNull() => Rows.Count > 0 ? Rows[0] : null;
+    void RowFilterChanged()
     {
-        if (IsValidRow(fCurrentRow))
+        string Normalize(string filter) => string.IsNullOrWhiteSpace(filter) ? null : filter.Trim();
+ 
+        if (DataView == null)
             return;
 
-        fCurrentRow = Rows.Count > 0 ? Rows[0] : null;
-        OnCurrentRowChanged();
-    }
+        string DetailFilter = Normalize(DetailRowFilter);
+        string UserFilter = Normalize(UserRowFilter);
 
-    protected virtual void OnCurrentRowChanged()
-    {
-        CurrentRowChanged?.Invoke(this, EventArgs.Empty);
+        string Filter;
+
+ 
+        if (!string.IsNullOrWhiteSpace(DetailFilter) && !string.IsNullOrWhiteSpace(UserFilter))
+            Filter = $"({DetailFilter}) AND ({UserFilter})";
+        else if (!string.IsNullOrWhiteSpace(DetailFilter))
+            Filter = DetailFilter;
+        else if (!string.IsNullOrWhiteSpace(UserFilter))
+            Filter = UserFilter;
+        else
+            Filter = string.Empty;
+
+        DataView.RowFilter = Filter;
     }
-    private static string QuoteColumnName(string ColumnName)
+    void OnCurrentRowChanged() => CurrentRowChanged?.Invoke(this, EventArgs.Empty);
+ /// <summary>
+    /// The virtual OnTableNewRow() is not called if the invocation list of 
+    /// the TableNewRow event is empty. Microsoft says this is by design
+    /// see: http://connect.microsoft.com/VisualStudio/feedback/details/184473/ontablenewrow-is-called-only-when-the-event-delegate-list-for-tablenewrow-event-is-not-empty
+    /// Anyway, just adding an empty event handler, forces the OnTableNewRow() to be called.
+    /// </summary>
+    void Table_TableNewRow(object sender, DataTableNewRowEventArgs e)
+    {
+    }
+    
+    //  ● private - static
+    static string QuoteColumnName(string ColumnName)
     {
         // return $"[{ColumnName.Replace("]", "]]")}]";
         return ColumnName;
     }
-    private static bool IsIntegerType(Type DataType)
+    static bool IsIntegerType(Type DataType)
     {
         return DataType == typeof(byte)
                || DataType == typeof(sbyte)
@@ -51,12 +80,11 @@ public class MemTable : DataTable
                || DataType == typeof(long)
                || DataType == typeof(ulong);
     }
-    private static bool IsSupportedRelationFieldType(Type DataType)
+    static bool IsSupportedRelationFieldType(Type DataType)
     {
         return DataType == typeof(string) || IsIntegerType(DataType);
     }
-
-    private static string FormatRowFilterValue(object Value, Type DataType)
+    static string FormatRowFilterValue(object Value, Type DataType)
     {
         if (Value == null || Value == DBNull.Value)
             return "NULL";
@@ -69,7 +97,7 @@ public class MemTable : DataTable
 
         throw new ApplicationException($"Unsupported relation field type '{DataType.FullName}'.");
     }
-    private static string CreateRowFilter(DataRow MasterRow, string[] MasterFields, string[] DetailFields, DataColumn[] MasterColumns, DataColumn[] DetailColumns)
+    static string CreateRowFilter(DataRow MasterRow, string[] MasterFields, string[] DetailFields, DataColumn[] MasterColumns, DataColumn[] DetailColumns)
     {
         var SB = new StringBuilder();
 
@@ -90,54 +118,7 @@ public class MemTable : DataTable
         string Result = SB.ToString();
         return Result;
     }
-
-    internal void ValidateRelationSchema()
-    {
-        if (Master == null)
-            throw new ApplicationException($"Table '{TableName}' has no master.");
-
-        if (MasterFields == null || MasterFields.Length == 0)
-            throw new ApplicationException($"Table '{TableName}': MasterFields not defined.");
-
-        if (DetailFields == null || DetailFields.Length == 0)
-            throw new ApplicationException($"Table '{TableName}': DetailFields not defined.");
-
-        if (MasterFields.Length != DetailFields.Length)
-            throw new ApplicationException($"Table '{TableName}': MasterFields and DetailFields count mismatch.");
-
-        DataColumn[] ParentColumns = Master.GetColumns(MasterFields);
-        DataColumn[] ChildColumns = GetColumns(DetailFields);
-
-        for (int i = 0; i < ParentColumns.Length; i++)
-        {
-            Type ParentType = ParentColumns[i].DataType;
-            Type ChildType = ChildColumns[i].DataType;
-
-            if (!IsSupportedRelationFieldType(ParentType))
-                throw new ApplicationException(
-                    $"Table '{Master.TableName}': Column '{ParentColumns[i].ColumnName}' has unsupported relation type '{ParentType.Name}'.");
-
-            if (!IsSupportedRelationFieldType(ChildType))
-                throw new ApplicationException(
-                    $"Table '{TableName}': Column '{ChildColumns[i].ColumnName}' has unsupported relation type '{ChildType.Name}'.");
-
-            if (ParentType != ChildType)
-                throw new ApplicationException(
-                    $"Table '{Master.TableName}' -> '{TableName}': Field type mismatch between '{ParentColumns[i].ColumnName}' and '{ChildColumns[i].ColumnName}'.");
-        }
-    }
-
-    //  ● private
-    /// <summary>
-    /// The virtual OnTableNewRow() is not called if the invocation list of 
-    /// the TableNewRow event is empty. Microsoft says this is by design
-    /// see: http://connect.microsoft.com/VisualStudio/feedback/details/184473/ontablenewrow-is-called-only-when-the-event-delegate-list-for-tablenewrow-event-is-not-empty
-    /// Anyway, just adding an empty event handler, forces the OnTableNewRow() to be called.
-    /// </summary>
-    void Table_TableNewRow(object sender, DataTableNewRowEventArgs e)
-    {
-    }
-
+ 
     //  ● overrides - event activation  
     /// <summary>
     /// Calls the base method, only if <see cref="EventsDisabled"/> is false, eventually
@@ -308,8 +289,7 @@ public class MemTable : DataTable
             NewRowAdding?.Invoke(this, e);
         }
     }
-
-
+ 
     //  ● construction
     /// <summary>
     /// Constructor.
@@ -332,8 +312,8 @@ public class MemTable : DataTable
         : base(tableName, tableNamespace)
     {
         AutoGenerateGuidKeys = true;
-        Details = new DetailList(this);
-        DataView = new DataView(this);
+ 
+        
         CaseSensitive = false;
         Locale = System.Globalization.CultureInfo.InvariantCulture;
 
@@ -381,9 +361,11 @@ public class MemTable : DataTable
         for (int i = 0; i < Row.Table.Columns.Count; i++)
             Row[i] = DBNull.Value;
     }
-    static public DataRowView GetDataRowView(DataRow Row, DataView DataView) =>
-        DataView.Cast<DataRowView>().FirstOrDefault(drv => drv.Row == Row);
-
+    /// <summary>
+    /// Gets the <see cref="DataRowView"/> of a <see cref="DataRow"/> from a <see cref="DataView"/>.
+    /// </summary>
+    static public DataRowView GetDataRowView(DataRow Row, DataView DataView) => DataView.Cast<DataRowView>().FirstOrDefault(drv => drv.Row == Row);
+ 
     // ● public 
     public DataColumn[] GetColumns(string[] ColumnNames)
     {
@@ -396,6 +378,28 @@ public class MemTable : DataTable
                 : throw new ApplicationException($"Table {TableName}: Column '{name}' not found."))
             .ToArray();
     }
+    /// <summary>
+    /// If Table has a single field as Key and that DataColumn is of type System.Int32,
+    /// then initializes the properties  of the DataColumn,
+    /// so the column to be an autoincrement one (negative).
+    /// </summary>
+    public void InitializeAutoInc()
+    {
+        if (KeyFields != null && KeyFields.Length == 1)
+        {
+            int Index = Columns.IndexOf(KeyFields[0]);
+            DataColumn Column = Columns[Index];
+
+            if (Column.DataType == typeof(System.Int32))
+            {
+                Column.AutoIncrement = true;
+                Column.AutoIncrementSeed = -1;
+                Column.AutoIncrementStep = -1;
+            }
+        }
+    }
+ 
+    // ● public - master-detail
     public void AddDetail(MemTable tblDetail)
     {
         if (this.DataSet == null)
@@ -442,24 +446,39 @@ public class MemTable : DataTable
 
         return Select(Filter);
     }
-    /// <summary>
-    /// If Table has a single field as Key and that DataColumn is of type System.Int32,
-    /// then initializes the properties  of the DataColumn,
-    /// so the column to be an autoincrement one (negative).
-    /// </summary>
-    public void InitializeAutoInc()
+    public void ValidateRelationSchema()
     {
-        if (KeyFields != null && KeyFields.Length == 1)
-        {
-            int Index = Columns.IndexOf(KeyFields[0]);
-            DataColumn Column = Columns[Index];
+        if (Master == null)
+            throw new ApplicationException($"Table '{TableName}' has no master.");
 
-            if (Column.DataType == typeof(System.Int32))
-            {
-                Column.AutoIncrement = true;
-                Column.AutoIncrementSeed = -1;
-                Column.AutoIncrementStep = -1;
-            }
+        if (MasterFields == null || MasterFields.Length == 0)
+            throw new ApplicationException($"Table '{TableName}': MasterFields not defined.");
+
+        if (DetailFields == null || DetailFields.Length == 0)
+            throw new ApplicationException($"Table '{TableName}': DetailFields not defined.");
+
+        if (MasterFields.Length != DetailFields.Length)
+            throw new ApplicationException($"Table '{TableName}': MasterFields and DetailFields count mismatch.");
+
+        DataColumn[] ParentColumns = Master.GetColumns(MasterFields);
+        DataColumn[] ChildColumns = GetColumns(DetailFields);
+
+        for (int i = 0; i < ParentColumns.Length; i++)
+        {
+            Type ParentType = ParentColumns[i].DataType;
+            Type ChildType = ChildColumns[i].DataType;
+
+            if (!IsSupportedRelationFieldType(ParentType))
+                throw new ApplicationException(
+                    $"Table '{Master.TableName}': Column '{ParentColumns[i].ColumnName}' has unsupported relation type '{ParentType.Name}'.");
+
+            if (!IsSupportedRelationFieldType(ChildType))
+                throw new ApplicationException(
+                    $"Table '{TableName}': Column '{ChildColumns[i].ColumnName}' has unsupported relation type '{ChildType.Name}'.");
+
+            if (ParentType != ChildType)
+                throw new ApplicationException(
+                    $"Table '{Master.TableName}' -> '{TableName}': Field type mismatch between '{ParentColumns[i].ColumnName}' and '{ChildColumns[i].ColumnName}'.");
         }
     }
     public void MasterRowChanged()
@@ -488,22 +507,8 @@ public class MemTable : DataTable
             DataView.RowFilter = Filter;
         }
     }
-    /// <summary>
-    /// Clears this instance and all of its details of all the data. 
-    /// </summary>
-    public void ClearAll()
-    {
-        foreach (MemTable Detail in Details)
-            Detail.ClearAll();
 
-        Clear();
-        AcceptChanges();
-    }
-    public void SetCurrentRowToNull()
-    {
-        CurrentRow = null;
-    }
-
+    // ● public - rows
     /// <summary>
     /// Adds and returns a new row. The new row is added to rows.
     /// </summary>
@@ -551,7 +556,23 @@ public class MemTable : DataTable
             this.EventsDisabled = false;
         }
     }
+    /// <summary>
+    /// Clears this instance and all of its details of all the data. 
+    /// </summary>
+    public void ClearAll()
+    {
+        foreach (MemTable Detail in Details)
+            Detail.ClearAll();
 
+        Clear();
+        AcceptChanges();
+    }
+    public void SetCurrentRowToNull()
+    {
+        CurrentRow = null;
+    }
+
+    // ● public - errors
     public string GetTopTableErrors()
     {
         StringBuilder SB = new();
@@ -645,33 +666,8 @@ public class MemTable : DataTable
         }
     }
     
-    public DataView DataView { get; }
+    public DataView DataView  => fDataView ??= new(this);  
  
-    void RowFilterChanged()
-    {
-        string Normalize(string filter) => string.IsNullOrWhiteSpace(filter) ? null : filter.Trim();
- 
-        if (DataView == null)
-            return;
-
-        string DetailFilter = Normalize(DetailRowFilter);
-        string UserFilter = Normalize(UserRowFilter);
-
-        string Filter;
-
- 
-        if (!string.IsNullOrWhiteSpace(DetailFilter) && !string.IsNullOrWhiteSpace(UserFilter))
-            Filter = $"({DetailFilter}) AND ({UserFilter})";
-        else if (!string.IsNullOrWhiteSpace(DetailFilter))
-            Filter = DetailFilter;
-        else if (!string.IsNullOrWhiteSpace(UserFilter))
-            Filter = UserFilter;
-        else
-            Filter = string.Empty;
-
-        DataView.RowFilter = Filter;
-    }
-    
     public string DetailRowFilter
     {
         get => fDetailRowFilter;
@@ -714,17 +710,16 @@ public class MemTable : DataTable
             }
         }
     }
-
-    internal DetailList Details { get; set; }
+    public DetailList Details  => fDetails ??= new(this);
     /// <summary>
     /// The Sql statements for the table
     /// </summary>
-    public TableSqls SqlStatements { get; set; } = new TableSqls();
+    public TableSqls Sqls => fSqls ??= new();
     /// <summary>
     /// Gets the StockTables of this instance.
     /// </summary>
-    public List<MemTable> Stocks { get; } = new();
-
+    public List<MemTable> Stocks => fStocks ??= new();
+ 
     /// <summary>
     /// Returns true if this is a detail table.
     /// </summary>
@@ -798,7 +793,6 @@ public class MemTable : DataTable
             OnCurrentRowChanged();
         }
     }
-
     public DataRowView CurrentRowView
     {
         get => CurrentRow == null? null: GetDataRowView(CurrentRow, DataView);

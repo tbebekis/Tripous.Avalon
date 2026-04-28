@@ -3,12 +3,27 @@ namespace Tripous.Data;
 public class LookUpSource : ILookupSource
 {
     // ● construction  
-    public LookUpSource(LookupDef LookupDef, DataTable Table)
+    public LookUpSource(LookupDef LookupDef)
     {
         this.LookupDef = LookupDef ?? throw new ArgumentNullException(nameof(LookupDef));
+    }
+    
+    // ● public  
+    public void Select()
+    {
+        List.Clear();
+        if (!string.IsNullOrWhiteSpace(LookupDef.SqlText))
+        {
+            SqlStore Store = SqlStores.CreateSqlStore(LookupDef.ConnectionName);
+            DataTable Table = Store.Select(LookupDef.SqlText);
+            LoadForm(Table);
+        }
+    }
+    public void LoadForm(DataTable Table)
+    {
         if (Table == null)
             throw new ArgumentNullException(nameof(Table));
-
+        
         string ValueField = LookupDef.ValueField;
         string DisplayField = LookupDef.DisplayField;
 
@@ -28,9 +43,8 @@ public class LookUpSource : ILookupSource
             List.Add(new LookupItem(Value, Display));
         }
     }
-    public LookUpSource(LookupDef LookupDef, Enum Enum)
+    public void LoadFrom(Enum Enum)
     {
-        this.LookupDef = LookupDef ?? throw new ArgumentNullException(nameof(LookupDef));
         if (Enum == null)
             throw new ArgumentNullException(nameof(Enum));
 
@@ -45,7 +59,7 @@ public class LookUpSource : ILookupSource
             List.Add(new LookupItem(Value, Display));
         }
     }
-    
+
     // ● static  
     static public ILookupSource GetLookupSource(string Name)
     {

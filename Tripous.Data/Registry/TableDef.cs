@@ -19,10 +19,14 @@ public class TableDef: BaseDef
     public const string SUBLINES = "_SUBLINES_";
  
     string fAlias;
-    private string fKeyField = "Id";
-    private string fMasterField;
-    private string fDetailField;
-    private List<TableDef> fDetails;
+    string fKeyField = "Id";
+    string fMasterField;
+    string fDetailField;
+
+    List<FieldDef> fFields;
+    List<TableDef> fJoins;
+    List<SelectDef> fStocks;
+    List<TableDef> fDetails;
     
     // ● construction  
     /// <summary>
@@ -122,7 +126,7 @@ public class TableDef: BaseDef
             TableDef.UpdateReferences();
         }
     }
-    
+ 
     // ● find 
     /// <summary>
     /// Searces the whole joined tree for a table by a Name or Alias and returns
@@ -447,10 +451,10 @@ where
     /// <para>Creates the look-up tables too if a flag is specified.</para>
     /// <para>The table may added to a list using a specified delegate.</para>
     /// </summary>
-    public void CreateDescriptorTable(SqlStore Store, Action<MemTable> AddTableFunc)
+    public MemTable CreateDescriptorTable(SqlStore Store) // , Action<MemTable> AddTableFunc
     {
         MemTable Table = new MemTable() { TableName = this.Name };
-        AddTableFunc(Table);
+        //AddTableFunc(Table);
         Table.ExtendedProperties["Descriptor"] = this;
 
         Table.KeyFields = [this.KeyField];
@@ -483,6 +487,8 @@ where
             if (JoinTableDes != null)
                 CreateDescriptorTables_AddJoinTableFields(JoinTableDes, Table);
         }
+
+        return Table;
     }
     /// <summary>
     /// Sets up the <see cref="DataColumn.DefaultValue"/> of a specified column based on a specified field descriptor settings.
@@ -788,14 +794,22 @@ where
     /// <summary>
     /// The fields of this table
     /// </summary>
-    public List<FieldDef> Fields { get; set; } = new List<FieldDef>();
+    public List<FieldDef> Fields 
+    {
+        get => fFields ??= new();
+        set { if (fFields != value) { fFields = value; NotifyPropertyChanged(nameof(Fields)); } }
+    }
     /// <summary>
     /// The list of join tables. 
     /// </summary>
-    public List<TableDef> Joins { get; set; } = new List<TableDef>();
+    public List<TableDef> Joins 
+    {
+        get => fJoins ??= new();
+        set { if (fJoins != value) { fJoins = value; NotifyPropertyChanged(nameof(Joins)); } }
+    }
     /// <summary>
     /// The main table (Item) is selected as 
-    /// <para>  <c>select * from TABLE_NAME where ID = :ID</c></para>
+    /// <para> <c>select * from TABLE_NAME where ID = :ID</c></para>
     /// <para>
     /// If the table contains foreign keys, for instance CUSTOMER_ID etc, then those foreign tables are NOT joined. 
     /// The programmer who designs the UI just creates a Locator where needed.
@@ -807,10 +821,17 @@ where
     /// StockTables are used for that. StockTables are selected each time after the select of the main table (Item)          
     /// </para>
     /// </summary>
-    public List<SelectDef> Stocks { get; set; } = new List<SelectDef>();
+    public List<SelectDef> Stocks 
+    {
+        get => fStocks ??= new();
+        set { if (fStocks != value) { fStocks = value; NotifyPropertyChanged(nameof(Stocks)); } }
+    }
+    /// <summary>
+    /// The detail tables of this table.
+    /// </summary>
     public List<TableDef> Details
     {
-        get => fDetails;
+        get => fDetails ??= new();
         set { if (fDetails != value) { fDetails = value; NotifyPropertyChanged(nameof(Details)); } }
     }
 

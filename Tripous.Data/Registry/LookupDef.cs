@@ -2,10 +2,11 @@ namespace Tripous.Data;
 
 public class LookupDef: BaseDef
 {
-    private bool fUseNullItem;
-    private string fValueField = "Id";
-    private string fDisplayField = "Name";
-    private string fSqlText;
+    bool fUseNullItem;
+    string fValueField = "Id";
+    string fDisplayField = "Name";
+    string fSqlText;
+    string fConnectionName;
 
     // ● properties
     public bool UseNullItem
@@ -43,6 +44,11 @@ public class LookupDef: BaseDef
                 NotifyPropertyChanged(nameof(DisplayField));
             }
         }
+    }
+    public string ConnectionName  
+    {
+        get => !string.IsNullOrWhiteSpace(fConnectionName)? fConnectionName: SysConfig.DefaultConnectionName;
+        set { if (fConnectionName != value) { fConnectionName = value; NotifyPropertyChanged(nameof(ConnectionName)); } }
     }
     public string SqlText
     {

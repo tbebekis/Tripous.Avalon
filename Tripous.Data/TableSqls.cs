@@ -5,6 +5,8 @@ namespace Tripous.Data;
 /// </summary>
 public class TableSqls
 {
+    Dictionary<string, string> fDisplayLabels;
+    
     /* construction */
     /// <summary>
     /// Constructor
@@ -29,12 +31,17 @@ public class TableSqls
         InsertRowSql = "";
         UpdateRowSql = "";
         DeleteRowSql = "";
+
+        fDisplayLabels = null;
+    }
+
+    public void AssignFrom(TableSqls Source)
+    {
+        Clear();
+        Json.AssignObject(Source, this);
     }
     
-    /// <summary>
-    /// Returns true if <see cref="FieldTitleKeys"/> is valid and contains values.
-    /// </summary>
-    public bool HasTitleKeys() { return FieldTitleKeys != null && FieldTitleKeys.Count > 0; } 
+ 
     /// <summary>
     /// Loads <see cref="FieldTitleKeys"/> from a specified text.
     /// <para>NOTE: The specified text must contain string lines separated by <see cref="Environment.NewLine"/> 
@@ -45,14 +52,20 @@ public class TableSqls
     {
         if (!string.IsNullOrWhiteSpace(Text))
         {
-            if (FieldTitleKeys == null)
-                FieldTitleKeys = new List<string>();
+            DisplayLabels.Clear();
+            StringSplitOptions SplitOptions = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries;
 
-            FieldTitleKeys.Clear();
-
-            string[] Lines = Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries );
+            string[] Lines = Text.Split(Environment.NewLine, SplitOptions );
+            string[] Parts;
             if (Lines != null && Lines.Length > 0)
-                FieldTitleKeys.AddRange(Lines);
+            {
+                foreach (string Line in Lines)
+                {
+                    Parts = Line.Split('=', SplitOptions);
+                    if (Parts.Length == 2)
+                        DisplayLabels[Parts[0]] = Parts[1];
+                }
+            }
         }
     }
 
@@ -96,5 +109,11 @@ public class TableSqls
     /// else only the included fields are visible  
     /// </para>
     /// </summary>
-    public List<string> FieldTitleKeys { get; set; } = new List<string>();
+    public Dictionary<string, string> DisplayLabels
+    {
+        get => fDisplayLabels ??= new();
+        set => fDisplayLabels = value;
+    }
+    
+    [JsonIgnore] public bool HasDisplayLabels => fDisplayLabels != null && fDisplayLabels.Count > 0;
 }

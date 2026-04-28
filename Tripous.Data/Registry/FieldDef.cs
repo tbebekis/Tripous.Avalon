@@ -129,7 +129,6 @@ public class FieldDef: BaseDef
         return this;
     }
  
-
     // ● properties
     /// <summary>
     /// The master definition this instance belongs to.

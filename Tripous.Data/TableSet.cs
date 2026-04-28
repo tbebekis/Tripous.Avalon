@@ -33,26 +33,26 @@ public class TableSet
 
     }
     /// <summary>
-    /// Queries in TableSet is a list of DataTables used as look-ups etc. This method
+    /// Stocks in TableSet is a list of DataTables used as look-ups etc. This method
     /// executes the SELECT Sql statement for each of those queries.
     /// </summary>
-    void SelectQueries()
+    void SelectStocks()
     {
-        if (Queries != null)
+        if (Stocks != null)
         {
             MemTable Table;
-            for (int i = 0; i < Queries.Count; i++)
+            for (int i = 0; i < Stocks.Count; i++)
             {
-                Table = Queries[i];
+                Table = Stocks[i];
 
-                if (string.IsNullOrWhiteSpace(Table.SqlStatements.SelectSql))
-                    Table.SqlStatements.SelectSql = "select * from " + Table.TableName; 
+                if (string.IsNullOrWhiteSpace(Table.Sqls.SelectSql))
+                    Table.Sqls.SelectSql = "select * from " + Table.TableName; 
 
-                Store.SelectTo(Table, Table.SqlStatements.SelectSql);
+                Store.SelectTo(Table, Table.Sqls.SelectSql);
 
-                if (Table.SqlStatements.HasTitleKeys())
+                if (Table.Sqls.HasDisplayLabels)
                 {
-                    Table.SetColumnCaptionsFrom(Table.SqlStatements.FieldTitleKeys.ToDictionary(), true);
+                    Table.SetColumnCaptionsFrom(Table.Sqls.DisplayLabels, true);
                 }
                 else
                 {
@@ -143,12 +143,12 @@ public class TableSet
     {
         string SqlText;
 
-        if (!string.IsNullOrWhiteSpace(Detail.SqlStatements.SelectSql))
+        if (!string.IsNullOrWhiteSpace(Detail.Sqls.SelectSql))
         {
             // 1. SqlText execution ===================================================
             if ((MasterTable.Rows.Count > 0) && (MasterTable.Columns.Contains(Detail.MasterField)))
             {
-                SelectSql SS = new SelectSql(Detail.SqlStatements.SelectSql);
+                SelectSql SS = new SelectSql(Detail.Sqls.SelectSql);
                 SS.Where = "";
 
                 //  limit the number of elements inside the in (...),  in order
@@ -169,7 +169,7 @@ public class TableSet
                 }
             }
 
-            Detail.SetColumnCaptionsFrom(Detail.SqlStatements.FieldTitleKeys.ToDictionary(), HideUntitleDisplayLabels);
+            Detail.SetColumnCaptionsFrom(Detail.Sqls.DisplayLabels, HideUntitleDisplayLabels);
 
             if (!Detail.IsEmpty)
                 Select_DoDetails(Detail);
@@ -349,7 +349,7 @@ public class TableSet
                         {
                             if (!Row.IsNull(Table.KeyField))
                             {
-                                Store.ExecSql(Transaction, Table.SqlStatements.UpdateRowSql, Row);
+                                Store.ExecSql(Transaction, Table.Sqls.UpdateRowSql, Row);
                             }
                         }
                     }
@@ -391,7 +391,7 @@ public class TableSet
                             // primary key is a Guid
                             if (IsString)
                             {
-                                Store.ExecSql(Transaction, Table.SqlStatements.InsertRowSql, Row);
+                                Store.ExecSql(Transaction, Table.Sqls.InsertRowSql, Row);
                             }
                             else // primary key is an integer, autoincremented or provided by a generator/sequencer
                             {
@@ -407,7 +407,7 @@ public class TableSet
 
                                 try
                                 {
-                                    Store.ExecSql(Transaction, Table.SqlStatements.InsertRowSql, Row);
+                                    Store.ExecSql(Transaction, Table.Sqls.InsertRowSql, Row);
                                 }
                                 catch
                                 {
@@ -444,7 +444,7 @@ public class TableSet
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableSet(SqlStore Store, MemTable TopTable, TableSetFlags Flags = TableSetFlags.GenerateSql)
+    public TableSet(SqlStore Store, MemTable TopTable, List<MemTable> Stocks, TableSetFlags Flags = TableSetFlags.GenerateSql)
     {
         if (TopTable == null)
             throw new ArgumentNullException("TopTable");
@@ -453,7 +453,7 @@ public class TableSet
 
         this.Store = Store;
         this.TopTable = TopTable;
-        this.Queries = TopTable.Stocks;
+        this.Stocks = Stocks;
 
         GenerateSql = TableSetFlags.GenerateSql.In(Flags);   
         PessimisticMode = TableSetFlags.PessimisticMode.In(Flags);    
@@ -462,7 +462,7 @@ public class TableSet
         ConstructTableTree();
         SetMaxDetailLevel();
         GenerateSqlStatements();
-        SelectQueries();
+        SelectStocks();
     }
     
     // ● public
@@ -481,9 +481,9 @@ public class TableSet
         TopTable.EventsDisabled = true;
         try
         {
-            if (!string.IsNullOrWhiteSpace(TopTable.SqlStatements.SelectRowSql))
+            if (!string.IsNullOrWhiteSpace(TopTable.Sqls.SelectRowSql))
             {
-                Store.SelectTo(TopTable, TopTable.SqlStatements.SelectRowSql, RowId);
+                Store.SelectTo(TopTable, TopTable.Sqls.SelectRowSql, RowId);
             }
 
             // select stock tables
@@ -493,12 +493,12 @@ public class TableSet
                 for (int i = 0; i < TopTable.Stocks.Count; i++)
                 {
                     StockTable = TopTable.Stocks[i];
-                    Store.SelectTo(StockTable, StockTable.SqlStatements.SelectRowSql, TopTable.Rows[0]);
+                    Store.SelectTo(StockTable, StockTable.Sqls.SelectRowSql, TopTable.Rows[0]);
                 }
             }
 
             Select_DoDetails(TopTable); 
-            TopTable.SetColumnCaptionsFrom(TopTable.SqlStatements.FieldTitleKeys.ToDictionary(), HideUntitleDisplayLabels);
+            TopTable.SetColumnCaptionsFrom(TopTable.Sqls.DisplayLabels, HideUntitleDisplayLabels);
         }
         finally
         {
@@ -824,7 +824,7 @@ public class TableSet
         if (Table != null)
         {
             if (string.IsNullOrWhiteSpace(SqlText))
-                SqlText = Table.SqlStatements.SelectSql;
+                SqlText = Table.Sqls.SelectSql;
 
             if (SqlText.Trim() != "")
             {
@@ -832,7 +832,7 @@ public class TableSet
                 try
                 {
                     Result = Store.SelectTo(Table, SqlText);
-                    Table.SetColumnCaptionsFrom(Table.SqlStatements.FieldTitleKeys.ToDictionary(), HideUntitleDisplayLabels);
+                    Table.SetColumnCaptionsFrom(Table.Sqls.DisplayLabels, HideUntitleDisplayLabels);
                 }
                 finally
                 {
@@ -938,7 +938,7 @@ public class TableSet
     /// <summary>
     /// Field
     /// </summary>
-    public List<MemTable> Queries { get; private set; } 
+    public List<MemTable> Stocks { get; private set; } 
 
     // ● flags  
     /// <summary>

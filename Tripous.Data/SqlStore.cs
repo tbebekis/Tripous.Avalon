@@ -81,7 +81,6 @@ public class SqlStore
     /// </summary>
     public int ExecSql(DbTransaction Transaction, string SqlText, params object[] Params) => Provider.ExecSql(Transaction, SqlText, ConnectionInfo.CommandTimeoutSeconds, Params);
     
-    
     // ● ExecSql with callbacks
     /// <summary>
     /// It can be used in executin multiple SQL operations inside a single transaction using a callback.

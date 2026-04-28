@@ -92,7 +92,7 @@ public static class SqlStatementBuilder
     /// </summary>
     static public void BuildSql(MemTable Table, SqlStore Store, bool IsTopTable)
     {
-        BuildSql(Table.TableName, Table.KeyFields[0], Store, Table.SqlStatements, IsTopTable);
+        BuildSql(Table.TableName, Table.KeyFields[0], Store, Table.Sqls, IsTopTable);
     }
     /// <summary>
     /// Generates Sql statements for the Table.     

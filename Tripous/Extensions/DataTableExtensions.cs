@@ -55,6 +55,16 @@ static public class DataTableExtensions
 
         return null;
     }
+    /// <summary>
+    /// Returns the DataColumn with FileName, if exists, else exception.
+    /// </summary>
+    static public DataColumn GetColumn(this DataTable Table, string FieldName)
+    {
+        DataColumn Result = FindColumn(Table, FieldName);
+        if (Result == null)
+            throw new ApplicationException($"{nameof(DataColumn)} not found: {FieldName}");
+        return Result;
+    }
 
     /// <summary>
     /// A DataRow is marked as Deleted only if the DataRow.Delete() is called.
