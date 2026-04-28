@@ -1,4 +1,4 @@
-namespace Tripous.Models;
+namespace Tripous;
 
 /// <summary>
 /// A type to be used with Ids when the exact type is not known.

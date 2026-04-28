@@ -14,12 +14,12 @@ public class DataFormContext: FormContext
         if (string.IsNullOrWhiteSpace(FormRegistryName))
             throw new ArgumentNullException(nameof(FormRegistryName));
 
-        FormDef FormDef = AvalonRegistry.Forms.Get(FormRegistryName);
+        FormDef FormDef = UiRegistry.Forms.Get(FormRegistryName);
 
         if (string.IsNullOrWhiteSpace(FormDef.Module))
             throw new ApplicationException($"Form '{FormRegistryName}' has no Module.");
 
-        ModuleDef ModuleDef = Registry.Modules.Get(FormDef.Module);
+        ModuleDef ModuleDef = DataRegistry.Modules.Get(FormDef.Module);
 
         DataFormContext Result = new DataFormContext
         {

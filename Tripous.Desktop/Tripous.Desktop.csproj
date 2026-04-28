@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tripous\Tripous.csproj" />
+    <ProjectReference Include="..\Tripous.Data\Tripous.Data.csproj" />    
   </ItemGroup>
 
   <ItemGroup>

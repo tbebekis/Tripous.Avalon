@@ -352,13 +352,15 @@ public partial class DataForm : AppForm, IRowProvider
 
     protected virtual async Task ExecuteList()
     {
+        await Task.CompletedTask;
+        
         if (!Saving && (FormState == DataFormState.Insert || FormState == DataFormState.Edit))  
         {
             if (!await ExecuteCancelEdit())
                 return;
         }
 
-        await ListSelect();
+        ListSelect();
         this.FormState = DataFormState.List;
     }
     protected virtual void ExecuteInsert()
@@ -420,12 +422,12 @@ public partial class DataForm : AppForm, IRowProvider
     }
  
     // ● list
-    protected virtual async Task ListSelect()
+    protected virtual void ListSelect()
     {
         SelectDef SelectDef = cboSelectList.SelectedItem as SelectDef;
         if (SelectDef != null)
         {
-            await Module.ListSelect(SelectDef);
+            Module.ListSelect(SelectDef);
             
             BindListGrid();
         }
@@ -523,7 +525,7 @@ public partial class DataForm : AppForm, IRowProvider
             
             if (Column.ColumnName == "CountryId")
             {
-                ILookupSource CountryLookupSource = Registry.LookupSources.Get("Country");  
+                ILookupSource CountryLookupSource = DataRegistry.LookupSources.Get("Country");  
                 GridColumn = DataViewGridColumnFactory.CreateLookupColumn(Column.ColumnName, CountryLookupSource);
             }
             else if (Column.DataType == typeof(bool))

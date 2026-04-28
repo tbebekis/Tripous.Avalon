@@ -9,7 +9,7 @@ public class MainCommandExecutor: BaseDef, ICommandExecutor
     {
         this.MainWindow = MainWindow;
         this.Name = "Main";
-        Registry.CommandExecutors.Add(this);
+        DataRegistry.CommandExecutors.Add(this);
     }
 
     // ● public

@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApps", "TestApps", "{F3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Avalon.Old", "Tripous.Avalon.Old\Tripous.Avalon.Old.csproj", "{87502C7E-D878-45BC-B1BE-9805EC79E6D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Data", "Tripous.Data\Tripous.Data.csproj", "{C8382F5B-E37E-4E84-884B-EE9862D4E7EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Links", "Tripous.Links\Tripous.Links.csproj", "{81EDA4C8-908C-4937-BC4A-B313ED0F7485}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{87502C7E-D878-45BC-B1BE-9805EC79E6D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87502C7E-D878-45BC-B1BE-9805EC79E6D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87502C7E-D878-45BC-B1BE-9805EC79E6D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8382F5B-E37E-4E84-884B-EE9862D4E7EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8382F5B-E37E-4E84-884B-EE9862D4E7EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8382F5B-E37E-4E84-884B-EE9862D4E7EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8382F5B-E37E-4E84-884B-EE9862D4E7EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81EDA4C8-908C-4937-BC4A-B313ED0F7485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81EDA4C8-908C-4937-BC4A-B313ED0F7485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81EDA4C8-908C-4937-BC4A-B313ED0F7485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81EDA4C8-908C-4937-BC4A-B313ED0F7485}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6E8530C8-0414-4F53-B9FC-4BF3D394B1D4} = {F37EB0FD-0985-4110-A9B2-02627F097760}

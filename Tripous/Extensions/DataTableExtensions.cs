@@ -507,23 +507,57 @@ static public class DataTableExtensions
     ///  to avoid problems with database servers that have such a limit.
     ///  <para>It returns a string array where each element contains no more than ModValue of the FieldName values from Table.</para>
     /// </summary>
-    static public string[] GetKeyValuesList(this DataTable Table, string FieldName, int ModValue, bool DiscardBelowZeroes)
+    static public List<string> GetKeyValuesList(this DataTable Table, string FieldName, int ModValue = 100)
     {
-        if ((Table != null) && !string.IsNullOrWhiteSpace(FieldName) && Table.Columns.Contains(FieldName))
+        // ----------------------------------------------------------------------------
+        string SqlStr(string Value) => "'" + Value.Replace("'", "''") + "'";
+        // ----------------------------------------------------------------------------
+        
+        List<string> Result = new();
+
+        if (Table == null)
+            throw new ArgumentNullException("Table");
+        if (string.IsNullOrWhiteSpace(FieldName))
+            throw new ArgumentException("FieldName is empty.", "FieldName");
+        if (ModValue <= 0)
+            throw new ArgumentException("ModValue must be greater than zero.", "ModValue");
+
+        DataColumn Column = Table.Columns[FieldName];
+        if (Column == null)
+            throw new ApplicationException($"Column '{FieldName}' not found in table '{Table.TableName}'.");
+
+        StringBuilder SB = new();
+        int Counter = 0;
+
+        foreach (DataRow Row in Table.Rows)
         {
-            List<object> List = new List<object>();
-            foreach (DataRow R in Table.Rows)
+            if (Row.RowState == DataRowState.Deleted || Row.RowState == DataRowState.Detached || Row.IsNull(FieldName))
+                continue;
+
+            if (Counter > 0 && Counter % ModValue == 0)
             {
-                if (R.RowState != DataRowState.Deleted && !R.IsNull(FieldName))
-                    List.Add(R[FieldName]);
+                Result.Add(SB.ToString());
+                SB.Clear();
             }
 
-            return List.GetKeyValuesList(FieldName, ModValue, DiscardBelowZeroes);
+            if (SB.Length > 0)
+                SB.Append(", ");
+
+            if (Column.DataType == typeof(string))
+                SB.Append(SqlStr(Row[FieldName].ToString()));
+            else
+                SB.Append(Sys.AsString(Row[FieldName]));
+
+            Counter++;
         }
 
-        return new string[0];
+        if (SB.Length > 0)
+            Result.Add(SB.ToString());
 
+        return Result;
     }
+  
+ 
     /// <summary>
     /// Returns true if FieldName is of type string.
     /// </summary>
