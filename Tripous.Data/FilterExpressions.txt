@@ -1,0 +1,148 @@
+======================================= 
+QUICK GUIDE: DBPARK FILTER EXPRESSIONS
+=======================================
+
+Label is a name given by the user.
+At runtime the filter control is displayed under a label.
+Absent of Label means that filter value is auto-computed.
+
+----------------------------------
+1. SIMPLE TYPES
+----------------------------------
+Syntax: 
+[[string:Label]] or just [[Label]]
+[[int:Label]]
+[[dec:Label]]
+
+Examples:
+- String:  Name = '[[string:Customer Name]]' (or just [[Customer Name]])
+- Integer: Total = [[int:Min Items]]
+- Decimal: Amount > [[dec:Min Amount]]
+
+NOTE: Decimal can be used with any numeric non-integer column, i.e. decimal, float, double, etc.
+----------------------------------
+2. DATES (Tripous Ranges)
+----------------------------------
+Syntax: 
+[[date:Custom:Label]]
+[[date:Range]]
+
+Examples:
+- Manual entry:  Date >= [[date:Custom:From Date]]
+- Auto-computed: Date = [[date:Today]]
+- Date Range:    Date >= [[date:LastMonth]] AND Date <= [[date:Today]]
+- Date Range:    Date >= [[date:Custom:From Date]] AND Date <= [[date:Today]]
+
+NOTE: Custom is literal and requires a Label. 
+Range is a predefined literal and returns an auto-computed value.
+
+Available Ranges: Today, Yesterday, LastWeek, LastMonth, LastTwoMonths, 
+           LastThreeMonths, LastSemester, LastYear, LastTwoYears.
+----------------------------------
+3. LOOKUPS (Select from DB)
+----------------------------------
+Syntax: 
+[[lookup:string:Label]]
+[[lookup:int:Label]]
+
+[[lookup:string:multi:Label]]
+[[lookup:int:multi:Label]]
+
+[[lookup:string:Label:SelectStatement]]
+[[lookup:int:Label:SelectStatement]]
+
+[[lookup:string:multi:Label:SelectStatement]]
+[[lookup:int:multi:Label:SelectStatement]]
+
+Examples:
+- Single: CountryId = [[lookup:int:Country]]
+          CountryId = [[lookup:int:Country:select Id from Country]]
+- Multi:  CountryId IN ([[lookup:int:multi:Country]])
+          CountryId IN ([[lookup:int:multi:Country:select Id from Country]])
+
+NOTE: multi means that at runtime the user may select multiple values.
+NOTE: The SELECT statement is mandatory and it may be provided inline, e.g.
+      [[lookup:string:Customers:select Id from Customer]]
+      If an inline SELECT statement is omitted, then it should be provided in the design-time UI.
+      Inline example: SELECT Id, Name FROM Country
+NOTE: The first column returned by the SELECT statement is the value used in the query.    
+----------------------------------
+4. ENUMS (Constants)
+----------------------------------
+Syntax: 
+[[enum:string:Label]]
+[[enum:int:Label]]
+[[enum:dec:Label]]
+
+[[enum:string:multi:Label]]
+[[enum:int:multi:Label]]
+[[enum:dec:multi:Label]]
+
+[[enum:string:Label:ConstantList]]
+[[enum:int:Label:ConstantList]]
+[[enum:dec:Label:ConstantList]]
+
+[[enum:string:multi:Label:ConstantList]]
+[[enum:int:multi:Label:ConstantList]]
+[[enum:dec:multi:Label:ConstantList]]
+
+Examples:
+- Single: Status = [[enum:string:Status]]
+          Status = [[enum:string:Status:Pending;Completed;Canceled]]
+- Multi:  Grade IN ([[enum:dec:multi:Expected Grades]])
+          Grade IN ([[enum:dec:multi:Expected Grades:1.5;2.0;2.5;3.0 ]])
+ 
+NOTE: multi means that at runtime the user may select multiple values.
+NOTE: The ConstantList is mandatory and it is a list of constants separated by semicolon and may be provided inline, e.g.
+    [[enum:string:Status:Pending;Completed;Canceled]]
+    If inline ConstantList is omitted, then it should be provided in the design-time UI.
+    Inline example: Pending;Completed;Canceled  
+    Inline example: 1.5;2.0;2.5;3.0 
+
+NOTES: 
+- Use 'int' or 'dec' modifiers to avoid quotes in SQL ('').
+- Use 'multi' to present a selection list and generate comma-separated values.
+----------------------------------
+MORE EXAMPLES
+----------------------------------
+1. String
+Name = '[[string:Customer Name]]'
+Name = '[[Customer Name]]'
+Name like '%[[string:Customer Part]]%'
+
+2. Integer
+Value = [[int:Total Items]]
+
+3. Decimal
+Value = [[dec:Total Amount]]
+
+4. date
+OrderDate = [[date:Custom:Order Date]]
+OrderDate = [[date:Order Date]]  -- the same as [[date:Custom:Order Date]]
+OrderDate = [[date:Today]]
+OrderDate >= [[date:LastWeek]] and OrderDate <= [[date:Today]] 
+
+5. lookup
+CountryId = [[lookup:string:Country]]
+CountryId in ([[lookup:string:multi:Country]])
+
+Example lookup SELECTs:
+select Id from Country
+select Id, Name from Branch
+
+5. enum
+OrderStatus = [[enum:string:Order Status]]
+OrderStatus in ([[enum:string:multi:Order Status]])
+ExpectedGrade >= [[enum:dec:Expected Grades]]
+
+Example constant lists:
+a)
+Pending
+Completed
+Cancelled
+
+b)
+1.5
+2.0
+2.5
+3.0
