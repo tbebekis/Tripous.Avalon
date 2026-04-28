@@ -60,7 +60,7 @@ public static class DataViewGridColumnFactory
             // ● ignore invalid input for now
         }
     }
-    static private LookupItem FindLookupItem(ILookupSource Source, object Value)
+    static private LookupItem FindLookupItem(LookupSource Source, object Value)
     {
         if (Source == null)
             return null;
@@ -148,7 +148,7 @@ public static class DataViewGridColumnFactory
         }, true);
     }
     
-    static private IDataTemplate CreateLookupDisplayTemplate(string ColumnName, ILookupSource Source)
+    static private IDataTemplate CreateLookupDisplayTemplate(string ColumnName, LookupSource Source)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -168,7 +168,7 @@ public static class DataViewGridColumnFactory
             return Result;
         }, true);
     }
-    static private IDataTemplate CreateLookupEditTemplate(string ColumnName, ILookupSource Source)
+    static private IDataTemplate CreateLookupEditTemplate(string ColumnName, LookupSource Source)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -337,7 +337,7 @@ public static class DataViewGridColumnFactory
 
         return Result;
     }
-    static public DataGridColumn CreateLookupColumn(string ColumnName, ILookupSource Source, string Header = "", bool IsReadOnly = false)
+    static public DataGridColumn CreateLookupColumn(string ColumnName, LookupSource Source, string Header = "", bool IsReadOnly = false)
     {
         DataGridTemplateColumn Result = new();
 

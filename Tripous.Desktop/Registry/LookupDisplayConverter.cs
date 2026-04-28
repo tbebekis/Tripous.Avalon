@@ -5,10 +5,10 @@ namespace Tripous.Desktop;
 public class LookupDisplayConverter: IValueConverter
 {
     // ● private fields
-    readonly ILookupSource fSource;
+    readonly LookupSource fSource;
 
     // ● constructors
-    public LookupDisplayConverter(ILookupSource Source)
+    public LookupDisplayConverter(LookupSource Source)
     {
         fSource = Source ?? throw new ArgumentNullException(nameof(Source));
     }

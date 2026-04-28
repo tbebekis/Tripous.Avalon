@@ -1,9 +1,9 @@
 namespace Tripous.Data;
 
-public class LookUpSource : ILookupSource
+public class LookupSource  : IDef// ILookupSource
 {
     // ● construction  
-    public LookUpSource(LookupDef LookupDef)
+    public LookupSource(LookupDef LookupDef)
     {
         this.LookupDef = LookupDef ?? throw new ArgumentNullException(nameof(LookupDef));
     }
@@ -61,18 +61,8 @@ public class LookUpSource : ILookupSource
     }
 
     // ● static  
-    static public ILookupSource GetLookupSource(string Name)
-    {
-        ILookupSource Result = null;
-
-        if (!string.IsNullOrWhiteSpace(Name))
-            Result = DataRegistry.LookupSources.Find(Name);
-
-        if (Result == null)
-            throw new ApplicationException($"{typeof(LookUpSource)} {Name} not registered.");
-
-        return Result;
-    }
+    static public LookupSource GetLookupSource(string Name) => DataRegistry.LookupSources.Get(Name);
+ 
  
     // ● properties  
     public string Name

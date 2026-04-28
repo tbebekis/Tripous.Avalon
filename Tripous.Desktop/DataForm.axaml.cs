@@ -525,7 +525,7 @@ public partial class DataForm : AppForm, IRowProvider
             
             if (Column.ColumnName == "CountryId")
             {
-                ILookupSource CountryLookupSource = DataRegistry.LookupSources.Get("Country");  
+                LookupSource CountryLookupSource = DataRegistry.LookupSources.Get("Country");  
                 GridColumn = DataViewGridColumnFactory.CreateLookupColumn(Column.ColumnName, CountryLookupSource);
             }
             else if (Column.DataType == typeof(bool))

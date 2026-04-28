@@ -54,7 +54,7 @@ static public class ControlBindingHelper
 
         Row[FieldName] = Result;
     }
-    static private LookupItem FindLookupItem(ILookupSource Source, object Value)
+    static private LookupItem FindLookupItem(LookupSource Source, object Value)
     {
         if (Source == null)
             return null;
@@ -364,7 +364,7 @@ static public class ControlBindingHelper
         if (string.IsNullOrWhiteSpace(LookupSourceName))
             throw new ArgumentNullException(nameof(LookupSourceName));
 
-        ILookupSource LookupSource = LookUpSource.GetLookupSource(LookupSourceName);
+        LookupSource LookupSource = Data.LookupSource.GetLookupSource(LookupSourceName);
 
         ControlBinding Result = new(Box, FieldName)
         {
