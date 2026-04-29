@@ -2,6 +2,17 @@ namespace Tripous.Data;
 
 public class TableSet
 {
+    MemTable ListTable;
+    MemTable ItemTable;
+    List<MemTable> TableTree  = new();
+    List<MemTable> Stocks;
+ 
+    bool IsInsert;
+    int MaxDetailLevel;
+    
+    bool GenerateSql = false;
+    bool CascadeDeletes  = false;
+    
     // ● initialization
     /// <summary>
     /// Adds Table an all of its detail tables to TableTree.
@@ -19,7 +30,7 @@ public class TableSet
     /// </summary>
     void ConstructTableTree()
     {
-        AddTableToTree(TopTable);
+        AddTableToTree(ItemTable);
     }
     /// <summary>
     /// Sets the MaxDetailLevel, that is the depth of the details.
@@ -30,7 +41,6 @@ public class TableSet
 
         foreach (MemTable Table in TableTree)
             MaxDetailLevel = Math.Max(MaxDetailLevel, Table.Level);
-
     }
     /// <summary>
     /// Stocks in TableSet is a list of DataTables used as look-ups etc. This method
@@ -74,7 +84,7 @@ public class TableSet
         if (GenerateSql)
         {
             for (int i = 0; i < TableTree.Count; i++)
-                SqlStatementBuilder.BuildSql(TableTree[i], Store, TableTree[i] == TopTable);
+                SqlStatementBuilder.BuildSql(TableTree[i], Store, TableTree[i] == ItemTable);
         }
     }    
 
@@ -87,7 +97,7 @@ public class TableSet
         int Level = MaxDetailLevel;
 
         // in reverse order
-        while (Level >= TopTable.Level)
+        while (Level >= ItemTable.Level)
         {
             foreach (MemTable Table in TableTree)
             {
@@ -169,7 +179,7 @@ public class TableSet
                 }
             }
 
-            Detail.SetColumnCaptionsFrom(Detail.Sqls.DisplayLabels, HideUntitleDisplayLabels);
+            Detail.SetColumnCaptionsFrom(Detail.Sqls.DisplayLabels, HideUntitledDisplayLabels);
 
             if (!Detail.IsEmpty)
                 Select_DoDetails(Detail);
@@ -186,44 +196,6 @@ public class TableSet
             DetailTable.AcceptChanges();
         }
     }
- 
-    // ●  Oids and Guid  
-    /// <summary>
-    /// Returns the next id value of a generator named after the TableName table.
-    /// <para>It should be used only with databases that support generators or when a CustomOid object is used.</para>
-    /// </summary>
-    int NextId(string TableName)
-    {
-        if (Transaction != null)
-            return Store.NextId(Transaction, TableName);
-        return Store.NextId(TableName);
-    }
-    /// <summary>
-    /// Returns the last id produced by an INSERT statement.
-    /// <para>It should be used only with databases that support identity (auto-increment) columns</para>
-    /// </summary>
-    int LastId(string TableName)
-    {
-        if (Transaction != null)
-            return Store.LastId(Transaction, TableName);
-        return Store.LastId(TableName);
-    }
-    /// <summary>
-    /// Creates and returns a new Guid NOT surrounded by {}
-    /// </summary>
-    string GetGuid()
-    {
-        return Sys.GenId();
-    }
-
-    /// <summary>
-    /// Returns true if Oids are needed before commiting a row to the database
-    /// </summary>
-    bool OidIsBefore { get { return Store.Provider.OidMode == OidMode.Generator; } }
-    /// <summary>
-    /// Returns true if Oids are needed after commiting a row to the database
-    /// </summary>
-    bool OidIsAfter { get { return !OidIsBefore; } }
 
     // ●  event triggers  
     /// <summary>
@@ -263,200 +235,44 @@ public class TableSet
     {
         SqlValueProviders.Process(ref SqlText, Store);
     }
-    
-    // ● database commit the whole tree: INSERT-UPDATE-DELETE  
+
     /// <summary>
-    /// Processes the DELETE part of a commit
+    /// Creates a context for calling <see cref="DbOps"/>
     /// </summary>
-    private void PostDeletes()
+    DbOpContext CreateDbOpContext(MemTable TopTable, List<MemTable> FlatList = null)
     {
-        //  a nested method in order to avoid a separate method, since this code is called twice, below  
-        // ------------------------------------------------------------------
-        void DeleteTable (MemTable Table)
-        {
-
-            DataTable Source = Table.GetDeletedRows();
-
-            if (Source != null)
-            {
-                string SqlText = "";
-
-                // delete the rows 
-                List<string> KeyValuesList = Source.GetKeyValuesList(Table.KeyField, 100);
-
-                foreach (string KeyValues in KeyValuesList)
-                {
-                    SqlText = string.Format("delete from {0} where {1} in {2}", Table.TableName, Table.KeyField, KeyValues);
-                    Store.ExecSql(Transaction, SqlText);
-                }
-            }
-        };
-        // ------------------------------------------------------------------
-
-        int Level;
-
-        // deletes in reverse order
-        if (CascadeDeletes)
-        {
-            Level = MaxDetailLevel;
-            while (Level >= TopTable.Level)
-            {
-                foreach (MemTable Table in TableTree)
-                {
-                    if (Table.Level == Level)
-                    {
-                        DeleteTable(Table);
-                    }
-                }
-
-                Level--;
-            }
-        }
-        else // deletes in normal order: let any constraint throw an exception
-        {
-            Level = TopTable.Level;
-            while (Level <= MaxDetailLevel)
-            {
-                foreach (MemTable Table in TableTree)
-                {
-                    if (Table.Level == Level)
-                    {
-                        DeleteTable(Table);
-                    }
-                }
-
-                Level++;
-            }
-        }
-    }
-    /// <summary>
-    /// Processes the UPDATE part of a commit
-    /// </summary>
-    private void PostUpdates()
-    {
-        int Level = TopTable.Level;
-
-        // updates with normal order
-        while (Level <= MaxDetailLevel)
-        {
-            foreach (MemTable Table in TableTree)
-            {
-                if ((Table.Level == Level) && !Table.IsEmpty && Table.Columns.Contains(Table.KeyField))
-                {
-                    foreach (DataRow Row in Table.Rows)
-                    {
-                        if (Row.RowState == DataRowState.Modified)
-                        {
-                            if (!Row.IsNull(Table.KeyField))
-                            {
-                                Store.ExecSql(Transaction, Table.Sqls.UpdateRowSql, Row);
-                            }
-                        }
-                    }
-                }
-            }
-
-            Level++;
-        }
-
-    }
-    /// <summary>
-    /// Processes the INSERT part of a commit
-    /// </summary>
-    private void PostInserts()
-    {
-        bool IsString;
-
-        object Value;
-        int OldId;
-        int NewId;
-
-        // inserts with normal order
-        int Level = TopTable.Level;
-        while (Level <= MaxDetailLevel)
-        {
-            foreach (MemTable Table in TableTree)
-            {
-                if (Table.Level == Level && !Table.IsEmpty && Table.Columns.Contains(Table.KeyField))
-                {
-                    IsString = Table.IsStringField(Table.KeyField);
-
-                    foreach (DataRow Row in Table.Rows)
-                    {
-                        if (Row.RowState == DataRowState.Added)
-                        {
-                            Value = !Row.IsNull(Table.KeyField) ? Row[Table.KeyField] : Sys.GenId();
-                            //Value = Row[Table.KeyFields[0]];
-
-                            // primary key is a Guid
-                            if (IsString)
-                            {
-                                Store.ExecSql(Transaction, Table.Sqls.InsertRowSql, Row);
-                            }
-                            else // primary key is an integer, autoincremented or provided by a generator/sequencer
-                            {
-                                OldId = Sys.AsInteger(Value, -1);
-                                NewId = OldId;
-
-                                // generator/sequencer, so get the "correct" Id
-                                if (OidIsBefore)
-                                {
-                                    NewId = NextId(Table.TableName);
-                                    Row[Table.KeyFields[0]] = NewId;
-                                }
-
-                                try
-                                {
-                                    Store.ExecSql(Transaction, Table.Sqls.InsertRowSql, Row);
-                                }
-                                catch
-                                {
-                                    Row[Table.KeyFields[0]] = OldId;
-                                    throw;
-                                }
-
-                                if (OidIsAfter)
-                                {
-                                    NewId = LastId(Table.TableName);
-                                    Row[Table.KeyFields[0]] = NewId;
-                                }
-
-                                // update Table detail tables with the "correct" master Id.
-                                foreach (MemTable DetailTable in Table.Details)
-                                {
-                                    foreach (DataRow DetailRow in DetailTable.Rows)
-                                    {
-                                        if (!DetailRow.IsNull(DetailTable.DetailField) && (Sys.AsInteger(DetailRow[DetailTable.DetailFields[0]], -1) == OldId))
-                                            DetailRow[DetailTable.DetailFields[0]] = NewId;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            Level++;
-        }
+        List<MemTable> TableList = FlatList ?? new([TopTable]);
+        bool GenerateSqlFlag = string.IsNullOrWhiteSpace(TopTable.Sqls.InsertRowSql) || string.IsNullOrWhiteSpace(TopTable.Sqls.UpdateRowSql);
+        
+        DbOpContext Result = new(Store = this.Store, 
+            Transaction, 
+            TopTable, 
+            TableList, 
+            CascadeDeletes, 
+            GenerateSqlFlag
+            );
+        
+        return Result;
     }
  
     // ● construction
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableSet(SqlStore Store, MemTable TopTable, List<MemTable> Stocks, TableSetFlags Flags = TableSetFlags.GenerateSql)
+    public TableSet(SqlStore Store, MemTable ListTable, MemTable ItemTable, List<MemTable> Stocks, TableSetFlags Flags = TableSetFlags.GenerateSql)
     {
-        if (TopTable == null)
-            throw new ArgumentNullException("TopTable");
+        if (ItemTable == null)
+            throw new ArgumentNullException("ItemTable");
 
-        TopTable.CheckTopTableErrors();
+        ItemTable.CheckTopTableErrors();
 
         this.Store = Store;
-        this.TopTable = TopTable;
+        this.ListTable = ListTable;
+        this.ItemTable = ItemTable;
         this.Stocks = Stocks;
 
         GenerateSql = TableSetFlags.GenerateSql.In(Flags);   
-        PessimisticMode = TableSetFlags.PessimisticMode.In(Flags);    
+    
         CascadeDeletes = !TableSetFlags.NoCascadeDeletes.In(Flags);     
 
         ConstructTableTree();
@@ -466,352 +282,9 @@ public class TableSet
     }
     
     // ● public
-    // ● database operations  
-    /// <summary>
-    /// Selects the whole table tree from the database starting from the top table (which is a single-row table).
-    /// <para>RowId could be string or integer and is the primary key value of the top table.</para>
-    /// </summary>
-    public bool Load(object RowId)
-    {
-        if (RowId == null || RowId == DBNull.Value || (RowId is string && string.IsNullOrWhiteSpace(RowId.ToString())))
-            return false;
-        
-        ProcessEmpty();
-
-        TopTable.EventsDisabled = true;
-        try
-        {
-            if (!string.IsNullOrWhiteSpace(TopTable.Sqls.SelectRowSql))
-            {
-                Store.SelectTo(TopTable, TopTable.Sqls.SelectRowSql, RowId);
-            }
-
-            // select stock tables
-            if (RowId != null && TopTable.Rows.Count >= 1)
-            {
-                MemTable StockTable;
-                for (int i = 0; i < TopTable.Stocks.Count; i++)
-                {
-                    StockTable = TopTable.Stocks[i];
-                    Store.SelectTo(StockTable, StockTable.Sqls.SelectRowSql, TopTable.Rows[0]);
-                }
-            }
-
-            Select_DoDetails(TopTable); 
-            TopTable.SetColumnCaptionsFrom(TopTable.Sqls.DisplayLabels, HideUntitleDisplayLabels);
-        }
-        finally
-        {
-            TopTable.EventsDisabled = false;
-        }
-
-        IsInsert = false;
-
-        return TopTable.Rows.Count >= 1;
-    }
-    /// <summary>
-    /// Deletes the whole table tree to the database. The way this method process table deletes, depends on the cascadeDeletes flag.
-    /// <para>RowId could be string or integer and is the primary key value of the top table.</para>
-    /// </summary>
-    public void Delete(object RowId)
-    {
-        if (RowId == null)
-            return;
-
-        // first, select the top table and the detail tables
-        Load(RowId);
-
-        // already deleted in database
-        if (TopTable.Rows.Count == 0)
-            return;
-
-         
-
-        TopTable.EventsDisabled = true;
-        //TopTable.Details.Active = false;
-        try
-        {
-            // delete the top row, which deletes all detail rows too.
-            TopTable.Rows[0].Delete();
-
-            // then, inside a Transaction
-            OnTransactionStageDelete(TransactionStage.Start, ExecTime.Before, RowId);
-
-            using (Transaction = Store.BeginTransaction())
-            {
-                OnTransactionStageDelete(TransactionStage.Start, ExecTime.After, RowId);
-                try
-                {
-                    PostDeletes();
-
-                    OnTransactionStageDelete(TransactionStage.Commit, ExecTime.Before, RowId);
-                    Transaction.Commit();
-                    OnTransactionStageDelete(TransactionStage.Commit, ExecTime.After, RowId);
-                }
-                catch
-                {
-                    TopTable.DataSet.RejectChanges();
-                    OnTransactionStageDelete(TransactionStage.Rollback, ExecTime.Before, RowId);
-                    Transaction.Rollback();
-                    OnTransactionStageDelete(TransactionStage.Rollback, ExecTime.After, RowId);
-                    throw;
-                }
-            }
-
-
-        }
-        finally
-        {
-            //TopTable.Details.Active = true;
-            TopTable.EventsDisabled = false;
-            Transaction = null;
-        }
-
- 
-
-    }
-    /// <summary>
-    /// Commits the whole table tree to the database. It can be either an insert or an update.
-    /// </summary>
-    public object Commit(bool Reselect)
-    {
-        if (TopTable.Rows.Count == 0)
-            throw new ApplicationException("Nothing to commit. Top table is empty.");
-        
-        TopTable.EventsDisabled = true;
-        //TopTable.Details.Active = false;
-        try
-        {
-            // inside a single Transaction
-            OnTransactionStageCommit(TransactionStage.Start, ExecTime.Before);
- 
-            using (Transaction = Store.BeginTransaction())
-            {
-                OnTransactionStageCommit(TransactionStage.Start, ExecTime.After);
-
-                try
-                {
-                    PostChanges();
-
-                    OnTransactionStageCommit(TransactionStage.Commit, ExecTime.Before);
-                    Transaction.Commit();
-                    TopTable.DataSet.AcceptChanges();   // clear logs    
-                    OnTransactionStageCommit(TransactionStage.Commit, ExecTime.After);
-                }
-                catch
-                {
-                    OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.Before);
-                    Transaction.Rollback();
-                    OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.After);
-                    throw;
-                }
-            }
-        }
-        finally
-        {
-            //TopTable.Details.Active = true;
-            TopTable.EventsDisabled = false;
-            Transaction = null;
-        }
-
-        LastCommitedId = null;
-
-        if (TopTable.Rows.Count > 0)
-            LastCommitedId = TopTable.Rows[0][TopTable.KeyFields[0]];
-
-        if (Reselect && !Sys.IsNull(LastCommitedId))
-            Load(LastCommitedId);
-
-        IsInsert = false;
-        return LastCommitedId;
-
-    }
-    /// <summary>
-    /// A Commit() version for batch operations.
-    /// <para>Starts a transaction and keeps on calling CommitProc() while it returns true.</para>
-    /// <para>It commits the transaction each time the TransLimit is reached.</para>
-    /// <para>Info is a user defined object.</para>
-    /// </summary>
-    public void CommitBatch2(BatchCommitArgs Args)
-    {
-        TopTable.EventsDisabled = true;
-        try
-        {
-            int Counter = 0;
-            int PostCounter = 0;
-            bool ShouldPost;
-
-            while (true)
-            {
-                Args.Counter = Counter;
-                Args.PostCounter = PostCounter;
-
-                ShouldPost = Args.BeforeFunc != null? Args.BeforeFunc(): false;
-
-                if (ShouldPost)
-                {
-                    if (Transaction == null)
-                    {
-                        Transaction = Store.BeginTransaction();
-                    }
-
-                    PostChanges();
-
-                    TopTable.DataSet.AcceptChanges();   // clear logs   
-
-                    LastCommitedId = null;
-
-                    if (TopTable.Rows.Count > 0)
-                        LastCommitedId = TopTable.Rows[0][TopTable.KeyFields[0]];
-                }
-
-                if (Args.AfterFunc != null && !Args.AfterFunc(LastCommitedId))
-                    break;
-
-                if (ShouldPost)
-                {
-                    PostCounter++;
-
-                    if (PostCounter % Args.TransLimit == 0 && Transaction != null)
-                    {
-                        Transaction.Commit();
-                        Transaction.Dispose();
-                        Transaction = null;
-                    }
-                }
-
-                Counter++;
-            }
-
-            if (Transaction != null)
-            {
-                Transaction.Commit();
-                Transaction.Dispose();
-                Transaction = null;
-            }
-        }
-        catch  
-        {
-            if (Transaction != null)
-                Transaction.Rollback();
-            throw;
-        }
-        finally
-        {
-            TopTable.EventsDisabled = false;
-        }
-    }
-    /// <summary>
-    /// A Commit() version for batch operations.
-    /// Starts a transaction and keeps on calling BeforeFunc() while AfterFunc() returns true.
-    /// Commits the transaction each time the TransLimit is reached.
-    /// Info is a user defined object.
-    /// </summary>
-    public void CommitBatch(BatchCommitArgs Args)
-    {
-        // ---------------------------------------
-        void CommitBatchTransaction()
-        {
-            if (Transaction == null)
-                return;
-
-            try
-            {
-                Transaction.Commit();
-                TopTable.DataSet.AcceptChanges();
-            }
-            finally
-            {
-                Transaction.Dispose();
-                Transaction = null;
-            }
-        }
-        // ---------------------------------------
-        void RollbackBatchTransaction()
-        {
-            if (Transaction == null)
-                return;
-
-            try
-            {
-                Transaction.Rollback();
-                TopTable.DataSet.RejectChanges();
-            }
-            finally
-            {
-                Transaction.Dispose();
-                Transaction = null;
-            }
-        }        
-        // ---------------------------------------
-        
-        if (Args == null)
-            throw new ArgumentNullException("Args");
-        if (Args.BeforeFunc == null)
-            throw new ApplicationException("Batch commit requires a BeforeFunc.");
-        if (Args.AfterFunc == null)
-            throw new ApplicationException("Batch commit requires an AfterFunc.");
-        if (Args.TransLimit <= 0)
-            throw new ApplicationException("Batch commit TransLimit must be greater than zero.");
-
-        TopTable.EventsDisabled = true;
-        try
-        {
-            int Counter = 0;
-            int PostCounter = 0;
-            bool ShouldPost;
-            bool Continue = true;
-
-            while (Continue)
-            {
-                Args.Counter = Counter;
-                Args.PostCounter = PostCounter;
-                ShouldPost = Args.BeforeFunc != null? Args.BeforeFunc(): false;
-
-                if (ShouldPost)
-                {
-                    if (Transaction == null)
-                        Transaction = Store.BeginTransaction();
-
-                    PostChanges();
-
-                    LastCommitedId = null;
-                    if (TopTable.Rows.Count > 0)
-                        LastCommitedId = TopTable.Rows[0][TopTable.KeyField];
-
-                    PostCounter++;
-
-                    if (PostCounter % Args.TransLimit == 0)
-                        CommitBatchTransaction();
-                }
-                
-                Continue = Args.AfterFunc != null && Args.AfterFunc(LastCommitedId);
-                Counter++;
-            }
-
-            CommitBatchTransaction();
-        }
-        catch
-        {
-            RollbackBatchTransaction();
-            throw;
-        }
-        finally
-        {
-            TopTable.EventsDisabled = false;
-            Transaction = null;
-        }
-    }
-
-    /// <summary>
-    /// Posts any changes (deletes, updates, inserts) to the database
-    /// </summary>
-    public void PostChanges()
-    {
-        PostDeletes();
-        PostUpdates();
-        PostInserts();
-    }
+    
+    // ● list database operations  
+    public int ListSelect(string SqlText) => ListSelect(ListTable, SqlText);
     /// <summary>
     /// Executes the SELECT SqlText and puts the returned data rows to the Table.
     /// <para>It is used when selecting for the List (browser) part of a data form.</para>
@@ -832,7 +305,7 @@ public class TableSet
                 try
                 {
                     Result = Store.SelectTo(Table, SqlText);
-                    Table.SetColumnCaptionsFrom(Table.Sqls.DisplayLabels, HideUntitleDisplayLabels);
+                    Table.SetColumnCaptionsFrom(Table.Sqls.DisplayLabels, HideUntitledDisplayLabels);
                 }
                 finally
                 {
@@ -844,48 +317,228 @@ public class TableSet
         return Result;
 
     }
+    
+    public void ListSave() => ListSave(ListTable);
+    public void ListSave(MemTable Table)
+    {
+        DbOpContext Context = CreateDbOpContext(ListTable);
+        DbOps.PostChanges(Context);
+    }
+    
+    public void ListCancel() => ListCancel(ListTable);
+    public void ListCancel(MemTable Table) => Table.RejectChanges();
  
-    // ● edit operation handling 
+    
+    // ● item database operations  
+    /// <summary>
+    /// Selects the whole table tree from the database starting from the top table (which is a single-row table).
+    /// <para>RowId could be string or integer and is the primary key value of the top table.</para>
+    /// </summary>
+    public bool ItemLoad(object RowId)
+    {
+        if (RowId == null || RowId == DBNull.Value || (RowId is string && string.IsNullOrWhiteSpace(RowId.ToString())))
+            return false;
+        
+        ItemProcessEmpty();
+
+        ItemTable.EventsDisabled = true;
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(ItemTable.Sqls.SelectRowSql))
+            {
+                Store.SelectTo(ItemTable, ItemTable.Sqls.SelectRowSql, RowId);
+            }
+
+            // select stock tables
+            if (RowId != null && ItemTable.Rows.Count >= 1)
+            {
+                MemTable StockTable;
+                for (int i = 0; i < ItemTable.Stocks.Count; i++)
+                {
+                    StockTable = ItemTable.Stocks[i];
+                    Store.SelectTo(StockTable, StockTable.Sqls.SelectRowSql, ItemTable.Rows[0]);
+                }
+            }
+
+            Select_DoDetails(ItemTable); 
+            ItemTable.SetColumnCaptionsFrom(ItemTable.Sqls.DisplayLabels, HideUntitledDisplayLabels);
+        }
+        finally
+        {
+            ItemTable.EventsDisabled = false;
+        }
+
+        IsInsert = false;
+
+        return ItemTable.Rows.Count >= 1;
+    }
+    /// <summary>
+    /// Deletes the whole table tree to the database. The way this method process table deletes, depends on the cascadeDeletes flag.
+    /// <para>RowId could be string or integer and is the primary key value of the top table.</para>
+    /// </summary>
+    public void ItemDelete(object RowId)
+    {
+        if (RowId == null)
+            return;
+
+        // first, select the top table and the detail tables
+        ItemLoad(RowId);
+
+        // already deleted in database
+        if (ItemTable.Rows.Count == 0)
+            return;
+
+        ItemTable.EventsDisabled = true;
+        //TopTable.Details.Active = false;
+        try
+        {
+            // delete the top row, which deletes all detail rows too.
+            ItemTable.DeleteAll(); // ItemTable.Rows[0].Delete();
+
+            // then, inside a Transaction
+            OnTransactionStageDelete(TransactionStage.Start, ExecTime.Before, RowId);
+
+            using (Transaction = Store.BeginTransaction())
+            {
+                OnTransactionStageDelete(TransactionStage.Start, ExecTime.After, RowId);
+                try
+                {
+                    DbOpContext Context = CreateDbOpContext(ItemTable, TableTree);
+                    DbOps.PostDeletes(Context);
+
+                    OnTransactionStageDelete(TransactionStage.Commit, ExecTime.Before, RowId);
+                    Transaction.Commit();
+                    OnTransactionStageDelete(TransactionStage.Commit, ExecTime.After, RowId);
+                }
+                catch
+                {
+                    ItemTable.DataSet.RejectChanges();
+                    OnTransactionStageDelete(TransactionStage.Rollback, ExecTime.Before, RowId);
+                    Transaction.Rollback();
+                    OnTransactionStageDelete(TransactionStage.Rollback, ExecTime.After, RowId);
+                    throw;
+                }
+            }
+
+
+        }
+        finally
+        {
+            //TopTable.Details.Active = true;
+            ItemTable.EventsDisabled = false;
+            Transaction = null;
+        }
+
+ 
+
+    }
+    /// <summary>
+    /// Commits the whole table tree to the database. It can be either an insert or an update.
+    /// </summary>
+    public object ItemCommit(bool Reselect)
+    {
+        if (ItemTable.Rows.Count == 0)
+            throw new TableSetException("Nothing to commit. Top table is empty.");
+        
+        ItemTable.EventsDisabled = true;
+        //TopTable.Details.Active = false;
+        try
+        {
+            // inside a single Transaction
+            OnTransactionStageCommit(TransactionStage.Start, ExecTime.Before);
+ 
+            using (Transaction = Store.BeginTransaction())
+            {
+                OnTransactionStageCommit(TransactionStage.Start, ExecTime.After);
+
+                try
+                {
+                    ItemPostChanges();
+
+                    OnTransactionStageCommit(TransactionStage.Commit, ExecTime.Before);
+                    Transaction.Commit();
+                    ItemTable.DataSet.AcceptChanges();   // clear logs    
+                    OnTransactionStageCommit(TransactionStage.Commit, ExecTime.After);
+                }
+                catch
+                {
+                    OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.Before);
+                    Transaction.Rollback();
+                    OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.After);
+                    throw;
+                }
+            }
+        }
+        finally
+        {
+            //TopTable.Details.Active = true;
+            ItemTable.EventsDisabled = false;
+            Transaction = null;
+        }
+
+        LastCommitedId = null;
+
+        if (ItemTable.Rows.Count > 0)
+            LastCommitedId = ItemTable.Rows[0][ItemTable.KeyFields[0]];
+
+        if (Reselect && !Sys.IsNull(LastCommitedId))
+            ItemLoad(LastCommitedId);
+
+        IsInsert = false;
+        return LastCommitedId;
+
+    }
+    
+    /// <summary>
+    /// Posts any changes (deletes, updates, inserts) to the database
+    /// </summary>
+    public void ItemPostChanges()
+    {
+        DbOpContext Context = CreateDbOpContext(ItemTable, TableTree);
+        DbOps.PostChanges(Context);
+    }
+    
+    // ● item edit operation handling 
     /// <summary>
     /// Removes all data rows from all tables in the tableTree
     /// </summary>
-    public void ProcessEmpty()
+    public void ItemProcessEmpty()
     {
         InternalCancel();
  
-        TopTable.EventsDisabled = true;
+        ItemTable.EventsDisabled = true;
         //TopTable.DetailsActive = false;
         try
         {
-            Empty(TopTable);
+            Empty(ItemTable);
         }
         finally
         {
             //TopTable.DetailsActive = true;
-            TopTable.EventsDisabled = false;
+            ItemTable.EventsDisabled = false;
         }
     }
     /// <summary>
     /// Prepares the TableSet for an insert operation (in the tables, NOT the database)
     /// </summary>
-    public void ProcessInsert()
+    public void ItemProcessInsert()
     {
-        ProcessEmpty();
+        ItemProcessEmpty();
 
-        TopTable.EventsDisabled = true;
+        ItemTable.EventsDisabled = true;
         //TopTable.DetailsActive = false;
         try
         {
-            if (TopTable.Rows.Count == 0)
+            if (ItemTable.Rows.Count == 0)
             {
-                DataRow Row = TopTable.NewRow();
-                TopTable.Rows.Add(Row);
+                DataRow Row = ItemTable.NewRow();
+                ItemTable.Rows.Add(Row);
             }
         }
         finally
         {
             //TopTable.DetailsActive = true;
-            TopTable.EventsDisabled = false;
+            ItemTable.EventsDisabled = false;
         }
 
         IsInsert = true;
@@ -893,13 +546,116 @@ public class TableSet
     /// <summary>
     /// Cancels an edit operation and re-initializes the table tree.
     /// </summary>
-    public void ProcessCancel()
+    public void ItemProcessCancel()
     {
         if (IsInsert)
-            ProcessInsert();
-        else if (TopTable.Rows.Count > 0 && TopTable.Rows[0].RowState != DataRowState.Deleted)
-            Load(TopTable.Rows[0][TopTable.KeyFields[0]]);
+            ItemProcessInsert();
+        else if (ItemTable.Rows.Count > 0 && ItemTable.Rows[0].RowState != DataRowState.Deleted)
+            ItemLoad(ItemTable.Rows[0][ItemTable.KeyFields[0]]);
     }    
+    
+    // ● batch database operations 
+    /// <summary>
+    /// A Commit() version for batch operations.
+    /// Starts a transaction and keeps on calling BeforeFunc() while AfterFunc() returns true.
+    /// Commits the transaction each time the TransLimit is reached.
+    /// Info is a user defined object.
+    /// </summary>
+    public void CommitBatch(BatchCommitArgs Args)
+    {
+        // ---------------------------------------
+        void CommitBatchTransaction()
+        {
+            if (Transaction == null)
+                return;
+
+            try
+            {
+                Transaction.Commit();
+                ItemTable.DataSet.AcceptChanges();
+            }
+            finally
+            {
+                Transaction.Dispose();
+                Transaction = null;
+            }
+        }
+        // ---------------------------------------
+        void RollbackBatchTransaction()
+        {
+            if (Transaction == null)
+                return;
+
+            try
+            {
+                Transaction.Rollback();
+                ItemTable.DataSet.RejectChanges();
+            }
+            finally
+            {
+                Transaction.Dispose();
+                Transaction = null;
+            }
+        }        
+        // ---------------------------------------
+        
+        if (Args == null)
+            throw new ArgumentNullException("Args");
+        if (Args.BeforeFunc == null)
+            throw new TableSetException("Batch commit requires a BeforeFunc.");
+        if (Args.AfterFunc == null)
+            throw new TableSetException("Batch commit requires an AfterFunc.");
+        if (Args.TransLimit <= 0)
+            throw new TableSetException("Batch commit TransLimit must be greater than zero.");
+
+        ItemTable.EventsDisabled = true;
+        try
+        {
+            int Counter = 0;
+            int PostCounter = 0;
+            bool ShouldPost;
+            bool Continue = true;
+
+            while (Continue)
+            {
+                Args.Counter = Counter;
+                Args.PostCounter = PostCounter;
+                ShouldPost = Args.BeforeFunc != null? Args.BeforeFunc(): false;
+
+                if (ShouldPost)
+                {
+                    if (Transaction == null)
+                        Transaction = Store.BeginTransaction();
+
+                    ItemPostChanges();
+
+                    LastCommitedId = null;
+                    if (ItemTable.Rows.Count > 0)
+                        LastCommitedId = ItemTable.Rows[0][ItemTable.KeyField];
+
+                    PostCounter++;
+
+                    if (PostCounter % Args.TransLimit == 0)
+                        CommitBatchTransaction();
+                }
+                
+                Continue = Args.AfterFunc != null && Args.AfterFunc(LastCommitedId);
+                Counter++;
+            }
+
+            CommitBatchTransaction();
+        }
+        catch
+        {
+            RollbackBatchTransaction();
+            throw;
+        }
+        finally
+        {
+            ItemTable.EventsDisabled = false;
+            Transaction = null;
+        }
+    }
  
     // ● properties
     /// <summary>
@@ -910,57 +666,23 @@ public class TableSet
     /// Returns the current Transaction
     /// </summary>
     public DbTransaction Transaction { get; private set; }
-    /// <summary>
-    /// True when inserting
-    /// </summary>
-    public bool IsInsert { get; private set; }
-    /// <summary>
-    /// If true, then when SELECTing to a MemTable, hides any column not found in the table's SqlStatements.BrowseSelect.DisplayLabels  
-    /// </summary>
-    public bool HideUntitleDisplayLabels { get; set; }
-    /// <summary>
-    /// Returns the maximum detail level
-    /// </summary>
-    public int MaxDetailLevel { get; private set; }
+    
     /// <summary>
     /// Returns the Id of the last commit
     /// </summary>
     public object LastCommitedId { get; private set; }
-    
     /// <summary>
-    /// Field
+    /// If true, then when SELECTing to a MemTable, hides any column not found in the table's Sqls.DisplayLabels.  
     /// </summary>
-    public MemTable TopTable { get; private set; }
-    /// <summary>
-    /// Field
-    /// </summary>
-    public List<MemTable> TableTree { get; private set; } = new();
-    /// <summary>
-    /// Field
-    /// </summary>
-    public List<MemTable> Stocks { get; private set; } 
-
-    // ● flags  
-    /// <summary>
-    /// Field
-    /// </summary>
-    public bool GenerateSql  { get; private set; } = false;
-    /// <summary>
-    /// Field
-    /// </summary>
-    public bool PessimisticMode  { get; private set; } = false;
-    /// <summary>
-    /// Field
-    /// </summary>
-    public bool CascadeDeletes { get; private set; } = false;
+    public bool HideUntitledDisplayLabels { get; set; }
 
     // ● events
     /// <summary>
-    /// Occurs when <see cref="Delete"/>(object RowId) method is called.
+    /// Occurs when <see cref="ItemDelete"/>(object RowId) method is called.
     /// </summary>
     public event EventHandler<TransactionStageEventArgs> TransactionStageDelete;
     /// <summary>
-    /// Occurs when <see cref="Commit"/>() method is called.
+    /// Occurs when <see cref="ItemCommit"/>() method is called.
     /// </summary>
     public event EventHandler<TransactionStageEventArgs> TransactionStageCommit;   
 }

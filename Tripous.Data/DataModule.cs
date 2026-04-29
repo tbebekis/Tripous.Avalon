@@ -2,10 +2,9 @@ namespace Tripous.Data;
 
 public class DataModule
 {
-
     // ● operation flags 
     protected int fInserting;
-    protected int fLoading;
+    protected int fEditing;
     protected int fDeleting;
     protected int fCommiting;
 
@@ -30,26 +29,11 @@ public class DataModule
             AssignCodeValue(e.Store, e.Transaction);
         }
     }
-
+ 
     // ● overridables
-    /// <summary>
-    /// Returns a bit field (set) of sql generation flags. Used when initializing Tables and
-    /// their sql statements.
-    /// </summary>
-    protected virtual BuildSqlFlags GetBuildSqlFlags()
-    {
-        BuildSqlFlags Result = BuildSqlFlags.None;
-
-        if (ModuleDef.GuidOids)
-            Result |= BuildSqlFlags.GuidOids;
-        else if (Store.Provider.OidMode == OidMode.Generator)
-            Result |= BuildSqlFlags.OidModeIsBefore;
-
-        if (IsListModule)
-            Result |= BuildSqlFlags.IncludeBlobFields;
-
-        return Result;
-    }
+    protected virtual void AcceptChanges() => DataSet.AcceptChanges();
+    protected virtual void RejectChanges() => DataSet.RejectChanges();
+    
     /// <summary>
     /// Called from inside a commit transaction in order to assign the Code column
     /// </summary>
@@ -58,7 +42,136 @@ public class DataModule
         // TODO:
     }
  
+    /// <summary>
+    /// Sets default values for all Tables.
+    /// <para>It is called by the DoInsertAfter() and DoCommitBefore() </para>
+    /// </summary>
+    protected virtual void SetDefaultValues()
+    {
+        if (this.State == DataMode.Insert || (IsListModule && Commiting))
+        {
+            MemTable Table;
+            List<TableDef> TableDefs = ModuleDef.GetTables();
+            foreach (TableDef TableDef in TableDefs)
+            {
+                Table = GetTable(TableDef.Name);
+                if (Table != null)
+                {
+                    SetDefaultValues(Table, TableDef);
+                    SqlValueProviders.Process(Table, Store);
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// Sets default values to the Table. It is called when an commit operation starts.
+    /// </summary>
+    protected virtual void SetDefaultValues(DataTable Table, TableDef TableDef)
+    {
+        if (this.State == DataMode.Insert || (IsListModule && Commiting))
+        {
+            foreach (DataRow Row in Table.Rows)
+                SetDefaultValues(Table, Row, TableDef);
+        }
+    }
+    /// <summary>
+    /// Sets default values to the Row. It is called when an commit operation starts.
+    /// </summary>
+    protected virtual void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    {
+        if (Row.RowState == DataRowState.Deleted)
+            return;
+
+        if (ModuleDef.Table.Name.IsSameText(Row.Table.TableName))
+        {
+            if (IsListModule)
+            {
+                if (!Commiting)
+                    return;
+            }
+            else if (this.State != DataMode.Insert)
+            {
+                return;
+            }
+        }
+
+        bool Flag = (this.State == DataMode.Insert || (IsListModule && Commiting)) && (Row.RowState != DataRowState.Deleted);
+
+
+        Tuple<TableDef, FieldDef> Pair;
+        FieldDef FieldDes;
+
+        foreach (DataColumn Column in Row.Table.Columns)
+        {
+            if (!Column.ReadOnly)
+            {
+                if (Sys.IsNull(Row[Column]) || (Simple.SimpleTypeOf(Column.DataType).IsString() && (Row[Column].ToString() == string.Empty)))
+                {
+                    if (TableDef != null)
+                    {
+                        Pair = TableDef.FindAnyField(Column.ColumnName);
+                        if (Pair != null)
+                        {
+                            FieldDes = Pair.Item2;
+
+                            if (FieldDes != null)
+                            {
+                                // skip the column if the column descriptor is marked as read-only 
+                                if (FieldDes.IsReadOnly)
+                                    continue;
+
+                                // DefaultValue
+                                SqlValueProviders.Process(Row, Column, FieldDes.DefaultValue, Store);
+
+                                // if still is null
+                                if (Sys.IsNull(Row[Column]) && FieldDes.IsBoolean)
+                                {
+                                    Row[Column] = 0;
+                                }
+                            }
+                        }
+
+                    }
+
+                    // if still is null
+                    if (Sys.IsNull(Row[Column]) && (Column.DataType == typeof(System.Boolean)))
+                        Row[Column] = false;
+                    else if (Sys.IsNull(Row[Column]) || (Simple.SimpleTypeOf(Column.DataType).IsString() && (Row[Column].ToString() == string.Empty)))
+                    {
+                        if (Sys.IsSameText(SysConfig.CompanyFieldName, Column.ColumnName)) // ColumnName is CompanyId
+                            Row[Column] = SysConfig.CompanyId;
+                    }
+                }
+
+            }
+
+        }
+
+    }
+ 
+    /// <summary>
+    /// Called from inside <see cref="Commit"/>.
+    /// <para>NOTE: It looks like, in some cases, we have to call EndEdit() for the DataRow(s) to post the changes.</para>
+    /// </summary>
+    protected virtual void EndEdit()
+    {
+        void EndEditInternal(MemTable Table)
+        {
+            foreach (MemTable tblChild in Table.Details)
+                EndEditInternal(tblChild);
+            
+            foreach (DataRow Row in Table.Rows)
+                Row.EndEdit();
+        }
+
+        EndEditInternal(tblItem);
+    }
+    
+    
     // ● construction
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public DataModule()
     {
         DataSet = new DataSet();
@@ -69,6 +182,10 @@ public class DataModule
     }
     
     // ● list
+    /// <summary>
+    /// Initializes this instance.
+    /// </summary>
+    /// <param name="ModuleDef"></param>
     public virtual void Initialize(ModuleDef ModuleDef)
     {
         if (this.ModuleDef == null)
@@ -83,7 +200,7 @@ public class DataModule
             DbConnectionInfo ConnectionInfo = Db.GetConnectionInfo(ModuleDef.ConnectionName);
 
             if (ConnectionInfo == null)
-                throw new ApplicationException($"Cannot initialize {nameof(DataModule)}. No {nameof(DbConnectionInfo)} found");
+                throw new DataModuleException($"Cannot initialize {nameof(DataModule)}. No {nameof(DbConnectionInfo)} found");
  
             // ● SqlStore
             Store = SqlStores.CreateSqlStore(ConnectionInfo);
@@ -92,6 +209,22 @@ public class DataModule
             ModuleDef.UpdateTableSchema(Store);
             
             // ● get the sql generation flags
+            // -----------------------------------------------------------
+            BuildSqlFlags GetBuildSqlFlags()
+            {
+                BuildSqlFlags Result = BuildSqlFlags.None;
+
+                if (ModuleDef.GuidOids)
+                    Result |= BuildSqlFlags.GuidOids;
+                else if (Store.Provider.OidMode == OidMode.Generator)
+                    Result |= BuildSqlFlags.OidModeIsBefore;
+
+                if (IsListModule)
+                    Result |= BuildSqlFlags.IncludeBlobFields;
+
+                return Result;
+            }
+            // -----------------------------------------------------------
             BuildSqlFlags SqlFlags = GetBuildSqlFlags();
             
             DataSet = new DataSet("DS_" + ModuleDef.Name);
@@ -158,6 +291,7 @@ public class DataModule
                 Table = GetTable(StockDef.Name);
                 Table = new MemTable(StockDef.Name);
                 DataSet.Tables.Add(Table);
+                this.Stocks.Add(Table);
                 
                 Table.Sqls.SelectSql = StockDef.SqlText;
                 Table.Sqls.DisplayLabels = StockDef.DisplayLabels;
@@ -169,16 +303,18 @@ public class DataModule
             if (!ModuleDef.CascadeDeletes)
                 TableSetFlags |= TableSetFlags.NoCascadeDeletes;
             
-            TableSet = new TableSet(Store, tblItem, Stocks, TableSetFlags);
+            TableSet = new TableSet(Store, tblList, tblItem, Stocks, TableSetFlags);
 
             TableSet.TransactionStageCommit += new EventHandler<TransactionStageEventArgs>(TableSet_TransactionStageCommit);
             TableSet.TransactionStageDelete += new EventHandler<TransactionStageEventArgs>(TableSet_TransactionStageDelete);
-            
         }
         
     }
  
     // ● list
+    /// <summary>
+    /// Selects the list table.
+    /// </summary>
     public virtual void ListSelect(SelectDef SelectDef)
     {        
         if (SelectDef != null)
@@ -186,9 +322,14 @@ public class DataModule
             TableSet.ListSelect(tblList, SelectDef.SqlText);
         }
     }
-    public virtual void ListSave()
-    {
-    }
+    /// <summary>
+    /// Saves the list table.
+    /// </summary>
+    public virtual void ListSave() => TableSet.ListSave();
+    /// <summary>
+    /// Rejects the changes in the list table.
+    /// </summary>
+    public virtual void ListCancel() => TableSet.ListCancel();
  
     // ● item
     /// <summary>
@@ -201,8 +342,8 @@ public class DataModule
         Inserting = true;
         try
         {
-            tblItem.ClearAll();
-            tblItem.AddNewRow();
+            TableSet.ItemProcessInsert();
+            SetDefaultValues();
         }
         finally
         {
@@ -211,30 +352,83 @@ public class DataModule
         }
     }
     /// <summary>
-    /// Starts an edit operation. Valid with master brokers only.
+    /// Starts an edit operation. Valid with master modules only.
     /// </summary>
     public virtual void Edit(object RowId)
     {
+        
+        CheckCanEdit(RowId);
+
+        Editing = true;
+        try
+        {
+            TableSet.ItemLoad(RowId);
+            LastEditedId = RowId;
+            AcceptChanges();
+        }
+        finally
+        {
+            State = DataMode.Edit;
+            Editing = false;
+        }
     }
     /// <summary>
-    /// Deletes a row. Valid with master brokers only.
+    /// Deletes a row. Valid with master modules only.
     /// </summary>
     public virtual void Delete(object RowId)
-    {
+    {        
+        CheckCanDelete(RowId);
+
+        Deleting = true;
+        try
+        {
+            TableSet.ItemDelete(RowId);
+            LastDeletedId = RowId;
+            AcceptChanges();
+        }
+        finally
+        {
+            State = DataMode.None;
+            Deleting = false;
+        }
     }
     /// <summary>
-    /// Commits changes after an insert or edit. Valid with master brokers only.
+    /// Commits changes after an insert or edit. Valid with master modules only.
     /// <para>Returns the row id of the tblItem commited row.</para>
     /// </summary>
     public virtual object Commit(bool Reselect = false)
     {
-        return null;
+        object Result = null;
+         
+        EndEdit();
+        SetDefaultValues();
+        EndEdit();
+        
+        CheckCanCommit(Reselect);
+
+        Commiting = true;
+        try
+        {
+            Result = TableSet.ItemCommit(Reselect);
+            LastCommitedId = Result;
+            AcceptChanges();
+        }
+        finally
+        {
+            State = DataMode.Edit;
+            Commiting = false;
+        }
+
+        return Result;
     }
     /// <summary>
-    /// Cancels changes after an insert or edit. Valid with master brokers only.
+    /// Rejects the changes after an insert or edit. Valid with master modules only.
     /// </summary>
     public virtual void Cancel()
     {
+        TableSet.ItemProcessCancel();
+        RejectChanges();
+        State = DataMode.Edit;
     }
     
     // ● item checks
@@ -245,7 +439,7 @@ public class DataModule
     public virtual void CheckCanInsert()
     {
         if (IsListModule)
-            throw new ApplicationException("Can not insert item in a list module.");
+            throw new DataModuleException("Can not insert item in a list module.");
     }
     /// <summary>
     /// Called by the <see cref="Edit"/> and throws an exception if, for some reason,
@@ -253,6 +447,11 @@ public class DataModule
     /// </summary>
     public virtual void CheckCanEdit(object RowId)
     {
+        if (IsListModule)
+            throw new DataModuleException("Can not edit item in a list module.");
+        
+        if (Sys.IsNull(RowId))
+            throw new DataModuleException("Can not edit item. Invalid RowId");
     }
     /// <summary>
     /// Called by the <see cref="Delete"/> and throws an exception if, for some reason,
@@ -260,6 +459,11 @@ public class DataModule
     /// </summary>
     public virtual void CheckCanDelete(object RowId)
     {
+        if (IsListModule)
+            throw new DataModuleException("Can not delete item in a list module.");
+
+        if (Sys.IsNull(RowId))
+            throw new DataModuleException("Can not delete item. Invalid RowId");
     }
     /// <summary>
     /// Called by the <see cref="Commit"/> and throws an exception if, for some reason,
@@ -267,24 +471,29 @@ public class DataModule
     /// </summary>
     public virtual void CheckCanCommit(bool Reselect)
     {
+        if (IsListModule)
+            throw new DataModuleException("Can not commit item in a list module.");
     }
 
+    /// <summary>
+    /// True if a table exists, by name.
+    /// </summary>
     public bool TableExists(string TableName) => FindTable(TableName) != null;
+    /// <summary>
+    /// Finds a table by name, if any, else null.
+    /// </summary>
     public MemTable FindTable(string TableName) => Tables.FirstOrDefault(x => TableName.IsSameText(x.TableName)); 
+    /// <summary>
+    /// Gets a table by name, if any, else exception.
+    /// </summary>
     public MemTable GetTable(string TableName)
     {
         MemTable Result = FindTable(TableName);
 
         if (Result == null)
-            throw new ApplicationException($"Table {TableName} not found.");
+            throw new DataModuleException($"Table {TableName} not found.");
 
         return Result;
-    }
- 
-    public void SetAutoGenerateGuidKeys(bool Value)
-    {
-        foreach (DataTable Table in DataSet.Tables)
-            (Table as MemTable).AutoGenerateGuidKeys = Value;
     }
     
     // ● properties
@@ -305,16 +514,16 @@ public class DataModule
     }
 
     /// <summary>
-    /// True if this is a list broker
+    /// True if this is a list module
     /// </summary>
     public bool IsListModule => ModuleDef.IsListModule;
     /// <summary>
-    /// True if this is a master broker.
+    /// True if this is a master module.
     /// </summary>
     public bool IsMasterModule => !IsListModule;
     
     /// <summary>
-    /// Returns the "data State" of the broker. It could be Insert, Edit or None.
+    /// Returns the "data State" of the module. It could be Insert, Edit or None.
     /// <para>The State remains Insert or Edit after the Insert() or Edit() is called. 
     /// A call to Commit() sets the State to Edit. </para>
     /// </summary>
@@ -339,18 +548,18 @@ public class DataModule
     /// <summary>
     /// True while loading, that is while Edit() executes.
     /// </summary>
-    public bool Loading
+    public bool Editing
     {
-        get { return fLoading > 0; }
+        get { return fEditing > 0; }
         protected set
         {
             if (value)
-                fLoading++;
+                fEditing++;
             else
-                fLoading--;
+                fEditing--;
 
-            if (fLoading < 0)
-                fLoading = 0;
+            if (fEditing < 0)
+                fEditing = 0;
         }
     }
     /// <summary>
@@ -389,7 +598,7 @@ public class DataModule
     }
     
     /// <summary>
-    /// Gets the variables of the broker.
+    /// Gets the variables of the module.
     /// </summary>
     public Dictionary<string, object> Variables
     {
@@ -418,6 +627,4 @@ public class DataModule
     /// Returns the Id of the last delete
     /// </summary>
     public object LastDeletedId { get; protected set; }
-   
- 
 }

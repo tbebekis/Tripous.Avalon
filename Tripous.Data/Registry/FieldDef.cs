@@ -5,19 +5,18 @@ namespace Tripous.Data;
 /// </summary>
 public class FieldDef: BaseDef
 {
-    private string fDisplayFormat;
-    private string fEditFormat;
-    private int fSize;
-    private int fDisplayWidth;
-    private string fAlias;
-    private string fExpression;
-    private DataFieldType fDataType = DataFieldType.String;
-    private FieldFlags fFlags;
-    private string fZoomCommand;
-    private string fLookupSource;
-    private string fLocator;
+    string fDisplayFormat;
+    string fEditFormat;
+    int fSize;
+    int fDisplayWidth;
+    string fAlias;
+    string fExpression;
+    DataFieldType fDataType = DataFieldType.String;
+    FieldFlags fFlags;
+    string fZoomCommand;
+    string fLookupSource;
+    string fLocator;
     string fDefaultValue = Sys.NULL;
- 
 
     // ● construction
     /// <summary>
@@ -33,7 +32,6 @@ public class FieldDef: BaseDef
     {
         this.TableDef = TableDef;
     }
-
 
     // ● public
     /// <summary>
@@ -56,8 +54,6 @@ public class FieldDef: BaseDef
         if (this.DataType == DataFieldType.Unknown)
             Sys.Throw(Texts.GS($"E_{typeof(FieldDef)}_DataTypeIsEmpty", $"{typeof(FieldDef)} DataType is Unknown. "));
     }
- 
- 
 
     // ● for fluent syntax 
     /// <summary>
@@ -209,8 +205,6 @@ public class FieldDef: BaseDef
     /// Gets or sets the Name of the code producer descriptor associated to this field.
     /// </summary>
     public string CodeProviderName { get; set; }
-    
-    
 
     /// <summary>
     /// Returns true when the Required flag is set in Flags.
@@ -276,5 +270,4 @@ public class FieldDef: BaseDef
     /// </summary>
     [JsonIgnore] public bool IsNoInsertOrUpdate => (FieldFlags.NoInsertUpdate & Flags) == FieldFlags.NoInsertUpdate;
     [JsonIgnore] public bool HasLookup => !string.IsNullOrWhiteSpace(LookupSource);
-
 }

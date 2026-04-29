@@ -557,7 +557,8 @@ public class MemTable : DataTable
         }
     }
     /// <summary>
-    /// Clears this instance and all of its details of all the data. 
+    /// Clears this instance and all of its details of all the data.
+    /// <para>WARNING: This does NOT set the Deleted flag in the RowState of the DataRows.</para>
     /// </summary>
     public void ClearAll()
     {
@@ -566,6 +567,20 @@ public class MemTable : DataTable
 
         Clear();
         AcceptChanges();
+    }
+    /// <summary>
+    /// Deletes all rows of this table and its details.
+    /// <para>NOTE: This DOES set the Deleted flag in the RowState of the DataRows. </para>
+    /// </summary>
+    public void DeleteAll(bool AcceptChangesToo = true)
+    {
+        foreach (MemTable Detail in Details)
+            Detail.DeleteAll(AcceptChangesToo);
+        
+        this.DeleteRows();
+        
+        if (AcceptChangesToo)
+            AcceptChanges();
     }
     public void SetCurrentRowToNull()
     {

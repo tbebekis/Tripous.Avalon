@@ -192,7 +192,6 @@ public class TableDef: BaseDef
     /// </summary>
     Tuple<TableDef, FieldDef> FindAnyField(string NameOrAlias, List<TableDef> JoinTables)
     {
-
         Tuple<TableDef, FieldDef> Result = null;
         FieldDef FieldDef = null;
 

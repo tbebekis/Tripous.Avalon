@@ -1,5 +1,19 @@
 namespace Tripous.Data;
-
+/// <summary>
+/// Sql store. Used in executing SELECT, INSERT, UPDATE, DELETE, etc commands, using a DbConnection.
+/// <para>
+/// Many methods use a Params parameter.
+/// That Params can be: <br />
+/// a. either a comma separated list of parameters or <br />
+/// b. the Params[0] element, that is the first element in Params, may be 
+/// <list type="number">
+/// <item>a <see cref="DataRow"/></item>
+/// <item>a generic <see cref="IDictionary" />&lt;string, object&gt;</item>
+/// <item>or an <see cref="IList"/> or <see cref="Array"/></item>
+/// </list>
+/// and in this second case no other Params elements are used
+/// </para>
+/// </summary>
 public class SqlStore
 {
     // ● constructor
