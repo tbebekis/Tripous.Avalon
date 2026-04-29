@@ -560,9 +560,5 @@ public class SelectSql : BaseDef
     /// </summary>
     [JsonIgnore]
     public MemTable Table { get; set; }
-    /// <summary>
-    /// A user defined value.
-    /// </summary>
-    [JsonIgnore]
-    public object Tag { get; set; }
+ 
 }

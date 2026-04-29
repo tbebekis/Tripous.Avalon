@@ -1,6 +1,6 @@
 namespace Tripous;
 
-public class DefList<T> where T: IDef
+public class DefList<T>: IEnumerable<T>, IEnumerable where T: IDef
 {
     // ● private
     private List<T> List = new();
@@ -30,7 +30,14 @@ public class DefList<T> where T: IDef
         List.Add(Def);
         return Def;
     }
+
+    public void AddRange(IEnumerable<T> Items)
+    {
+        foreach (T Item in Items)
+            Add(Item);
+    }
     public void Remove(T Def) => List.Remove(Def);
+    
 
     public bool Contains(string Name) => List.FirstOrDefault(x => Sys.IsSameText(Name, x.Name)) != null;
     public T Find(string Name) => List.FirstOrDefault(x => Sys.IsSameText(Name, x.Name));
@@ -82,10 +89,14 @@ public class DefList<T> where T: IDef
     }
     
     public IEnumerator<T> GetEnumerator() => List.GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => List.GetEnumerator();
     
     // ● properties
     public T this[string Name] => Get(Name);
     public int Count => List.Count;
     public ReadOnlyCollection<T> Items => List.AsReadOnly();
+    
+    
+ 
 }
 

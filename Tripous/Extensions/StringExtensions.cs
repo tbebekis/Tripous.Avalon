@@ -75,6 +75,24 @@
             return Quote(S);
         }
         
+        /// <summary>
+        /// Quotes a path only if contains spaces.
+        /// </summary>
+        static public string QuotePath(this string Path)
+        {
+            if (string.IsNullOrWhiteSpace(Path))
+                return "";
+    
+            // ● Αν έχει κενά και δεν είναι ήδη σε quotes, τα προσθέτουμε
+            //if ((Path.Contains(' ') || Path.Contains('.')) && !Path.StartsWith("\""))
+            //    return "\"" + Path + "\"";
+            
+            if (!Path.StartsWith("\""))
+                return "\"" + Path + "\"";
+
+            return Path;
+        }
+        
         static public int ToIntOrDefault(this string S, int DefaultValue = 0) => int.TryParse(S, out int Result) ? Result : DefaultValue;
  
         /// <summary>

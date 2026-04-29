@@ -36,6 +36,10 @@
       <SubType>Code</SubType>
       <DependentUpon>DataForm.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Dialogs\DbConnectionEditDialog.axaml.cs">
+      <DependentUpon>DbConnectionEditDialog.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

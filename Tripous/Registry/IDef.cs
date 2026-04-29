@@ -6,4 +6,6 @@ public interface IDef
     string TitleKey { get; set; }
     [JsonIgnore] 
     public string Title { get; }
+    [JsonIgnore] 
+    public object Tag { get; }
 }

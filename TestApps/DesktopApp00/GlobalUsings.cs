@@ -46,6 +46,5 @@ global using Avalonia.Data.Converters;
 
 global using Tripous;
 global using Tripous.Data;
-global using Tripous.Models;
 global using Tripous.Desktop;
  

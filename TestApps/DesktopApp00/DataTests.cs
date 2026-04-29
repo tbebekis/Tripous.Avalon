@@ -1,6 +1,4 @@
-using Calendar = Avalonia.Controls.Calendar;
-
-namespace TestApp;
+namespace DesktopApp;
 
 static public class DataTests
 {

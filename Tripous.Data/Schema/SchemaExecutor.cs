@@ -24,7 +24,6 @@
         /* execution */
         void Execute()
         {
- 
             TableNamesList = new List<string>(Store.GetTableNames());
             IndexNamesList = new List<string>(Store.GetIndexNames());
 

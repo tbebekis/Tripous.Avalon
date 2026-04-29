@@ -1,16 +1,25 @@
-using DocumentFormat.OpenXml.Drawing;
-
 namespace Tripous.Desktop;
 
 static public class TripousAvalonExtensions
 {
     // ● control text
     static public string GetText(this TextBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
+
+    static public int AsInt(this TextBox Box, int? Default = null)
+    {
+        string Text = GetText(Box);
+        int value = Default.HasValue? Default.Value: 0;
+        if (!int.TryParse(Box.Text, out value))
+            value = 0;   // default
+
+        return value;
+    }
     static public string GetText(this TextEditor Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
     static public string GetText(this AutoCompleteBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
     static public string GetText(this ComboBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
 
     static public bool GetValue(this CheckBox Box) => Box != null && Box.IsChecked.HasValue? Box.IsChecked.Value : false;
+    
     
     // ● Button
     static public void PerformClick(this Button Button)

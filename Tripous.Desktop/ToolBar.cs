@@ -223,6 +223,30 @@ public class ToolBar
 
         return Result;
     }
+
+    public Button Add(Command Cmd)
+    {
+        Button Result = new Button();
+        Result.Tag = Cmd;
+
+        SetupButton(Result, Cmd.ImageFileName, Cmd.Title);
+        if (Cmd.IsAsync)
+            Result.Click += async (Sender, Args) => await Cmd.ExecuteAsync();
+        else
+            Result.Click +=  (Sender, Args) => Cmd.Execute();
+ 
+        Panel.Children.Add(Result);
+
+        return Result;
+    }
+    public void AddRange(IEnumerable<Command> Commands)
+    {
+        foreach (Command Cmd in Commands)
+            Add(Cmd);
+    }
+
+    public Button[] GetButtons() => Panel.Children.OfType<Button>().ToArray();
+    public Control[] GetControls()=> Panel.Children.ToArray();
     
     // ● properties
     public virtual StackPanel Panel

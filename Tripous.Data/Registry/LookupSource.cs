@@ -77,6 +77,9 @@ public class LookupSource  : IDef// ILookupSource
     }
     [JsonIgnore]
     public string Title => LookupDef.Title;
+
+    [JsonIgnore] public object Tag { get; set; }
     public LookupDef LookupDef { get; }
     public List<LookupItem> List { get; } = new();
+    
 }

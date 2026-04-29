@@ -1,6 +1,6 @@
 namespace Tripous.Desktop;
 
-static public class AvalonExceptions
+static public class DesktopExceptionHandler
 {
     static void LogAndShowException(Exception ex)
     {

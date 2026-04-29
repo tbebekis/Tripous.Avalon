@@ -5,7 +5,6 @@ namespace Tripous.Data;
 /// </summary>
 public class DbConnectionInfo
 {
-    
     private int fCommandTimeoutSeconds;
     
     /// <summary>
@@ -43,7 +42,7 @@ public class DbConnectionInfo
     /// <summary>
     /// The type of the RDBMs
     /// </summary>
-    public DbServerType DbServerType { get; set; } 
+    public DbServerType DbServerType { get; set; } = DbServerType.Sqlite;
     /// <summary>
     /// The connection string
     /// </summary>
@@ -73,5 +72,4 @@ public class DbConnectionInfo
     /// </summary>
     [JsonIgnore]
     public object Tag { get; set; }
-
 }

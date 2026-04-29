@@ -82,6 +82,7 @@ public abstract class SqlProvider
     internal SqlProvider(DbServerType ServerType)
     {
         this.ServerType = ServerType;
+        ConnectionStringAdapter = DbConAdapters.Get(this.ServerType);
     }
 
     // ● public
@@ -164,27 +165,17 @@ public abstract class SqlProvider
     {
         return new ConnectionStringBuilder(ConnectionString);
     }
-    public virtual string RemoveDatabaseFromConnectionString(string ConnectionString)
-    {
-        ConnectionStringBuilder Builder = CreateConnectionStringBuilder(ConnectionString);
-        foreach (string Key in DatabaseKeys)
-        {
-            if (Builder.ContainsKey(Key))
-                Builder.Remove(Key);
-        }
-        return Builder.ConnectionString;
-    }
     public virtual string GetDatabaseName(string ConnectionString)
     {
         ConnectionStringBuilder Builder = CreateConnectionStringBuilder(ConnectionString);
         return Builder.GetFirst(DatabaseKeys);
     }
     
-    
     // ● connection
     public DbConnection CreateConnection(string ConnectionString)
     {
         DbConnection Result = Factory.CreateConnection();
+        ConnectionString = NormalizeConnectionString(ConnectionString);
         Result.ConnectionString = ConnectionString;
         return Result;
     }
@@ -199,7 +190,7 @@ public abstract class SqlProvider
         PrepareCommand(Result, SqlText, Params);
         return Result;
     }
-    
+ 
     /// <summary>
     /// Returns true if this connection info is valid and can connect to a database.
     /// </summary>
@@ -218,6 +209,10 @@ public abstract class SqlProvider
             return false;
         }
     }
+    /// <summary>
+    /// Returns true if the database exists.
+    /// </summary>
+    public virtual bool DatabaseExists(string ConnectionString) => CanConnect(ConnectionString, false);
     /// <summary>
     /// Ensures that a connection can be done by opening and closing the connection.
     /// </summary>
@@ -249,6 +244,16 @@ public abstract class SqlProvider
     {
         DbConnection Con = OpenConnection(ConnectionString);
         return Con.BeginTransaction();
+    }
+
+    public virtual string NormalizeConnectionString(string ConnectionString) => ConnectionString;
+    public virtual string CreateConnectionString(string ServerName, string DatabaseName, string UserName, string Password)
+    {
+        return string.Format(ConnectionStringTemplate, ServerName, DatabaseName, UserName, Password);
+    }
+    public virtual bool CreateDatabase(string ConnectionString)
+    {
+        return false;
     }
     
     // ● Select
@@ -619,14 +624,6 @@ public abstract class SqlProvider
     }
       
     // ● miscs
-    public virtual string CreateConnectionString(string ServerName, string DatabaseName, string UserName, string Password)
-    {
-        return string.Format(ConnectionStringTemplate, ServerName, DatabaseName, UserName, Password);
-    }
-    public virtual bool CreateDatabase(string ConnectionString)
-    {
-        return false;
-    }
     public virtual string ApplyRowLimit(string SqlText, int RowLimit)
     {
         return SqlText;
@@ -824,6 +821,7 @@ public abstract class SqlProvider
     public string Name => ServerType.ToString();
     public DbProviderFactory Factory => ServerType.GetFactory();
     public DbServerType ServerType { get; }
+    public DbConAdapter ConnectionStringAdapter { get; }
     public abstract string NativePrefix { get; }
     public virtual bool PositionalParameters => false;
     public virtual string ObjectStartDelimiter => "\"";

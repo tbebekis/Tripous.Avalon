@@ -5,7 +5,7 @@
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <NoWarn>$(NoWarn);NU1510;NU1903</NoWarn>
-        <RootNamespace>TestApp</RootNamespace>
+        <RootNamespace>DesktopApp</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

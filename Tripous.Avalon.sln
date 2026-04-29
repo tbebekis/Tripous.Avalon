@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous", "Tripous\Tripous.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Desktop", "Tripous.Desktop\Tripous.Desktop.csproj", "{12FF53DD-2036-470E-892D-51B8B4FB9647}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp00", "TestApps\TestApp00\TestApp00.csproj", "{6E8530C8-0414-4F53-B9FC-4BF3D394B1D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopApp00", "TestApps\DesktopApp00\DesktopApp00.csproj", "{6E8530C8-0414-4F53-B9FC-4BF3D394B1D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApps", "TestApps", "{F37EB0FD-0985-4110-A9B2-02627F097760}"
 EndProject

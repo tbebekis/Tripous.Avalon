@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace TestApp;
+namespace DesktopApp;
 
 class Program
 {

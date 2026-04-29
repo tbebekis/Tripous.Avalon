@@ -9,10 +9,32 @@ public class SqlProviderSqlite : SqlProvider
     }
 
     // ● miscs
+    /// <summary>
+    /// Returns true if the database represented by the specified database exists, by checking the connection.
+    /// </summary>
+    public override bool DatabaseExists(string ConnectionString)
+    {
+        ConnectionStringBuilder CSB = new ConnectionStringBuilder(ConnectionString);
+        string FilePath = CSB.Database;
+        FilePath = ConnectionStringBuilder.ReplacePathPlaceholders(FilePath);
+        return !string.IsNullOrWhiteSpace(FilePath) && File.Exists(FilePath);
+    }
     public override bool CreateDatabase(string ConnectionString)
     {
+        /*
+        string NormalizeFilePath(string FilePath)
+        {
+            string FileName = Path.GetFileName(FilePath);
+            if (FileName == FilePath) // in case where FilePath is only a FileName
+                FilePath = Path.Combine(SysConfig.AppDataFolderPath, FileName);
+            return FilePath;
+        }
+        */
+        
         ConnectionStringBuilder CSB = CreateConnectionStringBuilder(ConnectionString);
         string FilePath = ConnectionStringBuilder.ReplacePathPlaceholders(CSB.Database);
+
+        //FilePath = NormalizeFilePath(FilePath);
 
         if (string.IsNullOrWhiteSpace(FilePath))
             throw new Exception("SQLite database file path not found in connection string.");
@@ -41,6 +63,22 @@ public class SqlProviderSqlite : SqlProvider
     public override string CreateConnectionString(string Server, string Database, string UserName, string Password)
     {
         return string.Format(ConnectionStringTemplate, Database);
+    }
+
+    public override string NormalizeConnectionString(string ConnectionString)
+    {
+        List<DbConProp> PropList = ConnectionStringAdapter.Parse(ConnectionString);
+        DbConProp Prop = PropList.Get(DbConPropType.Database);
+        
+        string FilePath = Prop.Value;
+        if (string.IsNullOrWhiteSpace(FilePath))
+            throw new ApplicationException($"{ServerType}: No Database Path in ConnectionString.");
+        FilePath = ConnectionStringBuilder.ReplacePathPlaceholders(FilePath);
+        FilePath = FilePath.QuotePath();
+        Prop.Value = FilePath;
+
+        ConnectionString = ConnectionStringAdapter.Construct(PropList);
+        return ConnectionString;
     }
 
     // ● alter column 

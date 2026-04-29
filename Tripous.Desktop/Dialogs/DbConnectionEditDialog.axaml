@@ -1,0 +1,68 @@
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Class="Tripous.Desktop.DbConnectionEditDialog"
+    Title="Database Connection"
+    d:DesignWidth="500"
+    d:DesignHeight="640"
+    Width="500" 
+    Height="640"
+    SizeToContent="Manual"
+    WindowStartupLocation="CenterScreen"
+    CanResize="False">
+    <Border Padding="16">
+        <DockPanel LastChildFill="True">
+            <StackPanel DockPanel.Dock="Bottom" Margin="0,16,0,0">
+                <TextBlock x:Name="txtMessage" TextWrapping="Wrap" Margin="0,0,0,8"/>
+                <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="8">
+                    <Button x:Name="btnTestConnection" Grid.Column="0" Content="Test Connection" MinWidth="120"/>
+                    <Button x:Name="btnOK" Grid.Column="2" Content="OK" MinWidth="80"/>
+                    <Button x:Name="btnCancel" Grid.Column="3" Content="Cancel" MinWidth="80"/>
+                </Grid>
+            </StackPanel>
+            <TabControl x:Name="tabControl">
+                <TabItem x:Name="tabProps" Header="Properties">
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                          ColumnDefinitions="150,*"
+                          RowSpacing="8"
+                          ColumnSpacing="8"
+                          Margin="0,8,0,0">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
+                        <TextBox x:Name="edtName" Grid.Row="0" Grid.Column="1"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Provider" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cboDbServerType" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
+                        <TextBlock x:Name="lblServer" Grid.Row="2" Grid.Column="0" Text="Server" VerticalAlignment="Center"/>
+                        <TextBox x:Name="edtServer" Grid.Row="2" Grid.Column="1"/>
+                        <TextBlock x:Name="lblPort" Grid.Row="3" Grid.Column="0" Text="Port" VerticalAlignment="Center"/>
+                        <TextBox x:Name="edtPort" Grid.Row="3" Grid.Column="1" TextAlignment="End"/>
+                        <TextBlock x:Name="lblDatabase" Grid.Row="4" Grid.Column="0" Text="Database" VerticalAlignment="Center"/>
+                        <TextBox x:Name="edtDatabase" Grid.Row="4" Grid.Column="1"/>
+                        <TextBlock x:Name="lblUserId" Grid.Row="5" Grid.Column="0" Text="User Id" VerticalAlignment="Center"/>
+                        <TextBox x:Name="edtUserId" Grid.Row="5" Grid.Column="1"/>
+                        <TextBlock x:Name="lblPassword" Grid.Row="6" Grid.Column="0" Text="Password" VerticalAlignment="Center"/>
+                        <TextBox x:Name="edtPassword" Grid.Row="6" Grid.Column="1" PasswordChar="●"/>
+                        <TextBlock x:Name="lblSslMode" Grid.Row="7" Grid.Column="0" Text="SSL Mode" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cboSslMode" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Stretch"/>
+                        <TextBlock x:Name="lblCharset" Grid.Row="8" Grid.Column="0" Text="Charset" VerticalAlignment="Center"/>
+                        <TextBox x:Name="edtCharset" Grid.Row="8" Grid.Column="1"/>
+                        <TextBlock x:Name="lblCommandTimeoutSeconds" Grid.Row="9" Grid.Column="0" Text="Cmd Timeout (secs)" VerticalAlignment="Center"/>
+                        <TextBox x:Name="edtCommandTimeoutSeconds" Grid.Row="9" Grid.Column="1" TextAlignment="End"/>
+                        <CheckBox x:Name="chIntegratedSecurity" Grid.Row="10" Grid.Column="1" Content="Integrated Security"/>
+                        <CheckBox x:Name="chTrustServerCertificate" Grid.Row="11" Grid.Column="1" Content="Trust Server Certificate"/>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="tabConnectionString" Header="Connection String">
+                    <TextBox x:Name="edtConnectionString"
+                             Margin="0,8,0,0"
+                             MinHeight="300"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             IsReadOnly="True"/>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Border>
+</Window>

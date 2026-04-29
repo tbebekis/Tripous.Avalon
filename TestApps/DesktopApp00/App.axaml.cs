@@ -1,22 +1,21 @@
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
-
-namespace TestApp;
+namespace DesktopApp;
 
 public partial class App : Application
 {
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
-        AvalonExceptions.Initialize();
     }
 
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow();
+            desktop.MainWindow = AppHost.HiddenMainWindow; //new MainWindow();
+            desktop.MainWindow.Opened += async (s, e) =>
+            {
+                await AppHost.Start(desktop);
+            };
         }
 
         base.OnFrameworkInitializationCompleted();

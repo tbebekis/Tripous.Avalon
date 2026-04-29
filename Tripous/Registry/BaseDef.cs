@@ -87,6 +87,8 @@ public class BaseDef: IDef, INotifyPropertyChanged
     }
     [JsonIgnore]
     public string Title => Texts.L(TitleKey);
+    [JsonIgnore]
+    public object Tag { get; set; }
 
     // ● events
     public event PropertyChangedEventHandler PropertyChanged;

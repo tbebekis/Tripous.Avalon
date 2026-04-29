@@ -1,4 +1,4 @@
-namespace TestApp;
+namespace DesktopApp;
 
 public partial class MainWindow : Window
 {
@@ -7,13 +7,11 @@ public partial class MainWindow : Window
 
     private AppFormPagerHandler SideBarHandler; // pagerSideBar
     private AppFormPagerHandler ContentHandler; // pagerContent
-    private MainCommandExecutor CommandExecutor;
  
     // ● private
     void WindowInitialize()
     {
-        CommandExecutor = new MainCommandExecutor(this);
-        CommandExecutor.RegisterCommands();
+        LogBox.Initialize(edtLog);
         
         SideBarHandler = new AppFormPagerHandler(pagerSideBar);
         ContentHandler = new AppFormPagerHandler(pagerContent);
@@ -21,7 +19,7 @@ public partial class MainWindow : Window
         CreateMenu();
         CreateToolBar();
 
-        AppHost.Initialize(SideBarHandler, ContentHandler);
+        AppHost.InitializeUi(SideBarHandler, ContentHandler);
     }
     
     void ToggleLog()
@@ -49,10 +47,7 @@ public partial class MainWindow : Window
     {
         ToolBar = new();
         ToolBar.Panel = pnlToolBar;
-
-        ToolBar.AddButton("door_out.png", "Exit", (s, ea) => Close());
-        ToolBar.AddButton("globe_model.png", "Countries", (s, ea) => ContentHandler.ShowDataForm("Country"));
-        ToolBar.AddButton("user.png", "Customers", (s, ea) => ContentHandler.ShowDataForm("Customer"));
+        ToolBar.AddRange(AppRegistry.ToolBarCommands);
     }
  
     void Log(string Text)
@@ -92,12 +87,20 @@ public partial class MainWindow : Window
         base.OnClosing(e);
         // TODO:
     }
-    
+    protected override void OnClosed(EventArgs e)
+    {
+        base.OnClosed(e);
+        
+        Dispatcher.UIThread.Post(() => 
+        {  
+           AppHost.HiddenMainWindow.Close();  
+        }, DispatcherPriority.Background);  
+    }
+
+
     // ● construction
     public MainWindow()
     {
         InitializeComponent();
-        Ui.MainWindow = this;
-        LogBox.Initialize(edtLog);
     }
 }

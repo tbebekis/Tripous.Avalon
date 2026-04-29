@@ -9,6 +9,17 @@ static public class SysConfig
     static private string fAppTempFolderPath;
     static int fDefaultRowLimit;
     static private int fDefaultCommandTimeoutSeconds = 300;
+    
+    /// <summary>
+    /// The mode of the application (Desktop, Web, Service)
+    /// </summary>
+    static public ApplicationMode ApplicationMode { get; set; } = Tripous.ApplicationMode.Desktop;
+    /// <summary>
+    /// Gets the assembly of the main executable.
+    /// <para> The user has to manually set the main assembly in Compact Framework. Otherwise those properties that use
+    /// the main assembly in order to infer various paths will throw exceptions.</para> 
+    /// </summary>
+    static public Assembly MainAssembly { get; set; } = typeof(SysConfig).Assembly;
 
     /// <summary>
     /// Returns the application name, e.g. MyApp
@@ -111,7 +122,7 @@ static public class SysConfig
     /// <summary>
     /// The Id of the current company, if any, else null.
     /// </summary>
-    static public object CompanyId { get; set; } 
+    static public object CompanyId { get; set; }  
     /// <summary>
     /// ReadOnly. Returns the value of the CompanyId as a string for constructing Sql statements.
     /// </summary>
