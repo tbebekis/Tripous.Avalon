@@ -5,11 +5,11 @@ namespace Tripous.Desktop;
 /// </summary>
 public class AppFormPagerHandler
 {
-    private AppForm GetForm(TabItem TabPage)
+    AppForm GetForm(TabItem TabPage)
     {
         return (TabPage.Tag is AppForm)? TabPage.Tag as AppForm : null;
     }
-    private void TabItem_PointerPressed(object sender, PointerPressedEventArgs e)
+    void TabItem_PointerPressed(object sender, PointerPressedEventArgs e)
     {
         if (e.GetCurrentPoint(null).Properties.PointerUpdateKind == PointerUpdateKind.MiddleButtonPressed)
         {
@@ -69,7 +69,7 @@ public class AppFormPagerHandler
     public AppForm ShowAppForm(FormContext Context)
     {
         if (Context == null)
-            throw new ArgumentNullException(nameof(Context));
+            throw new TripousArgumentNullException(nameof(Context));
 
         AppForm Form = FindAppForm(Context.FormId);
         if (Form == null)
@@ -99,5 +99,6 @@ public class AppFormPagerHandler
             Form.CloseForm();
     }
 
+    // ● properties
     public TabControl Pager { get; private set; }
 }

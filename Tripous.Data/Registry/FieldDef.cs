@@ -13,7 +13,6 @@ public class FieldDef: BaseDef
     string fExpression;
     DataFieldType fDataType = DataFieldType.String;
     FieldFlags fFlags;
-    string fZoomCommand;
     string fLookupSource;
     string fLocator;
     string fDefaultValue = Sys.NULL;
@@ -51,7 +50,7 @@ public class FieldDef: BaseDef
         if (string.IsNullOrWhiteSpace(this.Alias))
             Sys.Throw(Texts.GS($"E_{typeof(FieldDef)}_TextIsEmpty", $"{typeof(FieldDef)} Alias  is empty. "));
 
-        if (this.DataType == DataFieldType.Unknown)
+        if (this.DataType == DataFieldType.None)
             Sys.Throw(Texts.GS($"E_{typeof(FieldDef)}_DataTypeIsEmpty", $"{typeof(FieldDef)} DataType is Unknown. "));
     }
 
@@ -66,7 +65,7 @@ public class FieldDef: BaseDef
     }
 
     /// <summary>
-    /// Sets the <see cref="TitleKey"/> and returns this instance.
+    /// Sets the <see cref="BaseDef.TitleKey"/> and returns this instance.
     /// </summary>
     public FieldDef SetTitleKey(string Value)
     {
@@ -93,11 +92,16 @@ public class FieldDef: BaseDef
     /// Sets the <see cref="Flags"/> and returns this instance.
     /// </summary>
     public FieldDef SetFlags(FieldFlags Value)
-    {
-        bool IsBoolean = FieldFlags.Boolean.In(this.Flags);
+    { 
         this.Flags = Value;
-        if (IsBoolean)
-            this.Flags |= FieldFlags.Boolean;
+        return this;
+    }
+    /// <summary>
+    /// Adds the <see cref="Flags"/> and returns this instance.
+    /// </summary>
+    public FieldDef AddFlags(FieldFlags Value)
+    { 
+        this.Flags |= Value;
         return this;
     }
     /// <summary>
@@ -125,6 +129,7 @@ public class FieldDef: BaseDef
         return this;
     }
  
+    
     // ● properties
     /// <summary>
     /// The master definition this instance belongs to.
@@ -181,11 +186,6 @@ public class FieldDef: BaseDef
         get => fDisplayWidth >= 0 ? fDisplayWidth : 0;
         set { if (fDisplayWidth != value) { fDisplayWidth = value; NotifyPropertyChanged(nameof(DisplayWidth)); } }
     }
-    public string ZoomCommand
-    {
-        get => fZoomCommand;
-        set { if (fZoomCommand != value) { fZoomCommand = value; NotifyPropertyChanged(nameof(ZoomCommand)); } }
-    }
     public string LookupSource
     {
         get => fLookupSource;
@@ -231,6 +231,8 @@ public class FieldDef: BaseDef
     /// </summary>
     [JsonIgnore] public bool IsReadOnlyEdit => (FieldFlags.ReadOnlyEdit & Flags) == FieldFlags.ReadOnlyEdit;
     [JsonIgnore] public bool IsNumeric => DataType.IsNumeric();
+    [JsonIgnore] public bool IsInteger => DataType == DataFieldType.Integer;
+    [JsonIgnore] public bool IsFloat => DataType.IsFloat();
     [JsonIgnore] public bool IsDateTime => DataType.IsDateTime();
     /// <summary>
     /// Returns true when the Boolean flag is set in Flags.

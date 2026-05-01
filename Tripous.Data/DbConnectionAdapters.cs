@@ -42,7 +42,7 @@ static public class DbConPropExtensions
     {
         DbConProp Prop = List.FirstOrDefault(x => x.PropType == PropType);
         if (Prop == null)
-            throw new ApplicationException($"Connection string property not found: {PropType}");
+            throw new TripousDataException($"Connection string property not found: {PropType}");
         return Prop;
     }
 

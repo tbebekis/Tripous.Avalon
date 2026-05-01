@@ -17,7 +17,7 @@
         static public object AsObject(this IDictionary Dictionary, string Key, object Default)
         {
             if (Default == null)
-                throw new ArgumentNullException("Default", "Default parameter can not be null");
+                throw new TripousArgumentNullException("Default", "Default parameter can not be null");
 
             if ((Dictionary.Contains(Key)) && (Dictionary[Key] != null))
             {

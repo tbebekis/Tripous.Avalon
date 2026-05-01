@@ -28,7 +28,7 @@ public class DbConnections: SettingsBase
     {
         DbConnectionInfo Result  = List.FirstOrDefault(x => Name.IsSameText(x.Name));
         if (Result == null)
-            throw new ApplicationException($"Cannot get {typeof(DbConnectionInfo)}: {Name}");
+            throw new TripousDataException($"Cannot get {typeof(DbConnectionInfo)}: {Name}");
         return Result;
     }
     public bool Contains(string Name) => List.Any(x => Name.IsSameText(x.Name));

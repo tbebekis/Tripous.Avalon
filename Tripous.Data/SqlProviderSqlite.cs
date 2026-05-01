@@ -72,7 +72,7 @@ public class SqlProviderSqlite : SqlProvider
         
         string FilePath = Prop.Value;
         if (string.IsNullOrWhiteSpace(FilePath))
-            throw new ApplicationException($"{ServerType}: No Database Path in ConnectionString.");
+            throw new TripousDataException($"{ServerType}: No Database Path in ConnectionString.");
         FilePath = ConnectionStringBuilder.ReplacePathPlaceholders(FilePath);
         FilePath = FilePath.QuotePath();
         Prop.Value = FilePath;

@@ -10,7 +10,7 @@ public class LookupDisplayConverter: IValueConverter
     // ● constructors
     public LookupDisplayConverter(LookupSource Source)
     {
-        fSource = Source ?? throw new ArgumentNullException(nameof(Source));
+        fSource = Source ?? throw new TripousArgumentNullException(nameof(Source));
     }
 
     // ● public methods

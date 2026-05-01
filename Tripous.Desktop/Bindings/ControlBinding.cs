@@ -9,8 +9,8 @@ public class ControlBinding
     // ● constructor
     public ControlBinding(Control Control, string ColumnName)
     {
-        fControl = Control ?? throw new ArgumentNullException(nameof(Control));
-        fColumnName = ColumnName ?? throw new ArgumentNullException(nameof(ColumnName));
+        fControl = Control ?? throw new TripousArgumentNullException(nameof(Control));
+        fColumnName = ColumnName ?? throw new TripousArgumentNullException(nameof(ColumnName));
     }
 
     // ● public

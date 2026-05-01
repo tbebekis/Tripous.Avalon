@@ -62,7 +62,7 @@ static public class DataTableExtensions
     {
         DataColumn Result = FindColumn(Table, FieldName);
         if (Result == null)
-            throw new ApplicationException($"{nameof(DataColumn)} not found: {FieldName}");
+            throw new TripousException($"{nameof(DataColumn)} not found: {FieldName}");
         return Result;
     }
 
@@ -526,15 +526,15 @@ static public class DataTableExtensions
         List<string> Result = new();
 
         if (Table == null)
-            throw new ArgumentNullException("Table");
+            throw new TripousArgumentNullException("Table");
         if (string.IsNullOrWhiteSpace(FieldName))
-            throw new ArgumentException("FieldName is empty.", "FieldName");
+            throw new TripousArgumentNullException("FieldName is empty.", "FieldName");
         if (ModValue <= 0)
-            throw new ArgumentException("ModValue must be greater than zero.", "ModValue");
+            throw new TripousArgumentNullException("ModValue must be greater than zero.", "ModValue");
 
         DataColumn Column = Table.Columns[FieldName];
         if (Column == null)
-            throw new ApplicationException($"Column '{FieldName}' not found in table '{Table.TableName}'.");
+            throw new TripousException($"Column '{FieldName}' not found in table '{Table.TableName}'.");
 
         StringBuilder SB = new();
         int Counter = 0;

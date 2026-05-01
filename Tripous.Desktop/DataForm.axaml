@@ -11,10 +11,13 @@
         </Border>
 
         <Grid>
-            <Grid Name="pnlList" ColumnDefinitions="250, Auto, *" IsVisible="True">
-                <DockPanel Name="pnlSideBar" Grid.Column="0" Background="#F5F5F5">
+            <!-- ● List Part -->
+            <Grid Name="pnlList" ColumnDefinitions="Auto, Auto, *" IsVisible="True">
+    
+                <!-- ● SideBar -->
+                <DockPanel Name="pnlSideBar" Grid.Column="0" Width="250" Background="#F5F5F5">
                     <Border DockPanel.Dock="Top" BorderBrush="Gray" BorderThickness="0,0,0,1">
-                        <StackPanel Name="pnlSelectListToolBar"  Classes="ToolBar" MinHeight="32" >
+                        <StackPanel Name="pnlSelectListToolBar" Classes="ToolBar" MinHeight="32">
                         </StackPanel>
                     </Border>
                     <ScrollViewer>
@@ -23,10 +26,14 @@
                         </StackPanel>
                     </ScrollViewer>
                 </DockPanel>
-                <GridSplitter Grid.Column="1" Width="4" Background="#E0E0E0" ResizeBehavior="PreviousAndNext" />
+
+                <GridSplitter Name="Splitter" Grid.Column="1" Width="4" Background="#E0E0E0" />
+    
+                <!-- ● Grid -->
                 <DataGrid Name="gridList" Grid.Column="2" BorderThickness="1,0,0,0" BorderBrush="Gray" />
             </Grid>
 
+            <!-- ● Item Part -->
             <Panel Name="pnlItem" IsVisible="False">
                 <TextBlock Text="Item Details Content Goes Here" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Panel>

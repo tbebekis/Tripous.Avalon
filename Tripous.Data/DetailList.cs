@@ -31,15 +31,15 @@ public class DetailList : Collection<MemTable>
     private void ValidateRelationSchema(MemTable master, MemTable detail)
     {
         if (detail.MasterFields == null || detail.MasterFields.Length == 0)
-            throw new ApplicationException(
+            throw new TripousDataException(
                 $"[DataLib] {master.TableName} -> {detail.TableName}: MasterFields not defined");
 
         if (detail.DetailFields == null || detail.DetailFields.Length == 0)
-            throw new ApplicationException(
+            throw new TripousDataException(
                 $"[DataLib] {master.TableName} -> {detail.TableName}: DetailFields not defined");
 
         if (detail.MasterFields.Length != detail.DetailFields.Length)
-            throw new ApplicationException(
+            throw new TripousDataException(
                 $"[DataLib] {master.TableName} -> {detail.TableName}: MasterFields and DetailFields count mismatch");
 
         detail.ValidateRelationSchema();
@@ -57,19 +57,19 @@ public class DetailList : Collection<MemTable>
     private void CheckDatasets(MemTable DetailTable)
     {
         if (DetailTable == null)
-            throw new ArgumentNullException(nameof(DetailTable));
+            throw new TripousArgumentNullException(nameof(DetailTable));
 
         if (OwnerTable == null)
-            throw new ApplicationException("OwnerTable is null.");
+            throw new TripousDataException("OwnerTable is null.");
 
         if (OwnerTable.DataSet == null)
-            throw new ApplicationException("MasterTable Table has no DataSet");
+            throw new TripousDataException("MasterTable Table has no DataSet");
 
         if (DetailTable.DataSet == null)
-            throw new ApplicationException("A DetailTable Table has no DataSet");
+            throw new TripousDataException("A DetailTable Table has no DataSet");
 
         if (DetailTable.DataSet != OwnerTable.DataSet)
-            throw new ApplicationException("MasterTable.DataSet != DetailTable.DataSet");
+            throw new TripousDataException("MasterTable.DataSet != DetailTable.DataSet");
     }
 
     /// <summary>
@@ -78,7 +78,7 @@ public class DetailList : Collection<MemTable>
     private void ActivateDetail(MemTable DetailTable)
     {
         if (DetailTable == null)
-            throw new ArgumentNullException(nameof(DetailTable));
+            throw new TripousArgumentNullException(nameof(DetailTable));
 
         CheckDatasets(DetailTable);
         ValidateRelationSchema(OwnerTable, DetailTable);
@@ -105,10 +105,10 @@ public class DetailList : Collection<MemTable>
     protected override void InsertItem(int index, MemTable DetailTable)
     {
         if (DetailTable == null)
-            throw new ArgumentNullException(nameof(DetailTable));
+            throw new TripousArgumentNullException(nameof(DetailTable));
 
         if (this.Contains(DetailTable))
-            throw new ApplicationException("Cannot add a detail table twice");
+            throw new TripousDataException("Cannot add a detail table twice");
 
         CheckDatasets(DetailTable);
 
@@ -145,7 +145,7 @@ public class DetailList : Collection<MemTable>
     /// </summary>
     internal DetailList(MemTable ownerTable)
     {
-        OwnerTable = ownerTable ?? throw new ArgumentNullException(nameof(ownerTable));
+        OwnerTable = ownerTable ?? throw new TripousArgumentNullException(nameof(ownerTable));
         OwnerTable.CurrentRowChanged += OwnerTable_CurrentRowChanged;
     }
 
@@ -156,7 +156,7 @@ public class DetailList : Collection<MemTable>
     {
         MemTable Result = this.FirstOrDefault(x => Sys.IsSameText(TableName, x.TableName));
         if (Result == null)
-            throw new ApplicationException($"Table not found in {OwnerTable.TableName} details: {TableName}");
+            throw new TripousDataException($"Table not found in {OwnerTable.TableName} details: {TableName}");
         return Result;
     }
     

@@ -167,18 +167,18 @@ static public class ControlBindingHelper
     static public ControlBinding Bind(IRowProvider RowProvider, TextBox Box, FieldDef FieldDef)
     {
         if (FieldDef == null)
-            throw new ArgumentNullException(nameof(FieldDef));
+            throw new TripousArgumentNullException(nameof(FieldDef));
 
         return Bind(RowProvider, Box, FieldDef.Name, FieldDef);
     }
     static public ControlBinding Bind(IRowProvider RowProvider, TextBox Box, string FieldName, FieldDef FieldDef = null)
     {
         if (RowProvider == null)
-            throw new ArgumentNullException(nameof(RowProvider));
+            throw new TripousArgumentNullException(nameof(RowProvider));
         if (Box == null)
-            throw new ArgumentNullException(nameof(Box));
+            throw new TripousArgumentNullException(nameof(Box));
         if (string.IsNullOrWhiteSpace(FieldName))
-            throw new ArgumentNullException(nameof(FieldName));
+            throw new TripousArgumentNullException(nameof(FieldName));
 
         ControlBinding Result = new(Box, FieldName)
         {
@@ -347,7 +347,7 @@ static public class ControlBindingHelper
     static public ControlBinding BindLookup(IRowProvider RowProvider, ComboBox Box, string FieldName, FieldDef FieldDef)
     {
         if (FieldDef == null)
-            throw new ArgumentNullException(nameof(FieldDef));
+            throw new TripousArgumentNullException(nameof(FieldDef));
         if (string.IsNullOrWhiteSpace(FieldDef.LookupSource))
             throw new InvalidOperationException($"FieldDef '{FieldDef.Name}' has no LookupSource.");
 
@@ -356,15 +356,15 @@ static public class ControlBindingHelper
     static public ControlBinding BindLookup(IRowProvider RowProvider, ComboBox Box, string FieldName, string LookupSourceName, FieldDef FieldDef = null)
     {
         if (RowProvider == null)
-            throw new ArgumentNullException(nameof(RowProvider));
+            throw new TripousArgumentNullException(nameof(RowProvider));
         if (Box == null)
-            throw new ArgumentNullException(nameof(Box));
+            throw new TripousArgumentNullException(nameof(Box));
         if (string.IsNullOrWhiteSpace(FieldName))
-            throw new ArgumentNullException(nameof(FieldName));
+            throw new TripousArgumentNullException(nameof(FieldName));
         if (string.IsNullOrWhiteSpace(LookupSourceName))
-            throw new ArgumentNullException(nameof(LookupSourceName));
+            throw new TripousArgumentNullException(nameof(LookupSourceName));
 
-        LookupSource LookupSource = Data.LookupSource.GetLookupSource(LookupSourceName);
+        LookupSource LookupSource = DataRegistry.LookupSources.Get(LookupSourceName);  
 
         ControlBinding Result = new(Box, FieldName)
         {

@@ -165,7 +165,7 @@ public class SelectSqlParser
             {
                 ParenCount--;
                 if (ParenCount < 0)
-                    throw new ApplicationException("SelectSqlParser: Wrong parentheses");
+                    throw new TripousDataException("SelectSqlParser: Wrong parentheses");
                 fCurrentPos++;
             }
             else

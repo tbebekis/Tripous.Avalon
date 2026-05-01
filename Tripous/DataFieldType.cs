@@ -8,9 +8,9 @@ namespace Tripous;
 public enum DataFieldType
 {
     /// <summary>
-    /// Unknown
+    /// None
     /// </summary>
-    Unknown = 0,
+    None = 0,
     /// <summary>
     /// String (nvarchar, varchar)
     /// </summary>
@@ -100,10 +100,11 @@ static public class DataFieldTypeHelper
             }
         }
 
-        return DataFieldType.Unknown;
+        return DataFieldType.None;
     }
 
-    static public bool IsNumeric(this DataFieldType Value) => Value.In(DataFieldType.Integer | DataFieldType.Double | DataFieldType.Decimal | DataFieldType.Decimal_);  
+    static public bool IsNumeric(this DataFieldType Value) => Value == DataFieldType.Integer || IsFloat(Value);
+    static public bool IsFloat(this DataFieldType Value) => Value.In(DataFieldType.Double | DataFieldType.Decimal | DataFieldType.Decimal_);
     /// <summary>
     /// True if Value is DateTime or Date or Time
     /// </summary>

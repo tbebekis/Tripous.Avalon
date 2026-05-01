@@ -43,7 +43,7 @@ public class DataFieldDef
             case DataFieldType.TextBlob: return SqlTypeTokens.CBLOB_TEXT;
         }
 
-        throw new ApplicationException($"DataType not supported in Field definition: {Type}");
+        throw new TripousDataException($"DataType not supported in Field definition: {Type}");
     }
 
     /// <summary>

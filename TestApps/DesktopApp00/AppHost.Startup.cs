@@ -82,7 +82,6 @@ static public partial class AppHost
     {
         RegisterCommands();
 
-        RegisterLookups();
         RegisterLookupSources();
         RegisterLocators();
 

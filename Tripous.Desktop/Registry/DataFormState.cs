@@ -3,6 +3,7 @@ namespace Tripous.Desktop;
 /// <summary>
 /// The state of a data-form indicates the UI the form is currently displaying
 /// </summary>
+[Flags]
 public enum DataFormState
 {
     /// <summary>

@@ -64,7 +64,7 @@ public partial class MainWindow : Window
         //DataTests.TestSqlParamScanner_Edges();
         //DataTests.TestConnection(Psw);
         //DataTests.TestMsSqlStore(Psw);
-        DataTests.TestConnectionStringBuilder();
+        //DataTests.TestConnectionStringBuilder();
     }
     
     // ● overrides

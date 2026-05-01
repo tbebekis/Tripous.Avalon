@@ -4,6 +4,7 @@ public partial class DataForm : AppForm, IRowProvider
 {
     protected DataFormState fFormState = DataFormState.None;
     protected DataFormAction LastAction = DataFormAction.None;
+    
     protected bool Saving;
     
     protected ToolBar ToolBar;
@@ -23,18 +24,11 @@ public partial class DataForm : AppForm, IRowProvider
     protected Button btnClose;
     
     protected ToolBar SelectListToolBar;
-    private ComboBox cboSelectList;
+    protected ComboBox cboSelectList;
     
-    private void GridList_DoubleClick(object Sender, PointerPressedEventArgs e)
-    {
-        if (e.ClickCount == 2)
-        {
-            var Row = gridList.SelectedItem;
-            if (Row != null)
-            {
-                _ = Execute(DataFormAction.Edit);
-            }
-        }
+    void gridList_OnDoubleTapped(object sender, TappedEventArgs e)
+    { 
+        _ = Execute(DataFormAction.Edit);
     }
  
     /// <summary>
@@ -50,52 +44,62 @@ public partial class DataForm : AppForm, IRowProvider
     public virtual void UpdateUi()
     {
         EnableCommands();
+        EnableControls();
     }
     /// <summary>
     /// Enables and disables buttons and menu items.
     /// </summary>
     protected virtual void EnableCommands()
     {
-        // visible ===============================================================
-        btnHome.IsVisible = true;
-        btnFind.IsVisible = IsMasterForm;
-        //edtFind.IsVisible = btnFind.IsVisible;
-        btnList.IsVisible = IsMasterForm;
+        // ● visible ===============================================================
+        btnHome.IsVisible = !IsSingleSelect;
+        btnFind.IsVisible = btnHome.IsVisible;
 
-        btnInsert.IsVisible = IsMasterForm;
-        btnEdit.IsVisible = IsMasterForm;
-        btnDelete.IsVisible = true;
-        btnInsert.IsVisible = IsMasterForm;
+        btnList.IsVisible = !IsReadOnlyForm;
+
+        btnInsert.IsVisible = !IsReadOnlyForm;
+        btnEdit.IsVisible = !IsReadOnlyForm;
+        btnDelete.IsVisible = !IsReadOnlyForm;
+        btnInsert.IsVisible = !IsReadOnlyForm;
 
         btnCancel.IsVisible = true;                       // btnCancel - visible with all form modes
-        btnOK.IsVisible = IsListForm || IsModal;
-        btnClose.IsVisible = IsMasterMode && !IsModal;      // btnClose - visible with non-list master forms
+        btnOK.IsVisible = IsModal;
+        btnClose.IsVisible = !IsModal;      // btnClose - visible with non-list master forms
 
-        // enable ================================================================
+        // ● enable ================================================================
         btnHome.IsEnabled = btnHome.ContextMenu != null && btnHome.ContextMenu.Items.Count > 0;
         btnFind.IsEnabled = !DataFormAction.Find.In(InvalidActions);
         btnList.IsEnabled = !DataFormAction.List.In(InvalidActions);
         
-        btnInsert.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && !FormState.In(DataFormState.Insert | DataFormState.Edit) && FormType != FormType.List;
-        btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && !FormState.In(DataFormState.Insert | DataFormState.Edit) && FormType != FormType.List;
-        btnDelete.IsEnabled = !DataFormAction.Delete.In(InvalidActions) && FormType == FormType.List && !IsListEmpty;
-        btnSave.IsEnabled = (IsMasterForm && FormState.In(DataFormState.Insert | DataFormState.Edit)) || (IsListMode && FormState == DataFormState.List);
+        btnInsert.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && !FormState.In(DataFormState.Insert | DataFormState.Edit);
+        btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && !FormState.In(DataFormState.Insert | DataFormState.Edit) ;
+        btnDelete.IsEnabled = !DataFormAction.Delete.In(InvalidActions) && !IsListEmpty;
+        btnSave.IsEnabled = FormState.In(DataFormState.Insert | DataFormState.Edit);
         
-        // List state and Modal: cancels the form
-        // List state and List forms: closes the form without saving
         // Edit states: cancels edits and returns to List state
-        btnCancel.IsEnabled = IsListMode
-            || (IsMasterForm && FormState.In(DataFormState.Insert | DataFormState.Edit))
-            || (IsMasterForm && FormState.In(DataFormState.List ));
-
-        // btnOK - accessible in List state only, with list forms and all modal forms
-        // List state and Modal: saves any edits, closes the form with OK and returns the current row               
-        btnOK.IsEnabled = IsListForm || (IsModal && FormState == DataFormState.List);
-
-        // List state: closes the form                
-        btnClose.IsEnabled = IsMasterMode && FormState.In(DataFormState.List );
-    }
+        // List state and Modal: cancels the form
+        btnCancel.IsEnabled = FormState.In(DataFormState.Insert | DataFormState.Edit) || (IsModal && FormState == DataFormState.List);
  
+        // btnOK - accessible in List state only with modal forms
+        // List state and Modal: closes the form with OK and returns the current row               
+        btnOK.IsEnabled =IsModal && FormState == DataFormState.List;
+
+        // List state: closes a non-modal form                
+        btnClose.IsEnabled = FormState == DataFormState.List;
+    }
+    /// <summary>
+    /// Enables and disables controls.
+    /// </summary>
+    protected virtual void EnableControls()
+    {
+        // ● visible ===============================================================
+        pnlSideBar.IsVisible = !IsSingleSelect;
+        Splitter.IsVisible = pnlSideBar.IsVisible;
+
+        // ● enable ================================================================
+        gridList.IsReadOnly = true;
+    }
+    
     // ● miscs
     /// <summary>
     /// Passes any result to the caller of the form, if any. Useful with modal forms.
@@ -191,13 +195,16 @@ public partial class DataForm : AppForm, IRowProvider
         base.FormInitializing();
         
         ProcessFormOptions();
-
     }
     /// <summary>
     /// Called in order to initialize the form
     /// </summary>
     protected override void FormInitialize()
-    {            
+    {
+        this.Module.CurrentRowChanged += (sender, args) =>
+        {
+            this.CurrentRowChanged?.Invoke(this, args);
+        };
     }
     /// <summary>
     /// Called just after form initialization
@@ -290,32 +297,19 @@ public partial class DataForm : AppForm, IRowProvider
                     ExecuteSave();
                     break;
                 case DataFormAction.Cancel:
-                    if (IsListMode)
+                    if (FormState == DataFormState.List)  
                     {
                         if (IsModal)
                             this.ModalResult = ModalResult.Cancel;
                         else
                             CloseForm();
                     }
-                    else if (IsMasterForm)
+                    else if (FormState == DataFormState.Insert || FormState == DataFormState.Edit)  
                     {
-                        if (FormState == DataFormState.List)  
-                        {
-                            if (IsModal)
-                                this.ModalResult = ModalResult.Cancel;
-                            else
-                                CloseForm();
-                        }
-                        else if (FormState == DataFormState.Insert || FormState == DataFormState.Edit)  
-                        {
-                            await ExecuteCancelEdit();
-                        }                             
-                    }
+                        await ExecuteCancelEdit();
+                    } 
                     break;
                 case DataFormAction.Ok:
-                    if (IsListMode)
-                        ListSave();
-
                     if (IsModal)
                         this.ModalResult = ModalResult.Ok;
                     else
@@ -376,6 +370,7 @@ public partial class DataForm : AppForm, IRowProvider
         if (!Sys.IsNull(oId))
         {
             ItemLoad(oId);
+            LogBox.AppendLine(oId);
             this.FormState = DataFormState.Edit;
         }
     }
@@ -432,19 +427,25 @@ public partial class DataForm : AppForm, IRowProvider
             BindListGrid();
         }
     }
-    protected virtual void ListSave()
-    {
-    }
     protected virtual object GetCurrentListId()
     {
-        if (gridList?.SelectedItem is DataRowView RowView)
+        if (ListCurrentRow != null)
         {
-            DataRow Row = RowView.Row;
-            if (Row.Table.Columns.Contains(ModuleDef.Table.KeyField))
-                return Row[ModuleDef.Table.KeyField];
+            if (ListCurrentRow.Table.Columns.Contains(ModuleDef.Table.KeyField))
+                return ListCurrentRow[ModuleDef.Table.KeyField];
         }
-
+        
         return null;
+    }
+    void gridList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        ListCurrentRow = null;
+        if (gridList.SelectedItem is DataRowView RowView)
+        {
+            ListCurrentRow = RowView.Row;
+            LogBox.AppendLine("GRID");
+            LogBox.AppendLine(ListCurrentRow);
+        }
     }
   
     // ● item
@@ -453,6 +454,8 @@ public partial class DataForm : AppForm, IRowProvider
     }
     protected virtual void ItemLoad(object oId)
     {
+        Module.Edit(oId);
+        LogBox.AppendLine(CurrentRow);
     }
     protected virtual void ItemDelete(object oId)
     {
@@ -468,10 +471,6 @@ public partial class DataForm : AppForm, IRowProvider
         return false;
     }
     protected virtual void ItemCancelChanges()
-    {
-    }
-
-    protected virtual void ItemBind()
     {
     }
 
@@ -522,13 +521,15 @@ public partial class DataForm : AppForm, IRowProvider
         foreach (DataColumn Column in Module.tblList.Columns)
         {
             DataGridColumn GridColumn;
-            
+            /*
             if (Column.ColumnName == "CountryId")
             {
                 LookupSource CountryLookupSource = DataRegistry.LookupSources.Get("Country");  
                 GridColumn = DataViewGridColumnFactory.CreateLookupColumn(Column.ColumnName, CountryLookupSource);
             }
-            else if (Column.DataType == typeof(bool))
+            else 
+            */
+            if (Column.DataType == typeof(bool))
                 GridColumn = DataViewGridColumnFactory.CreateBoolColumn(Column.ColumnName);
             else
                 GridColumn = DataViewGridColumnFactory.CreateTextColumn(Column.ColumnName);
@@ -539,13 +540,18 @@ public partial class DataForm : AppForm, IRowProvider
         }
 
         gridList.ItemsSource = Module.tblList.DataView;
-        gridList.PointerPressed += GridList_DoubleClick;
+ 
+        gridList.DoubleTapped += gridList_OnDoubleTapped;
+        gridList.SelectionChanged += gridList_OnSelectionChanged;
     }
+
+
+
     protected virtual void CreateItemPanel()
     {
-        if (!IsListMode && !string.IsNullOrWhiteSpace(FormDef.ItemPageClassName))
+        if (!string.IsNullOrWhiteSpace(FormDef.ItemClassName))
         {
-            ItemPage = TypeResolver.CreateInstance<ItemPage>(FormDef.ItemPageClassName);
+            ItemPage = TypeResolver.CreateInstance<ItemPage>(FormDef.ItemClassName);
             ItemPage.DataForm = this;
 
             pnlItem.Children.Clear();
@@ -554,6 +560,10 @@ public partial class DataForm : AppForm, IRowProvider
             ItemPage.Bind();
         }
     }
+    protected virtual void ItemBind()
+    {
+    }
+    
     protected virtual void CreateFindPanel()
     {
     }
@@ -582,10 +592,6 @@ public partial class DataForm : AppForm, IRowProvider
     /// </summary>
     public DataModule Module => DataFormContext.Module;
     /// <summary>
-    /// Returns the form mode
-    /// </summary>
-    public virtual FormType FormType => FormDef.FormType;
-    /// <summary>
     /// Form actions the form is not allowed to execute.
     /// </summary>
     public DataFormAction InvalidActions => DataFormContext.InvalidActions;
@@ -593,34 +599,32 @@ public partial class DataForm : AppForm, IRowProvider
     /// The first action the form should execute after initialization.
     /// </summary>
     public DataFormAction StartAction => DataFormContext.StartAction;
-
-    public ItemPage ItemPage { get; private set; }
     
-    public DataRow ListCurrentRow => Module?.tblList?.CurrentRow;
-    public DataRow CurrentRow => Module?.tblItem?.CurrentRow;
+    /// <summary>
+    /// The item page
+    /// </summary>
+    public ItemPage ItemPage { get; private set; }
 
     /// <summary>
-    /// Returns true when the form is a pure list form (grid only).
+    /// The current row in the list part
     /// </summary>
-    public bool IsListMode => FormDef.FormType == FormType.List;
+    public DataRow ListCurrentRow { get; protected set; } //=> Module?.tblList?.CurrentRow;
+
     /// <summary>
-    /// Returns true when the form is a pure master form (list + item, different tables).
+    /// The current row in the item part
     /// </summary>
-    public bool IsMasterMode => FormDef.FormType == FormType.Master;
+    public DataRow CurrentRow => Module?.tblItem?.CurrentRow;
     /// <summary>
-    /// Returns true when the form is a master-list form (list + item, same table).
+    /// Returns true if this is a fixed (no row insert-delete allowed) form.
     /// </summary>
-    public bool IsListMasterMode => FormDef.FormType == FormType.ListMaster;
+    public bool IsReadOnlyForm => !FormDef.IsReadOnly;
     /// <summary>
-    /// Returns true when the form has a list part (List or ListMaster).
+    /// When true then this is a form with a fixed single select.
     /// </summary>
-    public bool IsListForm => FormDef.FormType == FormType.List || FormDef.FormType == FormType.ListMaster;
-    /// <summary>
-    /// Returns true when the form has an item part (Master or ListMaster).
-    /// </summary>
-    public bool IsMasterForm => FormDef.FormType == FormType.Master || FormDef.FormType == FormType.ListMaster;
-    /// <summary>
-    /// Returns true if this is a fixed-list (no row insert-delete allowed) form.
-    /// </summary>
-    public virtual bool IsFixedListForm => DataFormContext.IsFixedListForm;
+    public bool IsSingleSelect => ModuleDef.IsSingleSelect;
+    
+    // ● events
+    public event EventHandler CurrentRowChanged;
+
+
 }

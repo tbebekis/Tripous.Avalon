@@ -39,7 +39,7 @@ public class DialogWindow: Window
     static public async Task<DialogData> ShowModal<T>(object InputData) where T : DialogWindow, new()
     {
         if (InputData == null)
-            throw new ArgumentNullException(nameof(InputData));
+            throw new TripousArgumentNullException(nameof(InputData));
         return await ShowModal<T>(InputData,null);
     }
     static public async Task<DialogData> ShowModal<T>(object InputData = null, Control Caller = null)

@@ -260,7 +260,7 @@ public abstract class SqlProvider
     /// <summary>
     /// Executes a SELECT statement and returns the result as a DataTable.
     /// </summary>
-    public MemTable Select(DbConnectionInfo ConnectionInfo, string SqlText) => Select(ConnectionInfo, SqlText, null);
+    public MemTable Select(DbConnectionInfo ConnectionInfo, string SqlText) => Select(ConnectionInfo.ConnectionString, SqlText, ConnectionInfo.CommandTimeoutSeconds, null);
     /// <summary>
     /// Executes a SELECT statement and returns the result as a DataTable.
     /// </summary>
@@ -269,7 +269,7 @@ public abstract class SqlProvider
     /// <summary>
     /// Executes a SELECT statement and returns the result as a DataTable.
     /// </summary>
-    public MemTable Select(string ConnectionString, string SqlText) => Select(ConnectionString, SqlText, null);
+    public MemTable Select(string ConnectionString, string SqlText) => Select(ConnectionString, SqlText, SysConfig.DefaultCommandTimeoutSeconds, null);
     /// <summary>
     /// Executes a SELECT statement and returns the result as a DataTable.
     /// </summary>
@@ -315,7 +315,7 @@ public abstract class SqlProvider
     /// <summary>
     /// Executes a SELECT statement and loads the result into the specified DataTable.
     /// </summary>
-    public int SelectTo(DbConnectionInfo ConnectionInfo, MemTable Table, string SqlText) => SelectTo(ConnectionInfo, Table, SqlText, null);
+    public int SelectTo(DbConnectionInfo ConnectionInfo, MemTable Table, string SqlText) => SelectTo(ConnectionInfo.ConnectionString, Table, SqlText, ConnectionInfo.CommandTimeoutSeconds, null);
     /// <summary>
     /// Executes a SELECT statement and loads the result into the specified DataTable.
     /// </summary>
@@ -395,7 +395,7 @@ public abstract class SqlProvider
     /// <summary>
     /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
     /// </summary>
-    public int ExecSql(DbConnectionInfo ConnectionInfo, string SqlText) => ExecSql(ConnectionInfo, SqlText, null);
+    public int ExecSql(DbConnectionInfo ConnectionInfo, string SqlText) => ExecSql(ConnectionInfo.ConnectionString, SqlText, ConnectionInfo.CommandTimeoutSeconds, null);
     /// <summary>
     /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
     /// </summary>
@@ -404,7 +404,7 @@ public abstract class SqlProvider
     /// <summary>
     /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
     /// </summary>
-    public int ExecSql(string ConnectionString, string SqlText) => ExecSql(ConnectionString, SqlText, null);
+    public int ExecSql(string ConnectionString, string SqlText) => ExecSql(ConnectionString, SqlText, SysConfig.DefaultCommandTimeoutSeconds, null);
     /// <summary>
     /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
     /// </summary>
@@ -458,7 +458,7 @@ public abstract class SqlProvider
     /// <summary>
     /// Executes a single SQL operation inside a transaction.
     /// </summary>
-    public int ExecSql(DbTransaction Transaction, string SqlText) => ExecSql(Transaction, SqlText, null);
+    public int ExecSql(DbTransaction Transaction, string SqlText) => ExecSql(Transaction, SqlText, SysConfig.DefaultCommandTimeoutSeconds, null);
     /// <summary>
     /// Executes a single SQL operation inside a transaction.
     /// </summary>

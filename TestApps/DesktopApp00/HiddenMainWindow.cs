@@ -8,5 +8,6 @@ public class HiddenMainWindow: Window
         this.Width = 5;
         this.Height = 5;
         this.Position = new PixelPoint(10000, 10000);
+        this.ShowInTaskbar = false;
     }
 }

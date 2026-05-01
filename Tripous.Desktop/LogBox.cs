@@ -65,6 +65,23 @@ public static class LogBox
         Log(finalPath);
     }
 
+    static public void AppendLine(object Data)
+    {
+        if (Data != null)
+        {
+            string JsonText = Json.Serialize(Data);
+            AppendLine(JsonText);
+        }
+    }
+    static public void AppendLine(DataRow Row)
+    {
+        if (Row != null)
+        {
+            string JsonText = Json.Serialize(Row.ItemArray);
+            AppendLine(JsonText);
+        }
+    }
+    
     /// <summary>
     /// Appends a new empty text line in the box.
     /// </summary>

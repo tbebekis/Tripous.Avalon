@@ -29,7 +29,7 @@ public class AppFormDialog : Window
     static public async Task<FormContext> ShowModal(FormContext Context)
     {
         if (Context == null)
-            throw new ArgumentNullException(nameof(Context));
+            throw new TripousArgumentNullException(nameof(Context));
         
         AppFormDialog Dialog = new(); 
         

@@ -1,5 +1,6 @@
 namespace Tripous.Data;
 
+/*
 public class LookupDef: BaseDef
 {
     bool fUseNullItem;
@@ -63,3 +64,4 @@ public class LookupDef: BaseDef
         }
     }
 }
+*/

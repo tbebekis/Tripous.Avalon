@@ -47,7 +47,7 @@ public class SqlStore
     /// <summary>
     /// Executes a SELECT statement and returns the result as a DataTable.
     /// </summary>
-    public MemTable Select(string SqlText) => Provider.Select(ConnectionInfo, SqlText);
+    public MemTable Select(string SqlText) => Provider.Select(ConnectionInfo, SqlText, null);
     /// <summary>
     /// Executes a SELECT statement and returns the result as a DataTable.
     /// </summary>
@@ -56,26 +56,28 @@ public class SqlStore
     /// Executes a SELECT statement inside a transaction and returns the result as a DataTable.
     /// </summary>
     public MemTable Select(DbTransaction Transaction, string SqlText, params object[] Params) => Provider.Select(Transaction, SqlText, ConnectionInfo.CommandTimeoutSeconds, Params);
-
+ 
     // ● SelectTo
     /// <summary>
     /// Executes a SELECT statement and loads the result into the specified DataTable.
     /// </summary>
-    public int SelectTo(MemTable Table, string SqlText) => Provider.SelectTo(ConnectionInfo, Table, SqlText);
+    public int SelectTo(MemTable Table, string SqlText) => Provider.SelectTo(ConnectionInfo, Table, SqlText, null);
     /// <summary>
     /// Executes a SELECT statement and loads the result into the specified DataTable.
     /// </summary>
-    public int SelectTo(MemTable Table, string SqlText, params object[] Params) => Provider.SelectTo(ConnectionInfo, Table, SqlText, ConnectionInfo.CommandTimeoutSeconds, Params);
+    public int SelectTo(MemTable Table, string SqlText, params object[] Params) => Provider.SelectTo(ConnectionInfo, Table, SqlText, Params);
     /// <summary>
     /// Executes a SELECT statement and loads the result into the specified DataTable using a transaction.
     /// </summary>
     public int SelectTo(DbTransaction Transaction, MemTable Table, string SqlText, params object[] Params) => Provider.SelectTo(Transaction, Table, SqlText, ConnectionInfo.CommandTimeoutSeconds, Params);
  
+    // DbConnectionInfo ConnectionInfo, string SqlText, params object[] Params
+    
     // ● ExecSql
     /// <summary>
     /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
     /// </summary>
-    public int ExecSql(string SqlText) => Provider.ExecSql(ConnectionInfo, SqlText);
+    public int ExecSql(string SqlText) => Provider.ExecSql(ConnectionInfo, SqlText, null);
     /// <summary>
     /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
     /// </summary>
@@ -89,7 +91,7 @@ public class SqlStore
     /// <summary>
     /// Executes a single SQL operation inside a transaction.
     /// </summary>
-    public int ExecSql(DbTransaction Transaction, string SqlText) => Provider.ExecSql(Transaction, SqlText);
+    public int ExecSql(DbTransaction Transaction, string SqlText) => Provider.ExecSql(Transaction, SqlText, ConnectionInfo.CommandTimeoutSeconds, null);
     /// <summary>
     /// Executes a single SQL operation inside a transaction.
     /// </summary>
@@ -304,7 +306,7 @@ public class SqlStore
     public DataTable GetNativeSchemaFromTableName(string StatementName, string TableName)
     {
         if (string.IsNullOrWhiteSpace(TableName))
-            throw new ApplicationException($"Cannot get table schema. No table name defined");
+            throw new TripousDataException($"Cannot get table schema. No table name defined");
         string SqlText = $"select * from {TableName}";
         return GetNativeSchemaFromSelect(StatementName, SqlText);
     }
@@ -323,9 +325,10 @@ public class SqlStore
                 {
                     Cmd.CommandText = SqlText;
  
-                    using (DbDataReader Reader = Cmd.ExecuteReader(CommandBehavior.SchemaOnly))
+                    using (DbDataReader Reader = Cmd.ExecuteReader())
                     {
-                        DataTable Table = Reader.GetSchemaTable();
+                        DataTable Table = new DataTable();
+                        Table.Load(Reader);
                         SqlCache.Add(this.ConnectionInfo.Name, StatementName, Table);
                         return Table;
                     }

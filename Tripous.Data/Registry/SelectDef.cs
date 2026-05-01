@@ -31,7 +31,7 @@ public class SelectDef: BaseDef
     }
     public Dictionary<string, string> DisplayLabels
     {
-        get => fDisplayLabels;
+        get => fDisplayLabels ??= new();
         set
         {
             if (fDisplayLabels != value)

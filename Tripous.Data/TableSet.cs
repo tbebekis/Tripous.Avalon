@@ -262,7 +262,7 @@ public class TableSet
     public TableSet(SqlStore Store, MemTable ListTable, MemTable ItemTable, List<MemTable> Stocks, TableSetFlags Flags = TableSetFlags.GenerateSql)
     {
         if (ItemTable == null)
-            throw new ArgumentNullException("ItemTable");
+            throw new TripousArgumentNullException("ItemTable");
 
         ItemTable.CheckTopTableErrors();
 
@@ -369,7 +369,7 @@ public class TableSet
         }
 
         IsInsert = false;
-
+        ItemTable.UpdateCurrentRow();
         return ItemTable.Rows.Count >= 1;
     }
     /// <summary>
@@ -419,8 +419,6 @@ public class TableSet
                     throw;
                 }
             }
-
-
         }
         finally
         {
@@ -428,9 +426,8 @@ public class TableSet
             ItemTable.EventsDisabled = false;
             Transaction = null;
         }
-
- 
-
+        
+        ItemTable.UpdateCurrentRow();
     }
     /// <summary>
     /// Commits the whole table tree to the database. It can be either an insert or an update.
@@ -485,6 +482,7 @@ public class TableSet
             ItemLoad(LastCommitedId);
 
         IsInsert = false;
+        ItemTable.UpdateCurrentRow();
         return LastCommitedId;
 
     }
@@ -517,6 +515,8 @@ public class TableSet
             //TopTable.DetailsActive = true;
             ItemTable.EventsDisabled = false;
         }
+        
+        ItemTable.UpdateCurrentRow();
     }
     /// <summary>
     /// Prepares the TableSet for an insert operation (in the tables, NOT the database)
@@ -541,6 +541,7 @@ public class TableSet
             ItemTable.EventsDisabled = false;
         }
 
+        ItemTable.UpdateCurrentRow();
         IsInsert = true;
     }
     /// <summary>
@@ -600,7 +601,7 @@ public class TableSet
         // ---------------------------------------
         
         if (Args == null)
-            throw new ArgumentNullException("Args");
+            throw new TripousArgumentNullException("Args");
         if (Args.BeforeFunc == null)
             throw new TableSetException("Batch commit requires a BeforeFunc.");
         if (Args.AfterFunc == null)

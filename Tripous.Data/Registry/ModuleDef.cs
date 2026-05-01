@@ -8,7 +8,7 @@ public class ModuleDef: BaseDef, IJsonLoadable
    List<SelectDef> fStocks;
    TableDef fTable = new();
    string fConnectionName = SysConfig.DefaultConnectionName;
-   bool fIsListModule;
+   bool fIsSingleSelect;
    bool fGuidOids = true;
    bool fCascadeDeletes = true;
 
@@ -75,49 +75,21 @@ public class ModuleDef: BaseDef, IJsonLoadable
         AddTable(Table);
         return List;
     }
-    /// <summary>
-    /// Ensures that any TableDef is updated with the actual table schema from the database.
-    /// </summary>
-    public void UpdateTableSchema(SqlStore Store)
-    {
-        UpdateReferences();
-        
-        DataTable SchemaTable;
-        void UpdateSchema(TableDef T)
-        {
-            SchemaTable = Store.GetNativeSchemaFromTableName($"{Name}.{T.Name}", T.Name);
-            T.UpdateFrom(SchemaTable);
-            
-            if (T.Details != null)
-                foreach (var Item in T.Details)
-                    UpdateSchema(Item);
-        }
-
-        UpdateSchema(Table);
-    }
-    
+ 
     // ● properties
     /// <summary>
-    /// Gets or sets the class name of the <see cref="System.Type"/> this descriptor describes.
+    /// The class name of the <see cref="System.Type"/> this descriptor describes.
     /// <para>NOTE: The value of this property may be a string returned by the <see cref="Type.AssemblyQualifiedName"/> property of the type. </para>
     /// <para>In that case, it consists of the type name, including its namespace, followed by a comma, followed by the display name of the assembly
     /// the type belongs to. It might looks like the following</para>
     /// <para><c>Tripous.Data.DataModule, Tripous, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</c></para>
-    /// <para>Otherwise it can be a full type name, e.g. </para>
+    /// <para>Otherwise it can be a full type name <see cref="Type.FullName"/>, e.g. </para>
     /// <para><c>Tripous.Data.DataModule</c></para>
     /// </summary>
     public string ClassName
     {
         get => fClassName;
         set { if (fClassName != value) { fClassName = value; NotifyPropertyChanged(nameof(ClassName)); } }
-    }
-    /// <summary>
-    /// When true then this is a list module, i.e. has not a table with the single data row. All editing is done in the list table. 
-    /// </summary>
-    public bool IsListModule
-    {
-        get => fIsListModule;
-        set { if (fIsListModule != value) { fIsListModule = value; NotifyPropertyChanged(nameof(IsListModule)); } }
     }
     /// <summary>
     /// Gets or sets the connection name (database)
@@ -134,6 +106,14 @@ public class ModuleDef: BaseDef, IJsonLoadable
     {
         get => fDescription;
         set { if (fDescription != value) { fDescription = value; NotifyPropertyChanged(nameof(Description)); } }
+    }
+    /// <summary>
+    /// When true then this is a module with a fixed single select.
+    /// </summary>
+    public bool IsSingleSelect
+    {
+        get => fIsSingleSelect;
+        set { if (fIsSingleSelect != value) { fIsSingleSelect = value; NotifyPropertyChanged(nameof(IsSingleSelect)); } }
     }
     /// <summary>
     /// When is true indicates that the OID is a Guid string.  

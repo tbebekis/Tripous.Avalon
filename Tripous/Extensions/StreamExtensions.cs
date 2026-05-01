@@ -30,7 +30,6 @@
         }
 
         // ● text streams
-
         /// <summary>
         /// Returns the Encoding if a Preamble exists in a text buffer, if any, else null.
         /// </summary>

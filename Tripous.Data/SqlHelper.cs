@@ -211,10 +211,10 @@ public class SqlHelper
     static public string FormatFieldNameAlias(string TableNameOrAlias, string FieldName, string Alias, int Spaces)
     {
         if (string.IsNullOrWhiteSpace(FieldName))
-            throw new ArgumentNullException("TableNameOrAlias");
+            throw new TripousArgumentNullException("TableNameOrAlias");
 
         if (string.IsNullOrWhiteSpace(FieldName))
-            throw new ArgumentNullException("FieldName");
+            throw new TripousArgumentNullException("FieldName");
 
         return FormatFieldNameAlias(TableNameOrAlias + "." + FieldName, Alias, Spaces);
     }
@@ -225,10 +225,10 @@ public class SqlHelper
     static public string FormatFieldNameAlias(string FieldName, string Alias, int Spaces)
     {
         if (string.IsNullOrWhiteSpace(FieldName))
-            throw new ArgumentNullException("FieldName");
+            throw new TripousArgumentNullException("FieldName");
 
         if (string.IsNullOrWhiteSpace(FieldName))
-            throw new ArgumentNullException("Alias");
+            throw new TripousArgumentNullException("Alias");
 
         return FieldName.PadRight(Spaces, ' ') + " as " + Alias + ", " + Environment.NewLine;
     }
@@ -239,7 +239,7 @@ public class SqlHelper
     static public string FormatTableNameAlias(string TableName, string Alias)
     {
         if (string.IsNullOrWhiteSpace(TableName))
-            throw new ArgumentNullException("TableName");
+            throw new TripousArgumentNullException("TableName");
 
         if (string.IsNullOrWhiteSpace(Alias) || Sys.IsSameText(TableName, Alias))
             return TableName;

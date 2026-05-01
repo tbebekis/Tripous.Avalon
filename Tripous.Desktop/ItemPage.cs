@@ -2,7 +2,10 @@ namespace Tripous.Desktop;
  
 public class ItemPage : UserControl
 {
-    private Grid CreateColumnGrid()
+    // ● private
+    protected DataForm fDataForm;
+ 
+    Grid CreateColumnGrid()
     {
         Grid Grid = new();
 
@@ -11,7 +14,7 @@ public class ItemPage : UserControl
 
         return Grid;
     }
-    private void AddFieldRow(Grid Grid, int RowIndex, FieldDef Field)
+    void AddFieldRow(Grid Grid, int RowIndex, FieldDef Field)
     {
         Grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
 
@@ -24,7 +27,7 @@ public class ItemPage : UserControl
                 Margin = new Thickness(0, 0, 0, 6)
             };
 
-            ControlBindingHelper.Bind(DataForm, Box, Field.Name, Field);
+            Binder.Bind(Box, Field.Name, Field);
 
             Grid.SetRow(Box, RowIndex);
             Grid.SetColumn(Box, 0);
@@ -47,26 +50,26 @@ public class ItemPage : UserControl
         if (Field.HasLookup)
         {
             ComboBox Box = new();
-            ControlBindingHelper.BindLookup(DataForm, Box, Field.Name, Field);
+            Binder.BindLookup(Box, Field.Name, Field);
             Editor = Box;
         }
         else if (Field.IsDateTime)
         {
             DatePicker Box = new();
-            ControlBindingHelper.Bind(DataForm, Box, Field.Name, Field);
+            Binder.Bind(Box, Field.Name, Field);
             Editor = Box;
         }
         else if (Field.IsNumeric)
         {
             TextBox Box = new();
             Box.TextAlignment = TextAlignment.Right;
-            ControlBindingHelper.Bind(DataForm, Box, Field);
+            Binder.Bind(Box, Field);
             Editor = Box;
         }
         else
         {
             TextBox Box = new();
-            ControlBindingHelper.Bind(DataForm, Box, Field);
+            Binder.Bind(Box, Field);
             Editor = Box;
         }
 
@@ -84,6 +87,11 @@ public class ItemPage : UserControl
     }
     public virtual void Bind()
     {
+        Binder.Clear();
+        
+        if (Binder.RowProvider == null)
+            Binder.RowProvider = DataForm.Module;
+        
         TableDef Table = ModuleDef.Table;
         if (Table == null)
             return;
@@ -152,11 +160,26 @@ public class ItemPage : UserControl
         Content = Root;
     }
 
+    // ● construction
+    public ItemPage()
+    {
+    }
+    
     // ● properties
+    public ItemBinder Binder { get; private set; } = new();
+
     /// <summary>
     /// The parent form
     /// </summary>
-    public DataForm DataForm { get; internal set; }
+    public DataForm DataForm
+    {
+        get => fDataForm;
+        set
+        {
+            fDataForm = value;
+            Binder.RowProvider = value;
+        }
+    }
     /// <summary>
     /// Form context
     /// </summary>
@@ -173,10 +196,6 @@ public class ItemPage : UserControl
     /// The data module
     /// </summary>
     public DataModule Module => DataFormContext.Module;
-    /// <summary>
-    /// Returns the form mode
-    /// </summary>
-    public virtual FormType FormType => FormDef.FormType;
     /// <summary>
     /// Form actions the form is not allowed to execute.
     /// </summary>

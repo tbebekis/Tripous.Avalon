@@ -35,7 +35,7 @@ static public class TypeResolver
         if (string.IsNullOrWhiteSpace(ClassName))
         {
             if (ThrowIfNotFound)
-                throw new ArgumentNullException(nameof(ClassName));
+                throw new TripousArgumentNullException(nameof(ClassName));
 
             return null;
         }
@@ -54,13 +54,13 @@ static public class TypeResolver
         if (Result == null)
         {
             if (ThrowIfNotFound)
-                throw new ApplicationException($"Type '{ClassName}' not found.");
+                throw new TripousException($"Type '{ClassName}' not found.");
 
             return null;
         }
 
         if (BaseType != null && !BaseType.IsAssignableFrom(Result))
-            throw new ApplicationException($"Type '{ClassName}' is not assignable to '{BaseType.FullName}'.");
+            throw new TripousException($"Type '{ClassName}' is not assignable to '{BaseType.FullName}'.");
 
         return Result;
     }

@@ -95,7 +95,7 @@ public class MemTable : DataTable
         if (IsIntegerType(DataType))
             return Convert.ToString(Value, CultureInfo.InvariantCulture);
 
-        throw new ApplicationException($"Unsupported relation field type '{DataType.FullName}'.");
+        throw new TripousDataException($"Unsupported relation field type '{DataType.FullName}'.");
     }
     static string CreateRowFilter(DataRow MasterRow, string[] MasterFields, string[] DetailFields, DataColumn[] MasterColumns, DataColumn[] DetailColumns)
     {
@@ -245,7 +245,7 @@ public class MemTable : DataTable
     protected override void OnTableNewRow(DataTableNewRowEventArgs e)
     {
         if (e.Row == null)
-            throw new ArgumentNullException(nameof(e.Row));
+            throw new TripousArgumentNullException(nameof(e.Row));
 
         // auto-generated Guid Key
         if (AutoGenerateGuidKeys && KeyFields != null && KeyFields.Length == 1)
@@ -263,10 +263,10 @@ public class MemTable : DataTable
         if (IsDetail)
         {
             if (Master == null)
-                throw new ApplicationException($"Table '{TableName}' has no master.");
+                throw new TripousDataException($"Table '{TableName}' has no master.");
 
             if (Master.CurrentRow == null)
-                throw new ApplicationException(
+                throw new TripousDataException(
                     $"Table '{TableName}': master table '{Master.TableName}' has no current row.");
 
             ValidateRelationSchema();
@@ -367,15 +367,22 @@ public class MemTable : DataTable
     static public DataRowView GetDataRowView(DataRow Row, DataView DataView) => DataView.Cast<DataRowView>().FirstOrDefault(drv => drv.Row == Row);
  
     // ● public 
+    public void UpdateCurrentRow()
+    {
+        if (Rows.Count > 0)
+            CurrentRow = Rows[0];
+        else
+            CurrentRow = null;
+    }
     public DataColumn[] GetColumns(string[] ColumnNames)
     {
         if (ColumnNames == null || ColumnNames.Length == 0)
-            throw new ApplicationException($"Table {TableName}: No column names specified.");
+            throw new TripousDataException($"Table {TableName}: No column names specified.");
 
         return ColumnNames
             .Select(name => Columns.Contains(name)
                 ? Columns[name]
-                : throw new ApplicationException($"Table {TableName}: Column '{name}' not found."))
+                : throw new TripousDataException($"Table {TableName}: Column '{name}' not found."))
             .ToArray();
     }
     /// <summary>
@@ -403,7 +410,7 @@ public class MemTable : DataTable
     public void AddDetail(MemTable tblDetail)
     {
         if (this.DataSet == null)
-            throw new ApplicationException("Cannot be a master table without belonging to a DataSet.");
+            throw new TripousDataException("Cannot be a master table without belonging to a DataSet.");
 
         if (tblDetail.DataSet != this.DataSet)
             AddToDataSet(this.DataSet, tblDetail);
@@ -413,10 +420,10 @@ public class MemTable : DataTable
     public void RemoveDetail(MemTable tblDetail)
     {
         if (tblDetail == null)
-            throw new ArgumentNullException(nameof(tblDetail));
+            throw new TripousArgumentNullException(nameof(tblDetail));
 
         if (!Details.Contains(tblDetail))
-            throw new ApplicationException($"Table '{tblDetail.TableName}' is not a detail of '{TableName}'.");
+            throw new TripousDataException($"Table '{tblDetail.TableName}' is not a detail of '{TableName}'.");
 
         while (tblDetail.Details.Active)
             tblDetail.Details.Active = false;
@@ -430,13 +437,13 @@ public class MemTable : DataTable
     public DataRow[] GetChildRows(DataRow MasterRow)
     {
         if (MasterRow == null)
-            throw new ArgumentNullException(nameof(MasterRow));
+            throw new TripousArgumentNullException(nameof(MasterRow));
 
         if (Master == null)
-            throw new ApplicationException($"Table '{TableName}' has no master table.");
+            throw new TripousDataException($"Table '{TableName}' has no master table.");
 
         if (!ReferenceEquals(MasterRow.Table, Master))
-            throw new ApplicationException("Master row does not belong to the master table.");
+            throw new TripousDataException("Master row does not belong to the master table.");
 
         ValidateRelationSchema();
 
@@ -449,16 +456,16 @@ public class MemTable : DataTable
     public void ValidateRelationSchema()
     {
         if (Master == null)
-            throw new ApplicationException($"Table '{TableName}' has no master.");
+            throw new TripousDataException($"Table '{TableName}' has no master.");
 
         if (MasterFields == null || MasterFields.Length == 0)
-            throw new ApplicationException($"Table '{TableName}': MasterFields not defined.");
+            throw new TripousDataException($"Table '{TableName}': MasterFields not defined.");
 
         if (DetailFields == null || DetailFields.Length == 0)
-            throw new ApplicationException($"Table '{TableName}': DetailFields not defined.");
+            throw new TripousDataException($"Table '{TableName}': DetailFields not defined.");
 
         if (MasterFields.Length != DetailFields.Length)
-            throw new ApplicationException($"Table '{TableName}': MasterFields and DetailFields count mismatch.");
+            throw new TripousDataException($"Table '{TableName}': MasterFields and DetailFields count mismatch.");
 
         DataColumn[] ParentColumns = Master.GetColumns(MasterFields);
         DataColumn[] ChildColumns = GetColumns(DetailFields);
@@ -469,15 +476,15 @@ public class MemTable : DataTable
             Type ChildType = ChildColumns[i].DataType;
 
             if (!IsSupportedRelationFieldType(ParentType))
-                throw new ApplicationException(
+                throw new TripousDataException(
                     $"Table '{Master.TableName}': Column '{ParentColumns[i].ColumnName}' has unsupported relation type '{ParentType.Name}'.");
 
             if (!IsSupportedRelationFieldType(ChildType))
-                throw new ApplicationException(
+                throw new TripousDataException(
                     $"Table '{TableName}': Column '{ChildColumns[i].ColumnName}' has unsupported relation type '{ChildType.Name}'.");
 
             if (ParentType != ChildType)
-                throw new ApplicationException(
+                throw new TripousDataException(
                     $"Table '{Master.TableName}' -> '{TableName}': Field type mismatch between '{ParentColumns[i].ColumnName}' and '{ChildColumns[i].ColumnName}'.");
         }
     }
@@ -635,7 +642,7 @@ public class MemTable : DataTable
     {
         string ErrorText = GetTopTableErrors();
         if (!string.IsNullOrWhiteSpace(ErrorText))
-            throw new ApplicationException(ErrorText);
+            throw new TripousDataException(ErrorText);
     }
 
     // ● properties 

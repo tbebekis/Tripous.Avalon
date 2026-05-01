@@ -16,7 +16,7 @@
         static public object AsObject(this DataRow row, string ColumnName, object Default)
         {
             if (Default == null)
-                throw new ArgumentNullException("Default", "Default parameter can not be null");
+                throw new TripousArgumentNullException("Default", "Default parameter can not be null");
 
             return AsObject(row, row.Table.Columns.IndexOf(ColumnName), Default);
         }
@@ -114,7 +114,7 @@
         static public object AsObject(this DataRow row, int ColumnIndex, object Default)
         {
             if (Default == null)
-                throw new ArgumentNullException("Default", "Default parameter can not be null");
+                throw new TripousArgumentNullException("Default", "Default parameter can not be null");
 
             if ((ColumnIndex >= 0) && (ColumnIndex <= row.Table.Columns.Count - 1))
             {

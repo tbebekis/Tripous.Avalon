@@ -1,5 +1,8 @@
 namespace DesktopApp;
 
+
+
+
 static public partial class AppHost
 {
     static void RegisterSchema_01()
@@ -10,7 +13,7 @@ static public partial class AppHost
         // ● Country
         string SqlText = @"
 CREATE TABLE Country (
-   Id integer @NOT_NULL primary key,
+   Id  @NVARCHAR(40)  @NOT_NULL primary key,
    Name @NVARCHAR(96) @NOT_NULL
 )
 ";
@@ -19,7 +22,7 @@ CREATE TABLE Country (
         // ● Category
         SqlText = @"
 CREATE TABLE Category (
-   Id integer @NOT_NULL primary key,
+   Id @NVARCHAR(40)  @NOT_NULL primary key,
    Name @NVARCHAR(96) @NOT_NULL
 )
 ";
@@ -28,9 +31,9 @@ CREATE TABLE Category (
         // ● Product
         SqlText = @"
 CREATE TABLE Product (
-   Id integer @NOT_NULL primary key,
+   Id @NVARCHAR(40)  @NOT_NULL primary key,
    Name @NVARCHAR(96) @NOT_NULL,
-   CategoryId integer @NOT_NULL,
+   CategoryId @NVARCHAR(40) @NOT_NULL,
    UnitPrice @DECIMAL @NOT_NULL,
    UnitCost @DECIMAL @NOT_NULL,
    FOREIGN KEY (CategoryId) REFERENCES Category(Id)
@@ -41,9 +44,9 @@ CREATE TABLE Product (
         // ● Customer
         SqlText = @"
 CREATE TABLE Customer (
-   Id integer @NOT_NULL primary key,
+   Id @NVARCHAR(40)  @NOT_NULL primary key,
    Name @NVARCHAR(96) @NOT_NULL,
-   CountryId integer @NOT_NULL,
+   CountryId @NVARCHAR(40) @NOT_NULL,
    FOREIGN KEY (CountryId) REFERENCES Country(Id)
 )
 ";
@@ -52,9 +55,9 @@ CREATE TABLE Customer (
         // ● Trade
         SqlText = @"
 CREATE TABLE Trade (
-   Id integer @NOT_NULL primary key,
+   Id @NVARCHAR(40)  @NOT_NULL primary key,
    Date @DATE @NOT_NULL,
-   CustomerId integer @NOT_NULL,
+   CustomerId @NVARCHAR(40) @NOT_NULL,
    TradeType integer @NOT_NULL,
    Status integer @NOT_NULL,
    FOREIGN KEY (CustomerId) REFERENCES Customer(Id)
@@ -65,9 +68,9 @@ CREATE TABLE Trade (
         // ● TradeLines
         SqlText = @"
 CREATE TABLE TradeLines (
-   Id integer @NOT_NULL primary key,
-   TradeId integer @NOT_NULL,
-   ProductId integer @NOT_NULL,
+   Id @NVARCHAR(40)  @NOT_NULL primary key,
+   TradeId @NVARCHAR(40) @NOT_NULL,
+   ProductId @NVARCHAR(40) @NOT_NULL,
    Qty @DECIMAL @NOT_NULL,
    UnitPrice @DECIMAL @NOT_NULL,
    NetAmount @DECIMAL @NOT_NULL,

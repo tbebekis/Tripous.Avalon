@@ -1,6 +1,6 @@
 namespace Tripous.Data;
 
-public class DataModule
+public class DataModule: IRowProvider
 {
     // ● operation flags 
     protected int fInserting;
@@ -48,7 +48,7 @@ public class DataModule
     /// </summary>
     protected virtual void SetDefaultValues()
     {
-        if (this.State == DataMode.Insert || (IsListModule && Commiting))
+        if (Inserting || Commiting)
         {
             MemTable Table;
             List<TableDef> TableDefs = ModuleDef.GetTables();
@@ -68,7 +68,7 @@ public class DataModule
     /// </summary>
     protected virtual void SetDefaultValues(DataTable Table, TableDef TableDef)
     {
-        if (this.State == DataMode.Insert || (IsListModule && Commiting))
+        if (Inserting || Commiting)
         {
             foreach (DataRow Row in Table.Rows)
                 SetDefaultValues(Table, Row, TableDef);
@@ -81,22 +81,6 @@ public class DataModule
     {
         if (Row.RowState == DataRowState.Deleted)
             return;
-
-        if (ModuleDef.Table.Name.IsSameText(Row.Table.TableName))
-        {
-            if (IsListModule)
-            {
-                if (!Commiting)
-                    return;
-            }
-            else if (this.State != DataMode.Insert)
-            {
-                return;
-            }
-        }
-
-        bool Flag = (this.State == DataMode.Insert || (IsListModule && Commiting)) && (Row.RowState != DataRowState.Deleted);
-
 
         Tuple<TableDef, FieldDef> Pair;
         FieldDef FieldDes;
@@ -167,6 +151,28 @@ public class DataModule
         EndEditInternal(tblItem);
     }
     
+    /// <summary>
+    /// Ensures that any TableDef is updated with the actual table schema from the database.
+    /// </summary>
+    void UpdateTableSchema(TableDef TableDef)
+    {
+        void UpdateSchema(TableDef T)
+        {
+            TableDef.UpdateReferences();
+
+            string StatementName = $"{Name}.{T.Name}";
+            string TableName = T.Name;
+        
+            DataTable SchemaTable = Store.GetNativeSchemaFromTableName(StatementName, TableName);
+            T.UpdateFrom(SchemaTable);
+            
+            if (T.Details != null)
+                foreach (var Item in T.Details)
+                    UpdateSchema(Item);
+        }
+
+        UpdateSchema(TableDef);
+    }
     
     // ● construction
     /// <summary>
@@ -174,11 +180,13 @@ public class DataModule
     /// </summary>
     public DataModule()
     {
-        DataSet = new DataSet();
-        tblList = new MemTable("List");
-        tblItem = new MemTable("Item");
-        DataSet.Tables.Add(tblList);
-        DataSet.Tables.Add(tblItem);
+        //DataSet = new DataSet();
+        //tblList = new MemTable("List");
+        //tblItem = new MemTable("Item");
+        //DataSet.Tables.Add(tblList);
+        //DataSet.Tables.Add(tblItem);
+        
+
     }
     
     // ● list
@@ -191,7 +199,7 @@ public class DataModule
         if (this.ModuleDef == null)
         {
             if (ModuleDef == null)
-                throw new ArgumentNullException(nameof(ModuleDef));
+                throw new TripousArgumentNullException(nameof(ModuleDef));
             
             this.ModuleDef = ModuleDef;
             ModuleDef.UpdateReferences();
@@ -204,9 +212,13 @@ public class DataModule
  
             // ● SqlStore
             Store = SqlStores.CreateSqlStore(ConnectionInfo);
- 
-            // ● ensure that any TableDef is updated with the actual table schema from the database.
-            ModuleDef.UpdateTableSchema(Store);
+            
+            // ● DataSet
+            DataSet = new DataSet("DS_" + ModuleDef.Name);
+            tblList = new MemTable("List");
+            DataSet.Tables.Add(tblList);
+            
+            List<TableDef> TableDefs = ModuleDef.GetTables();
             
             // ● get the sql generation flags
             // -----------------------------------------------------------
@@ -218,30 +230,31 @@ public class DataModule
                     Result |= BuildSqlFlags.GuidOids;
                 else if (Store.Provider.OidMode == OidMode.Generator)
                     Result |= BuildSqlFlags.OidModeIsBefore;
-
-                if (IsListModule)
-                    Result |= BuildSqlFlags.IncludeBlobFields;
+         
+                Result |= BuildSqlFlags.IncludeBlobFields;
 
                 return Result;
             }
             // -----------------------------------------------------------
             BuildSqlFlags SqlFlags = GetBuildSqlFlags();
-            
-            DataSet = new DataSet("DS_" + ModuleDef.Name);
-            
+ 
             // ● for all Tables of the module definition
-            // 1. create sql statements 
-            // 2. create DataTable objects     
-            List<TableDef> TableDefs = ModuleDef.GetTables();
+            // - ensure that any TableDef is updated with the actual table schema from the database.
+            // - create sql statements 
+            // - create DataTable objects    
+            
             MemTable Table;
             TableSqls Sqls;
             foreach (var TableDef in TableDefs)
             {
+                UpdateTableSchema(TableDef);
+                
                 Table = TableDef.CreateDescriptorTable(Store);  // TableDef.CreateDescriptorTable(Store, table => DataSet.Tables.Add(table));
+                DataSet.Tables.Add(Table);
+                
                 Sqls = TableDef.BuildSql(SqlFlags);
                 Table.Sqls.AssignFrom(Sqls);
                 Table.AutoGenerateGuidKeys = ModuleDef.GuidOids;
-                DataSet.Tables.Add(Table);
             }
             
             tblItem = FindTable(ModuleDef.Table.Name);
@@ -307,6 +320,11 @@ public class DataModule
 
             TableSet.TransactionStageCommit += new EventHandler<TransactionStageEventArgs>(TableSet_TransactionStageCommit);
             TableSet.TransactionStageDelete += new EventHandler<TransactionStageEventArgs>(TableSet_TransactionStageDelete);
+            
+            tblItem.CurrentRowChanged += (sender, args) =>
+            {
+                this.CurrentRowChanged?.Invoke(this, args);
+            };
         }
         
     }
@@ -337,11 +355,11 @@ public class DataModule
     /// </summary>
     public virtual void Insert()
     {
-        CheckCanInsert();
-
         Inserting = true;
         try
         {
+            CheckCanInsert();
+            
             TableSet.ItemProcessInsert();
             SetDefaultValues();
         }
@@ -356,15 +374,14 @@ public class DataModule
     /// </summary>
     public virtual void Edit(object RowId)
     {
-        
         CheckCanEdit(RowId);
 
         Editing = true;
         try
         {
             TableSet.ItemLoad(RowId);
-            LastEditedId = RowId;
             AcceptChanges();
+            LastEditedId = RowId;
         }
         finally
         {
@@ -399,16 +416,16 @@ public class DataModule
     public virtual object Commit(bool Reselect = false)
     {
         object Result = null;
-         
-        EndEdit();
-        SetDefaultValues();
-        EndEdit();
-        
-        CheckCanCommit(Reselect);
-
+ 
         Commiting = true;
         try
         {
+            EndEdit();
+            SetDefaultValues();
+            EndEdit();
+        
+            CheckCanCommit(Reselect);
+            
             Result = TableSet.ItemCommit(Reselect);
             LastCommitedId = Result;
             AcceptChanges();
@@ -438,8 +455,6 @@ public class DataModule
     /// </summary>
     public virtual void CheckCanInsert()
     {
-        if (IsListModule)
-            throw new DataModuleException("Can not insert item in a list module.");
     }
     /// <summary>
     /// Called by the <see cref="Edit"/> and throws an exception if, for some reason,
@@ -447,9 +462,6 @@ public class DataModule
     /// </summary>
     public virtual void CheckCanEdit(object RowId)
     {
-        if (IsListModule)
-            throw new DataModuleException("Can not edit item in a list module.");
-        
         if (Sys.IsNull(RowId))
             throw new DataModuleException("Can not edit item. Invalid RowId");
     }
@@ -459,9 +471,6 @@ public class DataModule
     /// </summary>
     public virtual void CheckCanDelete(object RowId)
     {
-        if (IsListModule)
-            throw new DataModuleException("Can not delete item in a list module.");
-
         if (Sys.IsNull(RowId))
             throw new DataModuleException("Can not delete item. Invalid RowId");
     }
@@ -471,8 +480,6 @@ public class DataModule
     /// </summary>
     public virtual void CheckCanCommit(bool Reselect)
     {
-        if (IsListModule)
-            throw new DataModuleException("Can not commit item in a list module.");
     }
 
     /// <summary>
@@ -512,16 +519,7 @@ public class DataModule
         get => tblItem.DetailsActive;
         set => tblItem.DetailsActive = value;
     }
-
-    /// <summary>
-    /// True if this is a list module
-    /// </summary>
-    public bool IsListModule => ModuleDef.IsListModule;
-    /// <summary>
-    /// True if this is a master module.
-    /// </summary>
-    public bool IsMasterModule => !IsListModule;
-    
+ 
     /// <summary>
     /// Returns the "data State" of the module. It could be Insert, Edit or None.
     /// <para>The State remains Insert or Edit after the Insert() or Edit() is called. 
@@ -610,11 +608,11 @@ public class DataModule
     /// Returns the first row of the tblItem.
     /// <para>WARNING: Valid only in insert and edit mode.</para>
     /// </summary>
-    public virtual DataRow Row => tblItem.CurrentRow;
+    public virtual DataRow CurrentRow => tblItem.CurrentRow;
     /// <summary>
     /// Returns the value of the Id field of the tblItem
     /// </summary>
-    public virtual object Id =>  Row != null ? Row[tblItem.KeyFields[0]] : DBNull.Value;
+    public virtual object Id =>  CurrentRow != null ? CurrentRow[tblItem.KeyFields[0]] : DBNull.Value;
     /// <summary>
     /// Returns the id of the item the last Edit() operation has loaded
     /// </summary>
@@ -627,4 +625,9 @@ public class DataModule
     /// Returns the Id of the last delete
     /// </summary>
     public object LastDeletedId { get; protected set; }
+    
+    // ● events
+    public event EventHandler CurrentRowChanged;
 }
+
+ 

@@ -34,7 +34,7 @@
                 BindingFlags BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
                 ConstructorInfo Constructor = ClassType.GetConstructor(BindingFlags, null, Params, null);
                 if (Constructor == null)
-                    throw new ApplicationException("Constructor not found for class: " + ClassType.Name);
+                    throw new TripousException("Constructor not found for class: " + ClassType.Name);
                 return Constructor.Invoke(Args);
             }
 

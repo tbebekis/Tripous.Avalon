@@ -386,7 +386,7 @@ public class DataTableDef
             Throw($"Not supported data-type for primary key: {F.DataType.ToString()}");
 
         // field data-type
-        Count = Fields.Count(item => item.DataType == DataFieldType.Unknown);
+        Count = Fields.Count(item => item.DataType == DataFieldType.None);
         if (Count > 1)
             Throw($"Columns without data type.");
 

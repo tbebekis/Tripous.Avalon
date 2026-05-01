@@ -9,13 +9,16 @@ public class DefList<T>: IEnumerable<T>, IEnumerable where T: IDef
     protected virtual void CheckAdding(T Def)
     {
         if (Def == null)
-            throw new ArgumentNullException(nameof(Def));
+            throw new TripousArgumentNullException(nameof(Def));
         
         if (string.IsNullOrWhiteSpace(Def.Name))
-            throw new ArgumentNullException(nameof(Def.Name));
+            throw new TripousArgumentNullException(nameof(Def.Name));
 
         if (Contains(Def.Name))
-            throw new ApplicationException($"{nameof(Def)} '{Def.Name}' is already registered.");
+            throw new TripousException($"{nameof(Def)} '{Def.Name}' is already registered.");
+        
+        if (List.Contains(Def))
+            throw new TripousException($"{nameof(Def)} instance '{Def}' is already registered.");
     }
     
     // ● public
@@ -45,7 +48,7 @@ public class DefList<T>: IEnumerable<T>, IEnumerable where T: IDef
     {
         T Result  = List.FirstOrDefault(x => Sys.IsSameText(Name, x.Name));
         if (Result == null)
-            throw new ApplicationException($"{typeof(T)} not found: {Name}");
+            throw new TripousException($"{typeof(T)} not found: {Name}");
         return Result;
     }
 

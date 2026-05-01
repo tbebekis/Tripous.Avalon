@@ -12,12 +12,12 @@ public class DataFormContext: FormContext
     static public DataFormContext Create(string FormId, string FormRegistryName, Control Caller = null)
     {
         if (string.IsNullOrWhiteSpace(FormRegistryName))
-            throw new ArgumentNullException(nameof(FormRegistryName));
+            throw new TripousArgumentNullException(nameof(FormRegistryName));
 
-        FormDef FormDef = UiRegistry.Forms.Get(FormRegistryName);
+        FormDef FormDef = DesktopRegistry.Forms.Get(FormRegistryName);
 
         if (string.IsNullOrWhiteSpace(FormDef.Module))
-            throw new ApplicationException($"Form '{FormRegistryName}' has no Module.");
+            throw new TripousDesktopException($"Form '{FormRegistryName}' has no Module.");
 
         ModuleDef ModuleDef = DataRegistry.Modules.Get(FormDef.Module);
 
@@ -79,8 +79,5 @@ public class DataFormContext: FormContext
     /// </summary>
     public object RowId { get; set; }
 
-    /// <summary>
-    /// Returns true if this is a fixed-list (no row insert-delete allowed) form.
-    /// </summary>
-    public bool IsFixedListForm { get; set; }
+ 
 }
