@@ -16,6 +16,7 @@ public class FieldDef: BaseDef
     string fLookupSource;
     string fLocator;
     string fDefaultValue = Sys.NULL;
+    string fGroup;
 
     // ● construction
     /// <summary>
@@ -52,6 +53,7 @@ public class FieldDef: BaseDef
 
         if (this.DataType == DataFieldType.None)
             Sys.Throw(Texts.GS($"E_{typeof(FieldDef)}_DataTypeIsEmpty", $"{typeof(FieldDef)} DataType is Unknown. "));
+         
     }
 
     // ● for fluent syntax 
@@ -149,6 +151,14 @@ public class FieldDef: BaseDef
         get => fDataType;
         set { if (fDataType != value) { fDataType = value; NotifyPropertyChanged(nameof(DataType)); } }
     }
+    /// <summary>
+    /// The group the field should be displayed into, e.g. General, Address, Billing, etc.
+    /// </summary>
+    public string Group
+    {
+        get => !string.IsNullOrWhiteSpace(fGroup)? fGroup: Sys.GENERAL;
+        set { if (fGroup != value) { fGroup = value; NotifyPropertyChanged(nameof(Group)); } }
+    }
     public int MaxLength
     {
         get => fSize > 0 ? fSize : -1;
@@ -237,7 +247,7 @@ public class FieldDef: BaseDef
     /// <summary>
     /// Returns true when the Boolean flag is set in Flags.
     /// </summary>
-    [JsonIgnore] public bool IsBoolean => (FieldFlags.Boolean & Flags) == FieldFlags.Boolean;
+    [JsonIgnore] public bool IsBoolean => Flags.HasFlag(FieldFlags.Boolean) || DataType == DataFieldType.Boolean;
     /// <summary>
     /// Returns true when the Memo flag is set in Flags.
     /// </summary>
@@ -271,5 +281,7 @@ public class FieldDef: BaseDef
     /// Returns true when the NoInsertUpdate flag is set in Flags.
     /// </summary>
     [JsonIgnore] public bool IsNoInsertOrUpdate => (FieldFlags.NoInsertUpdate & Flags) == FieldFlags.NoInsertUpdate;
-    [JsonIgnore] public bool HasLookup => !string.IsNullOrWhiteSpace(LookupSource);
+    
+    [JsonIgnore] public bool IsBindable => Flags.HasFlag(FieldFlags.Visible) && !DataType.In(DataFieldType.None | DataFieldType.Blob);
+    [JsonIgnore] public bool IsLookup => !string.IsNullOrWhiteSpace(LookupSource);
 }

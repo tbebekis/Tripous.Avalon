@@ -1,6 +1,6 @@
 namespace Tripous.Desktop;
 
-public partial class DataForm : AppForm, IRowProvider
+public partial class DataForm : AppForm
 {
     protected DataFormState fFormState = DataFormState.None;
     protected DataFormAction LastAction = DataFormAction.None;
@@ -11,149 +11,45 @@ public partial class DataForm : AppForm, IRowProvider
 
     protected Button btnHome;
     protected Button btnFind;
+    protected Border sepFilters;
+ 
     protected Button btnList;
-
+    protected ToggleButton btnToggleIds;
     protected Button btnInsert;
     protected Button btnEdit;
     protected Button btnDelete;
+    protected Border sepEdit;
 
     protected Button btnSave;
+    protected Border sepSave;
 
     protected Button btnCancel;
     protected Button btnOK;
+    protected Border sepCancelOK;
+    
     protected Button btnClose;
     
     protected ToolBar SelectListToolBar;
     protected ComboBox cboSelectList;
-    
+ 
+    // ● event handlers
     void gridList_OnDoubleTapped(object sender, TappedEventArgs e)
     { 
         _ = Execute(DataFormAction.Edit);
     }
- 
-    /// <summary>
-    /// Processes the form options
-    /// </summary>
-    protected virtual void ProcessFormOptions()
+    void gridList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-    }
- 
-    /// <summary>
-    /// Updates the user interface, title, enable-disable buttons etc.
-    /// </summary>
-    public virtual void UpdateUi()
-    {
-        EnableCommands();
-        EnableControls();
-    }
-    /// <summary>
-    /// Enables and disables buttons and menu items.
-    /// </summary>
-    protected virtual void EnableCommands()
-    {
-        // ● visible ===============================================================
-        btnHome.IsVisible = !IsSingleSelect;
-        btnFind.IsVisible = btnHome.IsVisible;
-
-        btnList.IsVisible = !IsReadOnlyForm;
-
-        btnInsert.IsVisible = !IsReadOnlyForm;
-        btnEdit.IsVisible = !IsReadOnlyForm;
-        btnDelete.IsVisible = !IsReadOnlyForm;
-        btnInsert.IsVisible = !IsReadOnlyForm;
-
-        btnCancel.IsVisible = true;                       // btnCancel - visible with all form modes
-        btnOK.IsVisible = IsModal;
-        btnClose.IsVisible = !IsModal;      // btnClose - visible with non-list master forms
-
-        // ● enable ================================================================
-        btnHome.IsEnabled = btnHome.ContextMenu != null && btnHome.ContextMenu.Items.Count > 0;
-        btnFind.IsEnabled = !DataFormAction.Find.In(InvalidActions);
-        btnList.IsEnabled = !DataFormAction.List.In(InvalidActions);
-        
-        btnInsert.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && !FormState.In(DataFormState.Insert | DataFormState.Edit);
-        btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && !FormState.In(DataFormState.Insert | DataFormState.Edit) ;
-        btnDelete.IsEnabled = !DataFormAction.Delete.In(InvalidActions) && !IsListEmpty;
-        btnSave.IsEnabled = FormState.In(DataFormState.Insert | DataFormState.Edit);
-        
-        // Edit states: cancels edits and returns to List state
-        // List state and Modal: cancels the form
-        btnCancel.IsEnabled = FormState.In(DataFormState.Insert | DataFormState.Edit) || (IsModal && FormState == DataFormState.List);
- 
-        // btnOK - accessible in List state only with modal forms
-        // List state and Modal: closes the form with OK and returns the current row               
-        btnOK.IsEnabled =IsModal && FormState == DataFormState.List;
-
-        // List state: closes a non-modal form                
-        btnClose.IsEnabled = FormState == DataFormState.List;
-    }
-    /// <summary>
-    /// Enables and disables controls.
-    /// </summary>
-    protected virtual void EnableControls()
-    {
-        // ● visible ===============================================================
-        pnlSideBar.IsVisible = !IsSingleSelect;
-        Splitter.IsVisible = pnlSideBar.IsVisible;
-
-        // ● enable ================================================================
-        gridList.IsReadOnly = true;
-    }
-    
-    // ● miscs
-    /// <summary>
-    /// Passes any result to the caller of the form, if any. Useful with modal forms.
-    /// </summary>
-    protected virtual void PassResultBack()
-    {
-    }
-    /// <summary>
-    /// Returns the control that is last added to the container
-    /// </summary>
-    protected virtual Control FindFirstFocusableControl(Control Container)
-    {
-        return null;
-    }
-    /// <summary>
-    /// Handles a broadcaster event.
-    /// </summary>
-    protected virtual void HandleBroadcasterEvent(string EventName, IDictionary<string, object> Args)
-    {
-        switch (EventName)
+        if (e.AddedItems == null || e.AddedItems.Count == 0)
         {
-            case "NOT_EXISTED_EVENT_NAME": 
-                break;
+            ListCurrentRow = null;
+        }
+        else if (e.AddedItems[0] is DataRowView)
+        {
+            DataRowView RowView = e.AddedItems[0] as DataRowView;
+            ListCurrentRow = RowView.Row;
         }
     }
-    /// <summary>
-    /// It is called by the OnKeyDown() method. 
-    /// <para>Returns true if processes the key</para>
-    /// </summary>
-    protected virtual bool ProcessKeyDown(KeyEventArgs e)
-    {
-        return false;
-    }
-    /// <summary>
-    /// It is called when the escape key is pressed. 
-    /// <para>Returning true indicates that the key press is handled.</para>
-    /// <para>NOTE: By default, when is a modal dialog, it sets <see cref="ModalResult"/> to Cancel, and closes the form.</para>
-    /// </summary>
-    protected virtual bool ProcessEscapeKey()
-    {
-        if (!IsModal && this.FormState == DataFormState.List)
-        {
-            this.CloseForm();
-            return true;
-        }
-        else if (this.IsModal)
-        {
-            this.ModalResult = ModalResult.Cancel;
-            return true;
-        }
-
-        return false;
-    }
-    
+ 
     // ● overrides
     /// <summary>
     /// Called when the control is added to a rooted visual tree. 
@@ -187,6 +83,7 @@ public partial class DataForm : AppForm, IRowProvider
         base.OnKeyDown(e);
     }
  
+    // ● initialization
     /// <summary>
     /// Called just before form initialization
     /// </summary>
@@ -201,10 +98,6 @@ public partial class DataForm : AppForm, IRowProvider
     /// </summary>
     protected override void FormInitialize()
     {
-        this.Module.CurrentRowChanged += (sender, args) =>
-        {
-            this.CurrentRowChanged?.Invoke(this, args);
-        };
     }
     /// <summary>
     /// Called just after form initialization
@@ -212,7 +105,6 @@ public partial class DataForm : AppForm, IRowProvider
     protected override void FormInitialized()
     {
     }
-    
     /// <summary>
     /// Executes any first command on the form
     /// </summary>
@@ -224,25 +116,20 @@ public partial class DataForm : AppForm, IRowProvider
         
         if (StartAction == DataFormAction.List || StartAction == DataFormAction.Edit || StartAction == DataFormAction.Insert)
         {
+            if (StartAction == DataFormAction.List)
+                ListSelect();
+            
             await Execute(StartAction);
         }
     }
- 
-    // ● form state
-    protected virtual DataFormState FormState
+    /// <summary>
+    /// Processes the form options
+    /// </summary>
+    protected virtual void ProcessFormOptions()
     {
-        get { return fFormState; }
-        set
-        {
-            if (value != fFormState)
-            {
-                fFormState = value;
-                FormStateChanged();
-                UpdateUi();
-            }
-        }
     }
-    protected virtual bool IsListEmpty => Module != null && Module.tblList != null && Module.tblList.Rows.Count > 0;
+    
+    // ● form state
     protected virtual void FormStateChanged()
     { 
         if (gridList != null)
@@ -354,7 +241,7 @@ public partial class DataForm : AppForm, IRowProvider
                 return;
         }
 
-        ListSelect();
+        //ListSelect();
         this.FormState = DataFormState.List;
     }
     protected virtual void ExecuteInsert()
@@ -370,7 +257,6 @@ public partial class DataForm : AppForm, IRowProvider
         if (!Sys.IsNull(oId))
         {
             ItemLoad(oId);
-            LogBox.AppendLine(oId);
             this.FormState = DataFormState.Edit;
         }
     }
@@ -437,16 +323,6 @@ public partial class DataForm : AppForm, IRowProvider
         
         return null;
     }
-    void gridList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        ListCurrentRow = null;
-        if (gridList.SelectedItem is DataRowView RowView)
-        {
-            ListCurrentRow = RowView.Row;
-            LogBox.AppendLine("GRID");
-            LogBox.AppendLine(ListCurrentRow);
-        }
-    }
   
     // ● item
     protected virtual void ItemInsert()
@@ -455,7 +331,6 @@ public partial class DataForm : AppForm, IRowProvider
     protected virtual void ItemLoad(object oId)
     {
         Module.Edit(oId);
-        LogBox.AppendLine(CurrentRow);
     }
     protected virtual void ItemDelete(object oId)
     {
@@ -474,6 +349,7 @@ public partial class DataForm : AppForm, IRowProvider
     {
     }
 
+    // ● UI
     protected virtual void CreateToolBar()
     {
         if (ToolBar == null)
@@ -483,20 +359,21 @@ public partial class DataForm : AppForm, IRowProvider
 
             btnHome = ToolBar.AddButton("application_home.png", "Home", async () => await Execute(DataFormAction.Home));
             btnFind = ToolBar.AddButton("find.png", "Find", async () => await Execute(DataFormAction.Find));
+            sepFilters = ToolBar.AddSeparator(); // sepFilters sepEdit sepSave sepCancelOK
+            
             btnList = ToolBar.AddButton("table.png", "List", async () => await Execute(DataFormAction.List));
-            ToolBar.AddSeparator();
-
+            btnToggleIds = ToolBar.AddToggleButton("table_select_row.png", "Toggle Ids",  () => ToggleIdColumns());
             btnInsert = ToolBar.AddButton("table_add.png", "Insert", async () => await Execute(DataFormAction.Insert));
             btnEdit = ToolBar.AddButton("table_edit.png", "Edit", async () => await Execute(DataFormAction.Edit));
             btnDelete = ToolBar.AddButton("table_delete.png", "Delete", async () => await Execute(DataFormAction.Delete));
-            ToolBar.AddSeparator();
+            sepEdit = ToolBar.AddSeparator(); // sepEdit
             
             btnSave = ToolBar.AddButton("disk.png", "Save", async () => await Execute(DataFormAction.Save));
-            ToolBar.AddSeparator();
+            sepSave = ToolBar.AddSeparator(); // sepSave
 
             btnCancel = ToolBar.AddButton("cancel.png", "Cancel", async () => await Execute(DataFormAction.Cancel));
             btnOK = ToolBar.AddButton("accept.png", "OK", async () => await Execute(DataFormAction.Ok));
-            ToolBar.AddSeparator();
+            sepCancelOK = ToolBar.AddSeparator(); // sepCancelOK
             
             btnClose = ToolBar.AddButton("door_out.png", "Close", async () => await Execute(DataFormAction.Close));  
         }
@@ -511,7 +388,6 @@ public partial class DataForm : AppForm, IRowProvider
         }
    
     }
- 
     protected virtual void BindListGrid()
     {
         gridList.AutoGenerateColumns = false;
@@ -520,22 +396,7 @@ public partial class DataForm : AppForm, IRowProvider
 
         foreach (DataColumn Column in Module.tblList.Columns)
         {
-            DataGridColumn GridColumn;
-            /*
-            if (Column.ColumnName == "CountryId")
-            {
-                LookupSource CountryLookupSource = DataRegistry.LookupSources.Get("Country");  
-                GridColumn = DataViewGridColumnFactory.CreateLookupColumn(Column.ColumnName, CountryLookupSource);
-            }
-            else 
-            */
-            if (Column.DataType == typeof(bool))
-                GridColumn = DataViewGridColumnFactory.CreateBoolColumn(Column.ColumnName);
-            else
-                GridColumn = DataViewGridColumnFactory.CreateTextColumn(Column.ColumnName);
-            
-  
-
+            DataGridColumn GridColumn = DataViewGridColumnFactory.CreateGridColumn(Column);
             gridList.Columns.Add(GridColumn);
         }
 
@@ -544,9 +405,6 @@ public partial class DataForm : AppForm, IRowProvider
         gridList.DoubleTapped += gridList_OnDoubleTapped;
         gridList.SelectionChanged += gridList_OnSelectionChanged;
     }
-
-
-
     protected virtual void CreateItemPanel()
     {
         if (!string.IsNullOrWhiteSpace(FormDef.ItemClassName))
@@ -560,13 +418,148 @@ public partial class DataForm : AppForm, IRowProvider
             ItemPage.Bind();
         }
     }
-    protected virtual void ItemBind()
-    {
-    }
-    
     protected virtual void CreateFindPanel()
     {
     }
+    
+    /// <summary>
+    /// Updates the user interface, title, enable-disable buttons etc.
+    /// </summary>
+    public virtual void UpdateUi()
+    {
+        EnableCommands();
+        EnableControls();
+    }
+    /// <summary>
+    /// Enables and disables buttons and menu items.
+    /// </summary>
+    protected virtual void EnableCommands()
+    {
+        // ● visible ===============================================================
+        btnHome.IsVisible = !IsSingleSelect;
+        btnFind.IsVisible = btnHome.IsVisible;
+        sepFilters.IsVisible = btnHome.IsVisible || btnFind.IsVisible;
+
+        
+        btnList.IsVisible = !IsReadOnlyForm;
+        btnToggleIds.IsVisible = true;
+        btnInsert.IsVisible = !IsReadOnlyForm;
+        btnEdit.IsVisible = !IsReadOnlyForm;
+        btnDelete.IsVisible = !IsReadOnlyForm;
+        sepEdit.IsVisible = !IsReadOnlyForm || btnToggleIds.IsVisible;
+        
+        btnSave.IsVisible = !IsReadOnlyForm;
+        sepSave.IsVisible = btnSave.IsVisible;
+
+        btnCancel.IsVisible = true;                       // btnCancel - visible with all form modes
+        btnOK.IsVisible = IsModal;
+        sepCancelOK.IsVisible = btnCancel.IsVisible || btnOK.IsVisible;
+            
+        btnClose.IsVisible = !IsModal;      // btnClose - visible with non-list master forms
+        // ● enable ================================================================
+        btnToggleIds.IsEnabled = FormState == DataFormState.List;
+        btnHome.IsEnabled = btnHome.ContextMenu != null && btnHome.ContextMenu.Items.Count > 0;
+        btnFind.IsEnabled = !DataFormAction.Find.In(InvalidActions);
+        btnList.IsEnabled = !DataFormAction.List.In(InvalidActions);
+        
+        btnInsert.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && !FormState.In(DataFormState.Insert | DataFormState.Edit);
+        btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && !FormState.In(DataFormState.Insert | DataFormState.Edit) ;
+        btnDelete.IsEnabled = !DataFormAction.Delete.In(InvalidActions) && !IsListEmpty;
+        btnSave.IsEnabled = FormState.In(DataFormState.Insert | DataFormState.Edit);
+        
+        // Edit states: cancels edits and returns to List state
+        // List state and Modal: cancels the form
+        btnCancel.IsEnabled = FormState.In(DataFormState.Insert | DataFormState.Edit) || (IsModal && FormState == DataFormState.List);
+ 
+        // btnOK - accessible in List state only with modal forms
+        // List state and Modal: closes the form with OK and returns the current row               
+        btnOK.IsEnabled =IsModal && FormState == DataFormState.List;
+
+        // List state: closes a non-modal form                
+        btnClose.IsEnabled = FormState == DataFormState.List;
+    }
+    /// <summary>
+    /// Enables and disables controls.
+    /// </summary>
+    protected virtual void EnableControls()
+    {
+        // ● visible ===============================================================
+        pnlSideBar.IsVisible = !IsSingleSelect;
+        Splitter.IsVisible = pnlSideBar.IsVisible;
+
+        // ● enable ================================================================
+        gridList.IsReadOnly = true;
+    }
+    /// <summary>
+    /// Toggles visibility of list DataGrid columns ending with ID 
+    /// </summary>
+    protected virtual void ToggleIdColumns()
+    {
+        bool Flag = !(btnToggleIds.IsChecked == true); // Checked = hide, else = show
+        string S = Flag ? "Hide Ids" : "Show Ids";
+        ToolTip.SetTip(btnToggleIds, S);
+        
+        List<GridColumnInfo> List = gridList.GetInfoList();
+        foreach (var CI in List)
+        {
+            if (CI.FieldName.EndsWithText("Id"))
+                CI.GridColumn.IsVisible = Flag;
+        }
+    }
+    
+    // ● miscs
+    /// <summary>
+    /// Passes any result to the caller of the form, if any. Useful with modal forms.
+    /// </summary>
+    protected virtual void PassResultBack()
+    {
+    }
+    /// <summary>
+    /// Returns the control that is last added to the container
+    /// </summary>
+    protected virtual Control FindFirstFocusableControl(Control Container)
+    {
+        return null;
+    }
+    /// <summary>
+    /// Handles a broadcaster event.
+    /// </summary>
+    protected virtual void HandleBroadcasterEvent(string EventName, IDictionary<string, object> Args)
+    {
+        switch (EventName)
+        {
+            case "NOT_EXISTED_EVENT_NAME": 
+                break;
+        }
+    }
+    /// <summary>
+    /// It is called by the OnKeyDown() method. 
+    /// <para>Returns true if processes the key</para>
+    /// </summary>
+    protected virtual bool ProcessKeyDown(KeyEventArgs e)
+    {
+        return false;
+    }
+    /// <summary>
+    /// It is called when the escape key is pressed. 
+    /// <para>Returning true indicates that the key press is handled.</para>
+    /// <para>NOTE: By default, when is a modal dialog, it sets <see cref="ModalResult"/> to Cancel, and closes the form.</para>
+    /// </summary>
+    protected virtual bool ProcessEscapeKey()
+    {
+        if (!IsModal && this.FormState == DataFormState.List)
+        {
+            this.CloseForm();
+            return true;
+        }
+        else if (this.IsModal)
+        {
+            this.ModalResult = ModalResult.Cancel;
+            return true;
+        }
+
+        return false;
+    }    
  
     // ● construction
     public DataForm()
@@ -599,21 +592,36 @@ public partial class DataForm : AppForm, IRowProvider
     /// The first action the form should execute after initialization.
     /// </summary>
     public DataFormAction StartAction => DataFormContext.StartAction;
-    
     /// <summary>
     /// The item page
     /// </summary>
-    public ItemPage ItemPage { get; private set; }
+    public ItemPage ItemPage { get; protected set; }
 
     /// <summary>
     /// The current row in the list part
     /// </summary>
-    public DataRow ListCurrentRow { get; protected set; } //=> Module?.tblList?.CurrentRow;
-
+    public DataRow ListCurrentRow { get; protected set; }  
     /// <summary>
     /// The current row in the item part
     /// </summary>
     public DataRow CurrentRow => Module?.tblItem?.CurrentRow;
+    /// <summary>
+    /// The state of a data-form indicates the UI the form is currently displaying
+    /// </summary>
+    public virtual DataFormState FormState
+    {
+        get { return fFormState; }
+        protected set
+        {
+            if (value != fFormState)
+            {
+                fFormState = value;
+                FormStateChanged();
+                UpdateUi();
+            }
+        }
+    }
+    
     /// <summary>
     /// Returns true if this is a fixed (no row insert-delete allowed) form.
     /// </summary>
@@ -622,9 +630,12 @@ public partial class DataForm : AppForm, IRowProvider
     /// When true then this is a form with a fixed single select.
     /// </summary>
     public bool IsSingleSelect => ModuleDef.IsSingleSelect;
+    /// <summary>
+    /// True when the list grid/table is empty.
+    /// </summary>
+    public bool IsListEmpty => Module != null && Module.tblList != null && Module.tblList.Rows.Count > 0;
     
-    // ● events
-    public event EventHandler CurrentRowChanged;
+ 
 
 
 }

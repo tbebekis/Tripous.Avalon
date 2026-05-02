@@ -162,15 +162,37 @@ static public class ControlBindingHelper
             try { nu.Value = GetValue(RowProvider, Binding.ColumnName) as decimal?; }
             finally { Binding.IsRefreshing = false; }
         }
+        else if (Binding.Control is Image)
+            RefreshImage(RowProvider, Binding);
+    }
+    /// <summary>
+    /// Refreshes an image control.
+    /// </summary>
+    static private void RefreshImage(IRowProvider RowProvider, ControlBinding Binding)
+    {
+        if (Binding.Control is not Image Box)
+            return;
+        object Value = GetValue(RowProvider, Binding.ColumnName);
+        IImage Source = null;
+        if (Value is string FilePath && !string.IsNullOrWhiteSpace(FilePath) && File.Exists(FilePath))
+            Source = new Bitmap(FilePath);
+        else if (Value is byte[] Bytes && Bytes.Length > 0)
+        {
+            using MemoryStream Stream = new(Bytes);
+            Source = new Bitmap(Stream);
+        }
+        Binding.IsRefreshing = true;
+        try
+        {
+            Box.Source = Source;
+        }
+        finally
+        {
+            Binding.IsRefreshing = false;
+        }
     }
     
-    static public ControlBinding Bind(IRowProvider RowProvider, TextBox Box, FieldDef FieldDef)
-    {
-        if (FieldDef == null)
-            throw new TripousArgumentNullException(nameof(FieldDef));
 
-        return Bind(RowProvider, Box, FieldDef.Name, FieldDef);
-    }
     static public ControlBinding Bind(IRowProvider RowProvider, TextBox Box, string FieldName, FieldDef FieldDef = null)
     {
         if (RowProvider == null)
@@ -407,6 +429,29 @@ static public class ControlBindingHelper
             Box.SelectionChanged -= SelectionChangedHandler;
             Box.KeyDown -= KeyDownHandler;
         };
+
+        Refresh(RowProvider, Result);
+        return Result;
+    }
+    /// <summary>
+    /// Bind utility.
+    ///</summary>
+    static public ControlBinding BindImage(IRowProvider RowProvider, Image Box, string FieldName, FieldDef FieldDef = null)
+    {
+        if (RowProvider == null)
+            throw new TripousArgumentNullException(nameof(RowProvider));
+        if (Box == null)
+            throw new TripousArgumentNullException(nameof(Box));
+        if (string.IsNullOrWhiteSpace(FieldName))
+            throw new TripousArgumentNullException(nameof(FieldName));
+
+        ControlBinding Result = new(Box, FieldName)
+        {
+            FieldDef = FieldDef,
+        };
+
+        Box.Height = Ui.FormImageHeight;
+        Box.Stretch = Ui.FormImageStretch;
 
         Refresh(RowProvider, Result);
         return Result;

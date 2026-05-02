@@ -22,6 +22,8 @@ public class TableDef: BaseDef
     string fKeyField = "Id";
     string fMasterField;
     string fDetailField;
+    bool fIsDetail;
+    bool fIsOneToOne;
 
     List<FieldDef> fFields;
     List<TableDef> fJoins;
@@ -589,7 +591,7 @@ where
     /// <summary>
     /// Adds and returns a field.
     /// </summary>
-    public FieldDef AddField(string Name, DataFieldType DataType, string TitleKey = null, string Alias = null, int MaxLength = -1, int Decimals = -1, string LookupSource = null, string Locator = null, FieldFlags Flags = FieldFlags.None)
+    public FieldDef AddField(string Name, DataFieldType DataType, string Group = null, string TitleKey = null, string Alias = null, int MaxLength = -1, int Decimals = -1, string LookupSource = null, string Locator = null, FieldFlags Flags = FieldFlags.None)
     {
         if (string.IsNullOrWhiteSpace(Name))
             throw new TripousArgumentNullException(nameof(Name));
@@ -601,6 +603,7 @@ where
         FieldDef Result = new();
         Result.Name = Name;
         Result.DataType = DataType;
+        Result.Group = Group;
         Result.TitleKey = TitleKey;
         Result.Alias = Alias;
         Result.MaxLength = DataType == DataFieldType.String ? MaxLength : -1;
@@ -623,7 +626,7 @@ where
             throw new TripousDataException($"DataType not supported for a table Primary Key. {DataType}");
 
         Flags |= FieldFlags.ReadOnlyUI;
-        var Result = AddField(Name, DataType, MaxLength: MaxLength, Flags: Flags);
+        var Result = AddField(Name, DataType, Group: Sys.GENERAL, MaxLength: MaxLength, Flags: Flags);
         return Result;
     }
     /// <summary>
@@ -644,9 +647,9 @@ where
     /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupSource"/> in order to be displayed correctly in the Ui.
     /// <para>The <see cref="LookupSource"/> should be registered in the registry.</para>
     /// </summary>
-    public FieldDef AddLookupId(string Name, DataFieldType DataType, string LookupSource, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddLookupId(string Name, DataFieldType DataType, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
     {
-        FieldDef Result = AddField(Name, DataType, TitleKey: TitleKey, Flags: Flags);
+        FieldDef Result = AddField(Name, DataType, Group: Group, TitleKey: TitleKey, Flags: Flags);
         Result.LookupSource = LookupSource;
         return Result;
     }
@@ -654,25 +657,25 @@ where
     /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupSource"/> in order to be displayed correctly in the Ui.
     /// <para>The <see cref="LookupSource"/> should be registered in the registry.</para>
     /// </summary>
-    public FieldDef AddStringLookupId(string Name, string LookupSource, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
-        => AddLookupId(Name, DataFieldType.String, LookupSource, TitleKey: TitleKey, Flags: Flags);
+    public FieldDef AddStringLookupId(string Name, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
+        => AddLookupId(Name, DataFieldType.String, LookupSource, Group: Group, TitleKey: TitleKey, Flags: Flags);
     /// <summary>
     /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupSource"/> in order to be displayed correctly in the Ui.
     /// <para>The <see cref="LookupSource"/> should be registered in the registry.</para>
     /// </summary>
-    public FieldDef AddIntegerLookupId(string Name, string LookupSource, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
-        => AddLookupId(Name, DataFieldType.Integer, LookupSource, TitleKey: TitleKey, Flags: Flags);
+    public FieldDef AddIntegerLookupId(string Name, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
+        => AddLookupId(Name, DataFieldType.Integer, LookupSource, Group: Group, TitleKey: TitleKey, Flags: Flags);
     /// <summary>
     /// Adds a fields, such as <c>AggregateId</c> which needs a <see cref="LookupSource"/> of an enum type, such as the <see cref="AggregateType"/>,
     /// in order to be displayed correctly in the Ui.
     /// <para><b>NOTE</b>: This method creates and registers the required <see cref="LookupSource"/> to the registry.</para>
     /// </summary>
-    public FieldDef AddEnumLookupId(string Name, string LookupSource, Type EnumType, bool UseNullItem = false, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddEnumLookupId(string Name, string LookupSource, Type EnumType, string Group = null, bool UseNullItem = false, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
     {
         if (!EnumType.IsEnum)
             throw new TripousDataException($"Type {EnumType.FullName} is not an enum type");
         
-        FieldDef Result = AddLookupId(Name, DataFieldType.Integer, LookupSource, TitleKey: TitleKey, Flags: Flags);
+        FieldDef Result = AddLookupId(Name, DataFieldType.Integer, LookupSource, Group: Group, TitleKey: TitleKey, Flags: Flags);
         DataRegistry.AddLookupSource(LookupSource, EnumType, UseNullItem);
         
         return Result;
@@ -682,55 +685,55 @@ where
     /// <summary>
     /// Adds and returns a string field.
     /// </summary>
-    public FieldDef Add(string Name, int MaxLength, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible) 
-        => AddField(Name, DataFieldType.String, MaxLength: MaxLength, TitleKey: TitleKey, Flags: Flags);
+    public FieldDef Add(string Name, int MaxLength, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible) 
+        => AddField(Name, DataFieldType.String, MaxLength: MaxLength, Group: Group, TitleKey: TitleKey, Flags: Flags);
     /// <summary>
     /// Adds and returns a string field.
     /// </summary>
-    public FieldDef AddString(string Name, int MaxLength = 96, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
-        => AddField(Name, DataFieldType.String, MaxLength: MaxLength, TitleKey: TitleKey, Flags: Flags);
+    public FieldDef AddString(string Name, int MaxLength = 96, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+        => AddField(Name, DataFieldType.String, MaxLength: MaxLength, Group: Group, TitleKey: TitleKey, Flags: Flags);
     
     // ● fields - Other types
     /// <summary>
     /// Adds and returns an integer field.
     /// </summary>
-    public FieldDef AddInteger(string Name, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible) 
-        => AddField(Name, DataFieldType.Integer, TitleKey: TitleKey, Flags: Flags); 
+    public FieldDef AddInteger(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible) 
+        => AddField(Name, DataFieldType.Integer, Group: Group, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns an double field.
     /// </summary>
-    public FieldDef AddDouble(string Name, int Decimals = 4, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
-        => AddField(Name, DataFieldType.Double, Decimals: Decimals, TitleKey: TitleKey, Flags: Flags); 
+    public FieldDef AddDouble(string Name, string Group = null, int Decimals = 4, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+        => AddField(Name, DataFieldType.Double, Group: Group, Decimals: Decimals, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns an decimal field.
     /// </summary>
-    public FieldDef AddDecimal(string Name, int Decimals = 4, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
-        => AddField(Name, DataFieldType.Decimal, Decimals: Decimals, TitleKey: TitleKey, Flags: Flags); 
+    public FieldDef AddDecimal(string Name, string Group = null, int Decimals = 4, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+        => AddField(Name, DataFieldType.Decimal, Group: Group, Decimals: Decimals, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns an date field.
     /// </summary>
-    public FieldDef AddDate(string Name, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
-        =>  AddField(Name, DataFieldType.Date, TitleKey: TitleKey, Flags: Flags); 
+    public FieldDef AddDate(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+        =>  AddField(Name, DataFieldType.Date, Group: Group, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns an date-time field.
     /// </summary>
-    public FieldDef AddDateTime(string Name, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
-        =>  AddField(Name, DataFieldType.DateTime, TitleKey: TitleKey, Flags: Flags); 
+    public FieldDef AddDateTime(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+        =>  AddField(Name, DataFieldType.DateTime, Group: Group, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns an integer-boolean field.
     /// </summary>
-    public FieldDef AddBoolean(string Name, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
-        =>  AddField(Name, DataFieldType.DateTime, TitleKey: TitleKey, Flags: Flags| FieldFlags.Boolean); 
+    public FieldDef AddBoolean(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+        =>  AddField(Name, DataFieldType.DateTime, Group: Group, TitleKey: TitleKey, Flags: Flags| FieldFlags.Boolean); 
     /// <summary>
     /// Adds and returns a blob field.
     /// </summary>
-    public FieldDef AddBlob(string Name, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
-        =>  AddField(Name, DataFieldType.Blob, TitleKey: TitleKey, Flags: Flags); 
+    public FieldDef AddBlob(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+        =>  AddField(Name, DataFieldType.Blob, Group: Group, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns a text blob field.
     /// </summary>
-    public FieldDef AddTextBlob(string Name, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
-        =>  AddField(Name, DataFieldType.TextBlob, TitleKey: TitleKey, Flags: Flags | FieldFlags.Memo); 
+    public FieldDef AddTextBlob(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+        =>  AddField(Name, DataFieldType.TextBlob, Group: Group, TitleKey: TitleKey, Flags: Flags | FieldFlags.Memo); 
  
     // ● miscs
     /// <summary>
@@ -769,7 +772,19 @@ where
         Joins.Add(Result);
         return Result;
     }
+    
+    
+    public List<FieldDef> GetBindableFields() => Fields.Where(f => f.IsBindable).ToList();
 
+    public Dictionary<string, List<FieldDef>> GetBindableGroups()
+    {
+        List<FieldDef> BindableFields = GetBindableFields();
+        var Result = BindableFields.GroupBy(x => x.Group)
+            .ToDictionary(g => g.Key, g => g
+                .ToList());
+        return Result;
+    }
+        
     // ● properties */
     /// <summary>
     /// The master definition this instance belongs to.
@@ -814,8 +829,23 @@ where
         get => fDetailField != null ? fDetailField : KeyField;
         set { if (fDetailField != value) { fDetailField = value; NotifyPropertyChanged(nameof(DetailField)); } }
     }
-
-    public bool IsDetail { get; set; }
+    /// <summary>
+    /// When true then this is a detail table, e.g. a TradeLines under a Trade table.
+    /// </summary>
+    public bool IsDetail
+    {
+        get => fIsDetail;
+        set { if (fIsDetail != value) { fIsDetail = value; NotifyPropertyChanged(nameof(IsDetail)); } }
+    }
+    /// <summary>
+    /// Sometimes there is an one-to-one relationship between the top table, i.e. <see cref="ModuleDef.Table"/> and one or more other single-row tables.
+    /// <para>For example: Trade and StoreTrade and FinTrade, where Trade is the top table and StoreTrade and FinTrade are <see cref="IsOneToOne"/> table.</para>
+    /// </summary>
+    public bool IsOneToOne 
+    {
+        get => fIsOneToOne;
+        set { if (fIsOneToOne != value) { fIsOneToOne = value; NotifyPropertyChanged(nameof(IsOneToOne)); } }
+    }
 
     /// <summary>
     /// The fields of this table

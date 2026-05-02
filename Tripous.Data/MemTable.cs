@@ -1,6 +1,6 @@
 namespace Tripous.Data;
 
-public class MemTable : DataTable
+public class MemTable : DataTable, IRowProvider, IRowProviderHost
 {
     static int TableNameCounter = 0;
     protected int EventsDisableCounter = 0;
@@ -18,6 +18,7 @@ public class MemTable : DataTable
     TableSqls fSqls;
     List<MemTable> fStocks;
  
+
 
     //  ● private
     bool IsValidRow(DataRow row)
@@ -369,10 +370,8 @@ public class MemTable : DataTable
     // ● public 
     public void UpdateCurrentRow()
     {
-        if (Rows.Count > 0)
-            CurrentRow = Rows[0];
-        else
-            CurrentRow = null;
+        DataRow Row = DataView.Count > 0 ? DataView[0].Row : null;
+        CurrentRow = Row;
     }
     public DataColumn[] GetColumns(string[] ColumnNames)
     {
@@ -513,6 +512,23 @@ public class MemTable : DataTable
             DataView.Sort = "";
             DataView.RowFilter = Filter;
         }
+    }
+    
+    // ● IRowProviderHost 
+    public bool RowProviderExists(string TableName) => FindRowProvider(TableName) != null;
+    public IRowProvider FindRowProvider(string TableName)
+    {
+        if (TableName.IsSameText(this.TableName))
+            return this;
+        
+        return RowProviders.FirstOrDefault(x => TableName.IsSameText(x.TableName));
+    }
+    public IRowProvider GetRowProvider(string TableName)
+    {
+        IRowProvider Result = FindRowProvider(TableName);
+        if (Result == null)
+            throw new TripousDataException($"{nameof(IRowProvider)} not found: {TableName})");
+        return Result;
     }
 
     // ● public - rows
@@ -795,6 +811,7 @@ public class MemTable : DataTable
     /// </summary>
     public bool AutoGenerateGuidKeys { get; set; }
 
+  
     public DataRow CurrentRow
     {
         get
@@ -820,11 +837,18 @@ public class MemTable : DataTable
         get => CurrentRow == null? null: GetDataRowView(CurrentRow, DataView);
         set => CurrentRow = value == null ? null : value.Row;
     }
+    public ReadOnlyCollection<IRowProvider> RowProviders => fDetails.Cast<IRowProvider>().ToList().AsReadOnly();
     
     // ● events 
     public event EventHandler CurrentRowChanged;
+ 
     public event EventHandler MasterChanging;
     public event EventHandler MasterChanged;
     public event EventHandler<DataTableNewRowEventArgs> NewRowAdding;
     public event EventHandler<DataTableNewRowEventArgs> NewRowAdded;
+
+
+
+
+    
 }

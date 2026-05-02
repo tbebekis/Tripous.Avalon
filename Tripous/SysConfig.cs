@@ -2,13 +2,16 @@ namespace Tripous;
 
 static public class SysConfig
 {
-    static private string fAppName;
-    static private string fAppExeFolderPath;
-    static private string fAppFolderPath;
-    static private string fAppDataFolderPath;
-    static private string fAppTempFolderPath;
+    static string fAppName;
+    static string fAppExeFolderPath;
+    static string fAppFolderPath;
+    static string fAppDataFolderPath;
+    static string fAppTempFolderPath;
     static int fDefaultRowLimit;
-    static private int fDefaultCommandTimeoutSeconds = 300;
+    static int fDefaultCommandTimeoutSeconds = 300;
+
+
+
     
     /// <summary>
     /// The mode of the application (Desktop, Web, Service)
@@ -196,4 +199,6 @@ static public class SysConfig
         get => fDefaultCommandTimeoutSeconds >= 15 ? fDefaultCommandTimeoutSeconds : 15;
         set => fDefaultCommandTimeoutSeconds = value;
     }
+
+ 
 } 

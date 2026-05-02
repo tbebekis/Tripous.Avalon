@@ -236,6 +236,8 @@ public class TableSet
         SqlValueProviders.Process(ref SqlText, Store);
     }
 
+ 
+
     /// <summary>
     /// Creates a context for calling <see cref="DbOps"/>
     /// </summary>
@@ -327,7 +329,6 @@ public class TableSet
     
     public void ListCancel() => ListCancel(ListTable);
     public void ListCancel(MemTable Table) => Table.RejectChanges();
- 
     
     // ● item database operations  
     /// <summary>

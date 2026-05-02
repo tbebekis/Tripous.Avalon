@@ -34,8 +34,17 @@ public enum FieldFlags
     /// It is an integer field that must be displayed in a check box control. 0 = false, 1 = true.
     /// </summary>
     Boolean = 0x20,
+    /// <summary>
+    /// Field is a multiline text
+    /// </summary>
     Memo = 0x40,
+    /// <summary>
+    /// Field is an image, i.e. png, jpg, etc.
+    /// </summary>
     Image = 0x80,
+    /// <summary>
+    /// Field is a path to an image.
+    /// </summary>
     ImagePath = 0x100,
     /// <summary>
     /// The field is not used with INSERT or UPDATE statements. 
@@ -43,15 +52,20 @@ public enum FieldFlags
     /// in a position other than that of a primary key</para>
     /// </summary>
     NoInsertUpdate  = 0x200,
+    /// <summary>
+    /// A foreign key field
+    /// </summary>
     ForeignKey = 0x400,
     /// <summary>
     /// The field does NOT exist in the database. It just added to the DataTable schema for some reason.
     /// </summary>
     Extra = 0x800,
     /// <summary>
-    /// It is a look up field. A field that is added using the FieldDescriptors.AddLookUp() method
+    /// Field is nullable
     /// </summary>
-    LookUpField = 0x1000,
-    Nullable = 0x2000,
-    Searchable = 0x4000,
+    Nullable = 0x1000,
+    /// <summary>
+    /// Field is searchable and can be a part of a filter.
+    /// </summary>
+    Searchable = 0x2000,
 }

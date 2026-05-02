@@ -19,7 +19,20 @@ static public class TripousAvalonExtensions
     static public string GetText(this ComboBox Box) => Box != null && !string.IsNullOrWhiteSpace(Box.Text) ? Box.Text.Trim() : string.Empty;
 
     static public bool GetValue(this CheckBox Box) => Box != null && Box.IsChecked.HasValue? Box.IsChecked.Value : false;
-    
+
+    static public TextAlignment TextAlignmentOf(this Type T)
+    {
+        DataFieldType DataType = T.DataFieldTypeOf();
+        return TextAlignmentOf(DataType);
+    }
+    static public TextAlignment TextAlignmentOf(this DataFieldType DataType)
+    {
+        TextAlignment Result = TextAlignment.Left;
+ 
+        if (DataType.IsNumeric() || DataType.IsDateTime() || DataType.IsDateStrict() || DataType.IsDateTimeStrict() || DataType == DataFieldType.Boolean)
+            Result = TextAlignment.Center;
+        return Result;
+    }
     
     // ● Button
     static public void PerformClick(this Button Button)

@@ -46,6 +46,7 @@ static public class Sys
     public const string InvalidId = "27C15428-7892-4F7D-B28F-9BA059C94BA4";
     public const string EnId = "D4997C35-6E89-499A-87BF-D5750D0D3F06";
     public const string GrId = "92A158E7-25CA-4367-BA57-FB79C40D775C";
+    public const string GENERAL = "General";
     
     
     // ●  public 

@@ -41,7 +41,6 @@ public class DefList<T>: IEnumerable<T>, IEnumerable where T: IDef
     }
     public void Remove(T Def) => List.Remove(Def);
     
-
     public bool Contains(string Name) => List.FirstOrDefault(x => Sys.IsSameText(Name, x.Name)) != null;
     public T Find(string Name) => List.FirstOrDefault(x => Sys.IsSameText(Name, x.Name));
     public T Get(string Name)

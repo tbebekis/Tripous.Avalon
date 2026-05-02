@@ -58,7 +58,7 @@ static public class DataRegistry
         else
             Table.AddIntegerId("Id", FieldFlags.Required | FieldFlags.Visible);  
         
-       Table.AddString("Name", 96, "Name", FieldFlags.Required | FieldFlags.Visible);
+       Table.AddString("Name", 96, TitleKey: "Name", Flags: FieldFlags.Required | FieldFlags.Visible);
  
         return Result;
     }

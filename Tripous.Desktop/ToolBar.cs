@@ -143,6 +143,19 @@ public class ToolBar
 
         return Result;
     }
+    public ToggleButton AddToggleButton(string ImageFileName, string ToolTipText, Action Action)
+    {
+        ToggleButton Result = new ToggleButton();
+
+        SetupButton(Result, ImageFileName, ToolTipText);
+
+        if (Action != null)
+            Result.IsCheckedChanged += (Sender, Args) => Action();
+ 
+        Panel.Children.Add(Result);
+
+        return Result;
+    }
     public ToggleButton AddToggleButton(string ImageFileName = null, string ToolTipText = null, EventHandler<RoutedEventArgs> OnCheckedChanged = null)
     {
         ToggleButton Result = new ToggleButton();

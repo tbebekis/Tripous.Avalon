@@ -1,5 +1,7 @@
 namespace Tripous.Desktop;
 
+
+
 public static class DataViewGridColumnFactory
 {
     // ● private
@@ -323,8 +325,8 @@ public static class DataViewGridColumnFactory
         }, true);
     }
 
-    // ● static public
-    static public DataGridColumn CreateTextColumn(string ColumnName, string Header = "", string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false)
+    // ● private - create columns
+    static DataGridColumn CreateTextColumn(string ColumnName, string Header = "", string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false)
     {
         DataGridTemplateColumn Result = new();
 
@@ -337,7 +339,18 @@ public static class DataViewGridColumnFactory
 
         return Result;
     }
-    static public DataGridColumn CreateLookupColumn(string ColumnName, LookupSource Source, string Header = "", bool IsReadOnly = false)
+    static DataGridColumn CreateBoolColumn(string ColumnName, string Header = "", bool IsReadOnly = false)
+    {
+        DataGridTemplateColumn Result = new();
+
+        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName : Header;
+        Result.IsReadOnly = IsReadOnly;
+        Result.CellTemplate = CreateBoolDisplayTemplate(ColumnName);
+        Result.CellEditingTemplate = IsReadOnly ? null : CreateBoolEditTemplate(ColumnName);
+
+        return Result;
+    }
+    static DataGridColumn CreateLookupColumn(string ColumnName, LookupSource Source, string Header = "", bool IsReadOnly = false)
     {
         DataGridTemplateColumn Result = new();
 
@@ -348,14 +361,85 @@ public static class DataViewGridColumnFactory
 
         return Result;
     }
-    static public DataGridColumn CreateBoolColumn(string ColumnName, string Header = "", bool IsReadOnly = false)
+    
+    // ● static public
+    static public DataGridColumn CreateGridColumn(DataColumn Column, string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false)
     {
-        DataGridTemplateColumn Result = new();
+        bool IsBoolean = Column.DataType == typeof(bool) 
+                         || (Column.ExtendedProperties.ContainsKey("IsBoolean") && Convert.ToBoolean(Column.ExtendedProperties["IsBoolean"]));
+        
+        TextAlignment Align = TextAlignment.Left;
+        if (Alignment.HasValue)
+            Align = Alignment.Value;
+        else
+            Align = IsBoolean ? TextAlignment.Center : Column.DataType.TextAlignmentOf();
+        
+        DataGridColumn Result = null;
+        if (IsBoolean)
+            Result = CreateBoolColumn(Column.ColumnName, Header: Column.Caption, IsReadOnly: IsReadOnly);
+        else
+            Result = CreateTextColumn(Column.ColumnName, Header: Column.Caption, Format: Format, Alignment: Align, IsReadOnly: IsReadOnly);
 
-        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName : Header;
+        Result.Header = Column.Caption;
         Result.IsReadOnly = IsReadOnly;
-        Result.CellTemplate = CreateBoolDisplayTemplate(ColumnName);
-        Result.CellEditingTemplate = IsReadOnly ? null : CreateBoolEditTemplate(ColumnName);
+        
+        GridColumnInfo CI = new GridColumnInfo(Result, Column);
+        Result.Tag = CI;
+
+        return Result;
+    }
+    static public DataGridColumn CreateGridColumn(FieldDef FieldDef)
+    {
+        bool IsBoolean = FieldDef.IsBoolean;
+        TextAlignment Align = IsBoolean ? TextAlignment.Center : FieldDef.DataType.TextAlignmentOf();
+ 
+        DataGridColumn Result = null;
+        if (IsBoolean)
+            Result = CreateBoolColumn(FieldDef.Name, Header: FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly);
+        else
+            Result = CreateTextColumn(FieldDef.Name, Header: FieldDef.Title, Format: FieldDef.DisplayFormat, Alignment: Align, IsReadOnly: FieldDef.IsReadOnly);
+
+        Result.Header = FieldDef.Title;
+        Result.IsReadOnly = FieldDef.IsReadOnly;
+        
+        GridColumnInfo CI = new GridColumnInfo(Result, FieldDef);
+        Result.Tag = CI;
+
+        return Result;                  
+    }
+    
+    static public DataGridColumn CreateLookupColumn(DataColumn Column, LookupSource Source, bool IsReadOnly = false)
+    {
+        DataGridColumn Result = CreateLookupColumn(Column.ColumnName, Source, Column.Caption, IsReadOnly);
+        GridColumnInfo CI = new GridColumnInfo(Result, Column);
+        Result.Tag = CI; 
+        return Result;
+    }
+    static public DataGridColumn CreateLookupColumn(FieldDef FieldDef, LookupSource Source = null)
+    {
+        Source = Source ?? DataRegistry.LookupSources.Get(FieldDef.LookupSource);
+        DataGridColumn Result = CreateLookupColumn(FieldDef.Name, Source, FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly);
+        GridColumnInfo CI = new GridColumnInfo(Result, FieldDef);
+        Result.Tag = CI;    
+        return Result;
+    }
+
+    static public GridColumnInfo GetInfo(this DataGridColumn Column) => Column != null ? Column.Tag as GridColumnInfo : null;
+
+    static public List<GridColumnInfo> GetInfoList(this DataGrid Grid)
+    {
+        List<GridColumnInfo> Result = new();
+
+        GridColumnInfo CI;
+        if (Grid != null && Grid.Columns.Count > 0)
+        {
+            foreach (var GridColumn in Grid.Columns)
+            {
+                CI = GridColumn.GetInfo();
+                if (CI != null)
+                    Result.Add(CI);
+            }
+        }
 
         return Result;
     }

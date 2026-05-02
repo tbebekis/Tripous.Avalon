@@ -1,6 +1,6 @@
 namespace Tripous.Data;
 
-public class DataModule: IRowProvider
+public class DataModule
 {
     // ● operation flags 
     protected int fInserting;
@@ -154,7 +154,7 @@ public class DataModule: IRowProvider
     /// <summary>
     /// Ensures that any TableDef is updated with the actual table schema from the database.
     /// </summary>
-    void UpdateTableSchema(TableDef TableDef)
+    protected virtual void UpdateTableSchema(TableDef TableDef)
     {
         void UpdateSchema(TableDef T)
         {
@@ -321,10 +321,8 @@ public class DataModule: IRowProvider
             TableSet.TransactionStageCommit += new EventHandler<TransactionStageEventArgs>(TableSet_TransactionStageCommit);
             TableSet.TransactionStageDelete += new EventHandler<TransactionStageEventArgs>(TableSet_TransactionStageDelete);
             
-            tblItem.CurrentRowChanged += (sender, args) =>
-            {
-                this.CurrentRowChanged?.Invoke(this, args);
-            };
+            // tblItem.CurrentRowChanged += (sender, args) => this.CurrentRowChanged?.Invoke(this, args);
+ 
         }
         
     }
@@ -519,7 +517,9 @@ public class DataModule: IRowProvider
         get => tblItem.DetailsActive;
         set => tblItem.DetailsActive = value;
     }
- 
+    public IRowProviderHost RowProviderHost => tblItem;
+    
+    
     /// <summary>
     /// Returns the "data State" of the module. It could be Insert, Edit or None.
     /// <para>The State remains Insert or Edit after the Insert() or Edit() is called. 
@@ -625,9 +625,7 @@ public class DataModule: IRowProvider
     /// Returns the Id of the last delete
     /// </summary>
     public object LastDeletedId { get; protected set; }
-    
-    // ● events
-    public event EventHandler CurrentRowChanged;
+ 
 }
 
  

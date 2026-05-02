@@ -1,0 +1,82 @@
+AUTO ITEMPAGE LAYOUT RULES
+==========================
+
+Terms
+-----
+TopTable  = ModuleDef.Table
+TopFields = bindable fields of TopTable
+Detail    = child table of TopTable
+SubDetail = child table of a Detail or another SubDetail
+
+General Rules
+-------------
+1. TopFields always appear first.
+
+2. TopFields are grouped by FieldDef.Group.
+
+3. Each TopFields group appears inside its own Expander.
+
+4. Empty FieldDef.Group is treated as "General".
+
+5. Inside each TopFields group, fields are split into 1..3 columns using FormDef.ColumnCount.
+
+6. Boolean fields may occupy the full row.
+
+7. Only bindable fields are displayed.
+
+8. Memo TopFields are displayed as multi-line editors.
+   Height is based on Ui.MemoRowCount, clamped between 3 and 5 rows.
+
+9. Image TopFields are displayed as full-row image preview controls.
+   The preview uses fixed height, keeps aspect ratio, and may provide Load/Clear actions.
+
+Detail Rules
+------------
+10. If TopTable has no Details:
+    The ItemPage contains only TopFields groups.
+
+11. If TopTable has exactly one Detail:
+    The Detail appears inline under the TopFields groups.
+
+12. Special case of rule 11:
+    If TopTable has exactly one Detail and that Detail has exactly one SubDetail:
+    - TopFields appear first.
+    - Detail appears inline under TopFields.
+    - SubDetail appears inline under Detail.
+
+13. If TopTable has more than one Detail:
+    Create a TabControl:
+    - first TabItem = TopTable (TopFields)
+    - one TabItem per Detail
+
+14. A Detail is normally displayed as:
+    Expander caption = Detail.Title
+    Content = DataGrid bound to Detail rows
+
+15. Memo and Image fields are not displayed as automatic DataGrid columns in Detail/SubDetail grids,
+    even if they are visible/bindable.
+
+SubDetail Rules
+---------------
+16. SubDetails appear under their parent Detail, inside the same parent container.
+
+17. If a Detail/SubDetail has exactly one SubDetail:
+    The SubDetail appears inline under the parent.
+
+18. If a Detail/SubDetail has more than one SubDetail:
+    Create a nested TabControl under the parent.
+
+Special Rules
+-------------
+19. One-to-one Detail/SubDetail (TableDef.IsOneToOne = true)
+    is displayed as grouped controls instead of a DataGrid.
+
+20. Expanders are created through an overridable method:
+    CreateExpander(Control Parent, string Caption)
+
+Core Principle
+--------------
+TopFields = controls.
+One-to-many Detail/SubDetail = DataGrid.
+One-to-one Detail/SubDetail = controls.
+Memo/Image in grids = skipped by automatic grid generation.
