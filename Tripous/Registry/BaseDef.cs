@@ -1,12 +1,15 @@
 namespace Tripous;
 
-public class BaseDef: IDef, INotifyPropertyChanged
+/// <summary>
+/// Base class for all descriptors
+/// </summary>
+public class BaseDef: IDef, IJsonLoadable, INotifyPropertyChanged
 {
     private string fTitleKey;
     private string fName;
 
-    // ● private  
-    protected void NotifyPropertyChanged(string PropertyName)
+    // ● protected  
+    protected virtual void NotifyPropertyChanged(string PropertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
     }
@@ -24,7 +27,9 @@ public class BaseDef: IDef, INotifyPropertyChanged
     public virtual void UpdateReferences()
     {
     }
-
+    public virtual void JsonLoaded() => UpdateReferences();
+ 
+    
     public virtual BaseDef CreateNew() => Activator.CreateInstance(this.GetType()) as BaseDef;
     /// <summary>
     /// Throws an exception if this descriptor is not fully defined
@@ -34,7 +39,20 @@ public class BaseDef: IDef, INotifyPropertyChanged
         if (string.IsNullOrWhiteSpace(this.Name))
             Sys.Throw(Texts.GS($"E_{typeof(BaseDef)}_NoName", $"{typeof(BaseDef)} must have a Name"));
     }
-    
+
+    /// <summary>
+    /// Assigns property values from a source instance.
+    /// </summary>
+    public virtual void Assign(IDef Source) => Json.AssignObject(Source, this);
+    /// <summary>
+    /// Returns a clone of this instance.
+    /// </summary>
+    public virtual IDef Clone()
+    {
+        BaseDef Result = CreateNew();
+        Json.AssignObject(this, Result);
+        return Result;
+    }
     /// <summary>
     /// Clears the property values of this instance.
     /// </summary>
@@ -42,19 +60,6 @@ public class BaseDef: IDef, INotifyPropertyChanged
     {
         BaseDef Empty = CreateNew();
         Json.AssignObject(Empty, this);
-    }
-    /// <summary>
-    /// Assigns property values from a source instance.
-    /// </summary>
-    public virtual void Assign(BaseDef Source) => Json.AssignObject(Source, this);
-    /// <summary>
-    /// Returns a clone of this instance.
-    /// </summary>
-    public virtual BaseDef Clone()
-    {
-        BaseDef Result = CreateNew();
-        Json.AssignObject(this, Result);
-        return Result;
     }
 
     // ● properties  

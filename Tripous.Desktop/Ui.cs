@@ -5,46 +5,17 @@ namespace Tripous.Desktop;
 /// </summary>
 static public class Ui
 {
-    static Stretch fFormImageStretch = Stretch.Uniform;
-    static int fFormMemoRowCount;
-    static double fFormColumnWidth;
-    static int fFormColumnCount;
-    static int fFormImageHeight;
+    // ● construction
+    /// <summary>
+    /// Static constructor
+    /// </summary>
+    static Ui()
+    {
+        Sys.DebugProc = Ui.Debug;
+    }
     
-    static double GetCurrentScreenWidth()
-    {
-        if (MainWindow != null)
-        {
-            var screen = MainWindow.Screens.ScreenFromVisual(MainWindow);
-            if (screen != null)
-                return screen.WorkingArea.Width;
-        }
-            
-        return 1024;  
-    }
-    static double GetAvailableScreenWidth()
-    {
-        double ScreenWidth = GetCurrentScreenWidth();
-        double SideBarWidth = 200; 
-        double Result = ScreenWidth - SideBarWidth;
-        return Result;
-    }
-    static int GetFormDefaultColumnCount()
-    {
-        double AvailableWidth = GetAvailableScreenWidth();
-        int Result = AvailableWidth > 1100 ? 3 : 2;
-        return Result;
-    }
-    static double GetFormDefaultColumnWidth()
-    {
-        double AvailableWidth = GetAvailableScreenWidth();
-        int ColumnCount = GetFormDefaultColumnCount();
-        double Result = AvailableWidth / ColumnCount;
-        return Result;
-    }
     
     // ● images
-    
     /// <summary>
     /// Returns true if an image resource path exists, e.g. <c>avares://Tripous.Desktop/Images/MyImage.png</c>
     /// </summary>
@@ -238,6 +209,24 @@ static public class Ui
     }
 
     // ● miscs
+    static public void Debug(string Text)
+    {
+        if (Sys.DebugMode)
+        {
+            if (LogBox.IsInitialized)
+                LogBox.AppendLine(Text);
+            else
+                System.Diagnostics.Debug.WriteLine(Text);
+        }
+    }
+    static public void Debug(Exception e)
+    {
+        if (Sys.DebugMode)
+        {
+            Debug(e.ToString());
+        }
+    }
+    
     static public void ShowWaitCursor(Action Proc, Control Caller = null)
     {
         if (Caller == null)
@@ -292,48 +281,10 @@ static public class Ui
     /// The main windows
     /// </summary>
     static public Window MainWindow { get; set; }
-  
     /// <summary>
-    /// How many columns a form layout may have in an <see cref="ItemPage"/> of a <see cref="DataForm"/>
+    /// Ui global settings
     /// </summary>
-    static public int FormColumnCount
-    {
-        get => fFormColumnCount >= 250 && fFormColumnCount <= 600 ? fFormColumnCount : GetFormDefaultColumnCount();
-        set => fFormColumnCount = value;
-    }
-    /// <summary>
-    /// Column width of a form column in an <see cref="ItemPage"/> of a <see cref="DataForm"/>
-    /// </summary>
-    static public double FormColumnWidth
-    {
-        get => fFormColumnWidth >= 250 && fFormColumnWidth <= 600 ? fFormColumnWidth : GetFormDefaultColumnWidth();
-        set => fFormColumnWidth = value;
-    }
-    /// <summary>
-    /// How many rows a control, for a <see cref="FieldDef.IsMemo"/> field, occupies in a column of an <see cref="ItemPage"/> of a <see cref="DataForm"/>
-    /// </summary>
-    static public int FormMemoRowCount
-    {
-        get => fFormMemoRowCount >= 3 && fFormMemoRowCount <= 5 ? fFormMemoRowCount : 3;
-        set => fFormMemoRowCount = value;
-    }
-    /// <summary>
-    /// The height of an image control, for a <see cref="FieldDef.IsImage"/> field,  of an <see cref="ItemPage"/> of a <see cref="DataForm"/>
-    /// </summary>
-    static public int FormImageHeight
-    {
-        get => fFormImageHeight >= 80 && fFormImageHeight <= 300 ? fFormImageHeight : 160;
-        set => fFormImageHeight = value;
-    }
-    /// <summary>
-    /// The stretch mode of an image control in an <see cref="ItemPage"/> of a <see cref="DataForm"/>
-    /// </summary>
-    static public Stretch FormImageStretch
-    {
-        get => fFormImageStretch;
-        set => fFormImageStretch = value;
-    }
- 
+    static public UiGlobalSettings Settings { get; } = new();
 }
 
 

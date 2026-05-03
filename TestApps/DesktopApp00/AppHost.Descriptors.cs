@@ -26,13 +26,23 @@ static public partial class AppHost
     {
         ModuleDef Module;
         TableDef Table;
+        string SqlText;
         
         // list modules
         DataRegistry.AddLookupListModule("Country");
         DataRegistry.AddLookupListModule("Category");
         
         // Customer
-        Module = DataRegistry.AddModule("Customer"); 
+        SqlText = $@"
+select
+    c.Id            as Id
+    ,c.Name         as Customer
+    ,co.Name        as Country    
+from
+    Customer c
+        left join Country co on co.Id = c.CountryId
+";
+        Module = DataRegistry.AddModule("Customer", ListSelectSql: SqlText); 
  
         Table = Module.Table;
         Table.AddId().Flags |= FieldFlags.Visible;
@@ -43,7 +53,7 @@ static public partial class AppHost
     {
         FormDef FormDef;
         FormDef = DesktopRegistry.AddForm("Country", TitleKey: "Countries");
-        FormDef.IsReadOnly = true;
+        //FormDef.IsReadOnly = true;
         
         DesktopRegistry.AddForm("Category", TitleKey: "Categories");
         DesktopRegistry.AddForm("Customer", TitleKey: "Customers");

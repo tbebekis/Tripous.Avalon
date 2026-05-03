@@ -19,7 +19,7 @@ public class LookupDisplayConverter: IValueConverter
         if (Value == null || Value == DBNull.Value)
             return string.Empty;
 
-        foreach (LookupItem Item in fSource.List)
+        foreach (LookupItem Item in fSource.GetList())
         {
             if (Item.IsNullItem)
                 continue;

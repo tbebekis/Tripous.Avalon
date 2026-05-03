@@ -2,10 +2,11 @@ namespace DesktopApp;
 
 static public partial class AppHost
 {
-
-
     static AppHost()
     {
+#if DEBUG
+        Sys.DebugMode = true;
+#endif
         AppHost.HiddenMainWindow = new();
     }
     // ● miscs

@@ -17,6 +17,8 @@ public class FieldDef: BaseDef
     string fLocator;
     string fDefaultValue = Sys.NULL;
     string fGroup;
+    int fDecimals = -1;
+    string fCodeProviderName;
 
     // ● construction
     /// <summary>
@@ -209,12 +211,19 @@ public class FieldDef: BaseDef
     /// <summary>
     /// Gets or sets the decimals of the field. Used when is a float field. -1 means is not set.
     /// </summary>
-    public int Decimals { get; set; } = -1;
-
+    public int Decimals
+    {
+        get => fDecimals;
+        set { if (fDecimals != value) { fDecimals = value; NotifyPropertyChanged(nameof(Decimals)); } }
+    }
     /// <summary>
     /// Gets or sets the Name of the code producer descriptor associated to this field.
     /// </summary>
-    public string CodeProviderName { get; set; }
+    public string CodeProviderName 
+    {
+        get => fCodeProviderName;
+        set { if (fCodeProviderName != value) { fCodeProviderName = value; NotifyPropertyChanged(nameof(CodeProviderName)); } }
+    }
 
     /// <summary>
     /// Returns true when the Required flag is set in Flags.

@@ -395,6 +395,25 @@ static public class Sys
         }
     }
     
+    // ● miscs
+    static public void Debug(string Text)
+    {
+        if (DebugMode)
+        {
+            if (DebugProc != null)
+                DebugProc(Text);
+            else
+                System.Diagnostics.Debug.WriteLine(Text);
+        }
+    }
+    static public void Debug(Exception e)
+    {
+        if (DebugMode)
+        {
+            Debug(e.ToString());
+        }
+    }    
+    
     // ●  miscs 
     /// <summary>
     /// Creates and returns a new Guid.
@@ -441,6 +460,9 @@ static public class Sys
         // Compare() returns true if 1. both are null, 2. both are empty string or 3. they are the same string
         return string.Compare(A, B, StringComparison.InvariantCultureIgnoreCase) == 0;
     }
-
- 
+    static public bool DebugMode { get; set; }
+    /// <summary>
+    /// An action that displays debug strings to lob box. It is passed by the Ui static class.
+    /// </summary>
+    static public Action<string> DebugProc { get; set; }
 }   

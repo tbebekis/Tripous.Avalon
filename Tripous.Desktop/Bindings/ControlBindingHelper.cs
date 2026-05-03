@@ -62,7 +62,7 @@ static public class ControlBindingHelper
         if (Value == DBNull.Value)
             Value = null;
 
-        foreach (LookupItem Item in Source.List)
+        foreach (LookupItem Item in Source.GetList())
         {
             if (Item.IsNullItem && Value == null)
                 return Item;
@@ -101,18 +101,44 @@ static public class ControlBindingHelper
             Binding.IsRefreshing = false;
         }
     }
-    static private void RefreshComboBox(IRowProvider RowProvider, ControlBinding Binding)
+    static void RefreshComboBox_OLD(IRowProvider RowProvider, ControlBinding Binding)
     {
         if (Binding.Control is not ComboBox Box)
             return;
 
         object Value = GetValue(RowProvider, Binding.ColumnName);
         LookupItem Item = FindLookupItem(Binding.LookupSource, Value);
+        
+        Ui.Debug($"Combo Refresh: {Binding.ColumnName}, Value={Value}, Source={Binding.LookupSource?.Name}, Count={Binding.LookupSource?.GetList()?.Count}");
+        Ui.Debug($"Found Item: {Item?.DisplayText}");
 
         Binding.IsRefreshing = true;
         try
         {
             if (!ReferenceEquals(Box.SelectedItem, Item))
+                Box.SelectedItem = Item;
+        }
+        finally
+        {
+            Binding.IsRefreshing = false;
+        }
+    }
+    /// <summary>
+    /// Refreshes a combo box.
+    /// </summary>
+    static void RefreshComboBox(IRowProvider RowProvider, ControlBinding Binding)
+    {
+        if (Binding.Control is not ComboBox Box)
+            return;
+        object Value = GetValue(RowProvider, Binding.ColumnName);
+        LookupItem Item = FindLookupItem(Binding.LookupSource, Value);
+        Binding.IsRefreshing = true;
+        try
+        {
+            if (Box.ItemsSource == null && Binding.LookupSource != null)
+                Box.ItemsSource = Binding.LookupSource.GetList();
+            Box.SelectedItem = null;
+            if (Item != null)
                 Box.SelectedItem = Item;
         }
         finally
@@ -394,10 +420,18 @@ static public class ControlBindingHelper
             LookupSource = LookupSource,
         };
 
-        Box.ItemsSource = LookupSource.List;
-        Box.ItemTemplate = CreateLookupItemTemplate();
+        Box.ItemsSource = LookupSource.GetList();
+        
+        // WARNING:
+        // Do NOT use ItemTemplate or SelectionBoxItemTemplate on this ComboBox.
+        // In Avalonia, the drop-down items and the selection box are rendered differently.
+        // Using a DataTemplate here may cause the selected item text NOT to appear
+        // in the closed (selection) part of the ComboBox, even though the correct item is selected.
+        // Rely on LookupItem.ToString() instead for display.
+        Box.ItemTemplate = null;                // CreateLookupItemTemplate();
+        Box.SelectionBoxItemTemplate = null;    // CreateLookupItemTemplate();
         Box.IsEnabled = FieldDef == null || !FieldDef.Flags.HasFlag(FieldFlags.ReadOnlyUI);
-
+ 
         EventHandler<SelectionChangedEventArgs> SelectionChangedHandler = (Sender, Args) =>
         {
             if (Result.IsRefreshing)
@@ -450,8 +484,8 @@ static public class ControlBindingHelper
             FieldDef = FieldDef,
         };
 
-        Box.Height = Ui.FormImageHeight;
-        Box.Stretch = Ui.FormImageStretch;
+        Box.Height = Ui.Settings.FormImageHeight;
+        Box.Stretch = Ui.Settings.FormImageStretch;
 
         Refresh(RowProvider, Result);
         return Result;

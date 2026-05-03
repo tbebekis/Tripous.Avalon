@@ -12,7 +12,7 @@ public class LookupItem
 
     // ● public
     public override string ToString() =>  DisplayText ?? string.Empty;
-
+ 
     // ● properties
     public object Value { get; }
     public string DisplayText { get; }

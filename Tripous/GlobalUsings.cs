@@ -12,6 +12,7 @@ global using System.Dynamic;
 global using System.Data;
 global using System.Data.Common;
 global using System.Collections;
+global using System.Collections.Specialized;
 global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
 global using System.Reflection;
@@ -22,6 +23,7 @@ global using System.Text.Json.Serialization.Metadata;
 global using System.Diagnostics;
 global using System.Runtime.InteropServices;
 global using System.Diagnostics.CodeAnalysis;
+
 
 
 global using Tripous;

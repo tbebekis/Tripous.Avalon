@@ -26,6 +26,9 @@ public class DbConnections: SettingsBase
 
     public DbConnectionInfo Get(string Name)
     {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousDataException($"Connection Name is empty");
+        
         DbConnectionInfo Result  = List.FirstOrDefault(x => Name.IsSameText(x.Name));
         if (Result == null)
             throw new TripousDataException($"Cannot get {typeof(DbConnectionInfo)}: {Name}");

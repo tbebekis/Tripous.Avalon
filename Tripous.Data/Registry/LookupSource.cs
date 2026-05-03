@@ -21,46 +21,18 @@ public class LookupSource : BaseDef
     string fConnectionName;
     string fEnumTypeName;
     string fZoomCommand;
-    List<LookupItem> fList;
-    
-    // ● private
-    List<LookupItem> GetList()
+    List<LookupItem> List;
+    SqlStore fStore;
+
+    SqlStore Store
     {
-        if (fList != null)
-            return fList;
+        get
+        {
+            if (fStore == null)
+                fStore = SqlStores.CreateSqlStore(ConnectionName);
 
-        if (!string.IsNullOrWhiteSpace(TableName))
-        {
-            Select($"select * from {TableName}");
-            return fList;
+            return fStore;
         }
-        
-        if (!string.IsNullOrWhiteSpace(SqlText))
-        {
-            Select(SqlText);
-            return fList;
-        }
-
-        if (!string.IsNullOrWhiteSpace(EnumTypeName))
-        {
-            Type T = Type.GetType(EnumTypeName);
-            if (!T.IsEnum)
-                throw new TripousDataException($"Type {EnumTypeName} is not an enum type");
- 
-            var value = Enum.GetValues(T).GetValue(0);
-            LoadFrom((Enum)value);
-            return fList;
-        }
-
-        if (!string.IsNullOrWhiteSpace(ConnectionName))
-        {
-            SqlStore Store = SqlStores.CreateSqlStore(ConnectionName);
-            if (Store.TableExists(Name))
-                Select($"select * from {Name}");
-            return fList;
-        }
-        
-        return fList;
     }
     
     // ● construction
@@ -77,10 +49,9 @@ public class LookupSource : BaseDef
     /// </summary>
     public void Select(string SqlText)
     {
-        List.Clear();
+        ClearList();
         if (!string.IsNullOrWhiteSpace(SqlText))
         {
-            SqlStore Store = SqlStores.CreateSqlStore(ConnectionName);
             DataTable Table = Store.Select(SqlText);
             LoadForm(Table);
         }
@@ -99,19 +70,22 @@ public class LookupSource : BaseDef
         if (string.IsNullOrWhiteSpace(DisplayField) || !Table.Columns.Contains(DisplayField))
             throw new TripousDataException($"Lookup: DisplayField '{DisplayField}' not found.");
 
-        if (List == null)
-            List = new();
-        List.Clear();
-        
+        ClearList();
+
+        LookupItem LI;
         if (UseNullItem)
-            List.Add(new LookupItem(null, string.Empty, true));
+        {
+            LI = new LookupItem(null, string.Empty, true);
+            List.Add(LI);
+        }
+            
 
         foreach (DataRow Row in Table.Rows)
         {
             object Value = Row[ValueField];
             string Display = Row[DisplayField]?.ToString();
-            
-            List.Add(new LookupItem(Value, Display));
+            LI = new LookupItem(Value, Display);
+            List.Add(LI);
         }
     }
     /// <summary>
@@ -128,9 +102,7 @@ public class LookupSource : BaseDef
         if (!EnumType.IsEnum)
             throw new TripousDataException($"Type {EnumType.FullName} is not an enum type");
 
-        if (List == null)
-            List = new();
-        List.Clear();
+        ClearList();
         
         if (UseNullItem)
             List.Add(new LookupItem(null, string.Empty, true));
@@ -140,6 +112,57 @@ public class LookupSource : BaseDef
             string Display = Value.ToString();
             List.Add(new LookupItem(Value, Display));
         }
+    }
+
+    /// <summary>
+    /// Returns the lookup list, full of items.
+    /// </summary>
+    public List<LookupItem> GetList()
+    {
+        if (List != null)
+            return List;
+
+        if (!string.IsNullOrWhiteSpace(TableName))
+        {
+            Select($"select * from {TableName}");
+            return List;
+        }
+        
+        if (!string.IsNullOrWhiteSpace(SqlText))
+        {
+            Select(SqlText);
+            return List;
+        }
+
+        if (!string.IsNullOrWhiteSpace(EnumTypeName))
+        {
+            Type T = Type.GetType(EnumTypeName);
+            if (T == null || !T.IsEnum)
+                throw new TripousDataException($"Type {EnumTypeName} is not an enum type");
+ 
+            var value = Enum.GetValues(T).GetValue(0);
+            LoadFrom((Enum)value);
+            return List;
+        }
+
+        if (!string.IsNullOrWhiteSpace(ConnectionName))
+        {
+            if (Store.TableExists(Name))
+                Select($"select * from {Name}");
+            return List;
+        }
+        
+        return List?? [];
+    }
+    /// <summary>
+    /// Clears the lookup list.
+    /// </summary>
+    public void ClearList()
+    {
+        if (List == null)
+            List = [];
+        else
+            List.Clear();
     }
     
     // ● properties
@@ -258,98 +281,7 @@ public class LookupSource : BaseDef
             }
         }
     }
-    /// <summary>
-    /// The lookup list.
-    /// </summary>
-    [JsonIgnore]
-    public List<LookupItem> List
-    {
-        get => GetList();
-        set => fList = value;
-    }
+ 
 }
 
-/*
- public class LookupSource2  : IDef 
-   {
-       // ● construction  
-       public LookupSource2(LookupDef LookupDef)
-       {
-           this.LookupDef = LookupDef ?? throw new TripousArgumentNullException(nameof(LookupDef));
-       }
-       
-       // ● public  
-       public void Select()
-       {
-           List.Clear();
-           if (!string.IsNullOrWhiteSpace(LookupDef.SqlText))
-           {
-               SqlStore Store = SqlStores.CreateSqlStore(LookupDef.ConnectionName);
-               DataTable Table = Store.Select(LookupDef.SqlText);
-               LoadForm(Table);
-           }
-       }
-       public void LoadForm(DataTable Table)
-       {
-           if (Table == null)
-               throw new TripousArgumentNullException(nameof(Table));
-           
-           string ValueField = LookupDef.ValueField;
-           string DisplayField = LookupDef.DisplayField;
-   
-           if (string.IsNullOrWhiteSpace(ValueField) || !Table.Columns.Contains(ValueField))
-               throw new TripousDataException($"Lookup: ValueField '{ValueField}' not found.");
-   
-           if (string.IsNullOrWhiteSpace(DisplayField) || !Table.Columns.Contains(DisplayField))
-               throw new TripousDataException($"Lookup: DisplayField '{DisplayField}' not found.");
-   
-           if (LookupDef.UseNullItem)
-               List.Add(new LookupItem(null, string.Empty, true));
-   
-           foreach (DataRow Row in Table.Rows)
-           {
-               object Value = Row[ValueField];
-               string Display = Row[DisplayField]?.ToString();
-               List.Add(new LookupItem(Value, Display));
-           }
-       }
-       public void LoadFrom(Enum Enum)
-       {
-           if (Enum == null)
-               throw new TripousArgumentNullException(nameof(Enum));
-   
-           Type EnumType = Enum.GetType();
-   
-           if (LookupDef.UseNullItem)
-               List.Add(new LookupItem(null, string.Empty, true));
-   
-           foreach (var Value in System.Enum.GetValues(EnumType))
-           {
-               string Display = Value.ToString();
-               List.Add(new LookupItem(Value, Display));
-           }
-       }
-   
-       // ● static  
-       static public LookupSource2 GetLookupSource(string Name) => DataRegistry.LookupSources.Get(Name);
-    
-    
-       // ● properties  
-       public string Name
-       {
-           get => LookupDef.Name;
-           set { }
-       }
-       public string TitleKey
-       {
-           get => LookupDef.TitleKey;
-           set { }
-       }
-       [JsonIgnore]
-       public string Title => LookupDef.Title;
-   
-       [JsonIgnore] public object Tag { get; set; }
-       public LookupDef LookupDef { get; }
-       public List<LookupItem> List { get; } = new();
-   }
- */
+ 

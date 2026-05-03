@@ -70,7 +70,7 @@ public static class DataViewGridColumnFactory
         if (Value == DBNull.Value)
             Value = null;
 
-        foreach (LookupItem Item in Source.List)
+        foreach (LookupItem Item in Source.GetList())
         {
             if (Item.IsNullItem && Value == null)
                 return Item;
@@ -180,7 +180,7 @@ public static class DataViewGridColumnFactory
             object CurrentValue = GetValue(Item, ColumnName);
             Result.SelectedItem = FindLookupItem(Source, CurrentValue);
 
-            Result.ItemsSource = Source.List;
+            Result.ItemsSource = Source.GetList();
             Result.Padding = new Thickness(0);
             Result.Margin = new Thickness(0);
             Result.HorizontalAlignment = HorizontalAlignment.Stretch;

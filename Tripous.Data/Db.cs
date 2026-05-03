@@ -41,9 +41,9 @@ static public class Db
         
     // ● db connections
     /// <summary>
-    /// Loads connections from a .json file, using the <see cref="SysConfig.SqlConnectionsFilePath"/> setting.
+    /// Loads connections from a .json file, using the <see cref="DbConnections.SettingsFilePath"/> setting.
     /// </summary>
-    static public void LoadConnections() =>  Connections.Load();
+    static public void LoadConnections() => Connections.Load();
     static public DbConnectionInfo GetConnectionInfo(string Name) => Connections.Get(Name);
     /// <summary>
     /// Returns the default connection string, if any, else throws an exception.
@@ -126,6 +126,4 @@ static public class Db
     static public DbConnections Connections = new DbConnections();
     static public DbIni MainIni => fMainIni ?? (fMainIni = new DbIni(GetDefaultConnectionInfo()));
     static public readonly string StandardDefaultValues = "CompanyId;EmptyString;AppDate;SysDate;SysTime;DbServerTime;AppUserName;AppUserId;NetUserName;Guid";
-    
- 
 }

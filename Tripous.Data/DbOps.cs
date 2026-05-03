@@ -3,30 +3,14 @@ namespace Tripous.Data;
 public class DbOpContext
 {
     // ● construction
-    public DbOpContext(SqlStore Store, DbTransaction Transaction, MemTable TopTable, List<MemTable> FlatList = null, bool CascadeDeletes = true, bool GenerateSql = false)
+    public DbOpContext(SqlStore Store, DbTransaction Transaction, MemTable TopTable, bool CascadeDeletes = true, bool GenerateSql = false)
     {
         this.Store = Store;
         this.Transaction = Transaction;
         this.TopTable = TopTable;
 
         // flat table list
-        if (FlatList == null)
-        {
-            // ---------------------------------------------
-            void AddTableToFlatList(MemTable Table)
-            {
-                if (FlatList.IndexOf(Table) == -1)
-                    FlatList.Add(Table);
-
-                foreach (MemTable tblChild in Table.Details)
-                    AddTableToFlatList(tblChild);
-            }
-            // ---------------------------------------------
-            
-            FlatList = new();
-            AddTableToFlatList(this.TopTable);
-        }
-        this.FlatList = FlatList;
+        this.FlatList = TopTable.GetTreeAsFlatList();
         
         // generate sql
         if (GenerateSql)

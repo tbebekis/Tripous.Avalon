@@ -513,6 +513,39 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             DataView.RowFilter = Filter;
         }
     }
+
+    /// <summary>
+    /// Returns this table and all of its detail tables as a flat list.
+    /// </summary>
+    public List<MemTable> GetTreeAsFlatList()
+    {
+        List<MemTable> Result = new();
+
+        void Add(MemTable Table)
+        {
+            if (Result.IndexOf(Table) == -1)
+                Result.Add(Table);
+
+            foreach (MemTable tblChild in Details)
+                Add(tblChild);
+        }
+
+        Add(this);
+        
+        return Result;
+    }
+    /// <summary>
+    /// Returns true if this table, or any of its details, in any depth, has changes.
+    /// </summary>
+    public bool TreeHasChanges()
+    {
+        List<MemTable> FlatList = GetTreeAsFlatList();
+        foreach (MemTable Table in FlatList)
+            if (Table.GetChanges() != null)
+                return true;
+
+        return false;
+    }
     
     // ● IRowProviderHost 
     public bool RowProviderExists(string TableName) => FindRowProvider(TableName) != null;

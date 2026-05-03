@@ -1,10 +1,20 @@
 namespace Tripous.Data;
 
+/// <summary>
+/// Describes a SELECT statement along with its possible WHERE filters.
+/// </summary>
 public class SelectDef: BaseDef
 {
-    private string fSqlText;
-    private Dictionary<string, string> fDisplayLabels;
+    string fSqlText;
+    Dictionary<string, string> fDisplayLabels;
+    SqlFilterDefs fFilterDefs;
 
+    // ● construction
+    public SelectDef()
+    {
+    }
+
+    // ● public
     /// <summary>
     /// Throws an exception if this descriptor is not fully defined
     /// </summary>
@@ -15,6 +25,11 @@ public class SelectDef: BaseDef
         if (string.IsNullOrWhiteSpace(this.SqlText))
             Sys.Throw(Texts.GS($"E_{typeof(SelectDef)}_NoSql", $"{typeof(SelectDef)} must have an SQL statement"));
     }
+    /// <summary>
+    /// Adds a filter definition
+    /// </summary>
+    public SqlFilterDef AddFilter(string Name, string FieldName = null, BoolOp BoolOp = BoolOp.And, ConditionOp ConditionOp = ConditionOp.Equal, string TitleKey = null)
+        => FilterDefs.Add(Name, FieldName, BoolOp, ConditionOp, TitleKey);
     
     // ● properties
     public string SqlText
@@ -38,6 +53,18 @@ public class SelectDef: BaseDef
             {
                 fDisplayLabels = value;
                 NotifyPropertyChanged(nameof(DisplayLabels));
+            }
+        }
+    }
+    public SqlFilterDefs FilterDefs
+    {
+        get => fFilterDefs ??= new();
+        set
+        {
+            if (fFilterDefs != value)
+            {
+                fFilterDefs = value;
+                NotifyPropertyChanged(nameof(FilterDefs));
             }
         }
     }

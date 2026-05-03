@@ -1,51 +1,32 @@
 namespace Tripous;
 
-public class DefList<T>: IEnumerable<T>, IEnumerable where T: IDef
+public class DefList<T> : TripousList<T>, IJsonLoadable where T : IDef
 {
-    // ● private
-    private List<T> List = new();
-
-    // ● overridables
-    protected virtual void CheckAdding(T Def)
+    bool fAllowDuplicateNames;
+    
+    // ● protected  
+    protected override void CheckAdding(T Def)
     {
-        if (Def == null)
-            throw new TripousArgumentNullException(nameof(Def));
+        base.CheckAdding(Def);
         
         if (string.IsNullOrWhiteSpace(Def.Name))
             throw new TripousArgumentNullException(nameof(Def.Name));
 
-        if (Contains(Def.Name))
+        if (!AllowDuplicateNames && Contains(Def.Name))
             throw new TripousException($"{nameof(Def)} '{Def.Name}' is already registered.");
-        
-        if (List.Contains(Def))
-            throw new TripousException($"{nameof(Def)} instance '{Def}' is already registered.");
     }
     
-    // ● public
+    // ● construction
     public DefList()
     {
     }
-
-    // ● public
-    public T Add(T Def)
-    {
-        CheckAdding(Def);
-        List.Add(Def);
-        return Def;
-    }
-
-    public void AddRange(IEnumerable<T> Items)
-    {
-        foreach (T Item in Items)
-            Add(Item);
-    }
-    public void Remove(T Def) => List.Remove(Def);
     
-    public bool Contains(string Name) => List.FirstOrDefault(x => Sys.IsSameText(Name, x.Name)) != null;
-    public T Find(string Name) => List.FirstOrDefault(x => Sys.IsSameText(Name, x.Name));
+    // ● public
+    public bool Contains(string Name) => this.Any(x => x.Name.IsSameText(Name));
+    public T Find(string Name) => Items.FirstOrDefault(x => Sys.IsSameText(Name, x.Name));
     public T Get(string Name)
     {
-        T Result  = List.FirstOrDefault(x => Sys.IsSameText(Name, x.Name));
+        T Result  = Items.FirstOrDefault(x => Sys.IsSameText(Name, x.Name));
         if (Result == null)
             throw new TripousException($"{typeof(T)} not found: {Name}");
         return Result;
@@ -55,7 +36,7 @@ public class DefList<T>: IEnumerable<T>, IEnumerable where T: IDef
     {
         T Def = Find(Name);
         if (Def != null)
-            return List.IndexOf(Def);
+            return Items.IndexOf(Def);
         return -1;
     }
     public void InsertBefore(string BeforeName, T Def)
@@ -63,13 +44,13 @@ public class DefList<T>: IEnumerable<T>, IEnumerable where T: IDef
         T Other = Find(BeforeName);
         if (Other != null)
         {
-            int Index = List.IndexOf(Other);
+            int Index = Items.IndexOf(Other);
             if (Index != -1)
             {
                 Index--;
                 if (Index < 0)
                     Index = 0;
-                List.Insert(Index, Def);
+                Items.Insert(Index, Def);
             }
         }
     }
@@ -78,27 +59,51 @@ public class DefList<T>: IEnumerable<T>, IEnumerable where T: IDef
         T Other = Find(AfterName);
         if (Other != null)
         {
-            int Index = List.IndexOf(Other);
+            int Index = Items.IndexOf(Other);
             if (Index != -1)
             {
                 Index++;
-                if (Index > List.Count - 1)
-                    List.Add(Def);
+                if (Index > Items.Count - 1)
+                    Items.Add(Def);
                 else
-                    List.Insert(Index, Def);
+                    Items.Insert(Index, Def);
             }
         }
     }
-    
-    public IEnumerator<T> GetEnumerator() => List.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() => List.GetEnumerator();
+
+    /// <summary>
+    /// Throws an exception if this descriptor is not fully defined
+    /// </summary>
+    public virtual void CheckDescriptors()
+    {
+        foreach (T Item in Items)
+            Item.CheckDescriptor();
+    }
+    /// <summary>
+    /// Updates references such as when an instance has references to other instances, e.g. tables of a module definition.
+    /// </summary>
+    public virtual void UpdateReferences()
+    {
+        foreach (T Item in Items)
+            Item.UpdateReferences();
+    }
+    public virtual void JsonLoaded() => UpdateReferences();
     
     // ● properties
+    [JsonIgnore]
     public T this[string Name] => Get(Name);
-    public int Count => List.Count;
-    public ReadOnlyCollection<T> Items => List.AsReadOnly();
-    
-    
- 
+    [JsonIgnore]
+    public ReadOnlyCollection<T> ReadOnlyList => Items.AsReadOnly();
+    /// <summary>
+    /// In some cases, e.g. SQL WHERE filters, we may need the same name twice when constructing something like
+    /// <para><c> MyDate &gt;= Value1 and MyDate &lt;= Value2</c></para>
+    /// </summary>
+    public bool AllowDuplicateNames 
+    {
+        get => fAllowDuplicateNames;
+        set { if (fAllowDuplicateNames != value) { fAllowDuplicateNames = value; OnPropertyChanged(nameof(AllowDuplicateNames)); } }
+    }
 }
+
+ 
 

@@ -358,7 +358,7 @@ public class DataModule
         {
             CheckCanInsert();
             
-            TableSet.ItemProcessInsert();
+            TableSet.ProcessInsert();
             SetDefaultValues();
         }
         finally
@@ -377,7 +377,7 @@ public class DataModule
         Editing = true;
         try
         {
-            TableSet.ItemLoad(RowId);
+            TableSet.Load(RowId);
             AcceptChanges();
             LastEditedId = RowId;
         }
@@ -397,7 +397,7 @@ public class DataModule
         Deleting = true;
         try
         {
-            TableSet.ItemDelete(RowId);
+            TableSet.Delete(RowId);
             LastDeletedId = RowId;
             AcceptChanges();
         }
@@ -424,7 +424,7 @@ public class DataModule
         
             CheckCanCommit(Reselect);
             
-            Result = TableSet.ItemCommit(Reselect);
+            Result = TableSet.Commit(Reselect);
             LastCommitedId = Result;
             AcceptChanges();
         }
@@ -441,10 +441,14 @@ public class DataModule
     /// </summary>
     public virtual void Cancel()
     {
-        TableSet.ItemProcessCancel();
+        TableSet.ProcessCancel();
         RejectChanges();
         State = DataMode.Edit;
     }
+    /// <summary>
+    /// Returns true if <see cref="TableSet.ItemTable"/> table, or any of its details, in any depth, has changes.
+    /// </summary>
+    public virtual bool HasChanges() => TableSet.HasChanges();
     
     // ● item checks
     /// <summary>

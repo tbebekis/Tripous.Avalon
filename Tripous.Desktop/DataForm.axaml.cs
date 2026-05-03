@@ -85,27 +85,6 @@ public partial class DataForm : AppForm
  
     // ● initialization
     /// <summary>
-    /// Called just before form initialization
-    /// </summary>
-    protected override void FormInitializing()
-    {
-        base.FormInitializing();
-        
-        ProcessFormOptions();
-    }
-    /// <summary>
-    /// Called in order to initialize the form
-    /// </summary>
-    protected override void FormInitialize()
-    {
-    }
-    /// <summary>
-    /// Called just after form initialization
-    /// </summary>
-    protected override void FormInitialized()
-    {
-    }
-    /// <summary>
     /// Executes any first command on the form
     /// </summary>
     protected override async Task Start()
@@ -117,16 +96,13 @@ public partial class DataForm : AppForm
         if (StartAction == DataFormAction.List || StartAction == DataFormAction.Edit || StartAction == DataFormAction.Insert)
         {
             if (StartAction == DataFormAction.List)
+            {
                 ListSelect();
+                btnToggleIds.IsChecked = !Ui.Settings.ShowIdColumns;
+            }
             
             await Execute(StartAction);
         }
-    }
-    /// <summary>
-    /// Processes the form options
-    /// </summary>
-    protected virtual void ProcessFormOptions()
-    {
     }
     
     // ● form state
@@ -213,23 +189,11 @@ public partial class DataForm : AppForm
         }
 
     }
-    protected virtual bool Executing(DataFormAction Value)
-    {
-        return false;
-    }
-    protected virtual void Executed(DataFormAction Value)
-    {
-        LastAction = Value;
-    }
+    protected virtual bool Executing(DataFormAction Value) => false;
+    protected virtual void Executed(DataFormAction Value) =>  LastAction = Value;
 
-    protected virtual void ExecuteHome()
-    {
-        this.FormState = DataFormState.List;
-    }
-    protected virtual void ExecuteFind()
-    {
-        this.FormState = DataFormState.List;
-    }
+    protected virtual void ExecuteHome() => FormState = DataFormState.List;
+    protected virtual void ExecuteFind() => FormState = DataFormState.List;
 
     protected virtual async Task ExecuteList()
     {
@@ -240,13 +204,12 @@ public partial class DataForm : AppForm
             if (!await ExecuteCancelEdit())
                 return;
         }
-
-        //ListSelect();
+        
         this.FormState = DataFormState.List;
     }
     protected virtual void ExecuteInsert()
     {
-        ItemInsert();
+        Insert();
         this.FormState = DataFormState.Insert;
     }
     protected virtual void ExecuteEdit(object oId = null)
@@ -256,7 +219,7 @@ public partial class DataForm : AppForm
 
         if (!Sys.IsNull(oId))
         {
-            ItemLoad(oId);
+            Load(oId);
             this.FormState = DataFormState.Edit;
         }
     }
@@ -269,18 +232,16 @@ public partial class DataForm : AppForm
         {
             if (await MessageBox.YesNo("Delete item?", this))
             {
-                ItemDelete(oId);
+                Delete(oId);
             }
         }
     }
     protected virtual void ExecuteSave()
     {
-        CheckSave();
-
         Saving = true;
         try
         {
-            ItemSave();
+            Save();
         }
         finally
         {
@@ -291,12 +252,12 @@ public partial class DataForm : AppForm
     }
     protected virtual async Task<bool> ExecuteCancelEdit()
     {
-        if (ItemHasChanges())
+        if (HasChanges())
         {
             if (!await MessageBox.YesNo("Cancel changes?"))
                 return false;
 
-            ItemCancelChanges();
+            CancelChanges();
         }
 
         return true;
@@ -325,29 +286,13 @@ public partial class DataForm : AppForm
     }
   
     // ● item
-    protected virtual void ItemInsert()
-    {
-    }
-    protected virtual void ItemLoad(object oId)
-    {
-        Module.Edit(oId);
-    }
-    protected virtual void ItemDelete(object oId)
-    {
-    }
-    protected virtual void ItemSave()
-    {
-    }
-    protected virtual void CheckSave()
-    {
-    }
-    protected virtual bool ItemHasChanges()
-    {
-        return false;
-    }
-    protected virtual void ItemCancelChanges()
-    {
-    }
+    protected virtual void Insert() => Module.Insert();
+    protected virtual void Load(object oId) => Module.Edit(oId);
+    protected virtual void Delete(object oId) => Module.Delete(oId);
+    protected virtual void Save() => Module.Commit(Reselect: false);
+
+    protected virtual bool HasChanges() => Module.HasChanges();
+    protected virtual void CancelChanges() => Module.Cancel();
 
     // ● UI
     protected virtual void CreateToolBar()
@@ -439,7 +384,6 @@ public partial class DataForm : AppForm
         btnHome.IsVisible = !IsSingleSelect;
         btnFind.IsVisible = btnHome.IsVisible;
         sepFilters.IsVisible = btnHome.IsVisible || btnFind.IsVisible;
-
         
         btnList.IsVisible = !IsReadOnlyForm;
         btnToggleIds.IsVisible = true;
@@ -507,58 +451,20 @@ public partial class DataForm : AppForm
         }
     }
     
-    // ● miscs
-    /// <summary>
-    /// Passes any result to the caller of the form, if any. Useful with modal forms.
-    /// </summary>
-    protected virtual void PassResultBack()
-    {
-    }
-    /// <summary>
-    /// Returns the control that is last added to the container
-    /// </summary>
-    protected virtual Control FindFirstFocusableControl(Control Container)
-    {
-        return null;
-    }
-    /// <summary>
-    /// Handles a broadcaster event.
-    /// </summary>
-    protected virtual void HandleBroadcasterEvent(string EventName, IDictionary<string, object> Args)
-    {
-        switch (EventName)
-        {
-            case "NOT_EXISTED_EVENT_NAME": 
-                break;
-        }
-    }
-    /// <summary>
-    /// It is called by the OnKeyDown() method. 
-    /// <para>Returns true if processes the key</para>
-    /// </summary>
-    protected virtual bool ProcessKeyDown(KeyEventArgs e)
-    {
-        return false;
-    }
     /// <summary>
     /// It is called when the escape key is pressed. 
     /// <para>Returning true indicates that the key press is handled.</para>
     /// <para>NOTE: By default, when is a modal dialog, it sets <see cref="ModalResult"/> to Cancel, and closes the form.</para>
     /// </summary>
-    protected virtual bool ProcessEscapeKey()
+    protected override bool ProcessEscapeKey()
     {
         if (!IsModal && this.FormState == DataFormState.List)
         {
             this.CloseForm();
             return true;
         }
-        else if (this.IsModal)
-        {
-            this.ModalResult = ModalResult.Cancel;
-            return true;
-        }
 
-        return false;
+        return base.ProcessEscapeKey();
     }    
  
     // ● construction
@@ -625,7 +531,7 @@ public partial class DataForm : AppForm
     /// <summary>
     /// Returns true if this is a fixed (no row insert-delete allowed) form.
     /// </summary>
-    public bool IsReadOnlyForm => !FormDef.IsReadOnly;
+    public bool IsReadOnlyForm => FormDef.IsReadOnly;
     /// <summary>
     /// When true then this is a form with a fixed single select.
     /// </summary>
@@ -634,8 +540,5 @@ public partial class DataForm : AppForm
     /// True when the list grid/table is empty.
     /// </summary>
     public bool IsListEmpty => Module != null && Module.tblList != null && Module.tblList.Rows.Count > 0;
-    
- 
-
 
 }

@@ -1,16 +1,35 @@
 namespace Tripous.Data;
 
-public class ModuleDef: BaseDef, IJsonLoadable
+public class ModuleDef: BaseDef
 {
    string fClassName = typeof(DataModule).FullName;
    string fDescription;
-   List<SelectDef> fSelectList;
-   List<SelectDef> fStocks;
+   SelectDefs fSelectList;
+   SelectDefs fStocks;
    TableDef fTable = new();
    string fConnectionName = SysConfig.DefaultConnectionName;
    bool fIsSingleSelect;
    bool fGuidOids = true;
    bool fCascadeDeletes = true;
+   string fItemCaptionField;
+
+   string GetItemCaptionField()
+   {
+       string[] CaptionFields = { "Name", "Code", "Description", "Id" };
+       
+       foreach (string FieldName in CaptionFields)
+       {
+           FieldDef FieldDef = Table.FindField(FieldName);
+           if (FieldDef != null)
+               return FieldName;
+       }
+   
+       foreach (FieldDef FieldDef in Table.Fields)
+           if (FieldDef.DataType == DataFieldType.String)
+               return FieldDef.Name;
+
+       throw new TripousDataException($"Cannot find an item caption/title field for {nameof(ModuleDef)} {Name}");
+   }
 
     // ● public
     public DataModule Create()
@@ -32,10 +51,6 @@ public class ModuleDef: BaseDef, IJsonLoadable
         if (Table == null)
             Sys.Throw(Texts.GS($"E_{typeof(ModuleDef)}_NoTopTable", $"{typeof(ModuleDef)} No Top Table is defined."));
     }
-    public void JsonLoaded()
-    {
-        UpdateReferences();
-    }
     /// <summary>
     /// Updates references such as when an instance has references to other instances, e.g. tables of a module definition.
     /// </summary>
@@ -50,7 +65,6 @@ public class ModuleDef: BaseDef, IJsonLoadable
         Table.ModuleDef = this;
         Table.UpdateReferences();
     }
- 
     /// <summary>
     /// Returns all tables in a flat list
     /// </summary>
@@ -133,6 +147,14 @@ public class ModuleDef: BaseDef, IJsonLoadable
         set { if (fCascadeDeletes != value) { fCascadeDeletes = value; NotifyPropertyChanged(nameof(CascadeDeletes)); } }
     }
     /// <summary>
+    /// A field name of a field used in providing the item caption/title.
+    /// </summary>
+    public string ItemCaptionField
+    {
+        get => !string.IsNullOrWhiteSpace(fItemCaptionField)? fItemCaptionField: GetItemCaptionField();
+        set { if (fItemCaptionField != value) { fItemCaptionField = value; NotifyPropertyChanged(nameof(ItemCaptionField)); } }
+    }
+    /// <summary>
     /// The top table of the module, the one with the single data row.
     /// </summary>
     public TableDef Table
@@ -143,7 +165,7 @@ public class ModuleDef: BaseDef, IJsonLoadable
     /// <summary>
     /// A list of named SELECT Sql statements. Used in the List part and List SELECTs of the module.
     /// </summary>
-    public List<SelectDef> SelectList
+    public SelectDefs SelectList
     {
         get => fSelectList ??= new();
         set { if (fSelectList != value) { fSelectList = value; NotifyPropertyChanged(nameof(SelectList)); } }
@@ -152,7 +174,7 @@ public class ModuleDef: BaseDef, IJsonLoadable
     /// A list of named SELECT Sql statements that executed once at the initialization of the module and may be used
     /// in various situations, i.e. Locators
     /// </summary>
-    public List<SelectDef> Stocks
+    public SelectDefs Stocks
     {
         get => fStocks ??= new();
         set { if (fStocks != value) { fStocks = value; NotifyPropertyChanged(nameof(Stocks)); } }

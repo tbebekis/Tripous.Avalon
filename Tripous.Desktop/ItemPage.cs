@@ -201,13 +201,19 @@ public class ItemPage : UserControl
         foreach (var Entry in Groups)
         {
             Expander Expander = CreateExpander(ParentControl, Entry.Key);
-            List<Grid> ColumnGrids = CreateGroupColumnGrids(Expander, Entry.Value.Count);
+            List<Grid> ColumnGrids = CreateGroupColumnGrids(Expander, fColumnCount);
             for (int i = 0; i < Entry.Value.Count; i++)
             {
                 List<FieldDef> Fields = Entry.Value[i];
                 Grid Grid = ColumnGrids[i];
+                FieldDef FieldDef;
+                int RowIndex;
                 for (int j = 0; j < Fields.Count; j++)
-                    AddControlRow(Grid, j, Fields[j], Binder);
+                {
+                    RowIndex = j;
+                    FieldDef = Fields[j];
+                    AddControlRow(Grid, RowIndex, FieldDef, Binder);
+                }
             }
         }
     }
@@ -312,7 +318,7 @@ public class ItemPage : UserControl
         };
         Border Border = new()
         {
-            Height = Ui.FormImageHeight,
+            Height = Ui.Settings.FormImageHeight,
             BorderThickness = new Thickness(1),
             Padding = new Thickness(4),
             Child = new TextBlock
@@ -500,7 +506,7 @@ public class ItemPage : UserControl
     /// </summary>
     public virtual void Bind()
     {
-        Bind(Ui.FormColumnCount);
+        Bind(Ui.Settings.FormColumnCount);
     }
     /// <summary>
     /// Binds this instance.

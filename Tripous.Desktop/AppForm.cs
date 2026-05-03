@@ -7,6 +7,8 @@ public class AppForm: UserControl
 {
     private ModalResult fModalResult;
     protected string fTitleText;
+    
+     
 
     // ● protected
     /// <summary>
@@ -14,6 +16,7 @@ public class AppForm: UserControl
     /// </summary>
     protected virtual void FormInitializing()
     {
+        ProcessFormOptions();
     }
     /// <summary>
     /// Called in order to initialize the form
@@ -39,6 +42,13 @@ public class AppForm: UserControl
     {
     }
     
+    /// <summary>
+    /// Processes the form options
+    /// </summary>
+    protected virtual void ProcessFormOptions()
+    {
+    }
+    
     protected virtual void Closing()
     {
     }
@@ -51,6 +61,55 @@ public class AppForm: UserControl
         if (this.ParentTabPage != null)
             this.ParentTabPage.Header = TitleText;
     }
+    
+    // ● miscs
+    /// <summary>
+    /// Passes any result to the caller of the form, if any. Useful with modal forms.
+    /// </summary>
+    protected virtual void PassResultBack()
+    {
+    }
+    /// <summary>
+    /// Returns the control that is last added to the container
+    /// </summary>
+    protected virtual Control FindFirstFocusableControl(Control Container)
+    {
+        return null;
+    }
+    /// <summary>
+    /// Handles a broadcaster event.
+    /// </summary>
+    protected virtual void HandleBroadcasterEvent(string EventName, IDictionary<string, object> Args)
+    {
+        switch (EventName)
+        {
+            case "NOT_EXISTED_EVENT_NAME": 
+                break;
+        }
+    }
+    /// <summary>
+    /// It is called by the OnKeyDown() method. 
+    /// <para>Returns true if processes the key</para>
+    /// </summary>
+    protected virtual bool ProcessKeyDown(KeyEventArgs e)
+    {
+        return false;
+    }
+    /// <summary>
+    /// It is called when the escape key is pressed. 
+    /// <para>Returning true indicates that the key press is handled.</para>
+    /// <para>NOTE: By default, when is a modal dialog, it sets <see cref="ModalResult"/> to Cancel, and closes the form.</para>
+    /// </summary>
+    protected virtual bool ProcessEscapeKey()
+    {
+        if (this.IsModal)
+        {
+            this.ModalResult = ModalResult.Cancel;
+            return true;
+        }
+
+        return false;
+    }  
     
     // ● overrides
     /// <summary>

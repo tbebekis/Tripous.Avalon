@@ -4,7 +4,7 @@ public class TableSet
 {
     MemTable ListTable;
     MemTable ItemTable;
-    List<MemTable> TableTree  = new();
+    List<MemTable> TableTree;
     List<MemTable> Stocks;
  
     bool IsInsert;
@@ -14,24 +14,6 @@ public class TableSet
     bool CascadeDeletes  = false;
     
     // ● initialization
-    /// <summary>
-    /// Adds Table an all of its detail tables to TableTree.
-    /// </summary>
-    void AddTableToTree(MemTable Table)
-    {
-        if (TableTree.IndexOf(Table) == -1)
-            TableTree.Add(Table);
-
-        for (int i = 0; i < Table.Details.Count; i++)
-            AddTableToTree(Table.Details[i]);
-    }
-    /// <summary>
-    /// Constructs the table tree
-    /// </summary>
-    void ConstructTableTree()
-    {
-        AddTableToTree(ItemTable);
-    }
     /// <summary>
     /// Sets the MaxDetailLevel, that is the depth of the details.
     /// </summary>
@@ -241,15 +223,14 @@ public class TableSet
     /// <summary>
     /// Creates a context for calling <see cref="DbOps"/>
     /// </summary>
-    DbOpContext CreateDbOpContext(MemTable TopTable, List<MemTable> FlatList = null)
+    DbOpContext CreateDbOpContext(MemTable TopTable)
     {
-        List<MemTable> TableList = FlatList ?? new([TopTable]);
+ 
         bool GenerateSqlFlag = string.IsNullOrWhiteSpace(TopTable.Sqls.InsertRowSql) || string.IsNullOrWhiteSpace(TopTable.Sqls.UpdateRowSql);
         
         DbOpContext Result = new(Store = this.Store, 
             Transaction, 
             TopTable, 
-            TableList, 
             CascadeDeletes, 
             GenerateSqlFlag
             );
@@ -275,9 +256,9 @@ public class TableSet
 
         GenerateSql = TableSetFlags.GenerateSql.In(Flags);   
     
-        CascadeDeletes = !TableSetFlags.NoCascadeDeletes.In(Flags);     
+        CascadeDeletes = !TableSetFlags.NoCascadeDeletes.In(Flags);
 
-        ConstructTableTree();
+        TableTree = ItemTable.GetTreeAsFlatList();
         SetMaxDetailLevel();
         GenerateSqlStatements();
         SelectStocks();
@@ -335,12 +316,12 @@ public class TableSet
     /// Selects the whole table tree from the database starting from the top table (which is a single-row table).
     /// <para>RowId could be string or integer and is the primary key value of the top table.</para>
     /// </summary>
-    public bool ItemLoad(object RowId)
+    public bool Load(object RowId)
     {
         if (RowId == null || RowId == DBNull.Value || (RowId is string && string.IsNullOrWhiteSpace(RowId.ToString())))
             return false;
         
-        ItemProcessEmpty();
+        ProcessEmpty();
 
         ItemTable.EventsDisabled = true;
         try
@@ -377,13 +358,13 @@ public class TableSet
     /// Deletes the whole table tree to the database. The way this method process table deletes, depends on the cascadeDeletes flag.
     /// <para>RowId could be string or integer and is the primary key value of the top table.</para>
     /// </summary>
-    public void ItemDelete(object RowId)
+    public void Delete(object RowId)
     {
         if (RowId == null)
             return;
 
         // first, select the top table and the detail tables
-        ItemLoad(RowId);
+        Load(RowId);
 
         // already deleted in database
         if (ItemTable.Rows.Count == 0)
@@ -404,7 +385,7 @@ public class TableSet
                 OnTransactionStageDelete(TransactionStage.Start, ExecTime.After, RowId);
                 try
                 {
-                    DbOpContext Context = CreateDbOpContext(ItemTable, TableTree);
+                    DbOpContext Context = CreateDbOpContext(ItemTable);
                     DbOps.PostDeletes(Context);
 
                     OnTransactionStageDelete(TransactionStage.Commit, ExecTime.Before, RowId);
@@ -433,7 +414,7 @@ public class TableSet
     /// <summary>
     /// Commits the whole table tree to the database. It can be either an insert or an update.
     /// </summary>
-    public object ItemCommit(bool Reselect)
+    public object Commit(bool Reselect)
     {
         if (ItemTable.Rows.Count == 0)
             throw new TableSetException("Nothing to commit. Top table is empty.");
@@ -451,7 +432,7 @@ public class TableSet
 
                 try
                 {
-                    ItemPostChanges();
+                    PostChanges();
 
                     OnTransactionStageCommit(TransactionStage.Commit, ExecTime.Before);
                     Transaction.Commit();
@@ -480,20 +461,24 @@ public class TableSet
             LastCommitedId = ItemTable.Rows[0][ItemTable.KeyFields[0]];
 
         if (Reselect && !Sys.IsNull(LastCommitedId))
-            ItemLoad(LastCommitedId);
+            Load(LastCommitedId);
 
         IsInsert = false;
         ItemTable.UpdateCurrentRow();
         return LastCommitedId;
 
     }
-    
+
+    /// <summary>
+    /// Returns true if ItemTable table, or any of its details, in any depth, has changes.
+    /// </summary>
+    public bool HasChanges() => ItemTable.TreeHasChanges();
     /// <summary>
     /// Posts any changes (deletes, updates, inserts) to the database
     /// </summary>
-    public void ItemPostChanges()
+    public void PostChanges()
     {
-        DbOpContext Context = CreateDbOpContext(ItemTable, TableTree);
+        DbOpContext Context = CreateDbOpContext(ItemTable);
         DbOps.PostChanges(Context);
     }
     
@@ -501,7 +486,7 @@ public class TableSet
     /// <summary>
     /// Removes all data rows from all tables in the tableTree
     /// </summary>
-    public void ItemProcessEmpty()
+    public void ProcessEmpty()
     {
         InternalCancel();
  
@@ -522,9 +507,9 @@ public class TableSet
     /// <summary>
     /// Prepares the TableSet for an insert operation (in the tables, NOT the database)
     /// </summary>
-    public void ItemProcessInsert()
+    public void ProcessInsert()
     {
-        ItemProcessEmpty();
+        ProcessEmpty();
 
         ItemTable.EventsDisabled = true;
         //TopTable.DetailsActive = false;
@@ -548,12 +533,12 @@ public class TableSet
     /// <summary>
     /// Cancels an edit operation and re-initializes the table tree.
     /// </summary>
-    public void ItemProcessCancel()
+    public void ProcessCancel()
     {
         if (IsInsert)
-            ItemProcessInsert();
+            ProcessInsert();
         else if (ItemTable.Rows.Count > 0 && ItemTable.Rows[0].RowState != DataRowState.Deleted)
-            ItemLoad(ItemTable.Rows[0][ItemTable.KeyFields[0]]);
+            Load(ItemTable.Rows[0][ItemTable.KeyFields[0]]);
     }    
     
     // ● batch database operations 
@@ -629,7 +614,7 @@ public class TableSet
                     if (Transaction == null)
                         Transaction = Store.BeginTransaction();
 
-                    ItemPostChanges();
+                    PostChanges();
 
                     LastCommitedId = null;
                     if (ItemTable.Rows.Count > 0)
@@ -680,11 +665,11 @@ public class TableSet
 
     // ● events
     /// <summary>
-    /// Occurs when <see cref="ItemDelete"/>(object RowId) method is called.
+    /// Occurs when <see cref="Delete"/>(object RowId) method is called.
     /// </summary>
     public event EventHandler<TransactionStageEventArgs> TransactionStageDelete;
     /// <summary>
-    /// Occurs when <see cref="ItemCommit"/>() method is called.
+    /// Occurs when <see cref="Commit"/>() method is called.
     /// </summary>
     public event EventHandler<TransactionStageEventArgs> TransactionStageCommit;   
 }
