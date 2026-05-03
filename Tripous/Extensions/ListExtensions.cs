@@ -11,7 +11,6 @@
     /// </summary>
     static public class ListExtensions
     {
-
         /// <summary>
         /// Returns true if Index is in the range 0..List.Count - 1
         /// </summary>
@@ -19,7 +18,6 @@
         {
             return (List != null) && (Index >= 0) && (Index < List.Count);
         }
-
 
         /// <summary>
         /// Returns the index of Value in List, case insensitively, if exists, else -1.
@@ -69,33 +67,6 @@
             foreach (string S in List)
             {
                 SB.AppendLine(S);
-            }
-
-            return SB.ToString();
-        }
-        /// <summary>
-        /// Gets the whole content of the List as a single line of text,
-        /// where each line ends with a comma (,)
-        /// </summary>
-        static public string CommaText_OLD(this IList<string> List)
-        {
-            if (List == null)
-                return string.Empty;
-
-            StringBuilder SB = new StringBuilder();
-            foreach (string S in List)
-            {
-                if (!string.IsNullOrWhiteSpace(S))
-                {
-                    SB.Append(S);
-                    SB.Append(',');
-                }
-            }
-
-            if (SB.Length > 0)
-            {
-                if (SB[SB.Length - 1] == ',')
-                    SB.Remove(SB.Length - 1, 1);
             }
 
             return SB.ToString();

@@ -417,7 +417,7 @@ where
                 Fields.Add(new FieldDef()
                 {
                     Name = Field.ColumnName,
-                    DataType = DataFieldTypeHelper.DataFieldTypeOf(Field.DataType),
+                    DataType = DataFieldTypeHelper.GetDataFieldType(Field.DataType),
                     MaxLength = Field.MaxLength,
                     TitleKey = Title,
                     Flags = Flags
@@ -434,9 +434,9 @@ where
                 {
                     // let FieldDes.DataType keep its original value
                 }
-                else if (FieldDes.DataType != DataFieldTypeHelper.DataFieldTypeOf(Field.DataType))
+                else if (FieldDes.DataType != DataFieldTypeHelper.GetDataFieldType(Field.DataType))
                 {
-                    FieldDes.DataType = DataFieldTypeHelper.DataFieldTypeOf(Field.DataType);
+                    FieldDes.DataType = DataFieldTypeHelper.GetDataFieldType(Field.DataType);
                 }
 
                 if (FieldDes.DataType == DataFieldType.String && (Field.MaxLength != -1) && (FieldDes.MaxLength != Field.MaxLength))

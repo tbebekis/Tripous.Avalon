@@ -14,6 +14,7 @@ public class SqlFilterDef: BaseDef
     ConditionOp fConditionOp;
     
     string fFieldName;
+    DataFieldType fFilterDataType = DataFieldType.String;
     bool fCorrectingSerialization;
     string fValueText;
     string fValue2Text;
@@ -262,6 +263,21 @@ public class SqlFilterDef: BaseDef
         get => !string.IsNullOrWhiteSpace(fFieldName) ? fFieldName : Name;
         set { if (fFieldName != value) { fFieldName = value; NotifyPropertyChanged(nameof(FieldName)); } }
     }
+    public DataFieldType FilterDataType
+    {
+        get => fFilterDataType;
+        set
+        {
+            if (fFilterDataType != value)
+            {
+                if (!value.IsValidFilterType())
+                    throw new TripousDataException($"{value} is invalid type for a filter");
+                fFilterDataType = value; 
+                NotifyPropertyChanged(nameof(FilterDataType)); 
+            } 
+        }
+    }
+    [JsonIgnore] public Type DataType => FilterDataType.GetNetType();
     [JsonIgnore]
     public object Value
     {
@@ -319,4 +335,5 @@ public class SqlFilterDef: BaseDef
         }
     }
 }
+
 

@@ -67,7 +67,7 @@ static public class DataFieldTypeHelper
     /// <summary>
     /// Returns the <see cref="DataFieldType"/> corresponding to a <see cref="Type"/>.
     /// </summary>
-    static public DataFieldType DataFieldTypeOf(this Type T)
+    static public DataFieldType GetDataFieldType(this Type T)
     {
         if (T != null)
         {
@@ -144,15 +144,18 @@ static public class DataFieldTypeHelper
 
     }
     
-    static public string GetDefaultFormat(this DataFieldType FieldType)
+    static public string GetDefaultFormat(this DataFieldType Value)
     {
-        if (FieldType.IsNumeric())
+        if (Value.IsNumeric())
             return SysConfig.NumericFormat;
-        if (FieldType.IsDateStrict())
+        if (Value.IsDateStrict())
             return  SysConfig.DateFormat;
-        if (FieldType.IsDateTime())
+        if (Value.IsDateTime())
             return  SysConfig.DateTimeFormat;
         return string.Empty;
     }
+
+    static public bool IsValidFilterType(this DataFieldType Value) => Value == DataFieldType.String || Value.IsNumeric() || Value.IsDateTime();
+
 
 }

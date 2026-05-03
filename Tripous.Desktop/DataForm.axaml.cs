@@ -36,26 +36,15 @@ public partial class DataForm : AppForm
     
     protected ToolBar SelectListToolBar;
     protected ComboBox cboSelectList;
+
+    protected SqlFilterPanelHandler FilterPanelHandler;
  
     // ● event handlers
     void gridList_OnDoubleTapped(object sender, TappedEventArgs e)
     { 
         _ = Execute(DataFormAction.Edit);
     }
-    void gridList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        /*
-        if (e.AddedItems == null || e.AddedItems.Count == 0)
-        {
-            ListCurrentRow = null;
-        }
-        else if (e.AddedItems[0] is DataRowView)
-        {
-            DataRowView RowView = e.AddedItems[0] as DataRowView;
-            ListCurrentRow = RowView.Row;
-        }
-        */
-    }
+ 
  
     // ● overrides
     /// <summary>
@@ -97,17 +86,21 @@ public partial class DataForm : AppForm
     protected override async Task Start()
     {        
         gridList.DoubleTapped += gridList_OnDoubleTapped;
-        gridList.SelectionChanged += gridList_OnSelectionChanged;
         
         CreateToolBar();
+        CreateSelectListToolBar();
         CreateItemPanel();
-        CreateFindPanel();
+        FilterPanelHandler = new(pnlFilters);
         
         ListIsDirty = true;
         FiltersSideBarVisible = false;
-        
+ 
         if (StartAction.In(DataFormAction.List | DataFormAction.Edit | DataFormAction.Insert))
+        {
+            if (StartAction == DataFormAction.List)
+                SelectedSelectChanged();
             await Execute(StartAction);
+        }
     }
     
     // ● form state
@@ -219,7 +212,7 @@ public partial class DataForm : AppForm
                 return;
         }
         
-        if (ListIsDirty)
+        if (ListIsDirty)  
             ListSelect();
         
         this.FormState = DataFormState.List;
@@ -362,14 +355,18 @@ public partial class DataForm : AppForm
             
             btnClose = ToolBar.AddButton("door_out.png", "Close", async () => await Execute(DataFormAction.Close));  
         }
-
+    }
+    protected virtual void CreateSelectListToolBar()
+    {
         if (SelectListToolBar == null)
         {
             SelectListToolBar = new();
             SelectListToolBar.Panel = pnlSelectListToolBar;
 
             cboSelectList = SelectListToolBar.AddComboBox(ModuleDef.SelectList, 0, 150.0);
-            SelectListToolBar.AddButton("lightning.png", "Execute", async () => await Execute(DataFormAction.List));
+            cboSelectList.SelectionChanged += (s, ea) => SelectedSelectChanged();
+
+            SelectListToolBar.AddButton("lightning.png", "Execute", async () => await Execute(DataFormAction.RefreshList));
         }
     }
 
@@ -389,9 +386,7 @@ public partial class DataForm : AppForm
             ItemPage.Bind();
         }
     }
-    protected virtual void CreateFindPanel()
-    {
-    }
+ 
     
     /// <summary>
     /// Updates the user interface, title, enable-disable buttons etc.
@@ -485,6 +480,32 @@ public partial class DataForm : AppForm
             }
         });
     }
+    /// <summary>
+    /// Called when another named SELECT is selected in the combobox with the select list.
+    /// </summary>
+    protected virtual void SelectedSelectChanged()
+    {
+        SelectDef SelectDef = cboSelectList.SelectedItem as SelectDef;
+        if (SelectDef != null && SelectDef.UseFilters)
+        {
+            SqlFilterDefs FilterDefs = null;
+            if (SelectDef.FilterDefs == null || SelectDef.FilterDefs.Count == 0)
+                FilterDefs = SelectDef.DefineFilters(Module.Name, Module.Store);
+            else
+                FilterDefs = SelectDef.FilterDefs;
+
+            FilterDefs = GetSavedFilterValues(SelectDef, FilterDefs);
+            FilterPanelHandler.CreateFilterControls(FilterDefs);
+        }
+    }
+    /// <summary>
+    /// Creates and returna a new <see cref="SqlFilterDefs"/> instance with the saved filter values of the current user.
+    /// </summary>
+    protected virtual SqlFilterDefs GetSavedFilterValues(SelectDef SelectDef, SqlFilterDefs FilterDefs)
+    {
+        return FilterDefs;
+    }
+ 
     
     /// <summary>
     /// It is called when the escape key is pressed. 

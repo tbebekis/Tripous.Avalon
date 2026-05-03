@@ -66,7 +66,7 @@ public class TableSet
         if (GenerateSql)
         {
             for (int i = 0; i < TableTree.Count; i++)
-                SqlStatementBuilder.BuildSql(TableTree[i], Store, TableTree[i] == ItemTable);
+                SqlStatementBuilder.BuildSql(ModuleName, TableTree[i], Store, TableTree[i] == ItemTable);
         }
     }    
 
@@ -217,7 +217,8 @@ public class TableSet
  
         bool GenerateSqlFlag = string.IsNullOrWhiteSpace(TopTable.Sqls.InsertRowSql) || string.IsNullOrWhiteSpace(TopTable.Sqls.UpdateRowSql);
         
-        DbOpContext Result = new(Store = this.Store, 
+        DbOpContext Result = new(ModuleName,
+            Store = this.Store, 
             Transaction, 
             TopTable, 
             CascadeDeletes, 
@@ -231,13 +232,14 @@ public class TableSet
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableSet(SqlStore Store, MemTable ListTable, MemTable ItemTable, List<MemTable> Stocks, TableSetFlags Flags = TableSetFlags.GenerateSql)
+    public TableSet(string ModuleName, SqlStore Store, MemTable ListTable, MemTable ItemTable, List<MemTable> Stocks, TableSetFlags Flags = TableSetFlags.GenerateSql)
     {
         if (ItemTable == null)
             throw new TripousArgumentNullException("ItemTable");
 
         ItemTable.CheckTopTableErrors();
 
+        this.ModuleName = ModuleName;
         this.Store = Store;
         this.ListTable = ListTable;
         this.ItemTable = ItemTable;
@@ -639,6 +641,12 @@ public class TableSet
     }
  
     // ● properties
+    /// <summary>
+    /// <para><b>WARNING:</b> The <see cref="ModuleName"/> and a TableName are used in constructing a unique StatementName.</para>
+    /// <para>The StatementName is used with the <see cref="SqlStore.GetNativeSchemaFromTableName"/>
+    /// so the <c>ModuleName.TableName</c> must construct a unique name because schema DataTables are stored in the <see cref="SqlCache"/> under that unique name. </para>
+    /// </summary>
+    public string ModuleName { get; }
     /// <summary>
     /// Returns the executor
     /// </summary>

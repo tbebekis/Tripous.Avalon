@@ -31,7 +31,6 @@ public class DataModule
     }
  
     // ● overridables
-    
     /// <summary>
     /// Called from inside a commit transaction in order to assign the Code column
     /// </summary>
@@ -158,8 +157,8 @@ public class DataModule
         {
             TableDef.UpdateReferences();
 
-            string StatementName = $"{Name}.{T.Name}";
             string TableName = T.Name;
+            string StatementName = $"{Name}.{TableName}";
         
             DataTable SchemaTable = Store.GetNativeSchemaFromTableName(StatementName, TableName);
             T.UpdateFrom(SchemaTable);
@@ -307,13 +306,10 @@ public class DataModule
             if (!ModuleDef.CascadeDeletes)
                 TableSetFlags |= TableSetFlags.NoCascadeDeletes;
             
-            TableSet = new TableSet(Store, tblList, tblItem, Stocks, TableSetFlags);
+            TableSet = new TableSet(this.Name, Store, tblList, tblItem, Stocks, TableSetFlags);
 
             TableSet.TransactionStageCommit += new EventHandler<TransactionStageEventArgs>(TableSet_TransactionStageCommit);
             TableSet.TransactionStageDelete += new EventHandler<TransactionStageEventArgs>(TableSet_TransactionStageDelete);
-            
-            // tblItem.CurrentRowChanged += (sender, args) => this.CurrentRowChanged?.Invoke(this, args);
- 
         }
         
     }

@@ -22,7 +22,7 @@ static public class TripousAvalonExtensions
 
     static public TextAlignment GetTextAlignment(this Type T)
     {
-        DataFieldType DataType = T.DataFieldTypeOf();
+        DataFieldType DataType = T.GetDataFieldType();
         return GetTextAlignment(DataType);
     }
     static public TextAlignment GetTextAlignment(this DataFieldType DataType)

@@ -13,11 +13,12 @@ public class SqlFilterDefs : DefList<SqlFilterDef>
     }
     
     // ● public
-    public SqlFilterDef Add(string Name, string FieldName = null, BoolOp BoolOp = BoolOp.And, ConditionOp ConditionOp = ConditionOp.Equal, string TitleKey = null)
+    public SqlFilterDef Add(string Name, string FieldName = null, DataFieldType FilterDataType = DataFieldType.String, BoolOp BoolOp = BoolOp.And, ConditionOp ConditionOp = ConditionOp.Equal, string TitleKey = null)
     {
         SqlFilterDef Result = new();
         Result.Name = Name;
         Result.FieldName = FieldName;
+        Result.FilterDataType = FilterDataType;
         Result.BoolOp = BoolOp;
         Result.ConditionOp = ConditionOp;
         Result.TitleKey = TitleKey;

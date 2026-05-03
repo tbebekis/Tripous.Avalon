@@ -3,8 +3,9 @@ namespace Tripous.Data;
 public class DbOpContext
 {
     // ● construction
-    public DbOpContext(SqlStore Store, DbTransaction Transaction, MemTable TopTable, bool CascadeDeletes = true, bool GenerateSql = false)
+    public DbOpContext(string ModuleName, SqlStore Store, DbTransaction Transaction, MemTable TopTable, bool CascadeDeletes = true, bool GenerateSql = false)
     {
+        this.ModuleName = ModuleName;
         this.Store = Store;
         this.Transaction = Transaction;
         this.TopTable = TopTable;
@@ -16,7 +17,7 @@ public class DbOpContext
         if (GenerateSql)
         {
             foreach (MemTable Table in this.FlatList)
-                SqlStatementBuilder.BuildSql(Table, Store, Table == TopTable);
+                SqlStatementBuilder.BuildSql(ModuleName, Table, Store, Table == TopTable);
         }
         
         // max detail level
@@ -29,6 +30,12 @@ public class DbOpContext
     }
     
     // ● properties
+    /// <summary>
+    /// <para><b>WARNING:</b> The <see cref="ModuleName"/> and a TableName are used in constructing a unique StatementName.</para>
+    /// <para>The StatementName is used with the <see cref="SqlStore.GetNativeSchemaFromTableName"/>
+    /// so the <c>ModuleName.TableName</c> must construct a unique name because schema DataTables are stored in the <see cref="SqlCache"/> under that unique name. </para>
+    /// </summary>
+    public string ModuleName { get; }
     public SqlStore Store { get;  }
     public DbTransaction Transaction { get; }
     public MemTable TopTable { get;  }

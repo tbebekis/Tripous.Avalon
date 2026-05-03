@@ -8,18 +8,21 @@ public static class SqlStatementBuilder
     // ● public
     /// <summary>
     /// Generates Sql statements for the Table.
+    /// <para></para>
+    /// <para><b>WARNING:</b> The <see cref="ModuleName"/> and the <see cref="TableName"/> are used in constructing a unique StatementName.</para>
+    /// <para>The StatementName is used with the <see cref="SqlStore.GetNativeSchemaFromTableName"/>
+    /// so the <c>ModuleName.TableName</c> must construct a unique name because schema DataTables are stored in the <see cref="SqlCache"/> under that unique name. </para>
     /// </summary>
-    static public void BuildSql(string TableName, string PrimaryKeyField, SqlStore Store, TableSqls SqlStatements, bool IsTopTable)
+    static public void BuildSql(string ModuleName,string TableName, string PrimaryKeyField, SqlStore Store, TableSqls SqlStatements, bool IsTopTable)
     {
         string LB = Environment.NewLine;
         BuildSqlFlags Flags = BuildSqlFlags.None;
 
         if (Store.Provider.OidMode == OidMode.Generator)
             Flags |= BuildSqlFlags.OidModeIsBefore;
-
-        //DataTable SchemaTable = new DataTable("SchemaTable");
-        DataTable SchemaTable = Store.GetNativeSchemaFromTableName(TableName, TableName);
  
+        string StatementName = $"{ModuleName}.{TableName}";
+        DataTable SchemaTable = Store.GetNativeSchemaFromTableName(StatementName, TableName);
 
         DataColumn PkColumn = SchemaTable.FindColumn(PrimaryKeyField);
         if (PkColumn == null)
@@ -88,20 +91,28 @@ public static class SqlStatementBuilder
     }
     
     /// <summary>
-    /// Generates Sql statements for the Table.     
+    /// Generates Sql statements for the Table.
+    /// <para></para>
+    /// <para><b>WARNING:</b> The <see cref="ModuleName"/> and the <see cref="TableName"/> are used in constructing a unique StatementName.</para>
+    /// <para>The StatementName is used with the <see cref="SqlStore.GetNativeSchemaFromTableName"/>
+    /// so the <c>ModuleName.TableName</c> must construct a unique name because schema DataTables are stored in the <see cref="SqlCache"/> under that unique name. </para> 
     /// </summary>
-    static public void BuildSql(MemTable Table, SqlStore Store, bool IsTopTable)
+    static public void BuildSql(string ModuleName, MemTable Table, SqlStore Store, bool IsTopTable)
     {
-        BuildSql(Table.TableName, Table.KeyFields[0], Store, Table.Sqls, IsTopTable);
+        BuildSql(ModuleName, Table.TableName, Table.KeyFields[0], Store, Table.Sqls, IsTopTable);
     }
     /// <summary>
     /// Generates Sql statements for the Table.     
     /// <para>WARNING: Assumes that Table primary key field is named Id.</para>
+    /// <para></para>
+    /// <para><b>WARNING:</b> The <see cref="ModuleName"/> and the <see cref="TableName"/> are used in constructing a unique StatementName.</para>
+    /// <para>The StatementName is used with the <see cref="SqlStore.GetNativeSchemaFromTableName"/>
+    /// so the <c>ModuleName.TableName</c> must construct a unique name because schema DataTables are stored in the <see cref="SqlCache"/> under that unique name. </para>
     /// </summary>
-    static public TableSqls BuildSql(DataTable Table, SqlStore Store, bool IsTopTable)
+    static public TableSqls BuildSql(string ModuleName, DataTable Table, SqlStore Store, bool IsTopTable)
     {
         TableSqls Result = new TableSqls();
-        BuildSql(Table.TableName, "Id", Store, Result, IsTopTable);
+        BuildSql(ModuleName, Table.TableName, "Id", Store, Result, IsTopTable);
         return Result;
     }
 }
