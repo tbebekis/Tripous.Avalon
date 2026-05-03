@@ -226,6 +226,40 @@ static public class Ui
             Debug(e.ToString());
         }
     }
+
+    /// <summary>
+    /// Executes an action on the UI thread (fire-and-forget).
+    /// <para>Supports both synchronous and asynchronous delegates.</para>
+    /// <c>Ui.Post(async () => await DoSomethingAsync());</c>
+    /// </summary>
+    static public void Post(Action Proc) => Post(Proc, DispatcherPriority.Background);
+    /// <summary>
+    /// Executes an action on the UI thread (fire-and-forget).
+    /// <para>Supports both synchronous and asynchronous delegates.</para>
+    /// <c>Ui.Post(async () => await DoSomethingAsync());</c>
+    /// </summary>
+    static public void Post(Action Proc, DispatcherPriority Priority)
+    {
+        if (Proc != null)
+            Dispatcher.UIThread.Post(() => Proc(), Priority);
+    }
+
+    /// <summary>
+    /// Executes an action on the UI thread (fire-and-forget).
+    /// <para>Supports both synchronous and asynchronous delegates.</para>
+    /// <c>Ui.Post(async () => await DoSomethingAsync());</c>
+    /// </summary>
+    static public void Post(Func<Task> Func) => Post(Func, DispatcherPriority.Background);
+    /// <summary>
+    /// Executes an action on the UI thread (fire-and-forget).
+    /// <para>Supports both synchronous and asynchronous delegates.</para>
+    /// <c>Ui.Post(async () => await DoSomethingAsync());</c>
+    /// </summary>
+    static public void Post(Func<Task> Func, DispatcherPriority Priority)
+    {
+        if (Func != null)
+            Dispatcher.UIThread.Post(() => Func(), Priority);
+    }
     
     static public void ShowWaitCursor(Action Proc, Control Caller = null)
     {

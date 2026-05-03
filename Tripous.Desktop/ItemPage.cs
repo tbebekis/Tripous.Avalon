@@ -438,8 +438,8 @@ public class ItemPage : UserControl
     protected virtual DataGridColumn CreateDetailGridColumn(FieldDef Field)
     {
         if (Field.IsLookup)
-            return DataViewGridColumnFactory.CreateLookupColumn(Field);
-        return DataViewGridColumnFactory.CreateGridColumn(Field);
+            return DataGridBinder.CreateLookupColumn(Field);
+        return DataGridBinder.CreateGridColumn(Field);
     }
     /// <summary>
     /// Binds a detail data grid.

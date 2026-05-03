@@ -143,5 +143,16 @@ static public class DataFieldTypeHelper
         return null; 
 
     }
+    
+    static public string GetDefaultFormat(this DataFieldType FieldType)
+    {
+        if (FieldType.IsNumeric())
+            return SysConfig.NumericFormat;
+        if (FieldType.IsDateStrict())
+            return  SysConfig.DateFormat;
+        if (FieldType.IsDateTime())
+            return  SysConfig.DateTimeFormat;
+        return string.Empty;
+    }
 
 }

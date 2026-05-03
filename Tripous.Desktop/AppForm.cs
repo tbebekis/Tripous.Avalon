@@ -7,8 +7,6 @@ public class AppForm: UserControl
 {
     private ModalResult fModalResult;
     protected string fTitleText;
-    
-     
 
     // ● protected
     /// <summary>

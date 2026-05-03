@@ -85,11 +85,8 @@ static public class Sys
     /// <summary>
     /// Returns true if Value is null or DBNull
     /// </summary>
-    static public bool IsNull(object Value)
-    {
-        return (Value == null) || (DBNull.Value == Value);
-    }    
-    
+    static public bool IsNull(object Value) => Value == null || DBNull.Value == Value;
+ 
     /// <summary>
     /// Formats and returns a double value
     /// </summary>

@@ -307,5 +307,18 @@
         static public bool IsNumeric(this Type DataType) => IsInteger(DataType) || IsFloat(DataType);
         static public bool IsDateTime(this Type DataType) => DataType == typeof(DateTime);
         static public bool IsString(this Type DataType) => DataType == typeof(string);
+        
+        static public string GetDefaultFormat(this Type T)
+        {
+            if (T != null)
+            {
+                if (T.IsNumeric())
+                    return SysConfig.NumericFormat;
+                if (T.IsDateTime())
+                    return  SysConfig.DateTimeFormat;
+            }
+
+            return string.Empty;
+        }
     }
 }

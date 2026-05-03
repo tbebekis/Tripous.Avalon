@@ -23,6 +23,7 @@ global using System.Runtime.InteropServices;
 global using System.Diagnostics.CodeAnalysis;
 
 global using Avalonia;
+global using AvaloniaEdit.Utils;
 global using Avalonia.Interactivity;
 global using Avalonia.Platform;
 global using Avalonia.Platform.Storage;

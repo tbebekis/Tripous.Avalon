@@ -102,6 +102,8 @@ public class UiGlobalSettings: INotifyPropertyChanged
         set { if (fShowIdColumns != value) { fShowIdColumns = value; NotifyPropertyChanged(nameof(ShowIdColumns)); } }
     }
     
+
+    
     // ● events
     public event PropertyChangedEventHandler PropertyChanged;
     

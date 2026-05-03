@@ -352,8 +352,8 @@ public abstract class SqlProvider
                     }
                     
                     Table.AcceptChanges();
-                    Table.CaseSensitive = false;
-                    Table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                    //Table.CaseSensitive = false;
+                    //Table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                     return Table.Rows.Count;
                 }
             }
@@ -384,8 +384,8 @@ public abstract class SqlProvider
                 }
                 
                 Table.AcceptChanges();
-                Table.CaseSensitive = false;
-                Table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                //Table.CaseSensitive = false;
+                //Table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 return Table.Rows.Count;
             }
         }

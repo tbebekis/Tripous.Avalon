@@ -20,12 +20,12 @@ static public class TripousAvalonExtensions
 
     static public bool GetValue(this CheckBox Box) => Box != null && Box.IsChecked.HasValue? Box.IsChecked.Value : false;
 
-    static public TextAlignment TextAlignmentOf(this Type T)
+    static public TextAlignment GetTextAlignment(this Type T)
     {
         DataFieldType DataType = T.DataFieldTypeOf();
-        return TextAlignmentOf(DataType);
+        return GetTextAlignment(DataType);
     }
-    static public TextAlignment TextAlignmentOf(this DataFieldType DataType)
+    static public TextAlignment GetTextAlignment(this DataFieldType DataType)
     {
         TextAlignment Result = TextAlignment.Left;
  
@@ -74,23 +74,7 @@ static public class TripousAvalonExtensions
     }
 
     // ● miscs
-    static public Type ToType(this SimpleType SimpleType)
-    {
-        switch (SimpleType)
-        {
-            case SimpleType.String : return typeof(string);
-            case SimpleType.Integer: return  typeof(int);
-            case SimpleType.Boolean: return typeof(bool);
-            case SimpleType.Double: return typeof(double);
-            case SimpleType.Decimal: return typeof(decimal);
-            case SimpleType.DateTime: return typeof(DateTime);
-            case SimpleType.Text: return typeof(string);
-            case SimpleType.Graphic: return typeof(byte[]);
-            case SimpleType.Blob: return typeof(byte[]);
-        }
-        
-        return  null;
-    }
+ 
     /// <summary>
     /// Returns true if a value exists inside a flags enum mask.
     /// </summary>
@@ -100,6 +84,9 @@ static public class TripousAvalonExtensions
         long m = Convert.ToInt64(Mask);
         return (v & m) == v;
     }
+
+
+
 }
 
  

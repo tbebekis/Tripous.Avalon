@@ -1,5 +1,8 @@
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Used with group grids, i.e. grids with groups, summaries, etc.
+/// </summary>
 public class GridColumnDef: BaseDef
 {
     // ● private fields
@@ -120,10 +123,10 @@ public class GridColumnDef: BaseDef
                 return fDisplayFormat;
 
             if (IsNumeric)
-                return "N2";
+                return SysConfig.NumericFormat;
 
             if (IsDateTime)
-                return "yyyy-MM-dd HH:mm";
+                return SysConfig.DateTimeFormat;
 
             return string.Empty;
         }
@@ -144,7 +147,7 @@ public class GridColumnDef: BaseDef
                 return fEditFormat;
 
             if (IsDateTime)
-                return "yyyy-MM-dd HH:mm";
+                return SysConfig.DateTimeFormat;
 
             return string.Empty;
         }

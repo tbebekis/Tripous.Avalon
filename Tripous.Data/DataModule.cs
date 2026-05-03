@@ -31,8 +31,6 @@ public class DataModule
     }
  
     // ● overridables
-    protected virtual void AcceptChanges() => DataSet.AcceptChanges();
-    protected virtual void RejectChanges() => DataSet.RejectChanges();
     
     /// <summary>
     /// Called from inside a commit transaction in order to assign the Code column
@@ -180,13 +178,6 @@ public class DataModule
     /// </summary>
     public DataModule()
     {
-        //DataSet = new DataSet();
-        //tblList = new MemTable("List");
-        //tblItem = new MemTable("Item");
-        //DataSet.Tables.Add(tblList);
-        //DataSet.Tables.Add(tblItem);
-        
-
     }
     
     // ● list
@@ -378,7 +369,6 @@ public class DataModule
         try
         {
             TableSet.Load(RowId);
-            AcceptChanges();
             LastEditedId = RowId;
         }
         finally
@@ -399,7 +389,6 @@ public class DataModule
         {
             TableSet.Delete(RowId);
             LastDeletedId = RowId;
-            AcceptChanges();
         }
         finally
         {
@@ -426,7 +415,6 @@ public class DataModule
             
             Result = TableSet.Commit(Reselect);
             LastCommitedId = Result;
-            AcceptChanges();
         }
         finally
         {
@@ -441,8 +429,7 @@ public class DataModule
     /// </summary>
     public virtual void Cancel()
     {
-        TableSet.ProcessCancel();
-        RejectChanges();
+        TableSet.RejectChanges();
         State = DataMode.Edit;
     }
     /// <summary>

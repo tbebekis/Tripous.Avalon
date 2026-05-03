@@ -9,6 +9,9 @@ static public class SysConfig
     static string fAppTempFolderPath;
     static int fDefaultRowLimit;
     static int fDefaultCommandTimeoutSeconds = 300;
+    static string fNumericFormat;
+    static string fDateTimeFormat;
+    static string fDateFormat;
 
 
 
@@ -200,5 +203,28 @@ static public class SysConfig
         set => fDefaultCommandTimeoutSeconds = value;
     }
 
- 
+    /// <summary>
+    /// Default format
+    /// </summary>
+    static public string NumericFormat
+    {
+        get => !string.IsNullOrWhiteSpace(fNumericFormat) ? fNumericFormat : "N2";
+        set => fNumericFormat = value;
+    }
+    /// <summary>
+    /// Default format
+    /// </summary>
+    static public string DateTimeFormat
+    {
+        get => !string.IsNullOrWhiteSpace(fDateTimeFormat) ? fDateTimeFormat : "yyyy-MM-dd HH:mm";
+        set => fDateTimeFormat = value;
+    }
+    /// <summary>
+    /// Default format
+    /// </summary>
+    static public string DateFormat
+    {
+        get => !string.IsNullOrWhiteSpace(fDateFormat) ? fDateFormat : "yyyy-MM-dd";
+        set => fDateFormat = value;
+    }
 } 

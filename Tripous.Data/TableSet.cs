@@ -199,17 +199,6 @@ public class TableSet
 
     // ●  miscs  
     /// <summary>
-    /// Removes all data rows from Table and its details
-    /// </summary>
-    void Empty(MemTable Table)
-    {
-        for (int i = 0; i < Table.Details.Count; i++)
-            Empty(Table.Details[i]);
-
-        Table.Rows.Clear();
-        Table.AcceptChanges();
-    }
-    /// <summary>
     /// Puts Variable values into the S by replacing value placeholders.
     /// <para>The default prefix for a Variable inside CommandText text is :@</para>
     /// </summary>
@@ -344,6 +333,7 @@ public class TableSet
 
             Select_DoDetails(ItemTable); 
             ItemTable.SetColumnCaptionsFrom(ItemTable.Sqls.DisplayLabels, HideUntitledDisplayLabels);
+            AcceptChanges();
         }
         finally
         {
@@ -387,14 +377,14 @@ public class TableSet
                 {
                     DbOpContext Context = CreateDbOpContext(ItemTable);
                     DbOps.PostDeletes(Context);
-
+                    AcceptChanges();
                     OnTransactionStageDelete(TransactionStage.Commit, ExecTime.Before, RowId);
                     Transaction.Commit();
                     OnTransactionStageDelete(TransactionStage.Commit, ExecTime.After, RowId);
                 }
                 catch
                 {
-                    ItemTable.DataSet.RejectChanges();
+                    RejectChanges();
                     OnTransactionStageDelete(TransactionStage.Rollback, ExecTime.Before, RowId);
                     Transaction.Rollback();
                     OnTransactionStageDelete(TransactionStage.Rollback, ExecTime.After, RowId);
@@ -420,7 +410,6 @@ public class TableSet
             throw new TableSetException("Nothing to commit. Top table is empty.");
         
         ItemTable.EventsDisabled = true;
-        //TopTable.Details.Active = false;
         try
         {
             // inside a single Transaction
@@ -429,14 +418,12 @@ public class TableSet
             using (Transaction = Store.BeginTransaction())
             {
                 OnTransactionStageCommit(TransactionStage.Start, ExecTime.After);
-
                 try
                 {
                     PostChanges();
-
                     OnTransactionStageCommit(TransactionStage.Commit, ExecTime.Before);
                     Transaction.Commit();
-                    ItemTable.DataSet.AcceptChanges();   // clear logs    
+                    AcceptChanges(); 
                     OnTransactionStageCommit(TransactionStage.Commit, ExecTime.After);
                 }
                 catch
@@ -450,7 +437,6 @@ public class TableSet
         }
         finally
         {
-            //TopTable.Details.Active = true;
             ItemTable.EventsDisabled = false;
             Transaction = null;
         }
@@ -464,17 +450,21 @@ public class TableSet
             Load(LastCommitedId);
 
         IsInsert = false;
+        
         ItemTable.UpdateCurrentRow();
         return LastCommitedId;
 
     }
-
+ 
+    public void AcceptChanges() => ItemTable.AcceptChangesAll();
+    public void RejectChanges() => ItemTable.RejectChangesAll();
     /// <summary>
     /// Returns true if ItemTable table, or any of its details, in any depth, has changes.
     /// </summary>
-    public bool HasChanges() => ItemTable.TreeHasChanges();
+    public bool HasChanges() => ItemTable.HasChangesAll();
     /// <summary>
     /// Posts any changes (deletes, updates, inserts) to the database
+    /// <para><b>WARNING:</b> Does <b>NOT</b> call <see cref="MemTable.AcceptChangesAll"/> on item table. </para>
     /// </summary>
     public void PostChanges()
     {
@@ -485,6 +475,7 @@ public class TableSet
     // ● item edit operation handling 
     /// <summary>
     /// Removes all data rows from all tables in the tableTree
+    /// <para><b>WARNING:</b> Does <b>NOT</b> call <see cref="MemTable.AcceptChangesAll"/> on item table. </para>
     /// </summary>
     public void ProcessEmpty()
     {
@@ -494,7 +485,8 @@ public class TableSet
         //TopTable.DetailsActive = false;
         try
         {
-            Empty(ItemTable);
+            //Empty(ItemTable);
+            ItemTable.DeleteAll(AcceptChangesToo: true);
         }
         finally
         {
@@ -506,6 +498,7 @@ public class TableSet
     }
     /// <summary>
     /// Prepares the TableSet for an insert operation (in the tables, NOT the database)
+    /// <para><b>WARNING:</b> Does <b>NOT</b> call <see cref="MemTable.AcceptChangesAll"/> on item table. </para>
     /// </summary>
     public void ProcessInsert()
     {
@@ -532,6 +525,7 @@ public class TableSet
     }
     /// <summary>
     /// Cancels an edit operation and re-initializes the table tree.
+    /// <para><b>WARNING:</b> Does <b>NOT</b> call <see cref="MemTable.AcceptChangesAll"/> on item table. </para>
     /// </summary>
     public void ProcessCancel()
     {

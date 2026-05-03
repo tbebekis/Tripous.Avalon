@@ -534,18 +534,6 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
         
         return Result;
     }
-    /// <summary>
-    /// Returns true if this table, or any of its details, in any depth, has changes.
-    /// </summary>
-    public bool TreeHasChanges()
-    {
-        List<MemTable> FlatList = GetTreeAsFlatList();
-        foreach (MemTable Table in FlatList)
-            if (Table.GetChanges() != null)
-                return true;
-
-        return false;
-    }
     
     // ● IRowProviderHost 
     public bool RowProviderExists(string TableName) => FindRowProvider(TableName) != null;
@@ -612,9 +600,13 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             this.EventsDisabled = false;
         }
     }
+    public void SetCurrentRowToNull() => CurrentRow = null;
+ 
+    
+    // ● all (this table and its details)
     /// <summary>
     /// Clears this instance and all of its details of all the data.
-    /// <para>WARNING: This does NOT set the Deleted flag in the RowState of the DataRows.</para>
+    /// <para><b>WARNING</b>: This does <b>NOT</b> set the Deleted flag in the RowState of the DataRows.</para>
     /// </summary>
     public void ClearAll()
     {
@@ -626,7 +618,7 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     }
     /// <summary>
     /// Deletes all rows of this table and its details.
-    /// <para>NOTE: This DOES set the Deleted flag in the RowState of the DataRows. </para>
+    /// <para><b>NOTE</b>: This <b>DOES</b> set the Deleted flag in the RowState of the DataRows. </para>
     /// </summary>
     public void DeleteAll(bool AcceptChangesToo = true)
     {
@@ -638,11 +630,42 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
         if (AcceptChangesToo)
             AcceptChanges();
     }
-    public void SetCurrentRowToNull()
+    /// <summary>
+    /// Calls the <see cref="DataTable.AcceptChanges"/> to this table and its details.
+    /// </summary>
+    public void AcceptChangesAll()
     {
-        CurrentRow = null;
+        foreach (MemTable Detail in Details)
+            Detail.AcceptChangesAll();
+        AcceptChanges();
     }
+    /// <summary>
+    /// Calls the <see cref="DataTable.RejectChanges"/> to this table and its details.
+    /// </summary>
+    public void RejectChangesAll()
+    {
+        foreach (MemTable Detail in Details)
+            Detail.RejectChangesAll();
+        RejectChanges();
+    }
+    /// <summary>
+    /// Returns true if this table, or any of its details, in any depth, has changes.
+    /// </summary>
+    public bool HasChangesAll()
+    {
+        DataTable tblChanges;
+        
+        List<MemTable> FlatList = GetTreeAsFlatList();
+        foreach (MemTable Table in FlatList)
+        {
+            tblChanges = Table.GetChanges();
+            if (tblChanges != null && tblChanges.Rows.Count > 0)
+                return true;
+        }
 
+        return false;
+    }
+    
     // ● public - errors
     public string GetTopTableErrors()
     {

@@ -1,24 +1,22 @@
 namespace Tripous.Desktop;
-
-
-
-public static class DataViewGridColumnFactory
+ 
+public static class DataGridBinder
 {
     // ● private
-    static private Thickness GetCellPadding()
+    static Thickness GetCellPadding()
     {
         return new Thickness(6, 2, 6, 2);
     }
     
-    static private object GetValue(DataRowView RowView, string ColumnName)
+    static object GetValue(DataRowView RowView, string ColumnName)
     {
-        if (RowView == null)
+        if (RowView == null || RowView.Row == null || RowView.Row.RowState.In(DataRowState.Deleted))
             return null;
 
         object Result = RowView[ColumnName];
         return Result == DBNull.Value ? null : Result;
     }
-    static private void SetValue(DataRowView RowView, string ColumnName, object Value)
+    static void SetValue(DataRowView RowView, string ColumnName, object Value)
     {
         if (RowView == null)
             return;
@@ -55,14 +53,18 @@ public static class DataViewGridColumnFactory
             else
                 Result = Value;
 
-            RowView[ColumnName] = Result;
+            //RowView[ColumnName] = Result;
+            object Current = RowView[ColumnName];
+
+            if (!object.Equals(Current, Result))
+                RowView[ColumnName] = Result;
         }
         catch
         {
             // ● ignore invalid input for now
         }
     }
-    static private LookupItem FindLookupItem(LookupSource Source, object Value)
+    static LookupItem FindLookupItem(LookupSource Source, object Value)
     {
         if (Source == null)
             return null;
@@ -91,7 +93,7 @@ public static class DataViewGridColumnFactory
         return null;
     }
  
-    static private IDataTemplate CreateTextDisplayTemplate(string ColumnName, TextAlignment Alignment, string Format)
+    static IDataTemplate CreateTextDisplayTemplate(string ColumnName, TextAlignment Alignment, string Format, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -106,9 +108,9 @@ public static class DataViewGridColumnFactory
             Result.TextAlignment = Alignment;
 
             return Result;
-        }, true);
+        }, SupportsRecycling);
     }
-    static private IDataTemplate CreateTextEditTemplate(string ColumnName, TextAlignment Alignment)
+    static IDataTemplate CreateTextEditTemplate(string ColumnName, TextAlignment Alignment, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -147,10 +149,10 @@ public static class DataViewGridColumnFactory
             Result.AttachedToVisualTree += AttachedHandler;
 
             return Result;
-        }, true);
+        }, SupportsRecycling);
     }
     
-    static private IDataTemplate CreateLookupDisplayTemplate(string ColumnName, LookupSource Source)
+    static IDataTemplate CreateLookupDisplayTemplate(string ColumnName, LookupSource Source, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -168,9 +170,9 @@ public static class DataViewGridColumnFactory
             Result.TextAlignment = TextAlignment.Left;
 
             return Result;
-        }, true);
+        }, SupportsRecycling);
     }
-    static private IDataTemplate CreateLookupEditTemplate(string ColumnName, LookupSource Source)
+    static IDataTemplate CreateLookupEditTemplate(string ColumnName, LookupSource Source, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -200,7 +202,7 @@ public static class DataViewGridColumnFactory
                 Text.HorizontalAlignment = HorizontalAlignment.Stretch;
 
                 return Text;
-            }, true);
+            }, SupportsRecycling);
 
             EventHandler<VisualTreeAttachmentEventArgs> AttachedHandler = null;
             AttachedHandler = (Sender, Args) =>
@@ -263,10 +265,10 @@ public static class DataViewGridColumnFactory
             };
 
             return Result;
-        }, true);
+        }, SupportsRecycling);
     }
     
-    static private IDataTemplate CreateBoolDisplayTemplate(string ColumnName)
+    static IDataTemplate CreateBoolDisplayTemplate(string ColumnName, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -282,9 +284,9 @@ public static class DataViewGridColumnFactory
             Result.TextAlignment = TextAlignment.Center;
 
             return Result;
-        }, true);
+        }, SupportsRecycling);
     }
-    static private IDataTemplate CreateBoolEditTemplate(string ColumnName)
+    static private IDataTemplate CreateBoolEditTemplate(string ColumnName, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -322,11 +324,11 @@ public static class DataViewGridColumnFactory
             };
 
             return Result;
-        }, true);
+        }, SupportsRecycling);
     }
 
     // ● private - create columns
-    static DataGridColumn CreateTextColumn(string ColumnName, string Header = "", string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false)
+    static DataGridColumn CreateTextColumn(string ColumnName, string Header = "", string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         DataGridTemplateColumn Result = new();
 
@@ -334,36 +336,96 @@ public static class DataViewGridColumnFactory
 
         Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName : Header;
         Result.IsReadOnly = IsReadOnly;
-        Result.CellTemplate = CreateTextDisplayTemplate(ColumnName, Align, Format);
-        Result.CellEditingTemplate = IsReadOnly ? null : CreateTextEditTemplate(ColumnName, Align);
+        Result.CellTemplate = CreateTextDisplayTemplate(ColumnName, Align, Format, SupportsRecycling);
+        Result.CellEditingTemplate = IsReadOnly ? null : CreateTextEditTemplate(ColumnName, Align, SupportsRecycling);
 
         return Result;
     }
-    static DataGridColumn CreateBoolColumn(string ColumnName, string Header = "", bool IsReadOnly = false)
+    static DataGridColumn CreateBoolColumn(string ColumnName, string Header = "", bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         DataGridTemplateColumn Result = new();
 
         Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName : Header;
         Result.IsReadOnly = IsReadOnly;
-        Result.CellTemplate = CreateBoolDisplayTemplate(ColumnName);
-        Result.CellEditingTemplate = IsReadOnly ? null : CreateBoolEditTemplate(ColumnName);
+        Result.CellTemplate = CreateBoolDisplayTemplate(ColumnName, SupportsRecycling);
+        Result.CellEditingTemplate = IsReadOnly ? null : CreateBoolEditTemplate(ColumnName, SupportsRecycling);
 
         return Result;
     }
-    static DataGridColumn CreateLookupColumn(string ColumnName, LookupSource Source, string Header = "", bool IsReadOnly = false)
+    static DataGridColumn CreateLookupColumn(string ColumnName, LookupSource Source, string Header = "", bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         DataGridTemplateColumn Result = new();
 
         Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName : Header;
         Result.IsReadOnly = IsReadOnly;
-        Result.CellTemplate = CreateLookupDisplayTemplate(ColumnName, Source);
-        Result.CellEditingTemplate = IsReadOnly ? null : CreateLookupEditTemplate(ColumnName, Source);
+        Result.CellTemplate = CreateLookupDisplayTemplate(ColumnName, Source, SupportsRecycling);
+        Result.CellEditingTemplate = IsReadOnly ? null : CreateLookupEditTemplate(ColumnName, Source, SupportsRecycling);
 
         return Result;
     }
     
     // ● static public
-    static public DataGridColumn CreateGridColumn(DataColumn Column, string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false)
+    static public List<DataGridColumn> BindGrid(DataGrid Grid, DataView DataView, bool SupportsRecycling = false, bool GoToFirst = true)
+    {
+        Grid.AutoGenerateColumns = false;
+        Grid.ItemsSource = null;
+        Grid.Columns.Clear();
+
+        DataColumn[] DataColumns = DataView.Table.Columns.Cast<DataColumn>().ToArray();
+
+        List<DataGridColumn> Result = CreateColumns(Grid, DataColumns, SupportsRecycling);
+ 
+        Grid.ItemsSource = DataView;
+
+        if (GoToFirst && DataView.Count > 0)
+            Grid.SelectedItem = DataView[0];
+
+        return Result;
+    }
+    static public void UnBindGrid(DataGrid Grid)
+    {
+        Grid.ItemsSource = null;
+        Grid.Columns.Clear();
+    }
+    
+    static public List<DataGridColumn> CreateColumns(DataGrid Grid, DataTable Table, bool SupportsRecycling = false) => CreateColumns(Grid, Table.Columns.Cast<DataColumn>().ToArray(), SupportsRecycling);
+    static public List<DataGridColumn> CreateColumns(DataGrid Grid, DataColumn[] DataColumns, bool SupportsRecycling = false)
+    {
+        List<DataGridColumn> Result = new();
+        DataGridColumn GridColumn;
+        
+        foreach (DataColumn Column in DataColumns)
+        {
+            GridColumn = CreateGridColumn(Column,
+                Format: Column.DataType.GetDefaultFormat(),
+                Alignment: Column.DataType.GetTextAlignment(),
+                IsReadOnly: Column.ReadOnly,
+                SupportsRecycling: SupportsRecycling);
+            
+            Result.Add(GridColumn);
+        }
+        
+        Grid.Columns.AddRange(Result);
+        return Result;
+    }  
+    
+    static public List<DataGridColumn> CreateColumns(DataGrid Grid, TableDef TableDef, bool SupportsRecycling = false) => CreateColumns(Grid, TableDef.Fields.ToArray(), SupportsRecycling);
+    static public List<DataGridColumn> CreateColumns(DataGrid Grid, FieldDef[] FieldDefs, bool SupportsRecycling = false)
+    {
+        List<DataGridColumn> Result = new();
+        DataGridColumn GridColumn;
+        
+        foreach (FieldDef FieldDef in FieldDefs)
+        {
+            GridColumn = CreateGridColumn(FieldDef, SupportsRecycling: SupportsRecycling);
+            Result.Add(GridColumn);
+        }
+
+        Grid.Columns.AddRange(Result);
+        return Result;
+    }
+
+    static public DataGridColumn CreateGridColumn(DataColumn Column, string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         bool IsBoolean = Column.DataType == typeof(bool) 
                          || (Column.ExtendedProperties.ContainsKey("IsBoolean") && Convert.ToBoolean(Column.ExtendedProperties["IsBoolean"]));
@@ -372,13 +434,13 @@ public static class DataViewGridColumnFactory
         if (Alignment.HasValue)
             Align = Alignment.Value;
         else
-            Align = IsBoolean ? TextAlignment.Center : Column.DataType.TextAlignmentOf();
+            Align = IsBoolean ? TextAlignment.Center : Column.DataType.GetTextAlignment();
         
         DataGridColumn Result = null;
         if (IsBoolean)
-            Result = CreateBoolColumn(Column.ColumnName, Header: Column.Caption, IsReadOnly: IsReadOnly);
+            Result = CreateBoolColumn(Column.ColumnName, Header: Column.Caption, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
         else
-            Result = CreateTextColumn(Column.ColumnName, Header: Column.Caption, Format: Format, Alignment: Align, IsReadOnly: IsReadOnly);
+            Result = CreateTextColumn(Column.ColumnName, Header: Column.Caption, Format: Format, Alignment: Align, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
 
         Result.Header = Column.Caption;
         Result.IsReadOnly = IsReadOnly;
@@ -388,16 +450,16 @@ public static class DataViewGridColumnFactory
 
         return Result;
     }
-    static public DataGridColumn CreateGridColumn(FieldDef FieldDef)
+    static public DataGridColumn CreateGridColumn(FieldDef FieldDef, bool SupportsRecycling = false)
     {
         bool IsBoolean = FieldDef.IsBoolean;
-        TextAlignment Align = IsBoolean ? TextAlignment.Center : FieldDef.DataType.TextAlignmentOf();
+        TextAlignment Align = IsBoolean ? TextAlignment.Center : FieldDef.DataType.GetTextAlignment();
  
         DataGridColumn Result = null;
         if (IsBoolean)
-            Result = CreateBoolColumn(FieldDef.Name, Header: FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly);
+            Result = CreateBoolColumn(FieldDef.Name, Header: FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
         else
-            Result = CreateTextColumn(FieldDef.Name, Header: FieldDef.Title, Format: FieldDef.DisplayFormat, Alignment: Align, IsReadOnly: FieldDef.IsReadOnly);
+            Result = CreateTextColumn(FieldDef.Name, Header: FieldDef.Title, Format: FieldDef.DisplayFormat, Alignment: Align, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
 
         Result.Header = FieldDef.Title;
         Result.IsReadOnly = FieldDef.IsReadOnly;
@@ -408,17 +470,17 @@ public static class DataViewGridColumnFactory
         return Result;                  
     }
     
-    static public DataGridColumn CreateLookupColumn(DataColumn Column, LookupSource Source, bool IsReadOnly = false)
+    static public DataGridColumn CreateLookupColumn(DataColumn Column, LookupSource Source, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
-        DataGridColumn Result = CreateLookupColumn(Column.ColumnName, Source, Column.Caption, IsReadOnly);
+        DataGridColumn Result = CreateLookupColumn(Column.ColumnName, Source, Column.Caption, IsReadOnly, SupportsRecycling: SupportsRecycling);
         GridColumnInfo CI = new GridColumnInfo(Result, Column);
         Result.Tag = CI; 
         return Result;
     }
-    static public DataGridColumn CreateLookupColumn(FieldDef FieldDef, LookupSource Source = null)
+    static public DataGridColumn CreateLookupColumn(FieldDef FieldDef, LookupSource Source = null, bool SupportsRecycling = false)
     {
         Source = Source ?? DataRegistry.LookupSources.Get(FieldDef.LookupSource);
-        DataGridColumn Result = CreateLookupColumn(FieldDef.Name, Source, FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly);
+        DataGridColumn Result = CreateLookupColumn(FieldDef.Name, Source, FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
         GridColumnInfo CI = new GridColumnInfo(Result, FieldDef);
         Result.Tag = CI;    
         return Result;

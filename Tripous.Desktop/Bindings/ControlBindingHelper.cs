@@ -52,7 +52,11 @@ static public class ControlBindingHelper
         else
             Result = Value;
 
-        Row[FieldName] = Result;
+        object Current = Row[FieldName];
+
+        if (!object.Equals(Current, Result))
+            Row[FieldName] = Result;
+  
     }
     static private LookupItem FindLookupItem(LookupSource Source, object Value)
     {
@@ -95,28 +99,6 @@ static public class ControlBindingHelper
         {
             if (!string.Equals(Box.Text, Text, StringComparison.Ordinal))
                 Box.Text = Text;
-        }
-        finally
-        {
-            Binding.IsRefreshing = false;
-        }
-    }
-    static void RefreshComboBox_OLD(IRowProvider RowProvider, ControlBinding Binding)
-    {
-        if (Binding.Control is not ComboBox Box)
-            return;
-
-        object Value = GetValue(RowProvider, Binding.ColumnName);
-        LookupItem Item = FindLookupItem(Binding.LookupSource, Value);
-        
-        Ui.Debug($"Combo Refresh: {Binding.ColumnName}, Value={Value}, Source={Binding.LookupSource?.Name}, Count={Binding.LookupSource?.GetList()?.Count}");
-        Ui.Debug($"Found Item: {Item?.DisplayText}");
-
-        Binding.IsRefreshing = true;
-        try
-        {
-            if (!ReferenceEquals(Box.SelectedItem, Item))
-                Box.SelectedItem = Item;
         }
         finally
         {
@@ -217,7 +199,6 @@ static public class ControlBindingHelper
             Binding.IsRefreshing = false;
         }
     }
-    
 
     static public ControlBinding Bind(IRowProvider RowProvider, TextBox Box, string FieldName, FieldDef FieldDef = null)
     {

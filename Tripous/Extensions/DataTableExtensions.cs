@@ -651,63 +651,6 @@ static public class DataTableExtensions
 
         return null;
     }
-    static public DataRow Locate2(this DataTable Table, string[] FieldNames, object[] Values, LocateOptions Options)
-    {
-        if (Table == null || FieldNames == null || Values == null)
-            return null;
-
-        if (FieldNames.Length == 0 || FieldNames.Length != Values.Length)
-            return null;
-
-        bool CaseInsensitive = (Options & LocateOptions.CaseInsensitive) == LocateOptions.CaseInsensitive;
-        bool PartialKey = (Options & LocateOptions.PartialKey) == LocateOptions.PartialKey;
-
-        List<string> Parts = new List<string>();
-
-        for (int i = 0; i < FieldNames.Length; i++)
-        {
-            string Field = FieldNames[i];
-            object Value = Values[i];
-
-            if (Value == null || Value == DBNull.Value)
-            {
-                Parts.Add($"{Field} IS NULL");
-                continue;
-            }
-
-            string S;
-
-            if (Value is string)
-            {
-                string Text = Value.ToString().Replace("'", "''");
-
-                if (CaseInsensitive)
-                    Field = $"CONVERT({Field}, 'System.String')";
-
-                if (PartialKey)
-                    S = $"{Field} LIKE '{Text}%'";
-                else
-                    S = $"{Field} = '{Text}'";
-            }
-            else if (Value is DateTime dt)
-            {
-                S = $"{Field} = #{dt:MM/dd/yyyy HH:mm:ss}#";
-            }
-            else
-            {
-                S = $"{Field} = {Value}";
-            }
-
-            Parts.Add(S);
-        }
-
-        string Filter = string.Join(" AND ", Parts);
-
-        DataRow[] Rows = Table.Select(Filter);
-
-        return Rows.Length > 0 ? Rows[0] : null;
-    }
-
     static public DataRow Locate(this DataTable Table, string FieldName, object Value, LocateOptions Options) => Locate(Table, [FieldName], [Value], Options);
  
 }

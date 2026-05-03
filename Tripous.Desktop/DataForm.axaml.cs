@@ -6,15 +6,20 @@ public partial class DataForm : AppForm
     protected DataFormAction LastAction = DataFormAction.None;
     
     protected bool Saving;
+    protected bool fIdColumnsVisible = false;
+    protected bool fFiltersSideBarVisible = true;
     
     protected ToolBar ToolBar;
 
     protected Button btnHome;
-    protected Button btnFind;
-    protected Border sepFilters;
- 
+    protected Border sepHome;
+    
     protected Button btnList;
+    protected Button btnRefreshList;
+    protected Button btnFind;
     protected ToggleButton btnToggleIds;
+    protected Border sepList;
+    
     protected Button btnInsert;
     protected Button btnEdit;
     protected Button btnDelete;
@@ -39,6 +44,7 @@ public partial class DataForm : AppForm
     }
     void gridList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        /*
         if (e.AddedItems == null || e.AddedItems.Count == 0)
         {
             ListCurrentRow = null;
@@ -48,6 +54,7 @@ public partial class DataForm : AppForm
             DataRowView RowView = e.AddedItems[0] as DataRowView;
             ListCurrentRow = RowView.Row;
         }
+        */
     }
  
     // ● overrides
@@ -89,20 +96,18 @@ public partial class DataForm : AppForm
     /// </summary>
     protected override async Task Start()
     {        
+        gridList.DoubleTapped += gridList_OnDoubleTapped;
+        gridList.SelectionChanged += gridList_OnSelectionChanged;
+        
         CreateToolBar();
         CreateItemPanel();
         CreateFindPanel();
         
-        if (StartAction == DataFormAction.List || StartAction == DataFormAction.Edit || StartAction == DataFormAction.Insert)
-        {
-            if (StartAction == DataFormAction.List)
-            {
-                ListSelect();
-                btnToggleIds.IsChecked = !Ui.Settings.ShowIdColumns;
-            }
-            
+        ListIsDirty = true;
+        FiltersSideBarVisible = false;
+        
+        if (StartAction.In(DataFormAction.List | DataFormAction.Edit | DataFormAction.Insert))
             await Execute(StartAction);
-        }
     }
     
     // ● form state
@@ -139,6 +144,12 @@ public partial class DataForm : AppForm
                 case DataFormAction.Find:
                     ExecuteFind();
                     break;
+                case DataFormAction.ToggleIds:
+                    ExecuteToggleIds();
+                    break;
+                case DataFormAction.RefreshList:
+                    await ExecuteRefreshList();
+                    break;
 
                 case DataFormAction.List:
                     await ExecuteList();
@@ -159,6 +170,7 @@ public partial class DataForm : AppForm
                 case DataFormAction.Save:
                     ExecuteSave();
                     break;
+                
                 case DataFormAction.Cancel:
                     if (FormState == DataFormState.List)  
                     {
@@ -193,20 +205,31 @@ public partial class DataForm : AppForm
     protected virtual void Executed(DataFormAction Value) =>  LastAction = Value;
 
     protected virtual void ExecuteHome() => FormState = DataFormState.List;
-    protected virtual void ExecuteFind() => FormState = DataFormState.List;
+    protected virtual void ExecuteFind() => FiltersSideBarVisible = !FiltersSideBarVisible;
+
+    protected virtual void ExecuteToggleIds() => IdColumnsVisible = !IdColumnsVisible;
 
     protected virtual async Task ExecuteList()
     {
         await Task.CompletedTask;
         
-        if (!Saving && (FormState == DataFormState.Insert || FormState == DataFormState.Edit))  
+        if (!Saving && FormState.In(DataFormState.Insert |DataFormState.Edit))  
         {
             if (!await ExecuteCancelEdit())
                 return;
         }
         
+        if (ListIsDirty)
+            ListSelect();
+        
         this.FormState = DataFormState.List;
     }
+    protected virtual async Task ExecuteRefreshList()
+    {
+        ListIsDirty = true;
+        await ExecuteList();
+    }
+    
     protected virtual void ExecuteInsert()
     {
         Insert();
@@ -269,9 +292,11 @@ public partial class DataForm : AppForm
         SelectDef SelectDef = cboSelectList.SelectedItem as SelectDef;
         if (SelectDef != null)
         {
+            UnBindListGrid();
             Module.ListSelect(SelectDef);
-            
+            ListIsDirty = false;
             BindListGrid();
+            ApplyIdColumnsVisible();
         }
     }
     protected virtual object GetCurrentListId()
@@ -288,11 +313,23 @@ public partial class DataForm : AppForm
     // ● item
     protected virtual void Insert() => Module.Insert();
     protected virtual void Load(object oId) => Module.Edit(oId);
-    protected virtual void Delete(object oId) => Module.Delete(oId);
-    protected virtual void Save() => Module.Commit(Reselect: false);
+    protected virtual void Delete(object oId) 
+    {
+        Module.Delete(oId);
+        ListIsDirty = true; 
+    }
+    protected virtual void Save() 
+    {
+        Module.Commit(Reselect: false);
+        ListIsDirty = true; 
+    }
 
     protected virtual bool HasChanges() => Module.HasChanges();
-    protected virtual void CancelChanges() => Module.Cancel();
+    protected virtual void CancelChanges()
+    {
+        Module.Cancel();
+        ListIsDirty = false;
+    }
 
     // ● UI
     protected virtual void CreateToolBar()
@@ -303,11 +340,14 @@ public partial class DataForm : AppForm
             ToolBar.Panel = pnlToolBar;
 
             btnHome = ToolBar.AddButton("application_home.png", "Home", async () => await Execute(DataFormAction.Home));
-            btnFind = ToolBar.AddButton("find.png", "Find", async () => await Execute(DataFormAction.Find));
-            sepFilters = ToolBar.AddSeparator(); // sepFilters sepEdit sepSave sepCancelOK
-            
+            sepHome  = ToolBar.AddSeparator();
+                
             btnList = ToolBar.AddButton("table.png", "List", async () => await Execute(DataFormAction.List));
-            btnToggleIds = ToolBar.AddToggleButton("table_select_row.png", "Toggle Ids",  () => ToggleIdColumns());
+            btnRefreshList = ToolBar.AddButton("table_refresh.png", "Refresh List", async () => await Execute(DataFormAction.RefreshList));
+            btnFind = ToolBar.AddButton("find.png", "Find", async () => await Execute(DataFormAction.Find));
+            btnToggleIds = ToolBar.AddToggleButton("table_select_row.png", "Toggle Ids", async () => await Execute(DataFormAction.ToggleIds));
+            sepList  = ToolBar.AddSeparator(); // sepEdit
+            
             btnInsert = ToolBar.AddButton("table_add.png", "Insert", async () => await Execute(DataFormAction.Insert));
             btnEdit = ToolBar.AddButton("table_edit.png", "Edit", async () => await Execute(DataFormAction.Edit));
             btnDelete = ToolBar.AddButton("table_delete.png", "Delete", async () => await Execute(DataFormAction.Delete));
@@ -331,25 +371,11 @@ public partial class DataForm : AppForm
             cboSelectList = SelectListToolBar.AddComboBox(ModuleDef.SelectList, 0, 150.0);
             SelectListToolBar.AddButton("lightning.png", "Execute", async () => await Execute(DataFormAction.List));
         }
-   
     }
-    protected virtual void BindListGrid()
-    {
-        gridList.AutoGenerateColumns = false;
-        gridList.ItemsSource = null;
-        gridList.Columns.Clear();
 
-        foreach (DataColumn Column in Module.tblList.Columns)
-        {
-            DataGridColumn GridColumn = DataViewGridColumnFactory.CreateGridColumn(Column);
-            gridList.Columns.Add(GridColumn);
-        }
-
-        gridList.ItemsSource = Module.tblList.DataView;
+    protected virtual void BindListGrid() => DataGridBinder.BindGrid(gridList, Module.tblList.DataView, SupportsRecycling: false, GoToFirst: true);
+    protected virtual void UnBindListGrid() => DataGridBinder.UnBindGrid(gridList);
  
-        gridList.DoubleTapped += gridList_OnDoubleTapped;
-        gridList.SelectionChanged += gridList_OnSelectionChanged;
-    }
     protected virtual void CreateItemPanel()
     {
         if (!string.IsNullOrWhiteSpace(FormDef.ItemClassName))
@@ -381,18 +407,21 @@ public partial class DataForm : AppForm
     protected virtual void EnableCommands()
     {
         // ● visible ===============================================================
-        btnHome.IsVisible = !IsSingleSelect;
-        btnFind.IsVisible = btnHome.IsVisible;
-        sepFilters.IsVisible = btnHome.IsVisible || btnFind.IsVisible;
+        btnHome.IsVisible = true;
+        sepHome.IsVisible = true;
         
-        btnList.IsVisible = !IsReadOnlyForm;
+        btnList.IsVisible = true;
+        btnRefreshList.IsVisible = true;
+        btnFind.IsVisible = !IsSingleSelect;
         btnToggleIds.IsVisible = true;
-        btnInsert.IsVisible = !IsReadOnlyForm;
-        btnEdit.IsVisible = !IsReadOnlyForm;
-        btnDelete.IsVisible = !IsReadOnlyForm;
-        sepEdit.IsVisible = !IsReadOnlyForm || btnToggleIds.IsVisible;
+        sepList.IsVisible = btnHome.IsVisible || btnList.IsVisible || btnRefreshList.IsVisible || btnFind.IsVisible || btnToggleIds.IsVisible;
         
-        btnSave.IsVisible = !IsReadOnlyForm;
+        btnInsert.IsVisible = IsEditableForm;
+        btnEdit.IsVisible = IsEditableForm;
+        btnDelete.IsVisible = IsEditableForm;
+        sepEdit.IsVisible = IsEditableForm;
+        
+        btnSave.IsVisible = IsEditableForm;
         sepSave.IsVisible = btnSave.IsVisible;
 
         btnCancel.IsVisible = true;                       // btnCancel - visible with all form modes
@@ -400,14 +429,17 @@ public partial class DataForm : AppForm
         sepCancelOK.IsVisible = btnCancel.IsVisible || btnOK.IsVisible;
             
         btnClose.IsVisible = !IsModal;      // btnClose - visible with non-list master forms
-        // ● enable ================================================================
-        btnToggleIds.IsEnabled = FormState == DataFormState.List;
-        btnHome.IsEnabled = btnHome.ContextMenu != null && btnHome.ContextMenu.Items.Count > 0;
-        btnFind.IsEnabled = !DataFormAction.Find.In(InvalidActions);
-        btnList.IsEnabled = !DataFormAction.List.In(InvalidActions);
         
-        btnInsert.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && !FormState.In(DataFormState.Insert | DataFormState.Edit);
-        btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && !FormState.In(DataFormState.Insert | DataFormState.Edit) ;
+        // ● enable ================================================================
+        btnHome.IsEnabled = btnHome.ContextMenu != null && btnHome.ContextMenu.Items.Count > 0;
+        
+        btnList.IsEnabled = !DataFormAction.List.In(InvalidActions);
+        btnRefreshList.IsEnabled = btnList.IsEnabled;
+        btnFind.IsEnabled = !DataFormAction.Find.In(InvalidActions) && FormState == DataFormState.List;
+        btnToggleIds.IsEnabled = FormState == DataFormState.List;
+        
+        btnInsert.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List | DataFormState.Edit);
+        btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List) && !IsListEmpty; ;
         btnDelete.IsEnabled = !DataFormAction.Delete.In(InvalidActions) && !IsListEmpty;
         btnSave.IsEnabled = FormState.In(DataFormState.Insert | DataFormState.Edit);
         
@@ -417,7 +449,7 @@ public partial class DataForm : AppForm
  
         // btnOK - accessible in List state only with modal forms
         // List state and Modal: closes the form with OK and returns the current row               
-        btnOK.IsEnabled =IsModal && FormState == DataFormState.List;
+        btnOK.IsEnabled = IsModal && FormState == DataFormState.List;
 
         // List state: closes a non-modal form                
         btnClose.IsEnabled = FormState == DataFormState.List;
@@ -428,27 +460,30 @@ public partial class DataForm : AppForm
     protected virtual void EnableControls()
     {
         // ● visible ===============================================================
-        pnlSideBar.IsVisible = !IsSingleSelect;
+        pnlSideBar.IsVisible = !IsSingleSelect && FiltersSideBarVisible;
         Splitter.IsVisible = pnlSideBar.IsVisible;
 
         // ● enable ================================================================
         gridList.IsReadOnly = true;
     }
     /// <summary>
-    /// Toggles visibility of list DataGrid columns ending with ID 
+    /// Applies the visibility of list DataGrid columns ending with ID 
     /// </summary>
-    protected virtual void ToggleIdColumns()
+    protected virtual void ApplyIdColumnsVisible()
     {
-        bool Flag = !(btnToggleIds.IsChecked == true); // Checked = hide, else = show
-        string S = Flag ? "Hide Ids" : "Show Ids";
-        ToolTip.SetTip(btnToggleIds, S);
-        
-        List<GridColumnInfo> List = gridList.GetInfoList();
-        foreach (var CI in List)
+        Ui.Post(() =>
         {
-            if (CI.FieldName.EndsWithText("Id"))
-                CI.GridColumn.IsVisible = Flag;
-        }
+            bool Flag = IdColumnsVisible; // Checked = hide, else = show
+            string S = Flag ? "Hide Ids" : "Show Ids";
+            ToolTip.SetTip(btnToggleIds, S);
+        
+            List<GridColumnInfo> List = gridList.GetInfoList();
+            foreach (var CI in List)
+            {
+                if (CI.FieldName.EndsWithText("Id"))
+                    CI.GridColumn.IsVisible = Flag;
+            }
+        });
     }
     
     /// <summary>
@@ -492,6 +527,7 @@ public partial class DataForm : AppForm
     public DataModule Module => DataFormContext.Module;
     /// <summary>
     /// Form actions the form is not allowed to execute.
+    /// <para>This setting comes from the <see cref="DataFormContext"/> which creates the form. </para>
     /// </summary>
     public DataFormAction InvalidActions => DataFormContext.InvalidActions;
     /// <summary>
@@ -506,7 +542,7 @@ public partial class DataForm : AppForm
     /// <summary>
     /// The current row in the list part
     /// </summary>
-    public DataRow ListCurrentRow { get; protected set; }  
+    public DataRow ListCurrentRow => (gridList.SelectedItem is DataRowView RowView) ? RowView.Row : null;//{ get; protected set; }  
     /// <summary>
     /// The current row in the item part
     /// </summary>
@@ -529,9 +565,13 @@ public partial class DataForm : AppForm
     }
     
     /// <summary>
-    /// Returns true if this is a fixed (no row insert-delete allowed) form.
+    /// Returns true if this is a form where insert-edit-delete is NOT allowed 
     /// </summary>
     public bool IsReadOnlyForm => FormDef.IsReadOnly;
+    /// <summary>
+    /// Returns true if this is a form where insert-edit-delete is allowed 
+    /// </summary>
+    public bool IsEditableForm => !IsReadOnlyForm;
     /// <summary>
     /// When true then this is a form with a fixed single select.
     /// </summary>
@@ -539,6 +579,43 @@ public partial class DataForm : AppForm
     /// <summary>
     /// True when the list grid/table is empty.
     /// </summary>
-    public bool IsListEmpty => Module != null && Module.tblList != null && Module.tblList.Rows.Count > 0;
+    public bool IsListEmpty => Module == null || Module.tblList == null || Module.tblList.Rows.Count == 0;
 
+    public bool ListIsDirty { get; protected set; }
+
+
+    /// <summary>
+    /// Toggles visibility of list DataGrid columns ending with ID 
+    /// </summary>
+    public bool IdColumnsVisible
+    {
+        get => fIdColumnsVisible;
+        set
+        {
+            if (fIdColumnsVisible != value)
+            {
+                fIdColumnsVisible = value;
+                ApplyIdColumnsVisible();
+            }
+        }
+    }
+    /// <summary>
+    /// When true the filters sidebar is visible.
+    /// </summary>
+    public bool FiltersSideBarVisible
+    {
+        get => fFiltersSideBarVisible;
+        set
+        {
+            if (fFiltersSideBarVisible != value)
+            {
+                fFiltersSideBarVisible = value;
+                Ui.Post(() =>
+                {
+                    pnlSideBar.IsVisible = !IsSingleSelect && value;
+                    Splitter.IsVisible = !IsSingleSelect && value;
+                });
+            }
+        }
+    }
 }

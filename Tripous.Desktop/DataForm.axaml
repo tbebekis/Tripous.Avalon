@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Tripous.Desktop.DataForm">
-    <DockPanel Margin="10">
+    
+    <DockPanel Margin="2, 2, 2, 2">
         <Border Name="ToolBarContainer" DockPanel.Dock="Top" Classes="ToolbarContainer" >
             <StackPanel Name="pnlToolBar" Classes="ToolBar" MinHeight="32">
             </StackPanel>
@@ -15,7 +16,7 @@
             <Grid Name="pnlList" ColumnDefinitions="Auto, Auto, *" IsVisible="True">
     
                 <!-- ● SideBar -->
-                <DockPanel Name="pnlSideBar" Grid.Column="0" Width="250" Background="#F5F5F5">
+                <DockPanel Name="pnlSideBar" Grid.Column="0" MinWidth="250" Background="#F5F5F5">
                     <Border DockPanel.Dock="Top" BorderBrush="Gray" BorderThickness="0,0,0,1">
                         <StackPanel Name="pnlSelectListToolBar" Classes="ToolBar" MinHeight="32">
                         </StackPanel>

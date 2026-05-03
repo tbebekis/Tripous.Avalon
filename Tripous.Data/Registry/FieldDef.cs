@@ -183,14 +183,12 @@ public class FieldDef: BaseDef
     }
     public string DisplayFormat
     {
-        get => !string.IsNullOrWhiteSpace(fDisplayFormat) ? fDisplayFormat :
-            IsNumeric ? "N2" : IsDateTime ? "yyyy-MM-dd HH:mm" : string.Empty;
+        get => !string.IsNullOrWhiteSpace(fDisplayFormat) ? fDisplayFormat : DataType.GetDefaultFormat();
         set { if (fDisplayFormat != value) { fDisplayFormat = value; NotifyPropertyChanged(nameof(DisplayFormat)); } }
     }
     public string EditFormat
     {
-        get => !string.IsNullOrWhiteSpace(fEditFormat) ? fEditFormat :
-               IsDateTime ? "yyyy-MM-dd HH:mm" : string.Empty;
+        get => !string.IsNullOrWhiteSpace(fEditFormat) ? fEditFormat : DataType.GetDefaultFormat();
         set { if (fEditFormat != value) { fEditFormat = value; NotifyPropertyChanged(nameof(EditFormat)); } }
     }
     public int DisplayWidth
