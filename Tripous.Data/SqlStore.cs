@@ -110,6 +110,17 @@ public class SqlStore
     /// </code>
     /// </summary>
     public void ExecSql(Action<DbTransaction> Action) => Provider.ExecSql(ConnectionInfo, Action);
+    
+    // ● locking
+    /// <summary>
+    /// Selects a row with update lock, increments an integer field, and returns the initial row.
+    /// <para>Example</para>
+    /// <c>DataRow Row = SelectIncrementLocked("NumberSeries", "Code", "SALES_DOMESTIC_1", "NextNumber");</c>
+    /// </summary>
+    public virtual DataRow SelectIncrementLocked(string TableName, string KeyFieldName, object KeyValue, string ValueFieldName)
+    {
+        return Provider.SelectIncrementLocked(ConnectionInfo, TableName, KeyFieldName, KeyValue, ValueFieldName);
+    }
 
     // ● miscs Select
     /// <summary>

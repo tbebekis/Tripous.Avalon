@@ -1,7 +1,4 @@
-﻿using Avalonia;
-using System;
-
-namespace DesktopApp;
+﻿namespace DesktopApp;
 
 class Program
 {

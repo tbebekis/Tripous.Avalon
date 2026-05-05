@@ -13,7 +13,7 @@
 
         <Grid>
             <!-- ● List Part -->
-            <Grid Name="pnlList" ColumnDefinitions="Auto, Auto, *" IsVisible="True">
+            <Grid Name="pnlList" ColumnDefinitions="250, 4, *">
     
                 <!-- ● SideBar -->
                 <DockPanel Name="pnlSideBar" Grid.Column="0" MinWidth="250" Background="#F5F5F5">

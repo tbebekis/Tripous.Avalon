@@ -1,0 +1,63 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="tERP.MainWindow"
+        WindowState="Maximized"
+        Title="tERP">
+        
+        <DockPanel>
+                <!-- Menu -->
+                <Menu Name="MainMenu" DockPanel.Dock="Top">
+                </Menu>
+
+                <!-- ToolBar -->
+                <Border DockPanel.Dock="Top" Classes="ToolbarContainer">
+                        <StackPanel Name="pnlToolBar" Classes="ToolBar" >
+                        </StackPanel>
+                </Border>
+    
+                <!-- StatusBar -->
+                <Border Name="StatusBar" DockPanel.Dock="Bottom" Height="28" Background="#F0F0F0" BorderBrush="#CCCCCC" BorderThickness="0,1,0,0">
+                        <Grid ColumnDefinitions="*, Auto, 150">
+                                <TextBlock Name="lblStatus" Grid.Column="0" Text="Ready" VerticalAlignment="Center" Margin="5,0"/>
+                                <Rectangle Grid.Column="1" Width="1" Fill="#CCCCCC" Margin="2"/>
+                                <TextBlock Name="lblDetails" Grid.Column="2" Text="v1.0" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                </Border>
+
+                <!-- Body -->
+                <Grid Name="pnlBody" ColumnDefinitions="300, 4, *" >
+        
+                        <!-- Left Area -->
+                        <TabControl Name="pagerSideBar" Grid.Column="0" >
+                        </TabControl>
+
+                        <GridSplitter Name="Splitter" Grid.Column="1"   ResizeDirection="Columns"/>
+
+                        <!-- Right Area -->
+                        <Grid Name="pnlRight" Grid.Column="2" RowDefinitions="*, 4, 100" >
+            
+                                <!-- Content -->
+                                <TabControl Name="pagerContent" Grid.Row="0">
+                                </TabControl>
+
+                                <GridSplitter Name="Splitter2" Grid.Row="1"   ResizeDirection="Rows"/>
+
+                                <!-- Bottom -->
+                                <TextBox Name="edtLog" Grid.Row="2"
+                                         IsReadOnly="False" 
+                                         TextWrapping="Wrap" 
+                                         AcceptsReturn="True"
+                                         VerticalContentAlignment="Top"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         FontFamily="Cascadia Code,Consolas,Monospace"
+                                         FontSize="12"/>
+ 
+                        </Grid>
+                </Grid>
+        </DockPanel>            
+ 
+</Window>

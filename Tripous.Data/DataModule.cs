@@ -321,9 +321,15 @@ public class DataModule
     public virtual void ListSelect(SelectDef SelectDef)
     {        
         if (SelectDef != null)
-        {
-            TableSet.ListSelect(tblList, SelectDef.SqlText);
-        }
+            ListSelect(SelectDef.SqlText);
+    }
+    /// <summary>
+    /// Selects the list table.
+    /// </summary>
+    public virtual void ListSelect(string SqlText)
+    {        
+        if (!string.IsNullOrWhiteSpace(SqlText))
+            TableSet.ListSelect(tblList, SqlText);
     }
     /// <summary>
     /// Saves the list table.

@@ -8,6 +8,16 @@ public class SqlProviderMsSql : SqlProvider
     {
     }
 
+    
+    // ● locking
+    /// <summary>
+    /// Returns a SELECT statement that locks a single row for update.
+    /// </summary>
+    public override string SelectForUpdateSql(string TableName, string FieldName)
+    {
+        return $"select * from {TableName} with (updlock, rowlock) where {FieldName} = :{FieldName}";
+    }
+    
     // ● miscs
     public override bool CreateDatabase(string ConnectionString)
     {

@@ -285,12 +285,59 @@ public partial class DataForm : AppForm
         SelectDef SelectDef = cboSelectList.SelectedItem as SelectDef;
         if (SelectDef != null)
         {
+            object LastOID = GetCurrentListId();
+            
             UnBindListGrid();
-            Module.ListSelect(SelectDef);
-            ListIsDirty = false;
-            BindListGrid();
-            ApplyIdColumnsVisible();
+
+            string SqlText = SelectDef.SqlText;
+            string Where = FilterPanelHandler.GetWhere();
+            if (!string.IsNullOrWhiteSpace(Where))
+                SqlText = $"select * from ({SqlText}) X where {Where}";
+
+            cboSelectList.Focus();
+ 
+            Ui.Post(() => 
+            {
+                Module.ListSelect(SqlText);
+                ListIsDirty = false;
+                BindListGrid();
+                ApplyIdColumnsVisible();
+                
+                LogBox.AppendLine(SqlText);
+                
+                GoToListOID(LastOID);
+                
+            });
         }
+    }
+
+    protected virtual bool GoToListOID(object oId)
+    {
+        DataView DataView = Module.tblList.DataView;
+        
+        if (!Sys.IsNull(oId))
+        {
+            object RowOID;
+            if (Module.tblItem.DataView.Table.ContainsColumn(Module.tblItem.KeyField))
+            {
+                string FieldName = Module.tblItem.KeyField;
+                
+                foreach (DataRowView DRV in DataView)
+                {
+                    RowOID = DRV[FieldName];
+                    if (object.Equals(RowOID, oId))
+                    {
+                        gridList.SelectedItem = DRV;
+                        return true;
+                    }
+                }
+            }
+        }
+
+        if (DataView.Count > 0)
+            gridList.SelectedItem = DataView[0];
+
+        return false;
     }
     protected virtual object GetCurrentListId()
     {
@@ -367,6 +414,7 @@ public partial class DataForm : AppForm
             cboSelectList.SelectionChanged += (s, ea) => SelectedSelectChanged();
 
             SelectListToolBar.AddButton("lightning.png", "Execute", async () => await Execute(DataFormAction.RefreshList));
+            SelectListToolBar.AddButton("textfield_clear.png", "Clear Filter", () => FilterPanelHandler.Clear());
         }
     }
 
@@ -604,7 +652,6 @@ public partial class DataForm : AppForm
 
     public bool ListIsDirty { get; protected set; }
 
-
     /// <summary>
     /// Toggles visibility of list DataGrid columns ending with ID 
     /// </summary>
@@ -635,6 +682,10 @@ public partial class DataForm : AppForm
                 {
                     pnlSideBar.IsVisible = !IsSingleSelect && value;
                     Splitter.IsVisible = !IsSingleSelect && value;
+                    
+                    pnlList.ColumnDefinitions[0].Width = value ? new GridLength(250) : new GridLength(0);
+                    pnlList.ColumnDefinitions[0].MinWidth = pnlList.ColumnDefinitions[0].Width.Value;
+                    pnlList.ColumnDefinitions[1].Width = value ? new GridLength(4) : new GridLength(0);
                 });
             }
         }

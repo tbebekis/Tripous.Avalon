@@ -13,98 +13,6 @@ static public class Ui
     {
         Sys.DebugProc = Ui.Debug;
     }
-    
-    
-    // ● images
-    /// <summary>
-    /// Returns true if an image resource path exists, e.g. <c>avares://Tripous.Desktop/Images/MyImage.png</c>
-    /// </summary>
-    static public Uri FindImageUriByPath(string ImageResourcePath)
-    {
-        if (System.Uri.TryCreate(ImageResourcePath, UriKind.Absolute, out Uri Uri))
-            if (AssetLoader.Exists(Uri))
-                return Uri;
-        return null;
-    }
-    /// <summary>
-    /// Returns true if if finds an image resource along with its full path.
-    /// </summary>
-    static public Uri FindImageUri(Assembly Assembly, string FileName)
-    {
-        Uri Result = null;
-        
-        if (!string.IsNullOrWhiteSpace(FileName) && (Assembly != null))
-        {
-            string AssemblyName = Assembly.GetName().Name;
-            string S = $"avares://{AssemblyName}/Images/{FileName}";
-            Result = FindImageUriByPath(S);
-        }
-
-        return Result;
-    }
-    /// <summary>
-    /// Finds and returns the full path of an image resource, if any, else null.
-    /// </summary>
-    static public Uri FindImageUri(string FileName)
-    {
-        if (string.IsNullOrWhiteSpace(FileName))
-            return null;
-        
-        Uri Result = FindImageUriByPath(FileName);
-        
-        if (Result == null)
-            Result = FindImageUri(Assembly.GetEntryAssembly(), FileName);
-        
-        if (Result == null)
-            Result = FindImageUri(Assembly.GetCallingAssembly(), FileName);
-
-        if (Result == null)
-            Result = FindImageUri(typeof(Ui).Assembly, FileName);
-
-        return Result;
-    }
-
-    static public bool SetImage(Image Image, string FileName)
-    {
-        if (Image != null)
-        {
-            Uri Uri = FindImageUri(FileName);
-            if (Uri != null)
-            {
-                Image.Source = new Bitmap(AssetLoader.Open(Uri));
-                return true;
-            }
-        }
-        return false;
-    }
-    static public bool SetImage(this Button Button, string FileName)
-    {
-        if (Button != null)
-        {
-            Uri Uri = FindImageUri(FileName);
-            if (Uri != null)
-            {
-                Button.Content = new Image() { Source = new Bitmap(AssetLoader.Open(Uri)) };
-                return true;
-            }
-        }
-
-        return false;
-    }
-    static public bool SetImage(this MenuItem MenuItem, string FileName)
-    {
-        if (MenuItem != null)
-        {
-            Uri Uri = FindImageUri(FileName);
-            if (Uri != null)
-            {
-                MenuItem.Icon = new Image() { Source = new Bitmap(AssetLoader.Open(Uri)) };
-                return true;
-            }
-        }
-
-        return false;
-    }
  
     // ● dialogs
     static public Window GetParentWindow(this Control Control) => TopLevel.GetTopLevel(Control) as Window;
@@ -207,7 +115,7 @@ static public class Ui
     {
         return await Desktop.InputBox.ShowModal(Message, Value, Caller);
     }
-
+ 
     // ● miscs
     static public void Debug(string Text)
     {

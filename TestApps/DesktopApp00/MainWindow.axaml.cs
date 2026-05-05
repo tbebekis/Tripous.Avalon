@@ -60,7 +60,6 @@ public partial class MainWindow : Window
 
     void Test()
     {
-        string Psw = "M!r0d@t0";
         //DataTests.TestSqlParamScanner_Edges();
         //DataTests.TestConnection(Psw);
         //DataTests.TestMsSqlStore(Psw);

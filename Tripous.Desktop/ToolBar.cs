@@ -5,9 +5,10 @@ public class ToolBar
     protected StackPanel fPanel;
     protected virtual void SetupButton(Button Button, string ImageFileName = null, string ToolTipText = null)
     {
-        Uri Uri = Ui.FindImageUri(ImageFileName);
-        if (Uri != null)
-            Button.Content = new Image() { Source = new Bitmap(AssetLoader.Open(Uri)) };
+ 
+        Image Image = Assets.FindImage(ImageFileName);
+        if (Image != null)
+            Button.Content = Image;
         else if (!string.IsNullOrWhiteSpace(ToolTipText))
             Button.Content = ToolTipText;
         

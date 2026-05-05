@@ -71,4 +71,6 @@ public class Command: BaseDef
     public Func<Command, bool> CanExecuteFunc { get; set; }
     public Func<Command, object> ExecuteFunc { get; set; }
     public Func<Command, Task<object>> ExecuteAsyncFunc { get; set; }
+
+    public bool HasChildren => Commands != null && Commands.Count > 0;
 }

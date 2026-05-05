@@ -411,6 +411,37 @@ static public class Sys
         }
     }    
     
+    /// <summary>
+    /// Returns a list of non-system assemblies
+    /// </summary>
+    static public List<Assembly> GetApplicationAssemblies()
+    {
+        List<Assembly> Result = new List<Assembly>();
+        Assembly[] LoadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+        foreach (Assembly Item in LoadedAssemblies)
+        {
+            string Name = Item.GetName().Name;
+
+            if (string.IsNullOrEmpty(Name))
+                continue;
+
+            // ● Filter out system and framework assemblies
+            if (Name.StartsWith("System") || 
+                Name.StartsWith("Microsoft") || 
+                Name.StartsWith("Avalonia") || 
+                Name.StartsWith("mscorlib") || 
+                Name.StartsWith("netstandard"))
+            {
+                continue;
+            }
+
+            Result.Add(Item);
+        }
+
+        return Result;
+    }
+    
     // ●  miscs 
     /// <summary>
     /// Creates and returns a new Guid.

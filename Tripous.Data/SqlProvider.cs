@@ -86,7 +86,7 @@ public abstract class SqlProvider
     }
 
     // ● public
-    public virtual SqlParams CreateSqlParams(string SqlText, object[] Params)
+    public virtual SqlParams CreateSqlParams(string SqlText, params object[] Params)
     {
         SqlParams Result = new SqlParams();
         List<SqlParamRef> Refs = SqlParamScanner.Scan(SqlText);
@@ -179,7 +179,7 @@ public abstract class SqlProvider
         Result.ConnectionString = ConnectionString;
         return Result;
     }
-    public DbCommand CreateCommand(DbConnection Connection, string SqlText, object[] Params)
+    public DbCommand CreateCommand(DbConnection Connection, string SqlText, params object[] Params)
     {
         SqlParams SqlParams = CreateSqlParams(SqlText, Params);
         return CreateCommand(Connection, SqlText, SqlParams);
@@ -622,7 +622,115 @@ public abstract class SqlProvider
         string S = SelectResult(Transaction, SqlText, CommandTimeout, Default, Params).ToString();
         return S.ToIntOrDefault(Default);
     }
-      
+
+ 
+    // ● locking
+    /// <summary>
+    /// Returns a SELECT statement that locks a single row for update.
+    /// </summary>
+    public virtual string SelectForUpdateSql(string TableName, string FieldName)
+    {
+        return $"select * from {TableName} where {FieldName} = :{FieldName} for update";
+    }
+    /// <summary>
+    /// Selects and locks a single row for update inside a transaction.
+    /// </summary>
+    public DataRow SelectForUpdate(DbTransaction Transaction, string TableName, string FieldName, object FieldValue)
+    {
+        return SelectForUpdate(Transaction, TableName, FieldName, SysConfig.DefaultCommandTimeoutSeconds, FieldValue);
+    }
+    /// <summary>
+    /// Selects and locks a single row for update inside a transaction.
+    /// </summary>
+    public DataRow SelectForUpdate(DbTransaction Transaction, string TableName, string FieldName, int CommandTimeout, object FieldValue)
+    {
+        DataRow Result = null;
+        string SqlText = SelectForUpdateSql(TableName, FieldName);
+
+        DataTable Table = new();
+        using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, FieldValue))
+        {
+            Command.Transaction = Transaction;
+            Command.CommandTimeout = CommandTimeout;
+
+            using (DbDataReader Reader = Command.ExecuteReader())
+            {
+                Table.BeginLoadData();
+                try
+                {
+                    Table.Clear();
+                    Table.Load(Reader);
+                }
+                finally
+                {
+                    Table.EndLoadData();
+                }
+
+                Table.AcceptChanges();
+            }
+        }
+
+        if (Table.Rows.Count > 0)
+            Result = Table.Rows[0];
+
+        return Result;
+    }
+    /// <summary>
+    /// Selects a row with update lock, increments an integer field, and returns the initial row.
+    /// </summary>
+    public virtual DataRow SelectIncrementLocked(DbConnectionInfo ConnectionInfo, string TableName, string KeyFieldName, object KeyValue, string ValueFieldName)
+    {
+        return SelectIncrementLocked(ConnectionInfo.ConnectionString, TableName, KeyFieldName, KeyValue, ValueFieldName, ConnectionInfo.CommandTimeoutSeconds);
+    }
+    /// <summary>
+    /// Selects a row with update lock, increments an integer field, and returns the initial row.
+    /// </summary>
+    public virtual DataRow SelectIncrementLocked(string ConnectionString, string TableName, string KeyFieldName, object KeyValue, string ValueFieldName, int CommandTimeout)
+    {
+        using (DbTransaction Transaction = BeginTransaction(ConnectionString))
+        {
+            try
+            {
+                DataRow Result = SelectIncrementLocked(Transaction, TableName, KeyFieldName, KeyValue, ValueFieldName, CommandTimeout);
+                Transaction.Commit();
+                return Result;
+            }
+            catch
+            {
+                Transaction.Rollback();
+                throw;
+            }
+        }
+    }
+    /// <summary>
+    /// Selects a row with update lock, increments an integer field, and returns the initial row.
+    /// </summary>
+    public virtual DataRow SelectIncrementLocked(DbTransaction Transaction, string TableName, string KeyFieldName, object KeyValue, string ValueFieldName, int CommandTimeout)
+    {
+        DataRow Result = SelectForUpdate(Transaction, TableName, KeyFieldName, CommandTimeout, KeyValue);
+
+        if (Result == null)
+            throw new Exception($"Row not found. Table: {TableName}, Field: {KeyFieldName}, Value: {KeyValue}");
+
+        int CurrentValue = Convert.ToInt32(Result[ValueFieldName]);
+
+        string SqlText = $"update {TableName} set {ValueFieldName} = {ValueFieldName} + 1 where {KeyFieldName} = :{KeyFieldName}";
+
+        using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, KeyValue))
+        {
+            Command.Transaction = Transaction;
+            Command.CommandTimeout = CommandTimeout;
+            Command.ExecuteNonQuery();
+        }
+
+        Result[ValueFieldName] = CurrentValue;
+        Result.AcceptChanges();
+
+        return Result;
+    }
+ 
+ 
+    
     // ● miscs
     public virtual string ApplyRowLimit(string SqlText, int RowLimit)
     {

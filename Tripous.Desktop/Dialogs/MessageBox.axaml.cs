@@ -32,7 +32,8 @@ public partial class MessageBox : Window
             _ => "information.png"
         };
 
-       Ui.SetImage(imgIcon, fileName);
+       
+        Assets.SetImage(imgIcon, fileName);
  
     }
     

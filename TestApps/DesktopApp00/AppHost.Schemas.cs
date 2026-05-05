@@ -7,7 +7,7 @@ static public partial class AppHost
 {
     static void RegisterSchema_01()
     {
-        Schema Schema = Schemas.FindOrAdd(Sys.SYSTEM, SysConfig.DefaultConnectionName);
+        Schema Schema = Schemas.FindOrAdd(Sys.APPLICATION, SysConfig.DefaultConnectionName);
         SchemaVersion SV = Schema.FindOrAdd(1);
  
         // ● Country

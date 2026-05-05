@@ -8,7 +8,7 @@ public class DbConnections: SettingsBase
 {
     private ObservableCollection<DbConnectionInfo> fList;
     
-    protected override string FileName => "DbCsonnections.json";
+    protected override string FileName => "DbConnections.json";
     protected override void LoadBefore()
     {
         List.Clear();

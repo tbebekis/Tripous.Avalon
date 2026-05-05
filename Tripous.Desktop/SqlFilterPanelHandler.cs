@@ -123,55 +123,6 @@ public class SqlFilterPanelHandler
 
     // ● public
     /// <summary>
-    /// Creates the controls for a specified <see cref="SqlFilterDefs"/> in the a specified panel.
-    /// </summary>
-    public void CreateFilterControls_OLD(SqlFilterDefs FilterDefs)
-    {
-        Clear();
-        Panel.Children.Clear();
-
-        if (FilterDefs == null)
-            return;
-
-        foreach (SqlFilterDef FilterDef in FilterDefs)
-        {
-            SqlFilterInfo Info = CreateFilterInfo(FilterDef);
-            fFilterInfos.Add(Info);
-
-            Border Border = new();
-            Border.Margin = GetMargin();
-
-            StackPanel RowPanel = new();
-            RowPanel.Spacing = 4;
-
-            TextBlock Label = CreateLabel(FilterDef);
-            ComboBox BoolOpCombo = CreateBoolOpCombo(FilterDef);
-            ComboBox ConditionOpCombo = CreateConditionOpCombo(FilterDef);
-
-            BoolOpCombo.Tag = Info;
-            ConditionOpCombo.Tag = Info;
-
-            Info.FilterDef.Tag = Info;
-
-            RowPanel.Children.Add(Label);
-            RowPanel.Children.Add(BoolOpCombo);
-            RowPanel.Children.Add(ConditionOpCombo);
-            RowPanel.Children.Add(Info.Control);
-            RowPanel.Children.Add(Info.Control2);
-
-            SetControlVisible(Info.Control2, FilterDef.ConditionOp == ConditionOp.Between);
-
-            ConditionOpCombo.SelectionChanged += (Sender, Args) =>
-            {
-                if (ConditionOpCombo.SelectedItem is ConditionOp ConditionOp)
-                    SetControlVisible(Info.Control2, ConditionOp == ConditionOp.Between);
-            };
-
-            Border.Child = RowPanel;
-            Panel.Children.Add(Border);
-        }
-    }
-    /// <summary>
     /// Creates the controls for a specified <see cref="SqlFilterDefs"/> in the filters panel.
     /// </summary>
     public void CreateFilterControls(SqlFilterDefs FilterDefs)
@@ -221,6 +172,9 @@ public class SqlFilterPanelHandler
             FilterPanel.Children.Add(HeaderGrid);
             FilterPanel.Children.Add(Info.Control);
             FilterPanel.Children.Add(Info.Control2);
+            
+            Info.BoolOpCombo = BoolOpCombo;
+            Info.ConditionOpCombo = ConditionOpCombo;
 
             SetControlVisible(Info.Control2, FilterDef.ConditionOp == ConditionOp.Between);
 
@@ -239,7 +193,7 @@ public class SqlFilterPanelHandler
     /// <summary>
     /// Collects values from the filter controls and returns active filters only.
     /// </summary>
-    public SqlFilterDefs CollectValues()
+    public SqlFilterDefs CollectValues_OLD()
     {
         SqlFilterDefs Result = new();
         Result.AllowDuplicateNames = true;
@@ -288,9 +242,72 @@ public class SqlFilterPanelHandler
 
         return Result;
     }
+    /// <summary>
+    /// Collects values from the filter controls and returns active filters only.
+    /// </summary>
+    public SqlFilterDefs CollectValues()
+    {
+        SqlFilterDefs Result = new();
+        Result.AllowDuplicateNames = true;
+
+        foreach (SqlFilterInfo Info in fFilterInfos)
+        {
+            SqlFilterDef Source = Info.FilterDef;
+            SqlFilterDef FilterDef = Source.Clone() as SqlFilterDef;
+
+            ComboBox BoolOpCombo = Info.BoolOpCombo;
+            ComboBox ConditionOpCombo = Info.ConditionOpCombo;
+
+            if (BoolOpCombo != null && BoolOpCombo.SelectedItem is BoolOp BoolOp)
+                FilterDef.BoolOp = BoolOp;
+
+            if (ConditionOpCombo != null && ConditionOpCombo.SelectedItem is ConditionOp ConditionOp)
+                FilterDef.ConditionOp = ConditionOp;
+
+            FilterDef.Value = GetControlValue(Info.Control, FilterDef.FilterDataType);
+            FilterDef.Value2 = GetControlValue(Info.Control2, FilterDef.FilterDataType);
+
+            if (FilterDef.ConditionOp == ConditionOp.Between)
+            {
+                if (FilterDef.Value != null && FilterDef.Value2 != null)
+                    Result.Add(FilterDef);
+            }
+            else
+            {
+                FilterDef.Value2 = null;
+
+                if (FilterDef.Value != null)
+                    Result.Add(FilterDef);
+            }
+        }
+
+        return Result;
+    }
+    
+    public string GetWhere()
+    {
+        SqlFilterDefs Defs = CollectValues();
+        string Result = Defs.GetSqlWhereFilterTextInline();
+        return Result;
+    }
     public void Clear()
     {
-        fFilterInfos.Clear();
+        foreach (var Info in fFilterInfos)
+        {
+            // values
+            if (Info.Control is TextBox tb) tb.Text = "";
+            if (Info.Control is DatePicker dp) dp.SelectedDate = null;
+
+            if (Info.Control2 is TextBox tb2) tb2.Text = "";
+            if (Info.Control2 is DatePicker dp2) dp2.SelectedDate = null;
+
+            // combos
+            Info.BoolOpCombo.SelectedItem = BoolOp.And;
+            Info.ConditionOpCombo.SelectedItem = ConditionOp.Equal;
+
+            // visibility
+            SetControlVisible(Info.Control2, false);
+        }
     }
 
     // ● properties

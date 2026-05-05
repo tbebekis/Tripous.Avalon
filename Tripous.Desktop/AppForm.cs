@@ -30,12 +30,17 @@ public class AppForm: UserControl
     }
     
     /// <summary>
-    /// Executes any first operation on the form
+    /// Executes any first operation on the form.
+    /// <para>NOTE: When this method is called the form has already a parent, the <see cref="Context"/> is assigned and the <see cref="FormInitialize"/> is finished. </para>
     /// </summary>
     protected virtual async Task Start()
     {
         await Task.CompletedTask;
     }
+    /// <summary>
+    /// This is called just after the <see cref="Context"/> is assigned.
+    /// <para>NOTE: When this method is called the form has already a parent, the <see cref="Context"/> is assigned buth the <see cref="FormInitialize"/> has not been called. </para>
+    /// </summary>
     protected virtual void Setup()
     {
     }
@@ -137,6 +142,10 @@ public class AppForm: UserControl
     }
     
     // ● public
+    /// <summary>
+    /// This is called from the <see cref="AppFormPagerHandler"/> or the <see cref="AppFormDialog"/> right after the form creation.
+    /// <para>NOTE: When this is called the form has just added to its parent.</para>
+    /// </summary>
     public void Setup(FormContext Context)
     {
         if (!IsSetupDone)

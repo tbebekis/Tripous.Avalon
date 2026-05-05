@@ -7,6 +7,15 @@ public class SqlProviderSqlite : SqlProvider
         : base(DbServerType.Sqlite)
     {
     }
+    
+    // ● locking
+    /// <summary>
+    /// Returns a SELECT statement used inside a transaction to select a row for update.
+    /// </summary>
+    public override string SelectForUpdateSql(string TableName, string FieldName)
+    {
+        return $"select * from {TableName} where {FieldName} = :{FieldName}";
+    }
 
     // ● miscs
     /// <summary>

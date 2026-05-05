@@ -22,9 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
+    <Folder Include="Images32\" />
+    <Folder Include="Images16\" />
     <AvaloniaResource Include="Images\**" />
+    <AvaloniaResource Include="Images16\**" />
   </ItemGroup>
+ 
 
   <ItemGroup>
     <ProjectReference Include="..\Tripous\Tripous.csproj" />
