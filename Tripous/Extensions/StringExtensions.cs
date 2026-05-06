@@ -169,5 +169,30 @@
         {
             return string.IsNullOrWhiteSpace(Text) ? string.Empty : Regex.Replace(Text, "(?<=[a-z])([A-Z])", " $1", RegexOptions.Compiled).Trim();
         }
+        /// <summary>
+        /// Splits a string into words at each uppercase letter. 
+        /// Existing spaces are preserved.
+        /// </summary>
+        static public string SplitToWords(this string Text)
+        {
+            if (string.IsNullOrWhiteSpace(Text))
+                return Text;
+
+            StringBuilder Result = new StringBuilder();
+            Result.Append(Text[0]);
+
+            for (int I = 1; I < Text.Length; I++)
+            {
+                // ● If it's uppercase and the previous character wasn't a space, add a space
+                if (char.IsUpper(Text[I]) && Text[I - 1] != ' ')
+                {
+                    Result.Append(' ');
+                }
+
+                Result.Append(Text[I]);
+            }
+
+            return Result.ToString();
+        }
     }
 }

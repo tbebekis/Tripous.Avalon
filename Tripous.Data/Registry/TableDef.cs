@@ -1,3 +1,6 @@
+using DocumentFormat.OpenXml.Spreadsheet;
+using Tuple = System.Tuple;
+
 namespace Tripous.Data;
 
 /// <summary>
@@ -398,50 +401,61 @@ where
     public void UpdateFrom(DataTable Table)
     {
         FieldFlags Flags;
-        string Title;
+        string TitleKey;
 
-        foreach (DataColumn Field in Table.Columns)
+        foreach (DataColumn Column in Table.Columns)
         {
-            var FieldDes = Fields.Find(item => item.Name.IsSameText(Field.ColumnName));
+            TitleKey = Texts.GS(Column.Caption);
+            
+            FieldDef FieldDef = Fields.Find(item => item.Name.IsSameText(Column.ColumnName));
 
-            if (FieldDes == null)
+            // ● missing field
+            if (FieldDef == null)
             {
-                Flags = FieldFlags.None;
-                Title = Texts.GS(Field.ColumnName);
-                if (!Field.ColumnName.EndsWithText("Id"))
-                    Flags |= FieldFlags.Visible;
-
-                if (Simple.IsString(Field.DataType) || Simple.IsDateTime(Field.DataType))
+                FieldDef = new FieldDef();
+                FieldDef.Name = Column.ColumnName;
+                FieldDef.DataType = DataFieldTypeHelper.GetDataFieldType(Column.DataType);
+                
+                Flags = Db.Settings.IdFieldsVisible && Column.ColumnName.EndsWithText("Id")? FieldFlags.None:  FieldFlags.Visible;
+                if (Simple.IsString(Column.DataType) || Simple.IsDateTime(Column.DataType))
                     Flags |= FieldFlags.Searchable;
-
-                Fields.Add(new FieldDef()
-                {
-                    Name = Field.ColumnName,
-                    DataType = DataFieldTypeHelper.GetDataFieldType(Field.DataType),
-                    MaxLength = Field.MaxLength,
-                    TitleKey = Title,
-                    Flags = Flags
-                });
+                
+                FieldDef.Flags = Flags;
+                Fields.Add(FieldDef);
             }
-            else
+            
+            // ● DataType
+            if (FieldDef.DataType.IsDateTime() && Column.DataType == typeof(DateTime))
             {
-
-                if (FieldDes.DataType.IsDateTime() && Field.DataType == typeof(DateTime))
-                {
-                    // let FieldDes.DataType keep its original value
-                }
-                else if (FieldDes.DataType == DataFieldType.Boolean && (Field.DataType == typeof(int) || Field.DataType == typeof(System.Int64)))
-                {
-                    // let FieldDes.DataType keep its original value
-                }
-                else if (FieldDes.DataType != DataFieldTypeHelper.GetDataFieldType(Field.DataType))
-                {
-                    FieldDes.DataType = DataFieldTypeHelper.GetDataFieldType(Field.DataType);
-                }
-
-                if (FieldDes.DataType == DataFieldType.String && (Field.MaxLength != -1) && (FieldDes.MaxLength != Field.MaxLength))
-                    FieldDes.MaxLength = Field.MaxLength;
+                // let FieldDef.DataType keep its original value
             }
+            else if (FieldDef.DataType == DataFieldType.Boolean && (Column.DataType == typeof(int) || Column.DataType == typeof(System.Int64)))
+            {
+                // let FieldDef.DataType keep its original value
+            }
+            else if (FieldDef.DataType != DataFieldTypeHelper.GetDataFieldType(Column.DataType))
+            {
+                FieldDef.DataType = DataFieldTypeHelper.GetDataFieldType(Column.DataType);
+            }
+
+            // ● MaxLength
+            if (FieldDef.DataType == DataFieldType.String && FieldDef.MaxLength != Column.MaxLength)
+                FieldDef.MaxLength = Column.MaxLength;
+
+            // ● TitleKey
+            if (FieldDef.IsTitleKeyEmpty)
+                FieldDef.TitleKey = TitleKey;
+
+            // ● IsNullable
+            FieldDef.IsNullable = Column.AllowDBNull;
+            
+            // ● DefaultValue
+            if (!Sys.IsNull(Column.DefaultValue) && string.IsNullOrWhiteSpace(FieldDef.DefaultValue))
+                FieldDef.DefaultValue = Column.DefaultValue.ToString();
+
+            // ● Expression
+            if (!string.IsNullOrWhiteSpace(Column.Expression) && string.IsNullOrWhiteSpace(FieldDef.Expression))
+                FieldDef.Expression = Column.Expression;
 
         }
     }

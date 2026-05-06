@@ -142,13 +142,11 @@
         <Style Selector="TreeViewItem">
             <Setter Property="MinHeight" Value="24"/>
             <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="-30,0,0,0"/>
+            <!-- 
+             <Setter Property="Margin" Value="-30,0,0,0"/>
+            -->
             <Setter Property="FontSize" Value="12"/>
         </Style>
-        
- 
-        
- 
         
         <!-- ● AvaloniaEdit:TextEditor -->
         <Style Selector="AvaloniaEdit|TextEditor">

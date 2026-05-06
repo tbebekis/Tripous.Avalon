@@ -151,12 +151,10 @@ public class DataModule
     /// <summary>
     /// Ensures that any TableDef is updated with the actual table schema from the database.
     /// </summary>
-    protected virtual void UpdateTableSchema(TableDef TableDef)
+    protected virtual void UpdateTableSchema()
     {
         void UpdateSchema(TableDef T)
         {
-            TableDef.UpdateReferences();
-
             string TableName = T.Name;
             string StatementName = $"{Name}.{TableName}";
         
@@ -168,7 +166,7 @@ public class DataModule
                     UpdateSchema(Item);
         }
 
-        UpdateSchema(TableDef);
+        UpdateSchema(ModuleDef.Table);
     }
     
     // ● construction
@@ -178,7 +176,13 @@ public class DataModule
     public DataModule()
     {
     }
-    
+
+    /// <summary>
+    /// Returns a string representation of this instance.
+    /// </summary>
+    public override string ToString() => Name;
+ 
+
     // ● list
     /// <summary>
     /// Initializes this instance.
@@ -202,6 +206,9 @@ public class DataModule
  
             // ● SqlStore
             Store = SqlStores.CreateSqlStore(ConnectionInfo);
+            
+            // ● Update the schema of all tables
+            UpdateTableSchema();
             
             // ● DataSet
             DataSet = new DataSet("DS_" + ModuleDef.Name);
@@ -237,8 +244,6 @@ public class DataModule
             TableSqls Sqls;
             foreach (var TableDef in TableDefs)
             {
-                UpdateTableSchema(TableDef);
-                
                 Table = TableDef.CreateDescriptorTable(Store);  // TableDef.CreateDescriptorTable(Store, table => DataSet.Tables.Add(table));
                 DataSet.Tables.Add(Table);
                 

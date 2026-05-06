@@ -8,16 +8,34 @@ public class FormContext
     private string fFormId;
     private string fTitle;
 
+    // ● construction
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public FormContext()
+    {
+    }
+
+    // ● static
+    /// <summary>
+    /// Creates an instance of this class.
+    /// </summary>
     static public FormContext Create(Type AppFormType, FormDisplayMode DisplayMode, Control Caller = null, object Tag = null)
     {
         if (!AppFormType.InheritsFrom(typeof(AppForm)))
             throw new TripousException($"Cannot create a {nameof(FormContext)} for a Form. The specified Form type is not a {nameof(AppForm)}.");
         return Create(AppFormType.FullName, DisplayMode, Caller, Tag);
     }
+    /// <summary>
+    /// Creates an instance of this class.
+    /// </summary>
     static public FormContext Create(string ClassName, FormDisplayMode DisplayMode, Control Caller = null, object Tag = null)
     {
         return FormContext.Create(ClassName, ClassName, DisplayMode, Caller, Tag);
     }
+    /// <summary>
+    /// Creates an instance of this class.
+    /// </summary>
     static public FormContext Create(string FormId, string ClassName, FormDisplayMode DisplayMode, Control Caller = null, object Tag = null)
     {
         FormContext Result = new()
@@ -31,6 +49,10 @@ public class FormContext
         return Result;
     }
 
+    // ● public
+    /// <summary>
+    /// Creates an instance of an AppForm based on the <see cref="ClassName"/> of the form.
+    /// </summary>
     public virtual AppForm CreateForm()
     {
         if (Form == null)
@@ -75,7 +97,14 @@ public class FormContext
         get => !string.IsNullOrWhiteSpace(fTitle) ? fTitle : FormId;
         set => fTitle = value;
     }
+    /// <summary>
+    /// The modal result of the modal dialog displaying the form created based on this instance.
+    /// <para>It is set after the form is closed.</para>
+    /// </summary>
     public ModalResult ModalResult { get; internal set; }
+    /// <summary>
+    /// True when the modal result, of the modal dialog displaying the form, is <see cref="ModalResult.Ok"/>
+    /// </summary>
     public bool Result => ModalResult == ModalResult.Ok;
     /// <summary>
     /// Optional result data returned by the form.

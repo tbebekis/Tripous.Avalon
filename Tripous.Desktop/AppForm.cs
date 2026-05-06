@@ -203,6 +203,7 @@ public class AppForm: UserControl
     }
  
     // ● properties
+    
     public FormContext Context { get; private set; }
     /// <summary>
     /// A unique id among all pages hosted in the same <see cref="TabControl"/>
@@ -262,8 +263,14 @@ public class AppForm: UserControl
     /// True while closing.
     /// </summary>
     public bool IsClosing { get; private set; }
-    
+    /// <summary>
+    /// True when this is displayed in a modal dialog
+    /// </summary>
     public bool IsModal => Context.DisplayMode == FormDisplayMode.Dialog;
+    /// <summary>
+    /// The modal result of the modal dialog displaying this instance.
+    /// <para>Setting this to anything other than <see cref="ModalResult.None"/> closes the container form.</para>
+    /// </summary>
     public virtual ModalResult ModalResult
     {
         get => IsModal ? fModalResult : ModalResult.None;

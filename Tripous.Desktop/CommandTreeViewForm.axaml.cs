@@ -2,31 +2,21 @@ namespace Tripous.Desktop;
 
 public partial class CommandTreeViewForm : AppForm
 {
-    DefList<Command> Commands; 
-
+    DefList<Command> Commands;
+    ToolBar ToolBar;
+    
+    async void tv_DoubleTapped(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        await ExecuteCommand();
+    }
+ 
     // ● private
     void CreateTreeViewNodes()
     {
         // ----------------------------------------------------------------------
-        TreeViewItem CreateFolderNode(string Caption, string IconFile = "folder16.png")
-        {
-            var Panel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 5 };
-            Panel.Children.Add(Assets.FindImage16(IconFile));
-            Panel.Children.Add(new TextBlock { Text = Caption, FontWeight = FontWeight.SemiBold  });
-            
-            var Node = new TreeViewItem { Header = Panel };
-            return Node;
-        }
+        TreeViewItem CreateFolderNode(string Caption) => Ui.CreateContainerNode(Caption, Tag: null, IconFile: "folder16.png", NegativeMargin: 10);
         // ----------------------------------------------------------------------
-        TreeViewItem CreateLeafNode(string Caption, object Tag = null, string IconFile = "item16.png")
-        {
-            var Panel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 5}; // , Margin = new Thickness(-40, 0, 0, 0)
-            Panel.Children.Add(Assets.FindImage16(IconFile));
-            Panel.Children.Add(new TextBlock { Text = Caption });
-            
-            var Node = new TreeViewItem { Header = Panel, Tag = Tag };
-            return Node;
-        }
+        TreeViewItem CreateLeafNode(string Caption, object Tag, string IconFile = "item16.png") => Ui.CreateLeafNode(Caption, Tag: Tag, IconFile: IconFile, NegativeMargin: 10);
         // ----------------------------------------------------------------------
         void AddCommandNode(IList Items, Command Command)
         {
@@ -57,6 +47,34 @@ public partial class CommandTreeViewForm : AppForm
         foreach (Command Command in Commands)
             AddCommandNode(tv.Items, Command);
     }
+    async Task ExecuteCommand()
+    {
+        if (tv.SelectedItem is not TreeViewItem Node) 
+            return;
+
+        if (Node.Tag is not Command Cmd) 
+            return;
+
+        if (Cmd.IsAsync)
+            await Cmd.ExecuteAsync();
+
+        if (Cmd.IsSync)
+            Cmd.Execute();
+    }
+
+    void CreateToolBar()
+    {
+        if (ToolBar == null)
+        {
+            ToolBar = new();
+            ToolBar.Panel = pnlToolBar;
+
+            ToolBar.AddButton("arrow_out.png", "Expand", () => tv.ExpandAll(Flag: true) );
+            ToolBar.AddButton("arrow_in.png", "Collapse", () => tv.ExpandAll(Flag: false) );
+            ToolBar.AddButton("lightning.png", "Execute", async () => await ExecuteCommand());
+        }
+    }
+    
     
     // ● overrides
     /// <summary>
@@ -66,11 +84,13 @@ public partial class CommandTreeViewForm : AppForm
     {
         TitleText = "Commands";
         CreateTreeViewNodes();
+        CreateToolBar();
+        tv.DoubleTapped += tv_DoubleTapped;
     }
  
     /// <summary>
-    /// This is called just after the <see cref="Context"/> is assigned.
-    /// <para>NOTE: When this method is called the form has already a parent, the <see cref="Context"/> is assigned buth the <see cref="FormInitialize"/> has not been called. </para>
+    /// This is called just after the <see cref="AppForm.Context"/> is assigned.
+    /// <para>NOTE: When this method is called the form has already a parent, the <see cref="AppForm.Context"/> is assigned buth the <see cref="FormInitialize"/> has not been called. </para>
     /// </summary>
     protected override void Setup()
     {
@@ -78,6 +98,15 @@ public partial class CommandTreeViewForm : AppForm
         if (Commands == null)
             Commands = AppRegistry.MenuCommands;
     }
+    /// <summary>
+    /// It is called by the OnKeyDown() method. 
+    /// <para>Returns true if processes the key</para>
+    /// </summary>
+    protected override bool ProcessKeyDown(KeyEventArgs e)
+    {
+        return false;
+    }
+    
     
     // ● construction
     public CommandTreeViewForm()

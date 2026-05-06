@@ -52,9 +52,9 @@ public class DbConnectionInfo
     /// </summary>
     public int CommandTimeoutSeconds
     {
-        get => fCommandTimeoutSeconds >= SysConfig.DefaultCommandTimeoutSeconds
+        get => fCommandTimeoutSeconds >= Db.Settings.DefaultCommandTimeoutSeconds
             ? fCommandTimeoutSeconds
-            : SysConfig.DefaultCommandTimeoutSeconds;
+            : Db.Settings.DefaultCommandTimeoutSeconds;
         set => fCommandTimeoutSeconds = value;
     }
     /// <summary>

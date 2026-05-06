@@ -441,8 +441,11 @@ public partial class DataForm : AppForm
     /// </summary>
     public virtual void UpdateUi()
     {
-        EnableCommands();
-        EnableControls();
+        Ui.Post(() =>
+        {
+            EnableCommands();
+            EnableControls();
+        });
     }
     /// <summary>
     /// Enables and disables buttons and menu items.

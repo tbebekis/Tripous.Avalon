@@ -1,4 +1,7 @@
-CREATE TABLE Company (
+----------------------------------------------------
+-- Company
+----------------------------------------------------
+CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,
@@ -14,12 +17,18 @@ CREATE TABLE Company (
     Phone @NVARCHAR(32) @NULL,
     Email @NVARCHAR(96) @NULL,
     Website @NVARCHAR(96) @NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
+
     FOREIGN KEY (TaxOfficeId) REFERENCES TaxOffice(Id),
     FOREIGN KEY (CountryId) REFERENCES Country(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id)
-)
-
-CREATE TABLE CompanyBranch (
+ )
+----------------------------------------------------
+-- CompanyBranch
+----------------------------------------------------
+CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     CompanyId @NVARCHAR(40) @NOT_NULL,
     Code @NVARCHAR(40) @NOT_NULL,
@@ -33,12 +42,18 @@ CREATE TABLE CompanyBranch (
     Email @NVARCHAR(96) @NULL,
     IsPrimary int default 0 @NOT_NULL,
     IsActive int default 1 @NOT_NULL,
+    
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
+    
     FOREIGN KEY (CompanyId) REFERENCES Company(Id),
     FOREIGN KEY (CountryId) REFERENCES Country(Id),
-    CONSTRAINT UQ_CompanyBranch_CompanyId_Code UNIQUE (CompanyId, Code)
+    CONSTRAINT UQ_{TableName}_CompanyId_Code UNIQUE (CompanyId, Code)
 )
-
-CREATE TABLE CompanyBankAccount (
+----------------------------------------------------
+-- CompanyBankAccount
+----------------------------------------------------
+CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     CompanyId @NVARCHAR(40) @NOT_NULL,
     Code @NVARCHAR(40) @NOT_NULL,
@@ -49,7 +64,9 @@ CREATE TABLE CompanyBankAccount (
     CurrencyId @NVARCHAR(40) @NOT_NULL,
     IsDefault int default 0 @NOT_NULL,
     IsActive int default 1 @NOT_NULL,
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
     FOREIGN KEY (CompanyId) REFERENCES Company(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
-    CONSTRAINT UQ_CompanyBankAccount_CompanyId_Code UNIQUE (CompanyId, Code)
+    CONSTRAINT UQ_{TableName}_CompanyId_Code UNIQUE (CompanyId, Code)
 )

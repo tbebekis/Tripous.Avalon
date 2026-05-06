@@ -160,7 +160,7 @@ exec('ALTER TABLE {TableName} DROP CONSTRAINT ' +  @ConstraintName)
     {
         string SqlText = $"SELECT IDENT_CURRENT('{TableName}') AS RESULT";
         
-        int CommandTimeout = SysConfig.DefaultCommandTimeoutSeconds;
+        int CommandTimeout = Db.Settings.DefaultCommandTimeoutSeconds;
         int Default = -1;
         object[] Params = null;
         

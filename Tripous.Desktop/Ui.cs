@@ -115,7 +115,78 @@ static public class Ui
     {
         return await Desktop.InputBox.ShowModal(Message, Value, Caller);
     }
- 
+
+    // ● TreeView
+    /// <summary>
+    /// Expands or collapses all items in a TreeView.
+    /// </summary>
+    static public void ExpandAll(this TreeView tv, bool Flag) => ExpandAll(tv as ItemsControl, Flag);
+    /// <summary>
+    /// Expands or collapses all items in TreeViewItem.
+    /// </summary>
+    static public void ExpandAll(this TreeViewItem Node, bool Flag)=> ExpandAll(Node as ItemsControl, Flag);
+    /// <summary>
+    /// Expands or collapses all items in a TreeView or TreeViewItem.
+    /// </summary>
+    static public void ExpandAll(ItemsControl Control, bool Flag)
+    {
+        if (Control == null)
+            return;
+
+        foreach (object Item in Control.Items)
+        {
+            // ● Get the visual container for the data item
+            TreeViewItem Container = Control.ContainerFromItem(Item) as TreeViewItem;
+
+            if (Container != null)
+            {
+                // ● Set the expansion flag
+                Container.IsExpanded = Flag;
+
+                // ● Recursive call to handle children
+                ExpandAll(Container, Flag);
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Creates a <see cref="TreeViewItem"/> node with an image.
+    /// </summary>
+    static public TreeViewItem CreateTreeNode(string Caption, FontWeight FontWeight, string IconFile, object Tag, double Spacing = 5, int NegativeMargin = 0)
+    {
+        var Panel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Spacing,  };
+        if (NegativeMargin > 0)
+            Panel.Margin = new Thickness(-NegativeMargin, 0, 0, 0);
+        
+        if (!string.IsNullOrWhiteSpace(IconFile))
+        {
+            Image Img = Assets.FindImage16(IconFile);
+            if (Img != null) 
+                Panel.Children.Add(Img);
+        }
+        
+        Panel.Children.Add(new TextBlock { Text = Caption, FontWeight = FontWeight  });
+            
+        var Node = new TreeViewItem { Header = Panel, Tag = Tag };
+        return Node;
+    }
+    /// <summary>
+    /// Creates a container <see cref="TreeViewItem"/> node with an image.
+    /// </summary>
+    static public TreeViewItem CreateContainerNode(string Caption, object Tag = null, string IconFile = "folder16.png", double Spacing = 5, int NegativeMargin = -8)
+    {
+        TreeViewItem Result = CreateTreeNode(Caption, FontWeight.SemiBold, IconFile, Tag, Spacing: Spacing, NegativeMargin: NegativeMargin);
+        return Result;
+    }
+    /// <summary>
+    /// Creates a leaf <see cref="TreeViewItem"/> node with an image.
+    /// </summary>
+    static public TreeViewItem CreateLeafNode(string Caption, object Tag = null, string IconFile = "item16.png", double Spacing = 5, int NegativeMargin = 0)
+    {
+        TreeViewItem Result = CreateTreeNode(Caption, FontWeight.Normal, IconFile, Tag, Spacing: Spacing, NegativeMargin: NegativeMargin);
+        return Result;
+    }
+    
     // ● miscs
     static public void Debug(string Text)
     {

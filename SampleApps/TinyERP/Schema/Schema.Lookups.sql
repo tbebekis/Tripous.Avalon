@@ -13,7 +13,6 @@ CREATE TABLE {TableName} (
 /*
 UnitOfMeasure
 TaxOffice
-Currency
 Bank
 ExpenseCategory
 */
@@ -40,8 +39,10 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
 )
-
-CREATE TABLE Country (
+----------------------------------------------------
+-- Country
+----------------------------------------------------
+CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
     Iso2 @NVARCHAR(2) @NOT_NULL,
@@ -50,8 +51,10 @@ CREATE TABLE Country (
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
 )
-
-CREATE TABLE Currency (
+----------------------------------------------------
+-- Currency
+----------------------------------------------------
+CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,
@@ -60,8 +63,10 @@ CREATE TABLE Currency (
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
 )
-
-CREATE TABLE VatRate (
+----------------------------------------------------
+-- VatRate
+----------------------------------------------------
+CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,
@@ -70,8 +75,10 @@ CREATE TABLE VatRate (
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code) 
 )
-
-CREATE TABLE PaymentTerm (
+----------------------------------------------------
+-- PaymentTerm
+----------------------------------------------------
+CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,
@@ -79,9 +86,11 @@ CREATE TABLE PaymentTerm (
     IsActive @BOOL default 1 @NOT_NULL,
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
-) 
-
-CREATE TABLE NumberSeries (
+)
+----------------------------------------------------
+-- NumberSeries
+----------------------------------------------------
+CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,

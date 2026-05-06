@@ -17,8 +17,6 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     DetailList fDetails;
     TableSqls fSqls;
     List<MemTable> fStocks;
- 
-
 
     //  ● private
     bool IsValidRow(DataRow row)
@@ -102,18 +100,21 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     {
         var SB = new StringBuilder();
 
-        for (int i = 0; i < MasterFields.Length; i++)
+        if (!MasterRow.RowState.In(DataRowState.Deleted | DataRowState.Detached))
         {
-            if (i > 0)
-                SB.Append(" AND ");
+            for (int i = 0; i < MasterFields.Length; i++)
+            {
+                if (i > 0)
+                    SB.Append(" AND ");
 
-            object Value = MasterRow[MasterColumns[i]];
+                object Value = MasterRow[MasterColumns[i]];
 
-            if (Value == DBNull.Value)
-                SB.Append($"{QuoteColumnName(DetailFields[i])} IS NULL");
-            else
-                SB.Append(
-                    $"{QuoteColumnName(DetailFields[i])} = {FormatRowFilterValue(Value, DetailColumns[i].DataType)}");
+                if (Value == DBNull.Value)
+                    SB.Append($"{QuoteColumnName(DetailFields[i])} IS NULL");
+                else
+                    SB.Append(
+                        $"{QuoteColumnName(DetailFields[i])} = {FormatRowFilterValue(Value, DetailColumns[i].DataType)}");
+            }
         }
 
         string Result = SB.ToString();
@@ -526,7 +527,7 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             if (Result.IndexOf(Table) == -1)
                 Result.Add(Table);
 
-            foreach (MemTable tblChild in Details)
+            foreach (MemTable tblChild in Table.Details)
                 Add(tblChild);
         }
 

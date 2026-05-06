@@ -313,9 +313,9 @@
             if (T != null)
             {
                 if (T.IsNumeric())
-                    return SysConfig.NumericFormat;
+                    return Sys.Settings.NumericFormat;
                 if (T.IsDateTime())
-                    return  SysConfig.DateTimeFormat;
+                    return  Sys.Settings.DateTimeFormat;
             }
 
             return string.Empty;

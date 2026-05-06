@@ -8,9 +8,16 @@
     d:DesignHeight="450"
     x:Class="Tripous.Desktop.CommandTreeViewForm">
  
-    <!-- ● Το Content του UserControl -->
-    <Grid> 
-        <TreeView Name="tv" />
-    </Grid>
+    <DockPanel Margin="2, 2, 2, 2">
+        <Border Name="ToolBarContainer" DockPanel.Dock="Top" Classes="ToolbarContainer" >
+            <StackPanel Name="pnlToolBar" Classes="ToolBar" MinHeight="32">
+            </StackPanel>
+        </Border>
+
+        <Grid>
+            <TreeView Name="tv" />
+        </Grid>
+ 
+    </DockPanel>  
     
 </UserControl>

@@ -153,7 +153,7 @@ public class TableSet
                     SB.Clear();
                     SB.AppendLine(SS.Text);
                     SB.AppendLine($"where ");
-                    SB.AppendLine($"{Detail.TableName}.{Detail.DetailField} in {KeyValuesList[i]}");
+                    SB.AppendLine($"{Detail.TableName}.{Detail.DetailField} in ({KeyValuesList[i]})");
 
                     SqlText = SB.ToString();
 

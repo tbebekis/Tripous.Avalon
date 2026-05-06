@@ -64,7 +64,6 @@ public partial class MainWindow : Window
 
     void Test()
     {
- 
     }
     
     // ● overrides

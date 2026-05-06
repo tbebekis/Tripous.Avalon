@@ -1,13 +1,13 @@
 namespace Tripous.Desktop;
 
-public class UiGlobalSettings: INotifyPropertyChanged
+public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
 {
     Stretch fFormImageStretch = Stretch.Uniform;
     int fFormMemoRowCount;
     double fFormColumnWidth;
     int fFormColumnCount;
     int fFormImageHeight;
-    bool fShowIdColumns;
+    bool fShowIdColumnsInGrid;
     
     // ● private  
     void NotifyPropertyChanged(string PropertyName)
@@ -96,14 +96,12 @@ public class UiGlobalSettings: INotifyPropertyChanged
     /// <summary>
     /// When false then columns ending with Id are not visible.
     /// </summary>
-    public bool ShowIdColumns
+    public bool ShowIdColumnsInGrids
     {
-        get => fShowIdColumns;
-        set { if (fShowIdColumns != value) { fShowIdColumns = value; NotifyPropertyChanged(nameof(ShowIdColumns)); } }
+        get => fShowIdColumnsInGrid;
+        set { if (fShowIdColumnsInGrid != value) { fShowIdColumnsInGrid = value; NotifyPropertyChanged(nameof(ShowIdColumnsInGrids)); } }
     }
-    
-
-    
+ 
     // ● events
     public event PropertyChangedEventHandler PropertyChanged;
     

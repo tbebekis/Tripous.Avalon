@@ -1,5 +1,8 @@
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Handles Avalonia resources.
+/// </summary>
 static public class Assets
 {
     const string Protocol = "avares://";
@@ -21,15 +24,22 @@ static public class Assets
     /// </summary>
     static public Uri FindUri(string[] Folders, string FileName)
     {
+        void InsertToTop(Assembly A, List<Assembly> List)
+        {
+            List.Remove(A);
+            List.Insert(0, A);
+        }
+        
         Uri Result = null;
         string AssetPath;
 
         string AssemblyName;
         
-        List<Assembly> List = Sys.GetApplicationAssemblies();
-        Assembly OwnAssembly = typeof(Assets).Assembly;
-        List.Remove(OwnAssembly);
-        List.Insert(0, OwnAssembly);
+        List<Assembly> List = Sys.GetApplicationAssemblies(["SkiaSharp", "Tmds.DBus.Protocol", "HarfBuzzSharp", "FirebirdSql", "Npgsql", "MySql", "Oracle"]);
+        InsertToTop(Assembly.GetEntryAssembly(), List);
+        InsertToTop(Assembly.GetExecutingAssembly(), List);
+        InsertToTop(typeof(Assets).Assembly, List);
+        InsertToTop(Assembly.GetCallingAssembly(), List);
  
         foreach (Assembly A in List)
         {
@@ -163,6 +173,21 @@ static public class Assets
     /// <para>NOTE: It searches the application assemblies too.</para>
     /// </summary>
     static public Image FindImage(string FileName) => FindImage(FileName, ImageSizeType.Undefined);
-    
+
+    /// <summary>
+    /// Finds and returns an asset as a stream, if any, else null.
+    /// <para>WARNING: The returned stream should be disposed by the caller.</para>
+    /// </summary>
+    static public Stream FindAsset(string FileName)
+    {
+        Uri Uri = FindUri(FileName);
+        if (Uri != null)
+        {
+            Stream Stream = AssetLoader.Open(Uri);
+            return Stream;
+        }
+
+        return null;
+    }
  
 }

@@ -78,6 +78,41 @@ public abstract class SqlProvider
         return $"decimal({Args})";
     }
  
+    protected virtual void Log(Exception e, string SqlText, object[] Params)
+    {
+        SqlParams SqlParams = CreateSqlParams(SqlText, Params);
+
+        StringBuilder SB = new();
+        
+        if (!string.IsNullOrWhiteSpace(SqlText))
+        {
+            SB.AppendLine();
+            SB.AppendLine("SQL Statement");
+            SB.AppendLine(SqlText);
+        }
+        
+        if (SqlParams.Count > 0)
+        {
+            string ParamValue;
+            SB.AppendLine();
+            SB.AppendLine("Parameters");
+            foreach (SqlParam Param in SqlParams.Items)
+            {
+                if (Param != null && !string.IsNullOrWhiteSpace(Param.Name))
+                {
+                    ParamValue = "NULL";
+                    if (!Sys.IsNull(Param.Value))
+                        ParamValue = Param.Value.GetType() == typeof(byte[]) ? "byte[]" : Param.Value.ToString();
+
+                    SB.AppendLine($"{Param.Name}: {ParamValue}");
+                }
+            }
+        }
+
+        string Text = SB.ToString();
+        Sys.Log(e, Text);
+    }
+    
     // ● constructor
     internal SqlProvider(DbServerType ServerType)
     {
@@ -269,35 +304,43 @@ public abstract class SqlProvider
     /// <summary>
     /// Executes a SELECT statement and returns the result as a DataTable.
     /// </summary>
-    public MemTable Select(string ConnectionString, string SqlText) => Select(ConnectionString, SqlText, SysConfig.DefaultCommandTimeoutSeconds, null);
+    public MemTable Select(string ConnectionString, string SqlText) => Select(ConnectionString, SqlText, DefaultCommandTimeoutSeconds, null);
     /// <summary>
     /// Executes a SELECT statement and returns the result as a DataTable.
     /// </summary>
-    public MemTable Select(string ConnectionString, string SqlText, params object[] Params) => Select(ConnectionString, SqlText, SysConfig.DefaultCommandTimeoutSeconds, Params);
+    public MemTable Select(string ConnectionString, string SqlText, params object[] Params) => Select(ConnectionString, SqlText, DefaultCommandTimeoutSeconds, Params);
     /// <summary>
     /// Executes a SELECT statement and returns the result as a DataTable.
     /// </summary>
     public MemTable Select(string ConnectionString, string SqlText, int CommandTimeout, params object[] Params)
     {
-        using (DbConnection Connection = CreateConnection(ConnectionString))
+        try
         {
-            Connection.Open();
-
-            using (DbTransaction Transaction = Connection.BeginTransaction())
+            using (DbConnection Connection = CreateConnection(ConnectionString))
             {
-                try
+                Connection.Open();
+
+                using (DbTransaction Transaction = Connection.BeginTransaction())
                 {
-                    MemTable Table = new MemTable();
-                    SelectTo(Transaction, Table, SqlText, CommandTimeout, Params);
-                    Transaction.Commit();
-                    return Table;
-                }
-                catch
-                {
-                    Transaction.Rollback();
-                    throw;
+                    try
+                    {
+                        MemTable Table = new MemTable();
+                        SelectTo(Transaction, Table, SqlText, CommandTimeout, Params);
+                        Transaction.Commit();
+                        return Table;
+                    }
+                    catch 
+                    {
+                        Transaction.Rollback();
+                        throw;
+                    }
                 }
             }
+        }
+        catch (Exception e)
+        {
+            Log(e, SqlText, Params);
+            throw;
         }
     }
     
@@ -324,18 +367,61 @@ public abstract class SqlProvider
     /// <summary>
     /// Executes a SELECT statement and loads the result into the specified DataTable.
     /// </summary>
-    public int SelectTo(string ConnectionString, MemTable Table, string SqlText, params object[] Params) => SelectTo(ConnectionString, Table, SqlText, SysConfig.DefaultCommandTimeoutSeconds, Params);
+    public int SelectTo(string ConnectionString, MemTable Table, string SqlText, params object[] Params) => SelectTo(ConnectionString, Table, SqlText, DefaultCommandTimeoutSeconds, Params);
     /// <summary>
     /// Executes a SELECT statement and loads the result into the specified DataTable.
     /// </summary>
     public int SelectTo(string ConnectionString, MemTable Table, string SqlText, int CommandTimeout, params object[] Params)
     {
-        using (DbConnection Connection = CreateConnection(ConnectionString))
+        try
         {
-            Connection.Open();
-
-            using (DbCommand Command = CreateCommand(Connection, SqlText, Params))
+            using (DbConnection Connection = CreateConnection(ConnectionString))
             {
+                Connection.Open();
+
+                using (DbCommand Command = CreateCommand(Connection, SqlText, Params))
+                {
+                    Command.CommandTimeout = CommandTimeout;
+
+                    using (DbDataReader Reader = Command.ExecuteReader())
+                    {
+                        Table.BeginLoadData();
+                        try
+                        {
+                            Table.Clear(); 
+                            Table.Load(Reader);
+                        }
+                        finally
+                        {
+                            Table.EndLoadData();
+                        }
+                    
+                        Table.AcceptChanges();
+                        return Table.Rows.Count;
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Log(e, SqlText, Params);
+            throw;
+        }
+
+    }
+
+
+    
+    /// <summary>
+    /// Executes a SELECT statement and loads the result into the specified DataTable using a transaction.
+    /// </summary>
+    public int SelectTo(DbTransaction Transaction, MemTable Table, string SqlText, int CommandTimeout, params object[] Params)
+    {
+        try
+        {
+            using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, Params))
+            {
+                Command.Transaction = Transaction;
                 Command.CommandTimeout = CommandTimeout;
 
                 using (DbDataReader Reader = Command.ExecuteReader())
@@ -350,44 +436,16 @@ public abstract class SqlProvider
                     {
                         Table.EndLoadData();
                     }
-                    
+                
                     Table.AcceptChanges();
-                    //Table.CaseSensitive = false;
-                    //Table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                     return Table.Rows.Count;
                 }
             }
         }
-    }
-    
-    /// <summary>
-    /// Executes a SELECT statement and loads the result into the specified DataTable using a transaction.
-    /// </summary>
-    public int SelectTo(DbTransaction Transaction, MemTable Table, string SqlText, int CommandTimeout, params object[] Params)
-    {
-        using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, Params))
+        catch (Exception e)
         {
-            Command.Transaction = Transaction;
-            Command.CommandTimeout = CommandTimeout;
-
-            using (DbDataReader Reader = Command.ExecuteReader())
-            {
-                Table.BeginLoadData();
-                try
-                {
-                    Table.Clear(); 
-                    Table.Load(Reader);
-                }
-                finally
-                {
-                    Table.EndLoadData();
-                }
-                
-                Table.AcceptChanges();
-                //Table.CaseSensitive = false;
-                //Table.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                return Table.Rows.Count;
-            }
+            Log(e, SqlText, Params);
+            throw;
         }
     }
  
@@ -404,28 +462,37 @@ public abstract class SqlProvider
     /// <summary>
     /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
     /// </summary>
-    public int ExecSql(string ConnectionString, string SqlText) => ExecSql(ConnectionString, SqlText, SysConfig.DefaultCommandTimeoutSeconds, null);
+    public int ExecSql(string ConnectionString, string SqlText) => ExecSql(ConnectionString, SqlText, DefaultCommandTimeoutSeconds, null);
     /// <summary>
     /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
     /// </summary>
-    public int ExecSql(string ConnectionString, string SqlText, params object[] Params) => ExecSql(ConnectionString, SqlText, SysConfig.DefaultCommandTimeoutSeconds, Params);
+    public int ExecSql(string ConnectionString, string SqlText, params object[] Params) => ExecSql(ConnectionString, SqlText, DefaultCommandTimeoutSeconds, Params);
     /// <summary>
     /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
     /// </summary>
     public int ExecSql(string ConnectionString, string SqlText, int CommandTimeout, params object[] Params)
     {
-        using (DbConnection Connection = CreateConnection(ConnectionString))
+        try
         {
-            Connection.Open();
-
-            using (DbCommand Command = CreateCommand(Connection, SqlText, Params))
+            using (DbConnection Connection = CreateConnection(ConnectionString))
             {
-                Command.CommandTimeout = CommandTimeout;
+                Connection.Open();
 
-                int rowsAffected = Command.ExecuteNonQuery();
-                return rowsAffected;
+                using (DbCommand Command = CreateCommand(Connection, SqlText, Params))
+                {
+                    Command.CommandTimeout = CommandTimeout;
+
+                    int rowsAffected = Command.ExecuteNonQuery();
+                    return rowsAffected;
+                }
             }
         }
+        catch (Exception e)
+        {
+            Log(e, SqlText, Params);
+            throw;
+        }
+
     }
 
     /// <summary>
@@ -439,16 +506,21 @@ public abstract class SqlProvider
     {
         using (DbTransaction transaction = this.BeginTransaction(ConnectionString))
         {
+            string SqlText = null;
             try
             {
-                foreach (string SqlText in SqlTextList)
-                    ExecSql(transaction, SqlText);
- 
+                foreach (string SqlText2 in SqlTextList)
+                {
+                    SqlText = SqlText2;
+                    ExecSql(transaction, SqlText2);
+                }
+                
                 transaction.Commit();
             }
-            catch
+            catch (Exception e)
             {
                 transaction.Rollback();
+                Log(e, SqlText, null);
                 throw;
             }
         }
@@ -458,21 +530,29 @@ public abstract class SqlProvider
     /// <summary>
     /// Executes a single SQL operation inside a transaction.
     /// </summary>
-    public int ExecSql(DbTransaction Transaction, string SqlText) => ExecSql(Transaction, SqlText, SysConfig.DefaultCommandTimeoutSeconds, null);
+    public int ExecSql(DbTransaction Transaction, string SqlText) => ExecSql(Transaction, SqlText, DefaultCommandTimeoutSeconds, null);
     /// <summary>
     /// Executes a single SQL operation inside a transaction.
     /// </summary>
-    public int ExecSql(DbTransaction Transaction, string SqlText, params object[] Params) => ExecSql( Transaction, SqlText, SysConfig.DefaultCommandTimeoutSeconds, Params);
+    public int ExecSql(DbTransaction Transaction, string SqlText, params object[] Params) => ExecSql( Transaction, SqlText, DefaultCommandTimeoutSeconds, Params);
     /// <summary>
     /// Executes a single SQL operation inside a transaction.
     /// </summary>
     public int ExecSql(DbTransaction Transaction, string SqlText, int CommandTimeout, params object[] Params)
     {
-        using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, Params))
+        try
         {
-            Command.Transaction = Transaction;
-            Command.CommandTimeout = CommandTimeout;
-            return Command.ExecuteNonQuery();
+            using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, Params))
+            {
+                Command.Transaction = Transaction;
+                Command.CommandTimeout = CommandTimeout;
+                return Command.ExecuteNonQuery();
+            }
+        }
+        catch (Exception e)
+        {
+            Log(e, SqlText, Params);
+            throw;
         }
     }
     
@@ -513,9 +593,10 @@ public abstract class SqlProvider
                     Action(Transaction);
                     Transaction.Commit();
                 }
-                catch
+                catch (Exception e)
                 {
                     Transaction.Rollback();
+                    Log(e, null, null);
                     throw;
                 }
             }
@@ -637,42 +718,51 @@ public abstract class SqlProvider
     /// </summary>
     public DataRow SelectForUpdate(DbTransaction Transaction, string TableName, string FieldName, object FieldValue)
     {
-        return SelectForUpdate(Transaction, TableName, FieldName, SysConfig.DefaultCommandTimeoutSeconds, FieldValue);
+        return SelectForUpdate(Transaction, TableName, FieldName, DefaultCommandTimeoutSeconds, FieldValue);
     }
     /// <summary>
     /// Selects and locks a single row for update inside a transaction.
     /// </summary>
     public DataRow SelectForUpdate(DbTransaction Transaction, string TableName, string FieldName, int CommandTimeout, object FieldValue)
     {
+        
         DataRow Result = null;
         string SqlText = SelectForUpdateSql(TableName, FieldName);
 
-        DataTable Table = new();
-        using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, FieldValue))
+        try
         {
-            Command.Transaction = Transaction;
-            Command.CommandTimeout = CommandTimeout;
-
-            using (DbDataReader Reader = Command.ExecuteReader())
+            DataTable Table = new();
+            using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, FieldValue))
             {
-                Table.BeginLoadData();
-                try
-                {
-                    Table.Clear();
-                    Table.Load(Reader);
-                }
-                finally
-                {
-                    Table.EndLoadData();
-                }
+                Command.Transaction = Transaction;
+                Command.CommandTimeout = CommandTimeout;
 
-                Table.AcceptChanges();
+                using (DbDataReader Reader = Command.ExecuteReader())
+                {
+                    Table.BeginLoadData();
+                    try
+                    {
+                        Table.Clear();
+                        Table.Load(Reader);
+                    }
+                    finally
+                    {
+                        Table.EndLoadData();
+                    }
+
+                    Table.AcceptChanges();
+                }
             }
+
+            if (Table.Rows.Count > 0)
+                Result = Table.Rows[0];
         }
-
-        if (Table.Rows.Count > 0)
-            Result = Table.Rows[0];
-
+        catch (Exception e)
+        {
+            Log(e, SqlText, null);
+            throw;
+        }
+        
         return Result;
     }
     /// <summary>
@@ -695,9 +785,10 @@ public abstract class SqlProvider
                 Transaction.Commit();
                 return Result;
             }
-            catch
+            catch (Exception e)
             {
                 Transaction.Rollback();
+                Log(e, null, null);
                 throw;
             }
         }
@@ -715,16 +806,24 @@ public abstract class SqlProvider
         int CurrentValue = Convert.ToInt32(Result[ValueFieldName]);
 
         string SqlText = $"update {TableName} set {ValueFieldName} = {ValueFieldName} + 1 where {KeyFieldName} = :{KeyFieldName}";
-
-        using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, KeyValue))
+        
+        try
         {
-            Command.Transaction = Transaction;
-            Command.CommandTimeout = CommandTimeout;
-            Command.ExecuteNonQuery();
-        }
+            using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, KeyValue))
+            {
+                Command.Transaction = Transaction;
+                Command.CommandTimeout = CommandTimeout;
+                Command.ExecuteNonQuery();
+            }
 
-        Result[ValueFieldName] = CurrentValue;
-        Result.AcceptChanges();
+            Result[ValueFieldName] = CurrentValue;
+            Result.AcceptChanges();
+        }
+        catch (Exception e)
+        {
+            Log(e, SqlText, null);
+            throw;
+        }
 
         return Result;
     }
@@ -742,7 +841,7 @@ public abstract class SqlProvider
     public int NormalizeRowLimit(int RowLimit)
     {
         if (RowLimit < 0)
-            RowLimit = SysConfig.DefaultRowLimit;
+            RowLimit = Db.Settings.DefaultRowLimit;
         return RowLimit;
     }
     public virtual string QuoteName(string Name) => ObjectStartDelimiter + Name + ObjectEndDelimiter;
@@ -972,4 +1071,6 @@ public abstract class SqlProvider
     public virtual string NBlobTextSql => "text";
     public virtual string NotNullSql => "not null";
     public virtual string NullSql => "null";
+
+    static public int DefaultCommandTimeoutSeconds => Db.Settings.DefaultCommandTimeoutSeconds;
 }

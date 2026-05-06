@@ -123,10 +123,10 @@ public class GridColumnDef: BaseDef
                 return fDisplayFormat;
 
             if (IsNumeric)
-                return SysConfig.NumericFormat;
+                return Sys.Settings.NumericFormat;
 
             if (IsDateTime)
-                return SysConfig.DateTimeFormat;
+                return Sys.Settings.DateTimeFormat;
 
             return string.Empty;
         }
@@ -147,7 +147,7 @@ public class GridColumnDef: BaseDef
                 return fEditFormat;
 
             if (IsDateTime)
-                return SysConfig.DateTimeFormat;
+                return Sys.Settings.DateTimeFormat;
 
             return string.Empty;
         }

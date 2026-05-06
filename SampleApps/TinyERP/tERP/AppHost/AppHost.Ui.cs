@@ -1,6 +1,6 @@
 namespace tERP;
 
-static public partial class AppHost
+static internal partial class AppHost
 {
     static public void ShowSideBarPages()
     {

@@ -1,31 +1,32 @@
 namespace tERP;
 
-static public partial class AppHost
+public partial class SchemaVersion1: SchemaVersionDef
 {
-    static void RegisterSchema_01()
+    void RegisterStandarLookups()
     {
-        Schema Schema = Schemas.FindOrAdd(Sys.APPLICATION, SysConfig.DefaultConnectionName);
-        SchemaVersion SV = Schema.FindOrAdd(1);
-        string SqlText;
-        string TableName;
- 
-        // ● standard lookups
         string[] Lookups = ["CustomerCategory", "SupplierCategory", "ProductBrand", "DiscountCategory"];
-        string[] LookupsWithCode = ["UnitOfMeasure", "TaxOffice",  "Bank", "ExpenseCategory" ];
+        string[] LookupsWithCode = ["UnitOfMeasure", "TaxOffice", "Bank", "ExpenseCategory" ];
         string[] LookupsWithCodeAndActive = ["PriceList", "PaymentMethod", "DocumentType", "SalesPerson", "Carrier"];
         
         foreach (var LU in Lookups)
-            AddLookup(SV, LU);
+            Version.AddLookup(LU);
         
         foreach (var LU in LookupsWithCode)
-            AddLookupWithCode(SV, LU);
+            Version.AddLookupWithCode(LU);
         
         foreach (var LU in LookupsWithCodeAndActive)
-            AddLookupWithCodeAndIsActive(SV, LU);
+            Version.AddLookupWithCodeAndIsActive(LU);
+
+        Db.LookupTableItemDefs.FindOrAddWithTableRange("Lookups", Lookups);
+        Db.LookupTableItemDefs.FindOrAddWithTableRange("LookupsWithCode", LookupsWithCode);
+        Db.LookupTableItemDefs.FindOrAddWithTableRange("LookupsWithCodeAndActive", LookupsWithCodeAndActive);
+    }
+
+    void RegisterCountry()
+    {
+        string TableName = "Country";
         
-        // ● other lookups
-        TableName = "Country";
-        SqlText = $@"
+        string SqlText = $@"
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
@@ -36,11 +37,13 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
 )
 ";
-        SV.AddTable(SqlText);
+        Version.AddTable(SqlText);
+    }
+    void RegisterCurrency()
+    {
+        string TableName = "Currency";
         
-   
-        TableName = "Currency";
-        SqlText = $@"
+        string SqlText = $@"
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
@@ -51,11 +54,13 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
 )
 ";
-        SV.AddTable(SqlText);        
-        
-        
-        TableName = "VatRate";
-        SqlText = $@"
+        Version.AddTable(SqlText);    
+    }
+    void RegisterVatRate()
+    {
+        string TableName = "VatRate";
+ 
+        string SqlText = $@"
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
@@ -66,10 +71,13 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code) 
 )
 ";
-        SV.AddTable(SqlText);    
+        Version.AddTable(SqlText);   
+    }
+    void RegisterPaymentTerm()
+    {
+        string TableName = "PaymentTerm";
         
-        TableName = "PaymentTerm";
-        SqlText = $@"
+        string SqlText = $@"
 CREATE TABLE {TableName} (
        Id  @NVARCHAR(40)  @NOT_NULL primary key,
        Code @NVARCHAR(40) @NOT_NULL,
@@ -80,10 +88,13 @@ CREATE TABLE {TableName} (
        CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
    ) 
 ";
-        SV.AddTable(SqlText);       
+        Version.AddTable(SqlText);     
+    }
+    void RegisterNumberSeries()
+    {
+        string TableName = "NumberSeries";
         
-        TableName = "NumberSeries";
-        SqlText = $@"
+        string SqlText = $@"
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
@@ -96,8 +107,19 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
 )
 ";
-        SV.AddTable(SqlText);            
-        
-        
+        Version.AddTable(SqlText); 
+    }
+ 
+    protected override void RegisterLookups()
+    {
+        // ● standard lookups
+        RegisterStandarLookups();
+ 
+        // ● other lookups
+        RegisterCountry();
+        RegisterCurrency();
+        RegisterVatRate();
+        RegisterPaymentTerm();
+        RegisterNumberSeries();
     }
 }

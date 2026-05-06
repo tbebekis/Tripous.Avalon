@@ -173,7 +173,7 @@ public class SqlProviderOracle : SqlProvider
         GeneratorName = GeneratorName.ToUpper(System.Globalization.CultureInfo.InvariantCulture);
         string SqlText = $"select {GeneratorName}.NEXTVAL from DUAL";
 
-        int CommandTimeout = SysConfig.DefaultCommandTimeoutSeconds;
+        int CommandTimeout = Db.Settings.DefaultCommandTimeoutSeconds;
         int Default = -1;
         object[] Params = null;
         return IntegerResult(Transaction, SqlText, CommandTimeout, Default, Params);

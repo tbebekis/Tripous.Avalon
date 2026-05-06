@@ -29,7 +29,6 @@ public class BaseDef: IDef, IJsonLoadable, INotifyPropertyChanged
     }
     public virtual void JsonLoaded() => UpdateReferences();
  
-    
     public virtual BaseDef CreateNew() => Activator.CreateInstance(this.GetType()) as BaseDef;
     /// <summary>
     /// Throws an exception if this descriptor is not fully defined
@@ -90,10 +89,11 @@ public class BaseDef: IDef, IJsonLoadable, INotifyPropertyChanged
             }
         }
     }
-    [JsonIgnore]
-    public string Title => Texts.L(TitleKey);
-    [JsonIgnore]
-    public object Tag { get; set; }
+
+    [JsonIgnore] public bool IsTitleKeyEmpty => string.IsNullOrWhiteSpace(fTitleKey);
+    [JsonIgnore] public string Title => Texts.L(TitleKey);
+    [JsonIgnore] public object Tag { get; set; }
+    [JsonIgnore] public virtual bool IsSerializable => true;
 
     // ● events
     public event PropertyChangedEventHandler PropertyChanged;

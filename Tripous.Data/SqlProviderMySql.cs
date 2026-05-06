@@ -121,7 +121,7 @@ public class SqlProviderMySql : SqlProvider
     {
         string SqlText = $"SELECT LAST_INSERT_ID() AS RESULT;";
         
-        int CommandTimeout = SysConfig.DefaultCommandTimeoutSeconds;
+        int CommandTimeout = Db.Settings.DefaultCommandTimeoutSeconds;
         int Default = -1;
         object[] Params = null;
         

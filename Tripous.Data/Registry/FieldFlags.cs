@@ -61,11 +61,7 @@ public enum FieldFlags
     /// </summary>
     Extra = 0x800,
     /// <summary>
-    /// Field is nullable
-    /// </summary>
-    Nullable = 0x1000,
-    /// <summary>
     /// Field is searchable and can be a part of a filter.
     /// </summary>
-    Searchable = 0x2000,
+    Searchable = 0x1000,
 }

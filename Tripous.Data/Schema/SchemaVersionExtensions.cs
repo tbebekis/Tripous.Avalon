@@ -1,9 +1,9 @@
-namespace tERP;
+namespace Tripous.Data;
 
-static public partial class AppHost
+static public class SchemaVersionExtensions
 {
     // ● lookups
-    static void AddLookup(SchemaVersion SV, string TableName)
+    static public void AddLookup(this SchemaVersion SV, string TableName)
     {
         string SqlText = @$"
 CREATE TABLE {TableName} (
@@ -14,7 +14,7 @@ CREATE TABLE {TableName} (
 ";        
         SV.AddTable(SqlText);
     }
-    static void AddLookupWithCode(SchemaVersion SV, string TableName)
+    static public void AddLookupWithCode(this SchemaVersion SV, string TableName)
     {
         string SqlText = @$"
 CREATE TABLE {TableName} (
@@ -27,7 +27,7 @@ CREATE TABLE {TableName} (
 ";        
         SV.AddTable(SqlText);
     }
-    static void AddLookupWithCodeAndIsActive(SchemaVersion SV, string TableName)
+    static public void AddLookupWithCodeAndIsActive(this SchemaVersion SV, string TableName)
     {
         string SqlText = @$"
 CREATE TABLE {TableName} (
@@ -40,11 +40,5 @@ CREATE TABLE {TableName} (
 )
 ";        
         SV.AddTable(SqlText);
-    }
-    
-    // ● schemas
-    static void RegisterSchemas()
-    {
-        RegisterSchema_01();
     }
 }

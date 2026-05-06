@@ -7,13 +7,6 @@ static public class SysConfig
     static string fAppFolderPath;
     static string fAppDataFolderPath;
     static string fAppTempFolderPath;
-    static int fDefaultRowLimit;
-    static int fDefaultCommandTimeoutSeconds = 300;
-    static string fNumericFormat;
-    static string fDateTimeFormat;
-    static string fDateFormat;
-
-
 
     
     /// <summary>
@@ -128,7 +121,7 @@ static public class SysConfig
     /// <summary>
     /// The Id of the current company, if any, else null.
     /// </summary>
-    static public object CompanyId { get; set; }  
+    static public object CompanyId { get; set; } = Sys.StandardCompanyGuid;
     /// <summary>
     /// ReadOnly. Returns the value of the CompanyId as a string for constructing Sql statements.
     /// </summary>
@@ -184,47 +177,5 @@ static public class SysConfig
     /// The name of the default database connection
     /// </summary>
     static public string DefaultConnectionName { get; set; } = Sys.DEFAULT;
-    /// <summary>
-    /// The default RowLimit for browser SELECTs.
-    /// </summary>
-    static public int DefaultRowLimit
-    {
-        get
-        {
-            if (fDefaultRowLimit >= 100 && fDefaultRowLimit <= 1500)
-                return fDefaultRowLimit;
-            return 300;
-        }
-        set { fDefaultRowLimit = value; }
-    }
-    static public int DefaultCommandTimeoutSeconds
-    {
-        get => fDefaultCommandTimeoutSeconds >= 15 ? fDefaultCommandTimeoutSeconds : 15;
-        set => fDefaultCommandTimeoutSeconds = value;
-    }
 
-    /// <summary>
-    /// Default format
-    /// </summary>
-    static public string NumericFormat
-    {
-        get => !string.IsNullOrWhiteSpace(fNumericFormat) ? fNumericFormat : "N2";
-        set => fNumericFormat = value;
-    }
-    /// <summary>
-    /// Default format
-    /// </summary>
-    static public string DateTimeFormat
-    {
-        get => !string.IsNullOrWhiteSpace(fDateTimeFormat) ? fDateTimeFormat : "yyyy-MM-dd HH:mm";
-        set => fDateTimeFormat = value;
-    }
-    /// <summary>
-    /// Default format
-    /// </summary>
-    static public string DateFormat
-    {
-        get => !string.IsNullOrWhiteSpace(fDateFormat) ? fDateFormat : "yyyy-MM-dd";
-        set => fDateFormat = value;
-    }
 } 

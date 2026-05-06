@@ -61,7 +61,7 @@ public class SqlProviderPostgreSql : SqlProvider
     {
         string SqlText = $"SELECT LASTVAL() AS RESULT;";
         
-        int CommandTimeout = SysConfig.DefaultCommandTimeoutSeconds;
+        int CommandTimeout = Db.Settings.DefaultCommandTimeoutSeconds;
         int Default = -1;
         object[] Params = null;
         
@@ -166,7 +166,7 @@ public class SqlProviderPostgreSql : SqlProvider
     { 
         GeneratorName = GeneratorName.ToUpper(System.Globalization.CultureInfo.InvariantCulture);
         string SqlText = $"SELECT nextval('{GeneratorName}') ;";  
-        int CommandTimeout = SysConfig.DefaultCommandTimeoutSeconds;
+        int CommandTimeout = Db.Settings.DefaultCommandTimeoutSeconds;
         int Default = -1;
         object[] Params = null;
         return IntegerResult(Transaction, SqlText, CommandTimeout, Default, Params);

@@ -24,7 +24,7 @@
   <ItemGroup>
     <Folder Include="Images32\" />
     <Folder Include="Images16\" />
-    <AvaloniaResource Include="Images\**" />
+    <AvaloniaResource Include="Images32\**" />
     <AvaloniaResource Include="Images16\**" />
   </ItemGroup>
  

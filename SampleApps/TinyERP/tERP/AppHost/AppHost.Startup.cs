@@ -1,8 +1,14 @@
 namespace tERP;
 
-static public partial class AppHost
+/// <summary>
+/// Represents this application.
+/// </summary>
+static internal partial class AppHost
 {
     // ● private
+    /// <summary>
+    /// Initializes the <see cref="SysConfig"/> static class.
+    /// </summary>
     static void InitializeSysConfig()
     {
         SysConfig.ApplicationMode = ApplicationMode.Desktop;
@@ -32,6 +38,7 @@ static public partial class AppHost
             }
         }
     }
+    
     /// <summary>
     /// Creates any non-existing creatable database.
     /// </summary>
@@ -61,7 +68,11 @@ static public partial class AppHost
             }
         }
     }
-
+    /// <summary>
+    /// Registers database schema versions
+    /// </summary>
+    static void RegisterSchemas() => Registry.RegisterSchemas();
+    
     /// <summary>
     /// Creates database tables etc. based on the registered schemas
     /// </summary>
@@ -69,24 +80,58 @@ static public partial class AppHost
     {
         Schemas.Execute();
     }
+    /// <summary>
+    /// Adds sample data to the database.
+    /// </summary>
     static void AddSampleData(int TradeCount)
     {
        // string SqlText = "select * from Country";
-       if (Store.TableExists("Country") && Store.TableIsEmpty("Country"))
-           SampleData.Execute(Store, TradeCount);
+       //if (Store.TableExists("Country") && Store.TableIsEmpty("Country"))
+       //    SampleData.Execute(Store, TradeCount);
     }
+    /// <summary>
+    /// Register descriptors, i.e. commands, lookup sources, locators, modules and forms.
+    /// </summary>
     static void RegisterDescriptors()
     {
-        RegisterCommands();
+        Registry.RegisterCommands();
 
-        RegisterLookupSources();
-        RegisterLocators();
+        Registry.RegisterLookupSources();
+        Registry.RegisterLocators();
 
-        RegisterModules();
-        RegisterForms();
+        Registry.RegisterModules();
+        Registry.RegisterForms();
+    }
+
+    static void AddCompany()
+    {
+        string SqlText = "select * from Company";
+        if (Store.TableExists("Company") && Store.TableIsEmpty("Company"))
+        {
+            DataModule dmCompany = DataRegistry.CreateModule("Company");
+            dmCompany.Insert();
+            MemTable tblItem = dmCompany.tblItem;
+            DataRow Row = tblItem.Rows[0];
+            Row["Id"] = Sys.StandardCompanyGuid;
+            Row["Code"] = "001";
+            Row["Name"] = "Default";
+            Row["Title"] = "Default";
+            Row["TaxNumber"] = "0123456789";
+            Row["TaxOfficeId"] = "";
+            Row["CountryId"] = "";
+            Row["CurrencyId"] = "";
+            dmCompany.Commit();
+        }
     }
     
     // ● public
+    /// <summary>
+    /// Starts this application.
+    /// <para>This method is called from the <see cref="App.OnFrameworkInitializationCompleted"/> method.</para>
+    /// <para>The whole initialization takes place having a hidden window as the main window.</para>
+    /// <para>After the initialization is done the real <see cref="MainWindow"/> becomes the main window.</para>
+    /// <para>This method loads connection strings, creates databases and schemas and registers all descriptors such as commands, lookups, modules and forms.</para>
+    /// </summary>
     static public async Task Start(IClassicDesktopStyleApplicationLifetime AvaloniaDesktop)
     {
         AppHost.AvaloniaDesktop = AvaloniaDesktop;
@@ -101,13 +146,15 @@ static public partial class AppHost
             await LoadConnectionStrings();
             CreateDatabases();
 
-            RegisterSchemas();
+            RegisterSchemas(); 
             ExecuteSchemas();
 
             Store = SqlStores.CreateDefaultSqlStore();
             AddSampleData(10000);
 
             RegisterDescriptors();
+
+            AddCompany();
             
             Ui.MainWindow = AppHost.MainWindow;
             MainWindow.Show();
@@ -121,6 +168,10 @@ static public partial class AppHost
         
         DesktopExceptionHandler.Initialize();
     }
+    /// <summary>
+    /// Initializes the ui of this application.
+    /// <para>This method is called from the <see cref="MainWindow.WindowInitialize"/> method.</para>
+    /// </summary>
     static public void InitializeUi(AppFormPagerHandler SideBarHandler, AppFormPagerHandler ContentHandler)
     {
         if (AppHost.SideBarHandler == null)

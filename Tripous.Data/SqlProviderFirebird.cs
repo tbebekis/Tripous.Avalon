@@ -145,7 +145,7 @@ public class SqlProviderFirebird : SqlProvider
         GeneratorName = GeneratorName.ToUpper(System.Globalization.CultureInfo.InvariantCulture);
         string SqlText = $"SELECT GEN_ID({GeneratorName}, 1) as NEXT_ID FROM RDB$DATABASE";
 
-        int CommandTimeout = SysConfig.DefaultCommandTimeoutSeconds;
+        int CommandTimeout = Db.Settings.DefaultCommandTimeoutSeconds;
         int Default = -1;
         object[] Params = null;
         return IntegerResult(Transaction, SqlText, CommandTimeout, Default, Params);

@@ -1,6 +1,6 @@
 namespace tERP;
 
-static public partial class AppHost
+static internal partial class AppHost
 {
     static AppHost()
     {
@@ -8,6 +8,7 @@ static public partial class AppHost
         Sys.DebugMode = true;
 #endif
         AppHost.HiddenMainWindow = new();
+        Sys.LogProc = Log;
     }
     // ● miscs
     static public void Log(string Text)

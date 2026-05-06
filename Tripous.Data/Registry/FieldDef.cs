@@ -19,6 +19,7 @@ public class FieldDef: BaseDef
     string fGroup;
     int fDecimals = -1;
     string fCodeProviderName;
+    bool fIsNullable = true;
 
     // ● construction
     /// <summary>
@@ -165,6 +166,11 @@ public class FieldDef: BaseDef
     {
         get => fSize > 0 ? fSize : -1;
         set { if (fSize != value) { fSize = value; NotifyPropertyChanged(nameof(MaxLength)); } }
+    }
+    public bool IsNullable
+    {
+        get => fIsNullable;
+        set { if (fIsNullable != value) { fIsNullable = value; NotifyPropertyChanged(nameof(IsNullable)); } }
     }
     public FieldFlags Flags
     {

@@ -147,11 +147,11 @@ static public class DataFieldTypeHelper
     static public string GetDefaultFormat(this DataFieldType Value)
     {
         if (Value.IsNumeric())
-            return SysConfig.NumericFormat;
+            return Sys.Settings.NumericFormat;
         if (Value.IsDateStrict())
-            return  SysConfig.DateFormat;
+            return  Sys.Settings.DateFormat;
         if (Value.IsDateTime())
-            return  SysConfig.DateTimeFormat;
+            return  Sys.Settings.DateTimeFormat;
         return string.Empty;
     }
 

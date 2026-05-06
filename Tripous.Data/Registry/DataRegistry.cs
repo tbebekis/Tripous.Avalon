@@ -1,8 +1,14 @@
 namespace Tripous.Data;
 
+/// <summary>
+/// Registry of the data layer.
+/// </summary>
 static public class DataRegistry
 {
     // ● modules
+    /// <summary>
+    /// Adds a module definition to the registry.
+    /// </summary>
     static public ModuleDef AddModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false)
     {
         if (string.IsNullOrWhiteSpace(Name))
@@ -71,7 +77,7 @@ static public class DataRegistry
     static public LookupSource AddLookupSource(Type EnumType, bool UseNullItem = false) => AddLookupSource(EnumType.FullName, EnumType, UseNullItem);
     /// <summary>
     /// Adds a lookup source.
-    /// <para>If <see cref="EnumType"/> is not null, the it is used as the source.</para>
+    /// <para>If <see cref="EnumType"/> is not null, then it is used as the source.</para>
     /// <para>Else the <see cref="Name"/> is used as the <see cref="LookupSource.TableName"/></para>
     /// </summary>
     static public LookupSource AddLookupSource(string Name, Type EnumType = null, bool UseNullItem = false)
@@ -113,11 +119,23 @@ static public class DataRegistry
     }
  
     // ● create module
+    /// <summary>
+    /// Creates and returns a <see cref="DataModule"/> based on its registered name.
+    /// </summary>
     static public DataModule CreateModule(string Name) => Modules.Get(Name).Create();
     
     // ● properties
+    /// <summary>
+    /// The list of locator definitions.
+    /// </summary>
     static public DefList<LocatorDef> Locators { get; } = new();
+    /// <summary>
+    /// The list of module definitions
+    /// </summary>
     static public DefList<ModuleDef> Modules { get; } = new();
+    /// <summary>
+    /// The list of lookup sources definitions
+    /// </summary>
     static public DefList<LookupSource> LookupSources { get; } = new();
 }
 

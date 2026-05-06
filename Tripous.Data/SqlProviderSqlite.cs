@@ -149,7 +149,7 @@ public class SqlProviderSqlite : SqlProvider
     {
         string SqlText = $"select seq AS RESULT from sqlite_sequence where name = '{TableName}' ";
         
-        int CommandTimeout = SysConfig.DefaultCommandTimeoutSeconds;
+        int CommandTimeout = Db.Settings.DefaultCommandTimeoutSeconds;
         int Default = -1;
         object[] Params = null;
         

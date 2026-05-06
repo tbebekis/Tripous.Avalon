@@ -392,7 +392,30 @@ static public class Sys
         }
     }
     
-    // ● miscs
+    // ● Log
+    static public void Log(Exception e, string Text = null)
+    {
+        if (LogProc != null)
+        {
+            StringBuilder SB = new();
+
+            SB.AppendLine(e.Message);
+            if (!string.IsNullOrWhiteSpace(Text))
+                SB.AppendLine(Text);
+            if (DebugMode)
+                SB.AppendLine(e.ToString());
+
+            Text = SB.ToString();
+            Log(Text);
+        }
+    }
+    static public void Log(string Text)
+    {
+        if (LogProc != null && !string.IsNullOrWhiteSpace(Text))
+            LogProc(Text);
+    }
+    
+    // ● Debug
     static public void Debug(string Text)
     {
         if (DebugMode)
@@ -411,38 +434,48 @@ static public class Sys
         }
     }    
     
+    // ● miscs
     /// <summary>
     /// Returns a list of non-system assemblies
     /// </summary>
-    static public List<Assembly> GetApplicationAssemblies()
+    static public List<Assembly> GetApplicationAssemblies(string[] ExcludeAssempliesContaining = null)
     {
+        //---------------------------------------------------
+        bool CanInclude(string Name)
+        {
+            if (string.IsNullOrWhiteSpace(Name) ||
+                Name.StartsWith("System") ||
+                Name.StartsWith("Microsoft") ||
+                Name.StartsWith("Avalonia") ||
+                Name.StartsWith("mscorlib") ||
+                Name.StartsWith("netstandard"))
+                return false;
+            
+            if (ExcludeAssempliesContaining != null)
+            {
+                foreach (string AssemplyNamePart in ExcludeAssempliesContaining)
+                    if (Name.ContainsText(AssemplyNamePart))
+                        return false;
+            }
+
+            return true;
+        }
+        //---------------------------------------------------
+        
         List<Assembly> Result = new List<Assembly>();
         Assembly[] LoadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
         foreach (Assembly Item in LoadedAssemblies)
         {
             string Name = Item.GetName().Name;
-
-            if (string.IsNullOrEmpty(Name))
-                continue;
-
-            // ● Filter out system and framework assemblies
-            if (Name.StartsWith("System") || 
-                Name.StartsWith("Microsoft") || 
-                Name.StartsWith("Avalonia") || 
-                Name.StartsWith("mscorlib") || 
-                Name.StartsWith("netstandard"))
-            {
-                continue;
-            }
-
-            Result.Add(Item);
+            bool Flag = CanInclude(Name);
+            if (Flag)
+                Result.Add(Item);
         }
 
         return Result;
     }
-    
-    // ●  miscs 
+   
     /// <summary>
     /// Creates and returns a new Guid.
     /// <para>If UseBrackets is true, the new guid is surrounded by {}</para>
@@ -493,4 +526,10 @@ static public class Sys
     /// An action that displays debug strings to lob box. It is passed by the Ui static class.
     /// </summary>
     static public Action<string> DebugProc { get; set; }
+    static public Action<string> LogProc { get; set; }
+    
+    /// <summary>
+    /// System global settings
+    /// </summary>
+    static public SysGlobalSettings Settings { get; } = new();
 }   
