@@ -48,6 +48,7 @@ global using Avalonia.Data.Converters;
 global using Tripous;
 global using Tripous.Data;
 global using Tripous.Desktop;
+global using Tripous.Logging;
 
 global using tERP.Common;
 global using tERP.Data;

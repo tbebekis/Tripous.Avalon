@@ -12,6 +12,8 @@ public class ModuleDef: BaseDef
    bool fGuidOids = true;
    bool fCascadeDeletes = true;
    string fItemCaptionField;
+   bool fUseFilters = true;
+   bool fIsLookupModule = false;
 
    string GetItemCaptionField()
    {
@@ -130,6 +132,22 @@ public class ModuleDef: BaseDef
         set { if (fIsSingleSelect != value) { fIsSingleSelect = value; NotifyPropertyChanged(nameof(IsSingleSelect)); } }
     }
     /// <summary>
+    /// When true, the default, the filter panel in UI forms should be visible.
+    /// </summary>
+    public bool UseFilters 
+    {
+        get => fUseFilters;
+        set { if (fUseFilters != value) { fUseFilters = value; NotifyPropertyChanged(nameof(UseFilters)); } }
+    }
+    /// <summary>
+    /// True when this is a lookup module
+    /// </summary>
+    public bool IsLookupModule 
+    {
+        get => fIsLookupModule;
+        set { if (fIsLookupModule != value) { fIsLookupModule = value; NotifyPropertyChanged(nameof(IsLookupModule)); } }
+    }
+    /// <summary>
     /// When is true indicates that the OID is a Guid string.  
     /// </summary>
     public bool GuidOids 
@@ -154,6 +172,8 @@ public class ModuleDef: BaseDef
         get => !string.IsNullOrWhiteSpace(fItemCaptionField)? fItemCaptionField: GetItemCaptionField();
         set { if (fItemCaptionField != value) { fItemCaptionField = value; NotifyPropertyChanged(nameof(ItemCaptionField)); } }
     }
+    
+
     /// <summary>
     /// The top table of the module, the one with the single data row.
     /// </summary>

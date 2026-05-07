@@ -8,7 +8,7 @@ static internal partial class AppHost
         Sys.DebugMode = true;
 #endif
         AppHost.HiddenMainWindow = new();
-        Sys.LogProc = Log;
+        Sys.UiLogProc = Log;
     }
     // ● miscs
     static public void Log(string Text)

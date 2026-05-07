@@ -27,6 +27,7 @@ public class TableDef: BaseDef
     string fDetailField;
     bool fIsDetail;
     bool fIsOneToOne;
+    bool fIsUiVisible = true;
 
     List<FieldDef> fFields;
     List<TableDef> fJoins;
@@ -852,7 +853,7 @@ where
         set { if (fIsDetail != value) { fIsDetail = value; NotifyPropertyChanged(nameof(IsDetail)); } }
     }
     /// <summary>
-    /// Sometimes there is an one-to-one relationship between the top table, i.e. <see cref="ModuleDef.Table"/> and one or more other single-row tables.
+    /// Sometimes there is an one-to-one relationship between the top table, i.e. <see cref="ModuleDef.Table"/> and one or more details, but single-row tables.
     /// <para>For example: Trade and StoreTrade and FinTrade, where Trade is the top table and StoreTrade and FinTrade are <see cref="IsOneToOne"/> table.</para>
     /// </summary>
     public bool IsOneToOne 
@@ -860,6 +861,17 @@ where
         get => fIsOneToOne;
         set { if (fIsOneToOne != value) { fIsOneToOne = value; NotifyPropertyChanged(nameof(IsOneToOne)); } }
     }
+    /// <summary>
+    /// When false then the table is not visible in the UI.
+    /// <para>Useful with <see cref="IsOneToOne"/> details, for example when a Trade table has one-to-one details tables such as the StoreTrade and FinTrade.</para>
+    /// <para>It is also useful with multi-row detail tables when the table must remain hidden, without a grid in the UI.</para>
+    /// </summary>
+    public bool IsUiVisible 
+    {
+        get => fIsUiVisible;
+        set { if (fIsUiVisible != value) { fIsUiVisible = value; NotifyPropertyChanged(nameof(IsUiVisible)); } }
+    }
+    
 
     /// <summary>
     /// The fields of this table

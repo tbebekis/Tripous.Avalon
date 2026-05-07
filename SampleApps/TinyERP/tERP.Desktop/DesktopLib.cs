@@ -1,6 +1,6 @@
-namespace tERP.Common;
+﻿namespace tERP.Desktop;
 
-static public class CommonLib
+static public class DesktopLib
 {
     static public void Initialize()
     {

@@ -30,48 +30,65 @@ General Rules
 9. Image TopFields are displayed as full-row image preview controls.
    The preview uses fixed height, keeps aspect ratio, and may provide Load/Clear actions.
 
-Detail Rules
-------------
-10. If TopTable has no Details:
+10. Detail grids are NEVER placed inside Expanders.
+
+11. Memo and Image fields are NOT displayed as automatic DataGrid columns
+    in Detail/SubDetail grids, even if visible/bindable.
+
+Top Table Layout Rules
+----------------------
+12. If TopTable has no Details:
     The ItemPage contains only TopFields groups.
 
-11. If TopTable has exactly one Detail:
-    The Detail appears inline under the TopFields groups.
+13. If TopTable has Details:
+    Create a root TabControl.
 
-12. Special case of rule 11:
-    If TopTable has exactly one Detail and that Detail has exactly one SubDetail:
-    - TopFields appear first.
-    - Detail appears inline under TopFields.
-    - SubDetail appears inline under Detail.
+14. First TabItem of the root TabControl = TopTable page.
 
-13. If TopTable has more than one Detail:
-    Create a TabControl:
-    - first TabItem = TopTable (TopFields)
-    - one TabItem per Detail
+15. The TopTable page contains:
+    - TopFields groups
+    - optional Level 1 Detail TabControl under the TopFields
 
-14. A Detail is normally displayed as:
-    Expander caption = Detail.Title
-    Content = DataGrid bound to Detail rows
+16. All first-level Details of TopTable appear inside the Level 1 Detail TabControl.
 
-15. Memo and Image fields are not displayed as automatic DataGrid columns in Detail/SubDetail grids,
-    even if they are visible/bindable.
+17. Each first-level Detail appears in its own TabItem.
+
+18. First-level Detail tabs contain:
+    - optional toolbar panel
+    - DataGrid or one-to-one controls
 
 SubDetail Rules
 ---------------
-16. SubDetails appear under their parent Detail, inside the same parent container.
+19. Level 2+ Details/SubDetails are added directly to the root TabControl
+    as sibling TabItems of the TopTable page.
 
-17. If a Detail/SubDetail has exactly one SubDetail:
-    The SubDetail appears inline under the parent.
+20. Each Detail/SubDetail appears in its own TabItem.
 
-18. If a Detail/SubDetail has more than one SubDetail:
-    Create a nested TabControl under the parent.
+21. One-to-many Detail/SubDetail is displayed using a DataGrid.
 
-Special Rules
+22. One-to-one Detail/SubDetail (TableDef.IsOneToOne = true)
+    is displayed using grouped controls instead of a DataGrid.
+
+23. Detail/SubDetail tabs may contain:
+    - optional toolbar panel
+    - DataGrid or controls
+
+Toolbar Rules
 -------------
-19. One-to-one Detail/SubDetail (TableDef.IsOneToOne = true)
-    is displayed as grouped controls instead of a DataGrid.
+24. Each Detail/SubDetail may optionally contain a toolbar area
+    above the DataGrid.
 
-20. Expanders are created through an overridable method:
+25. Toolbar structure:
+
+    Border Classes="ToolbarContainer"
+        StackPanel Classes="ToolBar"
+
+26. Toolbar panels are initially hidden and may later host buttons,
+    filters, locator controls, summaries, exports, etc.
+
+Overridables
+------------
+27. Expanders are created through an overridable method:
     CreateExpander(Control Parent, string Caption)
 
 Core Principle
@@ -79,4 +96,4 @@ Core Principle
 TopFields = controls.
 One-to-many Detail/SubDetail = DataGrid.
 One-to-one Detail/SubDetail = controls.
-Memo/Image in grids = skipped by automatic grid generation.
+Detail grids never inside Expanders.

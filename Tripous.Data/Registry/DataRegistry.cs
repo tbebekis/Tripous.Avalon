@@ -51,6 +51,8 @@ static public class DataRegistry
     static public ModuleDef AddLookupListModule(string TableName, string Name, string TitleKey)
     {
         ModuleDef Result = AddModule(Name: Name, TitleKey: TitleKey, IsSingleSelect: true);
+        Result.UseFilters = false;
+        Result.IsLookupModule = true;
         
         SelectDef SelectDef = Result.SelectList[0];
         SelectDef.DisplayLabels["Name"] = Name;

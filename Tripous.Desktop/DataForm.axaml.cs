@@ -270,8 +270,11 @@ public partial class DataForm : AppForm
     {
         if (HasChanges())
         {
-            if (!await MessageBox.YesNo("Cancel changes?"))
-                return false;
+            if (IsEditableForm) // edit button is visible even when the form is read-only.
+            {
+                if (!await MessageBox.YesNo("Cancel changes?"))
+                    return false;
+            }
 
             CancelChanges();
         }
@@ -458,12 +461,12 @@ public partial class DataForm : AppForm
         
         btnList.IsVisible = true;
         btnRefreshList.IsVisible = true;
-        btnFind.IsVisible = !IsSingleSelect;
+        btnFind.IsVisible = ModuleDef.UseFilters;
         btnToggleIds.IsVisible = true;
         sepList.IsVisible = btnHome.IsVisible || btnList.IsVisible || btnRefreshList.IsVisible || btnFind.IsVisible || btnToggleIds.IsVisible;
         
         btnInsert.IsVisible = IsEditableForm;
-        btnEdit.IsVisible = IsEditableForm;
+        btnEdit.IsVisible = true; // but it can be saved.
         btnDelete.IsVisible = IsEditableForm;
         sepEdit.IsVisible = IsEditableForm;
         
@@ -506,7 +509,7 @@ public partial class DataForm : AppForm
     protected virtual void EnableControls()
     {
         // ● visible ===============================================================
-        pnlSideBar.IsVisible = !IsSingleSelect && FiltersSideBarVisible;
+        pnlSideBar.IsVisible = FiltersSideBarVisible;
         Splitter.IsVisible = pnlSideBar.IsVisible;
 
         // ● enable ================================================================
@@ -537,7 +540,7 @@ public partial class DataForm : AppForm
     protected virtual void SelectedSelectChanged()
     {
         SelectDef SelectDef = cboSelectList.SelectedItem as SelectDef;
-        if (SelectDef != null && SelectDef.UseFilters)
+        if (SelectDef != null && (SelectDef.UseFilters || ModuleDef.UseFilters))
         {
             SqlFilterDefs FilterDefs = null;
             if (SelectDef.FilterDefs == null || SelectDef.FilterDefs.Count == 0)

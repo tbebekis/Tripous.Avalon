@@ -1,7 +1,10 @@
+using Avalonia.Logging;
+
 namespace tERP;
 
 public partial class SchemaVersion1: SchemaVersionDef
 {
+    
     void RegisterModuleTable_Company_Company()
     {
         string TableName = "Company";
@@ -99,10 +102,19 @@ CREATE TABLE {TableName} (
         
         Db.MasterTableItemDefs.FindOrAddTable(GroupName, "Company");
     }
+
+    void RegisterModuleTables_Log(string GroupName)
+    {
+        string TableName = "SYS_LOG";
+
+        string SqlText = Tripous.Logging.Logger.GetLogTableSchema(TableName);
+        Version.AddTable(SqlText);
+    }
     
     protected override void RegisterMasters()
     {
         RegisterModuleTables_Company(GroupName: "Configuration");
+        RegisterModuleTables_Log(GroupName: "Configuration");
     }
  
 }

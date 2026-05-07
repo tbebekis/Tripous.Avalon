@@ -82,20 +82,15 @@ public abstract class SqlProvider
     {
         SqlParams SqlParams = CreateSqlParams(SqlText, Params);
 
-        StringBuilder SB = new();
+        e.Source = this.GetType().FullName;
         
-        if (!string.IsNullOrWhiteSpace(SqlText))
-        {
-            SB.AppendLine();
-            SB.AppendLine("SQL Statement");
-            SB.AppendLine(SqlText);
-        }
-        
+        // Exception Data Dictionary
+        e.Data["Message"] = e.Message;
+        e.Data["SQL Statement"] = Environment.NewLine + SqlText;
         if (SqlParams.Count > 0)
         {
+            e.Data["Parameters"] = " ";
             string ParamValue;
-            SB.AppendLine();
-            SB.AppendLine("Parameters");
             foreach (SqlParam Param in SqlParams.Items)
             {
                 if (Param != null && !string.IsNullOrWhiteSpace(Param.Name))
@@ -103,14 +98,16 @@ public abstract class SqlProvider
                     ParamValue = "NULL";
                     if (!Sys.IsNull(Param.Value))
                         ParamValue = Param.Value.GetType() == typeof(byte[]) ? "byte[]" : Param.Value.ToString();
-
-                    SB.AppendLine($"{Param.Name}: {ParamValue}");
+                    e.Data[Param.Name] = ParamValue;
                 }
             }
         }
-
-        string Text = SB.ToString();
-        Sys.Log(e, Text);
+        if (e.TargetSite != null)
+            e.Data["TargetSite"] = e.TargetSite;
+        if (e.StackTrace != null)
+            e.Data["StackTrace"] = Environment.NewLine + e.StackTrace;
+      
+        Sys.LogError(e);
     }
     
     // ● constructor

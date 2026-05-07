@@ -31,6 +31,8 @@ public class SelectDef: BaseDef
     /// </summary>
     public SqlFilterDef AddFilter(string Name, string FieldName = null, DataFieldType FilterDataType = DataFieldType.String, BoolOp BoolOp = BoolOp.And, ConditionOp ConditionOp = ConditionOp.Equal, string TitleKey = null)
         => FilterDefs.Add(Name, FieldName, FilterDataType, BoolOp, ConditionOp, TitleKey);
+    public SqlFilterDef AddFilter(FieldDef FieldDef)
+        => FilterDefs.Add(FieldDef.Name, FieldName: FieldDef.Name, FilterDataType: FieldDef.DataType, TitleKey: FieldDef.TitleKey);
 
     /// <summary>
     /// Creates filter entries in the <see cref="FilterDefs"/> when no filters exist.

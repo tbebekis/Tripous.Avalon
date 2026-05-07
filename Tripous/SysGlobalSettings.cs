@@ -19,8 +19,6 @@ public class SysGlobalSettings: SettingsBase, INotifyPropertyChanged
     }
     
     // ● properties
-
-
     /// <summary>
     /// Default format
     /// </summary>

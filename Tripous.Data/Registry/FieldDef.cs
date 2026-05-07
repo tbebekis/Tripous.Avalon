@@ -265,6 +265,7 @@ public class FieldDef: BaseDef
     /// Returns true when the Memo flag is set in Flags.
     /// </summary>
     [JsonIgnore] public bool IsMemo => (FieldFlags.Memo & Flags) == FieldFlags.Memo;
+    [JsonIgnore] public bool IsLargeMemo => FieldFlags.LargeMemo.In(Flags);
     [JsonIgnore] public bool IsBlob => DataType.IsBlob();
     /// <summary>
     /// Returns true when the Image flag is set in Flags.

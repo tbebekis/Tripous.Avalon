@@ -39,29 +39,33 @@ public enum FieldFlags
     /// </summary>
     Memo = 0x40,
     /// <summary>
+    /// Field is a α large multiline text
+    /// </summary>
+    LargeMemo = 0x80,
+    /// <summary>
     /// Field is an image, i.e. png, jpg, etc.
     /// </summary>
-    Image = 0x80,
+    Image = 0x100,
     /// <summary>
     /// Field is a path to an image.
     /// </summary>
-    ImagePath = 0x100,
+    ImagePath = 0x200,
     /// <summary>
     /// The field is not used with INSERT or UPDATE statements. 
     /// <para>It maybe something like the ExtraField or an identity/autoinc field,
     /// in a position other than that of a primary key</para>
     /// </summary>
-    NoInsertUpdate  = 0x200,
+    NoInsertUpdate  = 0x400,
     /// <summary>
     /// A foreign key field
     /// </summary>
-    ForeignKey = 0x400,
+    ForeignKey = 0x800,
     /// <summary>
     /// The field does NOT exist in the database. It just added to the DataTable schema for some reason.
     /// </summary>
-    Extra = 0x800,
+    Extra = 0x1000,
     /// <summary>
     /// Field is searchable and can be a part of a filter.
     /// </summary>
-    Searchable = 0x1000,
+    Searchable = 0x2000,
 }

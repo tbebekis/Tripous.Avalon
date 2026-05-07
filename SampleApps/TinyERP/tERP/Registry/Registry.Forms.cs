@@ -10,7 +10,9 @@ static internal partial class Registry
     }
     static void RegisterForms_Masters()
     {
+        //FormDef FormDef;
         DesktopRegistry.AddForm("Company", TitleKey: "Company");
+        DesktopRegistry.AddForm("Log", TitleKey: "Log").IsReadOnly = true;
     }
     static void RegisterForms_Transactions()
     {

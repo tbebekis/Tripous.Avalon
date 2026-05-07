@@ -1,67 +1,68 @@
-﻿namespace Tripous
-{
-    using System.Text;
-    
-    static public class ExceptionExtensions
-    {
+﻿namespace Tripous;
 
-        /// <summary>
-        /// Adds E.Data dictionary information to SB
-        /// </summary>
-        static public void AddDataDictionaryTo(Exception E, StringBuilder SB)
+static public class ExceptionExtensions
+{
+    /// <summary>
+    /// Returns a string containing all exception information,
+    /// including the Data dictionary and the inner exceptions
+    /// </summary>
+    static public string GetErrorTextFull(this Exception Ex)
+    {
+        // ------------------------------------------------------------
+        void AddDataDictionaryTo(Exception E, StringBuilder SB)
         {
-            if ((E != null) && (E.Data.Count > 0))
+            if (E != null && E.Data != null && E.Data.Count > 0)
             {
                 SB.AppendLine();
 
                 foreach (object Key in E.Data.Keys)
-                    SB.AppendLine(string.Format("{0}: {1}", Key, E.Data[Key]));
+                    SB.AppendLine($"{Key}: {E.Data[Key]}"); 
 
                 SB.AppendLine();
             }
-
         }
+        // ------------------------------------------------------------
+        
+        StringBuilder SB = new StringBuilder();
 
-        /// <summary>
-        /// Returns a string containing all exception information,
-        /// including the Data dictionary and the inner exceptions
-        /// </summary>
-        static public string GetFullText(this Exception Ex)
+        Exception E = Ex; 
+
+        while (E != null)
         {
-            StringBuilder SB = new StringBuilder();
-
-            Action<Exception> Proc = null;
-            Proc = delegate (Exception E)
+            SB.AppendLine(E.Message);
+            
+            if (Sys.DebugMode)
             {
-                if (E != null)
-                {
-                    SB.AppendLine(E.ToString());
-                    AddDataDictionaryTo(E, SB);
+                SB.AppendLine(E.ToString());
+                AddDataDictionaryTo(E, SB);
+            }
+            
+            if (E.InnerException != null)
+            {
+                SB.AppendLine(" ----------------------------------------------------------------");
+                SB.AppendLine(" ");
+            }
 
-                    if (E.InnerException != null)
-                    {
-                        SB.AppendLine(" ----------------------------------------------------------------");
-                        SB.AppendLine(" ");
-
-                        Proc(E.InnerException);
-                    }
-                }
-            };
-
-            //SB.AppendLine(" ================================================================");
-            SB.AppendLine(" ");
-
-            Proc(Ex);
-
-            return SB.ToString();
-
+            E = E.InnerException;
         }
 
-        static public List<string> GetErrors(this Exception Ex)
+        SB.AppendLine(" ");
+
+        string Result = SB.ToString();
+        return Result;
+    }
+    /// <summary>
+    /// Returns a string containing all exception information,
+    /// including the inner exceptions
+    /// </summary>
+    static public string GetErrorText(this Exception Ex)
+    {
+        // --------------------------------------------------------
+        List<string> GetErrors(Exception Exception)
         {
             List<string> Result = new();
 
-            Exception E = Ex; 
+            Exception E = Exception; 
 
             while (E != null)
             {
@@ -71,10 +72,10 @@
 
             return Result;
         }
-        static public string GetErrorText(this Exception Ex)
-        {
-            List<string> ErrorList = GetErrors(Ex);
-            return string.Join(Environment.NewLine, ErrorList);
-        }
+        // --------------------------------------------------------
+        
+        List<string> ErrorList = GetErrors(Ex);
+        return string.Join(Environment.NewLine, ErrorList);
     }
 }
+

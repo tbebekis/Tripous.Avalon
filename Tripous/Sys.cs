@@ -393,26 +393,55 @@ static public class Sys
     }
     
     // ● Log
-    static public void Log(Exception e, string Text = null)
+    static public void UiLog(string Text)
     {
-        if (LogProc != null)
+        if (UiLogProc != null && !string.IsNullOrWhiteSpace(Text))
+            UiLogProc(Text);
+    }
+    
+    static public void LogError(Exception e)
+    {
+        if (UiLogProc != null)
         {
-            StringBuilder SB = new();
+            string Text = !DebugMode ? e.Message : e.GetErrorTextFull();
+            UiLogProc(Text);
+        }
 
-            SB.AppendLine(e.Message);
-            if (!string.IsNullOrWhiteSpace(Text))
-                SB.AppendLine(Text);
-            if (DebugMode)
-                SB.AppendLine(e.ToString());
-
-            Text = SB.ToString();
-            Log(Text);
+        if (LogExceptionProc != null)
+            LogExceptionProc(e);
+    }
+    static public void LogErrorText(string Text)
+    {
+        if (!string.IsNullOrWhiteSpace(Text))
+        {
+            if (UiLogProc != null)
+                UiLogProc(Text);
+        
+            if (LogErrorProc != null)
+                LogErrorProc(Text);
         }
     }
-    static public void Log(string Text)
+    static public void LogWarn(string Text)
     {
-        if (LogProc != null && !string.IsNullOrWhiteSpace(Text))
-            LogProc(Text);
+        if (!string.IsNullOrWhiteSpace(Text))
+        {
+            if (UiLogProc != null)
+                UiLogProc(Text);
+        
+            if (LogWarnProc != null)
+                LogWarnProc(Text);
+        }
+    }
+    static public void LogInfo(string Text)
+    {
+        if (!string.IsNullOrWhiteSpace(Text))
+        {
+            if (UiLogProc != null)
+                UiLogProc(Text);
+        
+            if (LogInfoProc != null)
+                LogInfoProc(Text);
+        }
     }
     
     // ● Debug
@@ -526,7 +555,21 @@ static public class Sys
     /// An action that displays debug strings to lob box. It is passed by the Ui static class.
     /// </summary>
     static public Action<string> DebugProc { get; set; }
-    static public Action<string> LogProc { get; set; }
+    static public Action<string> UiLogProc { get; set; }
+    
+    static public Action<Exception> LogExceptionProc { get; set; }
+    static public Action<string> LogErrorProc { get; set; }
+    static public Action<string> LogWarnProc { get; set; }
+    static public Action<string> LogInfoProc { get; set; }
+    
+    /// <summary>
+    /// The username of the current user of the local computer
+    /// </summary>
+    static public string UserName { get; private set; } = Environment.UserName;
+    /// <summary>
+    /// The name of the local computer
+    /// </summary>
+    static public string HostName { get; } = Environment.MachineName;
     
     /// <summary>
     /// System global settings

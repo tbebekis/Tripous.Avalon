@@ -105,7 +105,7 @@ static internal partial class AppHost
 
     static void AddCompany()
     {
-        string SqlText = "select * from Company";
+        //string SqlText = "select * from Company";
         if (Store.TableExists("Company") && Store.TableIsEmpty("Company"))
         {
             DataModule dmCompany = DataRegistry.CreateModule("Company");
@@ -123,7 +123,13 @@ static internal partial class AppHost
             dmCompany.Commit();
         }
     }
-    
+
+    static void InitializeLibraries()
+    {
+        CommonLib.Initialize();
+        DataLib.Initialize();
+        DesktopLib.Initialize();
+    }
     // ● public
     /// <summary>
     /// Starts this application.
@@ -157,7 +163,10 @@ static internal partial class AppHost
             AddCompany();
             
             Ui.MainWindow = AppHost.MainWindow;
+            InitializeLibraries();
             MainWindow.Show();
+            
+            
         }
         catch (Exception e)
         {

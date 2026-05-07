@@ -22,6 +22,7 @@ public partial class MainWindow : Window
             CreateToolBar();
             
             AppHost.InitializeUi(SideBarHandler, ContentHandler);  
+            Sys.LogInfo("Hi there");
         });
 
     }

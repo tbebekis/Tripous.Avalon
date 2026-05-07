@@ -29,7 +29,10 @@ static public class SysConfig
         get
         {
             if (string.IsNullOrWhiteSpace(fAppName))
-                fAppName = Path.GetFileNameWithoutExtension(Environment.GetCommandLineArgs()[0]); // valid for desktop apps only
+            {
+                Assembly Assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+                return Assembly.GetName().Name;
+            }
             return fAppName;
         }
         set
@@ -86,6 +89,10 @@ static public class SysConfig
             fAppDataFolderPath = value;
         }
     }
+    /// <summary>
+    /// The path for the Logs folder.
+    /// </summary>
+    static public string AppLogFolderPath => Path.Combine(AppFolderPath, "Logs");
     /// <summary>
     /// Returns a path the application can use as a temp folder path.
     /// </summary>

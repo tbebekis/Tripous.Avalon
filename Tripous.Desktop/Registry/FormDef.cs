@@ -10,7 +10,7 @@ public class FormDef: BaseDef
     string fItemClassName = typeof(ItemPage).FullName;
     string fModule;
     bool fIsReadOnly;
- 
+    
     
     // ● public
     /// <summary>
@@ -64,6 +64,7 @@ public class FormDef: BaseDef
         get => fIsReadOnly;
         set { if (fIsReadOnly != value) { fIsReadOnly = value; NotifyPropertyChanged(nameof(IsReadOnly)); } }
     }
+    
  
 }
 

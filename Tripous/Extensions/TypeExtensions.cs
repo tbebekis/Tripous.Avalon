@@ -7,7 +7,6 @@
     /// </summary>
     static public class TypeExtensions
     {
-
         /// <summary>
         /// Returns true if a type defines a default public constructor
         /// </summary>

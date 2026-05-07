@@ -25,7 +25,13 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\Tripous.Data\Tripous.Data.csproj" />
+        <ProjectReference Include="..\..\..\Tripous.Logging\Tripous.Logging.csproj" />
         <ProjectReference Include="..\..\..\Tripous\Tripous.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Schema01.sql" />
+      <Resource Include="Schema01.sql" />
     </ItemGroup>
 
 </Project>

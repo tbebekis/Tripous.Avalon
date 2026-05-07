@@ -7,12 +7,14 @@ static public class TypeResolver
     static readonly object fLock = new();
 
     // ● private methods
-    static Type ResolveCore(string ClassName)
+    static Type ResolveCore(string ClassName, Type BaseType = null)
     {
         Type Result = Type.GetType(ClassName, false, true);
         if (Result != null)
             return Result;
 
+        Result = AppAssemblies.FindApplicationClassType(ClassName, BaseType);
+        /*
         foreach (Assembly Assembly in AppDomain.CurrentDomain.GetAssemblies())
         {
             try
@@ -25,8 +27,9 @@ static public class TypeResolver
             {
             }
         }
+        */
 
-        return null;
+        return Result;
     }
 
     // ● public methods
@@ -46,7 +49,7 @@ static public class TypeResolver
         {
             if (!fCache.TryGetValue(ClassName, out Result))
             {
-                Result = ResolveCore(ClassName);
+                Result = ResolveCore(ClassName, BaseType);
                 fCache[ClassName] = Result;
             }
         }
