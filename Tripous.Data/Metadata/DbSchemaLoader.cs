@@ -141,7 +141,6 @@ static public class DbSchemaLoader
         MetaField.OrdinalPosition = Row.AsInteger("OrdinalPosition");
     }
     
-    
     static void LoadTables(DbSchema Schema, DataTable tblSql)
     {
         string SchemaName;

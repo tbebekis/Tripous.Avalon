@@ -13,11 +13,13 @@ static internal partial class Registry
     {
         Command cmdLookups = new ("Lookups");
         
+        /* CHECK
         var Commands = Db.LookupTableItemDefs.AsCommandList().OrderBy(x => x.Name);
         cmdLookups.Commands.AddRange(Commands);
  
         foreach (Command Cmd in cmdLookups.Commands)
             Cmd.ExecuteFunc = ShowFormFunc;
+        */
 
         return cmdLookups;
     }
@@ -26,6 +28,7 @@ static internal partial class Registry
     {
         List<Command> MasterCommandGroups = [];
         
+        /* CHECK
         foreach (TableItemDefGroup MasterGroup in Db.MasterTableItemDefs.Groups)
         {
             Command cmdGroup = new() { Name = MasterGroup.Name, TitleKey = MasterGroup.TitleKey, Tag = null };
@@ -37,7 +40,7 @@ static internal partial class Registry
             foreach (Command Cmd in cmdGroup.Commands)
                 Cmd.ExecuteFunc = ShowFormFunc;
         }
-
+        */
         return MasterCommandGroups;
     }
     
@@ -51,6 +54,7 @@ static internal partial class Registry
         Command cmdConnectionInfo = new ("ConnectionInfo", "database_edit.png", async (c) => {  await DbConnectionEditDialog.ShowModal(Db.GetDefaultConnectionInfo()); return 0; });
         Command cmdClearLog = new ("ClearLog", "bin.png", (c) => { LogBox.Clear(); return 0; });
         Command cmdLog = new ("Error Log", "error_log.png", (c) => { AppHost.ContentHandler.ShowDataForm("Log"); return 0; });
+        Command cmdTest = new ("Test", "lightning.png");
         
         //Command cmdCountries = new ("Countries", "globe_model.png", (c) => AppHost.ContentHandler.ShowDataForm("Country"));
         //Command cmdCustomers = new ("Customers", "user.png", (c) => AppHost.ContentHandler.ShowDataForm("Customer"));
@@ -66,7 +70,7 @@ static internal partial class Registry
         List<Command> MasterCommandGroups = RegisterMasterCommands();
         
         // ● split commands to toolbar and menu commands
-        AppRegistry.ToolBarCommands.AddRange([cmdAppFolder, cmdConnectionInfo, cmdClearLog, cmdExit]);
+        AppRegistry.ToolBarCommands.AddRange([cmdAppFolder, cmdConnectionInfo, cmdClearLog, cmdTest, cmdExit]);
         AppRegistry.MenuCommands.AddRange([cmdGeneral, cmdLookups]);
         AppRegistry.MenuCommands.AddRange(MasterCommandGroups);
     }

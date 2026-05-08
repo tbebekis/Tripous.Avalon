@@ -20,6 +20,20 @@ public class Command: BaseDef
     /// <summary>
     /// Constructor
     /// </summary>
+    public Command(string Name)
+        : this(Name, Name, "", null)
+    {
+    }
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public Command(string Name, string ImageFileName)
+        : this(Name, Name, ImageFileName, null)
+    {
+    }
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public Command(string Name, string TitleKey, string ImageFileName)
     {
         this.Name = Name;
@@ -27,20 +41,15 @@ public class Command: BaseDef
         this.ImageFileName = ImageFileName;
     }
 
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    public Command(string Name)
-        : this(Name, "", "", null)
-    {
-    }
+
+ 
 
     // ● construction - sync Execute()
     /// <summary>
     /// Constructor with sync <see cref="Execute"/>
     /// </summary>
     public Command(string Name, Func<Command, object> ExecuteFunc)
-        : this(Name, "", "")
+        : this(Name, Name, "")
     {
         this.ExecuteFunc = ExecuteFunc;
     }
@@ -48,7 +57,7 @@ public class Command: BaseDef
     /// Constructor with sync <see cref="Execute"/>
     /// </summary>
     public Command(string Name, string ImageFileName, Func<Command, object> ExecuteFunc)
-        : this(Name, "", ImageFileName)
+        : this(Name, Name, ImageFileName)
     {
         this.ExecuteFunc = ExecuteFunc;
     }
@@ -66,7 +75,7 @@ public class Command: BaseDef
     /// Constructor with async <see cref="ExecuteAsync"/>
     /// </summary>
     public Command(string Name, Func<Command, Task<object>> ExecuteAsyncFunc)
-        : this(Name, "", "")
+        : this(Name, Name, "")
     {
         this.ExecuteAsyncFunc = ExecuteAsyncFunc;
     }
@@ -74,7 +83,7 @@ public class Command: BaseDef
     /// Constructor with async <see cref="ExecuteAsync"/>
     /// </summary>
     public Command(string Name, string ImageFileName, Func<Command, Task<object>> ExecuteAsyncFunc)
-        : this(Name, "", ImageFileName)
+        : this(Name, Name, ImageFileName)
     {
         this.ExecuteAsyncFunc = ExecuteAsyncFunc;
     }
@@ -92,14 +101,26 @@ public class Command: BaseDef
     /// True if this is an executable command.
     /// </summary>
     public bool CanExecute() => CanExecuteFunc != null ? CanExecuteFunc(this) : true;
+
     /// <summary>
     /// Executes this command.
     /// </summary>
-    public object Execute() => ExecuteFunc != null && CanExecute() ? ExecuteFunc(this) : null;
+    public object Execute()
+    {
+       ExecuteCommand?.Invoke(this, EventArgs.Empty);
+       object Result = ExecuteFunc != null && CanExecute() ? ExecuteFunc(this) : null;
+       return Result;
+    }
+
     /// <summary>
     /// Executes this command.
     /// </summary>
-    public async Task<object> ExecuteAsync() => ExecuteAsyncFunc != null && CanExecute()? await ExecuteAsyncFunc(this) : null;
+    public async Task<object> ExecuteAsync()
+    {
+        ExecuteCommand?.Invoke(this, EventArgs.Empty);
+        object Result = ExecuteAsyncFunc != null && CanExecute()? await ExecuteAsyncFunc(this) : null;
+        return Result;
+    }
 
     // ● properties
     /// <summary>
@@ -150,5 +171,8 @@ public class Command: BaseDef
     /// </summary>
     public bool HasChildren => Commands != null && Commands.Count > 0;
     [JsonIgnore] public override bool IsSerializable => false;
- 
+    
+    // ● events
+    public event EventHandler ExecuteCommand;
+
 }

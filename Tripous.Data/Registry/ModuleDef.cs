@@ -2,18 +2,18 @@ namespace Tripous.Data;
 
 public class ModuleDef: BaseDef
 {
+    string fGroup;
    string fClassName = typeof(DataModule).FullName;
    string fDescription;
    SelectDefs fSelectList;
    SelectDefs fStocks;
    TableDef fTable = new();
    string fConnectionName = SysConfig.DefaultConnectionName;
-   bool fIsSingleSelect;
+   bool fIsSingleSelect = true;
    bool fGuidOids = true;
    bool fCascadeDeletes = true;
    string fItemCaptionField;
    bool fUseFilters = true;
-   bool fIsLookupModule = false;
 
    string GetItemCaptionField()
    {
@@ -94,6 +94,14 @@ public class ModuleDef: BaseDef
  
     // ● properties
     /// <summary>
+    /// The group this module belongs to, e.g. Sales, Purchaces, etc.
+    /// </summary>
+    public string Group  
+    {
+        get => !string.IsNullOrWhiteSpace(fGroup)? fGroup: Name;
+        set { if (fGroup != value) { fGroup = value; NotifyPropertyChanged(nameof(Group)); } }
+    }
+    /// <summary>
     /// The class name of the <see cref="System.Type"/> this descriptor describes.
     /// <para>NOTE: The value of this property may be a string returned by the <see cref="Type.AssemblyQualifiedName"/> property of the type. </para>
     /// <para>In that case, it consists of the type name, including its namespace, followed by a comma, followed by the display name of the assembly
@@ -140,14 +148,6 @@ public class ModuleDef: BaseDef
         set { if (fUseFilters != value) { fUseFilters = value; NotifyPropertyChanged(nameof(UseFilters)); } }
     }
     /// <summary>
-    /// True when this is a lookup module
-    /// </summary>
-    public bool IsLookupModule 
-    {
-        get => fIsLookupModule;
-        set { if (fIsLookupModule != value) { fIsLookupModule = value; NotifyPropertyChanged(nameof(IsLookupModule)); } }
-    }
-    /// <summary>
     /// When is true indicates that the OID is a Guid string.  
     /// </summary>
     public bool GuidOids 
@@ -172,7 +172,6 @@ public class ModuleDef: BaseDef
         get => !string.IsNullOrWhiteSpace(fItemCaptionField)? fItemCaptionField: GetItemCaptionField();
         set { if (fItemCaptionField != value) { fItemCaptionField = value; NotifyPropertyChanged(nameof(ItemCaptionField)); } }
     }
-    
 
     /// <summary>
     /// The top table of the module, the one with the single data row.

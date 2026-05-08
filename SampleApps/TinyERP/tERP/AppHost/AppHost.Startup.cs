@@ -96,11 +96,11 @@ static internal partial class AppHost
     {
         Registry.RegisterCommands();
 
-        Registry.RegisterLookupSources();
-        Registry.RegisterLocators();
-
-        Registry.RegisterModules();
-        Registry.RegisterForms();
+         Registry.RegisterLookupSources();
+         Registry.RegisterLocators();
+ 
+         Registry.RegisterModules();
+         Registry.RegisterForms();
     }
 
     static void AddCompany()
@@ -165,7 +165,6 @@ static internal partial class AppHost
             Ui.MainWindow = AppHost.MainWindow;
             InitializeLibraries();
             MainWindow.Show();
-            
             
         }
         catch (Exception e)

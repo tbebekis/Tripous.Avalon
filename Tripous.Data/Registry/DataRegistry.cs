@@ -52,7 +52,6 @@ static public class DataRegistry
     {
         ModuleDef Result = AddModule(Name: Name, TitleKey: TitleKey, IsSingleSelect: true);
         Result.UseFilters = false;
-        Result.IsLookupModule = true;
         
         SelectDef SelectDef = Result.SelectList[0];
         SelectDef.DisplayLabels["Name"] = Name;
@@ -100,11 +99,17 @@ static public class DataRegistry
     /// </summary>
     static public LookupSource AddLookupSourceWithTableName(string Name, string TableName, bool UseNullItem = false)
     {
-        LookupSource Result = new();
-        Result.Name = Name;
-        Result.UseNullItem = UseNullItem;
-        Result.TableName = TableName;
-        DataRegistry.LookupSources.Add(Result);
+
+        LookupSource Result = DataRegistry.LookupSources.Find(Name);
+        if (Result == null)
+        {
+            Result = new();
+            Result.Name = Name;
+            Result.UseNullItem = UseNullItem;
+            Result.TableName = TableName;
+            DataRegistry.LookupSources.Add(Result);
+        }
+
         return Result;
     }
     /// <summary>
@@ -112,11 +117,14 @@ static public class DataRegistry
     /// </summary>
     static public LookupSource AddLookupSourceWithSql(string Name, string SqlText, bool UseNullItem = false)
     {
-        LookupSource Result = new();
-        Result.Name = Name;
-        Result.UseNullItem = UseNullItem;
-        Result.SqlText = SqlText;
-        DataRegistry.LookupSources.Add(Result);
+        LookupSource Result = DataRegistry.LookupSources.Find(Name);
+        if (Result == null)
+        {
+            Result.Name = Name;
+            Result.UseNullItem = UseNullItem;
+            Result.SqlText = SqlText;
+            DataRegistry.LookupSources.Add(Result);
+        }
         return Result;
     }
  

@@ -21,6 +21,8 @@ global using System.Text.Json.Serialization.Metadata;
 global using System.Diagnostics;
 global using System.Runtime.InteropServices;
 global using System.Diagnostics.CodeAnalysis;
+global using System.Text.RegularExpressions;
+
 
 global using Avalonia;
 global using Avalonia.Interactivity;

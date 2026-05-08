@@ -738,7 +738,7 @@ where
     /// Adds and returns an integer-boolean field.
     /// </summary>
     public FieldDef AddBoolean(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
-        =>  AddField(Name, DataFieldType.DateTime, Group: Group, TitleKey: TitleKey, Flags: Flags| FieldFlags.Boolean); 
+        =>  AddField(Name, DataFieldType.Boolean, Group: Group, TitleKey: TitleKey, Flags: Flags| FieldFlags.Boolean); 
     /// <summary>
     /// Adds and returns a blob field.
     /// </summary>
@@ -871,7 +871,8 @@ where
         get => fIsUiVisible;
         set { if (fIsUiVisible != value) { fIsUiVisible = value; NotifyPropertyChanged(nameof(IsUiVisible)); } }
     }
-    
+
+    public TableSqls Sqls { get; set; } = new();
 
     /// <summary>
     /// The fields of this table

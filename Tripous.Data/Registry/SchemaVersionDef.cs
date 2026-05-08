@@ -3,21 +3,9 @@ namespace Tripous.Data;
 public class SchemaVersionDef: BaseDef
 {
     // ● overridable
-    protected virtual void RegisterLookups()
-    {
-    }
-    protected virtual void RegisterMasters()
-    {
-    }
-    protected virtual void RegisterTransactions()
-    {
-    }
-
     protected virtual void RegisterInternal()
     {
-        RegisterLookups();
-        RegisterMasters();
-        RegisterTransactions();
+ 
     }
     
     // ● construction

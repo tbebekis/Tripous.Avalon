@@ -12,9 +12,11 @@ static internal partial class Registry
         //DataRegistry.AddLookupSource("Country");
         //DataRegistry.AddLookupSource("Category");
         
+        /* CHECK
         List<TableItemDef> LookupTableItems = Db.LookupTableItemDefs.GetAllTables();
         foreach (TableItemDef Item in LookupTableItems)
             DataRegistry.AddLookupSource(Item.Name);
+        */
     }
     
     static public void RegisterLookupSources()

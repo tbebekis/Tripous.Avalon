@@ -133,7 +133,14 @@ public class FieldDef: BaseDef
         this.Expression = Value;
         return this;
     }
- 
+    /// <summary>
+    /// Sets the <see cref="SetNullable"/> and returns this instance.
+    /// </summary>
+    public FieldDef SetNullable(bool Value)
+    {
+        this.fIsNullable = Value;
+        return this;
+    }
     
     // ● properties
     /// <summary>

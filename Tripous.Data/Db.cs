@@ -127,9 +127,9 @@ static public class Db
     static public DbIni MainIni => fMainIni ??= new DbIni(GetDefaultConnectionInfo());
     static public readonly string StandardDefaultValues = "CompanyId;EmptyString;AppDate;SysDate;SysTime;DbServerTime;AppUserName;AppUserId;NetUserName;Guid";
     
-    static public TableItemDefs LookupTableItemDefs { get; } = new();
-    static public TableItemDefs MasterTableItemDefs { get; } = new();
-    static public TableItemDefs TransactionTableItemDefs { get; } = new();
+    //static public TableItemDefs LookupTableItemDefs { get; } = new();
+    //static public TableItemDefs MasterTableItemDefs { get; } = new();
+    //static public TableItemDefs TransactionTableItemDefs { get; } = new();
     
     /// <summary>
     /// Db global settings
