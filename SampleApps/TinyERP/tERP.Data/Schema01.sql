@@ -1006,7 +1006,7 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (ProductId) REFERENCES Product(Id),
     FOREIGN KEY (CategoryId) REFERENCES Category(Id),
 
-    CONSTRAINT UQ_{TableName}_Product_Category UNIQUE (CategoryId, CategoryId)
+    CONSTRAINT UQ_{TableName}_Product_Category UNIQUE (ProductId, CategoryId)
     )
 
 

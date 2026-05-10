@@ -67,46 +67,11 @@ public partial class MainWindow : Window
         LogBox.AppendLine(Text);
     }
 
-    void HandleSchema()
-    {
-        string FolderPath = AppContext.BaseDirectory;
-        string FilePath;
-        
-        Assembly A = typeof(DataLib).Assembly;
-
-        string BaseNamespace = typeof(DataLib).Namespace;
-        string SqlText = ResourceFiles.GetResourceFileText(A, BaseNamespace, "", "Schema01.sql");
-
-        SchemaParserResult GroupDefs = SchemaRegistrationBuilder.Parse(SqlText, 1);
-        
-         
-        FilePath = Path.Combine(FolderPath, "Schema.sql");
-        File.WriteAllText(FilePath, GroupDefs.SchemaSql);
-        
-        // string Code = GroupDefs.GetCreateSqlTextByProvider(DbServerType.Sqlite);
-        // FilePath = Path.Combine(FolderPath, "Schema_Sqlite.sql");
-        // File.WriteAllText(FilePath, Code);
-        
-       
-        FilePath = Path.Combine(FolderPath, "DEF_Schema.cs");
-        File.WriteAllText(FilePath, GroupDefs.CreateTablesSourceCode);
-        
-         
-        FilePath = Path.Combine(FolderPath, "DEF_Modules.cs");
-        File.WriteAllText(FilePath, GroupDefs.ModuleDefsSourceCode);
-        
-       
-        FilePath = Path.Combine(FolderPath, "DEF_Forms.cs");
-        File.WriteAllText(FilePath, GroupDefs.FormDefsSourceCode);
-        
-        
-        
-        LogBox.AppendLine("HandleSchema: DONE");
-    }
+ 
 
     void Test()
     {
-        HandleSchema();
+ 
     }
     
     // ● overrides

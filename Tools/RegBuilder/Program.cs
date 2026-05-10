@@ -1,4 +1,7 @@
-﻿namespace tERP;
+﻿using Avalonia;
+using System;
+
+namespace RegBuilder;
 
 class Program
 {

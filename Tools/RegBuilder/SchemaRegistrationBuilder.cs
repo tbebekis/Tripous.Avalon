@@ -1,6 +1,53 @@
 namespace Tripous.Data;
 
 /// <summary>
+/// Parser message type.
+/// </summary>
+public enum ParsingErrorType
+{
+    None = 0,
+    Error = 1,
+    Warning = 2
+}
+
+/// <summary>
+/// A parser validation or informational message.
+/// </summary>
+public class ParsingMessage
+{
+    // ● construction
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public ParsingMessage()
+    {
+    }
+
+    public override string ToString()
+    {
+        string Result = @$"Type: {MessageType}
+Code: {Code}
+ErrorText: {Text}
+";
+        return Result;
+    }
+    
+    // ● properties
+    /// <summary>
+    /// Message type.
+    /// </summary>
+    public ParsingErrorType MessageType { get; set; }
+    /// <summary>
+    /// Message code.
+    /// </summary>
+    public string Code { get; set; }
+    /// <summary>
+    /// Message text.
+    /// </summary>
+    public string Text { get; set; }
+}
+
+/// <summary>
 /// Result of parsing a Tripous schema registration script.
 /// </summary>
 public class SchemaParserResult
@@ -13,6 +60,24 @@ public class SchemaParserResult
     {
     }
 
+    public string GetErrors()
+    {
+        StringBuilder SB = new();
+        foreach (var Msg in Messages)
+            if (Msg.MessageType == ParsingErrorType.Error)
+                SB.AppendLine(Msg.ToString());
+        return SB.ToString();
+    }
+
+    public string GetWarnings()
+    {
+        StringBuilder SB = new();
+        foreach (var Msg in Messages)
+        if (Msg.MessageType == ParsingErrorType.Warning)
+        SB.AppendLine(Msg.ToString());
+        return SB.ToString();
+    }
+    
     // ● properties
     /// <summary>
     /// Ordered schema SQL text.
@@ -30,6 +95,18 @@ public class SchemaParserResult
     /// Source code that registers form definitions.
     /// </summary>
     public string FormDefsSourceCode { get; set; }
+    /// <summary>
+    /// Parser messages.
+    /// </summary>
+    public List<ParsingMessage> Messages { get; set; } = new();
+    /// <summary>
+    /// True when parser contains errors.
+    /// </summary>
+    public bool HasErrors => Messages.Any(x => x.MessageType == ParsingErrorType.Error);
+    /// <summary>
+    /// True when parser contains warnings.
+    /// </summary>
+    public bool HasWarnings => Messages.Any(x => x.MessageType == ParsingErrorType.Warning);
 }
 
 /// <summary>
@@ -46,16 +123,166 @@ static public class SchemaRegistrationBuilder
         if (string.IsNullOrWhiteSpace(SchemaSql))
             throw new TripousArgumentNullException(nameof(SchemaSql));
 
+        SchemaParserResult Result = new();
         SchemaScript Script = SchemaScript.Parse(SchemaSql);
+
+        ValidateScript(Result, Script);
+
+        if (Result.HasErrors)
+            return Result;
+
         Script.Validate();
 
-        SchemaParserResult Result = new();
         Result.SchemaSql = BuildOrderedSchemaSql(Script);
         Result.CreateTablesSourceCode = BuildCreateTablesSourceCode(Script, SchemaVersion);
         Result.ModuleDefsSourceCode = BuildModuleDefsSourceCode(Script);
         Result.FormDefsSourceCode = BuildFormDefsSourceCode(Script);
 
         return Result;
+    }
+
+    // ● private - validation
+    /// <summary>
+    /// Adds a parser message.
+    /// </summary>
+    static void AddMessage(SchemaParserResult Result, ParsingErrorType MessageType, string Code, string Text)
+    {
+        ParsingMessage Message = new();
+        Message.MessageType = MessageType;
+        Message.Code = Code;
+        Message.Text = Text;
+
+        Result.Messages.Add(Message);
+    }
+    /// <summary>
+    /// Adds an error message.
+    /// </summary>
+    static void AddError(SchemaParserResult Result, string Code, string Text)
+    {
+        AddMessage(Result, ParsingErrorType.Error, Code, Text);
+    }
+    /// <summary>
+    /// Adds a warning message.
+    /// </summary>
+    static void AddWarning(SchemaParserResult Result, string Code, string Text)
+    {
+        AddMessage(Result, ParsingErrorType.Warning, Code, Text);
+    }
+    /// <summary>
+    /// Validates parsed schema.
+    /// </summary>
+    static void ValidateScript(SchemaParserResult Result, SchemaScript Script)
+    {
+        ValidateDuplicateTableNames(Result, Script);
+        ValidateDuplicateModuleNames(Result, Script);
+        ValidateDuplicateCreationOrders(Result, Script);
+        ValidateDuplicateGeneratedMethodNames(Result, Script);
+        ValidateSuspiciousUniqueConstraints(Result, Script);
+    }
+    /// <summary>
+    /// Validates duplicate table names.
+    /// </summary>
+    static void ValidateDuplicateTableNames(SchemaParserResult Result, SchemaScript Script)
+    {
+        var Items = Script.Tables
+            .GroupBy(x => x.Name, StringComparer.OrdinalIgnoreCase)
+            .Where(x => x.Count() > 1)
+            .ToList();
+
+        foreach (var Item in Items)
+            AddError(Result, "DUPLICATE_TABLE", $"Duplicate table name: {Item.Key}");
+    }
+    /// <summary>
+    /// Validates duplicate module names.
+    /// </summary>
+    static void ValidateDuplicateModuleNames(SchemaParserResult Result, SchemaScript Script)
+    {
+        var Items = Script.TopTables
+            .Where(x => !string.IsNullOrWhiteSpace(x.ModuleName))
+            .GroupBy(x => x.ModuleName, StringComparer.OrdinalIgnoreCase)
+            .Where(x => x.Count() > 1)
+            .ToList();
+
+        foreach (var Item in Items)
+            AddError(Result, "DUPLICATE_MODULE", $"Duplicate module name: {Item.Key}");
+    }
+    /// <summary>
+    /// Validates duplicate creation orders.
+    /// </summary>
+    static void ValidateDuplicateCreationOrders(SchemaParserResult Result, SchemaScript Script)
+    {
+        var Items = Script.Tables
+            .Where(x => x.CreationOrder > 0)
+            .GroupBy(x => x.CreationOrder)
+            .Where(x => x.Count() > 1)
+            .ToList();
+
+        foreach (var Item in Items)
+        {
+            string TableNames = string.Join(", ", Item.Select(x => x.Name));
+            AddError(Result, "DUPLICATE_CREATION_ORDER", $"Duplicate CreationOrder {Item.Key}: {TableNames}");
+        }
+    }
+    /// <summary>
+    /// Validates duplicate generated method names.
+    /// </summary>
+    static void ValidateDuplicateGeneratedMethodNames(SchemaParserResult Result, SchemaScript Script)
+    {
+        var TableMethodNames = Script.Tables
+            .GroupBy(x => "RegisterTable_" + SafeIdentifier(x.Name), StringComparer.OrdinalIgnoreCase)
+            .Where(x => x.Count() > 1)
+            .ToList();
+
+        foreach (var Item in TableMethodNames)
+        {
+            string TableNames = string.Join(", ", Item.Select(x => x.Name));
+            AddError(Result, "DUPLICATE_TABLE_METHOD", $"Duplicate generated table method {Item.Key}: {TableNames}");
+        }
+
+        var ModuleMethodNames = Script.TopTables
+            .GroupBy(x => "RegisterModule_" + SafeIdentifier(x.ModuleName), StringComparer.OrdinalIgnoreCase)
+            .Where(x => x.Count() > 1)
+            .ToList();
+
+        foreach (var Item in ModuleMethodNames)
+        {
+            string ModuleNames = string.Join(", ", Item.Select(x => x.ModuleName));
+            AddError(Result, "DUPLICATE_MODULE_METHOD", $"Duplicate generated module method {Item.Key}: {ModuleNames}");
+        }
+    }
+    /// <summary>
+    /// Validates suspicious unique constraints.
+    /// </summary>
+    static void ValidateSuspiciousUniqueConstraints(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable Table in Script.Tables)
+            ValidateSuspiciousUniqueConstraints(Result, Table);
+    }
+    /// <summary>
+    /// Validates suspicious unique constraints.
+    /// </summary>
+    static void ValidateSuspiciousUniqueConstraints(SchemaParserResult Result, SchemaTable Table)
+    {
+        MatchCollection Matches = Regex.Matches(
+            Table.CreateSqlText,
+            @"unique\s*\((?<fields>[^\)]*)\)",
+            RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+        foreach (Match Match in Matches)
+        {
+            List<string> Fields = Match.Groups["fields"].Value
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .ToList();
+
+            var Duplicates = Fields
+                .GroupBy(x => x, StringComparer.OrdinalIgnoreCase)
+                .Where(x => x.Count() > 1)
+                .Select(x => x.Key)
+                .ToList();
+
+            if (Duplicates.Count > 0)
+                AddWarning(Result, "SUSPICIOUS_UNIQUE", $"Table {Table.Name} has suspicious UNIQUE constraint with duplicate fields: {string.Join(", ", Duplicates)}");
+        }
     }
 
     // ● private - result builders
@@ -127,12 +354,14 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("static internal partial class Registry");
         SB.AppendLine("{");
         SB.AppendLine("    // ● private");
+        BuildRegisterLookupSourcesMethod(SB, Script);
         foreach (SchemaTable TopTable in TopTables)
             BuildRegisterModuleMethod(SB, Script, TopTable);
         SB.AppendLine();
         SB.AppendLine("    // ● static public");
         SB.AppendLine("    static public void RegisterModules()");
         SB.AppendLine("    {");
+        SB.AppendLine("        RegisterLookupSources();");
         foreach (SchemaTable TopTable in TopTables)
             SB.AppendLine("        RegisterModule_" + SafeIdentifier(TopTable.ModuleName) + "();");
         SB.AppendLine("    }");
@@ -140,6 +369,7 @@ static public class SchemaRegistrationBuilder
 
         return SB.ToString().TrimEnd();
     }
+
     /// <summary>
     /// Builds source code for form registration.
     /// </summary>
@@ -154,7 +384,10 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    static public void RegisterForms()");
         SB.AppendLine("    {");
         foreach (SchemaTable TopTable in TopTables)
-            SB.AppendLine("        DesktopRegistry.AddForm(\"" + EscapeString(TopTable.ModuleName) + "\", TitleKey: \"" + EscapeString(TopTable.ModuleName) + "\");");
+        {
+            SB.AppendLine("        if (!DesktopRegistry.Forms.Contains(\"" + EscapeString(TopTable.ModuleName) + "\"))");
+            SB.AppendLine("            DesktopRegistry.AddForm(\"" + EscapeString(TopTable.ModuleName) + "\", TitleKey: \"" + EscapeString(TopTable.ModuleName) + "\");");
+        }
         SB.AppendLine("    }");
         SB.AppendLine("}");
 
@@ -163,22 +396,36 @@ static public class SchemaRegistrationBuilder
 
     // ● private - module source
     /// <summary>
+    /// Builds lookup source registration method.
+    /// </summary>
+    static void BuildRegisterLookupSourcesMethod(StringBuilder SB, SchemaScript Script)
+    {
+        List<SchemaTable> LookupTables = Script.Tables.Where(x => x.IsLookup).OrderBy(x => x.Name).ToList();
+
+        SB.AppendLine("    static void RegisterLookupSources()");
+        SB.AppendLine("    {");
+        foreach (SchemaTable LookupTable in LookupTables)
+        {
+            SB.AppendLine("        if (!DataRegistry.LookupSources.Contains(\"" + EscapeString(LookupTable.Name) + "\"))");
+            SB.AppendLine("            DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupTable.Name) + "\", \"" + EscapeString(LookupTable.Name) + "\");");
+        }
+        SB.AppendLine("    }");
+    }
+    /// <summary>
     /// Builds a module registration method.
     /// </summary>
     static void BuildRegisterModuleMethod(StringBuilder SB, SchemaScript Script, SchemaTable TopTable)
     {
         SelectBuildResult SelectResult = BuildListSelectSql(Script, TopTable);
-        List<SchemaTable> LookupTables = Script.Tables.Where(x => x.IsLookup).OrderBy(x => x.Name).ToList();
 
         SB.AppendLine("    static void RegisterModule_" + SafeIdentifier(TopTable.ModuleName) + "()");
         SB.AppendLine("    {");
+        SB.AppendLine("        if (DataRegistry.Modules.Contains(\"" + EscapeString(TopTable.ModuleName) + "\"))");
+        SB.AppendLine("            return;");
         SB.AppendLine("        ModuleDef Module;");
         SB.AppendLine("        TableDef tblTop;");
         SB.AppendLine("        SelectDef SelectDef;");
         SB.AppendLine("        string SqlText;");
-
-        foreach (SchemaTable LookupTable in LookupTables)
-            SB.AppendLine("        DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupTable.Name) + "\", \"" + EscapeString(LookupTable.Name) + "\");");
 
         SB.AppendLine("        SqlText = @\"");
         SB.AppendLine(EscapeVerbatim(SelectResult.SqlText));
@@ -187,14 +434,19 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("        tblTop = Module.Table;");
         SB.AppendLine("        tblTop.Name = \"" + EscapeString(TopTable.Name) + "\";");
         SB.AppendLine("        tblTop.KeyField = \"" + EscapeString(TopTable.PrimaryKeyField.Name) + "\";");
+
         if (!TopTable.UiVisible)
             SB.AppendLine("        tblTop.IsUiVisible = false;");
+
         BuildTableFieldsSource(SB, Script, TopTable, "tblTop", "        ");
         BuildFiltersSource(SB, SelectResult.FilterFields);
+
         foreach (SchemaTable Detail in Script.GetDetailsOf(TopTable))
             BuildDetailSource(SB, Script, Detail, "tblTop", "        ");
+
         SB.AppendLine("    }");
     }
+
     /// <summary>
     /// Builds source code for a detail table and its children.
     /// </summary>
@@ -1073,6 +1325,9 @@ static public class SchemaRegistrationBuilder
         public SchemaField FindField(string Name) => Fields.FirstOrDefault(x => x.Name.IsSameText(Name));
 
         // ● private
+        /// <summary>
+        /// Moves inline comments before comma.
+        /// </summary>
         static string MoveInlineCommentsBeforeComma(string Text)
         {
             return Regex.Replace(

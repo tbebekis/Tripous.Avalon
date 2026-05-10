@@ -6,9 +6,6 @@ internal class DbLogListener_tERP: SyncedLogListener
     
     public DbLogListener_tERP()
     {
-        //ModuleDef ModuleDef = DataRegistry.Modules.Find("Log");
-        //if (ModuleDef != null)
-
         ModuleDef ModuleDef = DataRegistry.Modules.Get("Log");
         Module = ModuleDef.Create();
     }
