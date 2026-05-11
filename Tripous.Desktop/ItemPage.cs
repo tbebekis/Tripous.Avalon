@@ -87,8 +87,10 @@ public class UiDetailTableInfo
 /// <summary>
 /// The item part of a <see cref="DataForm"/>
 /// </summary>
+[RegistryType]
 public class ItemPage : UserControl
 {
+    
     // ● protected fields
     protected DataForm fDataForm;
     protected int fColumnCount = 2;
@@ -217,24 +219,19 @@ public class ItemPage : UserControl
             .Where(Field => !Field.IsLargeMemo)
             .GroupBy(Field => Field.Group)
             .ToDictionary(Group => Group.Key, Group => Group.ToList());
+        int VisualColumnCount = NormalizeColumnCount(ColumnCount);
+        int MaxControlsPerColumn = Ui.Settings.FormMaxControlsPerColumn;
         foreach (var Entry in Groups)
         {
-            List<FieldDef> Fields = Entry.Value;
-            int FieldCount = Fields.Count;
-            int ActualColumnCount;
-            if (FieldCount <= 3)
-                ActualColumnCount = 1;
-            else if (FieldCount <= 6)
-                ActualColumnCount = Math.Min(2, ColumnCount);
-            else
-                ActualColumnCount = ColumnCount;
             List<List<FieldDef>> Columns = new();
-            for (int i = 0; i < ActualColumnCount; i++)
+            for (int i = 0; i < VisualColumnCount; i++)
                 Columns.Add(new List<FieldDef>());
-            int ItemsPerColumn = (int)Math.Ceiling((double)FieldCount / ActualColumnCount);
-            for (int i = 0; i < FieldCount; i++)
+            List<FieldDef> Fields = Entry.Value;
+            for (int i = 0; i < Fields.Count; i++)
             {
-                int ColumnIndex = i / ItemsPerColumn;
+                int ColumnIndex = i / MaxControlsPerColumn;
+                if (ColumnIndex >= VisualColumnCount)
+                    ColumnIndex = VisualColumnCount - 1;
                 Columns[ColumnIndex].Add(Fields[i]);
             }
             Result[Entry.Key] = Columns;
@@ -319,8 +316,13 @@ public class ItemPage : UserControl
         {
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
+
+        double ColumnWidth = Ui.Settings.FormColumnWidth;
         for (int i = 0; i < ColumnCount; i++)
-            Result.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
+        {
+            Result.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(ColumnWidth)));
+        } 
+            
         return Result;
     }
     /// <summary>
@@ -329,8 +331,9 @@ public class ItemPage : UserControl
     protected virtual Grid CreateColumnGrid()
     {
         Grid Result = new();
-        Result.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(33, GridUnitType.Star)));
-        Result.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(67, GridUnitType.Star)));
+        Result.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(28, GridUnitType.Star)));
+        Result.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(70, GridUnitType.Star)));
+        Result.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(2, GridUnitType.Star)));
         return Result;
     }
     /// <summary>
@@ -404,8 +407,7 @@ public class ItemPage : UserControl
             };
             Binder.Bind(Box, Field.Name, Field);
             Avalonia.Controls.Grid.SetRow(Box, RowIndex);
-            Avalonia.Controls.Grid.SetColumn(Box, 0);
-            Avalonia.Controls.Grid.SetColumnSpan(Box, 2);
+            Avalonia.Controls.Grid.SetColumn(Box, 1);
             Grid.Children.Add(Box);
             AddFieldUiInfo(TableUiInfo, Field, Box);
             return;
@@ -435,9 +437,14 @@ public class ItemPage : UserControl
     /// </summary>
     protected virtual TextBlock CreateFieldLabel(FieldDef Field)
     {
+        string Title = Field.Title;
+        if (Field.IsLookup && Title.EndsWith(" Id", StringComparison.OrdinalIgnoreCase))
+            Title = Title.Substring(0, Title.Length - 3);
+             
+        //if (Field.IsLookup)
         return new TextBlock
         {
-            Text = Field.Title,
+            Text = Title,
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Right,
             Margin = new Thickness(0, 0, 6, 6)
@@ -465,11 +472,20 @@ public class ItemPage : UserControl
         {
             TextBox Box = new();
             if (Field.IsNumeric)
+            {
                 Box.TextAlignment = TextAlignment.Right;
-            if (Field.IsMemo)
+            }
+            else if (Field.IsMemo)
+            {
                 Binder.BindMemo(Box, Field.Name, Field);
+                Box.AcceptsReturn = true;
+                Box.TextWrapping = TextWrapping.Wrap;
+                Box.MinHeight = Ui.Settings.FormMemoRowCount * 24;
+            }
             else
+            {
                 Binder.Bind(Box, Field.Name, Field);
+            }
             Result = Box;
         }
         Result.HorizontalAlignment = HorizontalAlignment.Stretch;

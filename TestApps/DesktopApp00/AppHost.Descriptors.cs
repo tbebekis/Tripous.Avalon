@@ -4,9 +4,9 @@ static public partial class AppHost
 {
     static void RegisterCommands()
     {
-        Command cmdExit = new ("Exit", "door_out.png", (c) => { AppHost.MainWindow.Close(); return 0; });
-        Command cmdCountries = new ("Countries", "globe_model.png", (c) => ContentHandler.ShowDataForm("Country"));
-        Command cmdCustomers = new ("Customers", "user.png", (c) => ContentHandler.ShowDataForm("Customer"));
+        Command cmdExit = Command.Create("Exit", "door_out.png", (c) => { AppHost.MainWindow.Close(); return 0; });
+        Command cmdCountries = Command.Create("Countries", "globe_model.png", (c) => ContentHandler.ShowDataForm("Country"));
+        Command cmdCustomers = Command.Create("Customers", "user.png", (c) => ContentHandler.ShowDataForm("Customer"));
         
         AppRegistry.ToolBarCommands.AddRange([cmdCountries, cmdCustomers, cmdExit]);
     }

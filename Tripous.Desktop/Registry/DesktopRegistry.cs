@@ -3,7 +3,7 @@ namespace Tripous.Desktop;
 static public class DesktopRegistry
 {
     // ● forms
-    static public FormDef AddForm(string Name, string TitleKey = null, string Module = null, string ClassName = null, string ItemClassName = null, bool IsReadOnly = false)
+    static public FormDef AddForm(string Name, string TitleKey = null, string Module = null, string ClassName = null, string Group = null, string ItemClassName = null, bool IsReadOnly = false)
     {
         if (string.IsNullOrWhiteSpace(Name))
             throw new TripousArgumentNullException(nameof(Name));
@@ -13,18 +13,19 @@ static public class DesktopRegistry
         FormDef Result = new();
         
         Result.Name = Name;
-        Result.TitleKey = !string.IsNullOrWhiteSpace(TitleKey) ? TitleKey : Name.ToPlural();
+        Result.TitleKey = TitleKey;
         Result.Module = !string.IsNullOrWhiteSpace(Module) ? Module : Name;
         Result.ClassName = ClassName;
+        Result.Group = Group;
         Result.ItemClassName = ItemClassName;
         Result.IsReadOnly = IsReadOnly;
         
         DesktopRegistry.Forms.Add(Result);
         return Result;
     }
-    static public FormDef AddForm(string Name, string Module) => AddForm(Name: Name, Module: Module);
-    static public FormDef AddForm(string Name, string Module, string ClassName) => AddForm(Name: Name, Module: Module, ClassName: ClassName);
-    static public FormDef AddForm(string Name, string Module, string ClassName, string TitleKey) => AddForm(Name: Name, Module: Module, ClassName: ClassName, TitleKey: TitleKey);
+    static public FormDef AddForm(string Name, string Module, string Group) => AddForm(Name: Name, Module: Module, Group: Group);
+    static public FormDef AddForm(string Name, string Module, string ClassName, string Group) => AddForm(Name: Name, Module: Module, ClassName: ClassName, Group: Group);
+    static public FormDef AddForm(string Name, string Module, string ClassName, string TitleKey, string Group) => AddForm(Name: Name, Module: Module, ClassName: ClassName, TitleKey: TitleKey, Group: Group);
  
     // ● create form
     static public DataForm CreateDataForm(string Name) => Forms.Get(Name).Create();

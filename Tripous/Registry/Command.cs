@@ -7,10 +7,44 @@ namespace Tripous;
 /// </summary>
 public class Command: BaseDef
 {
-    private string fImageFileName;
+    string fForm;
+    string fImageFileName;
     DefList<Command> fCommands;
     
     // ● construction
+    static public Command Create(string Name, string ImageFileName, string TitleKey = null)
+    {
+        Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName };
+        return Result;
+    }
+    
+    static public Command Create(string Name, string ImageFileName, Func<Command, object> ExecuteFunc, string TitleKey = null)
+    {
+        Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName, ExecuteFunc = ExecuteFunc };
+        return Result;
+    }
+    static public Command CreateAsync(string Name, string ImageFileName, Func<Command, Task<object>> ExecuteAsyncFunc, string TitleKey = null)
+    {
+        Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName, ExecuteAsyncFunc = ExecuteAsyncFunc };
+        return Result;
+    }
+    
+    static public Command Create(string Name, Func<Command, object> ExecuteFunc, string Form = null, string TitleKey = null, string ImageFileName = null)
+    {
+        Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName, Form =  Form, ExecuteFunc = ExecuteFunc };
+        return Result;
+    }
+    static public Command CreateAsync(string Name, Func<Command, Task<object>> ExecuteAsyncFunc, string Form = null, string TitleKey = null, string ImageFileName = null)
+    {
+        Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName, Form =  Form, ExecuteAsyncFunc = ExecuteAsyncFunc };
+        return Result;
+    }
+    static public Command CreateForm(string Name, string Form, string TitleKey = null, string ImageFileName = null)
+    {
+        Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName, Form =  Form };
+        return Result;
+    }
+    
     /// <summary>
     /// Constructor
     /// </summary>
@@ -21,80 +55,10 @@ public class Command: BaseDef
     /// Constructor
     /// </summary>
     public Command(string Name)
-        : this(Name, Name, "", null)
-    {
-    }
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    public Command(string Name, string ImageFileName)
-        : this(Name, Name, ImageFileName, null)
-    {
-    }
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    public Command(string Name, string TitleKey, string ImageFileName)
     {
         this.Name = Name;
-        this.TitleKey = TitleKey;
-        this.ImageFileName = ImageFileName;
     }
-
-
  
-
-    // ● construction - sync Execute()
-    /// <summary>
-    /// Constructor with sync <see cref="Execute"/>
-    /// </summary>
-    public Command(string Name, Func<Command, object> ExecuteFunc)
-        : this(Name, Name, "")
-    {
-        this.ExecuteFunc = ExecuteFunc;
-    }
-    /// <summary>
-    /// Constructor with sync <see cref="Execute"/>
-    /// </summary>
-    public Command(string Name, string ImageFileName, Func<Command, object> ExecuteFunc)
-        : this(Name, Name, ImageFileName)
-    {
-        this.ExecuteFunc = ExecuteFunc;
-    }
-    /// <summary>
-    /// Constructor with sync <see cref="Execute"/>
-    /// </summary>
-    public  Command(string Name, string TitleKey, string ImageFileName, Func<Command, object> ExecuteFunc)
-        : this(Name, TitleKey, ImageFileName)
-    {
-        this.ExecuteFunc = ExecuteFunc;
-    }
-    
-    // ● construction - async ExecuteAsync()
-    /// <summary>
-    /// Constructor with async <see cref="ExecuteAsync"/>
-    /// </summary>
-    public Command(string Name, Func<Command, Task<object>> ExecuteAsyncFunc)
-        : this(Name, Name, "")
-    {
-        this.ExecuteAsyncFunc = ExecuteAsyncFunc;
-    }
-    /// <summary>
-    /// Constructor with async <see cref="ExecuteAsync"/>
-    /// </summary>
-    public Command(string Name, string ImageFileName, Func<Command, Task<object>> ExecuteAsyncFunc)
-        : this(Name, Name, ImageFileName)
-    {
-        this.ExecuteAsyncFunc = ExecuteAsyncFunc;
-    }
-    /// <summary>
-    /// Constructor with async <see cref="ExecuteAsync"/>
-    /// </summary>
-    public Command(string Name, string TitleKey, string ImageFileName, Func<Command, Task<object>> ExecuteAsyncFunc)
-        : this(Name, TitleKey, ImageFileName)
-    {
-        this.ExecuteAsyncFunc = ExecuteAsyncFunc;
-    }
     
     // ● public
     /// <summary>
@@ -130,6 +94,14 @@ public class Command: BaseDef
     {
         get => fImageFileName;
         init { if (fImageFileName != value) { fImageFileName = value; NotifyPropertyChanged(nameof(ImageFileName)); } }
+    }
+    /// <summary>
+    /// The form to show when the command is executed.
+    /// </summary>
+    public string Form
+    {
+        get => fForm;
+        init { if (fForm != value) { fForm = value; NotifyPropertyChanged(nameof(Form)); } }
     }
     /// <summary>
     /// A list of child commands. Could be empty.
@@ -169,7 +141,7 @@ public class Command: BaseDef
     /// <summary>
     /// True when this is a container command.
     /// </summary>
-    public bool HasChildren => Commands != null && Commands.Count > 0;
+    public bool HasChildren => fCommands != null && fCommands.Count > 0;
     [JsonIgnore] public override bool IsSerializable => false;
     
     // ● events

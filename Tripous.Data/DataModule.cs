@@ -1,5 +1,6 @@
 namespace Tripous.Data;
 
+[RegistryType]
 public class DataModule
 {
     // ● operation flags 

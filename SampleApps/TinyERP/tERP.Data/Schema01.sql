@@ -18,7 +18,7 @@ CREATE TABLE {TableName} (
     ,Source @NVARCHAR(512) @NOT_NULL
     ,Scope @NVARCHAR(512) @NOT_NULL
     ,EventId @NVARCHAR(96) @NOT_NULL
-    ,Message @NBLOB_TEXT(96) @NOT_NULL
+    ,Message @NBLOB_TEXT @NOT_NULL
     )
 /*---------------------------------------------------
 Table: CustomerCategory
@@ -384,14 +384,14 @@ Module: Company
 Group: Company
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id  @NVARCHAR(40)  @NOT_NULL primary key,
+    Id  @NVARCHAR(40)  @NOT_NULL primary key,
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,
     Title @NVARCHAR(160) @NULL,
     TaxNumber @NVARCHAR(32) @NOT_NULL,
     TaxOfficeId @NVARCHAR(40) @NULL,        -- Lookup
-    CountryId @NVARCHAR(40) @NOT_NULL,      -- Lookup
-    CurrencyId @NVARCHAR(40) @NOT_NULL,     -- Lookup
+    CountryId @NVARCHAR(40) @NULL,      -- Lookup
+    CurrencyId @NVARCHAR(40) @NULL,     -- Lookup
     AddressLine1 @NVARCHAR(160) @NULL,
     AddressLine2 @NVARCHAR(160) @NULL,
     City @NVARCHAR(96) @NULL,

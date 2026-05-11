@@ -532,7 +532,7 @@ CREATE TABLE {TableName} (
     ,Source @NVARCHAR(512) @NOT_NULL
     ,Scope @NVARCHAR(512) @NOT_NULL
     ,EventId @NVARCHAR(96) @NOT_NULL
-    ,Message @NBLOB_TEXT(96) @NOT_NULL 
+    ,Message @NBLOB_TEXT @NOT_NULL 
 )
 ";
         return SqlText;

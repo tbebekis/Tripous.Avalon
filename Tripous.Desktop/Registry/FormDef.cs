@@ -10,14 +10,27 @@ public class FormDef: BaseDef
     string fItemClassName = typeof(ItemPage).FullName;
     string fModule;
     bool fIsReadOnly;
-    
-    
+    string fGroup;
+
+    protected override string GetTitleKey() => SplitTitleKeyToWordsWithPluralEnding();
+ 
+
+
     // ● public
     /// <summary>
     /// Creates a form instance as described by this instance.
     /// </summary>
     /// <returns></returns>
     public DataForm Create() => TypeResolver.CreateInstance<DataForm>(ClassName);
+    /// <summary>
+    /// Creates a command that displays the form.
+    /// </summary>
+    public Command CreateShowCommand(Func<Command, object> ExecuteFunc = null)
+    {
+        Command Result = new(Name) { TitleKey = TitleKey, Form = Name};
+        Result.ExecuteFunc = ExecuteFunc;
+        return Result;
+    }
 
     // ● properties
     /// <summary>
@@ -55,6 +68,15 @@ public class FormDef: BaseDef
     {
         get => !string.IsNullOrWhiteSpace(fModule) ? fModule : Name;
         set { if (fModule != value) { fModule = value; NotifyPropertyChanged(nameof(Module)); } }
+    }
+    /// <summary>
+    /// The group this form belongs to.
+    /// <para>Used in creating groups of <see cref="Command"/> lists.</para>
+    /// </summary>
+    public string Group
+    {
+        get => !string.IsNullOrWhiteSpace(fGroup) ? fGroup : "General Forms";
+        set { if (fGroup != value) { fGroup = value; NotifyPropertyChanged(nameof(Module)); } }
     }
     /// <summary>
     /// When true then no edits are allowed.

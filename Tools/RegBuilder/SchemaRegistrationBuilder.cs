@@ -11,6 +11,19 @@ public enum ParsingErrorType
 }
 
 /// <summary>
+/// Defines generated duplicate registry checks.
+/// </summary>
+[Flags]
+public enum DuplicateCheck
+{
+    None = 0,
+    Lookup = 1,
+    Enum = 2,
+    Form = 4,
+    Module = 8
+}
+
+/// <summary>
 /// A parser validation or informational message.
 /// </summary>
 public class ParsingMessage
@@ -119,6 +132,11 @@ static public class SchemaRegistrationBuilder
     /// Parses a Tripous schema script and generates schema, module and form registration source code.
     /// </summary>
     static public SchemaParserResult Parse(string SchemaSql, int SchemaVersion)
+        => Parse(SchemaSql, SchemaVersion, DuplicateCheck.None);
+    /// <summary>
+    /// Parses a Tripous schema script and generates schema, module and form registration source code.
+    /// </summary>
+    static public SchemaParserResult Parse(string SchemaSql, int SchemaVersion, DuplicateCheck DuplicateChecks)
     {
         if (string.IsNullOrWhiteSpace(SchemaSql))
             throw new TripousArgumentNullException(nameof(SchemaSql));
@@ -135,8 +153,8 @@ static public class SchemaRegistrationBuilder
 
         Result.SchemaSql = BuildOrderedSchemaSql(Script);
         Result.CreateTablesSourceCode = BuildCreateTablesSourceCode(Script, SchemaVersion);
-        Result.ModuleDefsSourceCode = BuildModuleDefsSourceCode(Script);
-        Result.FormDefsSourceCode = BuildFormDefsSourceCode(Script);
+        Result.ModuleDefsSourceCode = BuildModuleDefsSourceCode(Script, DuplicateChecks);
+        Result.FormDefsSourceCode = BuildFormDefsSourceCode(Script, DuplicateChecks);
 
         return Result;
     }
@@ -346,7 +364,7 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds source code for module registration.
     /// </summary>
-    static string BuildModuleDefsSourceCode(SchemaScript Script)
+    static string BuildModuleDefsSourceCode(SchemaScript Script, DuplicateCheck DuplicateChecks)
     {
         StringBuilder SB = new();
         List<SchemaTable> TopTables = Script.TopTables.OrderBy(x => x.ModuleName).ToList();
@@ -354,14 +372,14 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("static internal partial class Registry");
         SB.AppendLine("{");
         SB.AppendLine("    // ● private");
-        BuildRegisterLookupSourcesMethod(SB, Script);
+        BuildRegisterLookupSourcesMethod(SB, Script, DuplicateChecks);
         foreach (SchemaTable TopTable in TopTables)
-            BuildRegisterModuleMethod(SB, Script, TopTable);
+            BuildRegisterModuleMethod(SB, Script, TopTable, DuplicateChecks);
         SB.AppendLine();
         SB.AppendLine("    // ● static public");
         SB.AppendLine("    static public void RegisterModules()");
         SB.AppendLine("    {");
-        SB.AppendLine("        RegisterLookupSources();");
+        SB.AppendLine("        RegisterLookupSources_FromModules();");
         foreach (SchemaTable TopTable in TopTables)
             SB.AppendLine("        RegisterModule_" + SafeIdentifier(TopTable.ModuleName) + "();");
         SB.AppendLine("    }");
@@ -373,7 +391,7 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds source code for form registration.
     /// </summary>
-    static string BuildFormDefsSourceCode(SchemaScript Script)
+    static string BuildFormDefsSourceCode(SchemaScript Script, DuplicateCheck DuplicateChecks)
     {
         StringBuilder SB = new();
         List<SchemaTable> TopTables = Script.TopTables.OrderBy(x => x.ModuleName).ToList();
@@ -383,11 +401,24 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    // ● static public");
         SB.AppendLine("    static public void RegisterForms()");
         SB.AppendLine("    {");
+
         foreach (SchemaTable TopTable in TopTables)
         {
-            SB.AppendLine("        if (!DesktopRegistry.Forms.Contains(\"" + EscapeString(TopTable.ModuleName) + "\"))");
-            SB.AppendLine("            DesktopRegistry.AddForm(\"" + EscapeString(TopTable.ModuleName) + "\", TitleKey: \"" + EscapeString(TopTable.ModuleName) + "\");");
+            string GroupArg = !string.IsNullOrWhiteSpace(TopTable.GroupName)
+                ? ", Group: \"" + EscapeString(TopTable.GroupName) + "\""
+                : string.Empty;
+
+            if (DuplicateChecks.HasFlag(DuplicateCheck.Form))
+            {
+                SB.AppendLine("        if (!DesktopRegistry.Forms.Contains(\"" + EscapeString(TopTable.ModuleName) + "\"))");
+                SB.AppendLine("            DesktopRegistry.AddForm(\"" + EscapeString(TopTable.ModuleName) + "\", TitleKey: \"" + EscapeString(TopTable.ModuleName) + "\", Module: \"" + EscapeString(TopTable.ModuleName) + "\"" + GroupArg + ");");
+            }
+            else
+            {
+                SB.AppendLine("        DesktopRegistry.AddForm(\"" + EscapeString(TopTable.ModuleName) + "\", TitleKey: \"" + EscapeString(TopTable.ModuleName) + "\", Module: \"" + EscapeString(TopTable.ModuleName) + "\"" + GroupArg + ");");
+            }
         }
+
         SB.AppendLine("    }");
         SB.AppendLine("}");
 
@@ -396,32 +427,72 @@ static public class SchemaRegistrationBuilder
 
     // ● private - module source
     /// <summary>
+    /// Collects lookup source names and table names.
+    /// </summary>
+    static Dictionary<string, string> CollectLookupSourceTables(SchemaScript Script)
+    {
+        Dictionary<string, string> Result = new(StringComparer.OrdinalIgnoreCase);
+
+        foreach (SchemaTable Table in Script.Tables.Where(x => x.IsLookup))
+            Result[Table.Name] = Table.Name;
+
+        foreach (SchemaTable Table in Script.Tables)
+        {
+            foreach (SchemaField Field in Table.Fields)
+            {
+                if (Field.MetadataKind != FieldMetadataKind.Lookup && Field.MetadataKind != FieldMetadataKind.CorrelationLookup)
+                    continue;
+
+                string LookupSourceName = GetLookupSourceName(Script, Field);
+                string LookupTableName = Field.ForeignKey != null ? Field.ForeignKey.ReferenceTable : LookupSourceName;
+
+                if (!string.IsNullOrWhiteSpace(LookupSourceName) && !string.IsNullOrWhiteSpace(LookupTableName))
+                    Result[LookupSourceName] = LookupTableName;
+            }
+        }
+
+        return Result;
+    }
+    /// <summary>
     /// Builds lookup source registration method.
     /// </summary>
-    static void BuildRegisterLookupSourcesMethod(StringBuilder SB, SchemaScript Script)
+    static void BuildRegisterLookupSourcesMethod(StringBuilder SB, SchemaScript Script, DuplicateCheck DuplicateChecks)
     {
-        List<SchemaTable> LookupTables = Script.Tables.Where(x => x.IsLookup).OrderBy(x => x.Name).ToList();
+        Dictionary<string, string> LookupSources = CollectLookupSourceTables(Script);
 
-        SB.AppendLine("    static void RegisterLookupSources()");
+        SB.AppendLine("    static void RegisterLookupSources_FromModules()");
         SB.AppendLine("    {");
-        foreach (SchemaTable LookupTable in LookupTables)
+
+        foreach (var Entry in LookupSources.OrderBy(x => x.Key))
         {
-            SB.AppendLine("        if (!DataRegistry.LookupSources.Contains(\"" + EscapeString(LookupTable.Name) + "\"))");
-            SB.AppendLine("            DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupTable.Name) + "\", \"" + EscapeString(LookupTable.Name) + "\");");
+            if (DuplicateChecks.HasFlag(DuplicateCheck.Lookup))
+            {
+                SB.AppendLine("        if (!DataRegistry.LookupSources.Contains(\"" + EscapeString(Entry.Key) + "\"))");
+                SB.AppendLine("            DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(Entry.Key) + "\", \"" + EscapeString(Entry.Value) + "\");");
+            }
+            else
+            {
+                SB.AppendLine("        DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(Entry.Key) + "\", \"" + EscapeString(Entry.Value) + "\");");
+            }
         }
+
         SB.AppendLine("    }");
+
     }
     /// <summary>
     /// Builds a module registration method.
     /// </summary>
-    static void BuildRegisterModuleMethod(StringBuilder SB, SchemaScript Script, SchemaTable TopTable)
+    static void BuildRegisterModuleMethod(StringBuilder SB, SchemaScript Script, SchemaTable TopTable, DuplicateCheck DuplicateChecks)
     {
         SelectBuildResult SelectResult = BuildListSelectSql(Script, TopTable);
 
         SB.AppendLine("    static void RegisterModule_" + SafeIdentifier(TopTable.ModuleName) + "()");
         SB.AppendLine("    {");
-        SB.AppendLine("        if (DataRegistry.Modules.Contains(\"" + EscapeString(TopTable.ModuleName) + "\"))");
-        SB.AppendLine("            return;");
+        if (DuplicateChecks.HasFlag(DuplicateCheck.Module))
+        {
+            SB.AppendLine("        if (DataRegistry.Modules.Contains(\"" + EscapeString(TopTable.ModuleName) + "\"))");
+            SB.AppendLine("            return;");
+        }
         SB.AppendLine("        ModuleDef Module;");
         SB.AppendLine("        TableDef tblTop;");
         SB.AppendLine("        SelectDef SelectDef;");
@@ -484,6 +555,11 @@ static public class SchemaRegistrationBuilder
     {
         if (FilterFields.Count == 0)
             return;
+        
+        FilterFields = FilterFields
+            .OrderByDescending(x => x.Alias.IsSameText("Name"))
+            .ThenBy(x => x.Alias)
+            .ToList();
 
         SB.AppendLine("        string[] FilterFields = [" + string.Join(", ", FilterFields.Select(x => "\"" + EscapeString(x.Alias) + "\"")) + "];");
         SB.AppendLine("        SelectDef = Module.SelectList[0];");
@@ -550,50 +626,77 @@ static public class SchemaRegistrationBuilder
     /// Builds list select SQL and filter field information.
     /// </summary>
     static SelectBuildResult BuildListSelectSql(SchemaScript Script, SchemaTable TopTable)
+{
+    SelectBuildResult Result = new();
+    List<string> SelectLines = [];
+    List<string> JoinLines = [];
+    HashSet<string> Aliases = new(StringComparer.OrdinalIgnoreCase);
+
+    foreach (SchemaField Field in TopTable.Fields)
     {
-        SelectBuildResult Result = new();
-        List<string> SelectLines = [];
-        List<string> JoinLines = [];
-        HashSet<string> Aliases = new(StringComparer.OrdinalIgnoreCase);
-
-        foreach (SchemaField Field in TopTable.Fields)
+        if (!Field.DataType.IsBlob())
         {
-            if (!Field.DataType.IsBlob())
-            {
-                SelectLines.Add("   " + TopTable.Name + "." + Field.Name);
-                if (IsFilterableField(Field, Field.Name))
-                    Result.FilterFields.Add(new SelectField(Field.Name, Field.DataType));
-            }
+            SelectLines.Add("   " + TopTable.Name + "." + Field.Name);
+
+            if (IsFilterableField(Field, Field.Name))
+                Result.FilterFields.Add(new SelectField(Field.Name, Field.DataType));
         }
+    }
 
-        foreach (SchemaForeignKey ForeignKey in TopTable.ForeignKeys)
+    foreach (SchemaForeignKey ForeignKey in TopTable.ForeignKeys)
+    {
+        SchemaTable JoinTable = Script.FindTable(ForeignKey.ReferenceTable);
+
+        if (JoinTable == null || JoinTable.Name.IsSameText(TopTable.Name))
+            continue;
+
+        string Alias = UniqueAlias(RemoveIdSuffix(ForeignKey.FieldName), Aliases);
+
+        JoinLines.Add("    left join " + JoinTable.Name + " " + Alias + " on " + Alias + "." + ForeignKey.ReferenceField + " = " + TopTable.Name + "." + ForeignKey.FieldName);
+
+        foreach (SchemaField JoinField in JoinTable.Fields)
         {
-            SchemaTable JoinTable = Script.FindTable(ForeignKey.ReferenceTable);
-            if (JoinTable == null || JoinTable.Name.IsSameText(TopTable.Name))
+            if (JoinField.Name.IsSameText("Id"))
                 continue;
 
-            string Alias = UniqueAlias(RemoveIdSuffix(ForeignKey.FieldName), Aliases);
-            JoinLines.Add("    left join " + JoinTable.Name + " " + Alias + " on " + Alias + "." + ForeignKey.ReferenceField + " = " + TopTable.Name + "." + ForeignKey.FieldName);
-            AddJoinDisplayFields(SelectLines, Result.FilterFields, JoinTable, Alias);
+            if (JoinField.DataType != DataFieldType.String)
+                continue;
+
+            if (!JoinField.Name.IsSameText("Name") &&
+                !JoinField.Name.IsSameText("Code") &&
+                !JoinField.Name.IsSameText("Title"))
+                continue;
+
+            string DisplayAlias = UniqueAlias(Alias + JoinField.Name, Aliases);
+
+            SelectLines.Add("   COALESCE(" + Alias + "." + JoinField.Name + ", '') as " + DisplayAlias);
+
+            if (IsFilterableField(JoinField, DisplayAlias))
+                Result.FilterFields.Add(new SelectField(DisplayAlias, JoinField.DataType));
         }
-
-        StringBuilder SB = new();
-        SB.AppendLine("select");
-        SB.AppendLine(string.Join("," + Environment.NewLine, SelectLines));
-        SB.AppendLine("from");
-        SB.AppendLine("  " + TopTable.Name);
-        foreach (string JoinLine in JoinLines)
-            SB.AppendLine(JoinLine);
-
-        Result.SqlText = SB.ToString().TrimEnd();
-        Result.FilterFields = Result.FilterFields
-            .GroupBy(x => x.Alias, StringComparer.OrdinalIgnoreCase)
-            .Select(x => x.First())
-            .OrderBy(x => x.Alias)
-            .ToList();
-
-        return Result;
     }
+
+    StringBuilder SB = new();
+
+    SB.AppendLine("select");
+    SB.AppendLine(string.Join("," + Environment.NewLine, SelectLines));
+    SB.AppendLine("from");
+    SB.AppendLine("  " + TopTable.Name);
+
+    foreach (string JoinLine in JoinLines)
+        SB.AppendLine(JoinLine);
+
+    Result.SqlText = SB.ToString().TrimEnd();
+
+    Result.FilterFields = Result.FilterFields
+        .GroupBy(x => x.Alias, StringComparer.OrdinalIgnoreCase)
+        .Select(x => x.First())
+        .OrderBy(x => x.Alias)
+        .ToList();
+
+    return Result;
+}
+    
     /// <summary>
     /// Adds display fields from a joined table.
     /// </summary>
@@ -918,11 +1021,11 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static string GetLookupSourceName(SchemaScript Script, SchemaField Field)
     {
-        if (Field.MetadataKind == FieldMetadataKind.Lookup || Field.MetadataKind == FieldMetadataKind.CorrelationLookup)
-            return RemoveIdSuffix(Field.Name);
-
         if (Field.ForeignKey != null)
             return Field.ForeignKey.ReferenceTable;
+
+        if (Field.MetadataKind == FieldMetadataKind.Lookup || Field.MetadataKind == FieldMetadataKind.CorrelationLookup)
+            return RemoveIdSuffix(Field.Name);
 
         return RemoveIdSuffix(Field.Name);
     }

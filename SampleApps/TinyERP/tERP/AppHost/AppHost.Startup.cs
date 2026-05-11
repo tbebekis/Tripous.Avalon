@@ -94,15 +94,14 @@ static internal partial class AppHost
     /// </summary>
     static void RegisterDescriptors()
     {
-        Registry.RegisterCommands();
-
          Registry.RegisterLookupSources();
          Registry.RegisterLocators();
  
          Registry.RegisterModules();
          Registry.RegisterForms();
+         
+         Registry.RegisterCommands();
     }
-
     static void AddCompany()
     {
         //string SqlText = "select * from Company";
@@ -123,13 +122,13 @@ static internal partial class AppHost
             dmCompany.Commit();
         }
     }
-
     static void InitializeLibraries()
     {
         CommonLib.Initialize();
         DataLib.Initialize();
         DesktopLib.Initialize();
     }
+    
     // ● public
     /// <summary>
     /// Starts this application.
@@ -164,6 +163,9 @@ static internal partial class AppHost
             
             Ui.MainWindow = AppHost.MainWindow;
             InitializeLibraries();
+            
+            TypeRegistry.RegisterLoadedAssemblies();
+            
             MainWindow.Show();
             
         }

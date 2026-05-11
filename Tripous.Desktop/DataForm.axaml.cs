@@ -1,5 +1,6 @@
 namespace Tripous.Desktop;
 
+
 public partial class DataForm : AppForm
 {
     protected DataFormState fFormState = DataFormState.None;

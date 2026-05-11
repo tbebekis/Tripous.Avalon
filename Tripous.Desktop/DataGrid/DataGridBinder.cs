@@ -327,6 +327,9 @@ public static class DataGridBinder
         }, SupportsRecycling);
     }
 
+    static public string GetHeader(string ColumnName, string Header) => string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
+ 
+    
     // ● private - create columns
     static DataGridColumn CreateTextColumn(string ColumnName, string Header = "", string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
@@ -334,7 +337,7 @@ public static class DataGridBinder
 
         TextAlignment Align = Alignment ?? TextAlignment.Left;
 
-        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName : Header;
+        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
         Result.IsReadOnly = IsReadOnly;
         Result.CellTemplate = CreateTextDisplayTemplate(ColumnName, Align, Format, SupportsRecycling);
         Result.CellEditingTemplate = IsReadOnly ? null : CreateTextEditTemplate(ColumnName, Align, SupportsRecycling);
@@ -345,7 +348,7 @@ public static class DataGridBinder
     {
         DataGridTemplateColumn Result = new();
 
-        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName : Header;
+        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
         Result.IsReadOnly = IsReadOnly;
         Result.CellTemplate = CreateBoolDisplayTemplate(ColumnName, SupportsRecycling);
         Result.CellEditingTemplate = IsReadOnly ? null : CreateBoolEditTemplate(ColumnName, SupportsRecycling);
@@ -356,7 +359,7 @@ public static class DataGridBinder
     {
         DataGridTemplateColumn Result = new();
 
-        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName : Header;
+        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
         Result.IsReadOnly = IsReadOnly;
         Result.CellTemplate = CreateLookupDisplayTemplate(ColumnName, Source, SupportsRecycling);
         Result.CellEditingTemplate = IsReadOnly ? null : CreateLookupEditTemplate(ColumnName, Source, SupportsRecycling);
@@ -442,7 +445,7 @@ public static class DataGridBinder
         else
             Result = CreateTextColumn(Column.ColumnName, Header: Column.Caption, Format: Format, Alignment: Align, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
 
-        Result.Header = Column.Caption;
+        Result.Header = Column.Caption.SplitToWords();
         Result.IsReadOnly = IsReadOnly;
         
         GridColumnInfo CI = new GridColumnInfo(Result, Column);
@@ -461,7 +464,7 @@ public static class DataGridBinder
         else
             Result = CreateTextColumn(FieldDef.Name, Header: FieldDef.Title, Format: FieldDef.DisplayFormat, Alignment: Align, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
 
-        Result.Header = FieldDef.Title;
+        Result.Header = FieldDef.Title.SplitToWords();
         Result.IsReadOnly = FieldDef.IsReadOnly;
         
         GridColumnInfo CI = new GridColumnInfo(Result, FieldDef);

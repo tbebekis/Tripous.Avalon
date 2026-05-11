@@ -26,6 +26,14 @@
                 <TextBox Grid.Row="1" Grid.Column="1" Name="edtSchemaVersion" Margin="0,5"/>
             </Grid>
 
+            <StackPanel Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
+                <TextBlock Text="Duplicate Checks:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <CheckBox Name="chLookup" Content="Lookups"/>
+                <CheckBox Name="chEnum" Content="Enums"/>
+                <CheckBox Name="chForm" Content="Forms"/>
+                <CheckBox Name="chModule" Content="Modules"/>
+            </StackPanel>
+
             <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">
                 <Button Name="btnExecute" Content="Execute" Width="120" HorizontalContentAlignment="Center"/>
                 <Button Name="btnOpenOutputFolder" Content="Open Output Folder" Width="180" HorizontalContentAlignment="Center"/>
@@ -33,32 +41,27 @@
         </StackPanel>
 
         <Grid RowDefinitions="*, 4, 150" Margin="0,10,0,0">
-            
             <TabControl Grid.Row="0">
                 <TabItem Header="Tables">
                     <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
                         <ae:TextEditor Name="edtTables"/>
                     </Border>
                 </TabItem>
-                
                 <TabItem Header="Modules">
                     <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
                         <ae:TextEditor Name="edtModules"/>
                     </Border>
                 </TabItem>
-                
                 <TabItem Header="Forms">
                     <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
                         <ae:TextEditor Name="edtForms"/>
                     </Border>
                 </TabItem>
-                
                 <TabItem Header="Schema">
                     <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
                         <ae:TextEditor Name="edtSchemaSql"/>
                     </Border>
                 </TabItem>
-                
                 <TabItem Header="Schema by RDBMS">
                     <DockPanel LastChildFill="True">
                         <StackPanel DockPanel.Dock="Top" Margin="0,0,0,5">

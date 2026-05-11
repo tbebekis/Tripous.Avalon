@@ -691,7 +691,8 @@ where
             throw new TripousDataException($"Type {EnumType.FullName} is not an enum type");
         
         FieldDef Result = AddLookupId(Name, DataFieldType.Integer, LookupSource, Group: Group, TitleKey: TitleKey, Flags: Flags);
-        DataRegistry.AddLookupSource(LookupSource, EnumType, UseNullItem);
+        if (!DataRegistry.LookupSources.Contains(LookupSource))
+            DataRegistry.AddLookupSource(LookupSource, EnumType, UseNullItem);
         
         return Result;
     }
@@ -817,7 +818,6 @@ where
         get => !string.IsNullOrWhiteSpace(fAlias)? fAlias: Name;
         set { if (fAlias != value) { fAlias = value; NotifyPropertyChanged(nameof(Alias)); } }
     }
- 
     /// <summary>
     /// Gets or sets the name of the primary key field of this table.
     /// </summary>

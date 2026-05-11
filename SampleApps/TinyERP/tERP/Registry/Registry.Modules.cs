@@ -1,92 +1,21 @@
 namespace tERP;
 
-
-
 static internal partial class Registry
 {
-    static void RegisterMasterModule_Log()
-    {
-        ModuleDef Module;
-        TableDef tblTop;
-        SelectDef SelectDef;
-        string SqlText;
-        string TableName = "SYS_LOG";
-        
-/*
-    Id  @NVARCHAR(40)  @NOT_NULL primary key
-   ,Year int @NOT_NULL
-   ,Month int @NOT_NULL
-   ,DayOfMonth int @NOT_NULL
-   ,LogTime @NVARCHAR(20) @NOT_NULL
-   ,User @NVARCHAR(96) @NOT_NULL
-   ,Host @NVARCHAR(96) @NOT_NULL
-   ,Level @NVARCHAR(96) @NOT_NULL
-   ,Source @NVARCHAR(512) @NOT_NULL
-   ,Scope @NVARCHAR(512) @NOT_NULL
-   ,EventId @NVARCHAR(96) @NOT_NULL
-   ,Message @NBLOB_TEXT(96) @NOT_NULL
- */        
-        
-        SqlText = $@"
-select
-    Id          
-   ,Year        
-   ,Month       
-   ,DayOfMonth  
-   ,LogTime     
-   ,User        
-   ,Host        
-   ,Level       
-   ,Source      
-   ,Scope       
-   ,EventId     
-from
-    {TableName}  
-";
-        Module = DataRegistry.AddModule(Name: "Log", ClassName: "DataModule", ListSelectSql: SqlText, IsSingleSelect: true);
-        Module.GuidOids = true;
-
-
-        
-        tblTop = Module.Table;
-        tblTop.Name = TableName;
-
-        tblTop.AddId();
-        tblTop.AddInteger("Year");
-        tblTop.AddInteger("Month");
-        tblTop.AddInteger("DayOfMonth");
-        tblTop.AddString("LogTime");
-        tblTop.AddString("User");
-        tblTop.AddString("Host");
-        tblTop.AddString("Level");
-        tblTop.AddString("Source");
-        tblTop.AddString("Scope");
-        tblTop.AddString("EventId");
-        tblTop.AddTextBlob("Message").Flags |= FieldFlags.LargeMemo;
-
-        // filters
-        string[] FilterFields = ["Year", "Month", "DayOfMonth", "User", "Host", "Level", "Source", "EventId"];
-        SelectDef = Module.SelectList[0];
-        foreach (string FieldName in FilterFields)
-            SelectDef.AddFilter(tblTop.GetField(FieldName));
- 
-    }
-    
     // ● private
-    static void RegisterModule_Bank()
+    static void RegisterLookupSources_FromModules()
     {
-        ModuleDef Module;
-        TableDef tblTop;
-        SelectDef SelectDef;
-        string SqlText;
         DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
         DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
         DataRegistry.AddLookupSourceWithTableName("Category", "Category");
+        DataRegistry.AddLookupSourceWithTableName("Company", "Company");
+        DataRegistry.AddLookupSourceWithTableName("CompanyBranch", "CompanyBranch");
         DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
         DataRegistry.AddLookupSourceWithTableName("Country", "Country");
         DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
         DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
         DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
+        DataRegistry.AddLookupSourceWithTableName("DiscountGroup", "DiscountGroup");
         DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
         DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
         DataRegistry.AddLookupSourceWithTableName("Language", "Language");
@@ -95,6 +24,7 @@ from
         DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
         DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
         DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
+        DataRegistry.AddLookupSourceWithTableName("PriceType", "PriceType");
         DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
         DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
         DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
@@ -104,6 +34,13 @@ from
         DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
         DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
         DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
+    }
+    static void RegisterModule_Bank()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
         SqlText = @"
 select
    Bank.Id,
@@ -119,7 +56,7 @@ from
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        string[] FilterFields = ["Code", "Name"];
+        string[] FilterFields = ["Name", "Code"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -130,31 +67,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    Carrier.Id,
@@ -172,7 +84,7 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        string[] FilterFields = ["Code", "IsActive", "Name"];
+        string[] FilterFields = ["Name", "Code", "IsActive"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -183,31 +95,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    Category.Id,
@@ -223,9 +110,8 @@ select
    Category.IsActive,
    Category.Color,
    Category.IconName,
-   VatRate.Code as VatRateCode,
-   VatRate.Name as VatRate,
-   VatRate.IsActive as VatRateIsActive
+   COALESCE(VatRate.Code, '') as VatRateCode,
+   COALESCE(VatRate.Name, '') as VatRateName
 from
   Category
     left join VatRate VatRate on VatRate.Id = Category.VatRateId
@@ -235,7 +121,7 @@ from
         tblTop.Name = "Category";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddStringLookupId("ParentId", "Parent", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddStringLookupId("ParentId", "Category", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddInteger("LevelNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -248,7 +134,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Code", "Color", "ExpenseAccount", "IconName", "IsActive", "IsSystem", "LevelNo", "Name", "RevenueAccount", "SortNo", "VatRate", "VatRateCode", "VatRateIsActive"];
+        string[] FilterFields = ["Name", "Code", "Color", "ExpenseAccount", "IconName", "IsActive", "IsSystem", "LevelNo", "RevenueAccount", "SortNo", "VatRateCode", "VatRateName"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -259,31 +145,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    Company.Id,
@@ -301,12 +162,12 @@ select
    Company.Phone,
    Company.Email,
    Company.Website,
-   TaxOffice.Code as TaxOfficeCode,
-   TaxOffice.Name as TaxOffice,
-   Country.Code as CountryCode,
-   Country.Name as Country,
-   Currency.Code as CurrencyCode,
-   Currency.Name as Currency
+   COALESCE(TaxOffice.Code, '') as TaxOfficeCode,
+   COALESCE(TaxOffice.Name, '') as TaxOfficeName,
+   COALESCE(Country.Code, '') as CountryCode,
+   COALESCE(Country.Name, '') as CountryName,
+   COALESCE(Currency.Code, '') as CurrencyCode,
+   COALESCE(Currency.Name, '') as CurrencyName
 from
   Company
     left join TaxOffice TaxOffice on TaxOffice.Id = Company.TaxOfficeId
@@ -323,8 +184,8 @@ from
         tblTop.AddString("Title", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("TaxNumber", MaxLength: 32, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("TaxOfficeId", "TaxOffice", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("AddressLine1", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("City", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
@@ -332,7 +193,7 @@ from
         tblTop.AddString("Phone", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("Email", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("Website", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["AddressLine1", "AddressLine2", "City", "Code", "Country", "CountryCode", "Currency", "CurrencyCode", "Email", "Name", "Phone", "PostalCode", "TaxNumber", "TaxOffice", "TaxOfficeCode", "Title", "Website"];
+        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "City", "Code", "CountryCode", "CountryName", "CurrencyCode", "CurrencyName", "Email", "Phone", "PostalCode", "TaxNumber", "TaxOfficeCode", "TaxOfficeName", "Title", "Website"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -370,31 +231,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    CostCenter.Id,
@@ -407,10 +243,9 @@ select
    CostCenter.IsActive,
    CostCenter.Color,
    CostCenter.IconName,
-   ManagerPerson.Code as ManagerPersonCode,
-   ManagerPerson.Name as ManagerPerson,
-   ManagerPerson.Title as ManagerPersonTitle,
-   ManagerPerson.IsActive as ManagerPersonIsActive
+   COALESCE(ManagerPerson.Code, '') as ManagerPersonCode,
+   COALESCE(ManagerPerson.Name, '') as ManagerPersonName,
+   COALESCE(ManagerPerson.Title, '') as ManagerPersonTitle
 from
   CostCenter
     left join Person ManagerPerson on ManagerPerson.Id = CostCenter.ManagerPersonId
@@ -422,7 +257,7 @@ from
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddStringLookupId("ParentCostCenterId", "ParentCostCenter", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddStringLookupId("ParentCostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("ManagerPersonId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddDate("StartDate", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddDate("EndDate", Flags: FieldFlags.Visible).SetNullable(true);
@@ -430,7 +265,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Code", "Color", "EndDate", "IconName", "IsActive", "ManagerPerson", "ManagerPersonCode", "ManagerPersonIsActive", "ManagerPersonTitle", "Name", "StartDate"];
+        string[] FilterFields = ["Name", "Code", "Color", "EndDate", "IconName", "IsActive", "ManagerPersonCode", "ManagerPersonName", "ManagerPersonTitle", "StartDate"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -441,31 +276,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    Country.Id,
@@ -485,7 +295,7 @@ from
         tblTop.AddString("Iso2", MaxLength: 2, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Iso3", MaxLength: 3, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        string[] FilterFields = ["Code", "Iso2", "Iso3", "Name"];
+        string[] FilterFields = ["Name", "Code", "Iso2", "Iso3"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -496,31 +306,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    Currency.Id,
@@ -540,7 +325,7 @@ from
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Symbol", MaxLength: 8, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddInteger("Decimals", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("2");
-        string[] FilterFields = ["Code", "Decimals", "Name", "Symbol"];
+        string[] FilterFields = ["Name", "Code", "Decimals", "Symbol"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -551,31 +336,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    CustomerCategory.Id,
@@ -600,31 +360,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    DiscountCategory.Id,
@@ -649,31 +384,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    DocumentType.Id,
@@ -696,9 +406,8 @@ select
    DocumentType.IconName,
    DocumentType.PrintTemplate,
    DocumentType.ReportName,
-   NumberSeries.Code as NumberSeriesCode,
-   NumberSeries.Name as NumberSeries,
-   NumberSeries.IsActive as NumberSeriesIsActive
+   COALESCE(NumberSeries.Code, '') as NumberSeriesCode,
+   COALESCE(NumberSeries.Name, '') as NumberSeriesName
 from
   DocumentType
     left join NumberSeries NumberSeries on NumberSeries.Id = DocumentType.NumberSeriesId
@@ -728,7 +437,7 @@ from
         tblTop.AddString("PrintTemplate", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("ReportName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["AccountingDirection", "AffectsAccounting", "AffectsFinancial", "AffectsStock", "AutoComplete", "Code", "Color", "FinancialDirection", "IconName", "IsActive", "IsCancellation", "Name", "NumberSeries", "NumberSeriesCode", "NumberSeriesIsActive", "PrintTemplate", "ReportName", "RequiresApproval", "StockDirection"];
+        string[] FilterFields = ["Name", "AccountingDirection", "AffectsAccounting", "AffectsFinancial", "AffectsStock", "AutoComplete", "Code", "Color", "FinancialDirection", "IconName", "IsActive", "IsCancellation", "NumberSeriesCode", "NumberSeriesName", "PrintTemplate", "ReportName", "RequiresApproval", "StockDirection"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -739,31 +448,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    ExpenseCategory.Id,
@@ -779,7 +463,7 @@ from
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        string[] FilterFields = ["Code", "Name"];
+        string[] FilterFields = ["Name", "Code"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -790,31 +474,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    FiscalYear.Id,
@@ -839,7 +498,7 @@ from
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddBoolean("IsClosed", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Code", "EndDate", "IsActive", "IsClosed", "Name", "StartDate"];
+        string[] FilterFields = ["Name", "Code", "EndDate", "IsActive", "IsClosed", "StartDate"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -861,31 +520,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    Language.Id,
@@ -914,7 +548,50 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Code", "Color", "CultureName", "IconName", "IsActive", "IsDefault", "IsRightToLeft", "Name"];
+        string[] FilterFields = ["Name", "Code", "Color", "CultureName", "IconName", "IsActive", "IsDefault", "IsRightToLeft"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+    }
+    static void RegisterModule_Log()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   SYS_LOG.Id,
+   SYS_LOG.Year,
+   SYS_LOG.Month,
+   SYS_LOG.DayOfMonth,
+   SYS_LOG.LogTime,
+   SYS_LOG.User,
+   SYS_LOG.Host,
+   SYS_LOG.Level,
+   SYS_LOG.Source,
+   SYS_LOG.Scope,
+   SYS_LOG.EventId
+from
+  SYS_LOG
+";
+        Module = DataRegistry.AddModule("Log", ListSelectSql: SqlText, IsSingleSelect: false);
+        tblTop = Module.Table;
+        tblTop.Name = "SYS_LOG";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddInteger("Year", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddInteger("Month", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddInteger("DayOfMonth", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("LogTime", MaxLength: 20, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("User", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Host", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Level", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Source", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Scope", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("EventId", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddTextBlob("Message", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        string[] FilterFields = ["DayOfMonth", "Host", "Level", "LogTime", "Month", "Scope", "Source", "User", "Year"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -925,31 +602,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    NumberSeries.Id,
@@ -973,7 +625,7 @@ from
         tblTop.AddInteger("Padding", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("6");
         tblTop.AddInteger("NextNumber", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        string[] FilterFields = ["Code", "IsActive", "Name", "NextNumber", "Padding", "Prefix"];
+        string[] FilterFields = ["Name", "Code", "IsActive", "NextNumber", "Padding", "Prefix"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -984,31 +636,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    PaymentMethod.Id,
@@ -1026,7 +653,7 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        string[] FilterFields = ["Code", "IsActive", "Name"];
+        string[] FilterFields = ["Name", "Code", "IsActive"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1037,31 +664,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    PaymentTerm.Id,
@@ -1082,7 +684,7 @@ from
         tblTop.AddInteger("Days", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Code", "Days", "IsActive", "Name"];
+        string[] FilterFields = ["Name", "Code", "Days", "IsActive"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1093,31 +695,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    Person.Id,
@@ -1142,15 +719,14 @@ select
    Person.IsActive,
    Person.Color,
    Person.IconName,
-   TaxOffice.Code as TaxOfficeCode,
-   TaxOffice.Name as TaxOffice,
-   Country.Code as CountryCode,
-   Country.Name as Country,
-   Currency.Code as CurrencyCode,
-   Currency.Name as Currency,
-   Language.Code as LanguageCode,
-   Language.Name as Language,
-   Language.IsActive as LanguageIsActive
+   COALESCE(TaxOffice.Code, '') as TaxOfficeCode,
+   COALESCE(TaxOffice.Name, '') as TaxOfficeName,
+   COALESCE(Country.Code, '') as CountryCode,
+   COALESCE(Country.Name, '') as CountryName,
+   COALESCE(Currency.Code, '') as CurrencyCode,
+   COALESCE(Currency.Name, '') as CurrencyName,
+   COALESCE(Language.Code, '') as LanguageCode,
+   COALESCE(Language.Name, '') as LanguageName
 from
   Person
     left join TaxOffice TaxOffice on TaxOffice.Id = Person.TaxOfficeId
@@ -1185,7 +761,7 @@ from
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["AddressLine1", "AddressLine2", "City", "Code", "Color", "ContactPerson", "Country", "CountryCode", "Currency", "CurrencyCode", "Email", "IconName", "IsActive", "IsCompany", "Language", "LanguageCode", "LanguageIsActive", "Mobile", "Name", "Phone", "PostalCode", "TaxNumber", "TaxOffice", "TaxOfficeCode", "Title", "Website"];
+        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "City", "Code", "Color", "ContactPerson", "CountryCode", "CountryName", "CurrencyCode", "CurrencyName", "Email", "IconName", "IsActive", "IsCompany", "LanguageCode", "LanguageName", "Mobile", "Phone", "PostalCode", "TaxNumber", "TaxOfficeCode", "TaxOfficeName", "Title", "Website"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1193,7 +769,7 @@ from
         tblPersonRole.KeyField = "Id";
         tblPersonRole.AddId("Id").SetNullable(false);
         tblPersonRole.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblPersonRole.AddStringLookupId("RoleTypeId", "RoleType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPersonRole.AddStringLookupId("RoleTypeId", "PersonRoleType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblPersonRole.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblPersonRole.AddDate("StartDate", Flags: FieldFlags.Visible).SetNullable(true);
         tblPersonRole.AddDate("EndDate", Flags: FieldFlags.Visible).SetNullable(true);
@@ -1205,31 +781,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    PersonRoleType.Id,
@@ -1252,7 +803,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Code", "Color", "IconName", "IsActive", "Name"];
+        string[] FilterFields = ["Name", "Code", "Color", "IconName", "IsActive"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1263,31 +814,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    PriceList.Id,
@@ -1301,15 +827,13 @@ select
    PriceList.ValidFrom,
    PriceList.ValidTo,
    PriceList.IsActive,
-   Customer.Code as CustomerCode,
-   Customer.Name as Customer,
-   Customer.Title as CustomerTitle,
-   Customer.IsActive as CustomerIsActive,
-   Product.Code as ProductCode,
-   Product.Name as Product,
-   Product.IsActive as ProductIsActive,
-   UnitOfMeasure.Code as UnitOfMeasureCode,
-   UnitOfMeasure.Name as UnitOfMeasure
+   COALESCE(Customer.Code, '') as CustomerCode,
+   COALESCE(Customer.Name, '') as CustomerName,
+   COALESCE(Customer.Title, '') as CustomerTitle,
+   COALESCE(Product.Code, '') as ProductCode,
+   COALESCE(Product.Name, '') as ProductName,
+   COALESCE(UnitOfMeasure.Code, '') as UnitOfMeasureCode,
+   COALESCE(UnitOfMeasure.Name, '') as UnitOfMeasureName
 from
   PriceList
     left join Person Customer on Customer.Id = PriceList.CustomerId
@@ -1332,7 +856,7 @@ from
         tblTop.AddDate("ValidTo", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Customer", "CustomerCode", "CustomerIsActive", "CustomerTitle", "IsActive", "MinQuantity", "Product", "ProductCode", "ProductIsActive", "UnitOfMeasure", "UnitOfMeasureCode", "UnitPrice", "ValidFrom", "ValidTo"];
+        string[] FilterFields = ["CustomerCode", "CustomerName", "CustomerTitle", "IsActive", "MinQuantity", "ProductCode", "ProductName", "UnitOfMeasureCode", "UnitOfMeasureName", "UnitPrice", "ValidFrom", "ValidTo"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1343,31 +867,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    PriceListType.Id,
@@ -1379,8 +878,8 @@ select
    PriceListType.IsActive,
    PriceListType.Color,
    PriceListType.IconName,
-   Currency.Code as CurrencyCode,
-   Currency.Name as Currency
+   COALESCE(Currency.Code, '') as CurrencyCode,
+   COALESCE(Currency.Name, '') as CurrencyName
 from
   PriceListType
     left join Currency Currency on Currency.Id = PriceListType.CurrencyId
@@ -1399,7 +898,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Code", "Color", "Currency", "CurrencyCode", "IconName", "IsActive", "IsDefault", "IsTaxIncluded", "Name"];
+        string[] FilterFields = ["Name", "Code", "Color", "CurrencyCode", "CurrencyName", "IconName", "IsActive", "IsDefault", "IsTaxIncluded"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1410,31 +909,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    Product.Id,
@@ -1450,14 +924,12 @@ select
    Product.IsActive,
    Product.Color,
    Product.IconName,
-   Category.Code as CategoryCode,
-   Category.Name as Category,
-   Category.IsActive as CategoryIsActive,
-   VatRate.Code as VatRateCode,
-   VatRate.Name as VatRate,
-   VatRate.IsActive as VatRateIsActive,
-   PrimaryUnitOfMeasure.Code as PrimaryUnitOfMeasureCode,
-   PrimaryUnitOfMeasure.Name as PrimaryUnitOfMeasure
+   COALESCE(Category.Code, '') as CategoryCode,
+   COALESCE(Category.Name, '') as CategoryName,
+   COALESCE(VatRate.Code, '') as VatRateCode,
+   COALESCE(VatRate.Name, '') as VatRateName,
+   COALESCE(PrimaryUnitOfMeasure.Code, '') as PrimaryUnitOfMeasureCode,
+   COALESCE(PrimaryUnitOfMeasure.Name, '') as PrimaryUnitOfMeasureName
 from
   Product
     left join Category Category on Category.Id = Product.CategoryId
@@ -1474,7 +946,7 @@ from
         tblTop.AddEnumLookupId("ProductTypeId", "ProductType", typeof(ProductType), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CategoryId", "Category", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddStringLookupId("PrimaryUnitOfMeasureId", "PrimaryUnitOfMeasure", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("PrimaryUnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddDecimal("Weight", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddDecimal("Volume", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
@@ -1482,7 +954,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Barcode", "Category", "CategoryCode", "CategoryIsActive", "Code", "Color", "IconName", "IsActive", "Name", "PrimaryUnitOfMeasure", "PrimaryUnitOfMeasureCode", "VatRate", "VatRateCode", "VatRateIsActive", "Volume", "Weight"];
+        string[] FilterFields = ["Name", "Barcode", "CategoryCode", "CategoryName", "Code", "Color", "IconName", "IsActive", "PrimaryUnitOfMeasureCode", "PrimaryUnitOfMeasureName", "VatRateCode", "VatRateName", "Volume", "Weight"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1490,7 +962,7 @@ from
         tblProductGroups.KeyField = "Id";
         tblProductGroups.AddId("Id").SetNullable(false);
         tblProductGroups.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblProductGroups.AddStringLookupId("GroupId", "Group", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductGroups.AddStringLookupId("GroupId", "ProductGroup", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblProductGroups.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
         TableDef tblProductCategory = tblTop.AddDetail("ProductCategory", "Id", "ProductId");
         tblProductCategory.KeyField = "Id";
@@ -1502,7 +974,7 @@ from
         tblProductUnitOfMeasure.KeyField = "Id";
         tblProductUnitOfMeasure.AddId("Id").SetNullable(false);
         tblProductUnitOfMeasure.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblProductUnitOfMeasure.AddStringLookupId("UnitId", "Unit", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductUnitOfMeasure.AddStringLookupId("UnitId", "UnitOfMeasure", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblProductUnitOfMeasure.AddDecimal("Ratio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblProductUnitOfMeasure.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
         tblProductUnitOfMeasure.AddBoolean("IsSalesDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -1516,31 +988,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    ProductBrand.Id,
@@ -1565,31 +1012,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    ProductGroup.Id,
@@ -1614,7 +1036,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Code", "Color", "IconName", "IsActive", "IsSystem", "Name"];
+        string[] FilterFields = ["Name", "Code", "Color", "IconName", "IsActive", "IsSystem"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1625,31 +1047,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    Project.Id,
@@ -1664,17 +1061,14 @@ select
    Project.IsActive,
    Project.Color,
    Project.IconName,
-   Customer.Code as CustomerCode,
-   Customer.Name as Customer,
-   Customer.Title as CustomerTitle,
-   Customer.IsActive as CustomerIsActive,
-   CostCenter.Code as CostCenterCode,
-   CostCenter.Name as CostCenter,
-   CostCenter.IsActive as CostCenterIsActive,
-   ManagerPerson.Code as ManagerPersonCode,
-   ManagerPerson.Name as ManagerPerson,
-   ManagerPerson.Title as ManagerPersonTitle,
-   ManagerPerson.IsActive as ManagerPersonIsActive
+   COALESCE(Customer.Code, '') as CustomerCode,
+   COALESCE(Customer.Name, '') as CustomerName,
+   COALESCE(Customer.Title, '') as CustomerTitle,
+   COALESCE(CostCenter.Code, '') as CostCenterCode,
+   COALESCE(CostCenter.Name, '') as CostCenterName,
+   COALESCE(ManagerPerson.Code, '') as ManagerPersonCode,
+   COALESCE(ManagerPerson.Name, '') as ManagerPersonName,
+   COALESCE(ManagerPerson.Title, '') as ManagerPersonTitle
 from
   Project
     left join Person Customer on Customer.Id = Project.CustomerId
@@ -1698,7 +1092,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Code", "Color", "CostCenter", "CostCenterCode", "CostCenterIsActive", "Customer", "CustomerCode", "CustomerIsActive", "CustomerTitle", "EndDate", "IconName", "IsActive", "ManagerPerson", "ManagerPersonCode", "ManagerPersonIsActive", "ManagerPersonTitle", "Name", "StartDate"];
+        string[] FilterFields = ["Name", "Code", "Color", "CostCenterCode", "CostCenterName", "CustomerCode", "CustomerName", "CustomerTitle", "EndDate", "IconName", "IsActive", "ManagerPersonCode", "ManagerPersonName", "ManagerPersonTitle", "StartDate"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1709,31 +1103,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    SalesPerson.Id,
@@ -1751,7 +1120,7 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        string[] FilterFields = ["Code", "IsActive", "Name"];
+        string[] FilterFields = ["Name", "Code", "IsActive"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1762,31 +1131,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    StockReason.Id,
@@ -1817,7 +1161,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["AffectsCost", "Code", "Color", "IconName", "IsActive", "IsSystem", "Name", "RequiresRemarks", "StockDirection"];
+        string[] FilterFields = ["Name", "AffectsCost", "Code", "Color", "IconName", "IsActive", "IsSystem", "RequiresRemarks", "StockDirection"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1828,31 +1172,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    SupplierCategory.Id,
@@ -1877,31 +1196,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    TaxCategory.Id,
@@ -1918,9 +1212,8 @@ select
    TaxCategory.IsActive,
    TaxCategory.Color,
    TaxCategory.IconName,
-   VatRate.Code as VatRateCode,
-   VatRate.Name as VatRate,
-   VatRate.IsActive as VatRateIsActive
+   COALESCE(VatRate.Code, '') as VatRateCode,
+   COALESCE(VatRate.Name, '') as VatRateName
 from
   TaxCategory
     left join VatRate VatRate on VatRate.Id = TaxCategory.VatRateId
@@ -1944,7 +1237,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Code", "Color", "IconName", "IsActive", "IsDomestic", "IsEuropeanUnion", "IsIntrastat", "IsReverseCharge", "IsTaxExempt", "IsThirdCountry", "IsVies", "Name", "VatRate", "VatRateCode", "VatRateIsActive"];
+        string[] FilterFields = ["Name", "Code", "Color", "IconName", "IsActive", "IsDomestic", "IsEuropeanUnion", "IsIntrastat", "IsReverseCharge", "IsTaxExempt", "IsThirdCountry", "IsVies", "VatRateCode", "VatRateName"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1955,31 +1248,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    TaxOffice.Id,
@@ -1995,7 +1263,7 @@ from
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        string[] FilterFields = ["Code", "Name"];
+        string[] FilterFields = ["Name", "Code"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -2006,31 +1274,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    UnitOfMeasure.Id,
@@ -2046,7 +1289,7 @@ from
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        string[] FilterFields = ["Code", "Name"];
+        string[] FilterFields = ["Name", "Code"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -2057,31 +1300,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    VatRate.Id,
@@ -2101,7 +1319,7 @@ from
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("Percent", Decimals: 2, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        string[] FilterFields = ["Code", "IsActive", "Name", "Percent"];
+        string[] FilterFields = ["Name", "Code", "IsActive", "Percent"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -2112,31 +1330,6 @@ from
         TableDef tblTop;
         SelectDef SelectDef;
         string SqlText;
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
         SqlText = @"
 select
    Warehouse.Id,
@@ -2159,18 +1352,16 @@ select
    Warehouse.AffectsAvailability,
    Warehouse.Color,
    Warehouse.IconName,
-   Company.Code as CompanyCode,
-   Company.Name as Company,
-   Company.Title as CompanyTitle,
-   Branch.Code as BranchCode,
-   Branch.Name as Branch,
-   Branch.IsActive as BranchIsActive,
-   Country.Code as CountryCode,
-   Country.Name as Country,
-   ResponsiblePerson.Code as ResponsiblePersonCode,
-   ResponsiblePerson.Name as ResponsiblePerson,
-   ResponsiblePerson.Title as ResponsiblePersonTitle,
-   ResponsiblePerson.IsActive as ResponsiblePersonIsActive
+   COALESCE(Company.Code, '') as CompanyCode,
+   COALESCE(Company.Name, '') as CompanyName,
+   COALESCE(Company.Title, '') as CompanyTitle,
+   COALESCE(Branch.Code, '') as BranchCode,
+   COALESCE(Branch.Name, '') as BranchName,
+   COALESCE(Country.Code, '') as CountryCode,
+   COALESCE(Country.Name, '') as CountryName,
+   COALESCE(ResponsiblePerson.Code, '') as ResponsiblePersonCode,
+   COALESCE(ResponsiblePerson.Name, '') as ResponsiblePersonName,
+   COALESCE(ResponsiblePerson.Title, '') as ResponsiblePersonTitle
 from
   Warehouse
     left join Company Company on Company.Id = Warehouse.CompanyId
@@ -2186,7 +1377,7 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CompanyId", "Company", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddStringLookupId("BranchId", "Branch", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddEnumLookupId("WarehouseTypeId", "WarehouseType", typeof(WarehouseType), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddString("AddressLine1", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
@@ -2203,7 +1394,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["AddressLine1", "AddressLine2", "AffectsAvailability", "AllowNegativeStock", "Branch", "BranchCode", "BranchIsActive", "City", "Code", "Color", "Company", "CompanyCode", "CompanyTitle", "Country", "CountryCode", "Email", "IconName", "IsActive", "IsVirtual", "Name", "Phone", "PostalCode", "ResponsiblePerson", "ResponsiblePersonCode", "ResponsiblePersonIsActive", "ResponsiblePersonTitle"];
+        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "AffectsAvailability", "AllowNegativeStock", "BranchCode", "BranchName", "City", "Code", "Color", "CompanyCode", "CompanyName", "CompanyTitle", "CountryCode", "CountryName", "Email", "IconName", "IsActive", "IsVirtual", "Phone", "PostalCode", "ResponsiblePersonCode", "ResponsiblePersonName", "ResponsiblePersonTitle"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -2212,8 +1403,7 @@ from
     // ● static public
     static public void RegisterModules()
     {
-        RegisterMasterModule_Log();
-        
+        RegisterLookupSources_FromModules();
         RegisterModule_Bank();
         RegisterModule_Carrier();
         RegisterModule_Category();
@@ -2227,6 +1417,7 @@ from
         RegisterModule_ExpenseCategory();
         RegisterModule_FiscalYear();
         RegisterModule_Language();
+        RegisterModule_Log();
         RegisterModule_NumberSeries();
         RegisterModule_PaymentMethod();
         RegisterModule_PaymentTerm();

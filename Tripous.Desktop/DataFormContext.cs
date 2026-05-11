@@ -32,6 +32,7 @@ public class DataFormContext: FormContext
             FormDef = FormDef,
             ModuleDef = ModuleDef,
             Module = ModuleDef.Create(),
+            Title = FormDef.Title,
         };
  
         return Result;

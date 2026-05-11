@@ -2,49 +2,99 @@ namespace Tripous.Desktop;
 
 static public class DesktopExceptionHandler
 {
-    static void LogAndShowException(Exception ex)
+    static Exception LastException = null;
+    // ● private
+    static Exception Unwrap(Exception Ex)
     {
-        if (ex == null) return;
- 
+        if (Ex is AggregateException AggEx)
+            return AggEx.GetBaseException();
+        return Ex;
+    }
+#if DEBUG
+    static void LogAndShowException(Exception Ex, string ErrorSource)
+#else
+    static void LogAndShowException(Exception Ex)
+#endif
+    {
+        if (Ex == null)
+            return;
+
+        Ex = Unwrap(Ex);
+
+        if (Ex == LastException)
+            return;
+
+        LastException = Ex;
+
         Dispatcher.UIThread.Post(async () =>
         {
             try
             {
-                string Message = $"An unexpected error occurred: {ex.Message}";
-                await MessageBox.Error(Message);
 #if DEBUG
-                Message += Environment.NewLine + ex.StackTrace;            
-#endif
+                string Message = $@"An unexpected error occurred.
+Exception: {Ex.GetType().FullName}
+Source: {ErrorSource}
+Message: {Ex.Message}
+
+";
+                await MessageBox.Error(Message);
+                Message += $@"Stack:
+{Ex.StackTrace}
+";
+                 
+#else
+                string Message = $"An unexpected error occurred: {Ex.Message}";
+                await MessageBox.Error(Message);
+#endif                
+                
                 if (LogBox.IsInitialized)
                     LogBox.AppendLine(Message);
             }
-            catch 
+            catch
             {
             }
         });
 
-        // Optionally log errors
-        System.Diagnostics.Debug.WriteLine($"GLOBAL ERROR: {ex}");
+        System.Diagnostics.Debug.WriteLine($"GLOBAL ERROR: {Ex}");
     }
-    
+
+    // ● static public
     static public void Initialize()
     {
-        // 1. Global exceptions in .NET (Non-UI threads)
-        AppDomain.CurrentDomain.UnhandledException += (s, e) => 
-            LogAndShowException(e.ExceptionObject as Exception);
-
-        // 2. Exceptions inside Tasks (Async/Await)
-        TaskScheduler.UnobservedTaskException += (s, e) => 
+        AppDomain.CurrentDomain.UnhandledException += (s, e) =>
         {
-            LogAndShowException(e.Exception);
-            e.SetObserved(); // IMPORTANT: avoid application termination
+#if DEBUG
+            string ErrorSource = "AppDomain";
+            LogAndShowException(e.ExceptionObject as Exception, ErrorSource);
+#else
+            LogAndShowException(e.ExceptionObject as Exception);
+#endif            
+            
         };
 
-        // 3. Native Avalonia UI Exception Handling  
+        TaskScheduler.UnobservedTaskException += (s, e) =>
+        {
+#if DEBUG
+            string ErrorSource = "TaskException";
+            LogAndShowException(e.Exception, ErrorSource);
+#else
+            LogAndShowException(e.Exception);
+#endif            
+           
+            e.SetObserved();
+        };
+
         Dispatcher.UIThread.UnhandledException += (s, e) =>
         {
-            e.Handled = true; // IMPORTANT: avoid closing the application  
+            e.Handled = true;
+#if DEBUG
+            string ErrorSource = "UiThread";
+            LogAndShowException(e.Exception, ErrorSource);
+#else
             LogAndShowException(e.Exception);
+#endif
+
+
         };
     }
 }

@@ -136,7 +136,8 @@ public class LookupSource : BaseDef
 
         if (!string.IsNullOrWhiteSpace(EnumTypeName))
         {
-            Type T = Type.GetType(EnumTypeName);
+            //Type T = Type.GetType(EnumTypeName);
+            Type T = TypeRegistry.Get(EnumTypeName);
             if (T == null || !T.IsEnum)
                 throw new TripousDataException($"Type {EnumTypeName} is not an enum type");
  

@@ -41,35 +41,7 @@
         /// </summary>
         static public bool EndsWithText(this string Instance, string Value) => !string.IsNullOrWhiteSpace(Instance) && Instance.EndsWith(Value, StringComparison.InvariantCultureIgnoreCase);
  
-        static public string ToPlural(this string Word)
-        {
-            if (string.IsNullOrWhiteSpace(Word) || Word.Length < 2)
-                return Word;
-
-            string lower = Word.ToLower();
-
-            // ● Rule -y: Category -> Categories (consonant + y)
-            if (Word.EndsWith("y", StringComparison.OrdinalIgnoreCase) && !IsVowel(Word[Word.Length - 2]))
-                return Word.Substring(0, Word.Length - 1) + "ies";
-
-            // ● Rule -s, -x, -ch, -sh: Box -> Boxes, Dish -> Dishes
-            if (Word.EndsWith("s", StringComparison.OrdinalIgnoreCase) || 
-                Word.EndsWith("x", StringComparison.OrdinalIgnoreCase) || 
-                Word.EndsWith("ch", StringComparison.OrdinalIgnoreCase) || 
-                Word.EndsWith("sh", StringComparison.OrdinalIgnoreCase))
-                return Word + "es";
-
-            // ● Rule for professional/technical endings: -er, -or, -ar, -ir
-            // ● just add the -s (User -> Users, Actor -> Actors)
-            if (Word.EndsWith("er", StringComparison.OrdinalIgnoreCase) || 
-                Word.EndsWith("or", StringComparison.OrdinalIgnoreCase) || 
-                Word.EndsWith("ar", StringComparison.OrdinalIgnoreCase) || 
-                Word.EndsWith("ir", StringComparison.OrdinalIgnoreCase))
-                return Word + "s";
-
-            // ● no luck
-            return Word;
-        }
+        
 
         // ● private methods
         static public bool IsVowel(char C)
@@ -193,6 +165,41 @@
             }
 
             return Result.ToString();
+        }
+        static public string ToPlural(this string Word)
+        {
+            if (string.IsNullOrWhiteSpace(Word) || Word.Length < 2)
+                return Word;
+
+            // ● Rule 0: If already plural, do nothing
+            // Check for -ies (Categories), -es (Boxes), or just -s (Users)
+            if (Word.EndsWith("ies", StringComparison.OrdinalIgnoreCase) ||
+                Word.EndsWith("es", StringComparison.OrdinalIgnoreCase) ||
+                (Word.EndsWith("s", StringComparison.OrdinalIgnoreCase) && !Word.EndsWith("ss", StringComparison.OrdinalIgnoreCase)))
+            {
+                return Word;
+            }
+
+            // ● Rule -y: Category -> Categories (consonant + y)
+            if (Word.EndsWith("y", StringComparison.OrdinalIgnoreCase) && !IsVowel(Word[Word.Length - 2]))
+                return Word.Substring(0, Word.Length - 1) + "ies";
+
+            // ● Rule -s, -x, -ch, -sh: Box -> Boxes, Dish -> Dishes
+            if (Word.EndsWith("s", StringComparison.OrdinalIgnoreCase) || 
+                Word.EndsWith("x", StringComparison.OrdinalIgnoreCase) || 
+                Word.EndsWith("ch", StringComparison.OrdinalIgnoreCase) || 
+                Word.EndsWith("sh", StringComparison.OrdinalIgnoreCase))
+                return Word + "es";
+
+            // ● Rule for professional/technical endings: -er, -or, -ar, -ir
+            if (Word.EndsWith("er", StringComparison.OrdinalIgnoreCase) || 
+                Word.EndsWith("or", StringComparison.OrdinalIgnoreCase) || 
+                Word.EndsWith("ar", StringComparison.OrdinalIgnoreCase) || 
+                Word.EndsWith("ir", StringComparison.OrdinalIgnoreCase))
+                return Word + "s";
+
+            // ● Default fallback (standard -s)
+            return Word + "s";
         }
     }
 }

@@ -13,7 +13,8 @@ public class BaseDef: IDef, IJsonLoadable, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
     }
-
+    protected virtual string GetTitleKey() => !string.IsNullOrWhiteSpace(fTitleKey)? fTitleKey: Name;
+    
     // ● construction  
     public BaseDef()
     {
@@ -61,6 +62,13 @@ public class BaseDef: IDef, IJsonLoadable, INotifyPropertyChanged
         Json.AssignObject(Empty, this);
     }
 
+    public virtual string SplitTitleKeyToWordsWithPluralEnding()
+    {
+        fTitleKey = !string.IsNullOrWhiteSpace(fTitleKey)? fTitleKey: Name;
+        fTitleKey = fTitleKey.ToPlural().SplitToWords();
+        return fTitleKey;
+    }
+    
     // ● properties  
     public string Name
     {
@@ -76,9 +84,9 @@ public class BaseDef: IDef, IJsonLoadable, INotifyPropertyChanged
             }
         }
     }
-    public string TitleKey
+    public virtual string TitleKey
     {
-        get => !string.IsNullOrWhiteSpace(fTitleKey)? fTitleKey: Name;
+        get => GetTitleKey();
         set
         {
             if (fTitleKey != value)

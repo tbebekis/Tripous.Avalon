@@ -78,7 +78,7 @@ public abstract class SqlProvider
         return $"decimal({Args})";
     }
  
-    protected virtual void Log(Exception e, string SqlText, object[] Params)
+    protected virtual void Log(Exception e, string SqlText, object[] Params, MemTable Table = null)
     {
         SqlParams SqlParams = CreateSqlParams(SqlText, Params);
 
@@ -102,8 +102,39 @@ public abstract class SqlProvider
                 }
             }
         }
+
+        // table errors
+        if (Table != null)
+        {
+            DataRow[] TableErrors = Table.GetErrors();
+            if (TableErrors != null && TableErrors.Length > 0)
+            {
+                e.Data["Table Errors"] = TableErrors.Length.ToString();
+
+                for (int i = 0; i < TableErrors.Length; i++)
+                {
+                    DataRow Row = TableErrors[i];
+                    
+                    StringBuilder SB = new();
+                    SB.AppendLine(Row.RowError);   
+                    foreach (var Col in Row.GetColumnsInError())
+                    {
+                        SB.AppendLine($"Col: {Col.ColumnName} | Error: {Row.GetColumnError(Col)}");
+                    }
+                        
+                    string Key = $"{i + 1}. Error";
+                    string Value = SB.ToString();
+                    e.Data[Key] = Value;
+
+                    if (i > 3)
+                        break;
+                }
+            }
+        }
+        
         if (e.TargetSite != null)
             e.Data["TargetSite"] = e.TargetSite;
+        
         if (e.StackTrace != null)
             e.Data["StackTrace"] = Environment.NewLine + e.StackTrace;
       
@@ -401,7 +432,7 @@ public abstract class SqlProvider
         }
         catch (Exception e)
         {
-            Log(e, SqlText, Params);
+            Log(e, SqlText, Params, Table);
             throw;
         }
 
@@ -441,7 +472,7 @@ public abstract class SqlProvider
         }
         catch (Exception e)
         {
-            Log(e, SqlText, Params);
+            Log(e, SqlText, Params, Table);
             throw;
         }
     }
@@ -725,10 +756,10 @@ public abstract class SqlProvider
         
         DataRow Result = null;
         string SqlText = SelectForUpdateSql(TableName, FieldName);
-
+        MemTable Table = new();
         try
         {
-            DataTable Table = new();
+            
             using (DbCommand Command = CreateCommand(Transaction.Connection, SqlText, FieldValue))
             {
                 Command.Transaction = Transaction;
@@ -756,7 +787,7 @@ public abstract class SqlProvider
         }
         catch (Exception e)
         {
-            Log(e, SqlText, null);
+            Log(e, SqlText, null, Table);
             throw;
         }
         

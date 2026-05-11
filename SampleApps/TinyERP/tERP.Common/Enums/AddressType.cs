@@ -1,5 +1,6 @@
 namespace tERP.Common;
 
+[RegistryType]
 public enum AddressType
 {
     None = 0,
@@ -9,6 +10,7 @@ public enum AddressType
     Other = 4
 }
 
+[RegistryType]
 public enum ProductType
 {
     None = 0,
@@ -17,6 +19,7 @@ public enum ProductType
     RawMaterial = 3
 }
 
+[RegistryType]
 public enum ContactType
 {
     None = 0,
@@ -27,6 +30,7 @@ public enum ContactType
     Other = 5
 }
 
+[RegistryType]
 public enum TradeType
 {
     None = 0,
@@ -37,6 +41,7 @@ public enum TradeType
     Accounting = 5,
 }
 
+[RegistryType]
 public enum WarehouseType
 {
     None = 0,
@@ -48,6 +53,7 @@ public enum WarehouseType
     Virtual = 6,
 }
 
+[RegistryType]
 public enum ProjectStatus
 {
     None = 0,
@@ -58,6 +64,7 @@ public enum ProjectStatus
     Cancelled = 5,
 }
 
+[RegistryType]
 public enum DocStatus
 {
     None = 0,

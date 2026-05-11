@@ -81,8 +81,18 @@ public partial class MainWindow : Window
         
         LogBox.AppendLine("Executing...");
 
+        DuplicateCheck Checks = DuplicateCheck.None;
+        if (chLookup.IsChecked == true)
+            Checks |= DuplicateCheck.Lookup;
+        if (chEnum.IsChecked == true)
+            Checks |= DuplicateCheck.Enum;
+        if (chModule.IsChecked == true)
+            Checks |= DuplicateCheck.Module;
+        if (chForm.IsChecked == true)
+            Checks |= DuplicateCheck.Form;
+
         string SqlText = File.ReadAllText(Settings.SourceFilePath);
-        SchemaParserResult GroupDefs = SchemaRegistrationBuilder.Parse(SqlText, Settings.SchemaVersion);
+        SchemaParserResult GroupDefs = SchemaRegistrationBuilder.Parse(SqlText, Settings.SchemaVersion, Checks);
 
  
         if (GroupDefs.HasErrors || GroupDefs.HasWarnings)

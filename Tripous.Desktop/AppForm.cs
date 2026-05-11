@@ -3,6 +3,7 @@ namespace Tripous.Desktop;
 /// <summary>
 /// A base class for a UI embedabbable in <see cref="TabItem"/> controls.
 /// </summary>
+[RegistryType]
 public class AppForm: UserControl
 {
     private ModalResult fModalResult;

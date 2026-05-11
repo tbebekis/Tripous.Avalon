@@ -5,8 +5,8 @@ namespace Tripous.Desktop;
 /// </summary>
 public class FormContext
 {
-    private string fFormId;
-    private string fTitle;
+    protected string fFormId;
+    protected string fTitle;
 
     // ● construction
     /// <summary>

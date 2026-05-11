@@ -42,12 +42,10 @@ public class SelectDef: BaseDef
     /// </summary>
     public SqlFilterDefs DefineFilters(string ModuleName, SqlStore Store)
     {
-        SqlFilterDefs Result = new();
-        
         string StatementName = $"{ModuleName}.{Name}";
         DataTable tblSchema = Store.GetNativeSchemaFromSelect(StatementName, SqlText);
         
-        string[] FieldNames = { "Code", "Name", "LastName", "FirstName", "Product", "Customer", "Country", "City", "Date", "Amount", "Price" };
+        string[] FieldNames = { "Code", "Name", "Description", "LastName", "FirstName", "Product", "Customer", "Country", "City", "Date", "Amount", "Price" };
         List<DataColumn> Columns = new();
         foreach (DataColumn Column in tblSchema.Columns)
         {
@@ -55,14 +53,36 @@ public class SelectDef: BaseDef
             {
                 if (FieldName.IsSameText(Column.ColumnName))
                 {
+                    if (Column.DataType == typeof(string) && Column.MaxLength > 256)
+                        continue;
+                    
                     DataFieldType FilterDataType = Column.DataType.GetDataFieldType();
                     if (FilterDataType.IsValidFilterType())
                     {
-                        Result.Add(FieldName, FieldName: FieldName, FilterDataType: FilterDataType, TitleKey: Column.Caption);
+                        //Result.Add(FieldName, FieldName: FieldName, FilterDataType: FilterDataType, TitleKey: Column.Caption);
+                        Columns.Add(Column);
                     }
                 }
             }
         }
+
+        // sort
+        Columns = Columns.OrderBy(x => x.Caption).ToList();
+ 
+        Columns.Sort((A, B) => 
+        {
+            bool IsAName = A.Caption.Equals("Name", StringComparison.OrdinalIgnoreCase);
+            bool IsBName = B.Caption.Equals("Name", StringComparison.OrdinalIgnoreCase);
+
+            if (IsAName && !IsBName) return -1;
+            if (!IsAName && IsBName) return 1;
+            return 0;
+        });
+        
+        // create filters
+        SqlFilterDefs Result = new();
+        foreach (DataColumn Column in Columns)
+            Result.Add(Column.ColumnName, FieldName: Column.ColumnName, FilterDataType: Column.DataType.GetDataFieldType(), TitleKey: Column.Caption);
 
         return Result;
     }

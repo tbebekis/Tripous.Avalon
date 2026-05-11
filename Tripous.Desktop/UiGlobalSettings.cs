@@ -7,6 +7,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     double fFormColumnWidth;
     int fFormColumnCount;
     int fFormImageHeight;
+    int fFormMaxControlsPerColumn;
     bool fShowIdColumnsInGrid;
     
     // ● private  
@@ -29,7 +30,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     static double GetAvailableScreenWidth()
     {
         double ScreenWidth = GetCurrentScreenWidth();
-        double SideBarWidth = 200; 
+        double SideBarWidth = 350; 
         double Result = ScreenWidth - SideBarWidth;
         return Result;
     }
@@ -76,6 +77,14 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     {
         get => fFormMemoRowCount >= 3 && fFormMemoRowCount <= 5 ? fFormMemoRowCount : 3;
         set { if (fFormMemoRowCount != value) { fFormMemoRowCount = value; NotifyPropertyChanged(nameof(FormMemoRowCount)); } }
+    }
+    /// <summary>
+    /// How many rows a control, for a <see cref="FieldDef.IsMemo"/> field, occupies in a column of an <see cref="ItemPage"/> of a <see cref="DataForm"/>
+    /// </summary>
+    public int FormMaxControlsPerColumn
+    {
+        get => fFormMaxControlsPerColumn >= 4 && fFormMaxControlsPerColumn <= 12 ? fFormMaxControlsPerColumn : 8;
+        set { if (fFormMaxControlsPerColumn != value) { fFormMaxControlsPerColumn = value; NotifyPropertyChanged(nameof(FormMaxControlsPerColumn)); } }
     }
     /// <summary>
     /// The height of an image control, for a <see cref="FieldDef.IsImage"/> field,  of an <see cref="ItemPage"/> of a <see cref="DataForm"/>

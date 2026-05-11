@@ -146,6 +146,16 @@ public class DefList<T> : TripousList<T>, IJsonLoadable where T : IDef
     /// Called by the <see cref="Json"/> after deserializing an item.
     /// </summary>
     public virtual void JsonLoaded() => UpdateReferences();
+
+    /// <summary>
+    /// Sorts all items by <see cref="IDef.TitleKey"/>
+    /// </summary>
+    public virtual void Sort()
+    {
+        List<T> TempList = this.OrderBy(x => x.TitleKey).ToList();
+        this.Clear();
+        this.AddRange(TempList);
+    }
     
     // ● properties
     /// <summary>

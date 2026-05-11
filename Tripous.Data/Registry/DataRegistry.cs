@@ -19,7 +19,7 @@ static public class DataRegistry
         ModuleDef Result = new();
         Result.Name = Name;
         Result.GuidOids = SysConfig.GuidOids;
-        Result.TitleKey = !string.IsNullOrWhiteSpace(TitleKey) ? TitleKey : Name.ToPlural();
+        Result.TitleKey = TitleKey;
         Result.ClassName = !string.IsNullOrWhiteSpace(ClassName)? ClassName: typeof(DataModule).FullName;
         Result.Table.Name = Name;
         Result.IsSingleSelect = IsSingleSelect;
@@ -90,7 +90,7 @@ static public class DataRegistry
         Result.Name = Name;
         Result.UseNullItem = UseNullItem;
         if (EnumType != null)
-            Result.EnumTypeName = EnumType.FullName;
+            Result.EnumTypeName = EnumType.FullName; // EnumType.AssemblyQualifiedName; //EnumType.FullName;
         DataRegistry.LookupSources.Add(Result);
         return Result;
     }

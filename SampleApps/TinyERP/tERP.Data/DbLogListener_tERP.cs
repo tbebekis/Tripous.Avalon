@@ -16,10 +16,18 @@ internal class DbLogListener_tERP: SyncedLogListener
     /// </summary>
     public override void ProcessLogSynced(LogEntry Entry)
     {
-        LogRecord LogRec = new LogRecord(Entry);
-        Module.Insert();
-        DataRow Row = Module.tblItem.Rows[0];
-        LogRec.AddToRow(Row);
-        Module.Commit();
+        try
+        {
+            LogRecord LogRec = new LogRecord(Entry);
+            Module.Insert();
+            DataRow Row = Module.tblItem.Rows[0];
+            LogRec.AddToRow(Row);
+            Module.Commit();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+
     }
 }
