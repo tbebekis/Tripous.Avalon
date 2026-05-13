@@ -7,6 +7,7 @@ static public class TypeRegistry
 {
     // ● private fields
     static readonly Dictionary<string, Type> fItems = new(StringComparer.OrdinalIgnoreCase);
+    
 
     // ● private methods
     /// <summary>
@@ -14,7 +15,7 @@ static public class TypeRegistry
     /// </summary>
     static bool IsRegisteredType(Type Type)
     {
-        return Type.GetCustomAttributes(typeof(RegistryTypeAttribute), false).Length > 0;
+        return Type.GetCustomAttributes(typeof(RegistryTypeAttribute), true).Length > 0;
     }
 
     // ● static public
@@ -61,10 +62,38 @@ static public class TypeRegistry
     {
         if (string.IsNullOrWhiteSpace(TypeName))
            throw new TripousArgumentNullException($"{TypeName} is null or empty.");
+        
+        // TypeName is just a class name
+        string[] Parts = TypeName.Split(".", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (Parts.Length == 1) 
+        {
+            string Suffix = "." + TypeName;
 
+            List<Type> MathcingTypes = fItems.Values
+                .Where(T => T.FullName != null && T.FullName.EndsWith(Suffix, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (MathcingTypes.Count > 1)
+            {
+                StringBuilder SB = new();
+
+                SB.AppendLine($"There are more than one types with this name: {TypeName}");
+                foreach (Type T in MathcingTypes)
+                    SB.AppendLine(T.FullName);
+                string Message = SB.ToString();
+                throw new TripousException(Message);
+            }
+            else if (MathcingTypes.Count == 1) 
+            {
+                return MathcingTypes[0];
+            }
+        }
+
+        // TypeName is Type.FullName 
         if (fItems.TryGetValue(TypeName, out Type Result))
             return Result;
 
+        // TypeName is Type.AssemblyQualifiedName
         Result = Type.GetType(TypeName);
 
         if (Result != null)

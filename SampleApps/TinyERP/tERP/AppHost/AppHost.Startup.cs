@@ -122,6 +122,12 @@ static internal partial class AppHost
             dmCompany.Commit();
         }
     }
+    static void LoadLibraries()
+    {
+        CommonLib.Load();
+        DataLib.Load();
+        DesktopLib.Load();
+    }
     static void InitializeLibraries()
     {
         CommonLib.Initialize();
@@ -162,9 +168,10 @@ static internal partial class AppHost
             AddCompany();
             
             Ui.MainWindow = AppHost.MainWindow;
-            InitializeLibraries();
             
+            LoadLibraries();
             TypeRegistry.RegisterLoadedAssemblies();
+            InitializeLibraries();
             
             MainWindow.Show();
             

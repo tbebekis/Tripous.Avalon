@@ -1,4 +1,6 @@
+using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DataTable = System.Data.DataTable;
 using Tuple = System.Tuple;
 
 namespace Tripous.Data;
@@ -29,10 +31,10 @@ public class TableDef: BaseDef
     bool fIsOneToOne;
     bool fIsUiVisible = true;
 
-    List<FieldDef> fFields;
-    List<TableDef> fJoins;
-    List<SelectDef> fStocks;
-    List<TableDef> fDetails;
+    DefList<FieldDef> fFields;
+    DefList<TableDef> fJoins;
+    DefList<SelectDef> fStocks;
+    DefList<TableDef> fDetails;
     
     // ● construction  
     /// <summary>
@@ -125,12 +127,34 @@ public class TableDef: BaseDef
         
         foreach (FieldDef FieldDef in Fields)
             FieldDef.TableDef = this;
-
-        foreach (TableDef TableDef in Details)
+        
+        if (HasStocks)
         {
-            TableDef.Master = this;
-            TableDef.UpdateReferences();
+            foreach (SelectDef Stock in Stocks)
+            {
+                Stock.Owner = this;
+                Stock.UpdateReferences();
+            }
         }
+
+        if (HasDetails)
+        {
+            foreach (TableDef tblDetail in Details)
+            {
+                tblDetail.Master = this;
+                tblDetail.UpdateReferences();
+            }
+        }
+
+        if (HasJoins)
+        {
+            foreach (TableDef tblJoin in Joins)
+            {
+                tblJoin.Owner = this;
+                tblJoin.UpdateReferences();
+            }
+        }
+
     }
  
     // ● find 
@@ -140,7 +164,7 @@ public class TableDef: BaseDef
     /// </summary>
     public TableDef FindAnyJoinTable(string NameOrAlias)
     {
-        var Result = this.Joins.Find(item => item.Name.IsSameText(NameOrAlias) || item.Alias.IsSameText(NameOrAlias)); // base.Find(NameOrAlias);
+        var Result = this.Joins.FirstOrDefault(x => x.Name.IsSameText(NameOrAlias) || x.Alias.IsSameText(NameOrAlias));  
         if (Result == null)
         {
             foreach (var JoinTable in this.Joins)
@@ -158,7 +182,7 @@ public class TableDef: BaseDef
     /// </summary>
     public TableDef FindJoinTableByMasterKeyField(string MasterKeyField)
     {
-        return this.Joins.Find(item => item.MasterField.IsSameText(MasterKeyField));
+        return this.Joins.FirstOrDefault(item => item.MasterField.IsSameText(MasterKeyField));
     }
     /// <summary>
     /// Searces the whole joined tree for a join table descriptor by MasterKeyField
@@ -187,10 +211,10 @@ public class TableDef: BaseDef
     /// </summary>
     public Tuple<TableDef, FieldDef> FindAnyField(string NameOrAlias)
     {
-        FieldDef FieldDef = Fields.Find(item => item.Name.IsSameText(NameOrAlias) || item.Alias.IsSameText(NameOrAlias));
+        FieldDef FieldDef = Fields.FirstOrDefault(item => item.Name.IsSameText(NameOrAlias) || item.Alias.IsSameText(NameOrAlias));
         if (FieldDef != null)
             return Tuple.Create(this, FieldDef);
-        return FindAnyField(NameOrAlias, this.Joins);
+        return FindAnyField(NameOrAlias, this.Joins.ToList());
     }
     /// <summary>
     /// Finds a field by Name or Alias by searching the whole tree of JoinTables tables.
@@ -203,7 +227,7 @@ public class TableDef: BaseDef
 
         foreach (var JoinTable in JoinTables)
         {
-            FieldDef = JoinTable.Fields.Find(item => item.Name.IsSameText(NameOrAlias) || item.Alias.IsSameText(NameOrAlias));
+            FieldDef = JoinTable.Fields.FirstOrDefault(item => item.Name.IsSameText(NameOrAlias) || item.Alias.IsSameText(NameOrAlias));
             if (FieldDef != null)
             {
                 Result = Tuple.Create(JoinTable, FieldDef);
@@ -212,7 +236,7 @@ public class TableDef: BaseDef
 
             if (JoinTable.Joins != null)
             {
-                Result = FindAnyField(NameOrAlias, JoinTable.Joins);
+                Result = FindAnyField(NameOrAlias, JoinTable.Joins.ToList());
                 if (Result != null)
                     break;
             }
@@ -237,14 +261,13 @@ public class TableDef: BaseDef
     {
         TableSqls Statements = new TableSqls();
 
-        bool GuidOid = BuildSqlFlags.GuidOids.In(Flags) || this.Fields.Find(item => item.Name.IsSameText(this.KeyField)).DataType == DataFieldType.String;
+        FieldDef KeyFieldDef = this.Fields.FirstOrDefault(item => item.Name.IsSameText(this.KeyField));
+        bool GuidOid = BuildSqlFlags.GuidOids.In(Flags) || (KeyFieldDef != null && KeyFieldDef.DataType == DataFieldType.String);
         bool OidModeIsBefore = !GuidOid && ((Flags & BuildSqlFlags.OidModeIsBefore) == BuildSqlFlags.OidModeIsBefore);
 
         List<string> InsertList = new List<string>();
         List<string> InsertParamsList = new List<string>();
         List<string> UpdateList = new List<string>();
-
-        // string S = string.Join(", " + Environment.NewLine, InsertList.ToArray());
 
         string FieldName;
 
@@ -271,9 +294,7 @@ public class TableDef: BaseDef
         string sInsertList       = SqlHelper.TransformToFieldList(InsertList);           // string.Join(", " + Environment.NewLine, InsertList.ToArray()).TrimEnd();
         string sInsertParamsList = SqlHelper.TransformToFieldList(InsertParamsList);     // string.Join(", " + Environment.NewLine, InsertParamsList.ToArray()).TrimEnd();
         string sUpdateList       = SqlHelper.TransformToFieldList(UpdateList);           // string.Join(", " + Environment.NewLine, UpdateList.ToArray()).TrimEnd();
-
-
-
+ 
         /* Insert */
         Statements.InsertRowSql = $@"insert into {this.Name} (
 {sInsertList}
@@ -292,15 +313,12 @@ where
 
         /* Delete */
         Statements.DeleteRowSql = $@"delete from {this.Name} where {this.KeyField} = :{this.KeyField}";
-
-
-
+ 
         /* RowSelect */
         SelectSql SS = BuildSqlSelect(Flags, false);
         SS.Where = $"  {this.Name}.{this.KeyField} = :{this.KeyField}"; 
         Statements.SelectRowSql = SS.Text;
-
-
+ 
         /* Browse */
         SS = BuildSqlSelect(Flags, true);
 
@@ -408,7 +426,7 @@ where
         {
             TitleKey = Texts.GS(Column.Caption);
             
-            FieldDef FieldDef = Fields.Find(item => item.Name.IsSameText(Column.ColumnName));
+            FieldDef FieldDef = Fields.FirstOrDefault(item => item.Name.IsSameText(Column.ColumnName));
 
             // ● missing field
             if (FieldDef == null)
@@ -467,7 +485,7 @@ where
     /// <para>Creates the look-up tables too if a flag is specified.</para>
     /// <para>The table may added to a list using a specified delegate.</para>
     /// </summary>
-    public MemTable CreateDescriptorTable(SqlStore Store) // , Action<MemTable> AddTableFunc
+    public MemTable CreateDescriptorTable(SqlStore Store)  
     {
         MemTable Table = new MemTable() { TableName = this.Name };
         //AddTableFunc(Table);
@@ -499,9 +517,9 @@ where
             Table.Columns.Add(Column); 
 
             // joined table to TableDescriptor on this FieldDes
-            TableDef JoinTableDes = this.FindAnyJoinTableByMasterKeyField(FieldDef.Name);
-            if (JoinTableDes != null)
-                CreateDescriptorTables_AddJoinTableFields(JoinTableDes, Table);
+            TableDef JoinTableDef = this.FindAnyJoinTableByMasterKeyField(FieldDef.Name);
+            if (JoinTableDef != null)
+                CreateDescriptorTables_AddJoinTableFields(JoinTableDef, Table);
         }
 
         return Table;
@@ -765,11 +783,12 @@ where
         this.Details.Add(Result);
         return Result;
     }
+    
     /// <summary>
     /// Adds a table join in this table and returns the joined table.
     /// <para>If this is CUSTOMER table then the COUNTRY table can be joined as</para>
     /// <para>TableName: COUNTRY</para>
-    /// <para>Alias: emtpy string or null or an alias</para>
+    /// <para>Alias: empty string or null or an alias</para>
     /// <para>OwnKeyField: COUNTRY_ID</para>
     /// <para>The above settings produce the following:</para>
     /// <para><c>left join COUNTRY on COUNTRY.ID = CUSTOMER.COUNTRY_ID</c></para>
@@ -778,17 +797,36 @@ where
     /// <param name="ForeignTable">The name of the table to join, e.g. COUNTRY to CUSTOMER</param>
     /// <param name="ForeignAlias">The alias of the table to join, e.g. <c>co</c></param>
     /// <param name="ForeignPrimaryKey">The primary key field name of the table to join, e.g. <c>Id</c></param>
-    public TableDef AddJoin(string OwnKeyField, string ForeignTable, string ForeignAlias = "", string ForeignPrimaryKey = "Id")
+    public TableDef AddJoin(string OwnKeyField, string ForeignTable, string ForeignAlias = "", string ForeignPrimaryKey = "Id") => AddJoin(OwnKeyField, Locator: null, ForeignTable, ForeignAlias, ForeignPrimaryKey);
+    /// <summary>
+    /// Adds a table join in this table and returns the joined table.
+    /// <para>If this is CUSTOMER table then the COUNTRY table can be joined as</para>
+    /// <para>TableName: COUNTRY</para>
+    /// <para>Alias: empty string or null or an alias</para>
+    /// <para>OwnKeyField: COUNTRY_ID</para>
+    /// <para>The above settings produce the following:</para>
+    /// <para><c>left join COUNTRY on COUNTRY.ID = CUSTOMER.COUNTRY_ID</c></para>
+    /// </summary>
+    /// <param name="OwnKeyField">A field that belongs to this table. Is used in the join SQL statement</param>
+    /// <param name="Locator">The locator name to be used in the <see cref="OwnKeyField"/>.</param>
+    /// <param name="ForeignTable">The name of the table to join, e.g. COUNTRY to CUSTOMER</param>
+    /// <param name="ForeignAlias">The alias of the table to join, e.g. <c>co</c></param>
+    /// <param name="ForeignPrimaryKey">The primary key field name of the table to join, e.g. <c>Id</c></param>
+    public TableDef AddJoin(string OwnKeyField, string Locator, string ForeignTable, string ForeignAlias = "", string ForeignPrimaryKey = "Id")
     {
+        FieldDef FieldDef = this.Fields.Get(OwnKeyField);
+        FieldDef.Locator = Locator;
+        
         TableDef Result = new TableDef();
+       
         Result.Name = ForeignTable;
+        Result.Owner = this;
         Result.Alias = ForeignAlias;
         Result.KeyField = ForeignPrimaryKey;
         Result.MasterField = OwnKeyField;
         Joins.Add(Result);
         return Result;
     }
-    
     
     public List<FieldDef> GetBindableFields() => Fields.Where(f => f.IsBindable).ToList();
 
@@ -807,9 +845,17 @@ where
     /// </summary>
     [JsonIgnore]
     public ModuleDef ModuleDef { get; set; }
+    /// <summary>
+    /// The master table when this is a detail table.
+    /// </summary>
     [JsonIgnore]
     public TableDef Master { get; set; }
- 
+    /// <summary>
+    /// When this is a join table, the owner is the table that joins this table.
+    /// </summary>
+    [JsonIgnore]
+    public TableDef Owner { get; set; }
+
     /// <summary>
     /// An alias of this table
     /// </summary>
@@ -877,7 +923,7 @@ where
     /// <summary>
     /// The fields of this table
     /// </summary>
-    public List<FieldDef> Fields 
+    public DefList<FieldDef> Fields 
     {
         get => fFields ??= new();
         set { if (fFields != value) { fFields = value; NotifyPropertyChanged(nameof(Fields)); } }
@@ -885,9 +931,9 @@ where
     /// <summary>
     /// The list of join tables. 
     /// </summary>
-    public List<TableDef> Joins 
+    public DefList<TableDef> Joins 
     {
-        get => fJoins ??= new();
+        get => fJoins ??= new() { AllowDuplicateNames = true };
         set { if (fJoins != value) { fJoins = value; NotifyPropertyChanged(nameof(Joins)); } }
     }
     /// <summary>
@@ -904,7 +950,7 @@ where
     /// StockTables are used for that. StockTables are selected each time after the select of the main table (Item)          
     /// </para>
     /// </summary>
-    public List<SelectDef> Stocks 
+    public DefList<SelectDef> Stocks 
     {
         get => fStocks ??= new();
         set { if (fStocks != value) { fStocks = value; NotifyPropertyChanged(nameof(Stocks)); } }
@@ -912,10 +958,13 @@ where
     /// <summary>
     /// The detail tables of this table.
     /// </summary>
-    public List<TableDef> Details
+    public DefList<TableDef> Details
     {
         get => fDetails ??= new();
         set { if (fDetails != value) { fDetails = value; NotifyPropertyChanged(nameof(Details)); } }
     }
 
+    [JsonIgnore] public bool HasDetails => fDetails != null && fDetails.Count > 0;
+    [JsonIgnore] public bool HasJoins => fJoins != null && fJoins.Count > 0;
+    [JsonIgnore] public bool HasStocks => fStocks != null && fStocks.Count > 0;
 }

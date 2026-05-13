@@ -236,6 +236,11 @@ public partial class DbConnectionEditDialog : Window
         btnCancel.IsCancel = true;
         btnOK.Click += btnOK_Click;
         btnCancel.Click += btnCancel_Click;
+        
+        this.Loaded += async (s, e) =>
+        {
+            btnCancel.Focus();
+        };
     }
 
     // ● static public methods

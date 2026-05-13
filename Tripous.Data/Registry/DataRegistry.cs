@@ -5,17 +5,9 @@ namespace Tripous.Data;
 /// </summary>
 static public class DataRegistry
 {
-    // ● modules
-    /// <summary>
-    /// Adds a module definition to the registry.
-    /// </summary>
-    static public ModuleDef AddModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false)
+    // ● private
+    static ModuleDef AddModuleInternal(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false)
     {
-        if (string.IsNullOrWhiteSpace(Name))
-            throw new TripousArgumentNullException(nameof(Name));
-        if (DataRegistry.Modules.Contains(Name))
-            throw new TripousException($"{nameof(ModuleDef)} '{Name}' is already registered.");
-
         ModuleDef Result = new();
         Result.Name = Name;
         Result.GuidOids = SysConfig.GuidOids;
@@ -32,23 +24,7 @@ static public class DataRegistry
         DataRegistry.Modules.Add(Result);
         return Result;
     }
- 
-    // ● lookup list modules
-    /// <summary>
-    /// A list module with just Id and Name as fields in its table.
-    /// <para>NOTE: The name of the module is the list TableName</para>
-    /// </summary>
-    static public ModuleDef AddLookupListModule(string Name) => AddLookupListModule(Name, Name, null);
-    /// <summary>
-    /// A list module with just Id and Name as fields in its table.
-    /// <para>NOTE: The name of the module is the list TableName</para>
-    /// </summary>
-    static public ModuleDef AddLookupListModule(string Name, string TitleKey) => AddLookupListModule(Name, Name, TitleKey);
-    /// <summary>
-    /// A list module with just Id and Name as fields in its table.
-    /// <para>NOTE: The name of the module is the list TableName</para>
-    /// </summary>
-    static public ModuleDef AddLookupListModule(string TableName, string Name, string TitleKey)
+    static ModuleDef AddLookupListModuleInternal(string TableName, string Name, string TitleKey)
     {
         ModuleDef Result = AddModule(Name: Name, TitleKey: TitleKey, IsSingleSelect: true);
         Result.UseFilters = false;
@@ -65,8 +41,153 @@ static public class DataRegistry
         else
             Table.AddIntegerId("Id", FieldFlags.Required | FieldFlags.Visible);  
         
-       Table.AddString("Name", 96, TitleKey: "Name", Flags: FieldFlags.Required | FieldFlags.Visible);
+        Table.AddString("Name", 96, TitleKey: "Name", Flags: FieldFlags.Required | FieldFlags.Visible);
  
+        return Result;
+    }
+    static void CheckModule(string Name)
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add a {nameof(ModuleDef)}. No '{nameof(Name)}' is provided.");
+        if (DataRegistry.Modules.Contains(Name))
+            throw new TripousException($"Cannot add a {nameof(ModuleDef)}. '{Name}' is already registered.");
+    }
+
+    static LookupSource AddLookupSourceInternal(string Name, Type EnumType, string TableName, string SqlText, bool UseNullItem)
+    {
+        if (EnumType == null && string.IsNullOrWhiteSpace(TableName) && string.IsNullOrWhiteSpace(SqlText))
+            throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(EnumType)}' or  '{nameof(TableName)}' or  '{nameof(SqlText)}' is provided.");
+
+        string EnumTypeName = EnumType != null ? EnumType.FullName : null;
+        
+        if (string.IsNullOrWhiteSpace(EnumTypeName))
+        {
+            if (string.IsNullOrWhiteSpace(SqlText) && string.IsNullOrWhiteSpace(TableName))
+                TableName = Name;
+
+            if (string.IsNullOrWhiteSpace(SqlText))
+                SqlText = $"select * from {TableName}";
+        }
+        
+        LookupSource Result = new();
+        Result.Name = Name;
+        Result.UseNullItem = UseNullItem;
+        if (EnumType != null)
+            Result.EnumTypeName = EnumType.FullName;
+        Result.TableName = TableName;
+        Result.SqlText = SqlText;
+        DataRegistry.LookupSources.Add(Result);
+        return Result;
+    }
+    static void CheckLookupSource(string Name)
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(Name)}' is provided.");
+        if (LookupSources.Contains(Name))
+            throw new TripousException($"Cannot add a {nameof(LookupSource)}. '{Name}' is already registered.");
+    }
+    static void CheckLookupSource(string Name, Type EnumType)
+    {
+        CheckLookupSource(Name);
+        if (EnumType == null)
+            throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(EnumType)}' is provided.");
+        if (!EnumType.IsEnum)
+            throw new TripousDataException($"Cannot add a {nameof(LookupSource)}. Type {EnumType.FullName} is not an enum type");
+    }
+    static void CheckLookupSourceWithTableName(string Name, string TableName)
+    {
+        CheckLookupSource(Name);
+        if (string.IsNullOrWhiteSpace(TableName))
+            throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(TableName)}' is provided.");
+    }
+    static void CheckLookupSourceWithSql(string Name, string SqlText)
+    {
+        CheckLookupSource(Name);
+        if (string.IsNullOrWhiteSpace(SqlText))
+            throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(SqlText)}' is provided.");
+    }
+
+    static void CheckLocator(string Name, string TableName, string[] DisplayFields)
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add a {nameof(LocatorDef)}. No '{nameof(Name)}' is provided.");
+        if (Locators.Contains(Name))
+            throw new TripousException($"Cannot add a {nameof(LocatorDef)}. '{Name}' is already registered.");
+        if (string.IsNullOrWhiteSpace(TableName))
+            throw new TripousException($"Cannot add a {nameof(LocatorDef)}. No '{nameof(TableName)}' is provided.");
+        if (DisplayFields == null || DisplayFields.Length == 0)
+            throw new TripousException($"Cannot add a {nameof(LocatorDef)}. No '{nameof(DisplayFields)}' provided.");
+    }
+    static LocatorDef AddLocatorInternal(string Name, string TableName, string KeyField, string[] DisplayFields, string[] SearchFields = null, string[] ReturnFields = null)
+    {
+        LocatorDef Result = new();
+        Result.Name = Name;
+        Result.TableName = TableName;
+        Result.KeyField = KeyField;
+        Result.DisplayFields = DisplayFields;
+        Result.SearchFields = SearchFields;
+        Result.ReturnFields = ReturnFields;
+        
+        Locators.Add(Result);
+        return Result;
+    }
+    
+    // ● modules
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, an exception is thrown.</para>
+    /// </summary>
+    static public ModuleDef AddModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false)
+    {
+        CheckModule(Name);
+        ModuleDef Result = AddModuleInternal(Name, TitleKey, ClassName, ListSelectSql, IsSingleSelect); 
+        return Result;
+    }
+    /// <summary>
+    /// Adds a module definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public ModuleDef AddOrGetModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false)
+    {
+        ModuleDef Result = Modules.Find(Name);
+        if (Result == null)
+            Result = AddModuleInternal(Name, TitleKey, ClassName, ListSelectSql, IsSingleSelect); 
+        return Result;
+    }
+ 
+    // ● lookup list modules
+    /// <summary>
+    /// A list module with just Id and Name as fields in its table.
+    /// <para>NOTE: The name of the module is the list TableName</para>
+    /// <para>If the definition exists, an exception is thrown.</para>
+    /// </summary>
+    static public ModuleDef AddLookupListModule(string Name) => AddLookupListModule(Name, Name, null);
+    /// <summary>
+    /// A list module with just Id and Name as fields in its table.
+    /// <para>NOTE: The name of the module is the list TableName</para>
+    /// <para>If the definition exists, an exception is thrown.</para>
+    /// </summary>
+    static public ModuleDef AddLookupListModule(string Name, string TitleKey) => AddLookupListModule(Name, Name, TitleKey);
+    /// <summary>
+    /// A list module with just Id and Name as fields in its table.
+    /// <para>NOTE: The name of the module is the list TableName</para>
+    /// <para>If the definition exists, an exception is thrown.</para>
+    /// </summary>
+    static public ModuleDef AddLookupListModule(string TableName, string Name, string TitleKey)
+    {
+        CheckModule(Name);
+        ModuleDef Result = AddLookupListModuleInternal(TableName, Name, TitleKey);
+        return Result;
+    }
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public ModuleDef AddOrGetLookupListModule(string TableName, string Name, string TitleKey)
+    {
+        ModuleDef Result = Modules.Find(Name);
+        if (Result == null)
+            Result = AddLookupListModuleInternal(TableName, Name, TitleKey); 
         return Result;
     }
     
@@ -74,60 +195,80 @@ static public class DataRegistry
     /// <summary>
     /// Adds a lookup source.
     /// <para>The <see cref="EnumType"/> is used as the source.</para>
+    /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
     static public LookupSource AddLookupSource(Type EnumType, bool UseNullItem = false) => AddLookupSource(EnumType.FullName, EnumType, UseNullItem);
     /// <summary>
     /// Adds a lookup source.
-    /// <para>If <see cref="EnumType"/> is not null, then it is used as the source.</para>
-    /// <para>Else the <see cref="Name"/> is used as the <see cref="LookupSource.TableName"/></para>
+    /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LookupSource AddLookupSource(string Name, Type EnumType = null, bool UseNullItem = false)
+    static public LookupSource AddLookupSource(string Name, Type EnumType, bool UseNullItem = false)
     {
-        if (EnumType != null && !EnumType.IsEnum)
-            throw new TripousDataException($"Type {EnumType.FullName} is not an enum type");
-
-        LookupSource Result = new();
-        Result.Name = Name;
-        Result.UseNullItem = UseNullItem;
-        if (EnumType != null)
-            Result.EnumTypeName = EnumType.FullName; // EnumType.AssemblyQualifiedName; //EnumType.FullName;
-        DataRegistry.LookupSources.Add(Result);
+        CheckLookupSource(Name, EnumType);
+        LookupSource Result = AddLookupSourceInternal(Name, EnumType, TableName: null, SqlText: null, UseNullItem: UseNullItem);
         return Result;
     }
     /// <summary>
     /// Adds a lookup source.
+    /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LookupSource AddLookupSourceWithTableName(string Name, string TableName, bool UseNullItem = false)
+    static public LookupSource AddLookupSourceWithTableName(string Name, string TableName = null, bool UseNullItem = false)
     {
-
-        LookupSource Result = DataRegistry.LookupSources.Find(Name);
-        if (Result == null)
-        {
-            Result = new();
-            Result.Name = Name;
-            Result.UseNullItem = UseNullItem;
-            Result.TableName = TableName;
-            DataRegistry.LookupSources.Add(Result);
-        }
-
+        if (string.IsNullOrWhiteSpace(TableName))
+            TableName = Name;
+        
+        CheckLookupSourceWithTableName(Name, TableName);
+        LookupSource Result = AddLookupSourceInternal(Name, EnumType: null, TableName: TableName, SqlText: null, UseNullItem: UseNullItem);
         return Result;
     }
     /// <summary>
     /// Adds a lookup source.
+    /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LookupSource AddLookupSourceWithSql(string Name, string SqlText, bool UseNullItem = false)
+    static public LookupSource AddLookupSourceWithSql(string Name, string SqlText = null, bool UseNullItem = false)
     {
-        LookupSource Result = DataRegistry.LookupSources.Find(Name);
-        if (Result == null)
-        {
-            Result.Name = Name;
-            Result.UseNullItem = UseNullItem;
-            Result.SqlText = SqlText;
-            DataRegistry.LookupSources.Add(Result);
-        }
+        if (string.IsNullOrWhiteSpace(SqlText))
+            SqlText = $"select * from {Name}";
+        
+        CheckLookupSourceWithSql(Name, SqlText);
+        LookupSource Result = AddLookupSourceInternal(Name, EnumType: null, TableName: null, SqlText: SqlText, UseNullItem: UseNullItem);
         return Result;
     }
- 
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public LookupSource AddOrGetLookupSource(string Name, Type EnumType, string TableName, string SqlText, bool UseNullItem)
+    {
+        LookupSource Result = LookupSources.Find(Name);
+        if (Result == null)
+            Result = AddLookupSourceInternal(Name, EnumType, TableName, SqlText, UseNullItem);
+        return Result;
+    }
+    
+    // ● locators
+    /// <summary>
+    /// Adds a locator definition.
+    /// <para>If the definition exists, an exception is thrown.</para>
+    /// </summary>
+    static public LocatorDef AddLocator(string Name, string TableName, string KeyField, string[] DisplayFields, string[] SearchFields = null, string[] ReturnFields = null)
+    {
+        CheckLocator(Name, TableName, DisplayFields);
+        LocatorDef Result = AddLocatorInternal(Name, TableName, KeyField, DisplayFields, SearchFields, ReturnFields);
+        return Result;
+    }
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public LocatorDef AddOrGetLocator(string Name, string TableName, string KeyField, string[] DisplayFields, string[] SearchFields = null, string[] ReturnFields = null)
+    {
+        LocatorDef Result = Locators.Find(Name);
+        if (Result == null)
+            Result = AddLocatorInternal(Name, TableName, KeyField, DisplayFields, SearchFields, ReturnFields);
+        return Result;
+    }
+
     // ● create module
     /// <summary>
     /// Creates and returns a <see cref="DataModule"/> based on its registered name.

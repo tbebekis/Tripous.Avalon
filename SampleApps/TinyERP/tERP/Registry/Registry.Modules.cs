@@ -35,6 +35,11 @@ static internal partial class Registry
         DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
         DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
     }
+    static void RegisterLocators_FromModules()
+    {
+        DataRegistry.AddLocator("Person", "Person", "Id", new string[] { "Code", "Name" }, new string[] { "Code", "Name" }, new string[] { "Id", "Code", "Name" });
+        DataRegistry.AddLocator("Product", "Product", "Id", new string[] { "Code", "Name" }, new string[] { "Code", "Name" }, new string[] { "Id", "Code", "Name" });
+    }
     static void RegisterModule_Bank()
     {
         ModuleDef Module;
@@ -49,7 +54,7 @@ select
 from
   Bank
 ";
-        Module = DataRegistry.AddModule("Bank", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("Bank", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Bank";
         tblTop.KeyField = "Id";
@@ -76,7 +81,7 @@ select
 from
   Carrier
 ";
-        Module = DataRegistry.AddModule("Carrier", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("Carrier", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Carrier";
         tblTop.KeyField = "Id";
@@ -110,13 +115,13 @@ select
    Category.IsActive,
    Category.Color,
    Category.IconName,
-   COALESCE(VatRate.Code, '') as VatRateCode,
-   COALESCE(VatRate.Name, '') as VatRateName
+   COALESCE(VatRate.Code, '') as VatRate__Code,
+   COALESCE(VatRate.Name, '') as VatRate__Name
 from
   Category
     left join VatRate VatRate on VatRate.Id = Category.VatRateId
 ";
-        Module = DataRegistry.AddModule("Category", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("Category", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Category";
         tblTop.KeyField = "Id";
@@ -134,7 +139,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "Code", "Color", "ExpenseAccount", "IconName", "IsActive", "IsSystem", "LevelNo", "RevenueAccount", "SortNo", "VatRateCode", "VatRateName"];
+        string[] FilterFields = ["Name", "Code", "Color", "ExpenseAccount", "IconName", "IsActive", "IsSystem", "LevelNo", "RevenueAccount", "SortNo", "VatRate__Code", "VatRate__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -162,19 +167,19 @@ select
    Company.Phone,
    Company.Email,
    Company.Website,
-   COALESCE(TaxOffice.Code, '') as TaxOfficeCode,
-   COALESCE(TaxOffice.Name, '') as TaxOfficeName,
-   COALESCE(Country.Code, '') as CountryCode,
-   COALESCE(Country.Name, '') as CountryName,
-   COALESCE(Currency.Code, '') as CurrencyCode,
-   COALESCE(Currency.Name, '') as CurrencyName
+   COALESCE(TaxOffice.Code, '') as TaxOffice__Code,
+   COALESCE(TaxOffice.Name, '') as TaxOffice__Name,
+   COALESCE(Country.Code, '') as Country__Code,
+   COALESCE(Country.Name, '') as Country__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name
 from
   Company
     left join TaxOffice TaxOffice on TaxOffice.Id = Company.TaxOfficeId
     left join Country Country on Country.Id = Company.CountryId
     left join Currency Currency on Currency.Id = Company.CurrencyId
 ";
-        Module = DataRegistry.AddModule("Company", ListSelectSql: SqlText, IsSingleSelect: false);
+        Module = DataRegistry.AddModule("Company", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Company";
         tblTop.KeyField = "Id";
@@ -193,7 +198,7 @@ from
         tblTop.AddString("Phone", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("Email", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("Website", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "City", "Code", "CountryCode", "CountryName", "CurrencyCode", "CurrencyName", "Email", "Phone", "PostalCode", "TaxNumber", "TaxOfficeCode", "TaxOfficeName", "Title", "Website"];
+        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "City", "Code", "Country__Code", "Country__Name", "Currency__Code", "Currency__Name", "Email", "Phone", "PostalCode", "TaxNumber", "TaxOffice__Code", "TaxOffice__Name", "Title", "Website"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -243,14 +248,14 @@ select
    CostCenter.IsActive,
    CostCenter.Color,
    CostCenter.IconName,
-   COALESCE(ManagerPerson.Code, '') as ManagerPersonCode,
-   COALESCE(ManagerPerson.Name, '') as ManagerPersonName,
-   COALESCE(ManagerPerson.Title, '') as ManagerPersonTitle
+   COALESCE(ManagerPerson.Code, '') as ManagerPerson__Code,
+   COALESCE(ManagerPerson.Name, '') as ManagerPerson__Name,
+   COALESCE(ManagerPerson.Title, '') as ManagerPerson__Title
 from
   CostCenter
     left join Person ManagerPerson on ManagerPerson.Id = CostCenter.ManagerPersonId
 ";
-        Module = DataRegistry.AddModule("CostCenter", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("CostCenter", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "CostCenter";
         tblTop.KeyField = "Id";
@@ -265,7 +270,12 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "Code", "Color", "EndDate", "IconName", "IsActive", "ManagerPersonCode", "ManagerPersonName", "ManagerPersonTitle", "StartDate"];
+        TableDef tblManagerPerson = tblTop.AddJoin("ManagerPersonId", "Person", "ManagerPerson", "Id");
+        tblTop.Fields.Get("ManagerPersonId").Locator = "Person";
+        tblManagerPerson.AddId("Id").SetNullable(false);
+        tblManagerPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblManagerPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        string[] FilterFields = ["Name", "Code", "Color", "EndDate", "IconName", "IsActive", "ManagerPerson__Code", "ManagerPerson__Name", "ManagerPerson__Title", "StartDate"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -286,7 +296,7 @@ select
 from
   Country
 ";
-        Module = DataRegistry.AddModule("Country", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("Country", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Country";
         tblTop.KeyField = "Id";
@@ -316,7 +326,7 @@ select
 from
   Currency
 ";
-        Module = DataRegistry.AddModule("Currency", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("Currency", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Currency";
         tblTop.KeyField = "Id";
@@ -343,7 +353,7 @@ select
 from
   CustomerCategory
 ";
-        Module = DataRegistry.AddModule("CustomerCategory", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("CustomerCategory", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "CustomerCategory";
         tblTop.KeyField = "Id";
@@ -367,7 +377,7 @@ select
 from
   DiscountCategory
 ";
-        Module = DataRegistry.AddModule("DiscountCategory", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("DiscountCategory", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "DiscountCategory";
         tblTop.KeyField = "Id";
@@ -406,13 +416,13 @@ select
    DocumentType.IconName,
    DocumentType.PrintTemplate,
    DocumentType.ReportName,
-   COALESCE(NumberSeries.Code, '') as NumberSeriesCode,
-   COALESCE(NumberSeries.Name, '') as NumberSeriesName
+   COALESCE(NumberSeries.Code, '') as NumberSeries__Code,
+   COALESCE(NumberSeries.Name, '') as NumberSeries__Name
 from
   DocumentType
     left join NumberSeries NumberSeries on NumberSeries.Id = DocumentType.NumberSeriesId
 ";
-        Module = DataRegistry.AddModule("DocumentType", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("DocumentType", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "DocumentType";
         tblTop.KeyField = "Id";
@@ -437,7 +447,7 @@ from
         tblTop.AddString("PrintTemplate", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("ReportName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "AccountingDirection", "AffectsAccounting", "AffectsFinancial", "AffectsStock", "AutoComplete", "Code", "Color", "FinancialDirection", "IconName", "IsActive", "IsCancellation", "NumberSeriesCode", "NumberSeriesName", "PrintTemplate", "ReportName", "RequiresApproval", "StockDirection"];
+        string[] FilterFields = ["Name", "AccountingDirection", "AffectsAccounting", "AffectsFinancial", "AffectsStock", "AutoComplete", "Code", "Color", "FinancialDirection", "IconName", "IsActive", "IsCancellation", "NumberSeries__Code", "NumberSeries__Name", "PrintTemplate", "ReportName", "RequiresApproval", "StockDirection"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -456,7 +466,7 @@ select
 from
   ExpenseCategory
 ";
-        Module = DataRegistry.AddModule("ExpenseCategory", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("ExpenseCategory", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "ExpenseCategory";
         tblTop.KeyField = "Id";
@@ -486,7 +496,7 @@ select
 from
   FiscalYear
 ";
-        Module = DataRegistry.AddModule("FiscalYear", ListSelectSql: SqlText, IsSingleSelect: false);
+        Module = DataRegistry.AddModule("FiscalYear", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "FiscalYear";
         tblTop.KeyField = "Id";
@@ -534,7 +544,7 @@ select
 from
   Language
 ";
-        Module = DataRegistry.AddModule("Language", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("Language", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Language";
         tblTop.KeyField = "Id";
@@ -575,7 +585,7 @@ select
 from
   SYS_LOG
 ";
-        Module = DataRegistry.AddModule("Log", ListSelectSql: SqlText, IsSingleSelect: false);
+        Module = DataRegistry.AddModule("Log", ClassName: "LogDataModule", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "SYS_LOG";
         tblTop.KeyField = "Id";
@@ -614,7 +624,7 @@ select
 from
   NumberSeries
 ";
-        Module = DataRegistry.AddModule("NumberSeries", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("NumberSeries", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "NumberSeries";
         tblTop.KeyField = "Id";
@@ -645,7 +655,7 @@ select
 from
   PaymentMethod
 ";
-        Module = DataRegistry.AddModule("PaymentMethod", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("PaymentMethod", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "PaymentMethod";
         tblTop.KeyField = "Id";
@@ -674,7 +684,7 @@ select
 from
   PaymentTerm
 ";
-        Module = DataRegistry.AddModule("PaymentTerm", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("PaymentTerm", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "PaymentTerm";
         tblTop.KeyField = "Id";
@@ -719,14 +729,14 @@ select
    Person.IsActive,
    Person.Color,
    Person.IconName,
-   COALESCE(TaxOffice.Code, '') as TaxOfficeCode,
-   COALESCE(TaxOffice.Name, '') as TaxOfficeName,
-   COALESCE(Country.Code, '') as CountryCode,
-   COALESCE(Country.Name, '') as CountryName,
-   COALESCE(Currency.Code, '') as CurrencyCode,
-   COALESCE(Currency.Name, '') as CurrencyName,
-   COALESCE(Language.Code, '') as LanguageCode,
-   COALESCE(Language.Name, '') as LanguageName
+   COALESCE(TaxOffice.Code, '') as TaxOffice__Code,
+   COALESCE(TaxOffice.Name, '') as TaxOffice__Name,
+   COALESCE(Country.Code, '') as Country__Code,
+   COALESCE(Country.Name, '') as Country__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(Language.Code, '') as Language__Code,
+   COALESCE(Language.Name, '') as Language__Name
 from
   Person
     left join TaxOffice TaxOffice on TaxOffice.Id = Person.TaxOfficeId
@@ -734,7 +744,7 @@ from
     left join Currency Currency on Currency.Id = Person.CurrencyId
     left join Language Language on Language.Id = Person.LanguageId
 ";
-        Module = DataRegistry.AddModule("Person", ListSelectSql: SqlText, IsSingleSelect: false);
+        Module = DataRegistry.AddModule("Person", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Person";
         tblTop.KeyField = "Id";
@@ -761,7 +771,7 @@ from
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "City", "Code", "Color", "ContactPerson", "CountryCode", "CountryName", "CurrencyCode", "CurrencyName", "Email", "IconName", "IsActive", "IsCompany", "LanguageCode", "LanguageName", "Mobile", "Phone", "PostalCode", "TaxNumber", "TaxOfficeCode", "TaxOfficeName", "Title", "Website"];
+        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "City", "Code", "Color", "ContactPerson", "Country__Code", "Country__Name", "Currency__Code", "Currency__Name", "Email", "IconName", "IsActive", "IsCompany", "Language__Code", "Language__Name", "Mobile", "Phone", "PostalCode", "TaxNumber", "TaxOffice__Code", "TaxOffice__Name", "Title", "Website"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -792,7 +802,7 @@ select
 from
   PersonRoleType
 ";
-        Module = DataRegistry.AddModule("PersonRoleType", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("PersonRoleType", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "PersonRoleType";
         tblTop.KeyField = "Id";
@@ -827,20 +837,20 @@ select
    PriceList.ValidFrom,
    PriceList.ValidTo,
    PriceList.IsActive,
-   COALESCE(Customer.Code, '') as CustomerCode,
-   COALESCE(Customer.Name, '') as CustomerName,
-   COALESCE(Customer.Title, '') as CustomerTitle,
-   COALESCE(Product.Code, '') as ProductCode,
-   COALESCE(Product.Name, '') as ProductName,
-   COALESCE(UnitOfMeasure.Code, '') as UnitOfMeasureCode,
-   COALESCE(UnitOfMeasure.Name, '') as UnitOfMeasureName
+   COALESCE(Customer.Code, '') as Customer__Code,
+   COALESCE(Customer.Name, '') as Customer__Name,
+   COALESCE(Customer.Title, '') as Customer__Title,
+   COALESCE(Product.Code, '') as Product__Code,
+   COALESCE(Product.Name, '') as Product__Name,
+   COALESCE(UnitOfMeasure.Code, '') as UnitOfMeasure__Code,
+   COALESCE(UnitOfMeasure.Name, '') as UnitOfMeasure__Name
 from
   PriceList
     left join Person Customer on Customer.Id = PriceList.CustomerId
     left join Product Product on Product.Id = PriceList.ProductId
     left join UnitOfMeasure UnitOfMeasure on UnitOfMeasure.Id = PriceList.UnitOfMeasureId
 ";
-        Module = DataRegistry.AddModule("PriceList", ListSelectSql: SqlText, IsSingleSelect: false);
+        Module = DataRegistry.AddModule("PriceList", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "PriceList";
         tblTop.KeyField = "Id";
@@ -856,7 +866,17 @@ from
         tblTop.AddDate("ValidTo", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["CustomerCode", "CustomerName", "CustomerTitle", "IsActive", "MinQuantity", "ProductCode", "ProductName", "UnitOfMeasureCode", "UnitOfMeasureName", "UnitPrice", "ValidFrom", "ValidTo"];
+        TableDef tblCustomer = tblTop.AddJoin("CustomerId", "Person", "Customer", "Id");
+        tblTop.Fields.Get("CustomerId").Locator = "Person";
+        tblCustomer.AddId("Id").SetNullable(false);
+        tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblCustomer.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        TableDef tblProduct = tblTop.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTop.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        string[] FilterFields = ["Customer__Code", "Customer__Name", "Customer__Title", "IsActive", "MinQuantity", "Product__Code", "Product__Name", "UnitOfMeasure__Code", "UnitOfMeasure__Name", "UnitPrice", "ValidFrom", "ValidTo"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -878,13 +898,13 @@ select
    PriceListType.IsActive,
    PriceListType.Color,
    PriceListType.IconName,
-   COALESCE(Currency.Code, '') as CurrencyCode,
-   COALESCE(Currency.Name, '') as CurrencyName
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name
 from
   PriceListType
     left join Currency Currency on Currency.Id = PriceListType.CurrencyId
 ";
-        Module = DataRegistry.AddModule("PriceListType", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("PriceListType", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "PriceListType";
         tblTop.KeyField = "Id";
@@ -898,7 +918,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "Code", "Color", "CurrencyCode", "CurrencyName", "IconName", "IsActive", "IsDefault", "IsTaxIncluded"];
+        string[] FilterFields = ["Name", "Code", "Color", "Currency__Code", "Currency__Name", "IconName", "IsActive", "IsDefault", "IsTaxIncluded"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -924,19 +944,19 @@ select
    Product.IsActive,
    Product.Color,
    Product.IconName,
-   COALESCE(Category.Code, '') as CategoryCode,
-   COALESCE(Category.Name, '') as CategoryName,
-   COALESCE(VatRate.Code, '') as VatRateCode,
-   COALESCE(VatRate.Name, '') as VatRateName,
-   COALESCE(PrimaryUnitOfMeasure.Code, '') as PrimaryUnitOfMeasureCode,
-   COALESCE(PrimaryUnitOfMeasure.Name, '') as PrimaryUnitOfMeasureName
+   COALESCE(Category.Code, '') as Category__Code,
+   COALESCE(Category.Name, '') as Category__Name,
+   COALESCE(VatRate.Code, '') as VatRate__Code,
+   COALESCE(VatRate.Name, '') as VatRate__Name,
+   COALESCE(PrimaryUnitOfMeasure.Code, '') as PrimaryUnitOfMeasure__Code,
+   COALESCE(PrimaryUnitOfMeasure.Name, '') as PrimaryUnitOfMeasure__Name
 from
   Product
     left join Category Category on Category.Id = Product.CategoryId
     left join VatRate VatRate on VatRate.Id = Product.VatRateId
     left join UnitOfMeasure PrimaryUnitOfMeasure on PrimaryUnitOfMeasure.Id = Product.PrimaryUnitOfMeasureId
 ";
-        Module = DataRegistry.AddModule("Product", ListSelectSql: SqlText, IsSingleSelect: false);
+        Module = DataRegistry.AddModule("Product", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Product";
         tblTop.KeyField = "Id";
@@ -954,7 +974,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "Barcode", "CategoryCode", "CategoryName", "Code", "Color", "IconName", "IsActive", "PrimaryUnitOfMeasureCode", "PrimaryUnitOfMeasureName", "VatRateCode", "VatRateName", "Volume", "Weight"];
+        string[] FilterFields = ["Name", "Barcode", "Category__Code", "Category__Name", "Code", "Color", "IconName", "IsActive", "PrimaryUnitOfMeasure__Code", "PrimaryUnitOfMeasure__Name", "VatRate__Code", "VatRate__Name", "Volume", "Weight"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -995,7 +1015,7 @@ select
 from
   ProductBrand
 ";
-        Module = DataRegistry.AddModule("ProductBrand", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("ProductBrand", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "ProductBrand";
         tblTop.KeyField = "Id";
@@ -1024,7 +1044,7 @@ select
 from
   ProductGroup
 ";
-        Module = DataRegistry.AddModule("ProductGroup", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("ProductGroup", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "ProductGroup";
         tblTop.KeyField = "Id";
@@ -1061,21 +1081,21 @@ select
    Project.IsActive,
    Project.Color,
    Project.IconName,
-   COALESCE(Customer.Code, '') as CustomerCode,
-   COALESCE(Customer.Name, '') as CustomerName,
-   COALESCE(Customer.Title, '') as CustomerTitle,
-   COALESCE(CostCenter.Code, '') as CostCenterCode,
-   COALESCE(CostCenter.Name, '') as CostCenterName,
-   COALESCE(ManagerPerson.Code, '') as ManagerPersonCode,
-   COALESCE(ManagerPerson.Name, '') as ManagerPersonName,
-   COALESCE(ManagerPerson.Title, '') as ManagerPersonTitle
+   COALESCE(Customer.Code, '') as Customer__Code,
+   COALESCE(Customer.Name, '') as Customer__Name,
+   COALESCE(Customer.Title, '') as Customer__Title,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(ManagerPerson.Code, '') as ManagerPerson__Code,
+   COALESCE(ManagerPerson.Name, '') as ManagerPerson__Name,
+   COALESCE(ManagerPerson.Title, '') as ManagerPerson__Title
 from
   Project
     left join Person Customer on Customer.Id = Project.CustomerId
     left join CostCenter CostCenter on CostCenter.Id = Project.CostCenterId
     left join Person ManagerPerson on ManagerPerson.Id = Project.ManagerPersonId
 ";
-        Module = DataRegistry.AddModule("Project", ListSelectSql: SqlText, IsSingleSelect: false);
+        Module = DataRegistry.AddModule("Project", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Project";
         tblTop.KeyField = "Id";
@@ -1092,7 +1112,17 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "Code", "Color", "CostCenterCode", "CostCenterName", "CustomerCode", "CustomerName", "CustomerTitle", "EndDate", "IconName", "IsActive", "ManagerPersonCode", "ManagerPersonName", "ManagerPersonTitle", "StartDate"];
+        TableDef tblCustomer = tblTop.AddJoin("CustomerId", "Person", "Customer", "Id");
+        tblTop.Fields.Get("CustomerId").Locator = "Person";
+        tblCustomer.AddId("Id").SetNullable(false);
+        tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblCustomer.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        TableDef tblManagerPerson = tblTop.AddJoin("ManagerPersonId", "Person", "ManagerPerson", "Id");
+        tblTop.Fields.Get("ManagerPersonId").Locator = "Person";
+        tblManagerPerson.AddId("Id").SetNullable(false);
+        tblManagerPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblManagerPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        string[] FilterFields = ["Name", "Code", "Color", "CostCenter__Code", "CostCenter__Name", "Customer__Code", "Customer__Name", "Customer__Title", "EndDate", "IconName", "IsActive", "ManagerPerson__Code", "ManagerPerson__Name", "ManagerPerson__Title", "StartDate"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1112,7 +1142,7 @@ select
 from
   SalesPerson
 ";
-        Module = DataRegistry.AddModule("SalesPerson", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("SalesPerson", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "SalesPerson";
         tblTop.KeyField = "Id";
@@ -1146,7 +1176,7 @@ select
 from
   StockReason
 ";
-        Module = DataRegistry.AddModule("StockReason", ListSelectSql: SqlText, IsSingleSelect: false);
+        Module = DataRegistry.AddModule("StockReason", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "StockReason";
         tblTop.KeyField = "Id";
@@ -1179,7 +1209,7 @@ select
 from
   SupplierCategory
 ";
-        Module = DataRegistry.AddModule("SupplierCategory", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("SupplierCategory", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "SupplierCategory";
         tblTop.KeyField = "Id";
@@ -1212,13 +1242,13 @@ select
    TaxCategory.IsActive,
    TaxCategory.Color,
    TaxCategory.IconName,
-   COALESCE(VatRate.Code, '') as VatRateCode,
-   COALESCE(VatRate.Name, '') as VatRateName
+   COALESCE(VatRate.Code, '') as VatRate__Code,
+   COALESCE(VatRate.Name, '') as VatRate__Name
 from
   TaxCategory
     left join VatRate VatRate on VatRate.Id = TaxCategory.VatRateId
 ";
-        Module = DataRegistry.AddModule("TaxCategory", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("TaxCategory", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "TaxCategory";
         tblTop.KeyField = "Id";
@@ -1237,7 +1267,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "Code", "Color", "IconName", "IsActive", "IsDomestic", "IsEuropeanUnion", "IsIntrastat", "IsReverseCharge", "IsTaxExempt", "IsThirdCountry", "IsVies", "VatRateCode", "VatRateName"];
+        string[] FilterFields = ["Name", "Code", "Color", "IconName", "IsActive", "IsDomestic", "IsEuropeanUnion", "IsIntrastat", "IsReverseCharge", "IsTaxExempt", "IsThirdCountry", "IsVies", "VatRate__Code", "VatRate__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1256,7 +1286,7 @@ select
 from
   TaxOffice
 ";
-        Module = DataRegistry.AddModule("TaxOffice", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("TaxOffice", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "TaxOffice";
         tblTop.KeyField = "Id";
@@ -1282,7 +1312,7 @@ select
 from
   UnitOfMeasure
 ";
-        Module = DataRegistry.AddModule("UnitOfMeasure", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("UnitOfMeasure", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "UnitOfMeasure";
         tblTop.KeyField = "Id";
@@ -1310,7 +1340,7 @@ select
 from
   VatRate
 ";
-        Module = DataRegistry.AddModule("VatRate", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("VatRate", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "VatRate";
         tblTop.KeyField = "Id";
@@ -1352,16 +1382,16 @@ select
    Warehouse.AffectsAvailability,
    Warehouse.Color,
    Warehouse.IconName,
-   COALESCE(Company.Code, '') as CompanyCode,
-   COALESCE(Company.Name, '') as CompanyName,
-   COALESCE(Company.Title, '') as CompanyTitle,
-   COALESCE(Branch.Code, '') as BranchCode,
-   COALESCE(Branch.Name, '') as BranchName,
-   COALESCE(Country.Code, '') as CountryCode,
-   COALESCE(Country.Name, '') as CountryName,
-   COALESCE(ResponsiblePerson.Code, '') as ResponsiblePersonCode,
-   COALESCE(ResponsiblePerson.Name, '') as ResponsiblePersonName,
-   COALESCE(ResponsiblePerson.Title, '') as ResponsiblePersonTitle
+   COALESCE(Company.Code, '') as Company__Code,
+   COALESCE(Company.Name, '') as Company__Name,
+   COALESCE(Company.Title, '') as Company__Title,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Country.Code, '') as Country__Code,
+   COALESCE(Country.Name, '') as Country__Name,
+   COALESCE(ResponsiblePerson.Code, '') as ResponsiblePerson__Code,
+   COALESCE(ResponsiblePerson.Name, '') as ResponsiblePerson__Name,
+   COALESCE(ResponsiblePerson.Title, '') as ResponsiblePerson__Title
 from
   Warehouse
     left join Company Company on Company.Id = Warehouse.CompanyId
@@ -1369,7 +1399,7 @@ from
     left join Country Country on Country.Id = Warehouse.CountryId
     left join Person ResponsiblePerson on ResponsiblePerson.Id = Warehouse.ResponsiblePersonId
 ";
-        Module = DataRegistry.AddModule("Warehouse", ListSelectSql: SqlText, IsSingleSelect: true);
+        Module = DataRegistry.AddModule("Warehouse", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "Warehouse";
         tblTop.KeyField = "Id";
@@ -1394,7 +1424,12 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "AffectsAvailability", "AllowNegativeStock", "BranchCode", "BranchName", "City", "Code", "Color", "CompanyCode", "CompanyName", "CompanyTitle", "CountryCode", "CountryName", "Email", "IconName", "IsActive", "IsVirtual", "Phone", "PostalCode", "ResponsiblePersonCode", "ResponsiblePersonName", "ResponsiblePersonTitle"];
+        TableDef tblResponsiblePerson = tblTop.AddJoin("ResponsiblePersonId", "Person", "ResponsiblePerson", "Id");
+        tblTop.Fields.Get("ResponsiblePersonId").Locator = "Person";
+        tblResponsiblePerson.AddId("Id").SetNullable(false);
+        tblResponsiblePerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblResponsiblePerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "AffectsAvailability", "AllowNegativeStock", "Branch__Code", "Branch__Name", "City", "Code", "Color", "Company__Code", "Company__Name", "Company__Title", "Country__Code", "Country__Name", "Email", "IconName", "IsActive", "IsVirtual", "Phone", "PostalCode", "ResponsiblePerson__Code", "ResponsiblePerson__Name", "ResponsiblePerson__Title"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1404,6 +1439,7 @@ from
     static public void RegisterModules()
     {
         RegisterLookupSources_FromModules();
+        RegisterLocators_FromModules();
         RegisterModule_Bank();
         RegisterModule_Carrier();
         RegisterModule_Category();

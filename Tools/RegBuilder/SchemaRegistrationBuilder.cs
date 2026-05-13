@@ -20,7 +20,8 @@ public enum DuplicateCheck
     Lookup = 1,
     Enum = 2,
     Form = 4,
-    Module = 8
+    Module = 8,
+    Locator = 16
 }
 
 /// <summary>
@@ -373,6 +374,7 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("{");
         SB.AppendLine("    // ● private");
         BuildRegisterLookupSourcesMethod(SB, Script, DuplicateChecks);
+        BuildRegisterLocatorsMethod(SB, Script, DuplicateChecks);
         foreach (SchemaTable TopTable in TopTables)
             BuildRegisterModuleMethod(SB, Script, TopTable, DuplicateChecks);
         SB.AppendLine();
@@ -380,6 +382,7 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    static public void RegisterModules()");
         SB.AppendLine("    {");
         SB.AppendLine("        RegisterLookupSources_FromModules();");
+        SB.AppendLine("        RegisterLocators_FromModules();");
         foreach (SchemaTable TopTable in TopTables)
             SB.AppendLine("        RegisterModule_" + SafeIdentifier(TopTable.ModuleName) + "();");
         SB.AppendLine("    }");
@@ -404,18 +407,16 @@ static public class SchemaRegistrationBuilder
 
         foreach (SchemaTable TopTable in TopTables)
         {
-            string GroupArg = !string.IsNullOrWhiteSpace(TopTable.GroupName)
-                ? ", Group: \"" + EscapeString(TopTable.GroupName) + "\""
-                : string.Empty;
+            string AddFormSource = BuildAddFormSource(TopTable);
 
             if (DuplicateChecks.HasFlag(DuplicateCheck.Form))
             {
-                SB.AppendLine("        if (!DesktopRegistry.Forms.Contains(\"" + EscapeString(TopTable.ModuleName) + "\"))");
-                SB.AppendLine("            DesktopRegistry.AddForm(\"" + EscapeString(TopTable.ModuleName) + "\", TitleKey: \"" + EscapeString(TopTable.ModuleName) + "\", Module: \"" + EscapeString(TopTable.ModuleName) + "\"" + GroupArg + ");");
+                SB.AppendLine("        if (!DesktopRegistry.Forms.Contains(\"" + EscapeString(TopTable.FormName) + "\"))");
+                SB.AppendLine("            " + AddFormSource);
             }
             else
             {
-                SB.AppendLine("        DesktopRegistry.AddForm(\"" + EscapeString(TopTable.ModuleName) + "\", TitleKey: \"" + EscapeString(TopTable.ModuleName) + "\", Module: \"" + EscapeString(TopTable.ModuleName) + "\"" + GroupArg + ");");
+                SB.AppendLine("        " + AddFormSource);
             }
         }
 
@@ -423,6 +424,27 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("}");
 
         return SB.ToString().TrimEnd();
+    }
+    /// <summary>
+    /// Builds source code that adds a form definition.
+    /// </summary>
+    static string BuildAddFormSource(SchemaTable TopTable)
+    {
+        List<string> Args = [];
+        Args.Add("\"" + EscapeString(TopTable.FormName) + "\"");
+        Args.Add("TitleKey: \"" + EscapeString(TopTable.FormName) + "\"");
+        Args.Add("Module: \"" + EscapeString(TopTable.ModuleName) + "\"");
+
+        if (!string.IsNullOrWhiteSpace(TopTable.FormClassName))
+            Args.Add("ClassName: \"" + EscapeString(TopTable.FormClassName) + "\"");
+        if (!string.IsNullOrWhiteSpace(TopTable.GroupName))
+            Args.Add("Group: \"" + EscapeString(TopTable.GroupName) + "\"");
+        if (!string.IsNullOrWhiteSpace(TopTable.ItemPageClassName))
+            Args.Add("ItemClassName: \"" + EscapeString(TopTable.ItemPageClassName) + "\"");
+        if (TopTable.IsReadOnly)
+            Args.Add("IsReadOnly: true");
+
+        return "DesktopRegistry.AddForm(" + string.Join(", ", Args) + ");";
     }
 
     // ● private - module source
@@ -479,6 +501,90 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    }");
 
     }
+
+
+    /// <summary>
+    /// Builds the method that registers locator definitions.
+    /// </summary>
+    static void BuildRegisterLocatorsMethod(StringBuilder SB, SchemaScript Script, DuplicateCheck DuplicateChecks)
+    {
+        Dictionary<string, LocatorInfo> Locators = CollectLocators(Script);
+
+        SB.AppendLine("    static void RegisterLocators_FromModules()");
+        SB.AppendLine("    {");
+
+        foreach (LocatorInfo Locator in Locators.Values.OrderBy(x => x.Name))
+        {
+            string Source = "DataRegistry.AddLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\", " + BuildStringArray(Locator.DisplayFields) + ", " + BuildStringArray(Locator.SearchFields) + ", " + BuildStringArray(Locator.ReturnFields) + ");";
+            if (DuplicateChecks.HasFlag(DuplicateCheck.Locator))
+            {
+                SB.AppendLine("        if (!DataRegistry.Locators.Contains(\"" + EscapeString(Locator.Name) + "\"))");
+                SB.AppendLine("            " + Source);
+            }
+            else
+            {
+                SB.AppendLine("        " + Source);
+            }
+        }
+
+        SB.AppendLine("    }");
+    }
+    /// <summary>
+    /// Collects locator definitions.
+    /// </summary>
+    static Dictionary<string, LocatorInfo> CollectLocators(SchemaScript Script)
+    {
+        Dictionary<string, LocatorInfo> Result = new(StringComparer.OrdinalIgnoreCase);
+
+        foreach (SchemaTable Table in Script.Tables)
+        {
+            foreach (SchemaField Field in Table.Fields)
+            {
+                if (!IsLocatorField(Field))
+                    continue;
+
+                LocatorInfo Locator = ResolveLocatorInfo(Script, Table, Field);
+                if (Locator == null)
+                    continue;
+
+                if (!Result.ContainsKey(Locator.Name))
+                    Result[Locator.Name] = Locator;
+            }
+        }
+
+        return Result;
+    }
+    /// <summary>
+    /// Builds source code that adds a module definition.
+    /// </summary>
+    static string BuildAddModuleSource(SchemaTable TopTable)
+    {
+        List<string> Args = [];
+        Args.Add("\"" + EscapeString(TopTable.ModuleName) + "\"");
+
+        if (!string.IsNullOrWhiteSpace(TopTable.ModuleClassName))
+            Args.Add("ClassName: \"" + EscapeString(TopTable.ModuleClassName) + "\"");
+
+        Args.Add("ListSelectSql: SqlText");
+
+        if (TopTable.IsSingleSelect)
+            Args.Add("IsSingleSelect: true");
+
+        return "Module = DataRegistry.AddModule(" + string.Join(", ", Args) + ");";
+    }
+    /// <summary>
+    /// Builds module option assignments.
+    /// </summary>
+    static void BuildModuleOptionAssignments(StringBuilder SB, SchemaTable TopTable)
+    {
+        if (!TopTable.UseFilters)
+            SB.AppendLine("        Module.UseFilters = false;");
+        if (!TopTable.CascadeDeletes)
+            SB.AppendLine("        Module.CascadeDeletes = false;");
+        if (!TopTable.GuidOids)
+            SB.AppendLine("        Module.GuidOids = false;");
+    }
+
     /// <summary>
     /// Builds a module registration method.
     /// </summary>
@@ -501,7 +607,8 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("        SqlText = @\"");
         SB.AppendLine(EscapeVerbatim(SelectResult.SqlText));
         SB.AppendLine("\";");
-        SB.AppendLine("        Module = DataRegistry.AddModule(\"" + EscapeString(TopTable.ModuleName) + "\", ListSelectSql: SqlText, IsSingleSelect: " + BoolLiteral(TopTable.IsLookup) + ");");
+        SB.AppendLine("        " + BuildAddModuleSource(TopTable));
+        BuildModuleOptionAssignments(SB, TopTable);
         SB.AppendLine("        tblTop = Module.Table;");
         SB.AppendLine("        tblTop.Name = \"" + EscapeString(TopTable.Name) + "\";");
         SB.AppendLine("        tblTop.KeyField = \"" + EscapeString(TopTable.PrimaryKeyField.Name) + "\";");
@@ -510,7 +617,8 @@ static public class SchemaRegistrationBuilder
             SB.AppendLine("        tblTop.IsUiVisible = false;");
 
         BuildTableFieldsSource(SB, Script, TopTable, "tblTop", "        ");
-        BuildFiltersSource(SB, SelectResult.FilterFields);
+        if (TopTable.UseFilters)
+            BuildFiltersSource(SB, SelectResult.FilterFields);
 
         foreach (SchemaTable Detail in Script.GetDetailsOf(TopTable))
             BuildDetailSource(SB, Script, Detail, "tblTop", "        ");
@@ -547,6 +655,47 @@ static public class SchemaRegistrationBuilder
     {
         foreach (SchemaField Field in Table.Fields)
             SB.AppendLine(Indent + BuildAddFieldSource(Script, Table, Field, TableVarName));
+
+        BuildLocatorJoinsSource(SB, Script, Table, TableVarName, Indent);
+    }
+    /// <summary>
+    /// Builds source code for locator joins.
+    /// </summary>
+    static void BuildLocatorJoinsSource(StringBuilder SB, SchemaScript Script, SchemaTable Table, string TableVarName, string Indent)
+    {
+        foreach (SchemaField Field in Table.Fields)
+        {
+            if (!IsLocatorField(Field))
+                continue;
+
+            LocatorInfo Locator = ResolveLocatorInfo(Script, Table, Field);
+            if (Locator == null)
+                continue;
+
+            SchemaTable JoinTable = Script.FindTable(Locator.TableName);
+            if (JoinTable == null)
+                continue;
+
+            string JoinVarName = "tbl" + SafeIdentifier(Locator.Alias);
+            SB.AppendLine(Indent + "TableDef " + JoinVarName + " = " + TableVarName + ".AddJoin(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.Alias) + "\", \"" + EscapeString(Locator.KeyField) + "\");");
+            SB.AppendLine(Indent + TableVarName + ".Fields.Get(\"" + EscapeString(Field.Name) + "\").Locator = \"" + EscapeString(Locator.Name) + "\";");
+
+            SchemaField KeyField = JoinTable.FindField(Locator.KeyField);
+            if (KeyField != null)
+                SB.AppendLine(Indent + BuildAddFieldSource(Script, JoinTable, KeyField, JoinVarName));
+
+            foreach (string FieldName in Locator.ReturnFields)
+            {
+                if (FieldName.IsSameText(Locator.KeyField))
+                    continue;
+
+                SchemaField JoinField = JoinTable.FindField(FieldName);
+                if (JoinField == null)
+                    continue;
+
+                SB.AppendLine(Indent + BuildAddFieldSource(Script, JoinTable, JoinField, JoinVarName));
+            }
+        }
     }
     /// <summary>
     /// Builds source code for filters.
@@ -667,7 +816,7 @@ static public class SchemaRegistrationBuilder
                 !JoinField.Name.IsSameText("Title"))
                 continue;
 
-            string DisplayAlias = UniqueAlias(Alias + JoinField.Name, Aliases);
+            string DisplayAlias = UniqueAlias(Alias + "__" + JoinField.Name, Aliases);
 
             SelectLines.Add("   COALESCE(" + Alias + "." + JoinField.Name + ", '') as " + DisplayAlias);
 
@@ -770,17 +919,34 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static bool HeaderKeyExists(string HeaderText, string Name)
     {
-        return Regex.IsMatch(HeaderText, @"^\s*" + Regex.Escape(Name) + @"\s*:", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        return Regex.IsMatch(HeaderText, @"^\s*" + Regex.Escape(Name) + @"\s*(?::.*)?$", RegexOptions.IgnoreCase | RegexOptions.Multiline);
     }
+    /// <summary>
+    /// Returns true if a header flag exists.
+    /// </summary>
+    static bool GetHeaderFlag(string HeaderText, string Name) => HeaderKeyExists(HeaderText, Name);
     /// <summary>
     /// Returns a boolean header value.
     /// </summary>
     static bool GetHeaderBool(string HeaderText, string Name, bool DefaultValue)
     {
+        if (!HeaderKeyExists(HeaderText, Name))
+            return DefaultValue;
+
         string Value = GetHeaderValue(HeaderText, Name);
         if (string.IsNullOrWhiteSpace(Value))
-            return DefaultValue;
+            return true;
+
         return Value.Equals("true", StringComparison.OrdinalIgnoreCase) || Value == "1" || Value.Equals("yes", StringComparison.OrdinalIgnoreCase);
+    }
+    /// <summary>
+    /// Splits a header value into tokens.
+    /// </summary>
+    static List<string> SplitHeaderTokens(string Value)
+    {
+        if (string.IsNullOrWhiteSpace(Value))
+            return [];
+        return Value.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
     }
     /// <summary>
     /// Returns an integer header value.
@@ -1028,6 +1194,169 @@ static public class SchemaRegistrationBuilder
             return RemoveIdSuffix(Field.Name);
 
         return RemoveIdSuffix(Field.Name);
+    }
+
+    /// <summary>
+    /// Returns true when a field must be generated as locator field.
+    /// </summary>
+    static bool IsLocatorField(SchemaField Field)
+    {
+        return Field.MetadataKind == FieldMetadataKind.Locator || Field.MetadataKind == FieldMetadataKind.CorrelationLocator;
+    }
+    /// <summary>
+    /// Resolves locator metadata for a field.
+    /// </summary>
+    static LocatorInfo ResolveLocatorInfo(SchemaScript Script, SchemaTable Table, SchemaField Field)
+    {
+        LocatorInfo Result = ParseLocatorInfo(Field.MetadataText);
+
+        string ReferenceTableName = Field.ForeignKey != null ? Field.ForeignKey.ReferenceTable : Result.Name;
+        if (string.IsNullOrWhiteSpace(ReferenceTableName))
+            ReferenceTableName = RemoveIdSuffix(Field.Name);
+
+        SchemaTable ReferenceTable = Script.FindTable(ReferenceTableName);
+
+        if (string.IsNullOrWhiteSpace(Result.Name))
+            Result.Name = ReferenceTableName;
+        if (string.IsNullOrWhiteSpace(Result.TableName))
+            Result.TableName = ReferenceTableName;
+        if (string.IsNullOrWhiteSpace(Result.Alias))
+            Result.Alias = RemoveIdSuffix(Field.Name);
+        if (string.IsNullOrWhiteSpace(Result.KeyField))
+            Result.KeyField = Field.ForeignKey != null ? Field.ForeignKey.ReferenceField : "Id";
+
+        if (Result.DisplayFields.Count == 0)
+            Result.DisplayFields.AddRange(GetDefaultLocatorDisplayFields(ReferenceTable));
+
+        if (Result.SearchFields.Count == 0)
+            Result.SearchFields.AddRange(Result.DisplayFields);
+
+        if (Result.ReturnFields.Count == 0)
+        {
+            Result.ReturnFields.Add(Result.KeyField);
+            Result.ReturnFields.AddRange(Result.DisplayFields);
+        }
+
+        Result.DisplayFields = DistinctFieldList(Result.DisplayFields);
+        Result.SearchFields = DistinctFieldList(Result.SearchFields);
+        Result.ReturnFields = DistinctFieldList(Result.ReturnFields);
+
+        if (Result.DisplayFields.Count == 0)
+            return null;
+
+        return Result;
+    }
+    /// <summary>
+    /// Parses locator metadata text.
+    /// </summary>
+    static LocatorInfo ParseLocatorInfo(string MetadataText)
+    {
+        LocatorInfo Result = new();
+
+        if (string.IsNullOrWhiteSpace(MetadataText))
+            return Result;
+
+        string Text = MetadataText.Trim();
+
+        if (Text.StartsWith("Locator", StringComparison.OrdinalIgnoreCase))
+            Text = Text.Substring("Locator".Length).Trim();
+        else if (Text.StartsWith("Correlation Locator", StringComparison.OrdinalIgnoreCase))
+            Text = Text.Substring("Correlation Locator".Length).Trim();
+
+        string FieldText = string.Empty;
+        int OpenIndex = Text.IndexOf('(');
+        int CloseIndex = Text.LastIndexOf(')');
+
+        if (OpenIndex >= 0 && CloseIndex > OpenIndex)
+        {
+            FieldText = Text.Substring(OpenIndex + 1, CloseIndex - OpenIndex - 1).Trim();
+            Text = Text.Substring(0, OpenIndex).Trim();
+        }
+
+        if (!string.IsNullOrWhiteSpace(Text))
+            Result.Name = SplitHeaderTokens(Text).FirstOrDefault();
+
+        if (!string.IsNullOrWhiteSpace(FieldText))
+        {
+            string[] Parts = FieldText.Split('|', StringSplitOptions.TrimEntries);
+            if (Parts.Length > 0 && !Parts[0].IsSameText("Default"))
+                Result.DisplayFields.AddRange(ParseFieldNameList(Parts[0]));
+            if (Parts.Length > 1 && !Parts[1].IsSameText("Default"))
+                Result.SearchFields.AddRange(ParseFieldNameList(Parts[1]));
+            if (Parts.Length > 2 && !Parts[2].IsSameText("Default"))
+                Result.ReturnFields.AddRange(ParseFieldNameList(Parts[2]));
+        }
+
+        return Result;
+    }
+    /// <summary>
+    /// Parses a comma separated field name list.
+    /// </summary>
+    static List<string> ParseFieldNameList(string Text)
+    {
+        if (string.IsNullOrWhiteSpace(Text))
+            return [];
+
+        return Text
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .ToList();
+    }
+    /// <summary>
+    /// Returns default locator display fields.
+    /// </summary>
+    static List<string> GetDefaultLocatorDisplayFields(SchemaTable Table)
+    {
+        List<string> Result = [];
+
+        if (Table == null)
+            return Result;
+
+        if (Table.FindField("Code") != null)
+            Result.Add("Code");
+        if (Table.FindField("Name") != null)
+            Result.Add("Name");
+
+        if (Result.Count == 0 && Table.FindField("Title") != null)
+            Result.Add("Title");
+
+        if (Result.Count == 0)
+        {
+            SchemaField Field = Table.Fields.FirstOrDefault(x => !x.Name.IsSameText("Id") && x.DataType == DataFieldType.String && !x.DataType.IsBlob());
+            if (Field != null)
+                Result.Add(Field.Name);
+        }
+
+        return Result;
+    }
+    /// <summary>
+    /// Returns a distinct field list.
+    /// </summary>
+    static List<string> DistinctFieldList(List<string> Fields)
+    {
+        List<string> Result = [];
+
+        foreach (string Field in Fields)
+        {
+            if (string.IsNullOrWhiteSpace(Field))
+                continue;
+            if (Result.Any(x => x.IsSameText(Field)))
+                continue;
+
+            Result.Add(Field);
+        }
+
+        return Result;
+    }
+    /// <summary>
+    /// Builds C# source for a string array.
+    /// </summary>
+    static string BuildStringArray(List<string> Items)
+    {
+        if (Items == null || Items.Count == 0)
+            return "null";
+
+        return "new string[] { " + string.Join(", ", Items.Select(x => "\"" + EscapeString(x) + "\"")) + " }";
     }
     /// <summary>
     /// Returns a field name without Id suffix.
@@ -1406,10 +1735,16 @@ static public class SchemaRegistrationBuilder
             Result.FullSqlText = HeaderText.Trim() + Environment.NewLine + CreateSqlText.Trim();
 
             Result.Name = GetHeaderValue(HeaderText, "Table");
-            Result.ModuleName = GetHeaderValue(HeaderText, "Module");
+            Result.ParseModuleHeader(GetHeaderValue(HeaderText, "Module"));
             Result.GroupName = GetHeaderValue(HeaderText, "Group");
+            Result.ParseFormHeader(GetHeaderValue(HeaderText, "Form"));
             Result.MasterName = GetHeaderValue(HeaderText, "Master");
-            Result.UiVisible = GetHeaderBool(HeaderText, "UiVisible", true);
+            Result.UiVisible = !GetHeaderFlag(HeaderText, "NotUiVisible");
+            Result.IsReadOnly = GetHeaderFlag(HeaderText, "IsReadOnly");
+            Result.IsSingleSelect = GetHeaderFlag(HeaderText, "IsSingleSelect");
+            Result.UseFilters = !GetHeaderFlag(HeaderText, "NoFilters");
+            Result.CascadeDeletes = !GetHeaderFlag(HeaderText, "NoCascadeDeletes");
+            Result.GuidOids = !GetHeaderFlag(HeaderText, "NoGuidOids");
             Result.CreationOrder = GetHeaderInt(HeaderText, "CreationOrder", 0);
             Result.IsLookupSpecified = HeaderKeyExists(HeaderText, "IsLookup");
             Result.IsLookup = GetHeaderBool(HeaderText, "IsLookup", false);
@@ -1417,6 +1752,7 @@ static public class SchemaRegistrationBuilder
             if (string.IsNullOrWhiteSpace(Result.Name))
                 throw new TripousDataException("Schema table header has no Table value.");
 
+            Result.ResolveFormDefaults();
             Result.ParseBody();
             return Result;
         }
@@ -1428,6 +1764,50 @@ static public class SchemaRegistrationBuilder
         public SchemaField FindField(string Name) => Fields.FirstOrDefault(x => x.Name.IsSameText(Name));
 
         // ● private
+        /// <summary>
+        /// Parses module header text.
+        /// </summary>
+        void ParseModuleHeader(string Text)
+        {
+            List<string> Parts = SplitHeaderTokens(Text);
+            if (Parts.Count == 0)
+                return;
+
+            ModuleName = Parts[0].IsSameText("Default") ? Name : Parts[0];
+
+            if (Parts.Count > 1)
+                ModuleClassName = Parts[1];
+        }
+        /// <summary>
+        /// Parses form header text.
+        /// </summary>
+        void ParseFormHeader(string Text)
+        {
+            IsFormSpecified = !string.IsNullOrWhiteSpace(Text);
+            List<string> Parts = SplitHeaderTokens(Text);
+            if (Parts.Count == 0)
+                return;
+
+            FormName = Parts[0];
+
+            if (Parts.Count > 1)
+                FormClassName = Parts[1];
+            if (Parts.Count > 2)
+                ItemPageClassName = Parts[2];
+        }
+        /// <summary>
+        /// Resolves default form values after module parsing.
+        /// </summary>
+        void ResolveFormDefaults()
+        {
+            if (string.IsNullOrWhiteSpace(ModuleName))
+                return;
+
+            if (string.IsNullOrWhiteSpace(FormName))
+                FormName = ModuleName;
+            else if (FormName.IsSameText("Default"))
+                FormName = ModuleName;
+        }
         /// <summary>
         /// Moves inline comments before comma.
         /// </summary>
@@ -1495,6 +1875,26 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public string ModuleName { get; set; }
         /// <summary>
+        /// Module class name.
+        /// </summary>
+        public string ModuleClassName { get; set; }
+        /// <summary>
+        /// Form name.
+        /// </summary>
+        public string FormName { get; set; }
+        /// <summary>
+        /// Form class name.
+        /// </summary>
+        public string FormClassName { get; set; }
+        /// <summary>
+        /// Item page class name.
+        /// </summary>
+        public string ItemPageClassName { get; set; }
+        /// <summary>
+        /// True when Form was explicitly defined.
+        /// </summary>
+        public bool IsFormSpecified { get; set; }
+        /// <summary>
         /// Module group name.
         /// </summary>
         public string GroupName { get; set; }
@@ -1514,6 +1914,26 @@ static public class SchemaRegistrationBuilder
         /// True when table is visible in UI.
         /// </summary>
         public bool UiVisible { get; set; } = true;
+        /// <summary>
+        /// True when form is read-only.
+        /// </summary>
+        public bool IsReadOnly { get; set; }
+        /// <summary>
+        /// True when module uses single-select mode.
+        /// </summary>
+        public bool IsSingleSelect { get; set; }
+        /// <summary>
+        /// True when module uses filters.
+        /// </summary>
+        public bool UseFilters { get; set; } = true;
+        /// <summary>
+        /// True when module uses cascade deletes.
+        /// </summary>
+        public bool CascadeDeletes { get; set; } = true;
+        /// <summary>
+        /// True when module uses GUID OIDs.
+        /// </summary>
+        public bool GuidOids { get; set; } = true;
         /// <summary>
         /// True when this is an one-to-one detail table.
         /// </summary>
@@ -1671,6 +2091,43 @@ static public class SchemaRegistrationBuilder
         /// Referenced field name.
         /// </summary>
         public string ReferenceField { get; set; }
+    }
+
+
+    /// <summary>
+    /// Parsed locator metadata.
+    /// </summary>
+    private class LocatorInfo
+    {
+        // ● properties
+        /// <summary>
+        /// Locator name.
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// Locator table name.
+        /// </summary>
+        public string TableName { get; set; }
+        /// <summary>
+        /// Join alias.
+        /// </summary>
+        public string Alias { get; set; }
+        /// <summary>
+        /// Locator key field.
+        /// </summary>
+        public string KeyField { get; set; }
+        /// <summary>
+        /// Display fields.
+        /// </summary>
+        public List<string> DisplayFields { get; set; } = [];
+        /// <summary>
+        /// Search fields.
+        /// </summary>
+        public List<string> SearchFields { get; set; } = [];
+        /// <summary>
+        /// Return fields.
+        /// </summary>
+        public List<string> ReturnFields { get; set; } = [];
     }
 
     /// <summary>

@@ -13,21 +13,9 @@ static public class TypeResolver
         if (Result != null)
             return Result;
 
-        Result = AppAssemblies.FindApplicationClassType(ClassName, BaseType);
-        /*
-        foreach (Assembly Assembly in AppDomain.CurrentDomain.GetAssemblies())
-        {
-            try
-            {
-                Result = Assembly.GetType(ClassName, false, true);
-                if (Result != null)
-                    return Result;
-            }
-            catch
-            {
-            }
-        }
-        */
+        Result = TypeRegistry.Find(ClassName);
+        if (Result == null)
+            Result = AppAssemblies.FindApplicationClassType(ClassName, BaseType);
 
         return Result;
     }

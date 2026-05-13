@@ -15,8 +15,8 @@ static public partial class AppHost
         DataRegistry.AddLookupSource(typeof(TradeType));
         DataRegistry.AddLookupSource(typeof(TradeStatus));
         
-        DataRegistry.AddLookupSource("Country");
-        DataRegistry.AddLookupSource("Category");
+        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
+        DataRegistry.AddLookupSourceWithTableName("Category");
     }
     static void RegisterLocators()
     {
@@ -25,7 +25,7 @@ static public partial class AppHost
     static void RegisterModules()
     {
         ModuleDef Module;
-        TableDef Table;
+        TableDef tblTop;
         string SqlText;
         
         // list modules
@@ -44,10 +44,15 @@ from
 ";
         Module = DataRegistry.AddModule("Customer", ListSelectSql: SqlText); 
  
-        Table = Module.Table;
-        Table.AddId().Flags |= FieldFlags.Visible;
-        Table.AddString("Name").Flags |= FieldFlags.Required | FieldFlags.Visible;
-        Table.AddStringLookupId("CountryId", "Country", TitleKey: "Country").Flags |= FieldFlags.Visible;  
+        tblTop = Module.Table;
+        tblTop.AddId().Flags |= FieldFlags.Visible;
+        tblTop.AddString("Name").Flags |= FieldFlags.Required | FieldFlags.Visible;
+        //Table.AddStringLookupId("CountryId", "Country", TitleKey: "Country").Flags |= FieldFlags.Visible;  
+
+        TableDef JoinTable = tblTop.AddJoin("CountryId", "Country");
+        JoinTable.AddId().Flags |= FieldFlags.Visible;
+        JoinTable.AddString("Name").Flags |= FieldFlags.Visible;
+        
     }
     static void RegisterForms()
     {

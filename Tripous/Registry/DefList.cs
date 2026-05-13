@@ -16,7 +16,7 @@ public class DefList<T> : TripousList<T>, IJsonLoadable where T : IDef
             throw new TripousArgumentNullException(nameof(Def.Name));
 
         if (!AllowDuplicateNames && Contains(Def.Name))
-            throw new TripousException($"{nameof(Def)} '{Def.Name}' is already registered.");
+            throw new TripousException($"{Def.GetType().FullName} '{Def.Name}' is already registered.");
     }
     
     // ● construction

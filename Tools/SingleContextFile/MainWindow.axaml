@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ae="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+        x:Class="SingleContextFile.MainWindow"
+        Title="SingleFileApp"
+        WindowStartupLocation="CenterScreen"
+        Width="1024"
+        Padding="10">
+
+    <Window.Styles>
+        <Style Selector="ae|TextEditor">
+            <Setter Property="FontFamily" Value="Consolas, Menlo, Monospace"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="ShowLineNumbers" Value="True"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+    </Window.Styles>
+ 
+
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top" Spacing="10">
+            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Output FilePath:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Name="edtOutputFilePath" Margin="0,5" IsEnabled="False"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Start FolderPath:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Name="edtStartFolderPath" Margin="0,5"/>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">
+                <Button Name="btnExecute" Content="Execute" Width="120" HorizontalContentAlignment="Center"/>
+                <Button Name="btnSave" Content="Save Settings" Width="120" HorizontalContentAlignment="Center"/>
+                <Button Name="btnShowOutput" Content="Show Output Folder" Width="180" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid RowDefinitions="*, 4, 150" Margin="0,10,0,0">
+            
+            <TabControl Grid.Row="0">
+                <TabItem Header="Files" Name="tabFiles">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                        <TextBox Name="edtMemo" AcceptsReturn="True" TextWrapping="Wrap" Watermark="Log output here..." BorderThickness="0"/>
+                    </Border>
+                </TabItem>
+                
+                <TabItem Header="Output" Name="tabOutput">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                        <ae:TextEditor Name="edtOutput"/>
+                    </Border>
+                </TabItem>
+            </TabControl>
+
+            <GridSplitter Grid.Row="1" Background="Transparent" ResizeDirection="Rows"/>
+
+            <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                <TextBox Name="edtLog" AcceptsReturn="True" TextWrapping="Wrap" Watermark="System log..." BorderThickness="0" IsReadOnly="True"/>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>

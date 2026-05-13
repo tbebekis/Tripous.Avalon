@@ -248,6 +248,21 @@ public class SqlHelper
     }
     
     /// <summary>
+    /// Returns a string of the form TableName.FieldName
+    /// </summary>
+    static public string FieldPath(string TableName, string FieldName)
+    {
+        return (string.IsNullOrWhiteSpace(TableName) ? string.Empty : TableName + ".") + FieldName;
+    }
+    /// <summary>
+    /// Constructs a field at table string. By default is TableName__FieldName.
+    /// </summary>
+    static public string FieldAlias(string TableName, string FieldName)
+    {
+        return (string.IsNullOrWhiteSpace(TableName) ? string.Empty : TableName + Sys.FieldAliasSep) + FieldName;
+    }
+    
+    /// <summary>
     /// Formats Value. Quotes the result if Quoted is true.
     /// </summary>
     static public string DateToStr(DateTime Value, bool Quoted)

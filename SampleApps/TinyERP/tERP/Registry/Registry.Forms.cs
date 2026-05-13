@@ -18,7 +18,7 @@ static internal partial class Registry
         DesktopRegistry.AddForm("ExpenseCategory", TitleKey: "ExpenseCategory", Module: "ExpenseCategory", Group: "Accounting");
         DesktopRegistry.AddForm("FiscalYear", TitleKey: "FiscalYear", Module: "FiscalYear", Group: "Company");
         DesktopRegistry.AddForm("Language", TitleKey: "Language", Module: "Language", Group: "System");
-        DesktopRegistry.AddForm("Log", TitleKey: "Log", Module: "Log", Group: "Log");
+        DesktopRegistry.AddForm("Log", TitleKey: "Log", Module: "Log", Group: "Log", IsReadOnly: true);
         DesktopRegistry.AddForm("NumberSeries", TitleKey: "NumberSeries", Module: "NumberSeries", Group: "Setup");
         DesktopRegistry.AddForm("PaymentMethod", TitleKey: "PaymentMethod", Module: "PaymentMethod", Group: "Sales");
         DesktopRegistry.AddForm("PaymentTerm", TitleKey: "PaymentTerm", Module: "PaymentTerm", Group: "Sales");

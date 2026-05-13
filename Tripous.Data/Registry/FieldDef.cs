@@ -153,7 +153,19 @@ public class FieldDef: BaseDef
     /// </summary>
     public string Alias
     {
-        get => !string.IsNullOrWhiteSpace(fAlias)? fAlias: Name;
+        get
+        {
+            string Result = fAlias;
+            if (string.IsNullOrWhiteSpace(Result))
+            {
+                // is a field of a join table
+                if (TableDef != null && TableDef.Owner != null)
+                    Result = SqlHelper.FieldAlias(TableDef.Alias, Name);
+            }
+            if (string.IsNullOrWhiteSpace(Result))
+                Result = Name;
+            return Result;
+        }
         set { if (fAlias != value) { fAlias = value; NotifyPropertyChanged(nameof(Alias)); } }
     }
     public DataFieldType DataType

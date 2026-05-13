@@ -1040,3 +1040,4 @@ CREATE TABLE {TableName} (
     // ● properties
     public override int VersionNumber { get; } = 1;
 }
+

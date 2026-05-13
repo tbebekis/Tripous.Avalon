@@ -488,10 +488,10 @@ public partial class DataForm : AppForm
         btnFind.IsEnabled = !DataFormAction.Find.In(InvalidActions) && FormState == DataFormState.List;
         btnToggleIds.IsEnabled = FormState == DataFormState.List;
         
-        btnInsert.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List | DataFormState.Edit);
-        btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List) && !IsListEmpty; ;
-        btnDelete.IsEnabled = !DataFormAction.Delete.In(InvalidActions) && !IsListEmpty;
-        btnSave.IsEnabled = FormState.In(DataFormState.Insert | DataFormState.Edit);
+        btnInsert.IsEnabled = IsEditableForm && !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List | DataFormState.Edit);
+        btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List) && !IsListEmpty; 
+        btnDelete.IsEnabled = IsEditableForm && !DataFormAction.Delete.In(InvalidActions) && !IsListEmpty;
+        btnSave.IsEnabled = IsEditableForm && FormState.In(DataFormState.Insert | DataFormState.Edit);
         
         // Edit states: cancels edits and returns to List state
         // List state and Modal: cancels the form
