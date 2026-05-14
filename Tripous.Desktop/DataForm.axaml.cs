@@ -429,7 +429,7 @@ public partial class DataForm : AppForm
     {
         if (!string.IsNullOrWhiteSpace(FormDef.ItemClassName))
         {
-            ItemPage = TypeResolver.CreateInstance<ItemPage>(FormDef.ItemClassName);
+            ItemPage = TypeStore.CreateInstance<ItemPage>(FormDef.ItemClassName);
             ItemPage.DataForm = this;
 
             pnlItem.Children.Clear();

@@ -3,12 +3,12 @@ namespace Tripous.Data;
 public class ModuleDef: BaseDef
 {
     string fGroup;
-   string fClassName = typeof(DataModule).FullName;
+    string fClassName;
    string fDescription;
    SelectDefs fSelectList;
    SelectDefs fStocks;
    TableDef fTable = new();
-   string fConnectionName = SysConfig.DefaultConnectionName;
+   string fConnectionName;
    bool fIsSingleSelect = true;
    bool fGuidOids = true;
    bool fCascadeDeletes = true;
@@ -34,9 +34,12 @@ public class ModuleDef: BaseDef
    }
 
     // ● public
+    /// <summary>
+    /// Creates and returns a <see cref="DataModule"/>
+    /// </summary>
     public DataModule Create()
     {
-        DataModule Result = TypeResolver.CreateInstance<DataModule>(ClassName);
+        DataModule Result = TypeStore.CreateInstance<DataModule>(ClassName);
         Result.Initialize(this);
         return Result;
     }
@@ -112,7 +115,7 @@ public class ModuleDef: BaseDef
     /// </summary>
     public string ClassName
     {
-        get => fClassName;
+        get => !string.IsNullOrWhiteSpace(fClassName)? fClassName: typeof(DataModule).FullName;
         set { if (fClassName != value) { fClassName = value; NotifyPropertyChanged(nameof(ClassName)); } }
     }
     /// <summary>

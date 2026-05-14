@@ -107,30 +107,24 @@ static public class DataRegistry
             throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(SqlText)}' is provided.");
     }
 
-    static void CheckLocator(string Name, string TableName, string[] DisplayFields)
+    static void CheckLocator(string Name, string KeyField)
     {
         if (string.IsNullOrWhiteSpace(Name))
             throw new TripousException($"Cannot add a {nameof(LocatorDef)}. No '{nameof(Name)}' is provided.");
         if (Locators.Contains(Name))
             throw new TripousException($"Cannot add a {nameof(LocatorDef)}. '{Name}' is already registered.");
-        if (string.IsNullOrWhiteSpace(TableName))
-            throw new TripousException($"Cannot add a {nameof(LocatorDef)}. No '{nameof(TableName)}' is provided.");
-        if (DisplayFields == null || DisplayFields.Length == 0)
-            throw new TripousException($"Cannot add a {nameof(LocatorDef)}. No '{nameof(DisplayFields)}' provided.");
     }
-    static LocatorDef AddLocatorInternal(string Name, string TableName, string KeyField, string[] DisplayFields, string[] SearchFields = null, string[] ReturnFields = null)
+    static LocatorDef AddLocatorInternal(string Name, string SourceTableName, string KeyField, string ClassName = null)
     {
         LocatorDef Result = new();
         Result.Name = Name;
-        Result.TableName = TableName;
+        Result.SourceTableName = SourceTableName;
         Result.KeyField = KeyField;
-        Result.DisplayFields = DisplayFields;
-        Result.SearchFields = SearchFields;
-        Result.ReturnFields = ReturnFields;
-        
+        Result.ClassName = ClassName;
         Locators.Add(Result);
         return Result;
     }
+
     
     // ● modules
     /// <summary>
@@ -251,25 +245,25 @@ static public class DataRegistry
     /// Adds a locator definition.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LocatorDef AddLocator(string Name, string TableName, string KeyField, string[] DisplayFields, string[] SearchFields = null, string[] ReturnFields = null)
+    static public LocatorDef AddLocator(string Name, string SourceTableName, string KeyField, string ClassName = null)
     {
-        CheckLocator(Name, TableName, DisplayFields);
-        LocatorDef Result = AddLocatorInternal(Name, TableName, KeyField, DisplayFields, SearchFields, ReturnFields);
+        CheckLocator(Name, KeyField);
+        LocatorDef Result = AddLocatorInternal(Name, SourceTableName, KeyField, ClassName);
         return Result;
     }
     /// <summary>
     /// Adds a definition to the registry.
     /// <para>If the definition exists, that definition is returned.</para>
     /// </summary>
-    static public LocatorDef AddOrGetLocator(string Name, string TableName, string KeyField, string[] DisplayFields, string[] SearchFields = null, string[] ReturnFields = null)
+    static public LocatorDef AddOrGetLocator(string Name, string SourceTableName, string KeyField, string ClassName = null)
     {
         LocatorDef Result = Locators.Find(Name);
         if (Result == null)
-            Result = AddLocatorInternal(Name, TableName, KeyField, DisplayFields, SearchFields, ReturnFields);
+            Result = AddLocatorInternal(Name, SourceTableName, KeyField, ClassName);
         return Result;
     }
 
-    // ● create module
+    // ● create 
     /// <summary>
     /// Creates and returns a <see cref="DataModule"/> based on its registered name.
     /// </summary>

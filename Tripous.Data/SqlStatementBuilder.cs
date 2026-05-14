@@ -21,7 +21,7 @@ public static class SqlStatementBuilder
         if (Store.Provider.OidMode == OidMode.Generator)
             Flags |= BuildSqlFlags.OidModeIsBefore;
  
-        string StatementName = $"{ModuleName}.{TableName}";
+        string StatementName = $"{nameof(BuildSql)}.{ModuleName}.{TableName}";
         DataTable SchemaTable = Store.GetNativeSchemaFromTableName(StatementName, TableName);
 
         DataColumn PkColumn = SchemaTable.FindColumn(PrimaryKeyField);

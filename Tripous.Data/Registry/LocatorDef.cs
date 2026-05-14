@@ -1,16 +1,33 @@
 namespace Tripous.Data;
 
 /// <summary>
-/// Defines a locator, i.e. a searchable selector for large reference tables.
+/// Describes a <see cref="Locator"/>, i.e. a searchable selector for large reference tables.
+/// <para>A locator represents (returns) a single value from the source <see cref="SourceTableName"/>, but it can handle and display multiple values
+/// in order to help the end user in identifying and locating that single value.</para>
+/// <para>For example, a TRADES target data table has a CUSTOMER_ID column, representing that single value, but the user interface
+/// has to display information from the CUSTOMERS source table, specifically, the ID, CODE and NAME columns.</para>
+/// <para>The TRADES table is the <b>target data table</b> and the CUSTOMER_ID is the <b>target field name</b>.</para>
+/// <para>The CUSTOMERS source table is the <see cref="SourceTableName"/> and the ID is the source <see cref="KeyField"/> field name.</para>
+/// <para>The fields, ID, CODE and NAME, may be described by individual <see cref="LocatorFieldDef"/> field items.</para>
+/// <para>A locator can be used either as a single-row control, i.e. as a locator control, or as a group of
+/// related columns in a Grid.</para>
+/// <para>NOTE: A locator of a locator control type, may or may not define the <see cref="LocatorFieldDef.TargetField"/> 
+/// field names. Usually in a case like that, the target data table contains just the target key field, the field the locator control is bound to.  </para>
+/// <para>A locator of a grid-type must define the names of those target fields always and the target data table must contain DataColumn columns
+/// of those fields.</para>
 /// </summary>
 public class LocatorDef: BaseDef
 {
     // ● private fields
-    string fTableName;
-    string fKeyField = "Id";
-    string[] fDisplayFields = [];
-    string[] fSearchFields = [];
-    string[] fReturnFields = [];
+    string fSourceTableName;
+    string fKeyField;
+    string fClassName;
+    string fZoomCommand;
+    string fConnectionName;
+    string fSelectSql;
+    string fOrderBy;
+    bool fIsReadOnly;
+    DefList<LocatorFieldDef> fFields;
 
     // ● construction
     /// <summary>
@@ -22,136 +39,112 @@ public class LocatorDef: BaseDef
 
     // ● public methods
     /// <summary>
+    /// Creates and returns a <see cref="Locator"/>
+    /// </summary>
+    public Locator Create()
+    {
+        Locator Result = TypeStore.CreateInstance<Locator>(ClassName);
+        Result.Initialize(this);
+        return Result;
+    }
+    /// <summary>
     /// Throws an exception if this descriptor is not fully defined
     /// </summary>
     public override void CheckDescriptor()
     {
         base.CheckDescriptor();
 
-        if (string.IsNullOrWhiteSpace(TableName))
-            throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no TableName.");
+        if (string.IsNullOrWhiteSpace(SourceTableName))
+            throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no {nameof(SourceTableName)}.");
 
         if (string.IsNullOrWhiteSpace(KeyField))
             throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no KeyField.");
 
-        if (DisplayFields.Length == 0)
-            throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no DisplayFields.");
-    }
-    /// <summary>
-    /// Generates the SELECT statement for the locator.
-    /// </summary>
-    public string GenerateLocatorSelectSql(string TableAlias = "")
-    {
-        string Alias = !string.IsNullOrWhiteSpace(TableAlias)
-            ? TableAlias
-            : TableName;
-
-        List<string> Lines = [];
-
-        foreach (string FieldName in ReturnFields)
-            Lines.Add($"   {Alias}.{FieldName}");
-
-        StringBuilder SB = new();
-
-        SB.AppendLine("select");
-
-        for (int i = 0; i < Lines.Count; i++)
-        {
-            string Line = Lines[i];
-
-            if (i < Lines.Count - 1)
-                Line += ",";
-
-            SB.AppendLine(Line);
-        }
-
-        SB.AppendLine("from");
-        SB.AppendLine($"   {TableName} {Alias}");
-
-        return SB.ToString();
+        if (Fields.Count == 0)
+            throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no Fields.");
     }
 
     // ● properties
     /// <summary>
-    /// The locator table
+    /// The class name of the <see cref="System.Type"/> this descriptor describes.
+    /// <para>NOTE: The value of this property may be a string returned by the <see cref="Type.AssemblyQualifiedName"/> property of the type. </para>
+    /// <para>In that case, it consists of the type name, including its namespace, followed by a comma, followed by the display name of the assembly
+    /// the type belongs to. It might looks like the following</para>
+    /// <para><c>Tripous.Data.DataModule, Tripous, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</c></para>
+    /// <para>Otherwise it can be a full type name <see cref="Type.FullName"/>, e.g. </para>
+    /// <para><c>Tripous.Data.DataModule</c></para>
     /// </summary>
-    public string TableName
+    public string ClassName
     {
-        get => fTableName;
-        set
-        {
-            if (fTableName != value)
-            {
-                fTableName = value;
-                NotifyPropertyChanged(nameof(TableName));
-            }
-        }
+        get => !string.IsNullOrWhiteSpace(fClassName)? fClassName: typeof(Locator).FullName;
+        set { if (fClassName != value) { fClassName = value; NotifyPropertyChanged(nameof(ClassName)); } }
     }
     /// <summary>
-    /// The primary key field of the locator table
+    /// The source table name
+    /// </summary>
+    public string SourceTableName
+    {
+        get => fSourceTableName;
+        set { if (fSourceTableName != value) { fSourceTableName = value; NotifyPropertyChanged(nameof(SourceTableName)); } }
+    }
+    /// <summary>
+    /// The primary key field of the locator source table, named "Id" in most cases.
     /// </summary>
     public string KeyField
     {
-        get => fKeyField;
-        set
-        {
-            if (fKeyField != value)
-            {
-                fKeyField = value;
-                NotifyPropertyChanged(nameof(KeyField));
-            }
-        }
+        get => !string.IsNullOrWhiteSpace(fKeyField)? fKeyField: "Id";
+        set { if (fKeyField != value) { fKeyField = value; NotifyPropertyChanged(nameof(KeyField)); } }
+    }
+    
+    /// <summary>
+    /// Gets or sets the connection name (database)
+    /// </summary>
+    public string ConnectionName  
+    {
+        get => !string.IsNullOrWhiteSpace(fConnectionName)? fConnectionName: SysConfig.DefaultConnectionName;
+        set { if (fConnectionName != value) { fConnectionName = value; NotifyPropertyChanged(nameof(ConnectionName)); } }
     }
     /// <summary>
-    /// Fields should be displayed by the UI.
+    /// The name of a <see cref="Command"/> that displays a form displaying the table.
     /// </summary>
-    public string[] DisplayFields
+    public string ZoomCommand
     {
-        get => fDisplayFields;
-        set
-        {
-            if (fDisplayFields != value)
-            {
-                fDisplayFields = value ?? [];
-                NotifyPropertyChanged(nameof(DisplayFields));
-            }
-        }
+        get => fZoomCommand;
+        set { if (fZoomCommand != value) { fZoomCommand = value; NotifyPropertyChanged(nameof(ZoomCommand)); } }
     }
     /// <summary>
-    /// <see cref="DisplayFields"/> that are searchable.
+    /// The SELECT statement to execute for returning the data.
+    /// <para>WARNING: The statement should NOT have a WHERE clause.</para>
     /// </summary>
-    public string[] SearchFields
+    public string SelectSql
     {
-        get => fSearchFields.Length > 0
-            ? fSearchFields
-            : DisplayFields;
+        get => fSelectSql;
+        set { if (fSelectSql != value) { fSelectSql = value; NotifyPropertyChanged(nameof(SelectSql)); } }
+    }
+    /// <summary>
+    /// The ORDER BY clause. Used only when the SELECT Sql is constructed by the Locator.
+    /// </summary>
+    public string OrderBy
+    {
+        get => fOrderBy;
+        set { if (fOrderBy != value) { fOrderBy = value; NotifyPropertyChanged(nameof(OrderBy)); } }
+    }
+    /// <summary>
+    /// When true then the locator is read-only. It affects the UI only by making locator controls or columns readonly.
+    /// </summary>
+    public bool IsReadOnly
+    {
+        get => fIsReadOnly;
+        set { if (fIsReadOnly != value) { fIsReadOnly = value; NotifyPropertyChanged(nameof(IsReadOnly)); } }
+    }
+    /// <summary>
+    /// The list of fields
+    /// </summary>
+    public DefList<LocatorFieldDef> Fields
+    {
+        get => fFields ??= new();
+        set { if (fFields != value) { fFields = value; NotifyPropertyChanged(nameof(Fields)); } }
+    }
 
-        set
-        {
-            if (fSearchFields != value)
-            {
-                fSearchFields = value ?? [];
-                NotifyPropertyChanged(nameof(SearchFields));
-            }
-        }
-    }
-    /// <summary>
-    /// Fields that the locator should return.
-    /// </summary>
-    public string[] ReturnFields
-    {
-        get => fReturnFields.Length > 0
-            ? fReturnFields
-            : DisplayFields;
-
-        set
-        {
-            if (fReturnFields != value)
-            {
-                fReturnFields = value ?? [];
-                NotifyPropertyChanged(nameof(ReturnFields));
-            }
-        }
-    }
 }
  

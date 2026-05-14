@@ -71,8 +71,6 @@ public class SqlStore
     /// </summary>
     public int SelectTo(DbTransaction Transaction, MemTable Table, string SqlText, params object[] Params) => Provider.SelectTo(Transaction, Table, SqlText, ConnectionInfo.CommandTimeoutSeconds, Params);
  
-    // DbConnectionInfo ConnectionInfo, string SqlText, params object[] Params
-    
     // ● ExecSql
     /// <summary>
     /// Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.

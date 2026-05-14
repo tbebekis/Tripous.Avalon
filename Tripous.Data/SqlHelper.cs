@@ -53,15 +53,13 @@ public class SqlHelper
         string Result = string.Join(", " + Environment.NewLine, StringList.ToArray()).TrimEnd();
         return Result;
     }
-        
+
     /// <summary>
     /// Converts the double Value to a float string, valid for S, i.e. ensures that the decimal
     /// seperator is the point.
     /// </summary>
-    static public string FloatSQL(double Value)
-    {
-        return Value.ToString().Replace(',', '.');
-    }
+    static public string FloatSQL(double Value) => FloatSql(Value.ToString());
+    static public string FloatSql(string Value) => !string.IsNullOrWhiteSpace(Value) ? Value.Replace(',', '.') : "0";
     /// <summary>
     /// Normalizes Value for use in a LIKE clause. It returns a string as <code>LIKE 'VALUE%'</code>
     /// <para>Value may or may not contain mask characters (%, ?, *)</para>
@@ -83,7 +81,6 @@ public class SqlHelper
                     return string.Format(" like '{0}' ", Value);
                 else
                     return string.Format(" like '{0}' ", Value + @"%");
-
             }
         }
 

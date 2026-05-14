@@ -9,6 +9,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     int fFormImageHeight;
     int fFormMaxControlsPerColumn;
     bool fShowIdColumnsInGrid;
+
     
     // ● private  
     void NotifyPropertyChanged(string PropertyName)
@@ -111,7 +112,11 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
         set { if (fShowIdColumnsInGrid != value) { fShowIdColumnsInGrid = value; NotifyPropertyChanged(nameof(ShowIdColumnsInGrids)); } }
     }
  
+
     // ● events
     public event PropertyChangedEventHandler PropertyChanged;
     
 }
+
+
+    

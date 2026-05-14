@@ -5,7 +5,8 @@ This application parses `.sql` schema files written using the server-neutral SQL
 Based on metadata comments declared:
 
 * above `CREATE TABLE` statements
-* and next to field definitions
+* next to field definitions
+* inside metadata definition blocks
 
 the builder generates Tripous registration source code such as:
 
@@ -35,12 +36,146 @@ The schema file is the single declarative source for:
 * master/detail relations
 * lookup behavior
 * locator behavior
+* enum behavior
 * generated registration source code
 
 Each table is declared as:
 
 * one header comment
 * followed by one `CREATE TABLE` block
+
+---
+
+# Global Metadata Definition Blocks
+
+The schema may contain global metadata definition blocks.
+
+Example:
+
+```text
+Locators begin
+Customer (Code, Name | Default | Id, Code, Name)
+Product (Code, Name)
+Locators end
+
+Enums begin
+WarehouseType
+TradeType
+Enums end
+````
+
+Blocks are parsed before table parsing.
+
+---
+
+# Locator Definition Block
+
+## Syntax
+
+```text
+Locators begin
+LocatorName (DisplayFields | SearchFields | ReturnFields)
+Locators end
+```
+
+## Examples
+
+```text
+Locators begin
+
+Customer (Code, Name)
+
+Product (Code, Name | Default | Id, Code, Name, VatRateId)
+
+Person (Code, LastName, FirstName)
+
+Locators end
+```
+
+---
+
+# Locator Definition Rules
+
+A locator definition describes how a locator searches and displays a referenced table.
+
+A locator definition contains:
+
+```text
+Name
+DisplayFields
+SearchFields
+ReturnFields
+```
+
+Default rules:
+
+```text
+SearchFields
+    => DisplayFields
+
+ReturnFields
+    => Id + DisplayFields
+```
+
+`Default` means:
+
+```text
+use default generated behavior
+```
+
+Example:
+
+```text
+Customer (Code, Name)
+```
+
+means:
+
+```text
+DisplayFields = Code, Name
+SearchFields = Code, Name
+ReturnFields = Id, Code, Name
+```
+
+Example:
+
+```text
+Customer (Code, Name | Default | Id, Code, Name, VatRateId)
+```
+
+means:
+
+```text
+DisplayFields = Code, Name
+SearchFields = Code, Name
+ReturnFields = Id, Code, Name, VatRateId
+```
+
+---
+
+# Enum Definition Block
+
+## Syntax
+
+```text
+Enums begin
+EnumName
+Enums end
+```
+
+## Example
+
+```text
+Enums begin
+
+WarehouseType
+TradeType
+VatMode
+
+Enums end
+```
+
+The enum definition block allows future extensibility for enum metadata.
 
 ---
 
@@ -209,42 +344,6 @@ If `ItemPageClassName` is omitted, generated code uses the default `ItemPage` ty
 
 ---
 
-# Read Only Rule
-
-Header may contain:
-
-```text
-IsReadOnly
-```
-
-Example:
-
-```sql
-/*---------------------------------------------------
-Table: SYS_LOG
-Group: Log
-Module: Log LogDataModule
-Form: Default LogDataForm LogItemPage
-IsReadOnly
-CreationOrder: 100
-----------------------------------------------------*/
-```
-
-Meaning:
-
-```text
-FormDef.IsReadOnly = true
-```
-
-Typical usage:
-
-* system forms
-* logs
-* audit/history tables
-* administration views
-
----
-
 # Lookup Table Rules
 
 A table is lookup when:
@@ -276,27 +375,10 @@ Lookup
 Example:
 
 ```sql
-CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
+CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup
 ```
 
-Lookup fields are intended for small in-memory reference datasets, such as:
-
-* countries
-* currencies
-* units of measure
-* tax offices
-* payment methods
-
-Generated behavior:
-
-* the field is registered as lookup id field
-* the lookup source is derived from the foreign key reference table when available
-* otherwise the lookup source is derived from the field name without the `Id` suffix
-
-Typical generated methods:
-
-* `AddStringLookupId()`
-* `AddIntegerLookupId()`
+Lookup fields are intended for small in-memory reference datasets.
 
 ---
 
@@ -311,7 +393,7 @@ Locator
 Extended syntax:
 
 ```text
-Locator [LocatorName] [(DisplayFields | SearchFields | ReturnFields)]
+Locator [LocatorName]
 ```
 
 Examples:
@@ -324,119 +406,70 @@ Examples:
 -- Locator Customer
 ```
 
-```sql
--- Locator Customer(Code, Name)
-```
-
-```sql
--- Locator Customer(Code, Name | Default | Id, Code, Name, BirthDay)
-```
-
 Rules:
 
 ```text
-second token after Locator
-    => LocatorName
+LocatorName omitted
+    => FK.ReferenceTable
 
-(...) section
-    => field definitions
-```
-
-Default rules:
-
-```text
-LocatorName
-    => FK.ReferenceTable when omitted
-
-SearchFields
-    => DisplayFields when omitted or Default
-
-ReturnFields
-    => Id + DisplayFields when omitted or Default
+LocatorName specified
+    => explicit locator definition name
 ```
 
 Examples:
-
-```text
-Locator Customer(Code, Name)
-```
-
-means:
-
-```text
-DisplayFields = Code, Name
-SearchFields = Code, Name
-ReturnFields = Id, Code, Name
-```
-
-and:
-
-```text
-Locator Customer(Code, Name | Default | Id, Code, Name, BirthDay)
-```
-
-means:
-
-```text
-DisplayFields = Code, Name
-SearchFields = Code, Name
-ReturnFields = Id, Code, Name, BirthDay
-```
-
-Example on a top table:
 
 ```sql
 CustomerId @NVARCHAR(40) @NULL, -- Locator
 ```
 
-Example on a detail table:
+means:
 
-```sql
-ProductId @NVARCHAR(40) @NOT_NULL, -- Locator
+```text
+LocatorName = Customer
 ```
 
-Locator fields are intended for large searchable reference datasets, such as:
+and:
 
-* customers
-* products
-* persons
-* projects
-* documents
+```sql
+CustomerId @NVARCHAR(40) @NULL, -- Locator PersonCustomer
+```
 
-A locator is not a dropdown lookup.
+means:
 
-A locator is a search-assisted relation binding mechanism.
-
-It locates a row in a large reference table and returns the selected key and display fields.
+```text
+LocatorName = PersonCustomer
+```
 
 ---
 
-# Locator Definition Rules
+# Locator Runtime Rules
 
-A `LocatorDef` describes how to search and display a large reference table.
-
-A locator definition contains:
+Locator runtime behavior is determined using:
 
 ```text
-Name
-TableName
-KeyField
+1. explicit locator definition block
+2. otherwise generated defaults
+```
+
+Meaning:
+
+```text
+Locators block
+    overrides defaults
+```
+
+If no explicit locator definition exists:
+
+```text
 DisplayFields
+    => generated defaults
+
 SearchFields
+    => DisplayFields
+
 ReturnFields
+    => Id + DisplayFields
 ```
-
-Default rules:
-
-```text
-KeyField = Id
-SearchFields = DisplayFields, when omitted
-ReturnFields = DisplayFields, when omitted
-```
-
-`LocatorDef` does not describe where returned values are assigned.
-
-Assignment is handled by table joins and naming conventions.
 
 ---
 
@@ -463,7 +496,15 @@ ForeignAlias = Product
 ForeignPrimaryKey = Id
 ```
 
-If the same foreign table is joined more than once, aliases are required to keep generated field names unique.
+If the same foreign table is joined more than once, aliases are required.
+
+Example:
+
+```text
+CustomerId      -> Customer
+ManagerId       -> Manager
+SalesPersonId   -> SalesPerson
+```
 
 The alias acts as a namespace for generated extra fields.
 
@@ -486,26 +527,6 @@ Product__Code
 Product__Name
 ```
 
-For a field:
-
-```sql
-ProductId @NVARCHAR(40) @NOT_NULL, -- Locator
-```
-
-and a referenced table:
-
-```text
-Product(Id, Code, Name)
-```
-
-the generated table fields may be:
-
-```text
-ProductId
-Product__Code
-Product__Name
-```
-
 Meaning:
 
 ```text
@@ -514,215 +535,59 @@ Product__Code  <- Product.Code
 Product__Name  <- Product.Name
 ```
 
-`ProductId` is the persisted foreign key field.
+`ProductId` is persisted.
 
-`Product__Code` and `Product__Name` are non-persistent extra display fields.
+Alias-based extra fields are non-persistent display/runtime fields.
 
 ---
 
 # Locator In Forms
 
-In a form, a locator field is displayed by a locator control.
+A locator field is displayed using a searchable locator control.
 
-For example:
+Example:
 
 ```sql
 CustomerId @NVARCHAR(40) @NULL, -- Locator
 ```
 
-may be displayed as a composite control with searchable boxes such as:
+may display:
 
 ```text
 Customer.Code
 Customer.Name
 ```
 
-When the user selects a customer, the locator writes:
+User selection writes:
 
 ```text
 CustomerId <- Customer.Id
 ```
 
-and updates any available alias-based extra fields.
+and updates extra alias-based fields.
 
 ---
 
 # Locator In Grids
 
-In a grid, the raw foreign key field is normally hidden.
+Raw FK fields are normally hidden.
 
-For example, a detail table:
-
-```text
-TradeLines
-    Id
-    TradeId
-    ProductId
-```
-
-may be expanded in the `MemTable` / `TableDef` as:
+Example generated fields:
 
 ```text
-TradeLines
-    Id
-    TradeId
-    ProductId
-    Product__Code
-    Product__Name
+ProductId
+Product__Code
+Product__Name
 ```
 
-The grid displays:
+Grid displays:
 
 ```text
 Product__Code
 Product__Name
 ```
 
-instead of the raw `ProductId`.
-
-When the user selects a product, the locator writes:
-
-```text
-ProductId      <- Product.Id
-Product__Code  <- Product.Code
-Product__Name  <- Product.Name
-```
-
----
-
-# Locator Select SQL Rules
-
-Locator SQL can be generated from `LocatorDef` metadata.
-
-Conceptual method:
-
-```text
-GenerateLocatorSelectSql(TableAlias)
-```
-
-Example locator:
-
-```text
-LocatorDef Product
-    TableName = Product
-    KeyField = Id
-    DisplayFields = Code, Name
-```
-
-Generated SQL with alias `Product`:
-
-```sql
-select
-    Product.Code,
-    Product.Name
-from
-    Product Product
-```
-
-If `ReturnFields` is explicitly defined, those fields are selected instead.
-
-The table alias is important because the same table may be used more than once in the same module.
-
----
-
-# UI Visibility Rules
-
-Default:
-
-```text
-UiVisible = true
-```
-
-If header contains:
-
-```text
-NotUiVisible
-```
-
-then:
-
-```text
-UiVisible = false
-```
-
-Typical usage:
-
-* hidden tables
-* system tables
-* implementation-only tables
-
----
-
-# Module Option Rules
-
-Default values:
-
-```text
-IsSingleSelect = false
-UseFilters = true
-CascadeDeletes = true
-GuidOids = true
-```
-
-Flags:
-
-```text
-IsSingleSelect
-    -> IsSingleSelect = true
-
-NoFilters
-    -> UseFilters = false
-
-NoCascadeDeletes
-    -> CascadeDeletes = false
-
-NoGuidOids
-    -> GuidOids = false
-```
-
----
-
-# Table Body
-
-`CreateTableSql` preserves:
-
-* original header
-* original `CREATE TABLE` text
-* comments
-
-Parser ignores:
-
-* block comments inside `CREATE TABLE`
-* example text outside `CREATE TABLE`
-* constraints when parsing fields
-
----
-
-# Create Order
-
-`CreationOrder` is used for executing `CREATE TABLE` statements.
-
-Foreign key dependency sorting may additionally be used as validation.
-
----
-
-# Field Comment Metadata
-
-For field lines, the first inline SQL comment may contain metadata.
-
-Example:
-
-```sql
-CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
-```
-
-Metadata keyword:
-
-```text
-Lookup
-```
-
-Remaining text after the second `--` is plain comment.
+instead of the raw FK value.
 
 ---
 
@@ -731,8 +596,8 @@ Remaining text after the second `--` is plain comment.
 ```text
 Master [OneToOne]
 Lookup
-Enum
-Locator
+Enum [EnumName]
+Locator [LocatorName]
 Correlation Lookup
 Correlation Locator
 LargeMemo
@@ -752,25 +617,39 @@ The table is a detail table and this field points to the master table.
 
 Defines a small in-memory reference selector.
 
-Used for small datasets.
-
-Generates lookup id field registration.
-
 ## Enum
 
-Generates:
+Defines an enum-backed selector.
 
-* `AddEnumLookupId()`
+Syntax:
 
-Enum type is derived from the field name without the `Id` suffix.
+```text
+Enum [EnumName]
+```
+
+If omitted:
+
+```text
+EnumName
+    => field name without Id suffix
+```
 
 ## Locator
 
 Defines a searchable large reference selector.
 
-Used for large datasets.
+Syntax:
 
-Generates locator-related metadata, joins and extra display fields.
+```text
+Locator [LocatorName]
+```
+
+If omitted:
+
+```text
+LocatorName
+    => FK.ReferenceTable
+```
 
 ## Correlation Lookup
 
@@ -784,179 +663,5 @@ Junction/correlation field pointing to a non-lookup/master table.
 
 Generates a text blob field with `LargeMemo` flag.
 
----
 
-# Foreign Keys
 
-Foreign key clauses are parsed for:
-
-* dependencies
-* select joins
-* validation
-* lookup source resolution
-* locator table resolution
-
-Foreign keys do not alone decide lookup or locator behavior.
-
-Lookup and locator behavior comes from field metadata.
-
-Foreign keys provide the referenced table and referenced key field.
-
----
-
-# Module Rules
-
-A module is created from a top table header.
-
-Header values define:
-
-* top table
-* module group
-* module name
-* module class name
-* form name
-* form class name
-* item page class name
-
-Details are attached using:
-
-* `Master` header
-* `Master` field metadata
-* foreign keys
-
-A module tree consists of:
-
-* one top table
-* zero or more detail tables
-* nested details
-
----
-
-# Form Rules
-
-A form is created from a top table header.
-
-If `Form` is omitted:
-
-* builder uses default form registration behavior
-
-If `Form` exists:
-
-* `FormName` comes from `Form`
-* `Default` means `FormName = ModuleName`
-* `FormClassName` is optional
-* `ItemPageClassName` is optional
-
-Generated `FormDef` supports:
-
-* `FormName`
-* `ModuleName`
-* `Group`
-* `ClassName`
-* `ItemClassName`
-* `IsReadOnly`
-
----
-
-# Select Rules
-
-`ListSelectSql` is generated from the top table.
-
-It may include `LEFT JOIN` clauses for display fields.
-
-Filter fields are taken from generated select aliases.
-
-## Filterable Types
-
-* string
-* numeric
-* date
-* datetime
-* boolean
-
-## Not Filterable
-
-* blobs
-* text blobs
-* raw Id fields unless explicitly needed later
-
----
-
-# Example: Custom Log Module
-
-```sql
-/*---------------------------------------------------
-Table: SYS_LOG
-Module: Log LogDataModule
-Group: Log
-Form: Default LogDataForm LogItemPage
-IsReadOnly
-CreationOrder: 100
-----------------------------------------------------*/
-CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL primary key,
-    Year int @NOT_NULL,
-    Month int @NOT_NULL,
-    DayOfMonth int @NOT_NULL,
-    LogTime @NVARCHAR(20) @NOT_NULL,
-    User @NVARCHAR(96) @NOT_NULL,
-    Host @NVARCHAR(96) @NOT_NULL,
-    Level @NVARCHAR(96) @NOT_NULL,
-    Source @NVARCHAR(512) @NOT_NULL,
-    Scope @NVARCHAR(512) @NOT_NULL,
-    EventId @NVARCHAR(96) @NOT_NULL,
-    Message @NBLOB_TEXT @NOT_NULL
-    )
-```
-
-Generated behavior:
-
-* module name = `Log`
-* module class = `LogDataModule`
-* form name = `Log`
-* form class = `LogDataForm`
-* item page class = `LogItemPage`
-* form is read-only
-
----
-
-# Example: Locator Field
-
-```sql
-/*---------------------------------------------------
-Table: TradeLine
-Master: Trade
-CreationOrder: 500
-----------------------------------------------------*/
-CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL primary key,
-    TradeId @NVARCHAR(40) @NOT_NULL,      -- Master
-    ProductId @NVARCHAR(40) @NOT_NULL,    -- Locator
-    Qty @DECIMAL @NOT_NULL,
-
-    FOREIGN KEY (TradeId) REFERENCES Trade(Id),
-    FOREIGN KEY (ProductId) REFERENCES Product(Id)
-    )
-```
-
-Generated behavior:
-
-* `ProductId` remains the persisted foreign key
-* a join to `Product` is created
-* extra display fields are generated using the join alias
-* grid/form locator controls use the locator metadata
-
-Example extra fields:
-
-```text
-Product__Code
-Product__Name
-```
-
-Example assignments after user selection:
-
-```text
-ProductId      <- Product.Id
-Product__Code  <- Product.Code
-Product__Name  <- Product.Name
-```

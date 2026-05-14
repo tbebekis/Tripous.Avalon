@@ -729,8 +729,9 @@ static public class SchemaRegistrationBuilder
 
         if (Field.MetadataKind == FieldMetadataKind.Enum)
         {
-            string EnumName = RemoveIdSuffix(Field.Name);
-            return TableVarName + ".AddEnumLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(EnumName) + "\", typeof(" + SafeIdentifier(EnumName) + "), Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+            string EnumName = GetEnumName(Script, Field);
+            string EnumTypeName = GetEnumTypeName(Script, EnumName);
+            return TableVarName + ".AddEnumLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(EnumName) + "\", typeof(" + SafeIdentifier(EnumTypeName) + "), Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
         }
 
         if (IsLookupField(Script, Field))
@@ -1045,9 +1046,35 @@ static public class SchemaRegistrationBuilder
         else if (MetadataText.StartsWith("LargeMemo", StringComparison.OrdinalIgnoreCase))
             Result.Kind = FieldMetadataKind.LargeMemo;
 
+        Result.MetadataName = ParseMetadataName(MetadataText, Result.Kind);
         Result.IsOneToOne = MetadataText.IndexOf("OneToOne", StringComparison.OrdinalIgnoreCase) >= 0;
 
         return Result;
+    }
+    /// <summary>
+    /// Parses an optional metadata name.
+    /// </summary>
+    static string ParseMetadataName(string MetadataText, FieldMetadataKind Kind)
+    {
+        if (string.IsNullOrWhiteSpace(MetadataText))
+            return string.Empty;
+
+        string Text = MetadataText.Trim();
+
+        if (Kind == FieldMetadataKind.CorrelationLocator && Text.StartsWith("Correlation Locator", StringComparison.OrdinalIgnoreCase))
+            Text = Text.Substring("Correlation Locator".Length).Trim();
+        else if (Kind == FieldMetadataKind.Locator && Text.StartsWith("Locator", StringComparison.OrdinalIgnoreCase))
+            Text = Text.Substring("Locator".Length).Trim();
+        else if (Kind == FieldMetadataKind.Enum && Text.StartsWith("Enum", StringComparison.OrdinalIgnoreCase))
+            Text = Text.Substring("Enum".Length).Trim();
+        else
+            return string.Empty;
+
+        int OpenIndex = Text.IndexOf('(');
+        if (OpenIndex >= 0)
+            Text = Text.Substring(0, OpenIndex).Trim();
+
+        return SplitHeaderTokens(Text).FirstOrDefault() ?? string.Empty;
     }
     /// <summary>
     /// Returns true if a line can be parsed as a field line.
@@ -1197,6 +1224,26 @@ static public class SchemaRegistrationBuilder
     }
 
     /// <summary>
+    /// Returns enum lookup source name for a field.
+    /// </summary>
+    static string GetEnumName(SchemaScript Script, SchemaField Field)
+    {
+        string Result = !string.IsNullOrWhiteSpace(Field.MetadataName) ? Field.MetadataName : RemoveIdSuffix(Field.Name);
+        EnumInfo Info = Script.FindEnum(Result);
+        return Info != null && !string.IsNullOrWhiteSpace(Info.Name) ? Info.Name : Result;
+    }
+    /// <summary>
+    /// Returns enum type name.
+    /// </summary>
+    static string GetEnumTypeName(SchemaScript Script, string EnumName)
+    {
+        EnumInfo Info = Script.FindEnum(EnumName);
+        if (Info != null && !string.IsNullOrWhiteSpace(Info.TypeName))
+            return Info.TypeName;
+        return EnumName;
+    }
+
+    /// <summary>
     /// Returns true when a field must be generated as locator field.
     /// </summary>
     static bool IsLocatorField(SchemaField Field)
@@ -1208,16 +1255,17 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static LocatorInfo ResolveLocatorInfo(SchemaScript Script, SchemaTable Table, SchemaField Field)
     {
-        LocatorInfo Result = ParseLocatorInfo(Field.MetadataText);
-
-        string ReferenceTableName = Field.ForeignKey != null ? Field.ForeignKey.ReferenceTable : Result.Name;
+        string ReferenceTableName = Field.ForeignKey != null ? Field.ForeignKey.ReferenceTable : string.Empty;
         if (string.IsNullOrWhiteSpace(ReferenceTableName))
             ReferenceTableName = RemoveIdSuffix(Field.Name);
+
+        string LocatorName = !string.IsNullOrWhiteSpace(Field.MetadataName) ? Field.MetadataName : ReferenceTableName;
+        LocatorInfo Result = Script.FindLocator(LocatorName)?.Clone() ?? new LocatorInfo();
 
         SchemaTable ReferenceTable = Script.FindTable(ReferenceTableName);
 
         if (string.IsNullOrWhiteSpace(Result.Name))
-            Result.Name = ReferenceTableName;
+            Result.Name = LocatorName;
         if (string.IsNullOrWhiteSpace(Result.TableName))
             Result.TableName = ReferenceTableName;
         if (string.IsNullOrWhiteSpace(Result.Alias))
@@ -1247,21 +1295,16 @@ static public class SchemaRegistrationBuilder
         return Result;
     }
     /// <summary>
-    /// Parses locator metadata text.
+    /// Parses a locator definition line.
     /// </summary>
-    static LocatorInfo ParseLocatorInfo(string MetadataText)
+    static LocatorInfo ParseLocatorInfo(string Text)
     {
         LocatorInfo Result = new();
 
-        if (string.IsNullOrWhiteSpace(MetadataText))
+        if (string.IsNullOrWhiteSpace(Text))
             return Result;
 
-        string Text = MetadataText.Trim();
-
-        if (Text.StartsWith("Locator", StringComparison.OrdinalIgnoreCase))
-            Text = Text.Substring("Locator".Length).Trim();
-        else if (Text.StartsWith("Correlation Locator", StringComparison.OrdinalIgnoreCase))
-            Text = Text.Substring("Correlation Locator".Length).Trim();
+        Text = Text.Trim();
 
         string FieldText = string.Empty;
         int OpenIndex = Text.IndexOf('(');
@@ -1477,6 +1520,8 @@ static public class SchemaRegistrationBuilder
     {
         // ● private fields
         List<SchemaTable> fTables = [];
+        readonly Dictionary<string, LocatorInfo> fLocators = new(StringComparer.OrdinalIgnoreCase);
+        readonly Dictionary<string, EnumInfo> fEnums = new(StringComparer.OrdinalIgnoreCase);
         
         void ResolveCreationOrders()
         {
@@ -1502,6 +1547,8 @@ static public class SchemaRegistrationBuilder
         static public SchemaScript Parse(string SchemaSql)
         {
             SchemaScript Result = new();
+            Result.ParseLocatorBlock(SchemaSql);
+            Result.ParseEnumBlock(SchemaSql);
             MatchCollection Matches = Regex.Matches(SchemaSql, @"CREATE\s+TABLE\s+\{TableName\}\s*\(", RegexOptions.IgnoreCase);
 
             foreach (Match Match in Matches)
@@ -1526,6 +1573,14 @@ static public class SchemaRegistrationBuilder
         /// Finds a table by name.
         /// </summary>
         public SchemaTable FindTable(string Name) => Tables.FirstOrDefault(x => x.Name.IsSameText(Name));
+        /// <summary>
+        /// Finds a locator definition by name.
+        /// </summary>
+        public LocatorInfo FindLocator(string Name) => !string.IsNullOrWhiteSpace(Name) && fLocators.TryGetValue(Name, out LocatorInfo Result) ? Result : null;
+        /// <summary>
+        /// Finds an enum definition by name.
+        /// </summary>
+        public EnumInfo FindEnum(string Name) => !string.IsNullOrWhiteSpace(Name) && fEnums.TryGetValue(Name, out EnumInfo Result) ? Result : null;
         /// <summary>
         /// Returns detail tables of a master table.
         /// </summary>
@@ -1560,6 +1615,86 @@ static public class SchemaRegistrationBuilder
         }
 
         // ● private
+        /// <summary>
+        /// Parses the locators block.
+        /// </summary>
+        void ParseLocatorBlock(string SchemaSql)
+        {
+            foreach (string Line in ExtractNamedBlockLines(SchemaSql, "Locators"))
+            {
+                LocatorInfo Locator = ParseLocatorInfo(Line);
+                if (!string.IsNullOrWhiteSpace(Locator.Name))
+                    fLocators[Locator.Name] = Locator;
+            }
+        }
+        /// <summary>
+        /// Parses the enums block.
+        /// </summary>
+        void ParseEnumBlock(string SchemaSql)
+        {
+            foreach (string Line in ExtractNamedBlockLines(SchemaSql, "Enums"))
+            {
+                EnumInfo Info = ParseEnumInfo(Line);
+                if (!string.IsNullOrWhiteSpace(Info.Name))
+                    fEnums[Info.Name] = Info;
+            }
+        }
+        /// <summary>
+        /// Extracts lines from a named global block.
+        /// </summary>
+        static List<string> ExtractNamedBlockLines(string SchemaSql, string Name)
+        {
+            List<string> Result = [];
+            Match M = Regex.Match(SchemaSql, @"^\s*" + Regex.Escape(Name) + @"\s+begin\s*$([\s\S]*?)^\s*" + Regex.Escape(Name) + @"\s+end\s*$", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            if (!M.Success)
+                return Result;
+
+            string Text = M.Groups[1].Value;
+            string[] Lines = Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            foreach (string Line in Lines)
+            {
+                string S = Line.Trim();
+                if (string.IsNullOrWhiteSpace(S))
+                    continue;
+                if (S.StartsWith("--"))
+                    continue;
+
+                Result.Add(S);
+            }
+
+            return Result;
+        }
+        /// <summary>
+        /// Parses an enum definition line.
+        /// </summary>
+        static EnumInfo ParseEnumInfo(string Text)
+        {
+            EnumInfo Result = new();
+            if (string.IsNullOrWhiteSpace(Text))
+                return Result;
+
+            Text = Text.Trim();
+            string TypeName = string.Empty;
+            int OpenIndex = Text.IndexOf('(');
+            int CloseIndex = Text.LastIndexOf(')');
+            if (OpenIndex >= 0 && CloseIndex > OpenIndex)
+            {
+                TypeName = Text.Substring(OpenIndex + 1, CloseIndex - OpenIndex - 1).Trim();
+                Text = Text.Substring(0, OpenIndex).Trim();
+            }
+
+            List<string> Parts = SplitHeaderTokens(Text);
+            if (Parts.Count > 0)
+                Result.Name = Parts[0];
+            if (!string.IsNullOrWhiteSpace(TypeName))
+                Result.TypeName = TypeName;
+            else if (Parts.Count > 1)
+                Result.TypeName = Parts[1];
+            else
+                Result.TypeName = Result.Name;
+
+            return Result;
+        }
         /// <summary>
         /// Resolves foreign key references.
         /// </summary>
@@ -1999,6 +2134,7 @@ static public class SchemaRegistrationBuilder
             Result.OriginalCommentText = CommentPart;
             Result.MetadataKind = Metadata.Kind;
             Result.MetadataText = Metadata.MetadataText;
+            Result.MetadataName = Metadata.MetadataName;
             Result.CommentText = Metadata.CommentText;
             Result.IsOneToOne = Metadata.IsOneToOne;
             Result.IsPrimaryKey = SqlPart.ContainsText("primary key");
@@ -2031,6 +2167,10 @@ static public class SchemaRegistrationBuilder
         /// Plain comment text.
         /// </summary>
         public string CommentText { get; set; }
+        /// <summary>
+        /// Optional metadata name.
+        /// </summary>
+        public string MetadataName { get; set; }
         /// <summary>
         /// Field data type.
         /// </summary>
@@ -2099,6 +2239,23 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     private class LocatorInfo
     {
+        // ● public
+        /// <summary>
+        /// Returns a clone of this locator info.
+        /// </summary>
+        public LocatorInfo Clone()
+        {
+            LocatorInfo Result = new();
+            Result.Name = Name;
+            Result.TableName = TableName;
+            Result.Alias = Alias;
+            Result.KeyField = KeyField;
+            Result.DisplayFields.AddRange(DisplayFields);
+            Result.SearchFields.AddRange(SearchFields);
+            Result.ReturnFields.AddRange(ReturnFields);
+            return Result;
+        }
+
         // ● properties
         /// <summary>
         /// Locator name.
@@ -2131,6 +2288,22 @@ static public class SchemaRegistrationBuilder
     }
 
     /// <summary>
+    /// Parsed enum metadata.
+    /// </summary>
+    private class EnumInfo
+    {
+        // ● properties
+        /// <summary>
+        /// Enum lookup source name.
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// Enum type name.
+        /// </summary>
+        public string TypeName { get; set; }
+    }
+
+    /// <summary>
     /// Field metadata.
     /// </summary>
     private class FieldMetadata
@@ -2148,6 +2321,10 @@ static public class SchemaRegistrationBuilder
         /// Plain comment text.
         /// </summary>
         public string CommentText { get; set; }
+        /// <summary>
+        /// Optional metadata name.
+        /// </summary>
+        public string MetadataName { get; set; }
         /// <summary>
         /// True when one-to-one.
         /// </summary>

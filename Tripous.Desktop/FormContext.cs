@@ -56,7 +56,7 @@ public class FormContext
     public virtual AppForm CreateForm()
     {
         if (Form == null)
-            Form = TypeResolver.CreateInstance<AppForm>(ClassName);
+            Form = TypeStore.CreateInstance<AppForm>(ClassName);
         return Form;
     }
     

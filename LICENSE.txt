@@ -1,0 +1,121 @@
+# Tripous.Avalon Community License v1.0
+
+Copyright © Theodoros Bebekis
+All Rights Reserved.
+
+
+1. Purpose of the License
+=========================
+
+This license allows the use of the Tripous.Avalon software
+for the development of open-source or closed-source applications,
+under specific terms and restrictions.
+
+The software is provided “as is”,
+without any warranty or liability from its creator.
+
+
+2. Permitted Use
+================
+
+The following are permitted:
+
+- use of the software for personal projects
+- use of the software for educational purposes
+- use of the software in open-source applications
+- use of the software in commercial closed-source or open-source applications
+- modification of the source code for internal use
+- distribution of applications based on Tripous.Avalon
+
+
+3. Restrictions
+===============
+
+The following are NOT permitted:
+
+- selling the framework itself or parts of it as a standalone product
+- resale, redistribution, or commercial exploitation of the framework
+  as a competing product
+- creation of a service, platform, or framework substantially based
+  on Tripous.Avalon for the direct commercial exploitation
+  of the framework itself
+- removal of copyright notices or license notices
+  from the source code
+
+
+4. Commercial License Requirement
+=================================
+
+Free use of Tripous.Avalon is permitted up to
+a total annual gross commercial revenue of 100,000 euros
+per individual or legal entity.
+
+If the above limit is exceeded,
+a separate commercial license agreement
+with the creator of the software is required.
+
+Commercial licensing terms are determined
+through a separate agreement
+with the creator of the software.
+
+
+5. Copyright
+============
+
+All intellectual property rights related to Tripous.Avalon
+belong exclusively to Theodoros Bebekis.
+
+This license does not transfer ownership
+or intellectual property rights.
+
+
+6. Disclaimer of Warranty and Liability
+=======================================
+
+The software is provided “as is”,
+without any express or implied warranty.
+
+The creator shall not be liable for:
+
+- direct or indirect damages
+- data loss
+- financial loss
+- business interruption
+- loss of profits
+- security issues
+- or any other consequence arising from the use
+  or inability to use the software
+
+Use of the software is entirely at the user's own risk.
+
+
+7. Termination
+==============
+
+This license is automatically terminated
+in the event of violation of any of its terms.
+
+In such case,
+the user must immediately cease
+all use and distribution of the software.
+
+
+8. Governing Law
+================
+
+This license shall be governed by
+the laws of Greece.
+
+Any dispute arising from this license
+shall fall under the jurisdiction
+of the courts of Greece.
+
+
+9. Final Notes
+==============
+
+This license applies to the specific version
+of the software with which it was distributed.
+
+Future versions of the software
+may be distributed under different licensing terms.

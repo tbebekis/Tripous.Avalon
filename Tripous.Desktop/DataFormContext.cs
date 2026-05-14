@@ -41,7 +41,7 @@ public class DataFormContext: FormContext
     public override AppForm CreateForm()
     {
         if (Form == null)
-            Form = TypeResolver.CreateInstance<DataForm>(ClassName);
+            Form = TypeStore.CreateInstance<DataForm>(ClassName);
         return Form;
     }
     

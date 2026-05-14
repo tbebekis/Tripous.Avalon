@@ -170,7 +170,7 @@ static internal partial class AppHost
             Ui.MainWindow = AppHost.MainWindow;
             
             LoadLibraries();
-            TypeRegistry.RegisterLoadedAssemblies();
+            TypeStore.RegisterLoadedAssemblies();
             InitializeLibraries();
             
             MainWindow.Show();

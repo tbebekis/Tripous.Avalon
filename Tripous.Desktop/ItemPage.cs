@@ -87,7 +87,7 @@ public class UiDetailTableInfo
 /// <summary>
 /// The item part of a <see cref="DataForm"/>
 /// </summary>
-[RegistryType]
+[TypeStore]
 public class ItemPage : UserControl
 {
     

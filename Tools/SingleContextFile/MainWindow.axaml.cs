@@ -1,7 +1,7 @@
 namespace SingleContextFile;
 
 /*
-AppRegistry.cs
+  AppRegistry.cs
    BaseDef.cs
    BoolOp.cs
    Command.cs
@@ -22,6 +22,11 @@ AppRegistry.cs
    GridColumnDef.cs
    IDef.cs
    LocatorDef.cs
+   LocatorFieldDef.cs
+   Locator.cs
+   LocatorEventArgs.cs
+   LocatorEventType.cs
+   LocatorSearchResult.cs
    LookupDisplayConverter.cs
    LookupItem.cs
    LookupSource.cs

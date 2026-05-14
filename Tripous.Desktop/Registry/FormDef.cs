@@ -6,8 +6,8 @@ namespace Tripous.Desktop;
 /// </summary>
 public class FormDef: BaseDef
 {
-    string fClassName = typeof(DataForm).FullName;
-    string fItemClassName = typeof(ItemPage).FullName;
+    string fClassName;
+    string fItemClassName;
     string fModule;
     bool fIsReadOnly;
     string fGroup;
@@ -21,7 +21,7 @@ public class FormDef: BaseDef
     /// Creates a form instance as described by this instance.
     /// </summary>
     /// <returns></returns>
-    public DataForm Create() => TypeResolver.CreateInstance<DataForm>(ClassName);
+    public DataForm Create() => TypeStore.CreateInstance<DataForm>(ClassName);
     /// <summary>
     /// Creates a command that displays the form.
     /// </summary>

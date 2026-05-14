@@ -1,6 +1,6 @@
 namespace Tripous.Data;
 
-[RegistryType]
+[TypeStore]
 public class DataModule
 {
     // ● operation flags 
@@ -157,7 +157,7 @@ public class DataModule
         void UpdateSchema(TableDef T)
         {
             string TableName = T.Name;
-            string StatementName = $"{Name}.{TableName}";
+            string StatementName = $"{this.GetType().FullName}.{Name}.{TableName}";
         
             DataTable SchemaTable = Store.GetNativeSchemaFromTableName(StatementName, TableName);
             T.UpdateFrom(SchemaTable);

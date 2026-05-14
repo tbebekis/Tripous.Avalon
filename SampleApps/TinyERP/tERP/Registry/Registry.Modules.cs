@@ -37,8 +37,9 @@ static internal partial class Registry
     }
     static void RegisterLocators_FromModules()
     {
-        DataRegistry.AddLocator("Person", "Person", "Id", new string[] { "Code", "Name" }, new string[] { "Code", "Name" }, new string[] { "Id", "Code", "Name" });
-        DataRegistry.AddLocator("Product", "Product", "Id", new string[] { "Code", "Name" }, new string[] { "Code", "Name" }, new string[] { "Id", "Code", "Name" });
+        // DataRegistry.AddLocator("Customer", "Person", "Id", new string[] { "Code", "Name" }, new string[] { "Code", "Name" }, new string[] { "Id", "Code", "Name", "TaxNumber", "IsCompany" });
+        // DataRegistry.AddLocator("Person", "Person", "Id", new string[] { "Code", "Name" }, new string[] { "Code", "Name" }, new string[] { "Id", "Code", "Name" });
+        // DataRegistry.AddLocator("Product", "Product", "Id", new string[] { "Code", "Name" }, new string[] { "Code", "Name" }, new string[] { "Id", "Code", "Name", "ProductTypeId", "VatRateId" });
     }
     static void RegisterModule_Bank()
     {
@@ -867,15 +868,19 @@ from
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
         TableDef tblCustomer = tblTop.AddJoin("CustomerId", "Person", "Customer", "Id");
-        tblTop.Fields.Get("CustomerId").Locator = "Person";
+        tblTop.Fields.Get("CustomerId").Locator = "Customer";
         tblCustomer.AddId("Id").SetNullable(false);
         tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCustomer.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblCustomer.AddString("TaxNumber", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
+        tblCustomer.AddBoolean("IsCompany", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         TableDef tblProduct = tblTop.AddJoin("ProductId", "Product", "Product", "Id");
         tblTop.Fields.Get("ProductId").Locator = "Product";
         tblProduct.AddId("Id").SetNullable(false);
         tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddEnumLookupId("ProductTypeId", "ProductType", typeof(ProductType), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
         string[] FilterFields = ["Customer__Code", "Customer__Name", "Customer__Title", "IsActive", "MinQuantity", "Product__Code", "Product__Name", "UnitOfMeasure__Code", "UnitOfMeasure__Name", "UnitPrice", "ValidFrom", "ValidTo"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -1113,10 +1118,12 @@ from
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
         TableDef tblCustomer = tblTop.AddJoin("CustomerId", "Person", "Customer", "Id");
-        tblTop.Fields.Get("CustomerId").Locator = "Person";
+        tblTop.Fields.Get("CustomerId").Locator = "Customer";
         tblCustomer.AddId("Id").SetNullable(false);
         tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCustomer.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblCustomer.AddString("TaxNumber", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
+        tblCustomer.AddBoolean("IsCompany", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         TableDef tblManagerPerson = tblTop.AddJoin("ManagerPersonId", "Person", "ManagerPerson", "Id");
         tblTop.Fields.Get("ManagerPersonId").Locator = "Person";
         tblManagerPerson.AddId("Id").SetNullable(false);

@@ -1,4 +1,15 @@
-
+/*---------------------------------------------------
+Locators begin
+Customer (Code, Name|Default|Id, Code, Name, TaxNumber, IsCompany)
+Person (Code, Name)
+Product (Code, Name|Default|Id, Code, Name, ProductTypeId, VatRateId)
+Locators end
+  
+Enums begin
+  
+Enums end  
+----------------------------------------------------*/
+    
 /*---------------------------------------------------
 Table: SYS_LOG
 Module: Log  LogDataModule
@@ -263,9 +274,9 @@ CREATE TABLE {TableName} (
     PriceTypeId @NVARCHAR(40) @NOT_NULL,        -- Lookup
 
     DiscountGroupId @NVARCHAR(40) @NULL,        -- Lookup
-    CustomerId @NVARCHAR(40) @NULL,             -- Locator
+    CustomerId @NVARCHAR(40) @NULL,             -- Locator Customer
 
-    ProductId @NVARCHAR(40) @NOT_NULL,          -- Locator
+    ProductId @NVARCHAR(40) @NOT_NULL,          -- Locator Product
     UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,    -- Lookup
 
     MinQuantity @DECIMAL_(18, 4) default 0 @NOT_NULL,
@@ -584,7 +595,7 @@ CREATE TABLE {TableName} (
     Phone @NVARCHAR(32) @NULL,
     Email @NVARCHAR(96) @NULL,
 
-    ResponsiblePersonId @NVARCHAR(40) @NULL,            -- Locator  -- Person responsible for warehouse
+    ResponsiblePersonId @NVARCHAR(40) @NULL,            -- Locator Person  -- Person responsible for warehouse
 
     IsActive @BOOL default 1 @NOT_NULL,
     IsVirtual @BOOL default 0 @NOT_NULL,                -- logical/non-physical warehouse
@@ -810,7 +821,7 @@ CREATE TABLE {TableName} (
     Name @NVARCHAR(96) @NOT_NULL,                   -- display title
 
     ParentCostCenterId @NVARCHAR(40) @NULL,         -- Lookup   -- optional hierarchy parent
-    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator   -- responsible person
+    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator Person  -- responsible person
 
     StartDate @DATE @NULL,                          -- activation date
     EndDate @DATE @NULL,                            -- deactivation date
@@ -845,7 +856,7 @@ CREATE TABLE {TableName} (
     Code @NVARCHAR(40) @NOT_NULL,                   -- business code
     Name @NVARCHAR(96) @NOT_NULL,                   -- display title
 
-    CustomerId @NVARCHAR(40) @NULL,                 -- Locator     -- customer/person owner
+    CustomerId @NVARCHAR(40) @NULL,                 -- Locator Customer    -- customer/person owner
 
     ProjectStatusId integer default 0 @NOT_NULL,    -- Enum         -- Draft, Active, Completed, Cancelled
 
@@ -854,7 +865,7 @@ CREATE TABLE {TableName} (
 
     CostCenterId @NVARCHAR(40) @NULL,
 
-    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator      -- responsible person
+    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator Person     -- responsible person
 
     IsActive @BOOL default 1 @NOT_NULL,
 

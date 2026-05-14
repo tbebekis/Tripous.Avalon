@@ -5,8 +5,8 @@ namespace Tripous;
 /// </summary>
 public class BaseDef: IDef, IJsonLoadable, INotifyPropertyChanged
 {
-    private string fTitleKey;
-    private string fName;
+    protected string fTitleKey;
+    protected string fName;
 
     // ● protected  
     protected virtual void NotifyPropertyChanged(string PropertyName)
@@ -70,7 +70,7 @@ public class BaseDef: IDef, IJsonLoadable, INotifyPropertyChanged
     }
     
     // ● properties  
-    public string Name
+    public virtual string Name
     {
         get => !string.IsNullOrWhiteSpace(fName) ? fName : this.GetType().FullName;
         set
@@ -98,9 +98,9 @@ public class BaseDef: IDef, IJsonLoadable, INotifyPropertyChanged
         }
     }
 
-    [JsonIgnore] public bool IsTitleKeyEmpty => string.IsNullOrWhiteSpace(fTitleKey);
-    [JsonIgnore] public string Title => Texts.L(TitleKey);
-    [JsonIgnore] public object Tag { get; set; }
+    [JsonIgnore] public virtual bool IsTitleKeyEmpty => string.IsNullOrWhiteSpace(fTitleKey);
+    [JsonIgnore] public virtual string Title => Texts.L(TitleKey);
+    [JsonIgnore] public virtual object Tag { get; set; }
     [JsonIgnore] public virtual bool IsSerializable => true;
 
     // ● events

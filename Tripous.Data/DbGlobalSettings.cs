@@ -8,6 +8,8 @@ public class DbGlobalSettings: SettingsBase, INotifyPropertyChanged
     bool fIdFieldsVisible;
     int fDefaultRowLimit;
     int fDefaultCommandTimeoutSeconds = 300;
+    int fLocatorMinimumSearchTextLength;
+    int fLocatorMaximumDropDownRows;
     
     // ● private  
     void NotifyPropertyChanged(string PropertyName)
@@ -49,6 +51,23 @@ public class DbGlobalSettings: SettingsBase, INotifyPropertyChanged
     {
         get => fIdFieldsVisible;
         set { if (fIdFieldsVisible != value) { fIdFieldsVisible = value; NotifyPropertyChanged(nameof(IdFieldsVisible)); } }
+    }
+    
+    /// <summary>
+    /// How many characters to accept as minimum in locator search terms.
+    /// </summary>
+    public int LocatorMinimumSearchTextLength
+    {
+        get => fLocatorMinimumSearchTextLength >= 3 && fLocatorMinimumSearchTextLength <= 6 ? fLocatorMinimumSearchTextLength : 4;
+        set { if (fLocatorMinimumSearchTextLength != value) { fLocatorMinimumSearchTextLength = value; NotifyPropertyChanged(nameof(LocatorMinimumSearchTextLength)); } }
+    }
+    /// <summary>
+    /// How many rows to accept as valid maximum limit in locator searches. Exceeding this limit results in an empty result and warning.
+    /// </summary>
+    public int LocatorMaximumDropDownRows
+    {
+        get => fLocatorMaximumDropDownRows >= 30 && fLocatorMaximumDropDownRows <= 150 ? fLocatorMaximumDropDownRows : 75;
+        set { if (fLocatorMaximumDropDownRows != value) { fLocatorMaximumDropDownRows = value; NotifyPropertyChanged(nameof(LocatorMaximumDropDownRows)); } }
     }
     
     // ● events
