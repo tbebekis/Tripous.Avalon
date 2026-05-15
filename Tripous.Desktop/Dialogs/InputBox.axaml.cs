@@ -20,7 +20,7 @@ public partial class InputBox : DialogWindow
         lblMessage.Content = BoxData.Message;
         edtValue.Text = BoxData.Value;
  
-        btnCancel.Focus();
+        edtValue.Focus();
         
         await Task.CompletedTask;
     }
@@ -45,10 +45,12 @@ public partial class InputBox : DialogWindow
         InitializeComponent();
     }
 
-    static public async Task<DialogData> ShowModal(string Message, string Value = "", Control Caller = null)
+    static public async Task<InputBoxData> ShowModal(string Message, string Value = "", Control Caller = null)
     {
         InputBoxData BoxData = new() { Message = Message, Value = Value };
-        return await  ShowModal<InputBox>(BoxData, Caller);
+        DialogInfo Info = await  ShowModal<InputBox>(BoxData, Caller);
+        BoxData.Info = Info;
+        return BoxData;
     }
 }
 
@@ -57,4 +59,6 @@ public class InputBoxData
     public string Message { get; set; } = "Please, enter a value";
     public string Value { get; set; } = string.Empty;
     public bool IsNumeric { get; set; }
+    public DialogInfo Info { get; internal set; }
+    public bool Result => Info.Result;
 }

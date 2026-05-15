@@ -1,12 +1,12 @@
 namespace Tripous.Desktop;
  
-public class DialogData
+public class DialogInfo
 {
-    public DialogData()
+    public DialogInfo()
     {
     }
 
-    public async Task<DialogData> ShowModal<T>(object InputData = null, Control Caller = null) where T : DialogWindow, new()
+    public async Task<DialogInfo> ShowModal<T>(object InputData = null, Control Caller = null) where T : DialogWindow, new()
     {
         if (Caller == null)
             Caller = Ui.MainWindow;
@@ -16,7 +16,7 @@ public class DialogData
         this.InputData = InputData?? this;
     
         Dialog = Activator.CreateInstance<T>() as DialogWindow;
-        Dialog.Data = this;
+        Dialog.Info = this;
         
         await Dialog.ShowDialog(this.Parent);
         return this;

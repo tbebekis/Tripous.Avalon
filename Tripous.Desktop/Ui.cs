@@ -111,7 +111,7 @@ static public class Ui
 
         return files[0]?.Path?.LocalPath;
     }
-    static public async Task<DialogData> InputBox(string Message, string Value = "", Control Caller = null)
+    static public async Task<InputBoxData> InputBox(string Message, string Value = "", Control Caller = null)
     {
         return await Desktop.InputBox.ShowModal(Message, Value, Caller);
     }

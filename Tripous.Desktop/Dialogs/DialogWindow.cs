@@ -32,50 +32,50 @@ public class DialogWindow: Window
     }
  
     // ● static
-    static public async Task<DialogData> ShowModal<T>(Control Caller) where T : DialogWindow, new()
+    static public async Task<DialogInfo> ShowModal<T>(Control Caller) where T : DialogWindow, new()
     {
         return await ShowModal<T>(Caller, null);
     }
-    static public async Task<DialogData> ShowModal<T>(object InputData) where T : DialogWindow, new()
+    static public async Task<DialogInfo> ShowModal<T>(object InputData) where T : DialogWindow, new()
     {
         if (InputData == null)
             throw new TripousArgumentNullException(nameof(InputData));
         return await ShowModal<T>(InputData,null);
     }
-    static public async Task<DialogData> ShowModal<T>(object InputData = null, Control Caller = null)
+    static public async Task<DialogInfo> ShowModal<T>(object InputData = null, Control Caller = null)
         where T : DialogWindow, new()
     {
-        DialogData Data = new DialogData();
-        await Data.ShowModal<T>(InputData, Caller);
-        return Data;
+        DialogInfo Info = new DialogInfo();
+        await Info.ShowModal<T>(InputData, Caller);
+        return Info;
     }
     
     
     // ● properties
     public virtual ModalResult ModalResult
     {
-        get => Data != null? Data.ModalResult: ModalResult.None;
+        get => Info != null? Info.ModalResult: ModalResult.None;
         set
         {
-            if (Data != null)
+            if (Info != null)
             {
-                Data.ModalResult = value;
-                if (Data.ModalResult == ModalResult.None)
+                Info.ModalResult = value;
+                if (Info.ModalResult == ModalResult.None)
                     return;
                 Close();            
             }
 
         }
     }
-    public object InputData => Data != null? Data.InputData: null;
+    public object InputData => Info != null? Info.InputData: null;
     public object ResultData
     {
-        get =>  Data != null? Data.ResultData: null;
+        get =>  Info != null? Info.ResultData: null;
         set
         {
-            if (Data != null)
-                Data.ResultData = value;
+            if (Info != null)
+                Info.ResultData = value;
         }
     }
-    public DialogData Data { get; set; }
+    public DialogInfo Info { get; set; }
 }

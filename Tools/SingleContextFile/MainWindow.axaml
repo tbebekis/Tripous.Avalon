@@ -7,54 +7,79 @@
         Width="1024"
         Padding="10">
 
-    <Window.Styles>
-        <Style Selector="ae|TextEditor">
-            <Setter Property="FontFamily" Value="Consolas, Menlo, Monospace"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="ShowLineNumbers" Value="True"/>
-            <Setter Property="Margin" Value="2"/>
-        </Style>
-    </Window.Styles>
- 
+ <Window.Styles>
+    <Style Selector="ae|TextEditor">
+        <Setter Property="FontFamily" Value="Consolas, Menlo, Monospace"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="ShowLineNumbers" Value="True"/>
+        <Setter Property="Margin" Value="2"/>
+    </Style>
+</Window.Styles>
 
-    <DockPanel LastChildFill="True">
-        <StackPanel DockPanel.Dock="Top" Spacing="10">
-            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Output FilePath:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Name="edtOutputFilePath" Margin="0,5" IsEnabled="False"/>
+<DockPanel LastChildFill="True">
+    <!-- ● Top Panel: Folder Path & Buttons -->
+    <StackPanel DockPanel.Dock="Top" Spacing="10" Margin="0,0,0,10">
+        <Grid ColumnDefinitions="Auto, *">
+            <TextBlock Grid.Column="0" Text="Start FolderPath:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBox Grid.Column="1" Name="edtStartFolderPath" Margin="0,5"/>
+        </Grid>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Start FolderPath:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Name="edtStartFolderPath" Margin="0,5"/>
-            </Grid>
-
-            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">
-                <Button Name="btnExecute" Content="Execute" Width="120" HorizontalContentAlignment="Center"/>
-                <Button Name="btnSave" Content="Save Settings" Width="120" HorizontalContentAlignment="Center"/>
-                <Button Name="btnShowOutput" Content="Show Output Folder" Width="180" HorizontalContentAlignment="Center"/>
-            </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">
+            <Button Name="btnExecute" Content="Execute" Width="120" HorizontalContentAlignment="Center"/>
+            <Button Name="btnShowOutput" Content="Show Output Folder" Width="180" HorizontalContentAlignment="Center"/>
         </StackPanel>
+    </StackPanel>
 
-        <Grid RowDefinitions="*, 4, 150" Margin="0,10,0,0">
-            
-            <TabControl Grid.Row="0">
+    <!-- ● Main Content Area (pnlContent) -->
+    <Grid Name="pnlContent" RowDefinitions="*, 4, 150">
+        
+        <!-- Upper Part: SideBar and Tabs -->
+        <Grid Grid.Row="0" ColumnDefinitions="250, 4, *">
+            <!-- SideBar -->
+            <DockPanel Grid.Column="0" Name="pnlSideBar">
+                <TextBlock DockPanel.Dock="Top" Text="File Sets" FontWeight="Bold" Margin="0,0,0,5"/>
+                
+                <!-- Buttons Panel -->
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="0,0,0,5">
+                    <Button Name="btnAdd" Content="Add"  HorizontalContentAlignment="Center"/>
+                    <Button Name="btnDelete" Content="Delete"  HorizontalContentAlignment="Center"/>
+                    <Button Name="btnSave" Content="Save"  HorizontalContentAlignment="Center"/>
+                </StackPanel>
+
+                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                    <ListBox Name="lboFileSets"/>
+                </Border>
+            </DockPanel>
+
+            <!-- Vertical Splitter -->
+            <GridSplitter Grid.Column="1" Background="Transparent" ResizeDirection="Columns"/>
+
+            <!-- TabControl Area -->
+            <TabControl Grid.Column="2">
                 <TabItem Header="Files" Name="tabFiles">
                     <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
-                        <TextBox Name="edtMemo" AcceptsReturn="True" TextWrapping="Wrap" Watermark="Log output here..." BorderThickness="0"/>
+                        <TextBox Name="edtMemo" AcceptsReturn="True" TextWrapping="Wrap" Watermark="Add file names here..." BorderThickness="0"/>
                     </Border>
                 </TabItem>
-                
+
                 <TabItem Header="Output" Name="tabOutput">
                     <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
                         <ae:TextEditor Name="edtOutput"/>
                     </Border>
                 </TabItem>
             </TabControl>
-
-            <GridSplitter Grid.Row="1" Background="Transparent" ResizeDirection="Rows"/>
-
-            <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
-                <TextBox Name="edtLog" AcceptsReturn="True" TextWrapping="Wrap" Watermark="System log..." BorderThickness="0" IsReadOnly="True"/>
-            </Border>
         </Grid>
-    </DockPanel>
+
+        <!-- Horizontal Splitter -->
+        <GridSplitter Grid.Row="1" Background="Transparent" ResizeDirection="Rows"/>
+
+        <!-- Bottom Log Area -->
+        <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+            <TextBox Name="edtLog" AcceptsReturn="True" TextWrapping="Wrap" Watermark="System log..." BorderThickness="0" IsReadOnly="True"/>
+        </Border>
+    </Grid>
+</DockPanel>
+
+        
+        
 </Window>
