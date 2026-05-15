@@ -43,6 +43,10 @@
       <DependentUpon>DbConnectionEditDialog.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Locator\LocatorBox.cs">
+      <DependentUpon>LocatorBox.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

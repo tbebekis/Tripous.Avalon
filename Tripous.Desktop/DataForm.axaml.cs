@@ -304,13 +304,12 @@ public partial class DataForm : AppForm
             {
                 Module.ListSelect(SqlText);
                 ListIsDirty = false;
-                BindListGrid();
+                BindListGrid(SelectDef);
                 ApplyIdColumnsVisible();
                 
                 LogBox.AppendLine(SqlText);
                 
                 GoToListOID(LastOID);
-                
             });
         }
     }
@@ -422,7 +421,7 @@ public partial class DataForm : AppForm
         }
     }
 
-    protected virtual void BindListGrid() => DataGridBinder.BindGrid(gridList, Module.tblList.DataView, SupportsRecycling: false, GoToFirst: true);
+    protected virtual void BindListGrid(SelectDef SelectDef) => DataGridBinder.BindGrid(SelectDef, gridList, Module.tblList.DataView, SupportsRecycling: false, GoToFirst: true);
     protected virtual void UnBindListGrid() => DataGridBinder.UnBindGrid(gridList);
  
     protected virtual void CreateItemPanel()

@@ -665,7 +665,7 @@ where
     /// <summary>
     /// Adds and returns an Id field based on settings on <see cref="SysConfig.OidDataType"/> and <see cref="SysConfig.OidSize"/>.
     /// </summary>
-    public FieldDef AddId(string Name = "Id", FieldFlags Flags = FieldFlags.Required) => AddId(Name, SysConfig.OidDataType, Flags: Flags, MaxLength: SysConfig.OidSize);
+    public FieldDef AddId(string Name = "Id", FieldFlags Flags = FieldFlags.Required) => AddId(Name, DbConfig.OidDataType, Flags: Flags, MaxLength: DbConfig.OidSize);
     /// <summary>
     /// Adds and returns a string Id field
     /// </summary>

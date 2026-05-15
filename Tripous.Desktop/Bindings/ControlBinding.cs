@@ -3,14 +3,19 @@ namespace Tripous.Desktop;
 public class ControlBinding
 {
     // ● private
-    private Control fControl;
-    private string fColumnName;
+    Control fControl;
+    string fColumnName;
 
     // ● constructor
     public ControlBinding(Control Control, string ColumnName)
     {
         fControl = Control ?? throw new TripousArgumentNullException(nameof(Control));
         fColumnName = ColumnName ?? throw new TripousArgumentNullException(nameof(ColumnName));
+    }
+    public ControlBinding(Control Control, string ColumnName, FieldDef FieldDef)
+        : this(Control, ColumnName)
+    {
+        this.FieldDef = FieldDef ?? throw new TripousArgumentNullException(nameof(FieldDef));
     }
 
     // ● public

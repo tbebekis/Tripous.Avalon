@@ -197,6 +197,48 @@ static public class SchemaRegistrationBuilder
         ValidateDuplicateCreationOrders(Result, Script);
         ValidateDuplicateGeneratedMethodNames(Result, Script);
         ValidateSuspiciousUniqueConstraints(Result, Script);
+        ValidateLocatorFields(Result, Script);
+    }
+    /// <summary>
+    /// Validates locator fields.
+    /// </summary>
+    static void ValidateLocatorFields(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable Table in Script.Tables)
+        {
+            foreach (SchemaField Field in Table.Fields)
+            {
+                if (!IsLocatorField(Field))
+                    continue;
+
+                if (Field.ForeignKey == null)
+                {
+                    AddError(Result, "LOCATOR_NO_REFERENCE", "Locator field has no foreign key reference: " + Table.Name + "." + Field.Name);
+                    continue;
+                }
+
+                SchemaTable ReferenceTable = Script.FindTable(Field.ForeignKey.ReferenceTable);
+                if (ReferenceTable == null)
+                {
+                    AddError(Result, "LOCATOR_REFERENCE_TABLE_NOT_FOUND", "Locator reference table not found: " + Table.Name + "." + Field.Name + " -> " + Field.ForeignKey.ReferenceTable);
+                    continue;
+                }
+
+                LocatorInfo Locator = ResolveLocatorInfo(Script, Table, Field);
+                if (Locator == null)
+                    continue;
+
+                bool HasExplicitReturnFields = ParseLocatorReturnFields(Field.MetadataText).Count > 0;
+                if (!HasExplicitReturnFields && Locator.ReturnFields.Count <= 1)
+                    AddError(Result, "LOCATOR_RETURN_FIELDS_NOT_FOUND", "Locator field has no default return fields: " + Table.Name + "." + Field.Name + " -> " + ReferenceTable.Name);
+
+                foreach (string FieldName in Locator.ReturnFields)
+                {
+                    if (ReferenceTable.FindField(FieldName) == null)
+                        AddError(Result, "LOCATOR_RETURN_FIELD_NOT_FOUND", "Locator return field not found: " + Table.Name + "." + Field.Name + " -> " + ReferenceTable.Name + "." + FieldName);
+                }
+            }
+        }
     }
     /// <summary>
     /// Validates duplicate table names.
@@ -305,6 +347,57 @@ static public class SchemaRegistrationBuilder
     }
 
     // ● private - result builders
+    static bool IsBooleanColumnName(string ColumnName)
+    {
+        return ColumnName.StartsWith("Is", StringComparison.OrdinalIgnoreCase)
+               || ColumnName.StartsWith("Has", StringComparison.OrdinalIgnoreCase)
+               || ColumnName.StartsWith("Can", StringComparison.OrdinalIgnoreCase);
+    }
+
+    static bool IsCurrencyColumnName(string ColumnName)
+    {
+        return ColumnName.Contains("Amount", StringComparison.OrdinalIgnoreCase)
+               || ColumnName.Contains("Price", StringComparison.OrdinalIgnoreCase)
+               || ColumnName.Contains("Total", StringComparison.OrdinalIgnoreCase)
+               || ColumnName.Contains("Balance", StringComparison.OrdinalIgnoreCase);
+    }
+    /// <summary>
+    /// Adds a column type entry to a select build result.
+    /// </summary>
+    static void AddColumnType(SelectBuildResult Result, string ColumnName, SchemaField Field)
+    {
+        if (Result == null || Field == null || string.IsNullOrWhiteSpace(ColumnName))
+            return;
+
+        DataColumnType ColumnType = DataColumnType.None;
+
+        switch (Field.DataType)
+        {
+            case DataFieldType.Date:
+                ColumnType = DataColumnType.Date;
+                break;
+            case DataFieldType.DateTime:
+                ColumnType = DataColumnType.DateTime;
+                break;
+            case DataFieldType.Boolean:
+                ColumnType = DataColumnType.Boolean;
+                break;
+            case DataFieldType.Integer:
+                ColumnType = IsBooleanColumnName(ColumnName) ? DataColumnType.Boolean : DataColumnType.Integer;
+                break;
+            case DataFieldType.Double:
+            case DataFieldType.Decimal_:
+            case DataFieldType.Decimal:
+                ColumnType = IsCurrencyColumnName(ColumnName) ? DataColumnType.Currency : DataColumnType.Decimal;
+                break;
+            default:
+                ColumnType = DataColumnType.Text;
+                break;
+        }
+
+        Result.ColumnTypes[ColumnName] = ColumnType;
+    }
+    
     /// <summary>
     /// Builds ordered schema SQL.
     /// </summary>
@@ -515,7 +608,7 @@ static public class SchemaRegistrationBuilder
 
         foreach (LocatorInfo Locator in Locators.Values.OrderBy(x => x.Name))
         {
-            string Source = "DataRegistry.AddLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\", " + BuildStringArray(Locator.DisplayFields) + ", " + BuildStringArray(Locator.SearchFields) + ", " + BuildStringArray(Locator.ReturnFields) + ");";
+            string Source = "DataRegistry.AddLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\"" + BuildOptionalClassNameArgument(Locator.ClassName) + ");";
             if (DuplicateChecks.HasFlag(DuplicateCheck.Locator))
             {
                 SB.AppendLine("        if (!DataRegistry.Locators.Contains(\"" + EscapeString(Locator.Name) + "\"))");
@@ -620,6 +713,8 @@ static public class SchemaRegistrationBuilder
         if (TopTable.UseFilters)
             BuildFiltersSource(SB, SelectResult.FilterFields);
 
+        BuildSelectColumnTypesSource(SB, SelectResult);
+
         foreach (SchemaTable Detail in Script.GetDetailsOf(TopTable))
             BuildDetailSource(SB, Script, Detail, "tblTop", "        ");
 
@@ -715,6 +810,12 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("        foreach (string FieldName in FilterFields)");
         SB.AppendLine("            SelectDef.AddFilter(FieldName, FieldName: FieldName);");
     }
+
+    static void BuildSelectColumnTypesSource(StringBuilder SB, SelectBuildResult SelectResult)
+    {
+        foreach (var Pair in SelectResult.ColumnTypes)
+            SB.AppendLine($"        SelectDef.ColumnTypes[\"{EscapeString(Pair.Key)}\"] = DataColumnType.{Pair.Value};");
+    }
     /// <summary>
     /// Builds source code that adds a field definition.
     /// </summary>
@@ -776,77 +877,78 @@ static public class SchemaRegistrationBuilder
     /// Builds list select SQL and filter field information.
     /// </summary>
     static SelectBuildResult BuildListSelectSql(SchemaScript Script, SchemaTable TopTable)
-{
-    SelectBuildResult Result = new();
-    List<string> SelectLines = [];
-    List<string> JoinLines = [];
-    HashSet<string> Aliases = new(StringComparer.OrdinalIgnoreCase);
-
-    foreach (SchemaField Field in TopTable.Fields)
     {
-        if (!Field.DataType.IsBlob())
+        SelectBuildResult Result = new();
+        List<string> SelectLines = [];
+        List<string> JoinLines = [];
+        HashSet<string> Aliases = new(StringComparer.OrdinalIgnoreCase);
+
+        foreach (SchemaField Field in TopTable.Fields)
         {
-            SelectLines.Add("   " + TopTable.Name + "." + Field.Name);
+            if (!Field.DataType.IsBlob())
+            {
+                SelectLines.Add("   " + TopTable.Name + "." + Field.Name);
+                AddColumnType(Result, Field.Name, Field);
 
-            if (IsFilterableField(Field, Field.Name))
-                Result.FilterFields.Add(new SelectField(Field.Name, Field.DataType));
+                if (IsFilterableField(Field, Field.Name))
+                    Result.FilterFields.Add(new SelectField(Field.Name, Field.DataType));
+            }
         }
-    }
 
-    foreach (SchemaForeignKey ForeignKey in TopTable.ForeignKeys)
-    {
-        SchemaTable JoinTable = Script.FindTable(ForeignKey.ReferenceTable);
-
-        if (JoinTable == null || JoinTable.Name.IsSameText(TopTable.Name))
-            continue;
-
-        string Alias = UniqueAlias(RemoveIdSuffix(ForeignKey.FieldName), Aliases);
-
-        JoinLines.Add("    left join " + JoinTable.Name + " " + Alias + " on " + Alias + "." + ForeignKey.ReferenceField + " = " + TopTable.Name + "." + ForeignKey.FieldName);
-
-        foreach (SchemaField JoinField in JoinTable.Fields)
+        foreach (SchemaForeignKey ForeignKey in TopTable.ForeignKeys)
         {
-            if (JoinField.Name.IsSameText("Id"))
+            SchemaTable JoinTable = Script.FindTable(ForeignKey.ReferenceTable);
+
+            if (JoinTable == null || JoinTable.Name.IsSameText(TopTable.Name))
                 continue;
 
-            if (JoinField.DataType != DataFieldType.String)
-                continue;
+            string Alias = UniqueAlias(RemoveIdSuffix(ForeignKey.FieldName), Aliases);
 
-            if (!JoinField.Name.IsSameText("Name") &&
-                !JoinField.Name.IsSameText("Code") &&
-                !JoinField.Name.IsSameText("Title"))
-                continue;
+            JoinLines.Add("    left join " + JoinTable.Name + " " + Alias + " on " + Alias + "." + ForeignKey.ReferenceField + " = " + TopTable.Name + "." + ForeignKey.FieldName);
 
-            string DisplayAlias = UniqueAlias(Alias + "__" + JoinField.Name, Aliases);
+            foreach (SchemaField JoinField in JoinTable.Fields)
+            {
+                if (JoinField.Name.IsSameText("Id"))
+                    continue;
 
-            SelectLines.Add("   COALESCE(" + Alias + "." + JoinField.Name + ", '') as " + DisplayAlias);
+                if (JoinField.DataType != DataFieldType.String)
+                    continue;
 
-            if (IsFilterableField(JoinField, DisplayAlias))
-                Result.FilterFields.Add(new SelectField(DisplayAlias, JoinField.DataType));
+                if (!JoinField.Name.IsSameText("Name") &&
+                    !JoinField.Name.IsSameText("Code") &&
+                    !JoinField.Name.IsSameText("Title"))
+                    continue;
+
+                string DisplayAlias = UniqueAlias(Alias + "__" + JoinField.Name, Aliases);
+
+                SelectLines.Add("   COALESCE(" + Alias + "." + JoinField.Name + ", '') as " + DisplayAlias);
+                AddColumnType(Result, DisplayAlias, JoinField);
+
+                if (IsFilterableField(JoinField, DisplayAlias))
+                    Result.FilterFields.Add(new SelectField(DisplayAlias, JoinField.DataType));
+            }
         }
+
+        StringBuilder SB = new();
+
+        SB.AppendLine("select");
+        SB.AppendLine(string.Join("," + Environment.NewLine, SelectLines));
+        SB.AppendLine("from");
+        SB.AppendLine("  " + TopTable.Name);
+
+        foreach (string JoinLine in JoinLines)
+            SB.AppendLine(JoinLine);
+
+        Result.SqlText = SB.ToString().TrimEnd();
+
+        Result.FilterFields = Result.FilterFields
+            .GroupBy(x => x.Alias, StringComparer.OrdinalIgnoreCase)
+            .Select(x => x.First())
+            .OrderBy(x => x.Alias)
+            .ToList();
+
+        return Result;
     }
-
-    StringBuilder SB = new();
-
-    SB.AppendLine("select");
-    SB.AppendLine(string.Join("," + Environment.NewLine, SelectLines));
-    SB.AppendLine("from");
-    SB.AppendLine("  " + TopTable.Name);
-
-    foreach (string JoinLine in JoinLines)
-        SB.AppendLine(JoinLine);
-
-    Result.SqlText = SB.ToString().TrimEnd();
-
-    Result.FilterFields = Result.FilterFields
-        .GroupBy(x => x.Alias, StringComparer.OrdinalIgnoreCase)
-        .Select(x => x.First())
-        .OrderBy(x => x.Alias)
-        .ToList();
-
-    return Result;
-}
-    
     /// <summary>
     /// Adds display fields from a joined table.
     /// </summary>
@@ -1255,82 +1357,48 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static LocatorInfo ResolveLocatorInfo(SchemaScript Script, SchemaTable Table, SchemaField Field)
     {
-        string ReferenceTableName = Field.ForeignKey != null ? Field.ForeignKey.ReferenceTable : string.Empty;
-        if (string.IsNullOrWhiteSpace(ReferenceTableName))
-            ReferenceTableName = RemoveIdSuffix(Field.Name);
+        if (Field.ForeignKey == null)
+            return null;
+
+        string ReferenceTableName = Field.ForeignKey.ReferenceTable;
+        SchemaTable ReferenceTable = Script.FindTable(ReferenceTableName);
+        if (ReferenceTable == null)
+            return null;
 
         string LocatorName = !string.IsNullOrWhiteSpace(Field.MetadataName) ? Field.MetadataName : ReferenceTableName;
-        LocatorInfo Result = Script.FindLocator(LocatorName)?.Clone() ?? new LocatorInfo();
 
-        SchemaTable ReferenceTable = Script.FindTable(ReferenceTableName);
+        LocatorInfo Result = new();
+        Result.Name = LocatorName;
+        Result.TableName = ReferenceTableName;
+        Result.Alias = RemoveIdSuffix(Field.Name);
+        Result.KeyField = !string.IsNullOrWhiteSpace(Field.ForeignKey.ReferenceField) ? Field.ForeignKey.ReferenceField : "Id";
+        Result.ReturnFields.Add(Result.KeyField);
 
-        if (string.IsNullOrWhiteSpace(Result.Name))
-            Result.Name = LocatorName;
-        if (string.IsNullOrWhiteSpace(Result.TableName))
-            Result.TableName = ReferenceTableName;
-        if (string.IsNullOrWhiteSpace(Result.Alias))
-            Result.Alias = RemoveIdSuffix(Field.Name);
-        if (string.IsNullOrWhiteSpace(Result.KeyField))
-            Result.KeyField = Field.ForeignKey != null ? Field.ForeignKey.ReferenceField : "Id";
+        List<string> ReturnFields = ParseLocatorReturnFields(Field.MetadataText);
+        if (ReturnFields.Count == 0)
+            ReturnFields = GetDefaultLocatorReturnFields(ReferenceTable, Result.KeyField);
 
-        if (Result.DisplayFields.Count == 0)
-            Result.DisplayFields.AddRange(GetDefaultLocatorDisplayFields(ReferenceTable));
-
-        if (Result.SearchFields.Count == 0)
-            Result.SearchFields.AddRange(Result.DisplayFields);
-
-        if (Result.ReturnFields.Count == 0)
-        {
-            Result.ReturnFields.Add(Result.KeyField);
-            Result.ReturnFields.AddRange(Result.DisplayFields);
-        }
-
-        Result.DisplayFields = DistinctFieldList(Result.DisplayFields);
-        Result.SearchFields = DistinctFieldList(Result.SearchFields);
+        Result.ReturnFields.AddRange(ReturnFields);
         Result.ReturnFields = DistinctFieldList(Result.ReturnFields);
-
-        if (Result.DisplayFields.Count == 0)
-            return null;
 
         return Result;
     }
     /// <summary>
-    /// Parses a locator definition line.
+    /// Parses locator return fields from field metadata text.
     /// </summary>
-    static LocatorInfo ParseLocatorInfo(string Text)
+    static List<string> ParseLocatorReturnFields(string MetadataText)
     {
-        LocatorInfo Result = new();
+        if (string.IsNullOrWhiteSpace(MetadataText))
+            return [];
 
-        if (string.IsNullOrWhiteSpace(Text))
-            return Result;
+        int OpenIndex = MetadataText.IndexOf('(');
+        int CloseIndex = MetadataText.LastIndexOf(')');
 
-        Text = Text.Trim();
+        if (OpenIndex < 0 || CloseIndex <= OpenIndex)
+            return [];
 
-        string FieldText = string.Empty;
-        int OpenIndex = Text.IndexOf('(');
-        int CloseIndex = Text.LastIndexOf(')');
-
-        if (OpenIndex >= 0 && CloseIndex > OpenIndex)
-        {
-            FieldText = Text.Substring(OpenIndex + 1, CloseIndex - OpenIndex - 1).Trim();
-            Text = Text.Substring(0, OpenIndex).Trim();
-        }
-
-        if (!string.IsNullOrWhiteSpace(Text))
-            Result.Name = SplitHeaderTokens(Text).FirstOrDefault();
-
-        if (!string.IsNullOrWhiteSpace(FieldText))
-        {
-            string[] Parts = FieldText.Split('|', StringSplitOptions.TrimEntries);
-            if (Parts.Length > 0 && !Parts[0].IsSameText("Default"))
-                Result.DisplayFields.AddRange(ParseFieldNameList(Parts[0]));
-            if (Parts.Length > 1 && !Parts[1].IsSameText("Default"))
-                Result.SearchFields.AddRange(ParseFieldNameList(Parts[1]));
-            if (Parts.Length > 2 && !Parts[2].IsSameText("Default"))
-                Result.ReturnFields.AddRange(ParseFieldNameList(Parts[2]));
-        }
-
-        return Result;
+        string FieldText = MetadataText.Substring(OpenIndex + 1, CloseIndex - OpenIndex - 1).Trim();
+        return ParseFieldNameList(FieldText);
     }
     /// <summary>
     /// Parses a comma separated field name list.
@@ -1346,31 +1414,46 @@ static public class SchemaRegistrationBuilder
             .ToList();
     }
     /// <summary>
-    /// Returns default locator display fields.
+    /// Returns default locator return fields.
     /// </summary>
-    static List<string> GetDefaultLocatorDisplayFields(SchemaTable Table)
+    static List<string> GetDefaultLocatorReturnFields(SchemaTable Table, string KeyField)
     {
         List<string> Result = [];
 
         if (Table == null)
             return Result;
 
-        if (Table.FindField("Code") != null)
-            Result.Add("Code");
-        if (Table.FindField("Name") != null)
-            Result.Add("Name");
+        AddDefaultLocatorReturnField(Result, Table, KeyField, "Code");
+        AddDefaultLocatorReturnField(Result, Table, KeyField, "Name");
 
-        if (Result.Count == 0 && Table.FindField("Title") != null)
-            Result.Add("Title");
-
-        if (Result.Count == 0)
+        foreach (SchemaField Field in Table.Fields)
         {
-            SchemaField Field = Table.Fields.FirstOrDefault(x => !x.Name.IsSameText("Id") && x.DataType == DataFieldType.String && !x.DataType.IsBlob());
-            if (Field != null)
-                Result.Add(Field.Name);
+            if (Field.Name.IsSameText(KeyField))
+                continue;
+            if (Result.Any(x => x.IsSameText(Field.Name)))
+                continue;
+            if (!Field.Name.EndsWithText("Code") && !Field.Name.EndsWithText("Name"))
+                continue;
+
+            Result.Add(Field.Name);
         }
 
         return Result;
+    }
+    /// <summary>
+    /// Adds a default locator return field.
+    /// </summary>
+    static void AddDefaultLocatorReturnField(List<string> Fields, SchemaTable Table, string KeyField, string FieldName)
+    {
+        SchemaField Field = Table.FindField(FieldName);
+        if (Field == null)
+            return;
+        if (Field.Name.IsSameText(KeyField))
+            return;
+        if (Fields.Any(x => x.IsSameText(Field.Name)))
+            return;
+
+        Fields.Add(Field.Name);
     }
     /// <summary>
     /// Returns a distinct field list.
@@ -1390,6 +1473,16 @@ static public class SchemaRegistrationBuilder
         }
 
         return Result;
+    }
+    /// <summary>
+    /// Builds optional locator class name argument.
+    /// </summary>
+    static string BuildOptionalClassNameArgument(string ClassName)
+    {
+        if (string.IsNullOrWhiteSpace(ClassName))
+            return string.Empty;
+
+        return ", \"" + EscapeString(ClassName) + "\"";
     }
     /// <summary>
     /// Builds C# source for a string array.
@@ -1520,7 +1613,6 @@ static public class SchemaRegistrationBuilder
     {
         // ● private fields
         List<SchemaTable> fTables = [];
-        readonly Dictionary<string, LocatorInfo> fLocators = new(StringComparer.OrdinalIgnoreCase);
         readonly Dictionary<string, EnumInfo> fEnums = new(StringComparer.OrdinalIgnoreCase);
         
         void ResolveCreationOrders()
@@ -1547,7 +1639,6 @@ static public class SchemaRegistrationBuilder
         static public SchemaScript Parse(string SchemaSql)
         {
             SchemaScript Result = new();
-            Result.ParseLocatorBlock(SchemaSql);
             Result.ParseEnumBlock(SchemaSql);
             MatchCollection Matches = Regex.Matches(SchemaSql, @"CREATE\s+TABLE\s+\{TableName\}\s*\(", RegexOptions.IgnoreCase);
 
@@ -1573,10 +1664,6 @@ static public class SchemaRegistrationBuilder
         /// Finds a table by name.
         /// </summary>
         public SchemaTable FindTable(string Name) => Tables.FirstOrDefault(x => x.Name.IsSameText(Name));
-        /// <summary>
-        /// Finds a locator definition by name.
-        /// </summary>
-        public LocatorInfo FindLocator(string Name) => !string.IsNullOrWhiteSpace(Name) && fLocators.TryGetValue(Name, out LocatorInfo Result) ? Result : null;
         /// <summary>
         /// Finds an enum definition by name.
         /// </summary>
@@ -1615,18 +1702,6 @@ static public class SchemaRegistrationBuilder
         }
 
         // ● private
-        /// <summary>
-        /// Parses the locators block.
-        /// </summary>
-        void ParseLocatorBlock(string SchemaSql)
-        {
-            foreach (string Line in ExtractNamedBlockLines(SchemaSql, "Locators"))
-            {
-                LocatorInfo Locator = ParseLocatorInfo(Line);
-                if (!string.IsNullOrWhiteSpace(Locator.Name))
-                    fLocators[Locator.Name] = Locator;
-            }
-        }
         /// <summary>
         /// Parses the enums block.
         /// </summary>
@@ -2239,23 +2314,6 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     private class LocatorInfo
     {
-        // ● public
-        /// <summary>
-        /// Returns a clone of this locator info.
-        /// </summary>
-        public LocatorInfo Clone()
-        {
-            LocatorInfo Result = new();
-            Result.Name = Name;
-            Result.TableName = TableName;
-            Result.Alias = Alias;
-            Result.KeyField = KeyField;
-            Result.DisplayFields.AddRange(DisplayFields);
-            Result.SearchFields.AddRange(SearchFields);
-            Result.ReturnFields.AddRange(ReturnFields);
-            return Result;
-        }
-
         // ● properties
         /// <summary>
         /// Locator name.
@@ -2274,13 +2332,9 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public string KeyField { get; set; }
         /// <summary>
-        /// Display fields.
+        /// Locator class name.
         /// </summary>
-        public List<string> DisplayFields { get; set; } = [];
-        /// <summary>
-        /// Search fields.
-        /// </summary>
-        public List<string> SearchFields { get; set; } = [];
+        public string ClassName { get; set; }
         /// <summary>
         /// Return fields.
         /// </summary>
@@ -2360,6 +2414,7 @@ static public class SchemaRegistrationBuilder
         /// Filter fields.
         /// </summary>
         public List<SelectField> FilterFields { get; set; } = [];
+        public Dictionary<string, DataColumnType> ColumnTypes  { get; set; } = [];
     }
 
     /// <summary>

@@ -456,7 +456,13 @@ public class ItemPage : UserControl
     protected virtual Control CreateEditor(FieldDef Field, ItemBinder Binder)
     {
         Control Result;
-        if (Field.IsLookup)
+        if (!string.IsNullOrWhiteSpace(Field.Locator))
+        {
+            LocatorBox Box = new();
+            Binder.Bind(Box, Field);
+            return Box;
+        }
+        else if (Field.IsLookup)
         {
             ComboBox Box = new();
             Binder.BindLookup(Box, Field.Name, Field);

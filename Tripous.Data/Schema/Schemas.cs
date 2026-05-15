@@ -67,14 +67,14 @@
         /// </summary>
         static public Schema GetSystemSchema()
         {
-            return FindOrAdd(Sys.SYSTEM, SysConfig.DefaultConnectionName);
+            return FindOrAdd(Sys.SYSTEM, DbConfig.DefaultConnectionName);
         }
         /// <summary>
         /// Returns the schema registered under the Domain Application and the Default Connection.
         /// </summary>
         static public Schema GetApplicationSchema()
         {
-            return FindOrAdd(Sys.APPLICATION, SysConfig.DefaultConnectionName);
+            return FindOrAdd(Sys.APPLICATION, DbConfig.DefaultConnectionName);
         }
 
         /* properties */

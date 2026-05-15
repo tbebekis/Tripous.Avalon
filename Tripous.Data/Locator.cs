@@ -149,7 +149,8 @@ public class Locator
                 {
                     if (MasterKeyValueType.IsString())
                     {
-                        Filter = $"{DetailKey} = '{Master.KeyValue}' " ;
+                        string V = Master.KeyValue.ToString().Replace("'", "''");
+                        Filter = $"{DetailKey} = '{V}' ";
                     }
                     else if (MasterKeyValueType.IsDateTime())
                     {
@@ -267,9 +268,20 @@ public class Locator
     /// Assigns locator values from a source row to a target row.
     /// <para>NOTE: When <see cref="SourceRow"/> is null, it just clears the appropriate fields in <see cref="TargetRow"/></para>
     /// </summary>
-    public virtual void Assign(DataRow SourceRow, DataRow TargetRow, string ForeignKeyField)
+    public virtual void Assign(DataRow SourceRow, DataRow TargetRow)
     {
         bool Clearing = SourceRow == null;
+
+        if (Clearing)
+        {
+            SelectedRow = null;
+            KeyValue = DBNull.Value;
+        }
+        else
+        {
+            SelectedRow = SourceRow;
+            KeyValue = SourceRow[LocatorDef.KeyField];
+        }
 
         MemTable tblTarget = TargetRow.Table as MemTable;
         if (tblTarget == null)
@@ -277,23 +289,27 @@ public class Locator
        
         foreach (LocatorFieldDef FieldDef in LocatorDef.Fields)
         {
-            DataColumn TargetColumn = !string.IsNullOrWhiteSpace(FieldDef.TargetField) ? tblTarget.FindColumn(FieldDef.TargetField) : null;
-            if (TargetColumn != null && !TargetColumn.ReadOnly)
+            if (!LocatorDef.KeyField.IsSameText(FieldDef.Name))
             {
-                if (Clearing)
+                DataColumn TargetColumn = !string.IsNullOrWhiteSpace(FieldDef.TargetField) ? tblTarget.FindColumn(FieldDef.TargetField) : null;
+                if (TargetColumn != null && !TargetColumn.ReadOnly)
                 {
-                    if (TargetColumn.AllowDBNull)
-                        TargetRow[TargetColumn] = DBNull.Value;
-                }
-                else
-                {
-                    DataColumn SourceColumn = SourceTable.FindColumn(FieldDef.Alias);
-                    if (SourceColumn != null)
+                    if (Clearing)
                     {
-                        TargetRow[TargetColumn] = SourceRow[SourceColumn];
+                        if (TargetColumn.AllowDBNull)
+                            TargetRow[TargetColumn] = DBNull.Value;
+                    }
+                    else
+                    {
+                        DataColumn SourceColumn = SourceRow.Table.FindColumn(FieldDef.Alias);
+                        if (SourceColumn != null)
+                        {
+                            TargetRow[TargetColumn] = SourceRow[SourceColumn];
+                        }
                     }
                 }
             }
+
         }
     }
 
@@ -305,6 +321,8 @@ public class Locator
     {
         SourceTable.DeleteAll(AcceptChangesToo: true);
         IsSourceTableValid = false;
+        KeyValue = DBNull.Value;
+        SelectedRow = null;
     }
     /// <summary>
     /// Executes a SELECT statement and loads the source table.
@@ -316,7 +334,8 @@ public class Locator
         if (IsSourceTableValid)
             Clear();
         
-        SqlText = $"select * from ({SqlText}) X where {UserWhere}";
+        if (!string.IsNullOrWhiteSpace(UserWhere))
+            SqlText = $"select * from ({SqlText}) X where {UserWhere}";
         
         Result = Store.SelectTo(SourceTable, SqlText);
         IsSourceTableValid = true;
@@ -339,7 +358,7 @@ public class Locator
         bool TooManyRows = RowCount > Db.Settings.LocatorMaximumDropDownRows;
         string Message = TooManyRows ? "Too many rows. Type more characters." : string.Empty;
 
-        if (TooManyRows)
+        if (TooManyRows || RowCount == 0)
             Clear();
 
         LocatorSearchResult Result = new()
@@ -386,7 +405,8 @@ public class Locator
     /// <para>Is the value returned by the Locator. </para>
     /// <para>This value comes from an Id field of the source table and goes the target table.</para>
     /// </summary>
-    public virtual object KeyValue { get; protected set; }
+    public virtual object KeyValue { get; protected set; } = DBNull.Value;
+    public virtual DataRow SelectedRow { get; protected set; }
     
     /// <summary>
     /// For creating cascade lookups.

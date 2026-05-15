@@ -1,16 +1,4 @@
 /*---------------------------------------------------
-Locators begin
-Customer (Code, Name|Default|Id, Code, Name, TaxNumber, IsCompany)
-Person (Code, Name)
-Product (Code, Name|Default|Id, Code, Name, ProductTypeId, VatRateId)
-Locators end
-  
-Enums begin
-  
-Enums end  
-----------------------------------------------------*/
-    
-/*---------------------------------------------------
 Table: SYS_LOG
 Module: Log  LogDataModule
 Group: Log 

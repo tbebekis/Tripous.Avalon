@@ -129,6 +129,17 @@ public class ItemBinder
         Bindings.Add(Result);
         return Result;
     }
+    // ● locator box
+    /// <summary>
+    /// Binds a locator box to a field.
+    /// </summary>
+    public virtual ControlBinding Bind(LocatorBox Box, FieldDef Field)
+    {
+        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, Field);
+        Bindings.Add(Result);
+        return Result;
+    }
+ 
 
     // ● properties
     /// <summary>

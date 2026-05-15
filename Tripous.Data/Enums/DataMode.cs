@@ -11,9 +11,9 @@ public enum DataMode
     /// </summary>
     None = 0,
     /// <summary>
-    /// Browse
+    /// List
     /// </summary>
-    Browse = 1,
+    List = 1,
     /// <summary>
     /// Insert
     /// </summary>
@@ -27,9 +27,9 @@ public enum DataMode
     /// </summary>
     Delete = 8,
     /// <summary>
-    /// Commit
+    /// Save
     /// </summary>
-    Commit = 0x10,
+    Save = 0x10,
     /// <summary>
     /// Cancel
     /// </summary>

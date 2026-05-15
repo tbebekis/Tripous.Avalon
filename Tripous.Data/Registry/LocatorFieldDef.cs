@@ -12,11 +12,9 @@ public class LocatorFieldDef: BaseDef
     int fDisplayWidth;
     string fAlias;
     string fTargetField;
-    string fTableName;
     DataFieldType fDataType = DataFieldType.String;
     bool fIsSearchable;
     bool fIsVisible;
- 
     
     // ● construction
     /// <summary>
@@ -47,14 +45,6 @@ public class LocatorFieldDef: BaseDef
     {
         get => fDataType;
         set { if (fDataType != value) { fDataType = value; NotifyPropertyChanged(nameof(DataType)); } }
-    }
-    /// <summary>
-    /// The table this field belongs to.
-    /// </summary>
-    public string TableName
-    {
-        get => !string.IsNullOrWhiteSpace(fTableName)? fTableName: ( LocatorDef != null? LocatorDef.SourceTableName: string.Empty);
-        set { if (fTableName != value) { fTableName = value; NotifyPropertyChanged(nameof(TableName)); } }
     }
     /// <summary>
     /// The <see cref="DataColumn.ColumnName"/> of the target data table. It can not be empty for grid-type locators.

@@ -10,7 +10,7 @@ static public class DataRegistry
     {
         ModuleDef Result = new();
         Result.Name = Name;
-        Result.GuidOids = SysConfig.GuidOids;
+        Result.GuidOids = DbConfig.GuidOids;
         Result.TitleKey = TitleKey;
         Result.ClassName = !string.IsNullOrWhiteSpace(ClassName)? ClassName: typeof(DataModule).FullName;
         Result.Table.Name = Name;

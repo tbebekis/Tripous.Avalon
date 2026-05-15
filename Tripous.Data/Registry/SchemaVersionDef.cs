@@ -46,7 +46,7 @@ public class SchemaVersionDef: BaseDef
     public SchemaVersion Version { get; private set; }
     
     public virtual string Domain { get; } = Sys.APPLICATION;
-    public virtual string ConnectionName { get; } = SysConfig.DefaultConnectionName;
+    public virtual string ConnectionName { get; } = DbConfig.DefaultConnectionName;
     public virtual int VersionNumber { get;  } = -1;
     
     [JsonIgnore] public override bool IsSerializable => false;

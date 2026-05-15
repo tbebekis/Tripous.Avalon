@@ -3,11 +3,11 @@ namespace Tripous.Desktop;
 static public class ControlBindingHelper
 {
     // ● private
-    static private DataRow GetCurrentRow(IRowProvider RowProvider)
+    static DataRow GetCurrentRow(IRowProvider RowProvider)
     {
         return RowProvider?.CurrentRow;
     }
-    static private object GetValue(IRowProvider RowProvider, string FieldName)
+    static object GetValue(IRowProvider RowProvider, string FieldName)
     {
         DataRow Row = GetCurrentRow(RowProvider);
         if (Row == null)
@@ -16,7 +16,7 @@ static public class ControlBindingHelper
         object Result = Row[FieldName];
         return Result == DBNull.Value ? null : Result;
     }
-    static private void SetValue(IRowProvider RowProvider, string FieldName, object Value)
+    static void SetValue(IRowProvider RowProvider, string FieldName, object Value)
     {
         DataRow Row = GetCurrentRow(RowProvider);
         if (Row == null)
@@ -58,7 +58,7 @@ static public class ControlBindingHelper
             Row[FieldName] = Result;
   
     }
-    static private LookupItem FindLookupItem(LookupSource Source, object Value)
+    static LookupItem FindLookupItem(LookupSource Source, object Value)
     {
         if (Source == null)
             return null;
@@ -86,7 +86,20 @@ static public class ControlBindingHelper
 
         return null;
     }
-    static private void RefreshTextBox(IRowProvider RowProvider, ControlBinding Binding)
+    static FuncDataTemplate<LookupItem> CreateLookupItemTemplate()
+    {
+        return new FuncDataTemplate<LookupItem>((Item, _) =>
+        {
+            TextBlock Result = new();
+
+            Result.Text = Item?.DisplayText ?? string.Empty;
+            Result.VerticalAlignment = VerticalAlignment.Center;
+
+            return Result;
+        }, true);
+    }
+    
+    static void RefreshTextBox(IRowProvider RowProvider, ControlBinding Binding)
     {
         if (Binding.Control is not TextBox Box)
             return;
@@ -105,9 +118,6 @@ static public class ControlBindingHelper
             Binding.IsRefreshing = false;
         }
     }
-    /// <summary>
-    /// Refreshes a combo box.
-    /// </summary>
     static void RefreshComboBox(IRowProvider RowProvider, ControlBinding Binding)
     {
         if (Binding.Control is not ComboBox Box)
@@ -128,55 +138,7 @@ static public class ControlBindingHelper
             Binding.IsRefreshing = false;
         }
     }
-    static private FuncDataTemplate<LookupItem> CreateLookupItemTemplate()
-    {
-        return new FuncDataTemplate<LookupItem>((Item, _) =>
-        {
-            TextBlock Result = new();
-
-            Result.Text = Item?.DisplayText ?? string.Empty;
-            Result.VerticalAlignment = VerticalAlignment.Center;
-
-            return Result;
-        }, true);
-    }
-
-    // ● static public
-    static public void Refresh(IRowProvider RowProvider, ControlBinding Binding)
-    {
-        if (RowProvider == null || Binding == null)
-            return;
-
-        if (Binding.Control is TextBox)
-            RefreshTextBox(RowProvider, Binding);
-        else if (Binding.Control is ComboBox)
-            RefreshComboBox(RowProvider, Binding);
-        else if (Binding.Control is CheckBox cb)
-        {
-            bool Value = GetValue(RowProvider, Binding.ColumnName) is bool b && b;
-            Binding.IsRefreshing = true;
-            try { cb.IsChecked = Value; }
-            finally { Binding.IsRefreshing = false; }
-        }
-        else if (Binding.Control is DatePicker dp)
-        {
-            Binding.IsRefreshing = true;
-            try { dp.SelectedDate = GetValue(RowProvider, Binding.ColumnName) as DateTime?; }
-            finally { Binding.IsRefreshing = false; }
-        }
-        else if (Binding.Control is NumericUpDown nu)
-        {
-            Binding.IsRefreshing = true;
-            try { nu.Value = GetValue(RowProvider, Binding.ColumnName) as decimal?; }
-            finally { Binding.IsRefreshing = false; }
-        }
-        else if (Binding.Control is Image)
-            RefreshImage(RowProvider, Binding);
-    }
-    /// <summary>
-    /// Refreshes an image control.
-    /// </summary>
-    static private void RefreshImage(IRowProvider RowProvider, ControlBinding Binding)
+    static void RefreshImage(IRowProvider RowProvider, ControlBinding Binding)
     {
         if (Binding.Control is not Image Box)
             return;
@@ -197,6 +159,91 @@ static public class ControlBindingHelper
         finally
         {
             Binding.IsRefreshing = false;
+        }
+    }
+    static void RefreshLocatorBox(IRowProvider RowProvider, ControlBinding Binding)
+    {
+        if (Binding.Control is not LocatorBox Control)
+            return;
+
+        DataRow Row = RowProvider != null ? RowProvider.CurrentRow : null;
+        if (Row == null)
+        {
+            Control.KeyValue = DBNull.Value;
+            Control.ClearTargetBoxes();
+            return;
+        }
+
+        if (Row.Table.Columns.Contains(Binding.FieldDef.Name))
+            Control.KeyValue = Row[Binding.FieldDef.Name];
+
+        Control.RefreshTargetBoxes(Row);
+    }
+
+    static void RefreshCheckBox(IRowProvider RowProvider, ControlBinding Binding)
+    {
+        if (Binding.Control is not CheckBox Box)
+            return;
+        
+        Binding.IsRefreshing = true;
+        try
+        {
+          object V = GetValue(RowProvider, Binding.ColumnName);
+          bool Value = false;
+
+          if (!Sys.IsNull(V))
+          {
+              if (V is bool B)
+                  Value = B;
+              else if (Binding.FieldDef != null && Binding.FieldDef.Flags.HasFlag(FieldFlags.Boolean))
+                  Value = Convert.ToInt32(V) != 0;
+          }
+          
+          Box.IsChecked = Value;
+        }
+        finally
+        {
+            Binding.IsRefreshing = false;
+        }
+    }
+    
+    // ● static public
+    static public void Refresh(IRowProvider RowProvider, ControlBinding Binding)
+    {
+        if (RowProvider == null || Binding == null)
+            return;
+
+        if (Binding.Control is TextBox)
+        {
+            RefreshTextBox(RowProvider, Binding);
+        }
+        else if (Binding.Control is ComboBox)
+        {
+            RefreshComboBox(RowProvider, Binding);
+        }
+        else if (Binding.Control is CheckBox)
+        {
+            RefreshCheckBox(RowProvider, Binding);
+        }
+        else if (Binding.Control is DatePicker dp)
+        {
+            Binding.IsRefreshing = true;
+            try { dp.SelectedDate = GetValue(RowProvider, Binding.ColumnName) as DateTime?; }
+            finally { Binding.IsRefreshing = false; }
+        }
+        else if (Binding.Control is NumericUpDown nu)
+        {
+            Binding.IsRefreshing = true;
+            try { nu.Value = GetValue(RowProvider, Binding.ColumnName) as decimal?; }
+            finally { Binding.IsRefreshing = false; }
+        }
+        else if (Binding.Control is Image)
+        {
+            RefreshImage(RowProvider, Binding);
+        }
+        else if (Binding.Control is LocatorBox)
+        {
+            RefreshLocatorBox(RowProvider, Binding);
         }
     }
 
@@ -448,9 +495,7 @@ static public class ControlBindingHelper
         Refresh(RowProvider, Result);
         return Result;
     }
-    /// <summary>
-    /// Bind utility.
-    ///</summary>
+
     static public ControlBinding BindImage(IRowProvider RowProvider, Image Box, string FieldName, FieldDef FieldDef = null)
     {
         if (RowProvider == null)
@@ -470,5 +515,52 @@ static public class ControlBindingHelper
 
         Refresh(RowProvider, Result);
         return Result;
+    }
+
+    static public ControlBinding Bind(IRowProvider RowProvider, LocatorBox Box, FieldDef Field)
+    {
+        if (Box == null)
+            throw new ArgumentNullException(nameof(Box));
+        if (Field == null)
+            throw new ArgumentNullException(nameof(Field));
+        if (string.IsNullOrWhiteSpace(Field.Locator))
+            throw new TripousException($"Field '{Field.Name}' has no locator.");
+
+        ControlBinding Binding = new(Box, Field.Name, Field);
+
+        LocatorDef LocatorDef = DataRegistry.Locators[Field.Locator];
+        if (LocatorDef == null)
+            throw new TripousException($"LocatorDef not found. Locator: {Field.Locator}");
+
+        Locator Locator = TypeStore.CreateInstance<Locator>(LocatorDef.ClassName);
+        Locator.Initialize(LocatorDef);
+        Box.Locator = Locator;
+
+        RefreshLocatorBox(RowProvider, Binding);
+
+        return Binding;
+    }
+
+    /// <summary>
+    /// Writes the locator box key value to the current row.
+    /// </summary>
+    static public void SetLocatorBoxValue(IRowProvider RowProvider, ControlBinding Binding)
+    {
+        if (Binding.Control is not LocatorBox Control)
+            return;
+
+        DataRow Row = RowProvider != null ? RowProvider.CurrentRow : null;
+        if (Row == null)
+            return;
+
+        DataColumn Column = Row.Table.FindColumn(Binding.FieldDef.Name);
+        if (Column == null || Column.ReadOnly)
+            return;
+
+        object OldValue = Row[Column];
+        object NewValue = Sys.IsNull(Control.KeyValue) ? DBNull.Value : Control.KeyValue;
+
+        if (!Equals(OldValue, NewValue))
+            Row[Column] = NewValue;
     }
 }

@@ -37,9 +37,9 @@ static internal partial class Registry
     }
     static void RegisterLocators_FromModules()
     {
-        // DataRegistry.AddLocator("Customer", "Person", "Id", new string[] { "Code", "Name" }, new string[] { "Code", "Name" }, new string[] { "Id", "Code", "Name", "TaxNumber", "IsCompany" });
-        // DataRegistry.AddLocator("Person", "Person", "Id", new string[] { "Code", "Name" }, new string[] { "Code", "Name" }, new string[] { "Id", "Code", "Name" });
-        // DataRegistry.AddLocator("Product", "Product", "Id", new string[] { "Code", "Name" }, new string[] { "Code", "Name" }, new string[] { "Id", "Code", "Name", "ProductTypeId", "VatRateId" });
+        DataRegistry.AddLocator("Customer", "Person", "Id");
+        DataRegistry.AddLocator("Person", "Person", "Id");
+        DataRegistry.AddLocator("Product", "Product", "Id");
     }
     static void RegisterModule_Bank()
     {
@@ -66,6 +66,9 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
     static void RegisterModule_Carrier()
     {
@@ -94,6 +97,10 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
     static void RegisterModule_Category()
     {
@@ -144,6 +151,21 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ParentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LevelNo"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["SortNo"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["VatRateId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["RevenueAccount"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExpenseAccount"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsSystem"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["VatRate__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["VatRate__Name"] = DataColumnType.Text;
     }
     static void RegisterModule_Company()
     {
@@ -203,6 +225,27 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxNumber"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxOfficeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["City"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Phone"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Email"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Website"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxOffice__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxOffice__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Country__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Country__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         TableDef tblCompanyBranch = tblTop.AddDetail("CompanyBranch", "Id", "CompanyId");
         tblCompanyBranch.KeyField = "Id";
         tblCompanyBranch.AddId("Id").SetNullable(false);
@@ -276,10 +319,25 @@ from
         tblManagerPerson.AddId("Id").SetNullable(false);
         tblManagerPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblManagerPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblManagerPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
+        tblManagerPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         string[] FilterFields = ["Name", "Code", "Color", "EndDate", "IconName", "IsActive", "ManagerPerson__Code", "ManagerPerson__Name", "ManagerPerson__Title", "StartDate"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ParentCostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ManagerPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["StartDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["EndDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ManagerPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ManagerPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ManagerPerson__Title"] = DataColumnType.Text;
     }
     static void RegisterModule_Country()
     {
@@ -310,6 +368,11 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Iso2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Iso3"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
     static void RegisterModule_Currency()
     {
@@ -340,6 +403,11 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Symbol"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Decimals"] = DataColumnType.Integer;
     }
     static void RegisterModule_CustomerCategory()
     {
@@ -364,6 +432,8 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
     static void RegisterModule_DiscountCategory()
     {
@@ -388,6 +458,8 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
     static void RegisterModule_DocumentType()
     {
@@ -452,6 +524,28 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["NumberSeriesId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AffectsStock"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AffectsFinancial"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AffectsAccounting"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["StockDirection"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["FinancialDirection"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["AccountingDirection"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["IsCancellation"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["TargetDocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["RequiresApproval"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AutoComplete"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PrintTemplate"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ReportName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["NumberSeries__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["NumberSeries__Name"] = DataColumnType.Text;
     }
     static void RegisterModule_ExpenseCategory()
     {
@@ -478,6 +572,9 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
     static void RegisterModule_FiscalYear()
     {
@@ -513,6 +610,13 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["StartDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["EndDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsClosed"] = DataColumnType.Boolean;
         TableDef tblFiscalPeriod = tblTop.AddDetail("FiscalPeriod", "Id", "YearId");
         tblFiscalPeriod.KeyField = "Id";
         tblFiscalPeriod.AddId("Id").SetNullable(false);
@@ -563,6 +667,15 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CultureName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsDefault"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsRightToLeft"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
     }
     static void RegisterModule_Log()
     {
@@ -606,6 +719,17 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Year"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["Month"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["DayOfMonth"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["LogTime"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["User"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Host"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Level"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Source"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Scope"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["EventId"] = DataColumnType.Text;
     }
     static void RegisterModule_NumberSeries()
     {
@@ -640,6 +764,13 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Prefix"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Padding"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["NextNumber"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
     static void RegisterModule_PaymentMethod()
     {
@@ -668,6 +799,10 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
     static void RegisterModule_PaymentTerm()
     {
@@ -699,6 +834,11 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Days"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
     static void RegisterModule_Person()
     {
@@ -776,6 +916,36 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxNumber"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxOfficeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LanguageId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["City"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Phone"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Mobile"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Email"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Website"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ContactPerson"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsCompany"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxOffice__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxOffice__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Country__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Country__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Language__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Language__Name"] = DataColumnType.Text;
         TableDef tblPersonRole = tblTop.AddDetail("PersonRole", "Id", "PersonId");
         tblPersonRole.KeyField = "Id";
         tblPersonRole.AddId("Id").SetNullable(false);
@@ -818,6 +988,12 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
     }
     static void RegisterModule_PriceList()
     {
@@ -872,19 +1048,37 @@ from
         tblCustomer.AddId("Id").SetNullable(false);
         tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCustomer.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblCustomer.AddString("TaxNumber", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
-        tblCustomer.AddBoolean("IsCompany", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblCustomer.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
+        tblCustomer.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         TableDef tblProduct = tblTop.AddJoin("ProductId", "Product", "Product", "Id");
         tblTop.Fields.Get("ProductId").Locator = "Product";
         tblProduct.AddId("Id").SetNullable(false);
         tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblProduct.AddEnumLookupId("ProductTypeId", "ProductType", typeof(ProductType), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblProduct.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         string[] FilterFields = ["Customer__Code", "Customer__Name", "Customer__Title", "IsActive", "MinQuantity", "Product__Code", "Product__Name", "UnitOfMeasure__Code", "UnitOfMeasure__Name", "UnitPrice", "ValidFrom", "ValidTo"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DiscountGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CustomerId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProductId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["UnitOfMeasureId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["MinQuantity"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["UnitPrice"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["ValidFrom"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ValidTo"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Customer__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Customer__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Customer__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Product__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Product__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["UnitOfMeasure__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["UnitOfMeasure__Name"] = DataColumnType.Text;
     }
     static void RegisterModule_PriceListType()
     {
@@ -927,6 +1121,17 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsTaxIncluded"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsDefault"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
     }
     static void RegisterModule_Product()
     {
@@ -983,6 +1188,25 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProductTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["CategoryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["VatRateId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PrimaryUnitOfMeasureId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Barcode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Weight"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["Volume"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Category__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Category__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["VatRate__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["VatRate__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PrimaryUnitOfMeasure__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PrimaryUnitOfMeasure__Name"] = DataColumnType.Text;
         TableDef tblProductGroups = tblTop.AddDetail("ProductGroups", "Id", "ProductId");
         tblProductGroups.KeyField = "Id";
         tblProductGroups.AddId("Id").SetNullable(false);
@@ -1030,6 +1254,8 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
     static void RegisterModule_ProductGroup()
     {
@@ -1065,6 +1291,13 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsSystem"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
     }
     static void RegisterModule_Project()
     {
@@ -1122,17 +1355,39 @@ from
         tblCustomer.AddId("Id").SetNullable(false);
         tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCustomer.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblCustomer.AddString("TaxNumber", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
-        tblCustomer.AddBoolean("IsCompany", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblCustomer.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
+        tblCustomer.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         TableDef tblManagerPerson = tblTop.AddJoin("ManagerPersonId", "Person", "ManagerPerson", "Id");
         tblTop.Fields.Get("ManagerPersonId").Locator = "Person";
         tblManagerPerson.AddId("Id").SetNullable(false);
         tblManagerPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblManagerPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblManagerPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
+        tblManagerPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         string[] FilterFields = ["Name", "Code", "Color", "CostCenter__Code", "CostCenter__Name", "Customer__Code", "Customer__Name", "Customer__Title", "EndDate", "IconName", "IsActive", "ManagerPerson__Code", "ManagerPerson__Name", "ManagerPerson__Title", "StartDate"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CustomerId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["StartDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["EndDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ManagerPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Customer__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Customer__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Customer__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ManagerPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ManagerPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ManagerPerson__Title"] = DataColumnType.Text;
     }
     static void RegisterModule_SalesPerson()
     {
@@ -1161,6 +1416,10 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
     static void RegisterModule_StockReason()
     {
@@ -1202,6 +1461,16 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["StockDirection"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["AffectsCost"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["RequiresRemarks"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsSystem"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
     }
     static void RegisterModule_SupplierCategory()
     {
@@ -1226,6 +1495,8 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
     static void RegisterModule_TaxCategory()
     {
@@ -1278,6 +1549,22 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["VatRateId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsDomestic"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsEuropeanUnion"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsThirdCountry"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsTaxExempt"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsReverseCharge"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsIntrastat"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsVies"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["VatRate__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["VatRate__Name"] = DataColumnType.Text;
     }
     static void RegisterModule_TaxOffice()
     {
@@ -1304,6 +1591,9 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
     static void RegisterModule_UnitOfMeasure()
     {
@@ -1330,6 +1620,9 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
     static void RegisterModule_VatRate()
     {
@@ -1360,6 +1653,11 @@ from
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Percent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
     static void RegisterModule_Warehouse()
     {
@@ -1436,10 +1734,42 @@ from
         tblResponsiblePerson.AddId("Id").SetNullable(false);
         tblResponsiblePerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblResponsiblePerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblResponsiblePerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
+        tblResponsiblePerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "AffectsAvailability", "AllowNegativeStock", "Branch__Code", "Branch__Name", "City", "Code", "Color", "Company__Code", "Company__Name", "Company__Title", "Country__Code", "Country__Name", "Email", "IconName", "IsActive", "IsVirtual", "Phone", "PostalCode", "ResponsiblePerson__Code", "ResponsiblePerson__Name", "ResponsiblePerson__Title"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["AddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["City"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Phone"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Email"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ResponsiblePersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsVirtual"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AllowNegativeStock"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AffectsAvailability"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Company__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Company__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Company__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Country__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Country__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ResponsiblePerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ResponsiblePerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ResponsiblePerson__Title"] = DataColumnType.Text;
     }
 
     // ● static public

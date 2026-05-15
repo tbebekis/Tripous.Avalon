@@ -48,7 +48,7 @@ static public class Db
     /// <summary>
     /// Returns the default connection string, if any, else throws an exception.
     /// </summary>
-    static public DbConnectionInfo GetDefaultConnectionInfo() => Connections.Get(SysConfig.DefaultConnectionName);
+    static public DbConnectionInfo GetDefaultConnectionInfo() => Connections.Get(DbConfig.DefaultConnectionName);
  
     // ● to/from base64  
     /// <summary>

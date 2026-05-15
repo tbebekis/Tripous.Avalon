@@ -493,7 +493,7 @@ public class DataTableDef
     /// </summary>
     public DataFieldDef AddId(string FieldName = "Id",  int Length = 40, string TitleKey = null)
     {
-        DataFieldType DataType = SysConfig.GuidOids ? DataFieldType.String : DataFieldType.Integer;
+        DataFieldType DataType = DbConfig.GuidOids ? DataFieldType.String : DataFieldType.Integer;
         return AddId(FieldName, DataType, Length, TitleKey);
     }
     /// <summary>

@@ -7,6 +7,7 @@ public class SelectDef: BaseDef
 {
     string fSqlText;
     Dictionary<string, string> fDisplayLabels;
+    Dictionary<string, DataColumnType> fColumnTypes;
     SqlFilterDefs fFilterDefs;
     bool fUseFilters = true;
 
@@ -102,15 +103,13 @@ public class SelectDef: BaseDef
     }
     public Dictionary<string, string> DisplayLabels
     {
-        get => fDisplayLabels ??= new();
-        set
-        {
-            if (fDisplayLabels != value)
-            {
-                fDisplayLabels = value;
-                NotifyPropertyChanged(nameof(DisplayLabels));
-            }
-        }
+        get => fDisplayLabels ??= new(); 
+        set { if (fDisplayLabels != value) { fDisplayLabels = value; NotifyPropertyChanged(nameof(DisplayLabels)); } }
+    }
+    public Dictionary<string, DataColumnType> ColumnTypes 
+    {
+        get => fColumnTypes ??= new(); 
+        set { if (fColumnTypes != value) { fColumnTypes = value; NotifyPropertyChanged(nameof(ColumnTypes)); } }
     }
     public SqlFilterDefs FilterDefs
     {

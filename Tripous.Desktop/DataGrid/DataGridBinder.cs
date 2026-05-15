@@ -275,7 +275,15 @@ public static class DataGridBinder
             TextBlock Result = new();
 
             object Value = GetValue(Item, ColumnName);
-            bool Flag = Value is bool B && B;
+            bool Flag = false;
+
+            if (!Sys.IsNull(Value))
+            {
+                if (Value is bool B)
+                    Flag = B;
+                else
+                    Flag = Convert.ToInt32(Value) != 0;
+            }
 
             Result.Text = Flag ? "x" : string.Empty;
             Result.Padding = GetCellPadding();
@@ -368,6 +376,35 @@ public static class DataGridBinder
     }
     
     // ● static public
+    static public List<DataGridColumn> BindGrid(SelectDef SelectDef, DataGrid Grid, DataView DataView, bool SupportsRecycling = false, bool GoToFirst = true)
+    {
+        Grid.AutoGenerateColumns = false;
+        Grid.ItemsSource = null;
+        Grid.Columns.Clear();
+
+        DataColumn[] DataColumns = DataView.Table.Columns.Cast<DataColumn>().ToArray();
+
+        if (SelectDef != null)
+        {
+            foreach (DataColumn Column in DataColumns)
+            {
+                if (SelectDef.DisplayLabels.TryGetValue(Column.ColumnName, out string Label))
+                    Column.Caption = Label;
+
+                if (SelectDef.ColumnTypes.TryGetValue(Column.ColumnName, out DataColumnType ColumnType))
+                    Column.ExtendedProperties["ColumnType"] = ColumnType;
+            }
+        }
+
+        List<DataGridColumn> Result = CreateColumns(Grid, DataColumns, SupportsRecycling);
+
+        Grid.ItemsSource = DataView;
+
+        if (GoToFirst && DataView.Count > 0)
+            Grid.SelectedItem = DataView[0];
+
+        return Result;
+    }
     static public List<DataGridColumn> BindGrid(DataGrid Grid, DataView DataView, bool SupportsRecycling = false, bool GoToFirst = true)
     {
         Grid.AutoGenerateColumns = false;
@@ -430,8 +467,15 @@ public static class DataGridBinder
 
     static public DataGridColumn CreateGridColumn(DataColumn Column, string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
-        bool IsBoolean = Column.DataType == typeof(bool) 
-                         || (Column.ExtendedProperties.ContainsKey("IsBoolean") && Convert.ToBoolean(Column.ExtendedProperties["IsBoolean"]));
+        //bool IsBoolean = Column.DataType == typeof(bool) 
+        //                 || (Column.ExtendedProperties.ContainsKey("IsBoolean") && Convert.ToBoolean(Column.ExtendedProperties["IsBoolean"]));
+        
+        DataColumnType ColumnType = Column.ExtendedProperties.ContainsKey("ColumnType")
+            ? (DataColumnType)Column.ExtendedProperties["ColumnType"]
+            : DataColumnType.None;
+
+        bool IsBoolean = ColumnType.HasFlag(DataColumnType.Boolean)
+                         || Column.DataType == typeof(bool);
         
         TextAlignment Align = TextAlignment.Left;
         if (Alignment.HasValue)

@@ -218,7 +218,7 @@ public class LookupSource : BaseDef
     /// </summary>
     public string ConnectionName  
     {
-        get => !string.IsNullOrWhiteSpace(fConnectionName)? fConnectionName: SysConfig.DefaultConnectionName;
+        get => !string.IsNullOrWhiteSpace(fConnectionName)? fConnectionName: DbConfig.DefaultConnectionName;
         set { if (fConnectionName != value) { fConnectionName = value; NotifyPropertyChanged(nameof(ConnectionName)); } }
     }
     /// <summary>

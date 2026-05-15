@@ -58,10 +58,6 @@ public class LocatorSearchResult
     /// </summary>
     public bool IsSingleRow => RowCount == 1;
     /// <summary>
-    /// Returns the first row, if any, else null.
-    /// </summary>
-    public DataRow FirstRow => RowCount > 0 ? SourceTable.Rows[0] : null;
-    /// <summary>
     /// Returns true when dropdown display is allowed.
     /// </summary>
     public bool CanShowDropDown => !TooManyRows && !IsEmpty;

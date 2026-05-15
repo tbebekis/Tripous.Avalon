@@ -145,25 +145,25 @@ internal class SqlValueProviderInternal : ISqlValueProvider
             //DateTime DT;
 
             /* replace any company field name place-holder, the SystemSchema tables or any other sql statement may contain */
-            SqlText = SqlText.Replace("@COMPANY_ID", SysConfig.CompanyFieldName);
+            SqlText = SqlText.Replace("@COMPANY_ID", DbConfig.CompanyFieldName);
 
             /* @:CompanyId and :CompanyId */
-            SqlText = SqlText.Replace(SysConfig.VariablesPrefix + SysConfig.CompanyFieldName, SysConfig.CompanyIdSql);
-            SqlText = SqlText.Replace(Prefix + SysConfig.CompanyFieldName, SysConfig.CompanyIdSql);
+            SqlText = SqlText.Replace(DbConfig.VariablesPrefix + DbConfig.CompanyFieldName, DbConfig.CompanyIdSql);
+            SqlText = SqlText.Replace(Prefix + DbConfig.CompanyFieldName, DbConfig.CompanyIdSql);
 
             /* :@AppDate and :AppDate */
             NewValue = DateTime.Today.Date.ToString("yyyy-MM-dd").QS();
-            SqlText = SqlText.Replace(SysConfig.VariablesPrefix + "AppDate", NewValue);
+            SqlText = SqlText.Replace(DbConfig.VariablesPrefix + "AppDate", NewValue);
             SqlText = SqlText.Replace(Prefix + "AppDate", NewValue);
 
             /* :@SysDate and :SysDate */
             NewValue = DateTime.Today.ToString("yyyy-MM-dd").QS();
-            SqlText = SqlText.Replace(SysConfig.VariablesPrefix + "SysDate", NewValue);
+            SqlText = SqlText.Replace(DbConfig.VariablesPrefix + "SysDate", NewValue);
             SqlText = SqlText.Replace(Prefix + "SysDate", NewValue);
 
             /* :@SysTime and :SysTime */
             NewValue = DateTime.Now.ToString("HH:mm:ss").QS();
-            SqlText = SqlText.Replace(SysConfig.VariablesPrefix + "SysTime", NewValue);
+            SqlText = SqlText.Replace(DbConfig.VariablesPrefix + "SysTime", NewValue);
             SqlText = SqlText.Replace(Prefix + "SysTime", NewValue);
 
             /* :@DbServerTime and :DbServerTime  - WARNING: NO it goes to infinite loop
@@ -204,8 +204,8 @@ internal class SqlValueProviderInternal : ISqlValueProvider
 
             if (!string.IsNullOrWhiteSpace(Keyword) && !Sys.IsSameText(Sys.NULL, Keyword))
             {
-                if ((Sys.IsSameText(Keyword, "CompanyId")) || Sys.IsSameText(SysConfig.CompanyFieldName, Column.ColumnName))
-                    Row[Column] = SysConfig.CompanyId;
+                if ((Sys.IsSameText(Keyword, "CompanyId")) || Sys.IsSameText(DbConfig.CompanyFieldName, Column.ColumnName))
+                    Row[Column] = DbConfig.CompanyId;
                 else if (Sys.IsSameText(Keyword, "EmptyString"))
                     Row[Column] = string.Empty;
                 else if (Sys.IsSameText(Keyword, "AppDate"))
@@ -254,8 +254,8 @@ internal class SqlValueProviderInternal : ISqlValueProvider
             }
             else if (Sys.IsNull(Row[Column]) || Simple.SimpleTypeOf(Column.DataType).IsString() && (Row[Column].ToString() == string.Empty))
             {
-                if (Sys.IsSameText(SysConfig.CompanyFieldName, Column.ColumnName)) // ColumnName is CompanyId
-                    Row[Column] = SysConfig.CompanyId;
+                if (Sys.IsSameText(DbConfig.CompanyFieldName, Column.ColumnName)) // ColumnName is CompanyId
+                    Row[Column] = DbConfig.CompanyId;
             }
 
         }
@@ -273,8 +273,8 @@ internal class SqlValueProviderInternal : ISqlValueProvider
         {
             if (Sys.IsNull(Row[Column]) || (Simple.SimpleTypeOf(Column.DataType).IsString() && (Row[Column].ToString() == string.Empty)))
             {
-                if (Sys.IsSameText(SysConfig.CompanyFieldName, Column.ColumnName))
-                    Row[Column] = SysConfig.CompanyId;
+                if (Sys.IsSameText(DbConfig.CompanyFieldName, Column.ColumnName))
+                    Row[Column] = DbConfig.CompanyId;
                 else if (Sys.IsSameText("AppDate", Column.ColumnName))
                     Row[Column] =  DateTime.Today.Date;
                 /*

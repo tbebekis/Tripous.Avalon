@@ -340,7 +340,7 @@ public class SelectSql : BaseDef
 
         if (CompanyAware)
         {
-            string sCompany = SysConfig.CompanyFieldName + string.Format(" = {0}{1}", SysConfig.VariablesPrefix, SysConfig.CompanyFieldName);
+            string sCompany = DbConfig.CompanyFieldName + string.Format(" = {0}{1}", DbConfig.VariablesPrefix, DbConfig.CompanyFieldName);
 
             if (!sWhere.Contains(sCompany.Trim()))
                 sWhere = sWhere.Length == 0 ? sCompany : AddTo(sWhere, "and", sCompany);
@@ -498,7 +498,7 @@ public class SelectSql : BaseDef
     /// </summary>
     public string ConnectionName
     {
-        get { return string.IsNullOrWhiteSpace(fConnectionName) ? SysConfig.DefaultConnectionName : fConnectionName; }
+        get { return string.IsNullOrWhiteSpace(fConnectionName) ? DbConfig.DefaultConnectionName : fConnectionName; }
         set { fConnectionName = value; }
     }
  

@@ -1,4 +1,4 @@
-namespace Tripous;
+namespace Tripous.Data;
 
 /// <summary>
 /// The data-type of a data field

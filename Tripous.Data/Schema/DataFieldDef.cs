@@ -257,7 +257,7 @@ public class DataFieldDef
         get
         {
             if (IsPrimaryKey)
-                return SysConfig.GuidOids ? DataFieldType.String : DataFieldType.Integer;
+                return DbConfig.GuidOids ? DataFieldType.String : DataFieldType.Integer;
 
             return fDataType;
         }
@@ -270,7 +270,7 @@ public class DataFieldDef
     {
         get
         {
-            if (IsPrimaryKey && SysConfig.GuidOids)
+            if (IsPrimaryKey && DbConfig.GuidOids)
                 return fLength <= 40 ? 40 : fLength;
             if (DataType == DataFieldType.String)
                 return fLength;

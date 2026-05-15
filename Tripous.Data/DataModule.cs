@@ -120,8 +120,8 @@ public class DataModule
                         Row[Column] = false;
                     else if (Sys.IsNull(Row[Column]) || (Simple.SimpleTypeOf(Column.DataType).IsString() && (Row[Column].ToString() == string.Empty)))
                     {
-                        if (Sys.IsSameText(SysConfig.CompanyFieldName, Column.ColumnName)) // ColumnName is CompanyId
-                            Row[Column] = SysConfig.CompanyId;
+                        if (Sys.IsSameText(DbConfig.CompanyFieldName, Column.ColumnName)) // ColumnName is CompanyId
+                            Row[Column] = DbConfig.CompanyId;
                     }
                 }
 
