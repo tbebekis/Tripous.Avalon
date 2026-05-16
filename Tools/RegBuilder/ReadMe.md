@@ -1,187 +1,77 @@
 # Registration Builder
 
-This application parses `.sql` schema files written using the server-neutral SQL syntax of Tripous.
+`RegBuilder` parses `.sql` schema files written with the server-neutral SQL syntax of Tripous and generates Tripous registration source code.
 
-Based on metadata comments declared:
+The input schema acts as a declarative ERP/module definition language.
 
-* above `CREATE TABLE` statements
-* next to field definitions
-* inside metadata definition blocks
+The builder reads:
 
-the builder generates Tripous registration source code such as:
+- table header metadata
+- field inline metadata
+- foreign key relations
 
-* `ModuleDef`
-* `FormDef`
-* `LocatorDef`
-* lookup registrations
-* locator registrations
-* select definitions
-* table registration code
+and generates:
 
-The schema file acts as a declarative ERP/module definition language.
-
----
-
-# Registration Schema Parsing Rules
-
-## General
-
-The schema file is the single declarative source for:
-
-* create table SQL
-* table metadata
-* module metadata
-* form metadata
-* custom runtime type metadata
-* master/detail relations
-* lookup behavior
-* locator behavior
-* enum behavior
-* generated registration source code
-
-Each table is declared as:
-
-* one header comment
-* followed by one `CREATE TABLE` block
+- ordered schema SQL
+- `ModuleDef` registrations
+- `FormDef` registrations
+- `LookupSource` registrations
+- `LocatorDef` registrations
+- select definitions
+- table registration code
 
 ---
 
-# Global Metadata Definition Blocks
+# Processing Model
 
-The schema may contain global metadata definition blocks.
+The source `.sql` file is the declarative input.
 
-Example:
+The builder:
 
-```text
-Locators begin
-Customer (Code, Name | Default | Id, Code, Name)
-Product (Code, Name)
-Locators end
+- parses table headers, fields and foreign keys
+- resolves table dependencies
+- calculates table creation order
+- rebuilds the schema SQL in dependency order
+- injects generated `CreationOrder` metadata into the rebuilt headers
+- generates Tripous registration source code
 
-Enums begin
-WarehouseType
-TradeType
-Enums end
-````
+`CreationOrder` is generated output metadata.
 
-Blocks are parsed before table parsing.
+It is not required in the initial input schema.
 
----
-
-# Locator Definition Block
-
-## Syntax
+The rebuilt ordered schema is returned through:
 
 ```text
-Locators begin
-LocatorName (DisplayFields | SearchFields | ReturnFields)
-Locators end
-```
-
-## Examples
-
-```text
-Locators begin
-
-Customer (Code, Name)
-
-Product (Code, Name | Default | Id, Code, Name, VatRateId)
-
-Person (Code, LastName, FirstName)
-
-Locators end
+SchemaParserResult.SchemaSql
 ```
 
 ---
 
-# Locator Definition Rules
+# Schema Structure
 
-A locator definition describes how a locator searches and displays a referenced table.
+Each table consists of:
 
-A locator definition contains:
+- one metadata header
+- one `CREATE TABLE` statement
+- field definitions
+- optional inline field metadata
+- foreign keys
 
-```text
-Name
-DisplayFields
-SearchFields
-ReturnFields
-```
-
-Default rules:
+Conceptually:
 
 ```text
-SearchFields
-    => DisplayFields
-
-ReturnFields
-    => Id + DisplayFields
-```
-
-`Default` means:
-
-```text
-use default generated behavior
-```
-
-Example:
-
-```text
-Customer (Code, Name)
-```
-
-means:
-
-```text
-DisplayFields = Code, Name
-SearchFields = Code, Name
-ReturnFields = Id, Code, Name
-```
-
-Example:
-
-```text
-Customer (Code, Name | Default | Id, Code, Name, VatRateId)
-```
-
-means:
-
-```text
-DisplayFields = Code, Name
-SearchFields = Code, Name
-ReturnFields = Id, Code, Name, VatRateId
+Table Header
+CREATE TABLE
+Field Definitions
+Inline Metadata
+Foreign Keys
 ```
 
 ---
 
-# Enum Definition Block
+# Table Header Metadata
 
-## Syntax
-
-```text
-Enums begin
-EnumName
-Enums end
-```
-
-## Example
-
-```text
-Enums begin
-
-WarehouseType
-TradeType
-VatMode
-
-Enums end
-```
-
-The enum definition block allows future extensibility for enum metadata.
-
----
-
-# Table Header
-
-## Header Format
+## Input Header Syntax
 
 ```sql
 /*---------------------------------------------------
@@ -189,7 +79,6 @@ Table: TABLE_NAME
 Group: GROUP_NAME
 Module: Default|MODULE_NAME [MODULE_CLASS_NAME]
 Form: Default|FORM_NAME [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
-Master: MASTER_TABLE_NAME
 
 IsLookup
 NotUiVisible
@@ -199,38 +88,43 @@ IsSingleSelect
 NoFilters
 NoCascadeDeletes
 NoGuidOids
-
-CreationOrder: NUMBER
 -----------------------------------------------------
     comments / examples
 ----------------------------------------------------*/
 ```
 
-## Required
+## Generated Header Metadata
 
-* `Table`
-* `CreationOrder`
+The builder adds:
 
-## Only Top Tables Have
+```text
+CreationOrder: NUMBER
+```
 
-* `Module`
-* `Group`
-* `Form`
+to the rebuilt ordered schema returned by `SchemaParserResult.SchemaSql`.
 
-## Only Detail Tables Have
+## Required Input Metadata
 
-* `Master`
+- `Table`
 
-## Optional, On Top Tables Only
+## Top Table Metadata
 
-* `Form`
-* `IsLookup`
-* `NotUiVisible`
-* `IsReadOnly`
-* `IsSingleSelect`
-* `NoFilters`
-* `NoCascadeDeletes`
-* `NoGuidOids`
+Only top tables use:
+
+- `Module`
+- `Group`
+- `Form`
+
+## Optional Top Table Metadata
+
+- `Form`
+- `IsLookup`
+- `NotUiVisible`
+- `IsReadOnly`
+- `IsSingleSelect`
+- `NoFilters`
+- `NoCascadeDeletes`
+- `NoGuidOids`
 
 ---
 
@@ -252,14 +146,16 @@ NoGuidOids
 
 Meaning:
 
-* existence = true
-* absence = false
+```text
+existence = true
+absence = false
+```
 
 ---
 
-# Module Defaults
+# Default Values
 
-Default values:
+Default module values:
 
 ```text
 UiVisible = true
@@ -271,6 +167,8 @@ GuidOids = true
 ```
 
 `IsLookup` is determined by heuristic unless explicitly declared.
+
+Lookup is a table property, not a module property.
 
 ---
 
@@ -336,7 +234,7 @@ Form: Customer
 Form: Customer CustomerDataForm CustomerItemPage
 ```
 
-If `Form` is omitted, builder uses current/default form registration behavior.
+If `Form` is omitted, the builder uses its current/default form registration behavior.
 
 If `FormClassName` is omitted, generated code uses the default `DataForm` type.
 
@@ -344,12 +242,14 @@ If `ItemPageClassName` is omitted, generated code uses the default `ItemPage` ty
 
 ---
 
-# Lookup Table Rules
+# Lookup Rules
+
+## Lookup Tables
 
 A table is lookup when:
 
-1. Header contains `IsLookup`
-2. Or it is a top table and its native fields are exactly one of:
+- the header contains `IsLookup`
+- or it is a top table and its native fields are exactly one of:
 
 ```text
 Id, Name
@@ -358,13 +258,9 @@ Id, Name, IsActive
 Id, Code, Name, IsActive
 ```
 
-Lookup heuristic is overridden by explicit header flags.
+Explicit `IsLookup` overrides the heuristic.
 
-Lookup is a table property, not a module property.
-
----
-
-# Lookup Field Rules
+## Lookup Fields
 
 A field becomes a lookup field when its first inline metadata comment contains:
 
@@ -372,17 +268,87 @@ A field becomes a lookup field when its first inline metadata comment contains:
 Lookup
 ```
 
-Example:
+Extended syntax:
+
+```text
+Lookup [LookupSourceName]
+```
+
+Examples:
 
 ```sql
 CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup
 ```
 
+```sql
+CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup Currency
+```
+
+Rules:
+
+```text
+LookupSourceName omitted
+    => FK.ReferenceTable
+
+LookupSourceName specified
+    => explicit lookup source name
+```
+
 Lookup fields are intended for small in-memory reference datasets.
+
+Lookup source forms are resolved automatically from the referenced table metadata.
+
+Conceptually:
+
+```text
+LookupSource
+    -> TableName
+    -> Table Form
+    -> LookupSource.Form
+```
+
+## Lookup Registration
+
+A `LookupSource` registration is generated when:
+
+- a table is identified as lookup
+- a field is declared with `Lookup` metadata
+
+Therefore lookup registration is generated when any of the following is true:
+
+- the table header contains `IsLookup`
+- the table matches the lookup field heuristic
+- a field contains `-- Lookup`
+- a field contains `-- Lookup [LookupSourceName]`
 
 ---
 
-# Locator Field Rules
+# Enum Rules
+
+A field becomes an enum-backed selector when its first inline metadata comment contains:
+
+```text
+Enum
+```
+
+Extended syntax:
+
+```text
+Enum [EnumName]
+```
+
+Rules:
+
+```text
+EnumName omitted
+    => field name without Id suffix
+```
+
+---
+
+# Locator Rules
+
+## Locator Fields
 
 A field becomes a locator field when its first inline metadata comment contains:
 
@@ -399,11 +365,11 @@ Locator [LocatorName]
 Examples:
 
 ```sql
--- Locator
+CustomerId @NVARCHAR(40) @NULL, -- Locator
 ```
 
 ```sql
--- Locator Customer
+CustomerId @NVARCHAR(40) @NULL, -- Locator PersonCustomer
 ```
 
 Rules:
@@ -416,64 +382,34 @@ LocatorName specified
     => explicit locator definition name
 ```
 
-Examples:
+Locator forms are resolved automatically from the referenced table metadata.
 
-```sql
-CustomerId @NVARCHAR(40) @NULL, -- Locator
-```
-
-means:
+Conceptually:
 
 ```text
-LocatorName = Customer
+LocatorDef
+    -> SourceTableName
+    -> Table Form
+    -> LocatorDef.Form
 ```
 
-and:
+## Locator Registration
 
-```sql
-CustomerId @NVARCHAR(40) @NULL, -- Locator PersonCustomer
-```
+The builder performs base locator registration only.
 
-means:
+Complex locator behavior is intentionally left to the application developer.
 
-```text
-LocatorName = PersonCustomer
-```
+Usually the developer additionally configures:
 
----
+- `LocatorFieldDefs`
+- `SelectSql`
+- custom joins
+- custom search behavior
+- custom return fields
 
-# Locator Runtime Rules
+The builder provides the registration infrastructure, not a complete locator implementation.
 
-Locator runtime behavior is determined using:
-
-```text
-1. explicit locator definition block
-2. otherwise generated defaults
-```
-
-Meaning:
-
-```text
-Locators block
-    overrides defaults
-```
-
-If no explicit locator definition exists:
-
-```text
-DisplayFields
-    => generated defaults
-
-SearchFields
-    => DisplayFields
-
-ReturnFields
-    => Id + DisplayFields
-```
-
----
-
-# Locator Join Rules
+## Locator Joins
 
 When a field has `-- Locator`, the builder uses its foreign key to find the referenced table.
 
@@ -508,9 +444,7 @@ SalesPersonId   -> SalesPerson
 
 The alias acts as a namespace for generated extra fields.
 
----
-
-# Locator Extra Field Naming Convention
+## Locator Extra Fields
 
 Locator returned fields are materialized as extra fields in the owning `TableDef`.
 
@@ -539,9 +473,7 @@ Product__Name  <- Product.Name
 
 Alias-based extra fields are non-persistent display/runtime fields.
 
----
-
-# Locator In Forms
+## Locator In Forms
 
 A locator field is displayed using a searchable locator control.
 
@@ -566,9 +498,7 @@ CustomerId <- Customer.Id
 
 and updates extra alias-based fields.
 
----
-
-# Locator In Grids
+## Locator In Grids
 
 Raw FK fields are normally hidden.
 
@@ -591,21 +521,31 @@ instead of the raw FK value.
 
 ---
 
-# Recognized Field Metadata Keywords
+# Field Metadata
+
+Field inline comments may contain both metadata and plain comments.
+
+Syntax:
 
 ```text
-Master [OneToOne]
-Lookup
-Enum [EnumName]
-Locator [LocatorName]
-Correlation Lookup
-Correlation Locator
-LargeMemo
+-- METADATA -- COMMENT
 ```
 
----
+Example:
 
-# Field Metadata Meaning
+```sql
+CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
+```
+
+Rules:
+
+```text
+text before the second --
+    => field metadata
+
+text after the second --
+    => plain field comment
+```
 
 ## Master
 
@@ -616,6 +556,19 @@ The table is a detail table and this field points to the master table.
 ## Lookup
 
 Defines a small in-memory reference selector.
+
+Syntax:
+
+```text
+Lookup [LookupSourceName]
+```
+
+If omitted:
+
+```text
+LookupSourceName
+    => FK.ReferenceTable
+```
 
 ## Enum
 
@@ -651,17 +604,6 @@ LocatorName
     => FK.ReferenceTable
 ```
 
-## Correlation Lookup
-
-Junction/correlation field pointing to a lookup table.
-
-## Correlation Locator
-
-Junction/correlation field pointing to a non-lookup/master table.
-
 ## LargeMemo
 
 Generates a text blob field with `LargeMemo` flag.
-
-
-

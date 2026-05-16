@@ -70,7 +70,7 @@ DataGrid/
 DesktopExceptionHandler.cs
 Dialogs/
  DbConnectionEditDialog.axaml.cs
- DialogData.cs
+ DialogInfo.cs
  DialogWindow.cs
  InputBox.axaml.cs
  MessageBox.axaml.cs

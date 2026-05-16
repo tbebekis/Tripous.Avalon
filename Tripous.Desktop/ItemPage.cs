@@ -90,7 +90,6 @@ public class UiDetailTableInfo
 [TypeStore]
 public class ItemPage : UserControl
 {
-    
     // ● protected fields
     protected DataForm fDataForm;
     protected int fColumnCount = 2;
@@ -120,6 +119,8 @@ public class ItemPage : UserControl
         Result.RowProvider = GetRowProvider(TableDef);
         return Result;
     }
+    
+ 
 
     // ● ui info
     /// <summary>
@@ -405,7 +406,10 @@ public class ItemPage : UserControl
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Margin = new Thickness(0, 0, 0, 6)
             };
-            Binder.Bind(Box, Field.Name, Field);
+            
+            DataColumn DataColumn = Binder.TableInfo.Table.FindColumn(Field.Name);
+            
+            Binder.Bind(Box, Field.Name, DataColumn, Field);
             Avalonia.Controls.Grid.SetRow(Box, RowIndex);
             Avalonia.Controls.Grid.SetColumn(Box, 1);
             Grid.Children.Add(Box);
@@ -450,12 +454,65 @@ public class ItemPage : UserControl
             Margin = new Thickness(0, 0, 6, 6)
         };
     }
+
+    // ● context menu for lookup combo boxes and locator box controls.
+    protected void SetupReferenceContextMenu(ControlBinding Binding)
+    {
+        FieldDef FieldDef = Binding.FieldDef;
+        if (!FieldDef.IsReadOnly && !FieldDef.IsReadOnlyUI)
+        {
+            ReferenceContextMenu RefMenu = FormDef.CreateReferenceContextMenu();
+            Binding.ReferenceContextMenu = RefMenu;
+
+            // -----------------------------------------------
+            bool CanShowContextMenu() => Binding.FieldDef.IsReadOnlyEdit ? DataForm.FormState == DataFormState.Insert : true;
+            // -----------------------------------------------
+            Binding.Control.PointerPressed += (Sender, Args) =>
+            {
+                if (Sender is not Control Control)
+                    return;
+                if (!Args.GetCurrentPoint(Control).Properties.IsRightButtonPressed)
+                    return;
+
+                if (!CanShowContextMenu())
+                    return;
+ 
+                RefMenu.Menu.Open(Control);
+
+                Args.Handled = true;
+            };
+            // -----------------------------------------------
+            RefMenu.Menu.Opening += (Sender, Args) =>
+            {
+                // TODO: Disable menus
+            };
+            // -----------------------------------------------
+            void AnyMenuItem_Click(object Sender, RoutedEventArgs Args)
+            {
+                MenuItem MenuItem = Sender as MenuItem;
+                if (MenuItem != null)
+                {
+                    RefMenu.MenuItemClicked(Binding, MenuItem);
+                }
+            }
+            // -----------------------------------------------
+            RefMenu.mnuShowList.Click += AnyMenuItem_Click;
+            RefMenu.mnuReload.Click += AnyMenuItem_Click;
+            RefMenu.mnuEdit.Click += AnyMenuItem_Click;
+            RefMenu.mnuAdd.Click += AnyMenuItem_Click;
+            RefMenu.mnuClear.Click += AnyMenuItem_Click;
+            
+        }
+    }
+    
     /// <summary>
     /// Creates a field editor.
     /// </summary>
     protected virtual Control CreateEditor(FieldDef Field, ItemBinder Binder)
     {
         Control Result;
+        DataColumn DataColumn = Binder.TableInfo.Table.FindColumn(Field.Name);
+        
         if (!string.IsNullOrWhiteSpace(Field.Locator))
         {
             LocatorBox Box = new();
@@ -465,13 +522,14 @@ public class ItemPage : UserControl
         else if (Field.IsLookup)
         {
             ComboBox Box = new();
-            Binder.BindLookup(Box, Field.Name, Field);
+            ControlBinding Binding = Binder.BindLookup(Box, Field.Name, DataColumn, Field);
+            SetupReferenceContextMenu(Binding);
             Result = Box;
         }
         else if (Field.IsDateTime)
         {
             DatePicker Box = new();
-            Binder.Bind(Box, Field.Name, Field);
+            Binder.Bind(Box, Field.Name, DataColumn, Field);
             Result = Box;
         }
         else
@@ -483,14 +541,14 @@ public class ItemPage : UserControl
             }
             else if (Field.IsMemo)
             {
-                Binder.BindMemo(Box, Field.Name, Field);
+                Binder.BindMemo(Box, Field.Name, DataColumn, Field);
                 Box.AcceptsReturn = true;
                 Box.TextWrapping = TextWrapping.Wrap;
                 Box.MinHeight = Ui.Settings.FormMemoRowCount * 24;
             }
             else
             {
-                Binder.Bind(Box, Field.Name, Field);
+                Binder.Bind(Box, Field.Name, DataColumn, Field);
             }
             Result = Box;
         }
@@ -511,7 +569,8 @@ public class ItemPage : UserControl
         Result.MaxHeight = 500;
         Result.HorizontalAlignment = HorizontalAlignment.Stretch;
         Result.Margin = new Thickness(0, 8, 0, 8);
-        Binder.BindMemo(Result, Field.Name, Field);
+        DataColumn DataColumn = Binder.TableInfo.Table.FindColumn(Field.Name);
+        Binder.BindMemo(Result, Field.Name, DataColumn, Field);
         return Result;
     }
     /// <summary>
@@ -633,6 +692,7 @@ public class ItemPage : UserControl
     protected virtual void CreateOneToOneDetail(Control ParentControl, UiTableInfo TableUiInfo)
     {
         ItemBinder Binder = CreateOneToOneBinder(TableUiInfo.TableDef);
+        Binder.TableInfo = TableUiInfo;
         Binders.Add(Binder);
         CreateFieldGroups(ParentControl, TableUiInfo, Binder);
     }
@@ -771,6 +831,7 @@ public class ItemPage : UserControl
         Binders.Add(ItemBinder);
         ItemBinder.RowProvider = GetRowProvider(ModuleDef.Table);
         TopTableUiInfo = CreateTopTableUiInfo();
+        ItemBinder.TableInfo = TopTableUiInfo;
         ScrollViewer ScrollViewer = CreateScrollViewer();
         StackPanel Root = CreateStackPanel();
         ScrollViewer.Content = Root;

@@ -20,7 +20,7 @@ public class LookupSource : BaseDef
     string fTableName;
     string fConnectionName;
     string fEnumTypeName;
-    string fZoomCommand;
+    string fForm;
     List<LookupItem> List;
     SqlStore fStore;
 
@@ -267,17 +267,17 @@ public class LookupSource : BaseDef
         }
     }
     /// <summary>
-    /// The name of a <see cref="Command"/> that displays a form displaying the table.
+    /// The name of a form that displays the table.
     /// </summary>
-    public string ZoomCommand
+    public string Form
     {
-        get => fZoomCommand;
+        get => fForm;
         set
         {
-            if (fZoomCommand != value)
+            if (fForm != value)
             {
-                fZoomCommand = value;
-                NotifyPropertyChanged(nameof(ZoomCommand));
+                fForm = value;
+                NotifyPropertyChanged(nameof(Form));
             }
         }
     }

@@ -22,11 +22,12 @@ public class LocatorDef: BaseDef
     string fSourceTableName;
     string fKeyField;
     string fClassName;
-    string fZoomCommand;
+    string fForm;
     string fConnectionName;
     string fSelectSql;
     string fOrderBy;
     bool fIsReadOnly;
+    
     DefList<LocatorFieldDef> fFields;
 
     // ● construction
@@ -105,12 +106,19 @@ public class LocatorDef: BaseDef
         set { if (fConnectionName != value) { fConnectionName = value; NotifyPropertyChanged(nameof(ConnectionName)); } }
     }
     /// <summary>
-    /// The name of a <see cref="Command"/> that displays a form displaying the table.
+    /// The name of a form that displays the table.
     /// </summary>
-    public string ZoomCommand
+    public string Form
     {
-        get => fZoomCommand;
-        set { if (fZoomCommand != value) { fZoomCommand = value; NotifyPropertyChanged(nameof(ZoomCommand)); } }
+        get => fForm;
+        set
+        {
+            if (fForm != value)
+            {
+                fForm = value;
+                NotifyPropertyChanged(nameof(Form));
+            }
+        }
     }
     /// <summary>
     /// The SELECT statement to execute for returning the data.

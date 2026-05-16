@@ -85,12 +85,14 @@ public class LocatorBox: UserControl
         MenuItem ItemSearch = new() { Header = "Search", IsEnabled = !IsReadOnly };
         ItemSearch.Click += ItemSearch_Click;
         Result.Items.Add(ItemSearch);
+        /*
         if (Locator != null && Locator.LocatorDef != null && !string.IsNullOrWhiteSpace(Locator.LocatorDef.ZoomCommand))
         {
             MenuItem ItemZoom = new() { Header = "Zoom" };
             ItemZoom.Click += ItemZoom_Click;
             Result.Items.Add(ItemZoom);
         }
+        */
         return Result;
     }
     /// <summary>

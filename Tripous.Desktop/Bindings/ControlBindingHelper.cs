@@ -104,7 +104,7 @@ static public class ControlBindingHelper
         if (Binding.Control is not TextBox Box)
             return;
 
-        object Value = GetValue(RowProvider, Binding.ColumnName);
+        object Value = GetValue(RowProvider, Binding.FieldName);
         string Text = Value == null ? string.Empty : Convert.ToString(Value, CultureInfo.CurrentCulture);
 
         Binding.IsRefreshing = true;
@@ -122,7 +122,7 @@ static public class ControlBindingHelper
     {
         if (Binding.Control is not ComboBox Box)
             return;
-        object Value = GetValue(RowProvider, Binding.ColumnName);
+        object Value = GetValue(RowProvider, Binding.FieldName);
         LookupItem Item = FindLookupItem(Binding.LookupSource, Value);
         Binding.IsRefreshing = true;
         try
@@ -142,7 +142,7 @@ static public class ControlBindingHelper
     {
         if (Binding.Control is not Image Box)
             return;
-        object Value = GetValue(RowProvider, Binding.ColumnName);
+        object Value = GetValue(RowProvider, Binding.FieldName);
         IImage Source = null;
         if (Value is string FilePath && !string.IsNullOrWhiteSpace(FilePath) && File.Exists(FilePath))
             Source = new Bitmap(FilePath);
@@ -188,7 +188,7 @@ static public class ControlBindingHelper
         Binding.IsRefreshing = true;
         try
         {
-          object V = GetValue(RowProvider, Binding.ColumnName);
+          object V = GetValue(RowProvider, Binding.FieldName);
           bool Value = false;
 
           if (!Sys.IsNull(V))
@@ -228,13 +228,13 @@ static public class ControlBindingHelper
         else if (Binding.Control is DatePicker dp)
         {
             Binding.IsRefreshing = true;
-            try { dp.SelectedDate = GetValue(RowProvider, Binding.ColumnName) as DateTime?; }
+            try { dp.SelectedDate = GetValue(RowProvider, Binding.FieldName) as DateTime?; }
             finally { Binding.IsRefreshing = false; }
         }
         else if (Binding.Control is NumericUpDown nu)
         {
             Binding.IsRefreshing = true;
-            try { nu.Value = GetValue(RowProvider, Binding.ColumnName) as decimal?; }
+            try { nu.Value = GetValue(RowProvider, Binding.FieldName) as decimal?; }
             finally { Binding.IsRefreshing = false; }
         }
         else if (Binding.Control is Image)
@@ -247,7 +247,7 @@ static public class ControlBindingHelper
         }
     }
 
-    static public ControlBinding Bind(IRowProvider RowProvider, TextBox Box, string FieldName, FieldDef FieldDef = null)
+    static public ControlBinding Bind(IRowProvider RowProvider, TextBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         if (RowProvider == null)
             throw new TripousArgumentNullException(nameof(RowProvider));
@@ -256,8 +256,11 @@ static public class ControlBindingHelper
         if (string.IsNullOrWhiteSpace(FieldName))
             throw new TripousArgumentNullException(nameof(FieldName));
 
-        ControlBinding Result = new(Box, FieldName)
+        ControlBinding Result = new()
         {
+            Control = Box,
+            FieldName =  FieldName,
+            DataColumn = DataColumn,
             FieldDef = FieldDef,
         };
 
@@ -295,17 +298,23 @@ static public class ControlBindingHelper
         Refresh(RowProvider, Result);
         return Result;
     }
-    static public ControlBinding BindMemo(IRowProvider RowProvider, TextBox Box, string FieldName, FieldDef FieldDef = null)
+    static public ControlBinding BindMemo(IRowProvider RowProvider, TextBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         Box.AcceptsReturn = true;
         Box.TextWrapping = TextWrapping.Wrap;
         Box.Height = 80; // ή auto later
-        return Bind(RowProvider, Box, FieldName, FieldDef);
+        return Bind(RowProvider, Box, FieldName, DataColumn, FieldDef);
     }
     
-    static public ControlBinding Bind(IRowProvider RowProvider, CheckBox Box, string FieldName, FieldDef FieldDef = null)
+    static public ControlBinding Bind(IRowProvider RowProvider, CheckBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
-        ControlBinding Result = new(Box, FieldName) { FieldDef = FieldDef };
+        ControlBinding Result = new()
+        {
+            Control = Box,
+            FieldName =  FieldName,
+            DataColumn = DataColumn,
+            FieldDef = FieldDef
+        };
 
         EventHandler<RoutedEventArgs> Handler = (s, e) =>
         {
@@ -325,9 +334,15 @@ static public class ControlBindingHelper
         Refresh(RowProvider, Result);
         return Result;
     }
-    static public ControlBinding Bind(IRowProvider RowProvider, DatePicker Box, string FieldName, FieldDef FieldDef = null)
+    static public ControlBinding Bind(IRowProvider RowProvider, DatePicker Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
-        ControlBinding Result = new(Box, FieldName) { FieldDef = FieldDef };
+        ControlBinding Result = new()
+        {
+            Control = Box,
+            FieldName =  FieldName,
+            DataColumn = DataColumn,
+            FieldDef = FieldDef
+        };
 
         EventHandler<DatePickerSelectedValueChangedEventArgs> Handler = (s, e) =>
         {
@@ -348,9 +363,15 @@ static public class ControlBindingHelper
         return Result;
     }
     
-    static public ControlBinding Bind(IRowProvider RowProvider, ComboBox Box, string FieldName, IEnumerable Items, FieldDef FieldDef = null)
+    static public ControlBinding Bind(IRowProvider RowProvider, ComboBox Box, string FieldName, DataColumn DataColumn, IEnumerable Items, FieldDef FieldDef = null)
     {
-        ControlBinding Result = new(Box, FieldName) { FieldDef = FieldDef };
+        ControlBinding Result = new()
+        {
+            Control = Box,
+            FieldName =  FieldName,
+            DataColumn = DataColumn,
+            FieldDef = FieldDef
+        };
 
         Box.ItemsSource = Items;
 
@@ -372,9 +393,15 @@ static public class ControlBindingHelper
         Refresh(RowProvider, Result);
         return Result;
     }
-    static public ControlBinding Bind(IRowProvider RowProvider, ListBox Box, string FieldName, IEnumerable Items, FieldDef FieldDef = null)
+    static public ControlBinding Bind(IRowProvider RowProvider, ListBox Box, string FieldName, DataColumn DataColumn, IEnumerable Items, FieldDef FieldDef = null)
     {
-        ControlBinding Result = new(Box, FieldName) { FieldDef = FieldDef };
+        ControlBinding Result = new()
+        {
+            Control = Box,
+            FieldName =  FieldName,
+            DataColumn = DataColumn,
+            FieldDef = FieldDef
+        };
 
         Box.ItemsSource = Items;
 
@@ -397,9 +424,15 @@ static public class ControlBindingHelper
         return Result;
     }
     
-    static public ControlBinding Bind(IRowProvider RowProvider, NumericUpDown Box, string FieldName, FieldDef FieldDef = null)
+    static public ControlBinding Bind(IRowProvider RowProvider, NumericUpDown Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
-        ControlBinding Result = new(Box, FieldName) { FieldDef = FieldDef };
+        ControlBinding Result = new()
+        {
+            Control = Box,
+            FieldName =  FieldName,
+            DataColumn = DataColumn,
+            FieldDef = FieldDef
+        };
 
         EventHandler<NumericUpDownValueChangedEventArgs> Handler = (s, e) =>
         {
@@ -420,16 +453,16 @@ static public class ControlBindingHelper
         return Result;
     }
     
-    static public ControlBinding BindLookup(IRowProvider RowProvider, ComboBox Box, string FieldName, FieldDef FieldDef)
+    static public ControlBinding BindLookup(IRowProvider RowProvider, ComboBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef)
     {
         if (FieldDef == null)
             throw new TripousArgumentNullException(nameof(FieldDef));
         if (string.IsNullOrWhiteSpace(FieldDef.LookupSource))
             throw new InvalidOperationException($"FieldDef '{FieldDef.Name}' has no LookupSource.");
 
-        return BindLookup(RowProvider, Box, FieldName, FieldDef.LookupSource, FieldDef);
+        return BindLookup(RowProvider, Box, FieldName, DataColumn, FieldDef.LookupSource, FieldDef);
     }
-    static public ControlBinding BindLookup(IRowProvider RowProvider, ComboBox Box, string FieldName, string LookupSourceName, FieldDef FieldDef = null)
+    static public ControlBinding BindLookup(IRowProvider RowProvider, ComboBox Box, string FieldName, DataColumn DataColumn, string LookupSourceName, FieldDef FieldDef = null)
     {
         if (RowProvider == null)
             throw new TripousArgumentNullException(nameof(RowProvider));
@@ -442,8 +475,11 @@ static public class ControlBindingHelper
 
         LookupSource LookupSource = DataRegistry.LookupSources.Get(LookupSourceName);  
 
-        ControlBinding Result = new(Box, FieldName)
+        ControlBinding Result = new()
         {
+            Control = Box,
+            FieldName =  FieldName,
+            DataColumn = DataColumn,
             FieldDef = FieldDef,
             LookupSource = LookupSource,
         };
@@ -496,7 +532,7 @@ static public class ControlBindingHelper
         return Result;
     }
 
-    static public ControlBinding BindImage(IRowProvider RowProvider, Image Box, string FieldName, FieldDef FieldDef = null)
+    static public ControlBinding BindImage(IRowProvider RowProvider, Image Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         if (RowProvider == null)
             throw new TripousArgumentNullException(nameof(RowProvider));
@@ -505,9 +541,12 @@ static public class ControlBindingHelper
         if (string.IsNullOrWhiteSpace(FieldName))
             throw new TripousArgumentNullException(nameof(FieldName));
 
-        ControlBinding Result = new(Box, FieldName)
+        ControlBinding Result = new()
         {
-            FieldDef = FieldDef,
+            Control = Box,
+            FieldName =  FieldName,
+            DataColumn = DataColumn,
+            FieldDef = FieldDef
         };
 
         Box.Height = Ui.Settings.FormImageHeight;
@@ -517,24 +556,30 @@ static public class ControlBindingHelper
         return Result;
     }
 
-    static public ControlBinding Bind(IRowProvider RowProvider, LocatorBox Box, FieldDef Field)
+    static public ControlBinding Bind(IRowProvider RowProvider, LocatorBox Box, FieldDef FieldDef)
     {
         if (Box == null)
             throw new ArgumentNullException(nameof(Box));
-        if (Field == null)
-            throw new ArgumentNullException(nameof(Field));
-        if (string.IsNullOrWhiteSpace(Field.Locator))
-            throw new TripousException($"Field '{Field.Name}' has no locator.");
+        if (FieldDef == null)
+            throw new ArgumentNullException(nameof(FieldDef));
+        if (string.IsNullOrWhiteSpace(FieldDef.Locator))
+            throw new TripousException($"Field '{FieldDef.Name}' has no locator.");
 
-        ControlBinding Binding = new(Box, Field.Name, Field);
-
-        LocatorDef LocatorDef = DataRegistry.Locators[Field.Locator];
+        LocatorDef LocatorDef = DataRegistry.Locators[FieldDef.Locator];
         if (LocatorDef == null)
-            throw new TripousException($"LocatorDef not found. Locator: {Field.Locator}");
+            throw new TripousException($"LocatorDef not found. Locator: {FieldDef.Locator}");
 
         Locator Locator = TypeStore.CreateInstance<Locator>(LocatorDef.ClassName);
         Locator.Initialize(LocatorDef);
-        Box.Locator = Locator;
+        
+        ControlBinding Binding = new()
+        {
+            Control = Box,
+            FieldName =  FieldDef.Name,
+            FieldDef = FieldDef,
+            LocatorDef = LocatorDef,
+            Locator = Locator
+        };
 
         RefreshLocatorBox(RowProvider, Binding);
 

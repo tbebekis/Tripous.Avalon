@@ -8,6 +8,7 @@ public class FormDef: BaseDef
 {
     string fClassName;
     string fItemClassName;
+    string fReferenceMenuClassName;
     string fModule;
     bool fIsReadOnly;
     string fGroup;
@@ -22,6 +23,10 @@ public class FormDef: BaseDef
     /// </summary>
     /// <returns></returns>
     public DataForm Create() => TypeStore.CreateInstance<DataForm>(ClassName);
+    /// <summary>
+    /// Creates a reference context menu.
+    /// </summary>
+    public ReferenceContextMenu CreateReferenceContextMenu() => TypeStore.CreateInstance<ReferenceContextMenu>(ReferenceMenuClassName);
     /// <summary>
     /// Creates a command that displays the form.
     /// </summary>
@@ -60,6 +65,14 @@ public class FormDef: BaseDef
     {
         get => !string.IsNullOrWhiteSpace(fItemClassName)? fItemClassName: typeof(ItemPage).FullName;
         set { if (fItemClassName != value) { fItemClassName = value; NotifyPropertyChanged(nameof(ItemClassName)); } }
+    }
+    /// <summary>
+    /// Common context menu for controls that edit reference values, such as lookup and locator controls.
+    /// </summary>
+    public string ReferenceMenuClassName
+    {
+        get => !string.IsNullOrWhiteSpace(fReferenceMenuClassName)? fReferenceMenuClassName: typeof(ReferenceContextMenu).FullName;
+        set { if (fReferenceMenuClassName != value) { fReferenceMenuClassName = value; NotifyPropertyChanged(nameof(ReferenceMenuClassName)); } }
     }
     /// <summary>
     /// The registration name of the module this form uses.

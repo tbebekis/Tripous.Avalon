@@ -42,94 +42,93 @@ public class ItemBinder
     /// <summary>
     /// Bind utility.
     /// </summary>
-    public ControlBinding Bind(TextBox Box, string FieldName, FieldDef FieldDef = null)
+    public ControlBinding Bind(TextBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
-        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, FieldDef);
+        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, DataColumn, FieldDef);
         Bindings.Add(Result);
         return  Result;
     }
     /// <summary>
     /// Bind utility.
     /// </summary>
-    public ControlBinding BindMemo(TextBox Box, string FieldName, FieldDef FieldDef = null)
+    public ControlBinding BindMemo(TextBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {       
-        ControlBinding Result = ControlBindingHelper.BindMemo(RowProvider, Box, FieldName, FieldDef);
+        ControlBinding Result = ControlBindingHelper.BindMemo(RowProvider, Box, FieldName, DataColumn, FieldDef);
         Bindings.Add(Result);
         return  Result;
     }
     /// <summary>
     /// Bind utility.
     /// </summary>
-    public ControlBinding Bind(CheckBox Box, string FieldName, FieldDef FieldDef = null)
+    public ControlBinding Bind(CheckBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
-        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, FieldDef);
+        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, DataColumn, FieldDef);
         Bindings.Add(Result);
         return  Result;
     }
     /// <summary>
     /// Bind utility.
     /// </summary>
-    public ControlBinding Bind(DatePicker Box, string FieldName, FieldDef FieldDef = null)
+    public ControlBinding Bind(DatePicker Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
-        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, FieldDef);
+        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, DataColumn, FieldDef);
         Bindings.Add(Result);
         return  Result;
     }
     /// <summary>
     /// Bind utility.
     /// </summary>
-    public ControlBinding Bind(ComboBox Box, string FieldName, IEnumerable Items, FieldDef FieldDef = null)
+    public ControlBinding Bind(ComboBox Box, string FieldName, DataColumn DataColumn, IEnumerable Items, FieldDef FieldDef = null)
     {
-        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, Items, FieldDef);
+        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, DataColumn, Items, FieldDef);
         Bindings.Add(Result);
         return  Result;
     }
     /// <summary>
     /// Bind utility.
     /// </summary>
-    public ControlBinding Bind(ListBox Box, string FieldName, IEnumerable Items, FieldDef FieldDef = null)
+    public ControlBinding Bind(ListBox Box, string FieldName, DataColumn DataColumn, IEnumerable Items, FieldDef FieldDef = null)
     {
-        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, Items, FieldDef);
+        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, DataColumn, Items, FieldDef);
         Bindings.Add(Result);
         return  Result;
     }
     /// <summary>
     /// Bind utility.
     /// </summary>
-    public ControlBinding Bind(NumericUpDown Box, string FieldName, FieldDef FieldDef = null)
+    public ControlBinding Bind(NumericUpDown Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
-        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, FieldDef);
+        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, DataColumn, FieldDef);
         Bindings.Add(Result);
         return  Result;
     }
     /// <summary>
     /// Bind utility.
     /// </summary>
-    public ControlBinding BindLookup(ComboBox Box, string FieldName, FieldDef FieldDef)
+    public ControlBinding BindLookup(ComboBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef)
     {
-        ControlBinding Result = ControlBindingHelper.BindLookup(RowProvider, Box, FieldName, FieldDef);
+        ControlBinding Result = ControlBindingHelper.BindLookup(RowProvider, Box, FieldName, DataColumn, FieldDef);
         Bindings.Add(Result);
         return  Result;
     }
     /// <summary>
     /// Bind utility.
     /// </summary>
-    public ControlBinding BindLookup(ComboBox Box, string FieldName, string LookupSourceName, FieldDef FieldDef = null)
+    public ControlBinding BindLookup(ComboBox Box, string FieldName, DataColumn DataColumn, string LookupSourceName, FieldDef FieldDef = null)
     {
-        ControlBinding Result = ControlBindingHelper.BindLookup(RowProvider, Box, FieldName, LookupSourceName, FieldDef);
+        ControlBinding Result = ControlBindingHelper.BindLookup(RowProvider, Box, FieldName, DataColumn, LookupSourceName, FieldDef);
         Bindings.Add(Result);
         return  Result;
     }
     /// <summary>
     /// Bind utility.
     /// </summary>
-    public ControlBinding BindImage(Image Box, string FieldName, FieldDef FieldDef = null)
+    public ControlBinding BindImage(Image Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
-        ControlBinding Result = ControlBindingHelper.BindImage(RowProvider, Box, FieldName, FieldDef);
+        ControlBinding Result = ControlBindingHelper.BindImage(RowProvider, Box, FieldName, DataColumn, FieldDef);
         Bindings.Add(Result);
         return Result;
     }
-    // ● locator box
     /// <summary>
     /// Binds a locator box to a field.
     /// </summary>
@@ -178,7 +177,11 @@ public class ItemBinder
     /// The list of bindings.
     /// </summary>
     public List<ControlBinding> Bindings { get; private set; } = new();
-    
+    /// <summary>
+    /// UI information regarding a single-row <see cref="TableDef"/> in an <see cref="ItemPage"/> form.
+    /// </summary>
+    public UiTableInfo TableInfo { get; set; }
+
     // ● events
     /// <summary>
     /// Occurs when the <see cref="CurrentRow"/> is about to change.

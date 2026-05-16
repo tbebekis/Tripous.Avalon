@@ -197,7 +197,24 @@ static public class SchemaRegistrationBuilder
         ValidateDuplicateCreationOrders(Result, Script);
         ValidateDuplicateGeneratedMethodNames(Result, Script);
         ValidateSuspiciousUniqueConstraints(Result, Script);
+        ValidateLookupFields(Result, Script);
         ValidateLocatorFields(Result, Script);
+    }
+    /// <summary>
+    /// Validates lookup fields.
+    /// </summary>
+    static void ValidateLookupFields(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable Table in Script.Tables)
+        {
+            foreach (SchemaField Field in Table.Fields)
+            {
+                if (!IsLookupField(Script, Field) || Field.MetadataKind == FieldMetadataKind.Enum)
+                    continue;
+                if (Field.ForeignKey == null)
+                    AddError(Result, "LOOKUP_NO_REFERENCE", "Lookup field has no foreign key reference: " + Table.Name + "." + Field.Name);
+            }
+        }
     }
     /// <summary>
     /// Validates locator fields.
@@ -409,10 +426,37 @@ static public class SchemaRegistrationBuilder
         {
             if (SB.Length > 0)
                 SB.AppendLine().AppendLine();
-            SB.AppendLine(Table.FullSqlText.Trim());
+            SB.AppendLine(BuildOrderedTableSql(Table));
         }
 
         return SB.ToString().TrimEnd();
+    }
+    /// <summary>
+    /// Builds table SQL text with generated creation order metadata.
+    /// </summary>
+    static string BuildOrderedTableSql(SchemaTable Table)
+    {
+        string HeaderText = BuildOrderedHeaderText(Table);
+        return HeaderText.Trim() + Environment.NewLine + Table.CreateSqlText.Trim();
+    }
+    /// <summary>
+    /// Builds table header text with generated creation order metadata.
+    /// </summary>
+    static string BuildOrderedHeaderText(SchemaTable Table)
+    {
+        string HeaderText = Regex.Replace(
+            Table.HeaderText,
+            @"^\s*CreationOrder\s*:\s*.*(?:\r?\n)?",
+            string.Empty,
+            RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+        int InsertIndex = HeaderText.LastIndexOf("----------------------------------------------------*/", StringComparison.Ordinal);
+        if (InsertIndex < 0)
+            return HeaderText.TrimEnd() + Environment.NewLine + "CreationOrder: " + Table.CreationOrder;
+
+        string Prefix = HeaderText.Substring(0, InsertIndex).TrimEnd();
+        string Suffix = HeaderText.Substring(InsertIndex);
+        return Prefix + Environment.NewLine + "CreationOrder: " + Table.CreationOrder + Environment.NewLine + Suffix;
     }
     /// <summary>
     /// Builds source code for schema version registration.
@@ -544,25 +588,38 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Collects lookup source names and table names.
     /// </summary>
-    static Dictionary<string, string> CollectLookupSourceTables(SchemaScript Script)
+    static Dictionary<string, LookupSourceInfo> CollectLookupSources(SchemaScript Script)
     {
-        Dictionary<string, string> Result = new(StringComparer.OrdinalIgnoreCase);
+        Dictionary<string, LookupSourceInfo> Result = new(StringComparer.OrdinalIgnoreCase);
 
         foreach (SchemaTable Table in Script.Tables.Where(x => x.IsLookup))
-            Result[Table.Name] = Table.Name;
+        {
+            LookupSourceInfo Info = new();
+            Info.Name = Table.Name;
+            Info.TableName = Table.Name;
+            Info.FormName = Table.FormName;
+            Result[Info.Name] = Info;
+        }
 
         foreach (SchemaTable Table in Script.Tables)
         {
             foreach (SchemaField Field in Table.Fields)
             {
-                if (Field.MetadataKind != FieldMetadataKind.Lookup && Field.MetadataKind != FieldMetadataKind.CorrelationLookup)
+                if (Field.MetadataKind != FieldMetadataKind.Lookup)
                     continue;
 
                 string LookupSourceName = GetLookupSourceName(Script, Field);
                 string LookupTableName = Field.ForeignKey != null ? Field.ForeignKey.ReferenceTable : LookupSourceName;
+                SchemaTable LookupTable = Script.FindTable(LookupTableName);
 
                 if (!string.IsNullOrWhiteSpace(LookupSourceName) && !string.IsNullOrWhiteSpace(LookupTableName))
-                    Result[LookupSourceName] = LookupTableName;
+                {
+                    LookupSourceInfo Info = new();
+                    Info.Name = LookupSourceName;
+                    Info.TableName = LookupTableName;
+                    Info.FormName = LookupTable != null ? LookupTable.FormName : string.Empty;
+                    Result[Info.Name] = Info;
+                }
             }
         }
 
@@ -573,21 +630,27 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void BuildRegisterLookupSourcesMethod(StringBuilder SB, SchemaScript Script, DuplicateCheck DuplicateChecks)
     {
-        Dictionary<string, string> LookupSources = CollectLookupSourceTables(Script);
+        Dictionary<string, LookupSourceInfo> LookupSources = CollectLookupSources(Script);
 
         SB.AppendLine("    static void RegisterLookupSources_FromModules()");
         SB.AppendLine("    {");
 
-        foreach (var Entry in LookupSources.OrderBy(x => x.Key))
+        foreach (LookupSourceInfo LookupSource in LookupSources.Values.OrderBy(x => x.Name))
         {
             if (DuplicateChecks.HasFlag(DuplicateCheck.Lookup))
             {
-                SB.AppendLine("        if (!DataRegistry.LookupSources.Contains(\"" + EscapeString(Entry.Key) + "\"))");
-                SB.AppendLine("            DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(Entry.Key) + "\", \"" + EscapeString(Entry.Value) + "\");");
+                SB.AppendLine("        if (!DataRegistry.LookupSources.Contains(\"" + EscapeString(LookupSource.Name) + "\"))");
+                SB.AppendLine("        {");
+                SB.AppendLine("            DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\");");
+                if (!string.IsNullOrWhiteSpace(LookupSource.FormName))
+                    SB.AppendLine("            DataRegistry.LookupSources.Get(\"" + EscapeString(LookupSource.Name) + "\").Form = \"" + EscapeString(LookupSource.FormName) + "\";");
+                SB.AppendLine("        }");
             }
             else
             {
-                SB.AppendLine("        DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(Entry.Key) + "\", \"" + EscapeString(Entry.Value) + "\");");
+                SB.AppendLine("        DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\");");
+                if (!string.IsNullOrWhiteSpace(LookupSource.FormName))
+                    SB.AppendLine("        DataRegistry.LookupSources.Get(\"" + EscapeString(LookupSource.Name) + "\").Form = \"" + EscapeString(LookupSource.FormName) + "\";");
             }
         }
 
@@ -608,15 +671,21 @@ static public class SchemaRegistrationBuilder
 
         foreach (LocatorInfo Locator in Locators.Values.OrderBy(x => x.Name))
         {
-            string Source = "DataRegistry.AddLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\"" + BuildOptionalClassNameArgument(Locator.ClassName) + ");";
+            string Source = "DataRegistry.AddLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\"" + BuildOptionalClassNameArgument(Locator.ClassName) + ")";
             if (DuplicateChecks.HasFlag(DuplicateCheck.Locator))
             {
                 SB.AppendLine("        if (!DataRegistry.Locators.Contains(\"" + EscapeString(Locator.Name) + "\"))");
-                SB.AppendLine("            " + Source);
+                SB.AppendLine("        {");
+                SB.AppendLine("            " + Source + ";");
+                if (!string.IsNullOrWhiteSpace(Locator.FormName))
+                    SB.AppendLine("            DataRegistry.Locators.Get(\"" + EscapeString(Locator.Name) + "\").Form = \"" + EscapeString(Locator.FormName) + "\";");
+                SB.AppendLine("        }");
             }
             else
             {
-                SB.AppendLine("        " + Source);
+                SB.AppendLine("        " + Source + ";");
+                if (!string.IsNullOrWhiteSpace(Locator.FormName))
+                    SB.AppendLine("        DataRegistry.Locators.Get(\"" + EscapeString(Locator.Name) + "\").Form = \"" + EscapeString(Locator.FormName) + "\";");
             }
         }
 
@@ -1167,6 +1236,8 @@ static public class SchemaRegistrationBuilder
             Text = Text.Substring("Correlation Locator".Length).Trim();
         else if (Kind == FieldMetadataKind.Locator && Text.StartsWith("Locator", StringComparison.OrdinalIgnoreCase))
             Text = Text.Substring("Locator".Length).Trim();
+        else if (Kind == FieldMetadataKind.Lookup && Text.StartsWith("Lookup", StringComparison.OrdinalIgnoreCase))
+            Text = Text.Substring("Lookup".Length).Trim();
         else if (Kind == FieldMetadataKind.Enum && Text.StartsWith("Enum", StringComparison.OrdinalIgnoreCase))
             Text = Text.Substring("Enum".Length).Trim();
         else
@@ -1300,7 +1371,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static bool IsLookupField(SchemaScript Script, SchemaField Field)
     {
-        if (Field.MetadataKind == FieldMetadataKind.Lookup || Field.MetadataKind == FieldMetadataKind.CorrelationLookup)
+        if (Field.MetadataKind == FieldMetadataKind.Lookup)
             return true;
 
         if (Field.ForeignKey != null)
@@ -1316,11 +1387,10 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static string GetLookupSourceName(SchemaScript Script, SchemaField Field)
     {
+        if (!string.IsNullOrWhiteSpace(Field.MetadataName))
+            return Field.MetadataName;
         if (Field.ForeignKey != null)
             return Field.ForeignKey.ReferenceTable;
-
-        if (Field.MetadataKind == FieldMetadataKind.Lookup || Field.MetadataKind == FieldMetadataKind.CorrelationLookup)
-            return RemoveIdSuffix(Field.Name);
 
         return RemoveIdSuffix(Field.Name);
     }
@@ -1372,6 +1442,7 @@ static public class SchemaRegistrationBuilder
         Result.TableName = ReferenceTableName;
         Result.Alias = RemoveIdSuffix(Field.Name);
         Result.KeyField = !string.IsNullOrWhiteSpace(Field.ForeignKey.ReferenceField) ? Field.ForeignKey.ReferenceField : "Id";
+        Result.FormName = ReferenceTable.FormName;
         Result.ReturnFields.Add(Result.KeyField);
 
         List<string> ReturnFields = ParseLocatorReturnFields(Field.MetadataText);
@@ -2152,7 +2223,6 @@ static public class SchemaRegistrationBuilder
         /// Creation order.
         /// </summary>
         public int CreationOrder { get; set; }
-        /// <summary>
         /// Header text.
         /// </summary>
         public string HeaderText { get; set; }
@@ -2336,9 +2406,32 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public string ClassName { get; set; }
         /// <summary>
+        /// Locator associated form name.
+        /// </summary>
+        public string FormName { get; set; }
+        /// <summary>
         /// Return fields.
         /// </summary>
         public List<string> ReturnFields { get; set; } = [];
+    }
+    /// <summary>
+    /// Parsed lookup source metadata.
+    /// </summary>
+    private class LookupSourceInfo
+    {
+        // ● properties
+        /// <summary>
+        /// Lookup source name.
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// Lookup source table name.
+        /// </summary>
+        public string TableName { get; set; }
+        /// <summary>
+        /// Lookup source associated form name.
+        /// </summary>
+        public string FormName { get; set; }
     }
 
     /// <summary>
