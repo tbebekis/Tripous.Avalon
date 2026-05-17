@@ -1,5 +1,11 @@
 namespace Tripous.Desktop;
 
+public interface IReferenceContextMenuHost
+{
+    bool CanOpenRefContextMenu(ReferenceContextMenu RefContextMenu);
+    void EnableRefContextMenuItems(ReferenceContextMenu RefContextMenu);
+}
+
 /// <summary>
 /// Common context menu for controls that edit reference values, such as lookup and locator controls.
 /// </summary>
@@ -7,36 +13,59 @@ namespace Tripous.Desktop;
 public class ReferenceContextMenu
 {
     // ● protected
+    protected IReferenceContextMenuHost MenuHost;
+    
     /// <summary>
     /// Shows the related list form.
     /// </summary>
-    protected virtual void ShowList(TripousBinding Binding)
+    protected virtual void ShowList()
     {
     }
     /// <summary>
     /// Reloads the reference source.
     /// </summary>
-    protected virtual void ReloadList(TripousBinding Binding)
+    protected virtual void ReloadList()
     {
     }
     /// <summary>
     /// Edits the current reference item.
     /// </summary>
-    protected virtual void Edit(TripousBinding Binding)
+    protected virtual void Edit()
     {
     }
     /// <summary>
     /// Adds a new reference item.
     /// </summary>
-    protected virtual void Add(TripousBinding Binding)
+    protected virtual void Add()
     {
     }
     /// <summary>
     /// Clears the current reference value.
     /// </summary>
-    protected virtual void Clear(TripousBinding Binding)
+    protected virtual void Clear()
     {
     }
+
+    
+    /// <summary>
+    /// Dispatches a menu click to the corresponding operation.
+    /// </summary>
+    protected virtual void AnyMenuItem_Click(object Sender, RoutedEventArgs Args)
+    {
+        MenuItem MenuItem = Sender as MenuItem;
+        
+        if (MenuItem == mnuShowList)
+            ShowList();
+        else if (MenuItem == mnuReload)
+            ReloadList();
+        else if (MenuItem == mnuEdit)
+            Edit();
+        else if (MenuItem == mnuAdd)
+            Add();
+        else if (MenuItem == mnuClear)
+            Clear();
+    }
+    protected virtual bool CanOpen() => MenuHost.CanOpenRefContextMenu(this);
 
     // ● construction
     /// <summary>
@@ -46,42 +75,68 @@ public class ReferenceContextMenu
     {
         Menu = new();
 
-        mnuShowList = new MenuItem() { Header = "Show List" };
-        mnuReload = new MenuItem() { Header = "Reload" };
-        mnuEdit = new MenuItem() { Header = "Edit" };
-        mnuAdd = new MenuItem() { Header = "Add" };
-        mnuClear = new MenuItem() { Header = "Clear" };
-        
-        Menu.Items.Add(mnuShowList);
-        Menu.Items.Add(mnuReload);
-        Menu.Items.Add(mnuEdit);
-        Menu.Items.Add(mnuAdd);
-        Menu.Items.Add(mnuClear);
+        MenuItem CreateMenuItem(string Header)
+        {
+            MenuItem Result = new() { Header = Header };
+            Result.Click += AnyMenuItem_Click;
+            Menu.Items.Add(Result);
+            return Result;
+        }
+
+        mnuShowList = CreateMenuItem("Show List");
+        mnuReload = CreateMenuItem("Reload");
+        mnuEdit = CreateMenuItem("Edit");
+        mnuAdd = CreateMenuItem("Add");
+        mnuClear = CreateMenuItem("Clear");
     }
 
     // ● public
-    /// <summary>
-    /// Dispatches a menu click to the corresponding operation.
-    /// </summary>
-    public virtual void MenuItemClicked(TripousBinding Binding, MenuItem MenuItem)
+    public virtual void Initialize(IReferenceContextMenuHost MenuHost, TripousBinding Binding)
     {
+        if (this.Binding != null)
+            throw new TripousDesktopException($"{this.GetType().FullName} is already initialized");
+        
+        if (MenuHost == null)
+            throw new TripousArgumentNullException(nameof(MenuHost));
         if (Binding == null)
             throw new TripousArgumentNullException(nameof(Binding));
         
-        if (MenuItem == mnuShowList)
-            ShowList(Binding);
-        else if (MenuItem == mnuReload)
-            ReloadList(Binding);
-        else if (MenuItem == mnuEdit)
-            Edit(Binding);
-        else if (MenuItem == mnuAdd)
-            Add(Binding);
-        else if (MenuItem == mnuClear)
-            Clear(Binding);
+        this.MenuHost = MenuHost;
+        this.Binding = Binding;
+
+        Binding.ReferenceContextMenu = this;
+            
+        // -----------------------------------------------
+        if (Binding is ControlBinding ControlBinding)
+        {
+            ControlBinding.Control.AddHandler(InputElement.PointerPressedEvent, (Sender, Args) =>
+            {
+                if (Sender is not Control Control)
+                    return;
+                
+                if (!Args.GetCurrentPoint(Control).Properties.IsRightButtonPressed)
+                    return;
+
+                if (!CanOpen())
+                    return;
+                    
+                if (Control is ComboBox ComboBox)
+                    ComboBox.IsDropDownOpen = false;
+
+                Menu.Open(Control);
+
+                Args.Handled = true;
+            }, RoutingStrategies.Tunnel);
+        }
+        // -----------------------------------------------
+        Menu.Opening += (Sender, Args) => MenuHost.EnableRefContextMenuItems(this);
     }
 
     // ● properties
-
+    /// <summary>
+    /// The binding this instance serves.
+    /// </summary>
+    public TripousBinding Binding { get; protected set; }
     /// <summary>
     /// The actual Avalonia context menu.
     /// </summary>
