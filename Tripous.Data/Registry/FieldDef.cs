@@ -18,7 +18,7 @@ public class FieldDef: BaseDef
     string fDefaultValue = Sys.NULL;
     string fGroup;
     int fDecimals = -1;
-    string fCodeProviderName;
+    string fCodeProvider;
     bool fIsNullable = true;
 
     // ● construction
@@ -110,11 +110,11 @@ public class FieldDef: BaseDef
         return this;
     }
     /// <summary>
-    /// Sets the <see cref="CodeProviderName"/> and returns this instance.
+    /// Sets the <see cref="CodeProvider"/> and returns this instance.
     /// </summary>
     public FieldDef SetCodeProviderName(string Value)
     {
-        this.CodeProviderName = Value;
+        this.CodeProvider = Value;
         return this;
     }
     /// <summary>
@@ -242,10 +242,10 @@ public class FieldDef: BaseDef
     /// <summary>
     /// Gets or sets the Name of the code producer descriptor associated to this field.
     /// </summary>
-    public string CodeProviderName 
+    public string CodeProvider 
     {
-        get => fCodeProviderName;
-        set { if (fCodeProviderName != value) { fCodeProviderName = value; NotifyPropertyChanged(nameof(CodeProviderName)); } }
+        get => fCodeProvider;
+        set { if (fCodeProvider != value) { fCodeProvider = value; NotifyPropertyChanged(nameof(CodeProvider)); } }
     }
 
     /// <summary>

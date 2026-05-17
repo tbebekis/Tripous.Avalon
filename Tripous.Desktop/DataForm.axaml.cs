@@ -1,6 +1,5 @@
 namespace Tripous.Desktop;
 
-
 public partial class DataForm : AppForm
 {
     protected DataFormState fFormState = DataFormState.None;
@@ -46,7 +45,6 @@ public partial class DataForm : AppForm
         _ = Execute(DataFormAction.Edit);
     }
  
- 
     // ● overrides
     /// <summary>
     /// Called when the control is added to a rooted visual tree. 
@@ -63,21 +61,6 @@ public partial class DataForm : AppForm
             FormInitialized();
             await Start();
         }
-    }
-    /// <summary>
-    /// Raises KeyDown event
-    /// </summary>
-    protected override void OnKeyDown(KeyEventArgs e)
-    {
-        if (!Design.IsDesignMode)
-        {
-            if (ProcessKeyDown(e))
-            {
-                e.Handled = true;
-            }
-        }
-
-        base.OnKeyDown(e);
     }
  
     // ● initialization
@@ -102,6 +85,8 @@ public partial class DataForm : AppForm
                 SelectedSelectChanged();
             await Execute(StartAction);
         }
+
+        Ui.Post(() => btnRefreshList.Focus());
     }
     
     // ● form state
@@ -437,7 +422,6 @@ public partial class DataForm : AppForm
             ItemPage.Bind();
         }
     }
- 
     
     /// <summary>
     /// Updates the user interface, title, enable-disable buttons etc.
@@ -560,7 +544,6 @@ public partial class DataForm : AppForm
         return FilterDefs;
     }
  
-    
     /// <summary>
     /// It is called when the escape key is pressed. 
     /// <para>Returning true indicates that the key press is handled.</para>

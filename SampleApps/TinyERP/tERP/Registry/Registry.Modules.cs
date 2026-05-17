@@ -5,41 +5,41 @@ static internal partial class Registry
     // ● private
     static void RegisterLookupSources_FromModules()
     {
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category");
-        DataRegistry.AddLookupSourceWithTableName("Company", "Company");
+        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank", FormName: "Bank");
+        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier", FormName: "Carrier");
+        DataRegistry.AddLookupSourceWithTableName("Category", "Category", FormName: "Category");
+        DataRegistry.AddLookupSourceWithTableName("Company", "Company", FormName: "Company");
         DataRegistry.AddLookupSourceWithTableName("CompanyBranch", "CompanyBranch");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory");
+        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
+        DataRegistry.AddLookupSourceWithTableName("Country", "Country", FormName: "Country");
+        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency", FormName: "Currency");
+        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
+        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
         DataRegistry.AddLookupSourceWithTableName("DiscountGroup", "DiscountGroup");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType");
+        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
+        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
+        DataRegistry.AddLookupSourceWithTableName("Language", "Language", FormName: "Language");
+        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries", FormName: "NumberSeries");
+        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
+        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
+        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
+        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
         DataRegistry.AddLookupSourceWithTableName("PriceType", "PriceType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse");
+        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
+        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
+        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
+        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
+        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
+        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
+        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
+        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate", FormName: "VatRate");
+        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
     }
     static void RegisterLocators_FromModules()
     {
-        DataRegistry.AddLocator("Customer", "Person", "Id");
-        DataRegistry.AddLocator("Person", "Person", "Id");
-        DataRegistry.AddLocator("Product", "Product", "Id");
+        DataRegistry.AddLocator("Customer", "Person", "Id", FormName: "Person");
+        DataRegistry.AddLocator("Person", "Person", "Id", FormName: "Person");
+        DataRegistry.AddLocator("Product", "Product", "Id", FormName: "Product");
     }
     static void RegisterModule_Bank()
     {

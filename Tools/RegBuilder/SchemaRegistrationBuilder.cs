@@ -641,16 +641,12 @@ static public class SchemaRegistrationBuilder
             {
                 SB.AppendLine("        if (!DataRegistry.LookupSources.Contains(\"" + EscapeString(LookupSource.Name) + "\"))");
                 SB.AppendLine("        {");
-                SB.AppendLine("            DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\");");
-                if (!string.IsNullOrWhiteSpace(LookupSource.FormName))
-                    SB.AppendLine("            DataRegistry.LookupSources.Get(\"" + EscapeString(LookupSource.Name) + "\").Form = \"" + EscapeString(LookupSource.FormName) + "\";");
+                SB.AppendLine("            DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
                 SB.AppendLine("        }");
             }
             else
             {
-                SB.AppendLine("        DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\");");
-                if (!string.IsNullOrWhiteSpace(LookupSource.FormName))
-                    SB.AppendLine("        DataRegistry.LookupSources.Get(\"" + EscapeString(LookupSource.Name) + "\").Form = \"" + EscapeString(LookupSource.FormName) + "\";");
+                SB.AppendLine("        DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
             }
         }
 
@@ -671,21 +667,17 @@ static public class SchemaRegistrationBuilder
 
         foreach (LocatorInfo Locator in Locators.Values.OrderBy(x => x.Name))
         {
-            string Source = "DataRegistry.AddLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\"" + BuildOptionalClassNameArgument(Locator.ClassName) + ")";
+            string Source = "DataRegistry.AddLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\"" + BuildOptionalClassNameArgument(Locator.ClassName) + BuildOptionalFormNameArgument(Locator.FormName) + ")";
             if (DuplicateChecks.HasFlag(DuplicateCheck.Locator))
             {
                 SB.AppendLine("        if (!DataRegistry.Locators.Contains(\"" + EscapeString(Locator.Name) + "\"))");
                 SB.AppendLine("        {");
                 SB.AppendLine("            " + Source + ";");
-                if (!string.IsNullOrWhiteSpace(Locator.FormName))
-                    SB.AppendLine("            DataRegistry.Locators.Get(\"" + EscapeString(Locator.Name) + "\").Form = \"" + EscapeString(Locator.FormName) + "\";");
                 SB.AppendLine("        }");
             }
             else
             {
                 SB.AppendLine("        " + Source + ";");
-                if (!string.IsNullOrWhiteSpace(Locator.FormName))
-                    SB.AppendLine("        DataRegistry.Locators.Get(\"" + EscapeString(Locator.Name) + "\").Form = \"" + EscapeString(Locator.FormName) + "\";");
             }
         }
 
@@ -1553,7 +1545,17 @@ static public class SchemaRegistrationBuilder
         if (string.IsNullOrWhiteSpace(ClassName))
             return string.Empty;
 
-        return ", \"" + EscapeString(ClassName) + "\"";
+        return ", ClassName: \"" + EscapeString(ClassName) + "\"";
+    }
+    /// <summary>
+    /// Builds optional form name argument.
+    /// </summary>
+    static string BuildOptionalFormNameArgument(string FormName)
+    {
+        if (string.IsNullOrWhiteSpace(FormName))
+            return string.Empty;
+
+        return ", FormName: \"" + EscapeString(FormName) + "\"";
     }
     /// <summary>
     /// Builds C# source for a string array.

@@ -110,15 +110,8 @@ public class LocatorDef: BaseDef
     /// </summary>
     public string Form
     {
-        get => fForm;
-        set
-        {
-            if (fForm != value)
-            {
-                fForm = value;
-                NotifyPropertyChanged(nameof(Form));
-            }
-        }
+        get => !string.IsNullOrWhiteSpace(fForm)? fForm: Name;
+        set { if (fForm != value) { fForm = value; NotifyPropertyChanged(nameof(Form)); } }
     }
     /// <summary>
     /// The SELECT statement to execute for returning the data.

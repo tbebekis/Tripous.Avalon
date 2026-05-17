@@ -4,6 +4,7 @@ public interface IReferenceContextMenuHost
 {
     bool CanOpenRefContextMenu(ReferenceContextMenu RefContextMenu);
     void EnableRefContextMenuItems(ReferenceContextMenu RefContextMenu);
+    object GetCurrentOID();
 }
 
 /// <summary>
@@ -18,9 +19,7 @@ public class ReferenceContextMenu
     /// <summary>
     /// Shows the related list form.
     /// </summary>
-    protected virtual void ShowList()
-    {
-    }
+    protected virtual async Task ShowList() => await ShowFormModal(DataFormAction.List);
     /// <summary>
     /// Reloads the reference source.
     /// </summary>
@@ -30,32 +29,27 @@ public class ReferenceContextMenu
     /// <summary>
     /// Edits the current reference item.
     /// </summary>
-    protected virtual void Edit()
-    {
-    }
+    protected virtual async Task Edit() => await ShowFormModal(DataFormAction.Edit, MenuHost.GetCurrentOID());
     /// <summary>
     /// Adds a new reference item.
     /// </summary>
-    protected virtual void Add()
-    {
-    }
+    protected virtual async Task Add() => await ShowFormModal(DataFormAction.Insert);
     /// <summary>
     /// Clears the current reference value.
     /// </summary>
     protected virtual void Clear()
     {
     }
-
     
     /// <summary>
     /// Dispatches a menu click to the corresponding operation.
     /// </summary>
-    protected virtual void AnyMenuItem_Click(object Sender, RoutedEventArgs Args)
+    protected virtual async void AnyMenuItem_Click(object Sender, RoutedEventArgs Args)
     {
         MenuItem MenuItem = Sender as MenuItem;
         
         if (MenuItem == mnuShowList)
-            ShowList();
+            await ShowList();
         else if (MenuItem == mnuReload)
             ReloadList();
         else if (MenuItem == mnuEdit)
@@ -66,6 +60,18 @@ public class ReferenceContextMenu
             Clear();
     }
     protected virtual bool CanOpen() => MenuHost.CanOpenRefContextMenu(this);
+    /// <summary>
+    /// Shows the related data form as a modal dialog.
+    /// </summary>
+    protected virtual async Task<DataFormContext> ShowFormModal(DataFormAction StartAction, object RowId = null)
+    {
+        string FormName = Binding.LookupSource?.Form ?? Binding.LocatorDef?.Form;
+        if (string.IsNullOrWhiteSpace(FormName))
+            return null;
+
+        Control Caller = (Binding as ControlBinding)?.Control;
+        return await DataFormContext.ShowFormModal(FormName, StartAction, RowId, Caller);
+    }
 
     // ● construction
     /// <summary>

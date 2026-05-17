@@ -1,3 +1,5 @@
+using System.Xml.XPath;
+
 namespace Tripous.Data;
 
 /// <summary>
@@ -53,7 +55,7 @@ static public class DataRegistry
             throw new TripousException($"Cannot add a {nameof(ModuleDef)}. '{Name}' is already registered.");
     }
 
-    static LookupSource AddLookupSourceInternal(string Name, Type EnumType, string TableName, string SqlText, bool UseNullItem)
+    static LookupSource AddLookupSourceInternal(string Name, Type EnumType, string TableName, string SqlText, string FormName, bool UseNullItem)
     {
         if (EnumType == null && string.IsNullOrWhiteSpace(TableName) && string.IsNullOrWhiteSpace(SqlText))
             throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(EnumType)}' or  '{nameof(TableName)}' or  '{nameof(SqlText)}' is provided.");
@@ -76,6 +78,7 @@ static public class DataRegistry
             Result.EnumTypeName = EnumType.FullName;
         Result.TableName = TableName;
         Result.SqlText = SqlText;
+        Result.Form = FormName;
         DataRegistry.LookupSources.Add(Result);
         return Result;
     }
@@ -114,13 +117,14 @@ static public class DataRegistry
         if (Locators.Contains(Name))
             throw new TripousException($"Cannot add a {nameof(LocatorDef)}. '{Name}' is already registered.");
     }
-    static LocatorDef AddLocatorInternal(string Name, string SourceTableName, string KeyField, string ClassName = null)
+    static LocatorDef AddLocatorInternal(string Name, string SourceTableName, string KeyField, string ClassName, string FormName)
     {
         LocatorDef Result = new();
         Result.Name = Name;
         Result.SourceTableName = SourceTableName;
         Result.KeyField = KeyField;
         Result.ClassName = ClassName;
+        Result.Form = FormName;
         Locators.Add(Result);
         return Result;
     }
@@ -185,7 +189,7 @@ static public class DataRegistry
         return Result;
     }
     
-    // ● lookup sources
+    // ● lookup sources - enum types
     /// <summary>
     /// Adds a lookup source.
     /// <para>The <see cref="EnumType"/> is used as the source.</para>
@@ -199,44 +203,50 @@ static public class DataRegistry
     static public LookupSource AddLookupSource(string Name, Type EnumType, bool UseNullItem = false)
     {
         CheckLookupSource(Name, EnumType);
-        LookupSource Result = AddLookupSourceInternal(Name, EnumType, TableName: null, SqlText: null, UseNullItem: UseNullItem);
+        LookupSource Result = AddLookupSourceInternal(Name, EnumType, TableName: null, SqlText: null, FormName: null, UseNullItem: UseNullItem);
         return Result;
     }
+    
+    // ● lookup sources - with table name
     /// <summary>
     /// Adds a lookup source.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LookupSource AddLookupSourceWithTableName(string Name, string TableName = null, bool UseNullItem = false)
+    static public LookupSource AddLookupSourceWithTableName(string Name, string TableName = null, string FormName = null, bool UseNullItem = false)
     {
         if (string.IsNullOrWhiteSpace(TableName))
             TableName = Name;
         
         CheckLookupSourceWithTableName(Name, TableName);
-        LookupSource Result = AddLookupSourceInternal(Name, EnumType: null, TableName: TableName, SqlText: null, UseNullItem: UseNullItem);
+        LookupSource Result = AddLookupSourceInternal(Name, EnumType: null, TableName: TableName, SqlText: null, FormName: FormName, UseNullItem: UseNullItem);
         return Result;
     }
+ 
+    // ● lookup sources - with SELECT Sql
     /// <summary>
     /// Adds a lookup source.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LookupSource AddLookupSourceWithSql(string Name, string SqlText = null, bool UseNullItem = false)
+    static public LookupSource AddLookupSourceWithSql(string Name, string SqlText = null, string FormName = null, bool UseNullItem = false)
     {
         if (string.IsNullOrWhiteSpace(SqlText))
             SqlText = $"select * from {Name}";
         
         CheckLookupSourceWithSql(Name, SqlText);
-        LookupSource Result = AddLookupSourceInternal(Name, EnumType: null, TableName: null, SqlText: SqlText, UseNullItem: UseNullItem);
+        LookupSource Result = AddLookupSourceInternal(Name, EnumType: null, TableName: null, SqlText: SqlText, FormName: FormName, UseNullItem: UseNullItem);
         return Result;
     }
+    
+    // ● lookup sources - add or get
     /// <summary>
     /// Adds a definition to the registry.
     /// <para>If the definition exists, that definition is returned.</para>
     /// </summary>
-    static public LookupSource AddOrGetLookupSource(string Name, Type EnumType, string TableName, string SqlText, bool UseNullItem)
+    static public LookupSource AddOrGetLookupSource(string Name, Type EnumType, string TableName, string SqlText, string FormName, bool UseNullItem)
     {
         LookupSource Result = LookupSources.Find(Name);
         if (Result == null)
-            Result = AddLookupSourceInternal(Name, EnumType, TableName, SqlText, UseNullItem);
+            Result = AddLookupSourceInternal(Name, EnumType, TableName, SqlText, FormName: FormName, UseNullItem);
         return Result;
     }
     
@@ -245,21 +255,21 @@ static public class DataRegistry
     /// Adds a locator definition.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LocatorDef AddLocator(string Name, string SourceTableName, string KeyField, string ClassName = null)
+    static public LocatorDef AddLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
     {
         CheckLocator(Name, KeyField);
-        LocatorDef Result = AddLocatorInternal(Name, SourceTableName, KeyField, ClassName);
+        LocatorDef Result = AddLocatorInternal(Name, SourceTableName, KeyField, ClassName, FormName);
         return Result;
     }
     /// <summary>
     /// Adds a definition to the registry.
     /// <para>If the definition exists, that definition is returned.</para>
     /// </summary>
-    static public LocatorDef AddOrGetLocator(string Name, string SourceTableName, string KeyField, string ClassName = null)
+    static public LocatorDef AddOrGetLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
     {
         LocatorDef Result = Locators.Find(Name);
         if (Result == null)
-            Result = AddLocatorInternal(Name, SourceTableName, KeyField, ClassName);
+            Result = AddLocatorInternal(Name, SourceTableName, KeyField, ClassName, FormName);
         return Result;
     }
 

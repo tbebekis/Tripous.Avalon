@@ -131,7 +131,12 @@ public class ItemPage : UserControl, IReferenceContextMenuHost
     {
        // TODO: EnableRefContextMenuItems()
     }
-    
+    public object GetCurrentOID()
+    {
+        object Result = Module.Id;
+        return Result;
+    }
+
     // ● properties
     /// <summary>
     /// The main item binder.

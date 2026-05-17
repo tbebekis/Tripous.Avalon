@@ -44,6 +44,17 @@ public class DataFormContext: FormContext
             Form = TypeStore.CreateInstance<DataForm>(ClassName);
         return Form;
     }
+    static public async Task<DataFormContext> ShowFormModal(
+        string FormRegistryName,
+        DataFormAction StartAction = DataFormAction.List,
+        object RowId = null,
+        Control Caller = null)
+    {
+        DataFormContext Context = Create(FormRegistryName, Caller);
+        Context.StartAction = StartAction;
+        Context.RowId = RowId;
+        return await AppFormDialog.ShowModalDataForm(Context);
+    }
     
     // ● properties
     /// <summary>

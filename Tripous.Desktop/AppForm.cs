@@ -8,6 +8,8 @@ public class AppForm: UserControl
 {
     private ModalResult fModalResult;
     protected string fTitleText;
+    
+ 
 
     // ● protected
     /// <summary>
@@ -64,6 +66,8 @@ public class AppForm: UserControl
     {
         if (this.ParentTabPage != null)
             this.ParentTabPage.Header = TitleText;
+        if (this.ParentWindow != null)
+            this.ParentWindow.Title = TitleText;
     }
     
     // ● miscs
@@ -97,6 +101,13 @@ public class AppForm: UserControl
     /// </summary>
     protected virtual bool ProcessKeyDown(KeyEventArgs e)
     {
+        if (!Design.IsDesignMode)
+        {
+            if (e.Key == Key.Escape)
+            {
+                return ProcessEscapeKey();
+            }
+        }
         return false;
     }
     /// <summary>
@@ -140,6 +151,14 @@ public class AppForm: UserControl
     /// </summary>
     public AppForm()
     {
+        AddHandler(InputElement.KeyDownEvent, (Sender, Args) =>
+        {
+            if (!Design.IsDesignMode)
+            {
+                if (ProcessKeyDown(Args))
+                    Args.Handled = true;
+            }
+        }, RoutingStrategies.Bubble, handledEventsToo: true);
     }
     
     // ● public
