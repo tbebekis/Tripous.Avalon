@@ -7,7 +7,7 @@ namespace Tripous.Desktop;
 public class ItemPage : UserControl, IReferenceContextMenuHost
 {
     // ● protected  
-    protected ItemUiContext UiContext;
+    protected UiItemContext Context;
     protected DataForm fDataForm;
  
     /// <summary>
@@ -84,12 +84,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost
     /// </summary>
     public ItemPage()
     {
-        UiContext = new();
-        //UiContext.ContentControl = this; // do we need this?
-        UiContext.CreateEditorFunc = CreateEditor;
- 
-        ItemBinder.CurrentRowChanging += (s, ea) => CurrentRowChanging?.Invoke(this, EventArgs.Empty);
-        ItemBinder.CurrentRowChanged += (s, ea) => CurrentRowChanged?.Invoke(this, EventArgs.Empty);
+        Context = new();
     }
 
     // ● public methods
@@ -104,19 +99,24 @@ public class ItemPage : UserControl, IReferenceContextMenuHost
     {
         if (IsBindingDone)
             throw new TripousDesktopException($"{this.GetType().FullName} data binding is already done.");
+        
+        Context.CreateEditorFunc = CreateEditor;
  
-        ScrollViewer ScrollViewer = ItemPageUi.CreateScrollViewer();
-        StackPanel Root = ItemPageUi.CreateStackPanel();
+        ItemBinder.CurrentRowChanging += (s, ea) => CurrentRowChanging?.Invoke(this, EventArgs.Empty);
+        ItemBinder.CurrentRowChanged += (s, ea) => CurrentRowChanged?.Invoke(this, EventArgs.Empty);
+ 
+        ScrollViewer ScrollViewer = UiFactory.CreateScrollViewer();
+        StackPanel Root = UiFactory.CreateStackPanel();
         ScrollViewer.Content = Root;
         Content = ScrollViewer;
 
-        UiContext.ColumnCount = ColumnCount;
-        UiContext.ParentControl = Root;
+        Context.ColumnCount = ColumnCount;
+        Context.ParentControl = Root;
         
-        if (UiContext.TopTableUiInfo.DetailList.Count == 0)
-            ItemPageUi.CreateSinglePageLayout(UiContext);
+        if (Context.TopTableUiInfo.DetailList.Count == 0)
+            UiItemPage.CreateSinglePageLayout(Context);
         else
-            ItemPageUi.CreateTabbedTopLayout(UiContext);
+            UiItemPage.CreateTabbedTopLayout(Context);
 
         IsBindingDone = true;
     }
@@ -136,11 +136,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost
     /// <summary>
     /// The main item binder.
     /// </summary>
-    public ItemBinder ItemBinder => UiContext.ItemBinder;
+    public ItemBinder ItemBinder => Context.ItemBinder;
     /// <summary>
     /// The binders of this instance.
     /// </summary>
-    public List<ItemBinder> Binders => UiContext.Binders;
+    public List<ItemBinder> Binders => Context.Binders;
     /// <summary>
     /// The current data row.
     /// </summary>
@@ -159,7 +159,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost
                 throw new TripousArgumentNullException(nameof(DataForm));
             
             fDataForm = value;
-            UiContext.Module = fDataForm.Module;
+            Context.Module = fDataForm.Module;
         }
     }
     /// <summary>

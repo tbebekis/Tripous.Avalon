@@ -15,11 +15,11 @@ public class UiTableInfo
     /// </summary>
     public List<UiFieldInfo> FieldList { get; set; } = new();
     /// <summary>
-    /// When there are details having IsOneToOne = true and IsUiVisible = true, go here.
+    /// Visible one-to-one detail tables associated with this table tree.
     /// </summary>
     public List<UiTableInfo> OneToOneList { get; } = new();
     /// <summary>
-    /// Multi-row detail tables having IsUiVisible = true, go here.
+    /// Visible multi-row detail tables associated with this table tree.
     /// </summary>
     public List<UiDetailTableInfo> DetailList { get; } = new();
     /// <summary>

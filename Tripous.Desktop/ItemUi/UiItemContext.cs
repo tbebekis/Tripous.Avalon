@@ -1,6 +1,9 @@
 namespace Tripous.Desktop;
 
-public class ItemUiContext
+/// <summary>
+/// Holds the shared state required while building and binding an item page UI.
+/// </summary>
+public class UiItemContext
 {
     DataModule fModule;
     int fColumnCount = 2;
@@ -9,7 +12,7 @@ public class ItemUiContext
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ItemUiContext()
+    public UiItemContext()
     {         
         Binders.Add(ItemBinder);
     }
@@ -54,11 +57,14 @@ public class ItemUiContext
                 throw new TripousArgumentNullException(nameof(Module));
             fModule = value;
             
-            TopTableUiInfo = ItemPageUi.CreateTopTableUiInfo(Module);
+            TopTableUiInfo = UiItemInfo.CreateTopTableUiInfo(Module);
             ItemBinder.RowProvider = GetRowProvider(fModule.ModuleDef.Table);
             ItemBinder.TableInfo = TopTableUiInfo;
         }
     }
+    /// <summary>
+    /// The definition of the data module.
+    /// </summary>
     public ModuleDef ModuleDef => Module.ModuleDef;
     /// <summary>
     /// Provides access to multiple <see cref="IRowProvider"/>.
@@ -66,22 +72,27 @@ public class ItemUiContext
     /// </summary>
     public IRowProviderHost RowProviderHost => Module.RowProviderHost;
     /// <summary>
-    /// The main ui container. Contains the <see cref="ParentControl"/>
-    /// </summary>
-    //public ContentControl ContentControl { get; set; }
-    /// <summary>
-    /// The parent control
+    /// The control that receives the generated item page content.
     /// </summary>
     public Control ParentControl { get; set; }
+    /// <summary>
+    /// UI information for the top table and its visible detail tables.
+    /// </summary>
     public UiTableInfo TopTableUiInfo { get; private set; }
+    /// <summary>
+    /// The normalized number of visual columns used by the item page layout.
+    /// </summary>
     public int ColumnCount
     {
         get => fColumnCount;
-        set => fColumnCount = ItemPageUi.NormalizeColumnCount(value);
+        set => fColumnCount = UiItemPage.NormalizeColumnCount(value);
     }
     /// <summary>
     /// The current data row.
     /// </summary>
     public DataRow CurrentRow => ItemBinder.CurrentRow;
+    /// <summary>
+    /// Creates the editor control used for a field.
+    /// </summary>
     public Func<FieldDef, ItemBinder, Control> CreateEditorFunc { get; set; }
 }
