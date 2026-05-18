@@ -30,5 +30,7 @@ public class GridColumnInfo
     public FieldDef FieldDef { get; }
     public string FieldName { get; }
     public Type DataType { get; }
+    
+    public LookupSource LookupSource { get; set; }
 
 }

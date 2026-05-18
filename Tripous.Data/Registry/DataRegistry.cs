@@ -55,10 +55,10 @@ static public class DataRegistry
             throw new TripousException($"Cannot add a {nameof(ModuleDef)}. '{Name}' is already registered.");
     }
 
-    static LookupSource AddLookupSourceInternal(string Name, Type EnumType, string TableName, string SqlText, string FormName, bool UseNullItem)
+    static LookupDef AddLookupInternal(string Name, Type EnumType, string TableName, string SqlText, string FormName, bool UseNullItem)
     {
         if (EnumType == null && string.IsNullOrWhiteSpace(TableName) && string.IsNullOrWhiteSpace(SqlText))
-            throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(EnumType)}' or  '{nameof(TableName)}' or  '{nameof(SqlText)}' is provided.");
+            throw new TripousException($"Cannot add a {nameof(LookupDef)}. No '{nameof(EnumType)}' or  '{nameof(TableName)}' or  '{nameof(SqlText)}' is provided.");
 
         string EnumTypeName = EnumType != null ? EnumType.FullName : null;
         
@@ -71,7 +71,7 @@ static public class DataRegistry
                 SqlText = $"select * from {TableName}";
         }
         
-        LookupSource Result = new();
+        LookupDef Result = new();
         Result.Name = Name;
         Result.UseNullItem = UseNullItem;
         if (EnumType != null)
@@ -79,35 +79,35 @@ static public class DataRegistry
         Result.TableName = TableName;
         Result.SqlText = SqlText;
         Result.Form = FormName;
-        DataRegistry.LookupSources.Add(Result);
+        DataRegistry.Lookups.Add(Result);
         return Result;
     }
-    static void CheckLookupSource(string Name)
+    static void CheckLookup(string Name)
     {
         if (string.IsNullOrWhiteSpace(Name))
-            throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(Name)}' is provided.");
-        if (LookupSources.Contains(Name))
-            throw new TripousException($"Cannot add a {nameof(LookupSource)}. '{Name}' is already registered.");
+            throw new TripousException($"Cannot add a {nameof(LookupDef)}. No '{nameof(Name)}' is provided.");
+        if (Lookups.Contains(Name))
+            throw new TripousException($"Cannot add a {nameof(LookupDef)}. '{Name}' is already registered.");
     }
-    static void CheckLookupSource(string Name, Type EnumType)
+    static void CheckLookup(string Name, Type EnumType)
     {
-        CheckLookupSource(Name);
+        CheckLookup(Name);
         if (EnumType == null)
-            throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(EnumType)}' is provided.");
+            throw new TripousException($"Cannot add a {nameof(LookupDef)}. No '{nameof(EnumType)}' is provided.");
         if (!EnumType.IsEnum)
-            throw new TripousDataException($"Cannot add a {nameof(LookupSource)}. Type {EnumType.FullName} is not an enum type");
+            throw new TripousDataException($"Cannot add a {nameof(LookupDef)}. Type {EnumType.FullName} is not an enum type");
     }
-    static void CheckLookupSourceWithTableName(string Name, string TableName)
+    static void CheckLookupWithTableName(string Name, string TableName)
     {
-        CheckLookupSource(Name);
+        CheckLookup(Name);
         if (string.IsNullOrWhiteSpace(TableName))
-            throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(TableName)}' is provided.");
+            throw new TripousException($"Cannot add a {nameof(LookupDef)}. No '{nameof(TableName)}' is provided.");
     }
-    static void CheckLookupSourceWithSql(string Name, string SqlText)
+    static void CheckLookupWithSql(string Name, string SqlText)
     {
-        CheckLookupSource(Name);
+        CheckLookup(Name);
         if (string.IsNullOrWhiteSpace(SqlText))
-            throw new TripousException($"Cannot add a {nameof(LookupSource)}. No '{nameof(SqlText)}' is provided.");
+            throw new TripousException($"Cannot add a {nameof(LookupDef)}. No '{nameof(SqlText)}' is provided.");
     }
 
     static void CheckLocator(string Name, string KeyField)
@@ -128,7 +128,14 @@ static public class DataRegistry
         Locators.Add(Result);
         return Result;
     }
-
+    
+    static void CheckCodeProvider(string Name)
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add a {nameof(CodeProviderDef)}. No '{nameof(Name)}' is provided.");
+        if (CodeProviders.Contains(Name))
+            throw new TripousException($"Cannot add a {nameof(CodeProviderDef)}. '{Name}' is already registered.");
+    }
     
     // ● modules
     /// <summary>
@@ -189,64 +196,64 @@ static public class DataRegistry
         return Result;
     }
     
-    // ● lookup sources - enum types
+    // ● lookups - enum types
     /// <summary>
     /// Adds a lookup source.
     /// <para>The <see cref="EnumType"/> is used as the source.</para>
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LookupSource AddLookupSource(Type EnumType, bool UseNullItem = false) => AddLookupSource(EnumType.FullName, EnumType, UseNullItem);
+    static public LookupDef AddLookupSource(Type EnumType, bool UseNullItem = false) => AddLookupSource(EnumType.FullName, EnumType, UseNullItem);
     /// <summary>
     /// Adds a lookup source.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LookupSource AddLookupSource(string Name, Type EnumType, bool UseNullItem = false)
+    static public LookupDef AddLookupSource(string Name, Type EnumType, bool UseNullItem = false)
     {
-        CheckLookupSource(Name, EnumType);
-        LookupSource Result = AddLookupSourceInternal(Name, EnumType, TableName: null, SqlText: null, FormName: null, UseNullItem: UseNullItem);
+        CheckLookup(Name, EnumType);
+        LookupDef Result = AddLookupInternal(Name, EnumType, TableName: null, SqlText: null, FormName: null, UseNullItem: UseNullItem);
         return Result;
     }
     
-    // ● lookup sources - with table name
+    // ● lookups - with table name
     /// <summary>
     /// Adds a lookup source.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LookupSource AddLookupSourceWithTableName(string Name, string TableName = null, string FormName = null, bool UseNullItem = false)
+    static public LookupDef AddLookupWithTableName(string Name, string TableName = null, string FormName = null, bool UseNullItem = false)
     {
         if (string.IsNullOrWhiteSpace(TableName))
             TableName = Name;
         
-        CheckLookupSourceWithTableName(Name, TableName);
-        LookupSource Result = AddLookupSourceInternal(Name, EnumType: null, TableName: TableName, SqlText: null, FormName: FormName, UseNullItem: UseNullItem);
+        CheckLookupWithTableName(Name, TableName);
+        LookupDef Result = AddLookupInternal(Name, EnumType: null, TableName: TableName, SqlText: null, FormName: FormName, UseNullItem: UseNullItem);
         return Result;
     }
  
-    // ● lookup sources - with SELECT Sql
+    // ● lookups - with SELECT Sql
     /// <summary>
     /// Adds a lookup source.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LookupSource AddLookupSourceWithSql(string Name, string SqlText = null, string FormName = null, bool UseNullItem = false)
+    static public LookupDef AddLookupWithSql(string Name, string SqlText = null, string FormName = null, bool UseNullItem = false)
     {
         if (string.IsNullOrWhiteSpace(SqlText))
             SqlText = $"select * from {Name}";
         
-        CheckLookupSourceWithSql(Name, SqlText);
-        LookupSource Result = AddLookupSourceInternal(Name, EnumType: null, TableName: null, SqlText: SqlText, FormName: FormName, UseNullItem: UseNullItem);
+        CheckLookupWithSql(Name, SqlText);
+        LookupDef Result = AddLookupInternal(Name, EnumType: null, TableName: null, SqlText: SqlText, FormName: FormName, UseNullItem: UseNullItem);
         return Result;
     }
     
-    // ● lookup sources - add or get
+    // ● lookups - add or get
     /// <summary>
     /// Adds a definition to the registry.
     /// <para>If the definition exists, that definition is returned.</para>
     /// </summary>
-    static public LookupSource AddOrGetLookupSource(string Name, Type EnumType, string TableName, string SqlText, string FormName, bool UseNullItem)
+    static public LookupDef AddOrGetLookup(string Name, Type EnumType, string TableName, string SqlText, string FormName, bool UseNullItem)
     {
-        LookupSource Result = LookupSources.Find(Name);
+        LookupDef Result = Lookups.Find(Name);
         if (Result == null)
-            Result = AddLookupSourceInternal(Name, EnumType, TableName, SqlText, FormName: FormName, UseNullItem);
+            Result = AddLookupInternal(Name, EnumType, TableName, SqlText, FormName: FormName, UseNullItem);
         return Result;
     }
     
@@ -273,6 +280,30 @@ static public class DataRegistry
         return Result;
     }
 
+    // ● code providers
+    /// <summary>
+    /// Adds a definition.
+    /// <para>If the definition exists, an exception is thrown.</para>
+    /// </summary>
+    static public CodeProviderDef AddCodeProvider(string Name)
+    {
+        CheckCodeProvider(Name);
+        CodeProviderDef Result = new CodeProviderDef() { Name = Name };
+        CodeProviders.Add(Result);
+        return Result;
+    }
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public CodeProviderDef AddOrGetCodeProvider(string Name)
+    {
+        CodeProviderDef Result = CodeProviders.Find(Name);
+        if (Result == null)
+            Result = AddCodeProvider(Name);
+        return Result;
+    }
+    
     // ● create 
     /// <summary>
     /// Creates and returns a <see cref="DataModule"/> based on its registered name.
@@ -291,6 +322,10 @@ static public class DataRegistry
     /// <summary>
     /// The list of lookup sources definitions
     /// </summary>
-    static public DefList<LookupSource> LookupSources { get; } = new();
+    static public DefList<LookupDef> Lookups { get; } = new();
+    /// <summary>
+    /// The list of code providers.
+    /// </summary>
+    static public DefList<CodeProviderDef> CodeProviders { get; } = new();
 }
 

@@ -3,8 +3,6 @@ Table: SYS_LOG
 Module: Log  LogDataModule
 Group: Log 
 IsReadOnly
------------------------------------------------------
-
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key
@@ -20,12 +18,31 @@ CREATE TABLE {TableName} (
     ,EventId @NVARCHAR(96) @NOT_NULL
     ,Message @NBLOB_TEXT @NOT_NULL
     )
+
+/*---------------------------------------------------
+Table: SYS_NUMBER_SERIES
+Module: NumberSeries CodeProviderModule
+Group: Setup
+IsLookup: true   
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id              @NVARCHAR(40) @NOT_NULL primary key,
+    Code            @NVARCHAR(40) @NOT_NULL,
+    Name            @NVARCHAR(96) @NOT_NULL,
+    Pattern         @NVARCHAR(64) @NOT_NULL,
+    ResetPeriodId   integer default 0 @NOT_NULL, -- Enum
+    NextNumber      integer default 1 @NOT_NULL,
+    LastResetValue  @NVARCHAR(16) @NULL,
+    IsActive        @BOOL default 1 @NOT_NULL,
+
+    CONSTRAINT UQ_NumberSeries_Code UNIQUE (Code),
+    CONSTRAINT UQ_NumberSeries_Name UNIQUE (Name)
+    )
+
 /*---------------------------------------------------
 Table: CustomerCategory
 Module: CustomerCategory  
 Group: Sales 
------------------------------------------------------
-
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
@@ -37,8 +54,6 @@ CREATE TABLE {TableName} (
 Table: SupplierCategory
 Module: SupplierCategory  
 Group: Purchases
------------------------------------------------------
-
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
@@ -50,8 +65,6 @@ CREATE TABLE {TableName} (
 Table: ProductBrand
 Module: ProductBrand  
 Group: Inventory
------------------------------------------------------
-
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
@@ -63,8 +76,6 @@ CREATE TABLE {TableName} (
 Table: DiscountCategory
 Module: DiscountCategory    
 Group: Sales
------------------------------------------------------
-
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
@@ -128,8 +139,6 @@ CREATE TABLE {TableName} (
 Table: PaymentMethod
 Module: PaymentMethod
 Group: Sales
------------------------------------------------------
-
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
@@ -147,7 +156,7 @@ Group: Sales
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,
+    Code @NVARCHAR(40) @NOT_NULL,                -- Code XXXX
     Name @NVARCHAR(96) @NOT_NULL,
     IsActive @BOOL default 1 @NOT_NULL,
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
@@ -312,23 +321,7 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
     )
 
-/*---------------------------------------------------
-Table: NumberSeries
-Module: NumberSeries   
-Group: Setup
-IsLookup: true   
-----------------------------------------------------*/
-CREATE TABLE {TableName} (
-    Id  @NVARCHAR(40)  @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,
-    Name @NVARCHAR(96) @NOT_NULL,
-    Prefix @NVARCHAR(16) @NULL,
-    Padding int default 6 @NOT_NULL,
-    NextNumber int @NOT_NULL,
-    IsActive @BOOL default 1 @NOT_NULL,
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
-    )
+
 
 /*---------------------------------------------------
 Table: ProductGroup
@@ -385,7 +378,7 @@ Group: Company
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,
+    Code @NVARCHAR(40) @NOT_NULL,           -- Code XXXXXX
     Name @NVARCHAR(96) @NOT_NULL,
     Title @NVARCHAR(160) @NULL,
     TaxNumber @NVARCHAR(32) @NOT_NULL,
@@ -414,7 +407,7 @@ Table: CompanyBranch
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     CompanyId @NVARCHAR(40) @NOT_NULL,          -- Master
-    Code @NVARCHAR(40) @NOT_NULL,
+    Code @NVARCHAR(40) @NOT_NULL,               -- Code BR-XXXXXX
     Name @NVARCHAR(96) @NOT_NULL,
     AddressLine1 @NVARCHAR(160) @NULL,
     AddressLine2 @NVARCHAR(160) @NULL,
@@ -566,7 +559,7 @@ IsLookup: true
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    Code @NVARCHAR(40) @NOT_NULL,                       -- business code
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code WH-XXXXXX -- business code
     Name @NVARCHAR(96) @NOT_NULL,                       -- display title
 
     CompanyId @NVARCHAR(40) @NOT_NULL,                  -- Lookup      -- owner company
@@ -652,7 +645,7 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
 
-    FOREIGN KEY (NumberSeriesId) REFERENCES NumberSeries(Id),
+    FOREIGN KEY (NumberSeriesId) REFERENCES SYS_NUMBER_SERIES(Id),
     FOREIGN KEY (TargetDocumentTypeId) REFERENCES DocumentType(Id)
     )
 
@@ -695,7 +688,7 @@ Group: People
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,
+    Code @NVARCHAR(40) @NOT_NULL,           -- XXXXXX
 
     Name @NVARCHAR(96) @NOT_NULL,
     Title @NVARCHAR(160) @NULL,
@@ -841,7 +834,7 @@ Group: Projects
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    Code @NVARCHAR(40) @NOT_NULL,                   -- business code
+    Code @NVARCHAR(40) @NOT_NULL,                   -- Code YYYY-XXXX -- business code
     Name @NVARCHAR(96) @NOT_NULL,                   -- display title
 
     CustomerId @NVARCHAR(40) @NULL,                 -- Locator Customer    -- customer/person owner
@@ -960,7 +953,7 @@ Group: Inventory
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    Code @NVARCHAR(40) @NOT_NULL,                           -- business code
+    Code @NVARCHAR(40) @NOT_NULL,                           -- Code XXXXXX -- business code
     Name @NVARCHAR(96) @NOT_NULL,                           -- display title
 
     ProductTypeId integer @NOT_NULL,                        -- Enum         -- Goods, Service, RawMaterial

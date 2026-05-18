@@ -77,4 +77,14 @@ static public class DbConfig
     /// The name of the default database connection
     /// </summary>
     static public string DefaultConnectionName { get; set; } = Sys.DEFAULT;
+
+    static public string CodeProviderModuleName { get; set; } = "NumberSeries";
+    
+    static public string SysDbIniTableName { get; set; } = "SYS_INI";
+    static public string SysLogTableName { get; set; } = "SYS_LOG";
+    static public string SysNumberSeriesTableName { get; set; } = "SYS_NUMBER_SERIES";
+
+    static public string SysDbIniEntryField { get; set; }  = "EntryKey";
+    static public string SysDbIniValueField { get; set; }  = "EntryValue";
+    static public string SysDbIniBlobField { get; set; }  = "EntryData";
 }

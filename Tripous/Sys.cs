@@ -392,6 +392,24 @@ static public class Sys
         }
     }
     
+    // ● strings
+    /// <summary>
+    /// Escapes a text so it can be safely used inside a C# string literal.
+    /// </summary>
+    static public string EscapeText(string Text)
+    {
+        if (string.IsNullOrEmpty(Text))
+            return string.Empty;
+
+        return Text
+            .Replace("\\", "\\\\")
+            .Replace("\"", "\\\"")
+            .Replace("\r", "\\r")
+            .Replace("\n", "\\n")
+            .Replace("\t", "\\t");
+    }
+    
+    
     // ● Log
     static public void UiLog(string Text)
     {

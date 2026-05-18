@@ -517,6 +517,7 @@ static public class Logger
         return SB.ToString();
     }
 
+    /*
     static public string GetLogTableSchema(string TableName = "SYS_LOG")
     {
         string SqlText = $@"
@@ -537,6 +538,7 @@ CREATE TABLE {TableName} (
 ";
         return SqlText;
     }
+    */
     
     // ● properties  
     /// <summary>

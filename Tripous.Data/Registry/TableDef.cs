@@ -677,8 +677,8 @@ where
 
     // ● fields - Lookup Ids
     /// <summary>
-    /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupSource"/> in order to be displayed correctly in the Ui.
-    /// <para>The <see cref="LookupSource"/> should be registered in the registry.</para>
+    /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupDef"/> in order to be displayed correctly in the Ui.
+    /// <para>The <see cref="LookupDef"/> should be registered in the registry.</para>
     /// </summary>
     public FieldDef AddLookupId(string Name, DataFieldType DataType, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
     {
@@ -687,21 +687,21 @@ where
         return Result;
     }
     /// <summary>
-    /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupSource"/> in order to be displayed correctly in the Ui.
-    /// <para>The <see cref="LookupSource"/> should be registered in the registry.</para>
+    /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupDef"/> in order to be displayed correctly in the Ui.
+    /// <para>The <see cref="LookupDef"/> should be registered in the registry.</para>
     /// </summary>
     public FieldDef AddStringLookupId(string Name, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
         => AddLookupId(Name, DataFieldType.String, LookupSource, Group: Group, TitleKey: TitleKey, Flags: Flags);
     /// <summary>
-    /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupSource"/> in order to be displayed correctly in the Ui.
-    /// <para>The <see cref="LookupSource"/> should be registered in the registry.</para>
+    /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupDef"/> in order to be displayed correctly in the Ui.
+    /// <para>The <see cref="LookupDef"/> should be registered in the registry.</para>
     /// </summary>
     public FieldDef AddIntegerLookupId(string Name, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
         => AddLookupId(Name, DataFieldType.Integer, LookupSource, Group: Group, TitleKey: TitleKey, Flags: Flags);
     /// <summary>
-    /// Adds a fields, such as <c>AggregateId</c> which needs a <see cref="LookupSource"/> of an enum type, such as the <see cref="AggregateType"/>,
+    /// Adds a fields, such as <c>AggregateId</c> which needs a <see cref="LookupDef"/> of an enum type, such as the <see cref="AggregateType"/>,
     /// in order to be displayed correctly in the Ui.
-    /// <para><b>NOTE</b>: This method creates and registers the required <see cref="LookupSource"/> to the registry.</para>
+    /// <para><b>NOTE</b>: This method creates and registers the required <see cref="LookupDef"/> to the registry.</para>
     /// </summary>
     public FieldDef AddEnumLookupId(string Name, string LookupSource, Type EnumType, string Group = null, bool UseNullItem = false, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
     {
@@ -709,7 +709,7 @@ where
             throw new TripousDataException($"Type {EnumType.FullName} is not an enum type");
         
         FieldDef Result = AddLookupId(Name, DataFieldType.Integer, LookupSource, Group: Group, TitleKey: TitleKey, Flags: Flags);
-        if (!DataRegistry.LookupSources.Contains(LookupSource))
+        if (!DataRegistry.Lookups.Contains(LookupSource))
             DataRegistry.AddLookupSource(LookupSource, EnumType, UseNullItem);
         
         return Result;

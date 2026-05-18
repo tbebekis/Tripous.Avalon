@@ -8,7 +8,11 @@ public class DbIni
     /* fields */
     SqlStore Store = null;
 
-
+    string TableName = DbConfig.SysDbIniTableName;
+    string ValueField = DbConfig.SysDbIniEntryField;
+    string EntryField = DbConfig.SysDbIniValueField;
+    string BlobField = DbConfig.SysDbIniBlobField;
+    
 
 
     /// <summary>
@@ -270,21 +274,6 @@ create table {TableName} (
     }
 
 
-    /// <summary>
-    /// Constant
-    /// </summary>
-    static public string TableName { get; set; } = "SYS_INI";
-    /// <summary>
-    /// Constant
-    /// </summary>
-    static public string EntryField { get; set; }  = "EntryKey";
-    /// <summary>
-    /// Constant
-    /// </summary>
-    static public string ValueField { get; set; }  = "EntryValue";
-    /// <summary>
-    /// Constant
-    /// </summary>
-    static public string BlobField { get; set; }  = "EntryData";
+
 
 }

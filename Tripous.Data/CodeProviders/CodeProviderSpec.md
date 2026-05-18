@@ -33,15 +33,10 @@ CREATE TABLE NumberSeries (
     Id              @NVARCHAR(40) @NOT_NULL primary key,
     Code            @NVARCHAR(40) @NOT_NULL,
     Name            @NVARCHAR(96) @NOT_NULL,
-
     Pattern         @NVARCHAR(64) @NOT_NULL,
-
     ResetPeriodId   integer default 0 @NOT_NULL, -- Enum
-
     NextNumber      integer default 1 @NOT_NULL,
-
     LastResetValue  @NVARCHAR(16) @NULL,
-
     IsActive        @BOOL default 1 @NOT_NULL,
 
     CONSTRAINT UQ_NumberSeries_Code UNIQUE (Code),

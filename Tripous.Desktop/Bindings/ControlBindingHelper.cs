@@ -58,34 +58,7 @@ static public class ControlBindingHelper
             Row[FieldName] = Result;
   
     }
-    static LookupItem FindLookupItem(LookupSource Source, object Value)
-    {
-        if (Source == null)
-            return null;
-
-        if (Value == DBNull.Value)
-            Value = null;
-
-        foreach (LookupItem Item in Source.GetList())
-        {
-            if (Item.IsNullItem && Value == null)
-                return Item;
-
-            if (Item.Value == null && Value == null)
-                return Item;
-
-            if (Item.Value != null && Value != null)
-            {
-                if (Equals(Item.Value, Value))
-                    return Item;
-
-                if (Convert.ToString(Item.Value, CultureInfo.InvariantCulture) == Convert.ToString(Value, CultureInfo.InvariantCulture))
-                    return Item;
-            }
-        }
-
-        return null;
-    }
+ 
     static FuncDataTemplate<LookupItem> CreateLookupItemTemplate()
     {
         return new FuncDataTemplate<LookupItem>((Item, _) =>
@@ -123,7 +96,7 @@ static public class ControlBindingHelper
         if (Binding.Control is not ComboBox Box)
             return;
         object Value = GetValue(RowProvider, Binding.FieldName);
-        LookupItem Item = FindLookupItem(Binding.LookupSource, Value);
+        LookupItem Item =  Binding.LookupSource.FindItem(Value);
         Binding.IsRefreshing = true;
         try
         {
@@ -473,7 +446,7 @@ static public class ControlBindingHelper
         if (string.IsNullOrWhiteSpace(LookupSourceName))
             throw new TripousArgumentNullException(nameof(LookupSourceName));
 
-        LookupSource LookupSource = DataRegistry.LookupSources.Get(LookupSourceName);  
+        LookupDef LookupDef = DataRegistry.Lookups.Get(LookupSourceName);  
 
         ControlBinding Result = new()
         {
@@ -481,10 +454,10 @@ static public class ControlBindingHelper
             FieldName =  FieldName,
             DataColumn = DataColumn,
             FieldDef = FieldDef,
-            LookupSource = LookupSource,
+            LookupSource = LookupDef.Create(),
         };
 
-        Box.ItemsSource = LookupSource.GetList();
+        Box.ItemsSource = Result.LookupSource.GetList();
         
         // WARNING:
         // Do NOT use ItemTemplate or SelectionBoxItemTemplate on this ComboBox.

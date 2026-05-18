@@ -41,7 +41,7 @@ public class TripousBinding
     /// </summary>
     public FieldDef FieldDef { get; set; }
     /// <summary>
-    /// Optional lookup source associated to the binding.
+    /// The lookup source associated to the binding, if any, else null.
     /// </summary>
     public LookupSource LookupSource { get; set; }
     /// <summary>

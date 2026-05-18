@@ -28,6 +28,5 @@ public class Settings
 
     public string SourceFilePath { get; set; } = "/home/teo/Dev/CSharp/Tripous.Avalon/SampleApps/TinyERP/tERP.Data/Schema01.sql";
     public int SchemaVersion { get; set; } = 1;
-    //public string StartFolderPath { get; set; } = "";
-    //public string Text  { get; set; } = "";
+ 
 }

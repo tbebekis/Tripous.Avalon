@@ -15,6 +15,7 @@ global using System.Collections;
 global using System.Collections.Specialized;
 global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
+global using System.Collections.Concurrent;
 global using System.Reflection;
 global using System.Text.Json;
 global using System.Text.Json.Nodes;

@@ -4,10 +4,10 @@ namespace Tripous.Data;
 public class DataModule
 {
     // ● operation flags 
-    protected int fInserting;
-    protected int fEditing;
-    protected int fDeleting;
-    protected int fCommiting;
+    protected int fIsInserting;
+    protected int fIsEditing;
+    protected int fIsDeleting;
+    protected int fIsCommiting;
 
     protected Dictionary<string, object> fVariables;
     protected TableSet TableSet;
@@ -46,7 +46,7 @@ public class DataModule
     /// </summary>
     protected virtual void SetDefaultValues()
     {
-        if (Inserting || Commiting)
+        if (IsInserting || IsCommiting)
         {
             MemTable Table;
             List<TableDef> TableDefs = ModuleDef.GetTables();
@@ -66,7 +66,7 @@ public class DataModule
     /// </summary>
     protected virtual void SetDefaultValues(DataTable Table, TableDef TableDef)
     {
-        if (Inserting || Commiting)
+        if (IsInserting || IsCommiting)
         {
             foreach (DataRow Row in Table.Rows)
                 SetDefaultValues(Table, Row, TableDef);
@@ -169,7 +169,33 @@ public class DataModule
 
         UpdateSchema(ModuleDef.Table);
     }
+
+    protected virtual void Inserting()
+    {
+    }
+    protected virtual void Inserted()
+    {
+    }
+    protected virtual void Editing(object RowId)
+    {
+    }
+    protected virtual void Edited(object RowId)
+    {
+    }
+    protected virtual void Deleting(object RowId)
+    {
+    }
+    protected virtual void Deleted(object RowId)
+    {
+    }
+    protected virtual void Commiting(bool Reselect)
+    {
+    }
+    protected virtual void Commited(bool Reselect, object RowId)
+    {
+    }
     
+
     // ● construction
     /// <summary>
     /// Constructor
@@ -182,7 +208,6 @@ public class DataModule
     /// Returns a string representation of this instance.
     /// </summary>
     public override string ToString() => Name;
- 
 
     // ● list
     /// <summary>
@@ -352,18 +377,19 @@ public class DataModule
     /// </summary>
     public virtual void Insert()
     {
-        Inserting = true;
+        IsInserting = true;
         try
         {
             CheckCanInsert();
-            
+            Inserting();
             TableSet.ProcessInsert();
             SetDefaultValues();
+            Inserted();
         }
         finally
         {
             State = DataMode.Insert;
-            Inserting = false;
+            IsInserting = false;
         }
     }
     /// <summary>
@@ -373,16 +399,18 @@ public class DataModule
     {
         CheckCanEdit(RowId);
 
-        Editing = true;
+        IsEditing = true;
         try
         {
+            Editing(RowId);
             TableSet.Load(RowId);
             LastEditedId = RowId;
+            Edited(RowId);
         }
         finally
         {
             State = DataMode.Edit;
-            Editing = false;
+            IsEditing = false;
         }
     }
     /// <summary>
@@ -392,16 +420,18 @@ public class DataModule
     {        
         CheckCanDelete(RowId);
 
-        Deleting = true;
+        IsDeleting = true;
         try
         {
+            Deleting(RowId);
             TableSet.Delete(RowId);
             LastDeletedId = RowId;
+            Deleted(RowId);
         }
         finally
         {
             State = DataMode.None;
-            Deleting = false;
+            IsDeleting = false;
         }
     }
     /// <summary>
@@ -412,7 +442,7 @@ public class DataModule
     {
         object Result = null;
  
-        Commiting = true;
+        IsCommiting = true;
         try
         {
             EndEdit();
@@ -421,13 +451,15 @@ public class DataModule
         
             CheckCanCommit(Reselect);
             
+            Commiting(Reselect);
             Result = TableSet.Commit(Reselect);
             LastCommitedId = Result;
+            Commited(Reselect, Result);
         }
         finally
         {
             State = DataMode.Edit;
-            Commiting = false;
+            IsCommiting = false;
         }
 
         return Result;
@@ -528,69 +560,69 @@ public class DataModule
     /// <summary>
     /// True while inserting, that is while Insert() executes.
     /// </summary>
-    public bool Inserting
+    public bool IsInserting
     {
-        get { return fInserting > 0; }
+        get { return fIsInserting > 0; }
         protected set
         {
             if (value)
-                fInserting++;
+                fIsInserting++;
             else
-                fInserting--;
+                fIsInserting--;
 
-            if (fInserting < 0)
-                fInserting = 0;
+            if (fIsInserting < 0)
+                fIsInserting = 0;
         }
     }
     /// <summary>
     /// True while loading, that is while Edit() executes.
     /// </summary>
-    public bool Editing
+    public bool IsEditing
     {
-        get { return fEditing > 0; }
+        get { return fIsEditing > 0; }
         protected set
         {
             if (value)
-                fEditing++;
+                fIsEditing++;
             else
-                fEditing--;
+                fIsEditing--;
 
-            if (fEditing < 0)
-                fEditing = 0;
+            if (fIsEditing < 0)
+                fIsEditing = 0;
         }
     }
     /// <summary>
     /// True while deleting, that is while Delete() executes.
     /// </summary>
-    public bool Deleting
+    public bool IsDeleting
     {
-        get { return fDeleting > 0; }
+        get { return fIsDeleting > 0; }
         protected set
         {
             if (value)
-                fDeleting++;
+                fIsDeleting++;
             else
-                fDeleting--;
+                fIsDeleting--;
 
-            if (fDeleting < 0)
-                fDeleting = 0;
+            if (fIsDeleting < 0)
+                fIsDeleting = 0;
         }
     }
     /// <summary>
     /// True while commiting, that is while Commit() executes.
     /// </summary>
-    public bool Commiting
+    public bool IsCommiting
     {
-        get { return fCommiting > 0; }
+        get { return fIsCommiting > 0; }
         protected set
         {
             if (value)
-                fCommiting++;
+                fIsCommiting++;
             else
-                fCommiting--;
+                fIsCommiting--;
 
-            if (fCommiting < 0)
-                fCommiting = 0;
+            if (fIsCommiting < 0)
+                fIsCommiting = 0;
         }
     }
     

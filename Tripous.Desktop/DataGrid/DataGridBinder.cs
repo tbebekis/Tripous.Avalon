@@ -64,34 +64,6 @@ public static class DataGridBinder
             // ● ignore invalid input for now
         }
     }
-    static LookupItem FindLookupItem(LookupSource Source, object Value)
-    {
-        if (Source == null)
-            return null;
-
-        if (Value == DBNull.Value)
-            Value = null;
-
-        foreach (LookupItem Item in Source.GetList())
-        {
-            if (Item.IsNullItem && Value == null)
-                return Item;
-
-            if (Item.Value == null && Value == null)
-                return Item;
-
-            if (Item.Value != null && Value != null)
-            {
-                if (Equals(Item.Value, Value))
-                    return Item;
-
-                if (Convert.ToString(Item.Value, CultureInfo.InvariantCulture) == Convert.ToString(Value, CultureInfo.InvariantCulture))
-                    return Item;
-            }
-        }
-
-        return null;
-    }
  
     static IDataTemplate CreateTextDisplayTemplate(string ColumnName, TextAlignment Alignment, string Format, bool SupportsRecycling)
     {
@@ -152,14 +124,14 @@ public static class DataGridBinder
         }, SupportsRecycling);
     }
     
-    static IDataTemplate CreateLookupDisplayTemplate(string ColumnName, LookupSource Source, bool SupportsRecycling)
+    static IDataTemplate CreateLookupDisplayTemplate(string ColumnName, LookupSource LookupSource, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
             TextBlock Result = new();
 
             object Value = GetValue(Item, ColumnName);
-            LookupItem LookupItem = FindLookupItem(Source, Value);
+            LookupItem LookupItem = LookupSource.FindItem(Value);
 
             //Console.WriteLine($"LOOKUP DISPLAY: Column={ColumnName}, Value={Value}, ValueType={Value?.GetType().FullName}, Found={LookupItem?.DisplayText}");
 
@@ -172,7 +144,7 @@ public static class DataGridBinder
             return Result;
         }, SupportsRecycling);
     }
-    static IDataTemplate CreateLookupEditTemplate(string ColumnName, LookupSource Source, bool SupportsRecycling)
+    static IDataTemplate CreateLookupEditTemplate(string ColumnName, LookupSource LookupSource, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -180,9 +152,9 @@ public static class DataGridBinder
             bool IsLoading = true;
 
             object CurrentValue = GetValue(Item, ColumnName);
-            Result.SelectedItem = FindLookupItem(Source, CurrentValue);
+            Result.SelectedItem = LookupSource.FindItem(CurrentValue);
 
-            Result.ItemsSource = Source.GetList();
+            Result.ItemsSource = LookupSource.GetList();
             Result.Padding = new Thickness(0);
             Result.Margin = new Thickness(0);
             Result.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -214,7 +186,7 @@ public static class DataGridBinder
                     Item?.BeginEdit();
 
                     object CurrentValue = GetValue(Item, ColumnName);
-                    Result.SelectedItem = FindLookupItem(Source, CurrentValue);
+                    Result.SelectedItem = LookupSource.FindItem(CurrentValue);
 
                     IsLoading = false;
 
@@ -241,7 +213,7 @@ public static class DataGridBinder
             Result.DropDownOpened += (Sender, Args) =>
             {
                 object CurrentValue = GetValue(Item, ColumnName);
-                Result.SelectedItem = FindLookupItem(Source, CurrentValue);
+                Result.SelectedItem = LookupSource.FindItem(CurrentValue);
             };
 
             Result.KeyDown += (Sender, Args) =>
@@ -294,7 +266,7 @@ public static class DataGridBinder
             return Result;
         }, SupportsRecycling);
     }
-    static private IDataTemplate CreateBoolEditTemplate(string ColumnName, bool SupportsRecycling)
+    static IDataTemplate CreateBoolEditTemplate(string ColumnName, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -337,7 +309,6 @@ public static class DataGridBinder
 
     static public string GetHeader(string ColumnName, string Header) => string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
  
-    
     // ● private - create columns
     static DataGridColumn CreateTextColumn(string ColumnName, string Header = "", string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
@@ -363,14 +334,14 @@ public static class DataGridBinder
 
         return Result;
     }
-    static DataGridColumn CreateLookupColumn(string ColumnName, LookupSource Source, string Header = "", bool IsReadOnly = false, bool SupportsRecycling = false)
+    static DataGridColumn CreateLookupColumn(string ColumnName, LookupSource LookupSource, string Header = "", bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         DataGridTemplateColumn Result = new();
 
         Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
         Result.IsReadOnly = IsReadOnly;
-        Result.CellTemplate = CreateLookupDisplayTemplate(ColumnName, Source, SupportsRecycling);
-        Result.CellEditingTemplate = IsReadOnly ? null : CreateLookupEditTemplate(ColumnName, Source, SupportsRecycling);
+        Result.CellTemplate = CreateLookupDisplayTemplate(ColumnName, LookupSource, SupportsRecycling);
+        Result.CellEditingTemplate = IsReadOnly ? null : CreateLookupEditTemplate(ColumnName, LookupSource, SupportsRecycling);
 
         return Result;
     }
@@ -517,18 +488,24 @@ public static class DataGridBinder
         return Result;                  
     }
     
-    static public DataGridColumn CreateLookupColumn(DataColumn Column, LookupSource Source, bool IsReadOnly = false, bool SupportsRecycling = false)
+    static public DataGridColumn CreateLookupColumn(DataColumn Column, LookupDef LookupDef, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
-        DataGridColumn Result = CreateLookupColumn(Column.ColumnName, Source, Column.Caption, IsReadOnly, SupportsRecycling: SupportsRecycling);
+        LookupSource LookupSource = LookupDef.Create();
+        
+        DataGridColumn Result = CreateLookupColumn(Column.ColumnName, LookupSource, Column.Caption, IsReadOnly, SupportsRecycling: SupportsRecycling);
         GridColumnInfo CI = new GridColumnInfo(Result, Column);
+        CI.LookupSource = LookupSource;
         Result.Tag = CI; 
         return Result;
     }
-    static public DataGridColumn CreateLookupColumn(FieldDef FieldDef, LookupSource Source = null, bool SupportsRecycling = false)
+    static public DataGridColumn CreateLookupColumn(FieldDef FieldDef, LookupDef LookupDef = null, bool SupportsRecycling = false)
     {
-        Source = Source ?? DataRegistry.LookupSources.Get(FieldDef.LookupSource);
-        DataGridColumn Result = CreateLookupColumn(FieldDef.Name, Source, FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
+        LookupDef = LookupDef ?? DataRegistry.Lookups.Get(FieldDef.LookupSource);
+        LookupSource LookupSource = LookupDef.Create();
+        
+        DataGridColumn Result = CreateLookupColumn(FieldDef.Name, LookupSource, FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
         GridColumnInfo CI = new GridColumnInfo(Result, FieldDef);
+        CI.LookupSource = LookupSource;
         Result.Tag = CI;    
         return Result;
     }

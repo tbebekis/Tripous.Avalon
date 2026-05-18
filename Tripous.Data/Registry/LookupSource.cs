@@ -1,26 +1,11 @@
 namespace Tripous.Data;
 
 /// <summary>
-/// Represents a lookup list.
-/// <para>Lookup list items may come from</para>
-/// <list type="bullet">
-/// <item>a SELECT statement, given in the <see cref="SqlText"/> property</item>
-/// <item>a SELECT statement constructed using the <see cref="TableName"/></item>
-/// <item>a <see cref="DataTable"/> passed to <see cref="LoadForm"/>() method</item>
-/// <item>an enum type, given in the <see cref="EnumTypeName"/> property</item>
-/// <item>as a last resort using the <see cref="Name"/> as a <see cref="TableName"/></item>
-/// </list>
+/// A source of a lookup list of items.
 /// </summary>
-public class LookupSource : BaseDef
+[TypeStore]
+public class LookupSource
 {
-    bool fUseNullItem;
-    string fValueField = "Id";
-    string fDisplayField = "Name";
-    string fSqlText;
-    string fTableName;
-    string fConnectionName;
-    string fEnumTypeName;
-    string fForm;
     List<LookupItem> List;
     SqlStore fStore;
 
@@ -29,21 +14,62 @@ public class LookupSource : BaseDef
         get
         {
             if (fStore == null)
-                fStore = SqlStores.CreateSqlStore(ConnectionName);
+                fStore = SqlStores.CreateSqlStore(LookupDef.ConnectionName);
 
             return fStore;
         }
     }
     
-    // ● construction
+    // ● construction 
     /// <summary>
     /// Constructor
     /// </summary>
     public LookupSource()
     {
+        
+    }
+
+    // ● public 
+    /// <summary>
+    /// Initializes this instance, and assigns the <see cref="LookupDef"/>.
+    /// </summary>
+    /// <param name="LookupDef"></param>
+    public virtual void Initialize(LookupDef LookupDef)
+    {
+        if (this.LookupDef == null)
+        {
+            this.LookupDef = LookupDef;
+        }
+    }
+    /// <summary>
+    /// Finds and returns a <see cref="LookupItem"/> with value equal to a specified value.
+    /// </summary>
+    public virtual LookupItem FindItem(object Value)
+    {
+        if (Value == DBNull.Value)
+            Value = null;
+
+        foreach (LookupItem Item in this.GetList())
+        {
+            if (Item.IsNullItem && Value == null)
+                return Item;
+
+            if (Item.Value == null && Value == null)
+                return Item;
+
+            if (Item.Value != null && Value != null)
+            {
+                if (Equals(Item.Value, Value))
+                    return Item;
+
+                if (Convert.ToString(Item.Value, CultureInfo.InvariantCulture) == Convert.ToString(Value, CultureInfo.InvariantCulture))
+                    return Item;
+            }
+        }
+
+        return null;
     }
     
-    // ● public 
     /// <summary>
     /// Fills the list using a SELECT statement
     /// </summary>
@@ -64,16 +90,16 @@ public class LookupSource : BaseDef
         if (Table == null)
             throw new TripousArgumentNullException(nameof(Table));
 
-        if (string.IsNullOrWhiteSpace(ValueField) || !Table.Columns.Contains(ValueField))
-            throw new TripousDataException($"Lookup: ValueField '{ValueField}' not found.");
+        if (string.IsNullOrWhiteSpace(LookupDef.ValueField) || !Table.Columns.Contains(LookupDef.ValueField))
+            throw new TripousDataException($"Lookup: ValueField '{LookupDef.ValueField}' not found.");
 
-        if (string.IsNullOrWhiteSpace(DisplayField) || !Table.Columns.Contains(DisplayField))
-            throw new TripousDataException($"Lookup: DisplayField '{DisplayField}' not found.");
+        if (string.IsNullOrWhiteSpace(LookupDef.DisplayField) || !Table.Columns.Contains(LookupDef.DisplayField))
+            throw new TripousDataException($"Lookup: DisplayField '{LookupDef.DisplayField}' not found.");
 
         ClearList();
 
         LookupItem LI;
-        if (UseNullItem)
+        if (LookupDef.UseNullItem)
         {
             LI = new LookupItem(null, string.Empty, true);
             List.Add(LI);
@@ -82,8 +108,8 @@ public class LookupSource : BaseDef
 
         foreach (DataRow Row in Table.Rows)
         {
-            object Value = Row[ValueField];
-            string Display = Row[DisplayField]?.ToString();
+            object Value = Row[LookupDef.ValueField];
+            string Display = Row[LookupDef.DisplayField]?.ToString();
             LI = new LookupItem(Value, Display);
             List.Add(LI);
         }
@@ -104,7 +130,7 @@ public class LookupSource : BaseDef
 
         ClearList();
         
-        if (UseNullItem)
+        if (LookupDef.UseNullItem)
             List.Add(new LookupItem(null, string.Empty, true));
 
         foreach (var Value in System.Enum.GetValues(EnumType))
@@ -122,33 +148,33 @@ public class LookupSource : BaseDef
         if (List != null)
             return List;
 
-        if (!string.IsNullOrWhiteSpace(TableName))
+        if (!string.IsNullOrWhiteSpace(LookupDef.TableName))
         {
-            Select($"select * from {TableName}");
+            Select($"select * from {LookupDef.TableName}");
             return List;
         }
         
-        if (!string.IsNullOrWhiteSpace(SqlText))
+        if (!string.IsNullOrWhiteSpace(LookupDef.SqlText))
         {
-            Select(SqlText);
+            Select(LookupDef.SqlText);
             return List;
         }
 
-        if (!string.IsNullOrWhiteSpace(EnumTypeName))
+        if (!string.IsNullOrWhiteSpace(LookupDef.EnumTypeName))
         {
-            Type T = TypeStore.Get(EnumTypeName);
+            Type T = TypeStore.Get(LookupDef.EnumTypeName);
             if (T == null || !T.IsEnum)
-                throw new TripousDataException($"Type {EnumTypeName} is not an enum type");
+                throw new TripousDataException($"Type {LookupDef.EnumTypeName} is not an enum type");
  
             var value = Enum.GetValues(T).GetValue(0);
             LoadFrom((Enum)value);
             return List;
         }
 
-        if (!string.IsNullOrWhiteSpace(ConnectionName))
+        if (!string.IsNullOrWhiteSpace(LookupDef.ConnectionName))
         {
-            if (Store.TableExists(Name))
-                Select($"select * from {Name}");
+            if (Store.TableExists(LookupDef.Name))
+                Select($"select * from {LookupDef.Name}");
             return List;
         }
         
@@ -164,117 +190,10 @@ public class LookupSource : BaseDef
         else
             List.Clear();
     }
-    
-    // ● properties
-    /// <summary>
-    /// When true then the first item in the list is a null item.
-    /// </summary>
-    public bool UseNullItem
-    {
-        get => fUseNullItem;
-        set
-        {
-            if (fUseNullItem != value)
-            {
-                fUseNullItem = value;
-                NotifyPropertyChanged(nameof(UseNullItem));
-            }
-        }
-    }
-    /// <summary>
-    /// The field used in getting the value.
-    /// <para>Used only when <see cref="TableName"/> or <see cref="SqlText"/> is defined or the list is loaded using <see cref="Select"/> or <see cref="LoadForm"/> a <see cref="DataTable"/></para>
-    /// </summary>
-    public string ValueField
-    {
-        get => fValueField;
-        set
-        {
-            if (fValueField != value)
-            {
-                fValueField = value;
-                NotifyPropertyChanged(nameof(ValueField));
-            }
-        }
-    }  
-    /// <summary>
-    /// The field used in getting the display value.
-    /// <para>Used only when <see cref="TableName"/> or <see cref="SqlText"/> is defined or the list is loaded using <see cref="Select"/> or <see cref="LoadForm"/> a <see cref="DataTable"/></para>
-    /// </summary>
-    public string DisplayField
-    {
-        get => fDisplayField;
-        set
-        {
-            if (fDisplayField != value)
-            {
-                fDisplayField = value;
-                NotifyPropertyChanged(nameof(DisplayField));
-            }
-        }
-    }
-    /// <summary>
-    /// The connection name used in getting an <see cref="SqlStore"/> in order to execute the <see cref="SqlText"/> SELECT statement.
-    /// </summary>
-    public string ConnectionName  
-    {
-        get => !string.IsNullOrWhiteSpace(fConnectionName)? fConnectionName: DbConfig.DefaultConnectionName;
-        set { if (fConnectionName != value) { fConnectionName = value; NotifyPropertyChanged(nameof(ConnectionName)); } }
-    }
-    /// <summary>
-    /// The SELECT statement
-    /// </summary>
-    public string SqlText
-    {
-        get => fSqlText;
-        set
-        {
-            if (fSqlText != value)
-            {
-                fSqlText = value;
-                NotifyPropertyChanged(nameof(SqlText));
-            }
-        }
-    }
-    /// <summary>
-    /// When not empty results in a SELECT statement like <c>select * from TableName</c>
-    /// </summary>
-    public string TableName
-    {
-        get => fTableName;
-        set
-        {
-            if (fTableName != value)
-            {
-                fTableName = value;
-                NotifyPropertyChanged(nameof(TableName));
-            }
-        }
-    }
-    /// <summary>
-    /// An enum type used in filling the list
-    /// </summary>
-    public string EnumTypeName
-    {
-        get => fEnumTypeName;
-        set
-        {
-            if (fEnumTypeName != value)
-            {
-                fEnumTypeName = value;
-                NotifyPropertyChanged(nameof(EnumTypeName));
-            }
-        }
-    }
-    /// <summary>
-    /// The name of a form that displays the table.
-    /// </summary>
-    public string Form
-    {
-        get => !string.IsNullOrWhiteSpace(fForm)? fForm: Name;
-        set { if (fForm != value) { fForm = value; NotifyPropertyChanged(nameof(Form)); } }
-    }
- 
-}
 
- 
+    // ● properties 
+    /// <summary>
+    /// The definition associated to this instance.
+    /// </summary>
+    public LookupDef LookupDef { get; private set; }
+}

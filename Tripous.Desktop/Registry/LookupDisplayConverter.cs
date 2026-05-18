@@ -5,12 +5,14 @@ namespace Tripous.Desktop;
 public class LookupDisplayConverter: IValueConverter
 {
     // ● private fields
-    readonly LookupSource fSource;
+    readonly LookupDef fLookupDef;
+    LookupSource LookupSource;
 
     // ● constructors
-    public LookupDisplayConverter(LookupSource Source)
+    public LookupDisplayConverter(LookupDef LookupDef)
     {
-        fSource = Source ?? throw new TripousArgumentNullException(nameof(Source));
+        fLookupDef = LookupDef ?? throw new TripousArgumentNullException(nameof(LookupDef));
+        LookupSource = fLookupDef.Create();
     }
 
     // ● public methods
@@ -19,7 +21,7 @@ public class LookupDisplayConverter: IValueConverter
         if (Value == null || Value == DBNull.Value)
             return string.Empty;
 
-        foreach (LookupItem Item in fSource.GetList())
+        foreach (LookupItem Item in LookupSource.GetList())
         {
             if (Item.IsNullItem)
                 continue;

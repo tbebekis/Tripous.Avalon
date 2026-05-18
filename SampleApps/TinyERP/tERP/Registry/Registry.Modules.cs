@@ -3,37 +3,46 @@ namespace tERP;
 static internal partial class Registry
 {
     // ● private
+    static void RegisterCodeProviders_FromModules()
+    {
+        DataRegistry.AddCodeProvider("Company");
+        DataRegistry.AddCodeProvider("CompanyBranch");
+        DataRegistry.AddCodeProvider("Product");
+        DataRegistry.AddCodeProvider("Project");
+        DataRegistry.AddCodeProvider("SalesPerson");
+        DataRegistry.AddCodeProvider("Warehouse");
+    }
     static void RegisterLookupSources_FromModules()
     {
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank", FormName: "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier", FormName: "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category", FormName: "Category");
-        DataRegistry.AddLookupSourceWithTableName("Company", "Company", FormName: "Company");
-        DataRegistry.AddLookupSourceWithTableName("CompanyBranch", "CompanyBranch");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country", FormName: "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency", FormName: "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountGroup", "DiscountGroup");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language", FormName: "Language");
-        DataRegistry.AddLookupSourceWithTableName("NumberSeries", "NumberSeries", FormName: "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("PriceType", "PriceType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate", FormName: "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
+        DataRegistry.AddLookupWithTableName("Bank", "Bank", FormName: "Bank");
+        DataRegistry.AddLookupWithTableName("Carrier", "Carrier", FormName: "Carrier");
+        DataRegistry.AddLookupWithTableName("Category", "Category", FormName: "Category");
+        DataRegistry.AddLookupWithTableName("Company", "Company", FormName: "Company");
+        DataRegistry.AddLookupWithTableName("CompanyBranch", "CompanyBranch");
+        DataRegistry.AddLookupWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
+        DataRegistry.AddLookupWithTableName("Country", "Country", FormName: "Country");
+        DataRegistry.AddLookupWithTableName("Currency", "Currency", FormName: "Currency");
+        DataRegistry.AddLookupWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
+        DataRegistry.AddLookupWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
+        DataRegistry.AddLookupWithTableName("DiscountGroup", "DiscountGroup");
+        DataRegistry.AddLookupWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
+        DataRegistry.AddLookupWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
+        DataRegistry.AddLookupWithTableName("Language", "Language", FormName: "Language");
+        DataRegistry.AddLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
+        DataRegistry.AddLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
+        DataRegistry.AddLookupWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
+        DataRegistry.AddLookupWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
+        DataRegistry.AddLookupWithTableName("PriceType", "PriceType");
+        DataRegistry.AddLookupWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
+        DataRegistry.AddLookupWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
+        DataRegistry.AddLookupWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
+        DataRegistry.AddLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
+        DataRegistry.AddLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
+        DataRegistry.AddLookupWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
+        DataRegistry.AddLookupWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
+        DataRegistry.AddLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
+        DataRegistry.AddLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");
+        DataRegistry.AddLookupWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
     }
     static void RegisterLocators_FromModules()
     {
@@ -60,7 +69,7 @@ from
         tblTop.Name = "Bank";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         string[] FilterFields = ["Name", "Code"];
         SelectDef = Module.SelectList[0];
@@ -90,7 +99,7 @@ from
         tblTop.Name = "Carrier";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         string[] FilterFields = ["Name", "Code", "IsActive"];
@@ -135,7 +144,7 @@ from
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("ParentId", "Category", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddInteger("LevelNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddInteger("SortNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -207,7 +216,7 @@ from
         tblTop.Name = "Company";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Company");
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Title", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("TaxNumber", MaxLength: 32, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
@@ -250,7 +259,7 @@ from
         tblCompanyBranch.KeyField = "Id";
         tblCompanyBranch.AddId("Id").SetNullable(false);
         tblCompanyBranch.AddString("CompanyId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblCompanyBranch.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblCompanyBranch.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("CompanyBranch");
         tblCompanyBranch.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCompanyBranch.AddString("AddressLine1", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblCompanyBranch.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
@@ -265,7 +274,7 @@ from
         tblCompanyBankAccount.KeyField = "Id";
         tblCompanyBankAccount.AddId("Id").SetNullable(false);
         tblCompanyBankAccount.AddString("CompanyId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblCompanyBankAccount.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblCompanyBankAccount.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblCompanyBankAccount.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCompanyBankAccount.AddString("BankName", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCompanyBankAccount.AddString("Iban", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
@@ -304,7 +313,7 @@ from
         tblTop.Name = "CostCenter";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("ParentCostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("ManagerPersonId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
@@ -317,7 +326,7 @@ from
         TableDef tblManagerPerson = tblTop.AddJoin("ManagerPersonId", "Person", "ManagerPerson", "Id");
         tblTop.Fields.Get("ManagerPersonId").Locator = "Person";
         tblManagerPerson.AddId("Id").SetNullable(false);
-        tblManagerPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblManagerPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblManagerPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblManagerPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
         tblManagerPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
@@ -360,7 +369,7 @@ from
         tblTop.Name = "Country";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Iso2", MaxLength: 2, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Iso3", MaxLength: 3, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
@@ -395,7 +404,7 @@ from
         tblTop.Name = "Currency";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Symbol", MaxLength: 8, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddInteger("Decimals", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("2");
@@ -493,17 +502,17 @@ select
    COALESCE(NumberSeries.Name, '') as NumberSeries__Name
 from
   DocumentType
-    left join NumberSeries NumberSeries on NumberSeries.Id = DocumentType.NumberSeriesId
+    left join SYS_NUMBER_SERIES NumberSeries on NumberSeries.Id = DocumentType.NumberSeriesId
 ";
         Module = DataRegistry.AddModule("DocumentType", ListSelectSql: SqlText);
         tblTop = Module.Table;
         tblTop.Name = "DocumentType";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddEnumLookupId("TradeTypeId", "TradeType", typeof(TradeType), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddStringLookupId("NumberSeriesId", "NumberSeries", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddStringLookupId("NumberSeriesId", "SYS_NUMBER_SERIES", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddBoolean("AffectsStock", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("AffectsFinancial", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -566,7 +575,7 @@ from
         tblTop.Name = "ExpenseCategory";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         string[] FilterFields = ["Name", "Code"];
         SelectDef = Module.SelectList[0];
@@ -599,7 +608,7 @@ from
         tblTop.Name = "FiscalYear";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("StartDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("EndDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
@@ -621,7 +630,7 @@ from
         tblFiscalPeriod.KeyField = "Id";
         tblFiscalPeriod.AddId("Id").SetNullable(false);
         tblFiscalPeriod.AddString("YearId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblFiscalPeriod.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblFiscalPeriod.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblFiscalPeriod.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblFiscalPeriod.AddInteger("PeriodNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblFiscalPeriod.AddDate("StartDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
@@ -654,7 +663,7 @@ from
         tblTop.Name = "Language";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 16, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 16, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("CultureName", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -739,37 +748,40 @@ from
         string SqlText;
         SqlText = @"
 select
-   NumberSeries.Id,
-   NumberSeries.Code,
-   NumberSeries.Name,
-   NumberSeries.Prefix,
-   NumberSeries.Padding,
-   NumberSeries.NextNumber,
-   NumberSeries.IsActive
+   SYS_NUMBER_SERIES.Id,
+   SYS_NUMBER_SERIES.Code,
+   SYS_NUMBER_SERIES.Name,
+   SYS_NUMBER_SERIES.Pattern,
+   SYS_NUMBER_SERIES.ResetPeriodId,
+   SYS_NUMBER_SERIES.NextNumber,
+   SYS_NUMBER_SERIES.LastResetValue,
+   SYS_NUMBER_SERIES.IsActive
 from
-  NumberSeries
+  SYS_NUMBER_SERIES
 ";
-        Module = DataRegistry.AddModule("NumberSeries", ListSelectSql: SqlText);
+        Module = DataRegistry.AddModule("NumberSeries", ClassName: "CodeProviderModule", ListSelectSql: SqlText);
         tblTop = Module.Table;
-        tblTop.Name = "NumberSeries";
+        tblTop.Name = "SYS_NUMBER_SERIES";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddString("Prefix", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddInteger("Padding", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("6");
-        tblTop.AddInteger("NextNumber", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Pattern", MaxLength: 64, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("ResetPeriodId", "ResetPeriod", typeof(ResetPeriod), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddInteger("NextNumber", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddString("LastResetValue", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        string[] FilterFields = ["Name", "Code", "IsActive", "NextNumber", "Padding", "Prefix"];
+        string[] FilterFields = ["Name", "Code", "IsActive", "LastResetValue", "NextNumber", "Pattern"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Prefix"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Padding"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["Pattern"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ResetPeriodId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["NextNumber"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["LastResetValue"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
     static void RegisterModule_PaymentMethod()
@@ -792,7 +804,7 @@ from
         tblTop.Name = "PaymentMethod";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         string[] FilterFields = ["Name", "Code", "IsActive"];
@@ -825,7 +837,7 @@ from
         tblTop.Name = "PaymentTerm";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddInteger("Days", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
@@ -890,7 +902,7 @@ from
         tblTop.Name = "Person";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Title", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("TaxNumber", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
@@ -978,7 +990,7 @@ from
         tblTop.Name = "PersonRoleType";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
@@ -1046,14 +1058,14 @@ from
         TableDef tblCustomer = tblTop.AddJoin("CustomerId", "Person", "Customer", "Id");
         tblTop.Fields.Get("CustomerId").Locator = "Customer";
         tblCustomer.AddId("Id").SetNullable(false);
-        tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblCustomer.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCustomer.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
         tblCustomer.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         TableDef tblProduct = tblTop.AddJoin("ProductId", "Product", "Product", "Id");
         tblTop.Fields.Get("ProductId").Locator = "Product";
         tblProduct.AddId("Id").SetNullable(false);
-        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
         tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
         tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
@@ -1108,7 +1120,7 @@ from
         tblTop.Name = "PriceListType";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsTaxIncluded", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
@@ -1171,7 +1183,7 @@ from
         tblTop.Name = "Product";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddEnumLookupId("ProductTypeId", "ProductType", typeof(ProductType), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CategoryId", "Category", Flags: FieldFlags.Visible).SetNullable(true);
@@ -1280,7 +1292,7 @@ from
         tblTop.Name = "ProductGroup";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsSystem", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
@@ -1338,7 +1350,7 @@ from
         tblTop.Name = "Project";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Project");
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("CustomerId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddEnumLookupId("ProjectStatusId", "ProjectStatus", typeof(ProjectStatus), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -1353,14 +1365,14 @@ from
         TableDef tblCustomer = tblTop.AddJoin("CustomerId", "Person", "Customer", "Id");
         tblTop.Fields.Get("CustomerId").Locator = "Customer";
         tblCustomer.AddId("Id").SetNullable(false);
-        tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblCustomer.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCustomer.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
         tblCustomer.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         TableDef tblManagerPerson = tblTop.AddJoin("ManagerPersonId", "Person", "ManagerPerson", "Id");
         tblTop.Fields.Get("ManagerPersonId").Locator = "Person";
         tblManagerPerson.AddId("Id").SetNullable(false);
-        tblManagerPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblManagerPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblManagerPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblManagerPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
         tblManagerPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
@@ -1409,7 +1421,7 @@ from
         tblTop.Name = "SalesPerson";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("SalesPerson");
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         string[] FilterFields = ["Name", "Code", "IsActive"];
@@ -1447,7 +1459,7 @@ from
         tblTop.Name = "StockReason";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddInteger("StockDirection", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("AffectsCost", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -1531,7 +1543,7 @@ from
         tblTop.Name = "TaxCategory";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsDomestic", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -1585,7 +1597,7 @@ from
         tblTop.Name = "TaxOffice";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         string[] FilterFields = ["Name", "Code"];
         SelectDef = Module.SelectList[0];
@@ -1614,7 +1626,7 @@ from
         tblTop.Name = "UnitOfMeasure";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         string[] FilterFields = ["Name", "Code"];
         SelectDef = Module.SelectList[0];
@@ -1645,7 +1657,7 @@ from
         tblTop.Name = "VatRate";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("Percent", Decimals: 2, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
@@ -1709,7 +1721,7 @@ from
         tblTop.Name = "Warehouse";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Warehouse");
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CompanyId", "Company", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true);
@@ -1732,7 +1744,7 @@ from
         TableDef tblResponsiblePerson = tblTop.AddJoin("ResponsiblePersonId", "Person", "ResponsiblePerson", "Id");
         tblTop.Fields.Get("ResponsiblePersonId").Locator = "Person";
         tblResponsiblePerson.AddId("Id").SetNullable(false);
-        tblResponsiblePerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblResponsiblePerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblResponsiblePerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblResponsiblePerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
         tblResponsiblePerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
@@ -1775,6 +1787,7 @@ from
     // ● static public
     static public void RegisterModules()
     {
+        RegisterCodeProviders_FromModules();
         RegisterLookupSources_FromModules();
         RegisterLocators_FromModules();
         RegisterModule_Bank();

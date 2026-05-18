@@ -21,7 +21,8 @@ public enum DuplicateCheck
     Enum = 2,
     Form = 4,
     Module = 8,
-    Locator = 16
+    Locator = 16,
+    CodeProvider = 32
 }
 
 /// <summary>
@@ -74,6 +75,7 @@ public class SchemaParserResult
     {
     }
 
+    // ● public
     public string GetErrors()
     {
         StringBuilder SB = new();
@@ -82,13 +84,34 @@ public class SchemaParserResult
                 SB.AppendLine(Msg.ToString());
         return SB.ToString();
     }
-
     public string GetWarnings()
     {
         StringBuilder SB = new();
         foreach (var Msg in Messages)
         if (Msg.MessageType == ParsingErrorType.Warning)
         SB.AppendLine(Msg.ToString());
+        return SB.ToString();
+    }
+    
+    /// <summary>
+    /// Generates source code for a static method that returns the code provider patterns dictionary.
+    /// </summary>
+    public string GenerateCodeProviderPatternsMethod()
+    {
+        StringBuilder SB = new();
+
+        SB.AppendLine("static public Dictionary<string, string> GetCodeProviderPatterns()");
+        SB.AppendLine("{");
+        SB.AppendLine("    Dictionary<string, string> Result = [];");
+        SB.AppendLine();
+
+        foreach (var Pair in CodeProviderPatterns.OrderBy(item => item.Key))
+            SB.AppendLine($"    Result[\"{Sys.EscapeText(Pair.Key)}\"] = \"{Sys.EscapeText(Pair.Value)}\";");
+
+        SB.AppendLine();
+        SB.AppendLine("    return Result;");
+        SB.AppendLine("}");
+
         return SB.ToString();
     }
     
@@ -109,6 +132,11 @@ public class SchemaParserResult
     /// Source code that registers form definitions.
     /// </summary>
     public string FormDefsSourceCode { get; set; }
+    /// <summary>
+    /// A dictionary of CodeProviderName=Pattern
+    /// </summary>
+    public Dictionary<string, string> CodeProviderPatterns { get; set; } = [];
+
     /// <summary>
     /// Parser messages.
     /// </summary>
@@ -146,6 +174,7 @@ static public class SchemaRegistrationBuilder
         SchemaScript Script = SchemaScript.Parse(SchemaSql);
 
         ValidateScript(Result, Script);
+        CollectCodeProviderPatterns(Result, Script);
 
         if (Result.HasErrors)
             return Result;
@@ -199,6 +228,32 @@ static public class SchemaRegistrationBuilder
         ValidateSuspiciousUniqueConstraints(Result, Script);
         ValidateLookupFields(Result, Script);
         ValidateLocatorFields(Result, Script);
+    }
+    /// <summary>
+    /// Collects discovered code provider patterns and validates duplicate definitions.
+    /// </summary>
+    static void CollectCodeProviderPatterns(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable Table in Script.Tables)
+        {
+            foreach (SchemaField Field in Table.Fields)
+            {
+                if (Field.MetadataKind != FieldMetadataKind.Code)
+                    continue;
+
+                string CodeProviderName = GetCodeProviderName(Table, Field);
+                string Pattern = Field.CodeProviderPattern;
+
+                if (Result.CodeProviderPatterns.TryGetValue(CodeProviderName, out string ExistingPattern))
+                {
+                    if (!ExistingPattern.IsSameText(Pattern))
+                        AddError(Result, "CODE_PROVIDER_PATTERN_CONFLICT", "Code provider has conflicting patterns: " + CodeProviderName);
+                    continue;
+                }
+
+                Result.CodeProviderPatterns[CodeProviderName] = Pattern;
+            }
+        }
     }
     /// <summary>
     /// Validates lookup fields.
@@ -510,6 +565,7 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("static internal partial class Registry");
         SB.AppendLine("{");
         SB.AppendLine("    // ● private");
+        BuildRegisterCodeProvidersMethod(SB, Script, DuplicateChecks);
         BuildRegisterLookupSourcesMethod(SB, Script, DuplicateChecks);
         BuildRegisterLocatorsMethod(SB, Script, DuplicateChecks);
         foreach (SchemaTable TopTable in TopTables)
@@ -518,6 +574,7 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    // ● static public");
         SB.AppendLine("    static public void RegisterModules()");
         SB.AppendLine("    {");
+        SB.AppendLine("        RegisterCodeProviders_FromModules();");
         SB.AppendLine("        RegisterLookupSources_FromModules();");
         SB.AppendLine("        RegisterLocators_FromModules();");
         foreach (SchemaTable TopTable in TopTables)
@@ -652,6 +709,46 @@ static public class SchemaRegistrationBuilder
 
         SB.AppendLine("    }");
 
+    }
+    /// <summary>
+    /// Builds code provider registration method.
+    /// </summary>
+    static void BuildRegisterCodeProvidersMethod(StringBuilder SB, SchemaScript Script, DuplicateCheck DuplicateChecks)
+    {
+        List<string> CodeProviderNames = CollectCodeProviderNames(Script);
+
+        SB.AppendLine("    static void RegisterCodeProviders_FromModules()");
+        SB.AppendLine("    {");
+
+        foreach (string CodeProviderName in CodeProviderNames)
+        {
+            if (DuplicateChecks.HasFlag(DuplicateCheck.CodeProvider))
+            {
+                SB.AppendLine("        if (!DataRegistry.CodeProviders.Contains(\"" + EscapeString(CodeProviderName) + "\"))");
+                SB.AppendLine("        {");
+                SB.AppendLine("            DataRegistry.AddCodeProvider(\"" + EscapeString(CodeProviderName) + "\");");
+                SB.AppendLine("        }");
+            }
+            else
+            {
+                SB.AppendLine("        DataRegistry.AddCodeProvider(\"" + EscapeString(CodeProviderName) + "\");");
+            }
+        }
+
+        SB.AppendLine("    }");
+    }
+    /// <summary>
+    /// Collects code provider names.
+    /// </summary>
+    static List<string> CollectCodeProviderNames(SchemaScript Script)
+    {
+        return Script.Tables
+            .SelectMany(Table => Table.Fields
+                .Where(Field => Field.MetadataKind == FieldMetadataKind.Code)
+                .Select(Field => GetCodeProviderName(Table, Field)))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(x => x)
+            .ToList();
     }
 
 
@@ -884,6 +981,7 @@ static public class SchemaRegistrationBuilder
     {
         string NullSuffix = ".SetNullable(" + BoolLiteral(Field.IsNullable) + ")";
         string DefaultSuffix = !string.IsNullOrWhiteSpace(Field.DefaultValue) ? ".SetDefaultValue(\"" + EscapeString(Field.DefaultValue) + "\")" : "";
+        string CodeProviderSuffix = Field.MetadataKind == FieldMetadataKind.Code ? ".SetCodeProviderName(\"" + EscapeString(GetCodeProviderName(Table, Field)) + "\")" : "";
         string Flags = BuildFlags(Field);
 
         if (Field.IsPrimaryKey)
@@ -893,44 +991,44 @@ static public class SchemaRegistrationBuilder
         {
             string EnumName = GetEnumName(Script, Field);
             string EnumTypeName = GetEnumTypeName(Script, EnumName);
-            return TableVarName + ".AddEnumLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(EnumName) + "\", typeof(" + SafeIdentifier(EnumTypeName) + "), Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+            return TableVarName + ".AddEnumLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(EnumName) + "\", typeof(" + SafeIdentifier(EnumTypeName) + "), Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
         }
 
         if (IsLookupField(Script, Field))
         {
             string LookupSource = GetLookupSourceName(Script, Field);
             if (Field.DataType == DataFieldType.Integer)
-                return TableVarName + ".AddIntegerLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(LookupSource) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
-            return TableVarName + ".AddStringLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(LookupSource) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+                return TableVarName + ".AddIntegerLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(LookupSource) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+            return TableVarName + ".AddStringLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(LookupSource) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
         }
 
         if (Field.MetadataKind == FieldMetadataKind.LargeMemo)
-            return TableVarName + ".AddTextBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + BuildFlags(Field, FieldFlagsText.LargeMemo) + ")" + NullSuffix + DefaultSuffix + ";";
+            return TableVarName + ".AddTextBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + BuildFlags(Field, FieldFlagsText.LargeMemo) + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
 
         switch (Field.DataType)
         {
             case DataFieldType.String:
-                return TableVarName + ".AddString(\"" + EscapeString(Field.Name) + "\", MaxLength: " + Field.MaxLength + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+                return TableVarName + ".AddString(\"" + EscapeString(Field.Name) + "\", MaxLength: " + Field.MaxLength + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
             case DataFieldType.Integer:
-                return TableVarName + ".AddInteger(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+                return TableVarName + ".AddInteger(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
             case DataFieldType.Double:
-                return TableVarName + ".AddDouble(\"" + EscapeString(Field.Name) + "\", Decimals: " + Field.Decimals + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+                return TableVarName + ".AddDouble(\"" + EscapeString(Field.Name) + "\", Decimals: " + Field.Decimals + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
             case DataFieldType.Decimal:
             case DataFieldType.Decimal_:
-                return TableVarName + ".AddDecimal(\"" + EscapeString(Field.Name) + "\", Decimals: " + Field.Decimals + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+                return TableVarName + ".AddDecimal(\"" + EscapeString(Field.Name) + "\", Decimals: " + Field.Decimals + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
             case DataFieldType.Date:
-                return TableVarName + ".AddDate(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+                return TableVarName + ".AddDate(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
             case DataFieldType.DateTime:
-                return TableVarName + ".AddDateTime(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+                return TableVarName + ".AddDateTime(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
             case DataFieldType.Boolean:
-                return TableVarName + ".AddBoolean(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+                return TableVarName + ".AddBoolean(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
             case DataFieldType.Blob:
-                return TableVarName + ".AddBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + BuildFlags(Field, FieldFlagsText.None) + ")" + NullSuffix + DefaultSuffix + ";";
+                return TableVarName + ".AddBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + BuildFlags(Field, FieldFlagsText.None) + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
             case DataFieldType.TextBlob:
-                return TableVarName + ".AddTextBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+                return TableVarName + ".AddTextBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
         }
 
-        return TableVarName + ".AddString(\"" + EscapeString(Field.Name) + "\", MaxLength: " + Field.MaxLength + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + ";";
+        return TableVarName + ".AddString(\"" + EscapeString(Field.Name) + "\", MaxLength: " + Field.MaxLength + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
     }
 
     // ● private - select source
@@ -1208,8 +1306,12 @@ static public class SchemaRegistrationBuilder
             Result.Kind = FieldMetadataKind.Locator;
         else if (MetadataText.StartsWith("LargeMemo", StringComparison.OrdinalIgnoreCase))
             Result.Kind = FieldMetadataKind.LargeMemo;
+        else if (MetadataText.IsSameText("Code") || MetadataText.StartsWith("Code ", StringComparison.OrdinalIgnoreCase))
+            Result.Kind = FieldMetadataKind.Code;
 
         Result.MetadataName = ParseMetadataName(MetadataText, Result.Kind);
+        if (Result.Kind == FieldMetadataKind.Code)
+            ParseCodeMetadata(Result, MetadataText);
         Result.IsOneToOne = MetadataText.IndexOf("OneToOne", StringComparison.OrdinalIgnoreCase) >= 0;
 
         return Result;
@@ -1240,6 +1342,20 @@ static public class SchemaRegistrationBuilder
             Text = Text.Substring(0, OpenIndex).Trim();
 
         return SplitHeaderTokens(Text).FirstOrDefault() ?? string.Empty;
+    }
+    /// <summary>
+    /// Parses code metadata.
+    /// </summary>
+    static void ParseCodeMetadata(FieldMetadata Metadata, string MetadataText)
+    {
+        MatchCollection Matches = Regex.Matches(MetadataText, @"\[(.*?)\]");
+
+        Metadata.CodeProviderPattern = Matches.Count > 0 && !string.IsNullOrWhiteSpace(Matches[0].Groups[1].Value)
+            ? Matches[0].Groups[1].Value.Trim()
+            : "XXXXXX";
+        Metadata.CodeProviderName = Matches.Count > 1 && !string.IsNullOrWhiteSpace(Matches[1].Groups[1].Value)
+            ? Matches[1].Groups[1].Value.Trim()
+            : string.Empty;
     }
     /// <summary>
     /// Returns true if a line can be parsed as a field line.
@@ -1577,6 +1693,13 @@ static public class SchemaRegistrationBuilder
         return Value;
     }
     /// <summary>
+    /// Returns the resolved code provider name for a field.
+    /// </summary>
+    static string GetCodeProviderName(SchemaTable Table, SchemaField Field)
+    {
+        return !string.IsNullOrWhiteSpace(Field.CodeProviderName) ? Field.CodeProviderName : Table.Name;
+    }
+    /// <summary>
     /// Finds the master field name of a detail table.
     /// </summary>
     static string FindMasterFieldName(SchemaTable DetailTable)
@@ -1630,6 +1753,10 @@ static public class SchemaRegistrationBuilder
             Parts.Add("FieldFlags.Visible");
         if (!Field.IsNullable)
             Parts.Add("FieldFlags.Required");
+        if (Field.Name.IsSameText("Code"))
+            Parts.Add("FieldFlags.ReadOnlyEdit");
+        if (Field.Name.IsSameText("Code") && Field.MetadataKind == FieldMetadataKind.Code)
+            Parts.Add("FieldFlags.ReadOnlyUI");
         if (Extra == FieldFlagsText.LargeMemo)
             Parts.Add("FieldFlags.LargeMemo");
 
@@ -2284,6 +2411,8 @@ static public class SchemaRegistrationBuilder
             Result.MetadataName = Metadata.MetadataName;
             Result.CommentText = Metadata.CommentText;
             Result.IsOneToOne = Metadata.IsOneToOne;
+            Result.CodeProviderPattern = Metadata.CodeProviderPattern;
+            Result.CodeProviderName = Metadata.CodeProviderName;
             Result.IsPrimaryKey = SqlPart.ContainsText("primary key");
             Result.IsNullable = !SqlPart.ContainsText("@NOT_NULL") && !SqlPart.ContainsText("not null");
             Result.DefaultValue = ParseDefaultValue(SqlPart);
@@ -2318,6 +2447,14 @@ static public class SchemaRegistrationBuilder
         /// Optional metadata name.
         /// </summary>
         public string MetadataName { get; set; }
+        /// <summary>
+        /// Code provider pattern.
+        /// </summary>
+        public string CodeProviderPattern { get; set; }
+        /// <summary>
+        /// Code provider name.
+        /// </summary>
+        public string CodeProviderName { get; set; }
         /// <summary>
         /// Field data type.
         /// </summary>
@@ -2475,6 +2612,14 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public string MetadataName { get; set; }
         /// <summary>
+        /// Code provider pattern.
+        /// </summary>
+        public string CodeProviderPattern { get; set; }
+        /// <summary>
+        /// Code provider name.
+        /// </summary>
+        public string CodeProviderName { get; set; }
+        /// <summary>
         /// True when one-to-one.
         /// </summary>
         public bool IsOneToOne { get; set; }
@@ -2493,6 +2638,7 @@ static public class SchemaRegistrationBuilder
         CorrelationLookup = 5,
         CorrelationLocator = 6,
         LargeMemo = 7,
+        Code = 8,
     }
 
     /// <summary>

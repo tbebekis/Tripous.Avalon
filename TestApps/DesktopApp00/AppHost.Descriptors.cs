@@ -15,8 +15,8 @@ static public partial class AppHost
         DataRegistry.AddLookupSource(typeof(TradeType));
         DataRegistry.AddLookupSource(typeof(TradeStatus));
         
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country");
-        DataRegistry.AddLookupSourceWithTableName("Category");
+        DataRegistry.AddLookupWithTableName("Country", "Country");
+        DataRegistry.AddLookupWithTableName("Category");
     }
     static void RegisterLocators()
     {

@@ -53,9 +53,9 @@ public class ReferenceContextMenu
         else if (MenuItem == mnuReload)
             ReloadList();
         else if (MenuItem == mnuEdit)
-            Edit();
+            await Edit();
         else if (MenuItem == mnuAdd)
-            Add();
+            await Add();
         else if (MenuItem == mnuClear)
             Clear();
     }
@@ -65,7 +65,7 @@ public class ReferenceContextMenu
     /// </summary>
     protected virtual async Task<DataFormContext> ShowFormModal(DataFormAction StartAction, object RowId = null)
     {
-        string FormName = Binding.LookupSource?.Form ?? Binding.LocatorDef?.Form;
+        string FormName = Binding.LookupSource.LookupDef?.Form ?? Binding.LocatorDef?.Form;
         if (string.IsNullOrWhiteSpace(FormName))
             return null;
 

@@ -24,6 +24,26 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
+    void RegisterTable_SYS_NUMBER_SERIES()
+    {
+        string TableName = "SYS_NUMBER_SERIES";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id              @NVARCHAR(40) @NOT_NULL primary key,
+    Code            @NVARCHAR(40) @NOT_NULL,
+    Name            @NVARCHAR(96) @NOT_NULL,
+    Pattern         @NVARCHAR(64) @NOT_NULL,
+    ResetPeriodId   integer default 0 @NOT_NULL, -- Enum
+    NextNumber      integer default 1 @NOT_NULL,
+    LastResetValue  @NVARCHAR(16) @NULL,
+    IsActive        @BOOL default 1 @NOT_NULL,
+
+    CONSTRAINT UQ_NumberSeries_Code UNIQUE (Code),
+    CONSTRAINT UQ_NumberSeries_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
     void RegisterTable_CustomerCategory()
     {
         string TableName = "CustomerCategory";
@@ -149,7 +169,7 @@ CREATE TABLE {TableName} (
         string SqlText = $@"
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,
+    Code @NVARCHAR(40) @NOT_NULL,                -- Code XXXX
     Name @NVARCHAR(96) @NOT_NULL,
     IsActive @BOOL default 1 @NOT_NULL,
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
@@ -261,9 +281,9 @@ CREATE TABLE {TableName} (
     PriceTypeId @NVARCHAR(40) @NOT_NULL,        -- Lookup
 
     DiscountGroupId @NVARCHAR(40) @NULL,        -- Lookup
-    CustomerId @NVARCHAR(40) @NULL,             -- Locator
+    CustomerId @NVARCHAR(40) @NULL,             -- Locator Customer
 
-    ProductId @NVARCHAR(40) @NOT_NULL,          -- Locator
+    ProductId @NVARCHAR(40) @NOT_NULL,          -- Locator Product
     UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,    -- Lookup
 
     MinQuantity @DECIMAL_(18, 4) default 0 @NOT_NULL,
@@ -302,24 +322,6 @@ CREATE TABLE {TableName} (
 
     Remarks @NBLOB_TEXT @NULL,
 
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
-    )
-";
-        Version.AddTable(SqlText);
-    }
-    void RegisterTable_NumberSeries()
-    {
-        string TableName = "NumberSeries";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id  @NVARCHAR(40)  @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,
-    Name @NVARCHAR(96) @NOT_NULL,
-    Prefix @NVARCHAR(16) @NULL,
-    Padding int default 6 @NOT_NULL,
-    NextNumber int @NOT_NULL,
-    IsActive @BOOL default 1 @NOT_NULL,
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
     )
@@ -376,7 +378,7 @@ CREATE TABLE {TableName} (
         string SqlText = $@"
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,
+    Code @NVARCHAR(40) @NOT_NULL,           -- Code XXXXXX
     Name @NVARCHAR(96) @NOT_NULL,
     Title @NVARCHAR(160) @NULL,
     TaxNumber @NVARCHAR(32) @NOT_NULL,
@@ -408,7 +410,7 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     CompanyId @NVARCHAR(40) @NOT_NULL,          -- Master
-    Code @NVARCHAR(40) @NOT_NULL,
+    Code @NVARCHAR(40) @NOT_NULL,               -- Code BR-XXXXXX
     Name @NVARCHAR(96) @NOT_NULL,
     AddressLine1 @NVARCHAR(160) @NULL,
     AddressLine2 @NVARCHAR(160) @NULL,
@@ -550,7 +552,7 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    Code @NVARCHAR(40) @NOT_NULL,                       -- business code
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code WH-XXXXXX -- business code
     Name @NVARCHAR(96) @NOT_NULL,                       -- display title
 
     CompanyId @NVARCHAR(40) @NOT_NULL,                  -- Lookup      -- owner company
@@ -567,7 +569,7 @@ CREATE TABLE {TableName} (
     Phone @NVARCHAR(32) @NULL,
     Email @NVARCHAR(96) @NULL,
 
-    ResponsiblePersonId @NVARCHAR(40) @NULL,            -- Locator  -- Person responsible for warehouse
+    ResponsiblePersonId @NVARCHAR(40) @NULL,            -- Locator Person  -- Person responsible for warehouse
 
     IsActive @BOOL default 1 @NOT_NULL,
     IsVirtual @BOOL default 0 @NOT_NULL,                -- logical/non-physical warehouse
@@ -631,7 +633,7 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
 
-    FOREIGN KEY (NumberSeriesId) REFERENCES NumberSeries(Id),
+    FOREIGN KEY (NumberSeriesId) REFERENCES SYS_NUMBER_SERIES(Id),
     FOREIGN KEY (TargetDocumentTypeId) REFERENCES DocumentType(Id)
     )
 ";
@@ -671,7 +673,7 @@ CREATE TABLE {TableName} (
         string SqlText = $@"
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,
+    Code @NVARCHAR(40) @NOT_NULL,           -- XXXXXX
 
     Name @NVARCHAR(96) @NOT_NULL,
     Title @NVARCHAR(160) @NULL,
@@ -773,7 +775,7 @@ CREATE TABLE {TableName} (
     Name @NVARCHAR(96) @NOT_NULL,                   -- display title
 
     ParentCostCenterId @NVARCHAR(40) @NULL,         -- Lookup   -- optional hierarchy parent
-    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator   -- responsible person
+    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator Person  -- responsible person
 
     StartDate @DATE @NULL,                          -- activation date
     EndDate @DATE @NULL,                            -- deactivation date
@@ -801,10 +803,10 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    Code @NVARCHAR(40) @NOT_NULL,                   -- business code
+    Code @NVARCHAR(40) @NOT_NULL,                   -- Code YYYY-XXXX -- business code
     Name @NVARCHAR(96) @NOT_NULL,                   -- display title
 
-    CustomerId @NVARCHAR(40) @NULL,                 -- Locator     -- customer/person owner
+    CustomerId @NVARCHAR(40) @NULL,                 -- Locator Customer    -- customer/person owner
 
     ProjectStatusId integer default 0 @NOT_NULL,    -- Enum         -- Draft, Active, Completed, Cancelled
 
@@ -813,7 +815,7 @@ CREATE TABLE {TableName} (
 
     CostCenterId @NVARCHAR(40) @NULL,
 
-    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator      -- responsible person
+    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator Person     -- responsible person
 
     IsActive @BOOL default 1 @NOT_NULL,
 
@@ -905,7 +907,7 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    Code @NVARCHAR(40) @NOT_NULL,                           -- business code
+    Code @NVARCHAR(40) @NOT_NULL,                           -- Code XXXXXX -- business code
     Name @NVARCHAR(96) @NOT_NULL,                           -- display title
 
     ProductTypeId integer @NOT_NULL,                        -- Enum         -- Goods, Service, RawMaterial
@@ -991,6 +993,7 @@ CREATE TABLE {TableName} (
     protected override void RegisterInternal()
     {
         RegisterTable_SYS_LOG();
+        RegisterTable_SYS_NUMBER_SERIES();
         RegisterTable_CustomerCategory();
         RegisterTable_SupplierCategory();
         RegisterTable_ProductBrand();
@@ -1008,7 +1011,6 @@ CREATE TABLE {TableName} (
         RegisterTable_PriceListType();
         RegisterTable_PriceList();
         RegisterTable_PaymentTerm();
-        RegisterTable_NumberSeries();
         RegisterTable_ProductGroup();
         RegisterTable_ProductGroups();
         RegisterTable_Company();

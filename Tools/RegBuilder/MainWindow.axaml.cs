@@ -92,21 +92,20 @@ public partial class MainWindow : Window
             Checks |= DuplicateCheck.Form;
 
         string SqlText = File.ReadAllText(Settings.SourceFilePath);
-        SchemaParserResult GroupDefs = SchemaRegistrationBuilder.Parse(SqlText, Settings.SchemaVersion, Checks);
-
+        SchemaParserResult ParserResults = SchemaRegistrationBuilder.Parse(SqlText, Settings.SchemaVersion, Checks);
  
-        if (GroupDefs.HasErrors || GroupDefs.HasWarnings)
+        if (ParserResults.HasErrors || ParserResults.HasWarnings)
         {
-            if (GroupDefs.HasErrors)
+            if (ParserResults.HasErrors)
             {
                 LogBox.AppendLine("ERRORS");
-                LogBox.AppendLine(GroupDefs.GetErrors());
+                LogBox.AppendLine(ParserResults.GetErrors());
             }
             
-            if (GroupDefs.HasWarnings)
+            if (ParserResults.HasWarnings)
             {
                 LogBox.AppendLine("WARNINGS");
-                LogBox.AppendLine(GroupDefs.GetWarnings());
+                LogBox.AppendLine(ParserResults.GetWarnings());
             }
             
             return;
@@ -114,28 +113,37 @@ public partial class MainWindow : Window
         
         
         LogBox.Append("No errors...");
-        
+
+        string FilePath;
+        /*
+        string JsonText = Json.Serialize(ParserResults);
+        FilePath = Path.Combine(OutputFolderPath, "RegBuilderResults.json");
+        File.WriteAllText(FilePath, JsonText);
+        */
+       
+        FilePath = Path.Combine(OutputFolderPath, "CodeProviderPatterns.cs");
+        File.WriteAllText(FilePath, ParserResults.GenerateCodeProviderPatternsMethod());
          
-        string FilePath = Path.Combine(OutputFolderPath, "Schema.sql");
-        File.WriteAllText(FilePath, GroupDefs.SchemaSql);
+        FilePath = Path.Combine(OutputFolderPath, "Schema.sql");
+        File.WriteAllText(FilePath, ParserResults.SchemaSql);
        
         FilePath = Path.Combine(OutputFolderPath, "DEF_Schema.cs");
-        File.WriteAllText(FilePath, GroupDefs.CreateTablesSourceCode);
+        File.WriteAllText(FilePath, ParserResults.CreateTablesSourceCode);
          
         FilePath = Path.Combine(OutputFolderPath, "DEF_Modules.cs");
-        File.WriteAllText(FilePath, GroupDefs.ModuleDefsSourceCode);
+        File.WriteAllText(FilePath, ParserResults.ModuleDefsSourceCode);
        
         FilePath = Path.Combine(OutputFolderPath, "DEF_Forms.cs");
-        File.WriteAllText(FilePath, GroupDefs.FormDefsSourceCode);
+        File.WriteAllText(FilePath, ParserResults.FormDefsSourceCode);
         
         Ui.Post(() =>
         {
-            edtSchemaSql.Text = GroupDefs.SchemaSql;
-            edtTables.Text = GroupDefs.CreateTablesSourceCode;
-            edtModules.Text = GroupDefs.ModuleDefsSourceCode;
-            edtForms.Text = GroupDefs.FormDefsSourceCode;
+            edtSchemaSql.Text = ParserResults.SchemaSql;
+            edtTables.Text = ParserResults.CreateTablesSourceCode;
+            edtModules.Text = ParserResults.ModuleDefsSourceCode;
+            edtForms.Text = ParserResults.FormDefsSourceCode;
             
-            LastSchemaSql = GroupDefs.SchemaSql;
+            LastSchemaSql = ParserResults.SchemaSql;
 
             ReplaceDataTypePlaceholders();
         });

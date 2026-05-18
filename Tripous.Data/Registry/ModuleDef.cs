@@ -2,20 +2,20 @@ namespace Tripous.Data;
 
 public class ModuleDef: BaseDef
 {
-    string fGroup;
+    string fGroup; 
     string fClassName;
-   string fDescription;
-   SelectDefs fSelectList;
-   SelectDefs fStocks;
-   TableDef fTable = new();
-   string fConnectionName;
-   bool fIsSingleSelect = true;
-   bool fGuidOids = true;
-   bool fCascadeDeletes = true;
-   string fItemCaptionField;
-   bool fUseFilters = true;
+    string fDescription;
+    SelectDefs fSelectList;
+    SelectDefs fStocks;
+    TableDef fTable = new();
+    string fConnectionName;
+    bool fIsSingleSelect = true;
+    bool fGuidOids = true;
+    bool fCascadeDeletes = true;
+    string fItemCaptionField;
+    bool fUseFilters = true;
 
-   string GetItemCaptionField()
+    string GetItemCaptionField()
    {
        string[] CaptionFields = { "Name", "Code", "Description", "Id" };
        
@@ -35,7 +35,7 @@ public class ModuleDef: BaseDef
 
     // ● public
     /// <summary>
-    /// Creates and returns a <see cref="DataModule"/>
+    /// Creates and returns a <see cref="DataModule"/> associated with this definition.
     /// </summary>
     public DataModule Create()
     {
@@ -43,6 +43,7 @@ public class ModuleDef: BaseDef
         Result.Initialize(this);
         return Result;
     }
+    
     /// <summary>
     /// Throws an exception if this descriptor is not fully defined
     /// </summary>

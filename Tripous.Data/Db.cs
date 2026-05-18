@@ -20,8 +20,10 @@ static public class Db
         DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
         //*/
     }
-
     static DbIni fMainIni;
+    static SqlStore fDefaultStore;
+
+ 
     
     // ● construction
     /// <summary>
@@ -123,18 +125,19 @@ static public class Db
     }    
  
     // ● properties
+    static public SqlStore DefaultStore => fDefaultStore ??= SqlStores.CreateDefaultSqlStore();
     static public DbConnections Connections = new DbConnections();
     static public DbIni MainIni => fMainIni ??= new DbIni(GetDefaultConnectionInfo());
     static public readonly string StandardDefaultValues = "CompanyId;EmptyString;AppDate;SysDate;SysTime;DbServerTime;AppUserName;AppUserId;NetUserName;Guid";
     
-    //static public TableItemDefs LookupTableItemDefs { get; } = new();
-    //static public TableItemDefs MasterTableItemDefs { get; } = new();
-    //static public TableItemDefs TransactionTableItemDefs { get; } = new();
+ 
     
     /// <summary>
     /// Db global settings
     /// </summary>
     static public DbGlobalSettings Settings { get; } = new();
-    
+
+ 
+
 
 }

@@ -102,26 +102,7 @@ static internal partial class AppHost
          
          Registry.RegisterCommands();
     }
-    static void AddCompany()
-    {
-        //string SqlText = "select * from Company";
-        if (Store.TableExists("Company") && Store.TableIsEmpty("Company"))
-        {
-            DataModule dmCompany = DataRegistry.CreateModule("Company");
-            dmCompany.Insert();
-            MemTable tblItem = dmCompany.tblItem;
-            DataRow Row = tblItem.Rows[0];
-            Row["Id"] = Sys.StandardCompanyGuid;
-            Row["Code"] = "001";
-            Row["Name"] = "Default";
-            Row["Title"] = "Default";
-            Row["TaxNumber"] = "0123456789";
-            Row["TaxOfficeId"] = "";
-            Row["CountryId"] = "";
-            Row["CurrencyId"] = "";
-            dmCompany.Commit();
-        }
-    }
+
     static void LoadLibraries()
     {
         CommonLib.Load();
@@ -164,17 +145,15 @@ static internal partial class AppHost
             AddSampleData(10000);
 
             RegisterDescriptors();
-
-            AddCompany();
-            
+ 
             Ui.MainWindow = AppHost.MainWindow;
             
             LoadLibraries();
             TypeStore.RegisterLoadedAssemblies();
+            AddInitialData();
             InitializeLibraries();
             
             MainWindow.Show();
-            
         }
         catch (Exception e)
         {

@@ -607,3 +607,155 @@ LocatorName
 ## LargeMemo
 
 Generates a text blob field with `LargeMemo` flag.
+
+# Code Provider Rules
+
+A field becomes an auto-generated code field when its first inline metadata comment contains:
+
+```text
+Code
+```
+
+Extended syntax:
+
+```text
+Code
+
+Code [Pattern]
+
+Code [Pattern] [CodeProviderName]
+```
+
+Examples:
+
+```sql
+Code @NVARCHAR(40) @NOT_NULL, -- Code
+```
+
+```sql
+Code @NVARCHAR(40) @NOT_NULL, -- Code [SO-YYYY-XXXXXX]
+```
+
+```sql
+Code @NVARCHAR(40) @NOT_NULL, -- Code [SO-YYYY-XXXXXX] [SALES_ORDER]
+```
+
+Rules:
+
+```text
+Pattern omitted
+    => default pattern
+
+CodeProviderName omitted
+    => TableName
+
+CodeProviderName specified
+    => explicit code provider name
+```
+
+Default pattern:
+
+```text
+XXX-XXX
+```
+
+Examples:
+
+```sql
+Customer.Code
+    -> Code
+```
+
+Result:
+
+```text
+CodeProviderName = Customer
+Pattern = XXX-XXX
+```
+
+---
+
+```sql
+Customer.Code
+    -> Code [CUS-YYYY-XXXXXX]
+```
+
+Result:
+
+```text
+CodeProviderName = Customer
+Pattern = CUS-YYYY-XXXXXX
+```
+
+---
+
+```sql
+Order.Code
+    -> Code [SO-YYYY-XXXXXX] [SALES_ORDER]
+```
+
+Result:
+
+```text
+CodeProviderName = SALES_ORDER
+Pattern = SO-YYYY-XXXXXX
+```
+
+The builder stores discovered provider patterns in:
+
+```text
+SchemaParserResult.CodeProviderPatterns
+```
+
+Type:
+
+```csharp
+Dictionary<string, string>
+```
+
+Meaning:
+
+```text
+Key
+    => CodeProviderName
+
+Value
+    => Pattern
+```
+
+Example:
+
+```text
+SALES_ORDER -> SO-YYYY-XXXXXX
+
+Customer -> CUS-YYYY-XXXXXX
+```
+
+Builder validation rules:
+
+```text
+Same CodeProviderName with different Pattern
+    => parsing error
+```
+
+The builder generates:
+
+```csharp
+FieldDef.CodeProvider = CodeProviderName;
+```
+
+and registration code:
+
+```csharp
+DataRegistry.AddCodeProvider(CodeProviderName);
+```
+
+Application startup may later synchronize registry definitions into:
+
+```text
+SYS_NumberSeries
+```
+
+creating missing rows automatically.
+
+Existing rows are never overwritten.
