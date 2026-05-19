@@ -93,8 +93,6 @@ Message: {Ex.Message}
 #else
             LogAndShowException(e.Exception);
 #endif
-
-
         };
     }
 }

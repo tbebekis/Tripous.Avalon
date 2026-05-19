@@ -3,14 +3,14 @@ namespace Tripous.Data;
 /// <summary>
 /// Used with transaction event
 /// </summary>
-public class TransactionStageEventArgs : EventArgs
+public class TransactionEventArgs : EventArgs
 {
  
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TransactionStageEventArgs(SqlStore Store, DbTransaction Transaction, TransactionStage Stage, ExecTime ExecTime, object RowId)
+    public TransactionEventArgs(SqlStore Store, DbTransaction Transaction, TransactionStage Stage, ExecTime ExecTime, object RowId)
     {
         this.Store = Store;
         this.Transaction = Transaction;
@@ -40,3 +40,8 @@ public class TransactionStageEventArgs : EventArgs
     /// </summary>
     public object RowId { get; private set; }
 }
+
+ 
+
+ 
+

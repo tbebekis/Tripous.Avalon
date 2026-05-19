@@ -1,12 +1,12 @@
 namespace Tripous.Data;
 
 /// <summary>
-/// Used with the TableSet   CommitBatch() method.
+/// Used with the TableSet  CommitBatch() method.
 /// </summary>
 public class BatchCommitArgs : EventArgs
 {
 
-    /* construction */
+    // ● construction 
     /// <summary>
     /// Constructor
     /// <para>BeforeFunc: Provided by caller. It is called before each iteration.</para>
@@ -14,15 +14,14 @@ public class BatchCommitArgs : EventArgs
     /// The whole batch operation terminates when AfterFunc() returns false</para>
     /// <para>TransLimit: The transaction is commited each time the TransLimit is reached</para>
     /// </summary>
-    public BatchCommitArgs(Func<bool> BeforeFunc, Func<object, bool> AfterFunc, int TransLimit = 300)
-        : base()
+    public BatchCommitArgs(Func<bool> BeforeFunc = null, Func<object, bool> AfterFunc = null, int TransLimit = 300)
     {
-        this.BeforeFunc = BeforeFunc;
-        this.AfterFunc = AfterFunc;
-        this.TransLimit = TransLimit;
+        this.TransLimit = TransLimit <= 10? 10: TransLimit;
+        this.BeforeFunc = BeforeFunc != null? BeforeFunc: () => true;
+        this.AfterFunc = AfterFunc != null? AfterFunc: (object LastCommitedId) => true;
     }
 
-    /* properties */
+    // ● properties  
     /// <summary>
     /// The loop main counter. Just counts the iterations and increases in each iteration.
     /// <para>An iteration may end up in posting a row, or NOT.</para>
@@ -41,16 +40,18 @@ public class BatchCommitArgs : EventArgs
     /// </summary>
     public int PostCounter { get; set; }
     /// <summary>
-    /// Provided by caller. It is called before each and any iteration in the loop.
+    /// Optional. Provided by caller. It is called before each and any iteration in the loop.
     /// <para>If it returns true, then the TableSet/Broker posts the row and increases the PostCounter counter.</para>
     /// <para>The caller should return true, only when calls Broker.Insert() or Broker.Edit() (NO Broker.Delete()) from inside this method.
     /// Returning true is the sign that a row post is required.</para>
+    /// <para>NOTE: If it is not provided, it is considered as returning true always.</para>
     /// </summary>
     public Func<bool> BeforeFunc { get; private set; }
     /// <summary>
-    /// Provided by caller. It is called after each (post or no-post) and any iteration in the loop.
+    /// Optional. Provided by caller. It is called after each (post or no-post) and any iteration in the loop.
     /// <para>The TableSet passes the LastCommitedId to this method.</para>
     /// <para>The whole batch operation terminates when this call returns false.</para>
+    /// <para>NOTE: If it is not provided, it is considered as returning true always.</para>
     /// </summary>
     public Func<object, bool> AfterFunc { get; private set; }
     /// <summary>

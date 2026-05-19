@@ -16,28 +16,118 @@ public class DataModule
     /// <summary>
     /// Gets a notification from the TableSet when deleting
     /// </summary>
-    protected virtual void TableSet_TransactionStageDelete(object sender, TransactionStageEventArgs e)
+    protected virtual void TableSet_TransactionStageDelete(object sender, TransactionEventArgs e)
     {
     }
     /// <summary>
-    /// Gets a notification from the TableSet when commiting
+    /// Gets a notification from the TableSet during commit transaction stages.
     /// </summary>
-    protected virtual void TableSet_TransactionStageCommit(object sender, TransactionStageEventArgs e)
+    protected virtual void TableSet_TransactionStageCommit(object sender, TransactionEventArgs e)
     {
         // ** in web applications we do NOT have TableSet state
-        if (/*(TableSet.IsInsert) && */(e.Stage == TransactionStage.Start) && (e.ExecTime == ExecTime.After))
+        // NOTE: We use the Post stage here because code assignment must run inside the transaction and just before changes are posted.
+        // Using the Post stage, instead of Start, covers both cases: normal commits and batch commits.
+        if (e.Stage == TransactionStage.Post && e.ExecTime == ExecTime.Before && CodeProviderDef != null)
         {
-            AssignCodeValue(e.Store, e.Transaction);
+            AssignCodeValue(e.Transaction);
         }
     }
  
-    // ● overridables
+    // ● overridables - code provider
+    protected virtual void AssignCodeProviderDef()
+    {
+        FieldDef FieldDef = ModuleDef.Table.Fields.Find("Code");
+        if (FieldDef != null && !string.IsNullOrWhiteSpace(FieldDef.CodeProvider))
+        {
+           this.CodeProviderDef = DataRegistry.CodeProviders.Get(FieldDef.CodeProvider);
+        }
+    }
+    /// <summary>
+    /// Returns the next number using an atomic locked increment.
+    /// Handles reset safely inside the same transaction.
+    /// </summary>
+    public virtual string GetNextCodeLocked(DbTransaction Transaction)
+    {
+        if (CodeProviderDef == null)
+            throw new TripousDataException($"Cannot get next Code. {nameof(CodeProviderDef)} is null.");
+        if (Transaction == null)
+            throw new TripousDataException($"Cannot get next Code. {nameof(DbTransaction)} is null.");
+ 
+        int Number = 1;
+
+        string CodeProviderName = CodeProviderDef.Name;
+ 
+        DataRow Row = Store.Provider.SelectForUpdate(
+            Transaction,
+            DbConfig.SysNumberSeriesTableName,
+            "Code",
+            Store.ConnectionInfo.CommandTimeoutSeconds,
+            CodeProviderName);
+
+        if (Row == null)
+            throw new TripousDataException($"{CodeProviderName} not found in {DbConfig.SysNumberSeriesTableName}");
+
+        CodeProviderEntry CodeProviderEntry = new CodeProviderEntry(Row);
+
+        string LastResetValue = Row.AsString("LastResetValue");
+        int NextNumber = Row.AsInteger("NextNumber");
+        string ResetValue = CodeProviderEntry.GetResetValue(DateTime.Today);
+        bool RequiresReset = !string.IsNullOrWhiteSpace(ResetValue) && !LastResetValue.IsSameText(ResetValue);
+
+        string SqlText = $"""
+                          update {DbConfig.SysNumberSeriesTableName}
+                          set NextNumber = :NextNumber,
+                              LastResetValue = :LastResetValue
+                          where Code = :Code
+                          """;
+        
+        if (RequiresReset)
+        {
+            Number = 1;
+
+            Store.ExecSql(Transaction, SqlText, new Dictionary<string, object>()
+            {
+                ["Code"] = CodeProviderName,
+                ["NextNumber"] = 2,
+                ["LastResetValue"] = ResetValue,
+            });
+        }
+        else
+        {
+            Number = NextNumber;
+
+            Store.ExecSql(Transaction, SqlText, new Dictionary<string, object>()
+            {
+                ["Code"] = CodeProviderName,
+                ["NextNumber"] = NextNumber + 1,
+                ["LastResetValue"] = LastResetValue,
+            });
+        }
+
+        string Result = CodeProviderEntry.Format(DateTime.Today, Number);
+        return Result;
+    }
     /// <summary>
     /// Called from inside a commit transaction in order to assign the Code column
     /// </summary>
-    protected virtual void AssignCodeValue(SqlStore Store, DbTransaction Transaction)
+    protected virtual void AssignCodeValue(DbTransaction Transaction)
     {
-        // TODO:
+        if (CodeProviderDef != null)
+        {
+            if (tblItem != null && tblItem.Rows.Count > 0 && tblItem.ContainsColumn("Code"))
+            {
+                foreach (DataRow Row in tblItem.Rows)
+                {
+                    bool IsInsertRow = Row.RowState == DataRowState.Added; // TableSet always adds a new DataRow in ProcessInsert()
+                    bool IsCodeEmpty = Sys.IsNull(Row["Code"]) || string.IsNullOrEmpty(Sys.AsString(Row["Code"], string.Empty).Trim());
+
+                    if (IsInsertRow && IsCodeEmpty)
+                    {
+                        Row["Code"] = GetNextCodeLocked(Transaction);
+                    }
+                }
+            }
+        }
     }
  
     /// <summary>
@@ -224,6 +314,8 @@ public class DataModule
             this.ModuleDef = ModuleDef;
             ModuleDef.UpdateReferences();
             
+            
+            
             // ● Connection Info
             DbConnectionInfo ConnectionInfo = Db.GetConnectionInfo(ModuleDef.ConnectionName);
 
@@ -330,6 +422,9 @@ public class DataModule
                 Table.Sqls.SelectSql = StockDef.SqlText;
                 Table.Sqls.DisplayLabels = StockDef.DisplayLabels;
             }
+
+            // ● code provider
+            AssignCodeProviderDef();
             
             // ● TableSet
             TableSetFlags TableSetFlags = TableSetFlags.None;
@@ -339,8 +434,8 @@ public class DataModule
             
             TableSet = new TableSet(this.Name, Store, tblList, tblItem, Stocks, TableSetFlags);
 
-            TableSet.TransactionStageCommit += new EventHandler<TransactionStageEventArgs>(TableSet_TransactionStageCommit);
-            TableSet.TransactionStageDelete += new EventHandler<TransactionStageEventArgs>(TableSet_TransactionStageDelete);
+            TableSet.TransactionStageCommit += new EventHandler<TransactionEventArgs>(TableSet_TransactionStageCommit);
+            TableSet.TransactionStageDelete += new EventHandler<TransactionEventArgs>(TableSet_TransactionStageDelete);
         }
         
     }
@@ -476,6 +571,77 @@ public class DataModule
     /// Returns true if <see cref="TableSet.ItemTable"/> table, or any of its details, in any depth, has changes.
     /// </summary>
     public virtual bool HasChanges() => TableSet.HasChanges();
+
+    /// <summary>
+    /// A Commit() version for batch operations.
+    /// <para>Starts a transaction and keeps on calling <see cref="BatchCommitArgs.BeforeFunc()"/> while <see cref="BatchCommitArgs.AfterFunc()"/>  returns true.</para>
+    /// <para>Commits the transaction each time the <see cref="BatchCommitArgs.TransLimit"/> is reached.</para>
+    /// <para>NOTE: <see cref="BatchCommitArgs.BeforeFunc()"/> and <see cref="BatchCommitArgs.AfterFunc()"/> are optional.</para>
+    /// </summary>
+    public virtual void CommitBatch(BatchCommitArgs Args) => TableSet.CommitBatch(Args);
+    
+    /// <summary>
+    /// Inserts rows from a source table using batch commit.
+    /// </summary>
+    public virtual void BatchInsert(DataTable tblSource)
+    {
+        if (tblSource == null)
+            throw new TripousArgumentNullException(nameof(tblSource));
+
+        DataRow SourceRow;
+        BatchCommitArgs Args = null;
+
+        var FieldList = ModuleDef.Table.Fields
+            .Where(x => x.IsNativeField && !x.IsReadOnly && !x.IsNoInsertOrUpdate && string.IsNullOrWhiteSpace(x.CodeProvider))
+            .ToList();
+
+        var SourceColumns = tblSource.Columns
+            .Cast<DataColumn>()
+            .Where(x => FieldList.Any(y => y.Name.IsSameText(x.ColumnName)))
+            .ToList();
+
+        var TargetColumns = tblItem.Columns
+            .Cast<DataColumn>()
+            .Where(x => SourceColumns.Any(y => y.ColumnName.IsSameText(x.ColumnName)))
+            .ToList();
+
+        foreach (DataColumn SourceColumn in SourceColumns)
+        {
+            DataColumn TargetColumn = TargetColumns.FirstOrDefault(x => x.ColumnName.IsSameText(SourceColumn.ColumnName));
+
+            if (TargetColumn == null)
+                throw new TripousDataException($"Target column not found: {SourceColumn.ColumnName}");
+
+            if (TargetColumn.DataType != SourceColumn.DataType)
+                throw new TripousDataException($"Column type mismatch: {SourceColumn.ColumnName}");
+        }
+
+        // ---------------------------------------------
+        Func<bool> BeforeFunc = delegate()
+        {
+            SourceRow = tblSource.Rows[Args.Counter];
+
+            Insert();
+
+            foreach (DataColumn SourceColumn in SourceColumns)
+            {
+                DataColumn TargetColumn = TargetColumns.First(x => x.ColumnName.IsSameText(SourceColumn.ColumnName));
+                tblItem.Rows[0][TargetColumn] = SourceRow[SourceColumn];
+            }
+
+            return true;
+        };
+        // ---------------------------------------------
+        Func<object, bool> AfterFunc = delegate(object LastId)
+        {
+            bool ShouldContinue = Args.Counter < tblSource.Rows.Count - 1;
+            return ShouldContinue;
+        };
+        // ---------------------------------------------
+
+        Args = new BatchCommitArgs(BeforeFunc, AfterFunc);
+        CommitBatch(Args);
+    }
     
     // ● item checks
     /// <summary>
@@ -535,6 +701,7 @@ public class DataModule
     // ● properties
     public bool IsInitialized => ModuleDef != null;
     public ModuleDef ModuleDef { get; protected set; }
+    public CodeProviderDef CodeProviderDef { get; protected set; }
     public SqlStore Store { get; protected set; }
     public MemTable this[string TableName] => GetTable(TableName);
     public DataSet DataSet { get; protected set; }

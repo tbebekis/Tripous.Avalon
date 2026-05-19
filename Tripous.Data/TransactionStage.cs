@@ -6,15 +6,19 @@ namespace Tripous.Data;
 public enum TransactionStage
 {
     /// <summary>
-    /// At the start transaction
+    /// At the transaction start 
     /// </summary>
     Start,
     /// <summary>
-    /// At the commit transaction
+    /// At <see cref="TableSet.PostChanges()"/>
+    /// </summary>
+    Post,
+    /// <summary>
+    /// At the transaction commit 
     /// </summary>
     Commit,
     /// <summary>
-    /// 
+    /// At the transaction rollback 
     /// </summary>
     Rollback,
 }

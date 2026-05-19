@@ -35,12 +35,13 @@ public class ModuleDef: BaseDef
 
     // ● public
     /// <summary>
-    /// Creates and returns a <see cref="DataModule"/> associated with this definition.
+    /// Creates, initializes and returns a <see cref="DataModule"/> associated with this definition.
     /// </summary>
-    public DataModule Create()
+    public DataModule Create(bool InitializeToo = true)
     {
         DataModule Result = TypeStore.CreateInstance<DataModule>(ClassName);
-        Result.Initialize(this);
+        if (InitializeToo)
+            Result.Initialize(this);
         return Result;
     }
     

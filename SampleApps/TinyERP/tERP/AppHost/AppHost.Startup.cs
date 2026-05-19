@@ -150,10 +150,11 @@ static internal partial class AppHost
             
             LoadLibraries();
             TypeStore.RegisterLoadedAssemblies();
-            AddInitialData();
+            MainWindow.Show();
+            AddDefaultInitialData();
             InitializeLibraries();
             
-            MainWindow.Show();
+            
         }
         catch (Exception e)
         {

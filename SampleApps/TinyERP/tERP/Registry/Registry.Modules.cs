@@ -1,6 +1,6 @@
 namespace tERP;
 
-static internal partial class Registry
+ static internal partial class Registry
 {
     // ● private
     static void RegisterCodeProviders_FromModules()
@@ -14,35 +14,33 @@ static internal partial class Registry
     }
     static void RegisterLookupSources_FromModules()
     {
-        DataRegistry.AddLookupWithTableName("Bank", "Bank", FormName: "Bank");
-        DataRegistry.AddLookupWithTableName("Carrier", "Carrier", FormName: "Carrier");
-        DataRegistry.AddLookupWithTableName("Category", "Category", FormName: "Category");
-        DataRegistry.AddLookupWithTableName("Company", "Company", FormName: "Company");
-        DataRegistry.AddLookupWithTableName("CompanyBranch", "CompanyBranch");
-        DataRegistry.AddLookupWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
-        DataRegistry.AddLookupWithTableName("Country", "Country", FormName: "Country");
-        DataRegistry.AddLookupWithTableName("Currency", "Currency", FormName: "Currency");
-        DataRegistry.AddLookupWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
-        DataRegistry.AddLookupWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
-        DataRegistry.AddLookupWithTableName("DiscountGroup", "DiscountGroup");
-        DataRegistry.AddLookupWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
-        DataRegistry.AddLookupWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
-        DataRegistry.AddLookupWithTableName("Language", "Language", FormName: "Language");
-        DataRegistry.AddLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
-        DataRegistry.AddLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
-        DataRegistry.AddLookupWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
-        DataRegistry.AddLookupWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
-        DataRegistry.AddLookupWithTableName("PriceType", "PriceType");
-        DataRegistry.AddLookupWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
-        DataRegistry.AddLookupWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
-        DataRegistry.AddLookupWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
-        DataRegistry.AddLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
-        DataRegistry.AddLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
-        DataRegistry.AddLookupWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
-        DataRegistry.AddLookupWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
-        DataRegistry.AddLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
-        DataRegistry.AddLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");
-        DataRegistry.AddLookupWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
+        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank", FormName: "Bank");
+        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier", FormName: "Carrier");
+        DataRegistry.AddLookupSourceWithTableName("Category", "Category", FormName: "Category");
+        DataRegistry.AddLookupSourceWithTableName("Company", "Company", FormName: "Company");
+        DataRegistry.AddLookupSourceWithTableName("CompanyBranch", "CompanyBranch");
+        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
+        DataRegistry.AddLookupSourceWithTableName("Country", "Country", FormName: "Country");
+        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency", FormName: "Currency");
+        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
+        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
+        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
+        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
+        DataRegistry.AddLookupSourceWithTableName("Language", "Language", FormName: "Language");
+        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
+        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
+        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
+        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
+        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
+        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
+        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
+        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
+        DataRegistry.AddLookupSourceWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
+        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
+        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
+        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
+        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate", FormName: "VatRate");
+        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
     }
     static void RegisterLocators_FromModules()
     {
@@ -1016,8 +1014,8 @@ from
         SqlText = @"
 select
    PriceList.Id,
-   PriceList.PriceTypeId,
-   PriceList.DiscountGroupId,
+   PriceList.PriceListTypeId,
+   PriceList.DiscountCategoryId,
    PriceList.CustomerId,
    PriceList.ProductId,
    PriceList.UnitOfMeasureId,
@@ -1026,6 +1024,9 @@ select
    PriceList.ValidFrom,
    PriceList.ValidTo,
    PriceList.IsActive,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
+   COALESCE(DiscountCategory.Name, '') as DiscountCategory__Name,
    COALESCE(Customer.Code, '') as Customer__Code,
    COALESCE(Customer.Name, '') as Customer__Name,
    COALESCE(Customer.Title, '') as Customer__Title,
@@ -1035,6 +1036,8 @@ select
    COALESCE(UnitOfMeasure.Name, '') as UnitOfMeasure__Name
 from
   PriceList
+    left join PriceListType PriceListType on PriceListType.Id = PriceList.PriceListTypeId
+    left join DiscountCategory DiscountCategory on DiscountCategory.Id = PriceList.DiscountCategoryId
     left join Person Customer on Customer.Id = PriceList.CustomerId
     left join Product Product on Product.Id = PriceList.ProductId
     left join UnitOfMeasure UnitOfMeasure on UnitOfMeasure.Id = PriceList.UnitOfMeasureId
@@ -1044,8 +1047,8 @@ from
         tblTop.Name = "PriceList";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddStringLookupId("PriceTypeId", "PriceType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddStringLookupId("DiscountGroupId", "DiscountGroup", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("DiscountCategoryId", "DiscountCategory", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("CustomerId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
@@ -1069,13 +1072,13 @@ from
         tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
         tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Customer__Code", "Customer__Name", "Customer__Title", "IsActive", "MinQuantity", "Product__Code", "Product__Name", "UnitOfMeasure__Code", "UnitOfMeasure__Name", "UnitPrice", "ValidFrom", "ValidTo"];
+        string[] FilterFields = ["Customer__Code", "Customer__Name", "Customer__Title", "DiscountCategory__Name", "IsActive", "MinQuantity", "PriceListType__Code", "PriceListType__Name", "Product__Code", "Product__Name", "UnitOfMeasure__Code", "UnitOfMeasure__Name", "UnitPrice", "ValidFrom", "ValidTo"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["PriceTypeId"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["DiscountGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DiscountCategoryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CustomerId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ProductId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["UnitOfMeasureId"] = DataColumnType.Text;
@@ -1084,6 +1087,9 @@ from
         SelectDef.ColumnTypes["ValidFrom"] = DataColumnType.Date;
         SelectDef.ColumnTypes["ValidTo"] = DataColumnType.Date;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DiscountCategory__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Customer__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Customer__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Customer__Title"] = DataColumnType.Text;

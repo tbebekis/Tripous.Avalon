@@ -185,6 +185,8 @@ static public class DataTableExtensions
     }
     static public void CopyColumnsFrom(this DataTable Target, DataTable Source)
     {
+        Target.Columns.Clear();
+        
         foreach (DataColumn SourceColumn in Source.Columns)
         {
             DataColumn TargetColumn = new DataColumn(SourceColumn.ColumnName, SourceColumn.DataType);

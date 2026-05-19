@@ -8,13 +8,21 @@ static public class CodeProviderEntries
     // ● private fields
     static readonly System.Threading.Lock syncLock = new();
     static readonly ConcurrentDictionary<string, CodeProviderEntry> Items = [];
-    static CodeProviderModule fModule;
- 
+  
     // ● private
     static CodeProviderEntry Load(string CodeProviderName)
     {
         CodeProviderDef Def = DataRegistry.CodeProviders.Get(CodeProviderName);
-        return Module.GetCodeProviderEntry(Def);
+        string TableName = DbConfig.SysNumberSeriesTableName;
+        string EntryCode = CodeProviderName;
+        
+        string SqlText = $"select * from {TableName} where Code = '{EntryCode}' ";
+        DataRow Row = Db.DefaultStore.SelectResults(SqlText);
+        if (Row == null)
+            throw new TripousDataException($"{EntryCode} not found in {TableName}");
+        
+        CodeProviderEntry Result = new CodeProviderEntry(Row);
+        return Result;
     }
 
     // ● public
@@ -34,6 +42,7 @@ static public class CodeProviderEntries
 
         return Result;
     }
+    
     /// <summary>
     /// Removes a single cached entry.
     /// </summary>
@@ -48,23 +57,56 @@ static public class CodeProviderEntries
     /// Clears all cached entries.
     /// </summary>
     static public void Clear() => Items.Clear();
-    
-    // ● properties
-    static public CodeProviderModule Module
-    {
-        get
-        {
-            if (fModule == null)
-            {
-                ModuleDef ModuleDef = DataRegistry.Modules.Get(DbConfig.CodeProviderModuleName);
-                fModule = ModuleDef.Create() as CodeProviderModule;
 
-                if (fModule == null)
-                    throw new TripousDataException($"{DbConfig.CodeProviderModuleName} module is not a {nameof(CodeProviderModule)}.");
+    /// <summary>
+    /// Inserts missing code provider entries from schema patterns.
+    /// Existing rows with a different pattern cause an error.
+    /// </summary>
+    static public void SeedPatterns(Dictionary<string, string> CodeProviderPatterns)
+    {
+        if (CodeProviderPatterns == null || CodeProviderPatterns.Count == 0)
+            return;
+        
+        ModuleDef ModuleDef = DataRegistry.Modules.Get(DbConfig.CodeProviderModuleName);
+        CodeProviderModule Module = ModuleDef.Create() as CodeProviderModule;
+
+        if (Module == null)
+            throw new TripousDataException($"{DbConfig.CodeProviderModuleName} module is not a {nameof(CodeProviderModule)}.");
+        
+        string SqlText = $"select * from {DbConfig.SysNumberSeriesTableName} where Code = :Code";
+
+        foreach (var Pair in CodeProviderPatterns)
+        {
+            string Code = Pair.Key;
+            string Pattern = Pair.Value;
+            DataRow Row = Db.DefaultStore.SelectResults(SqlText, new Dictionary<string, object>() { ["Code"] = Code });
+
+            if (Row != null)
+            {
+                string ExistingPattern = Row.AsString("Pattern");
+                if (!ExistingPattern.IsSameText(Pattern))
+                    throw new TripousDataException($"Code provider '{Code}' has a different stored pattern.");
+                continue;
             }
 
-            return fModule;
+            Row = Module.tblItem.NewRow();
+            Module.tblItem.Rows.Add(Row); 
+         
+            Row["Code"] = Code;
+            Row["Name"] = Code;
+            Row["Pattern"] = Pattern;
+            Row["ResetPeriodId"] = (int)ResetPeriod.None;
+            Row["NextNumber"] = 1;
+            Row["LastResetValue"] = DBNull.Value;
+            Row["IsActive"] = 1;
+        }
+
+        if (Module.tblItem.Rows.Count > 0)
+        {
+            BatchCommitArgs BatchArgs = new(TransLimit: Module.tblItem.Rows.Count, AfterFunc: (object LastCommitedId) => false);
+            Module.CommitBatch(BatchArgs);
         }
     }
+ 
  
 }

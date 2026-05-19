@@ -308,7 +308,7 @@ static public class DataRegistry
     /// <summary>
     /// Creates and returns a <see cref="DataModule"/> based on its registered name.
     /// </summary>
-    static public DataModule CreateModule(string Name) => Modules.Get(Name).Create();
+    static public DataModule CreateModule(string Name, bool InitializeToo = true) => Modules.Get(Name).Create(InitializeToo);
     
     // ● properties
     /// <summary>

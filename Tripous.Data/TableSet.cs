@@ -186,7 +186,7 @@ public class TableSet
     void OnTransactionStageDelete(TransactionStage Stage, ExecTime ExecTime, object RowId)
     {
         if (TransactionStageDelete != null)
-            TransactionStageDelete(this, new TransactionStageEventArgs(Store, Transaction, Stage, ExecTime, RowId));
+            TransactionStageDelete(this, new TransactionEventArgs(Store, Transaction, Stage, ExecTime, RowId));
     }
     /// <summary>
     /// Triggers the TransactionCommit event.
@@ -194,7 +194,7 @@ public class TableSet
     void OnTransactionStageCommit(TransactionStage Stage, ExecTime ExecTime)
     {
         if (TransactionStageCommit != null)
-            TransactionStageCommit(this, new TransactionStageEventArgs(Store, Transaction, Stage, ExecTime, -1));
+            TransactionStageCommit(this, new TransactionEventArgs(Store, Transaction, Stage, ExecTime, -1));
     }
 
     // ●  miscs  
@@ -206,7 +206,6 @@ public class TableSet
     {
         SqlValueProviders.Process(ref SqlText, Store);
     }
-
  
 
     /// <summary>
@@ -363,11 +362,9 @@ public class TableSet
             return;
 
         ItemTable.EventsDisabled = true;
-        //TopTable.Details.Active = false;
         try
         {
-            // delete the top row, which deletes all detail rows too.
-            ItemTable.DeleteAll(); // ItemTable.Rows[0].Delete();
+            ItemTable.DeleteAll(); 
 
             // then, inside a Transaction
             OnTransactionStageDelete(TransactionStage.Start, ExecTime.Before, RowId);
@@ -377,9 +374,14 @@ public class TableSet
                 OnTransactionStageDelete(TransactionStage.Start, ExecTime.After, RowId);
                 try
                 {
+                    OnTransactionStageDelete(TransactionStage.Post, ExecTime.Before, RowId);
+
                     DbOpContext Context = CreateDbOpContext(ItemTable);
                     DbOps.PostDeletes(Context);
                     AcceptChanges();
+
+                    OnTransactionStageDelete(TransactionStage.Post, ExecTime.After, RowId);
+
                     OnTransactionStageDelete(TransactionStage.Commit, ExecTime.Before, RowId);
                     Transaction.Commit();
                     OnTransactionStageDelete(TransactionStage.Commit, ExecTime.After, RowId);
@@ -396,11 +398,10 @@ public class TableSet
         }
         finally
         {
-            //TopTable.Details.Active = true;
             ItemTable.EventsDisabled = false;
             Transaction = null;
         }
-        
+
         ItemTable.UpdateCurrentRow();
     }
     /// <summary>
@@ -410,22 +411,24 @@ public class TableSet
     {
         if (ItemTable.Rows.Count == 0)
             throw new TableSetException("Nothing to commit. Top table is empty.");
-        
+
         ItemTable.EventsDisabled = true;
         try
         {
-            // inside a single Transaction
             OnTransactionStageCommit(TransactionStage.Start, ExecTime.Before);
- 
+
             using (Transaction = Store.BeginTransaction())
             {
                 OnTransactionStageCommit(TransactionStage.Start, ExecTime.After);
                 try
                 {
+                    OnTransactionStageCommit(TransactionStage.Post, ExecTime.Before);
                     PostChanges();
+                    OnTransactionStageCommit(TransactionStage.Post, ExecTime.After);
+
                     OnTransactionStageCommit(TransactionStage.Commit, ExecTime.Before);
                     Transaction.Commit();
-                    AcceptChanges(); 
+                    AcceptChanges();
                     OnTransactionStageCommit(TransactionStage.Commit, ExecTime.After);
                 }
                 catch
@@ -452,10 +455,9 @@ public class TableSet
             Load(LastCommitedId);
 
         IsInsert = false;
-        
+
         ItemTable.UpdateCurrentRow();
         return LastCommitedId;
-
     }
  
     public void AcceptChanges() => ItemTable.AcceptChangesAll();
@@ -540,9 +542,9 @@ public class TableSet
     // ● batch database operations 
     /// <summary>
     /// A Commit() version for batch operations.
-    /// Starts a transaction and keeps on calling BeforeFunc() while AfterFunc() returns true.
-    /// Commits the transaction each time the TransLimit is reached.
-    /// Info is a user defined object.
+    /// <para>Starts a transaction and keeps on calling <see cref="BatchCommitArgs.BeforeFunc()"/> while <see cref="BatchCommitArgs.AfterFunc()"/>  returns true.</para>
+    /// <para>Commits the transaction each time the <see cref="BatchCommitArgs.TransLimit"/> is reached.</para>
+    /// <para>NOTE: <see cref="BatchCommitArgs.BeforeFunc()"/> and <see cref="BatchCommitArgs.AfterFunc()"/> are optional.</para>
     /// </summary>
     public void CommitBatch(BatchCommitArgs Args)
     {
@@ -554,8 +556,10 @@ public class TableSet
 
             try
             {
+                OnTransactionStageCommit(TransactionStage.Commit, ExecTime.Before);
                 Transaction.Commit();
                 ItemTable.DataSet.AcceptChanges();
+                OnTransactionStageCommit(TransactionStage.Commit, ExecTime.After);
             }
             finally
             {
@@ -571,23 +575,21 @@ public class TableSet
 
             try
             {
+                OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.Before);
                 Transaction.Rollback();
                 ItemTable.DataSet.RejectChanges();
+                OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.After);
             }
             finally
             {
                 Transaction.Dispose();
                 Transaction = null;
             }
-        }        
+        }
         // ---------------------------------------
-        
+
         if (Args == null)
             throw new TripousArgumentNullException("Args");
-        if (Args.BeforeFunc == null)
-            throw new TableSetException("Batch commit requires a BeforeFunc.");
-        if (Args.AfterFunc == null)
-            throw new TableSetException("Batch commit requires an AfterFunc.");
         if (Args.TransLimit <= 0)
             throw new TableSetException("Batch commit TransLimit must be greater than zero.");
 
@@ -603,14 +605,20 @@ public class TableSet
             {
                 Args.Counter = Counter;
                 Args.PostCounter = PostCounter;
-                ShouldPost = Args.BeforeFunc != null? Args.BeforeFunc(): false;
+                ShouldPost = Args.BeforeFunc != null ? Args.BeforeFunc() : true;
 
                 if (ShouldPost)
                 {
                     if (Transaction == null)
+                    {
+                        OnTransactionStageCommit(TransactionStage.Start, ExecTime.Before);
                         Transaction = Store.BeginTransaction();
+                        OnTransactionStageCommit(TransactionStage.Start, ExecTime.After);
+                    }
 
+                    OnTransactionStageCommit(TransactionStage.Post, ExecTime.Before);
                     PostChanges();
+                    OnTransactionStageCommit(TransactionStage.Post, ExecTime.After);
 
                     LastCommitedId = null;
                     if (ItemTable.Rows.Count > 0)
@@ -621,8 +629,8 @@ public class TableSet
                     if (PostCounter % Args.TransLimit == 0)
                         CommitBatchTransaction();
                 }
-                
-                Continue = Args.AfterFunc != null && Args.AfterFunc(LastCommitedId);
+
+                Continue = Args.AfterFunc != null ? Args.AfterFunc(LastCommitedId) : true;
                 Counter++;
             }
 
@@ -669,9 +677,9 @@ public class TableSet
     /// <summary>
     /// Occurs when <see cref="Delete"/>(object RowId) method is called.
     /// </summary>
-    public event EventHandler<TransactionStageEventArgs> TransactionStageDelete;
+    public event EventHandler<TransactionEventArgs> TransactionStageDelete;
     /// <summary>
     /// Occurs when <see cref="Commit"/>() method is called.
     /// </summary>
-    public event EventHandler<TransactionStageEventArgs> TransactionStageCommit;   
+    public event EventHandler<TransactionEventArgs> TransactionStageCommit;   
 }

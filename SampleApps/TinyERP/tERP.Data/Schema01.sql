@@ -268,9 +268,9 @@ Group: Sales
 CREATE TABLE {TableName} (
    Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    PriceTypeId @NVARCHAR(40) @NOT_NULL,        -- Lookup
+    PriceListTypeId @NVARCHAR(40) @NOT_NULL,        -- Lookup
 
-    DiscountGroupId @NVARCHAR(40) @NULL,        -- Lookup
+    DiscountCategoryId @NVARCHAR(40) @NULL,        -- Lookup
     CustomerId @NVARCHAR(40) @NULL,             -- Locator Customer
 
     ProductId @NVARCHAR(40) @NOT_NULL,          -- Locator Product
@@ -287,8 +287,8 @@ CREATE TABLE {TableName} (
 
     Remarks @NBLOB_TEXT @NULL,
 
-    FOREIGN KEY (PriceTypeId) REFERENCES PriceType(Id),
-    FOREIGN KEY (DiscountGroupId) REFERENCES DiscountGroup(Id),
+    FOREIGN KEY (PriceListTypeId) REFERENCES PriceListType(Id),
+    FOREIGN KEY (DiscountCategoryId) REFERENCES DiscountCategory(Id),
     FOREIGN KEY (CustomerId) REFERENCES Person(Id),
     FOREIGN KEY (ProductId) REFERENCES Product(Id),
     FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id)
