@@ -33,6 +33,7 @@ public class UiItemContext
     }
  
     // ● properties
+    public IGridHandler GridHandler { get; set; }
     /// <summary>
     /// The main item binder.
     /// </summary>

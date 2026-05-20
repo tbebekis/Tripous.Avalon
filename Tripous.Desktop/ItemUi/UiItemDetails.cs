@@ -71,6 +71,7 @@ static public class UiItemDetails
         DetailUiInfo.Grid = Grid;
         Panel.Children.Add(ToolBarBorder);
         Panel.Children.Add(Grid);
+        CreateDetailGridToolBar(context, DetailUiInfo);
         UiFactory.AddChild(ParentControl, Panel);
     }
     /// <summary>
@@ -78,13 +79,9 @@ static public class UiItemDetails
     /// </summary>
     static public Border CreateDetailToolBarBorder(UiDetailTableInfo DetailUiInfo)
     {
-        Border Result = new();
-        Result.Classes.Add("ToolbarContainer");
+        Border Result = UiFactory.CreateToolBarBorder();
         DockPanel.SetDock(Result, Dock.Top);
-        StackPanel ToolBarPanel = UiFactory.CreateStackPanel();
-        ToolBarPanel.Classes.Add("ToolBar");
-        ToolBarPanel.Height = 32;
-        ToolBarPanel.IsVisible = false;
+        StackPanel ToolBarPanel = UiFactory.CreateToolBarPanel();
         Result.Child = ToolBarPanel;
         DetailUiInfo.ToolBarPanel = ToolBarPanel;
         return Result;
@@ -110,6 +107,77 @@ static public class UiItemDetails
                 continue;
             CreateOneToOneDetail(context, ParentControl, TableUiInfo);
         }
+    }
+
+    // ● toolbar
+    /// <summary>
+    /// Creates the toolbar buttons of a detail data grid.
+    /// </summary>
+    static public void CreateDetailGridToolBar(UiItemContext context, UiDetailTableInfo DetailUiInfo)
+    {
+        if (context.GridHandler == null || DetailUiInfo.ToolBarPanel == null || DetailUiInfo.Grid == null)
+            return;
+
+        GridCommand[] Commands = context.GridHandler.GetCommands();
+        Commands = Commands.Where(Command => Command.IsVisible).ToArray();
+        if (Commands.Length == 0)
+        {
+            DetailUiInfo.ToolBarPanel.IsVisible = false;
+            return;
+        }
+
+        ToolBar ToolBar = new() { Panel = DetailUiInfo.ToolBarPanel };
+        Dictionary<GridCommand, Button> Buttons = new();
+
+        DetailGridCommandContext CreateContext(GridCommand Command)
+        {
+            return new DetailGridCommandContext()
+            {
+                Command = Command,
+                Grid = DetailUiInfo.Grid,
+                Table = DetailUiInfo.Table,
+                DetailInfo = DetailUiInfo,
+                ItemContext = context
+            };
+        }
+
+        void UpdateButtons()
+        {
+            foreach (KeyValuePair<GridCommand, Button> Pair in Buttons)
+                Pair.Value.IsEnabled = Pair.Key.IsEnabled && context.GridHandler.CanExecute(CreateContext(Pair.Key));
+        }
+
+        void Execute(GridCommand Command)
+        {
+            DetailGridCommandContext CommandContext = CreateContext(Command);
+            if (context.GridHandler.CanExecute(CommandContext))
+                context.GridHandler.Execute(CommandContext);
+            UpdateButtons();
+        }
+
+        foreach (GridCommand Command in Commands)
+        {
+            Button Button = ToolBar.AddButton(Command.ImageFileName, Command.ToolTip, () => Execute(Command));
+            Button.Tag = Command;
+            Buttons[Command] = Button;
+        }
+
+        DetailUiInfo.Grid.SelectionChanged += (Sender, Args) => UpdateButtons();
+        DetailUiInfo.Grid.KeyDown += (Sender, Args) =>
+        {
+            foreach (GridCommand Command in Commands)
+            {
+                if (Command.KeyGesture != null && Command.KeyGesture.Matches(Args))
+                {
+                    Execute(Command);
+                    Args.Handled = true;
+                    break;
+                }
+            }
+        };
+
+        ToolBar.IsVisible = true;
+        UpdateButtons();
     }
 
     // ● detail grids
@@ -154,6 +222,6 @@ static public class UiItemDetails
     /// </summary>
     static public void BindDetailGrid(UiItemContext context, DataGrid Grid, TableDef TableDef)
     {
-        Grid.ItemsSource = context.Module.GetTable(TableDef.Name).DataView;
+        Grid.ItemsSource = new DataViewItemsSource(context.Module.GetTable(TableDef.Name).DataView);
     }
 }

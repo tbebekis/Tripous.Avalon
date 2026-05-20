@@ -78,6 +78,15 @@ public class ItemBinder
     /// <summary>
     /// Bind utility.
     /// </summary>
+    public ControlBinding Bind(CalendarDatePicker Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
+    {
+        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, DataColumn, FieldDef);
+        Bindings.Add(Result);
+        return  Result;
+    }
+    /// <summary>
+    /// Bind utility.
+    /// </summary>
     public ControlBinding Bind(ComboBox Box, string FieldName, DataColumn DataColumn, IEnumerable Items, FieldDef FieldDef = null)
     {
         ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, FieldName, DataColumn, Items, FieldDef);

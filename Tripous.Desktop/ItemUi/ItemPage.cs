@@ -4,7 +4,7 @@ namespace Tripous.Desktop;
 /// The item part of a <see cref="DataForm"/>
 /// </summary>
 [TypeStore]
-public class ItemPage : UserControl, IReferenceContextMenuHost
+public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
 {
     // ● protected  
     protected UiItemContext Context;
@@ -39,7 +39,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost
         }
         else if (Field.IsDateTime)
         {
-            DatePicker Box = new();
+            CalendarDatePicker Box = new()
+            {
+                SelectedDateFormat = CalendarDatePickerFormat.Custom,
+                CustomDateFormatString = "yyyy-MM-dd"
+            };
             Binder.Bind(Box, Field.Name, DataColumn, Field);
             Result = Box;
         }
@@ -85,6 +89,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost
     public ItemPage()
     {
         Context = new();
+        Context.GridHandler = this;
     }
 
     // ● public methods
@@ -207,4 +212,137 @@ public class ItemPage : UserControl, IReferenceContextMenuHost
     public event EventHandler CurrentRowChanged;
 
 
+    public virtual GridCommand[] GetCommands()
+    {
+        List<GridCommand> Result = new();
+
+        if (!DataForm.IsEditableForm)
+            return Result.ToArray();
+
+        if (!DataFormAction.Insert.In(InvalidActions))
+        {
+            Result.Add(new GridCommand()
+            {
+                ActionType = GridActionType.Add,
+                Name = "Add",
+                Title = "Add",
+                ToolTip = "Add row",
+                ImageFileName = "table_add.png",
+                KeyGesture = new KeyGesture(Key.Insert)
+            });
+        }
+
+        if (!DataFormAction.Delete.In(InvalidActions))
+        {
+            Result.Add(new GridCommand()
+            {
+                ActionType = GridActionType.Delete,
+                Name = "Delete",
+                Title = "Delete",
+                ToolTip = "Delete row",
+                ImageFileName = "table_delete.png",
+                KeyGesture = new KeyGesture(Key.Delete)
+            });
+        }
+
+        return Result.ToArray();
+    }
+
+    public virtual bool CanExecute(GridCommandContext Context)
+    {
+        if (Context == null || Context.Command == null || Context.Grid == null || Context.Table == null)
+            return false;
+
+        if (!DataForm.IsEditableForm)
+            return false;
+
+        if (!DataForm.FormState.In(DataFormState.Insert | DataFormState.Edit))
+            return false;
+
+        switch (Context.Command.ActionType)
+        {
+            case GridActionType.Add:
+                return !DataFormAction.Insert.In(InvalidActions);
+            case GridActionType.Delete:
+                return !DataFormAction.Delete.In(InvalidActions) && Context.Grid.SelectedItem is DataRowView;
+        }
+
+        return Context.Command.IsEnabled;
+    }
+
+    public virtual object Execute(GridCommandContext Context)
+    {
+        if (Context == null || Context.Command == null)
+            return null;
+
+        switch (Context.Command.ActionType)
+        {
+            case GridActionType.Add:
+                return ExecuteGridAdd(Context);
+            case GridActionType.Delete:
+                return ExecuteGridDelete(Context);
+        }
+
+        return null;
+    }
+    /// <summary>
+    /// Adds a new row to a detail grid table.
+    /// </summary>
+    public virtual object ExecuteGridAdd(GridCommandContext Context)
+    {
+        if (Context == null || Context.Table == null || Context.Grid == null)
+            return null;
+
+        DataRow Row = Context.Table.AddNewRow();
+        DataRowView RowView = MemTable.GetDataRowView(Row, Context.Table.DataView);
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (RowView != null)
+                Context.Grid.SelectedItem = RowView;
+            Context.Grid.Focus();
+        }, DispatcherPriority.Input);
+
+        return Row;
+    }
+    /// <summary>
+    /// Deletes the selected row from a detail grid table.
+    /// </summary>
+    public virtual object ExecuteGridDelete(GridCommandContext Context)
+    {
+        if (Context == null || Context.Table == null || Context.Grid == null || Context.Grid.SelectedItem is not DataRowView RowView)
+            return null;
+
+        Ui.Post(async () =>
+        {
+            bool Flag = await MessageBox.YesNo("Delete selected row?", Context.Grid);
+            if (!Flag)
+                return;
+
+            DataRow Row = RowView.Row;
+            DataView DataView = Context.Table.DataView;
+            int RowIndex = DataView.Cast<DataRowView>().ToList().IndexOf(RowView);
+
+            Row.Delete();
+
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (DataView.Count > 0)
+                {
+                    int NewIndex = RowIndex >= DataView.Count ? DataView.Count - 1 : RowIndex;
+                    Context.Grid.SelectedItem = DataView[NewIndex];
+                    Context.Table.CurrentRowView = DataView[NewIndex];
+                }
+                else
+                {
+                    Context.Grid.SelectedItem = null;
+                    Context.Table.CurrentRow = null;
+                }
+
+                Context.Grid.Focus();
+            }, DispatcherPriority.Input);
+        });
+
+        return null;
+    }
 }

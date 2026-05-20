@@ -171,7 +171,17 @@ static public class SchemaRegistrationBuilder
             throw new TripousArgumentNullException(nameof(SchemaSql));
 
         SchemaParserResult Result = new();
-        SchemaScript Script = SchemaScript.Parse(SchemaSql);
+        SchemaScript Script;
+
+        try
+        {
+            Script = SchemaScript.Parse(SchemaSql);
+        }
+        catch (Exception ex)
+        {
+            AddError(Result, "SCHEMA_PARSE_ERROR", ex.Message);
+            return Result;
+        }
 
         ValidateScript(Result, Script);
         CollectCodeProviderPatterns(Result, Script);
@@ -179,7 +189,10 @@ static public class SchemaRegistrationBuilder
         if (Result.HasErrors)
             return Result;
 
-        Script.Validate();
+        Script.ResolveCreationOrders(Result);
+
+        if (Result.HasErrors)
+            return Result;
 
         Result.SchemaSql = BuildOrderedSchemaSql(Script);
         Result.CreateTablesSourceCode = BuildCreateTablesSourceCode(Script, SchemaVersion);
@@ -223,10 +236,13 @@ static public class SchemaRegistrationBuilder
     {
         ValidateDuplicateTableNames(Result, Script);
         ValidateDuplicateModuleNames(Result, Script);
-        ValidateDuplicateCreationOrders(Result, Script);
         ValidateDuplicateGeneratedMethodNames(Result, Script);
+        ValidateTableHeaders(Result, Script);
+        ValidateForeignKeys(Result, Script);
+        ValidateCircularReferences(Result, Script);
         ValidateSuspiciousUniqueConstraints(Result, Script);
         ValidateLookupFields(Result, Script);
+        ValidateEnumFields(Result, Script);
         ValidateLocatorFields(Result, Script);
     }
     /// <summary>
@@ -268,6 +284,38 @@ static public class SchemaRegistrationBuilder
                     continue;
                 if (Field.ForeignKey == null)
                     AddError(Result, "LOOKUP_NO_REFERENCE", "Lookup field has no foreign key reference: " + Table.Name + "." + Field.Name);
+            }
+        }
+    }
+    /// <summary>
+    /// Validates enum fields.
+    /// </summary>
+    static void ValidateEnumFields(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable Table in Script.Tables)
+        {
+            foreach (SchemaField Field in Table.Fields)
+            {
+                if (Field.MetadataKind != FieldMetadataKind.Enum)
+                    continue;
+
+                string EnumName = GetEnumName(Script, Field);
+
+                if (EnumName.IsSameText(Field.Name))
+                {
+                    AddError(Result, "ENUM_FIELD_INVALID_NAME", "Enum field name must end with Id: " + Table.Name + "." + Field.Name);
+                    continue;
+                }
+
+                Type EnumType = TypeStore.Find(EnumName);
+                if (EnumType == null)
+                {
+                    AddError(Result, "ENUM_TYPE_NOT_FOUND", "Enum type not found in TypeStore: " + Table.Name + "." + Field.Name + " -> " + EnumName);
+                    continue;
+                }
+
+                if (!EnumType.IsEnum)
+                    AddError(Result, "ENUM_TYPE_INVALID", "TypeStore type is not an enum: " + Table.Name + "." + Field.Name + " -> " + EnumName);
             }
         }
     }
@@ -338,6 +386,103 @@ static public class SchemaRegistrationBuilder
 
         foreach (var Item in Items)
             AddError(Result, "DUPLICATE_MODULE", $"Duplicate module name: {Item.Key}");
+    }
+    /// <summary>
+    /// Validates table header metadata.
+    /// </summary>
+    static void ValidateTableHeaders(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable Table in Script.Tables)
+        {
+            bool HasModule = !string.IsNullOrWhiteSpace(Table.ModuleName);
+            bool HasGroup = !string.IsNullOrWhiteSpace(Table.GroupName);
+            bool HasMaster = !string.IsNullOrWhiteSpace(Table.MasterName);
+
+            if (string.IsNullOrWhiteSpace(Table.Name))
+                AddError(Result, "TABLE_NO_NAME", "Schema table has no name.");
+            if (HasModule && !HasGroup)
+                AddError(Result, "TOP_TABLE_NO_GROUP", "Top table has no Group: " + Table.Name);
+            if (!HasModule && HasGroup)
+                AddError(Result, "TABLE_GROUP_WITHOUT_MODULE", "Table has Group but no Module: " + Table.Name);
+            if (!HasModule && !HasMaster)
+                AddError(Result, "DETAIL_TABLE_NO_MASTER", "Detail table has no Master: " + Table.Name);
+            if (HasMaster && Script.FindTable(Table.MasterName) == null)
+                AddError(Result, "MASTER_TABLE_NOT_FOUND", "Master table not found: " + Table.Name + " -> " + Table.MasterName);
+        }
+    }
+    /// <summary>
+    /// Validates foreign key declarations.
+    /// </summary>
+    static void ValidateForeignKeys(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable Table in Script.Tables)
+        {
+            foreach (SchemaForeignKey ForeignKey in Table.ForeignKeys)
+            {
+                SchemaField Field = Table.FindField(ForeignKey.FieldName);
+                if (Field == null)
+                {
+                    AddError(Result, "FOREIGN_KEY_FIELD_NOT_FOUND", "Foreign key field not found: " + Table.Name + "." + ForeignKey.FieldName);
+                    continue;
+                }
+
+                SchemaTable ReferenceTable = Script.FindTable(ForeignKey.ReferenceTable);
+                if (ReferenceTable == null)
+                {
+                    AddError(Result, "FOREIGN_KEY_TABLE_NOT_FOUND", "Foreign key reference table not found: " + Table.Name + "." + ForeignKey.FieldName + " -> " + ForeignKey.ReferenceTable);
+                    continue;
+                }
+
+                if (ReferenceTable.FindField(ForeignKey.ReferenceField) == null)
+                    AddError(Result, "FOREIGN_KEY_REFERENCE_FIELD_NOT_FOUND", "Foreign key reference field not found: " + Table.Name + "." + ForeignKey.FieldName + " -> " + ForeignKey.ReferenceTable + "." + ForeignKey.ReferenceField);
+            }
+        }
+    }
+    /// <summary>
+    /// Validates circular foreign key references.
+    /// </summary>
+    static void ValidateCircularReferences(SchemaParserResult Result, SchemaScript Script)
+    {
+        Dictionary<string, VisitState> States = new(StringComparer.OrdinalIgnoreCase);
+        List<SchemaTable> Stack = [];
+
+        foreach (SchemaTable Table in Script.Tables)
+            VisitCircularReference(Result, Script, Table, States, Stack);
+    }
+    /// <summary>
+    /// Visits a table for circular reference validation.
+    /// </summary>
+    static void VisitCircularReference(SchemaParserResult Result, SchemaScript Script, SchemaTable Table, Dictionary<string, VisitState> States, List<SchemaTable> Stack)
+    {
+        if (States.ContainsKey(Table.Name))
+            return;
+
+        States[Table.Name] = VisitState.Visiting;
+        Stack.Add(Table);
+
+        foreach (SchemaForeignKey ForeignKey in Table.ForeignKeys)
+        {
+            if (ForeignKey.ReferenceTable.IsSameText(Table.Name))
+                continue;
+
+            SchemaTable ReferenceTable = Script.FindTable(ForeignKey.ReferenceTable);
+            if (ReferenceTable == null)
+                continue;
+
+            if (States.TryGetValue(ReferenceTable.Name, out VisitState ReferenceState) && ReferenceState == VisitState.Visiting)
+            {
+                int Index = Stack.FindIndex(x => x.Name.IsSameText(ReferenceTable.Name));
+                List<string> Cycle = Stack.Skip(Index).Select(x => x.Name).ToList();
+                Cycle.Add(ReferenceTable.Name);
+                AddError(Result, "CIRCULAR_SCHEMA_REFERENCE", "Circular schema reference detected: " + string.Join(" -> ", Cycle));
+                continue;
+            }
+
+            VisitCircularReference(Result, Script, ReferenceTable, States, Stack);
+        }
+
+        Stack.RemoveAt(Stack.Count - 1);
+        States[Table.Name] = VisitState.Done;
     }
     /// <summary>
     /// Validates duplicate creation orders.
@@ -468,6 +613,44 @@ static public class SchemaRegistrationBuilder
         }
 
         Result.ColumnTypes[ColumnName] = ColumnType;
+    }
+    /// <summary>
+    /// Returns a SQL string literal.
+    /// </summary>
+    static string SqlString(string Text)
+    {
+        return "'" + (Text ?? string.Empty).Replace("'", "''") + "'";
+    }
+    /// <summary>
+    /// Builds a display CASE expression for an enum field.
+    /// </summary>
+    static string BuildEnumCaseExpression(SchemaTable Table, SchemaField Field, string EnumName)
+    {
+        Type EnumType = TypeStore.Find(EnumName);
+        if (EnumType == null || !EnumType.IsEnum)
+            return string.Empty;
+
+        StringBuilder SB = new();
+        SB.Append("   case").AppendLine();
+
+        foreach (object Value in Enum.GetValues(EnumType))
+        {
+            int Number = Convert.ToInt32(Value, CultureInfo.InvariantCulture);
+            string Name = Enum.GetName(EnumType, Value);
+            SB.Append("      when ")
+                .Append(Table.Name)
+                .Append(".")
+                .Append(Field.Name)
+                .Append(" = ")
+                .Append(Number.ToString(CultureInfo.InvariantCulture))
+                .Append(" then ")
+                .Append(SqlString(Name))
+                .AppendLine();
+        }
+
+        SB.Append("      else ''").AppendLine();
+        SB.Append("   end as ").Append(EnumName);
+        return SB.ToString();
     }
     
     /// <summary>
@@ -696,14 +879,14 @@ static public class SchemaRegistrationBuilder
         {
             if (DuplicateChecks.HasFlag(DuplicateCheck.Lookup))
             {
-                SB.AppendLine("        if (!DataRegistry.LookupSources.Contains(\"" + EscapeString(LookupSource.Name) + "\"))");
+                SB.AppendLine("        if (!DataRegistry.Lookups.Contains(\"" + EscapeString(LookupSource.Name) + "\"))");
                 SB.AppendLine("        {");
-                SB.AppendLine("            DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
+                SB.AppendLine("            DataRegistry.AddLookupWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
                 SB.AppendLine("        }");
             }
             else
             {
-                SB.AppendLine("        DataRegistry.AddLookupSourceWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
+                SB.AppendLine("        DataRegistry.AddLookupWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
             }
         }
 
@@ -990,8 +1173,7 @@ static public class SchemaRegistrationBuilder
         if (Field.MetadataKind == FieldMetadataKind.Enum)
         {
             string EnumName = GetEnumName(Script, Field);
-            string EnumTypeName = GetEnumTypeName(Script, EnumName);
-            return TableVarName + ".AddEnumLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(EnumName) + "\", typeof(" + SafeIdentifier(EnumTypeName) + "), Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+            return TableVarName + ".AddEnumLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(EnumName) + "\", TypeStore.Get(\"" + EscapeString(EnumName) + "\"), Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
         }
 
         if (IsLookupField(Script, Field))
@@ -1051,6 +1233,18 @@ static public class SchemaRegistrationBuilder
 
                 if (IsFilterableField(Field, Field.Name))
                     Result.FilterFields.Add(new SelectField(Field.Name, Field.DataType));
+
+                if (Field.MetadataKind == FieldMetadataKind.Enum)
+                {
+                    string EnumName = GetEnumName(Script, Field);
+                    string EnumCaseExpression = BuildEnumCaseExpression(TopTable, Field, EnumName);
+                    if (!string.IsNullOrWhiteSpace(EnumCaseExpression))
+                    {
+                        SelectLines.Add(EnumCaseExpression);
+                        Result.ColumnTypes[EnumName] = DataColumnType.Text;
+                        Result.FilterFields.Add(new SelectField(EnumName, DataFieldType.String));
+                    }
+                }
             }
         }
 
@@ -1508,21 +1702,8 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static string GetEnumName(SchemaScript Script, SchemaField Field)
     {
-        string Result = !string.IsNullOrWhiteSpace(Field.MetadataName) ? Field.MetadataName : RemoveIdSuffix(Field.Name);
-        EnumInfo Info = Script.FindEnum(Result);
-        return Info != null && !string.IsNullOrWhiteSpace(Info.Name) ? Info.Name : Result;
+        return RemoveIdSuffix(Field.Name);
     }
-    /// <summary>
-    /// Returns enum type name.
-    /// </summary>
-    static string GetEnumTypeName(SchemaScript Script, string EnumName)
-    {
-        EnumInfo Info = Script.FindEnum(EnumName);
-        if (Info != null && !string.IsNullOrWhiteSpace(Info.TypeName))
-            return Info.TypeName;
-        return EnumName;
-    }
-
     /// <summary>
     /// Returns true when a field must be generated as locator field.
     /// </summary>
@@ -1813,23 +1994,59 @@ static public class SchemaRegistrationBuilder
     {
         // ● private fields
         List<SchemaTable> fTables = [];
-        readonly Dictionary<string, EnumInfo> fEnums = new(StringComparer.OrdinalIgnoreCase);
         
-        void ResolveCreationOrders()
+        public void ResolveCreationOrders(SchemaParserResult Result)
         {
+            Dictionary<string, List<string>> Dependencies = new(StringComparer.OrdinalIgnoreCase);
+            HashSet<string> Done = new(StringComparer.OrdinalIgnoreCase);
             int Order = 0;
 
             foreach (SchemaTable Table in Tables)
+                Dependencies[Table.Name] = GetTableDependencies(Table);
+
+            while (Done.Count < Tables.Count)
             {
-                if (Table.CreationOrder > Order)
-                    Order = Table.CreationOrder;
+                List<SchemaTable> ReadyTables = Tables
+                    .Where(x => !Done.Contains(x.Name) && Dependencies[x.Name].All(Dependency => Done.Contains(Dependency)))
+                    .ToList();
+
+                if (ReadyTables.Count == 0)
+                {
+                    AddError(Result, "SCHEMA_CREATION_ORDER_FAILED", "Could not resolve schema creation order.");
+                    return;
+                }
+
+                foreach (SchemaTable Table in ReadyTables)
+                {
+                    Table.CreationOrder = ++Order;
+                    Done.Add(Table.Name);
+                }
+            }
+        }
+        /// <summary>
+        /// Returns dependency table names for a table.
+        /// </summary>
+        List<string> GetTableDependencies(SchemaTable Table)
+        {
+            List<string> Result = [];
+
+            foreach (SchemaForeignKey ForeignKey in Table.ForeignKeys)
+            {
+                if (ForeignKey.ReferenceTable.IsSameText(Table.Name))
+                    continue;
+                if (FindTable(ForeignKey.ReferenceTable) == null)
+                    continue;
+                if (!Result.Any(x => x.IsSameText(ForeignKey.ReferenceTable)))
+                    Result.Add(ForeignKey.ReferenceTable);
             }
 
-            foreach (SchemaTable Table in Tables)
+            if (!string.IsNullOrWhiteSpace(Table.MasterName) && !Table.MasterName.IsSameText(Table.Name) && FindTable(Table.MasterName) != null)
             {
-                if (Table.CreationOrder <= 0)
-                    Table.CreationOrder = ++Order;
+                if (!Result.Any(x => x.IsSameText(Table.MasterName)))
+                    Result.Add(Table.MasterName);
             }
+
+            return Result;
         }
 
         // ● static public
@@ -1839,7 +2056,6 @@ static public class SchemaRegistrationBuilder
         static public SchemaScript Parse(string SchemaSql)
         {
             SchemaScript Result = new();
-            Result.ParseEnumBlock(SchemaSql);
             MatchCollection Matches = Regex.Matches(SchemaSql, @"CREATE\s+TABLE\s+\{TableName\}\s*\(", RegexOptions.IgnoreCase);
 
             foreach (Match Match in Matches)
@@ -1854,8 +2070,6 @@ static public class SchemaRegistrationBuilder
             Result.ResolveLookupHeuristics();
             Result.ResolveDetails();
             
-            Result.ResolveCreationOrders();
-
             return Result;
         }
 
@@ -1864,10 +2078,6 @@ static public class SchemaRegistrationBuilder
         /// Finds a table by name.
         /// </summary>
         public SchemaTable FindTable(string Name) => Tables.FirstOrDefault(x => x.Name.IsSameText(Name));
-        /// <summary>
-        /// Finds an enum definition by name.
-        /// </summary>
-        public EnumInfo FindEnum(string Name) => !string.IsNullOrWhiteSpace(Name) && fEnums.TryGetValue(Name, out EnumInfo Result) ? Result : null;
         /// <summary>
         /// Returns detail tables of a master table.
         /// </summary>
@@ -1902,74 +2112,6 @@ static public class SchemaRegistrationBuilder
         }
 
         // ● private
-        /// <summary>
-        /// Parses the enums block.
-        /// </summary>
-        void ParseEnumBlock(string SchemaSql)
-        {
-            foreach (string Line in ExtractNamedBlockLines(SchemaSql, "Enums"))
-            {
-                EnumInfo Info = ParseEnumInfo(Line);
-                if (!string.IsNullOrWhiteSpace(Info.Name))
-                    fEnums[Info.Name] = Info;
-            }
-        }
-        /// <summary>
-        /// Extracts lines from a named global block.
-        /// </summary>
-        static List<string> ExtractNamedBlockLines(string SchemaSql, string Name)
-        {
-            List<string> Result = [];
-            Match M = Regex.Match(SchemaSql, @"^\s*" + Regex.Escape(Name) + @"\s+begin\s*$([\s\S]*?)^\s*" + Regex.Escape(Name) + @"\s+end\s*$", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            if (!M.Success)
-                return Result;
-
-            string Text = M.Groups[1].Value;
-            string[] Lines = Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-            foreach (string Line in Lines)
-            {
-                string S = Line.Trim();
-                if (string.IsNullOrWhiteSpace(S))
-                    continue;
-                if (S.StartsWith("--"))
-                    continue;
-
-                Result.Add(S);
-            }
-
-            return Result;
-        }
-        /// <summary>
-        /// Parses an enum definition line.
-        /// </summary>
-        static EnumInfo ParseEnumInfo(string Text)
-        {
-            EnumInfo Result = new();
-            if (string.IsNullOrWhiteSpace(Text))
-                return Result;
-
-            Text = Text.Trim();
-            string TypeName = string.Empty;
-            int OpenIndex = Text.IndexOf('(');
-            int CloseIndex = Text.LastIndexOf(')');
-            if (OpenIndex >= 0 && CloseIndex > OpenIndex)
-            {
-                TypeName = Text.Substring(OpenIndex + 1, CloseIndex - OpenIndex - 1).Trim();
-                Text = Text.Substring(0, OpenIndex).Trim();
-            }
-
-            List<string> Parts = SplitHeaderTokens(Text);
-            if (Parts.Count > 0)
-                Result.Name = Parts[0];
-            if (!string.IsNullOrWhiteSpace(TypeName))
-                Result.TypeName = TypeName;
-            else if (Parts.Count > 1)
-                Result.TypeName = Parts[1];
-            else
-                Result.TypeName = Result.Name;
-
-            return Result;
-        }
         /// <summary>
         /// Resolves foreign key references.
         /// </summary>
@@ -2574,22 +2716,6 @@ static public class SchemaRegistrationBuilder
     }
 
     /// <summary>
-    /// Parsed enum metadata.
-    /// </summary>
-    private class EnumInfo
-    {
-        // ● properties
-        /// <summary>
-        /// Enum lookup source name.
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// Enum type name.
-        /// </summary>
-        public string TypeName { get; set; }
-    }
-
-    /// <summary>
     /// Field metadata.
     /// </summary>
     private class FieldMetadata
@@ -2639,6 +2765,12 @@ static public class SchemaRegistrationBuilder
         CorrelationLocator = 6,
         LargeMemo = 7,
         Code = 8,
+    }
+    private enum VisitState
+    {
+        None = 0,
+        Visiting = 1,
+        Done = 2,
     }
 
     /// <summary>

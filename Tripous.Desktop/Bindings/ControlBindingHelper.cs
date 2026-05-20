@@ -204,6 +204,12 @@ static public class ControlBindingHelper
             try { dp.SelectedDate = GetValue(RowProvider, Binding.FieldName) as DateTime?; }
             finally { Binding.IsRefreshing = false; }
         }
+        else if (Binding.Control is CalendarDatePicker cdp)
+        {
+            Binding.IsRefreshing = true;
+            try { cdp.SelectedDate = GetValue(RowProvider, Binding.FieldName) as DateTime?; }
+            finally { Binding.IsRefreshing = false; }
+        }
         else if (Binding.Control is NumericUpDown nu)
         {
             Binding.IsRefreshing = true;
@@ -330,6 +336,77 @@ static public class ControlBindingHelper
         Result.DisposeAction = () =>
         {
             Box.SelectedDateChanged -= Handler;
+        };
+
+        Refresh(RowProvider, Result);
+        return Result;
+    }
+    static public ControlBinding Bind(IRowProvider RowProvider, CalendarDatePicker Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
+    {
+        ControlBinding Result = new()
+        {
+            Control = Box,
+            FieldName =  FieldName,
+            DataColumn = DataColumn,
+            FieldDef = FieldDef
+        };
+
+        void NormalizeOrRefresh(string Text = null)
+        {
+            if (Result.IsRefreshing)
+                return;
+
+            Text ??= Box.Text;
+            if (string.IsNullOrWhiteSpace(Text))
+            {
+                SetValue(RowProvider, FieldName, null);
+                return;
+            }
+
+            if (DateTextNormalizer.TryNormalize(Text, out string NormalizedText, out DateTime Date))
+            {
+                Result.IsRefreshing = true;
+                try
+                {
+                    Box.Text = NormalizedText;
+                    Box.SelectedDate = Date;
+                }
+                finally
+                {
+                    Result.IsRefreshing = false;
+                }
+
+                SetValue(RowProvider, FieldName, Date);
+            }
+            else
+            {
+                Refresh(RowProvider, Result);
+            }
+        }
+
+        EventHandler<SelectionChangedEventArgs> Handler = (s, e) =>
+        {
+            if (Result.IsRefreshing)
+                return;
+
+            SetValue(RowProvider, FieldName, Box.SelectedDate);
+        };
+        EventHandler<RoutedEventArgs> LostFocusHandler = (s, e) => NormalizeOrRefresh();
+        EventHandler<CalendarDatePickerDateValidationErrorEventArgs> DateValidationErrorHandler = (s, e) =>
+        {
+            e.ThrowException = false;
+            NormalizeOrRefresh(e.Text);
+        };
+
+        Box.SelectedDateChanged += Handler;
+        Box.LostFocus += LostFocusHandler;
+        Box.DateValidationError += DateValidationErrorHandler;
+
+        Result.DisposeAction = () =>
+        {
+            Box.SelectedDateChanged -= Handler;
+            Box.LostFocus -= LostFocusHandler;
+            Box.DateValidationError -= DateValidationErrorHandler;
         };
 
         Refresh(RowProvider, Result);

@@ -102,7 +102,7 @@ public class LocatorBox: UserControl
     {
         if (fPopup != null && fGrid != null && Locator != null)
         {
-            fGrid.ItemsSource = Locator.SourceTable.DataView;
+            fGrid.ItemsSource = new DataViewItemsSource(Locator.SourceTable.DataView);
             fPopup.IsOpen = true;
         }
     }

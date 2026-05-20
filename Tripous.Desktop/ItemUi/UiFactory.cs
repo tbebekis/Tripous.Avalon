@@ -45,6 +45,24 @@ static public class UiFactory
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
     }
+    static public StackPanel CreateToolBarPanel()
+    {
+        StackPanel Result = new()
+        {
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Height = 32,
+        };
+
+        Result.Classes.Add("ToolBar");
+        return Result;
+    }
+    static public Border CreateToolBarBorder()
+    {
+        Border Result = new();
+        Result.Classes.Add("ToolbarContainer");
+        return Result;
+    }
     /// <summary>
     /// Creates an expander.
     /// </summary>

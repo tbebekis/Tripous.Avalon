@@ -27,8 +27,29 @@ public partial class MainWindow : Window
             // a command for just calling the Test() method
             Command cmdTest = AppRegistry.ToolBarCommands.Find("Test");
             cmdTest.ExecuteCommand += (sender, args) => Test();
+            
+            Ui.Post(async () => await CheckForSampleData());
         });
 
+    }
+
+    async Task CheckForSampleData()
+    {
+        if (!Db.MainIni.ReadBool("AreSampleDataAdded", false))
+        {
+            bool Flag = await MessageBox.YesNo("Do you want to add sample data?", this);
+            if (Flag)
+            {
+                LogBox.AppendLine("Adding sample data. Please wait...");
+                
+                AppHost.AddSampleData();
+                Db.MainIni.WriteBool("AreSampleDataAdded", true);
+                
+                LogBox.Append("DONE.");
+                await MessageBox.Info("DONE", this);
+            }
+        }
+         
     }
     
     void ToggleLog()

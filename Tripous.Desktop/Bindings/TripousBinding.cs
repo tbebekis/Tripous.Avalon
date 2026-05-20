@@ -5,6 +5,9 @@ namespace Tripous.Desktop;
 /// </summary>
 public class TripousBinding
 {
+    // ● private
+    Type fDataType;
+
     // ● construction
     /// <summary>
     /// Constructor.
@@ -14,6 +17,8 @@ public class TripousBinding
     }
     
     // ● public
+    override public string ToString() => FieldName;
+    
     /// <summary>
     /// Calls the <see cref="DisposeAction"/> handler.
     /// </summary>
@@ -40,6 +45,26 @@ public class TripousBinding
     /// Optional field definition associated to the binding.
     /// </summary>
     public FieldDef FieldDef { get; set; }
+    /// <summary>
+    /// The data type of this binding.
+    /// </summary>
+    public virtual Type DataType
+    {
+        get
+        {
+            if (fDataType != null)
+                return fDataType;
+
+            if (DataColumn != null)
+                return DataColumn.DataType;
+
+            if (FieldDef != null)
+                return FieldDef.DataType.GetNetType();
+
+            return null;
+        }
+        protected set => fDataType = value;
+    }
     /// <summary>
     /// The lookup source associated to the binding, if any, else null.
     /// </summary>

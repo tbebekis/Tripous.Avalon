@@ -407,7 +407,7 @@ Table: CompanyBranch
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     CompanyId @NVARCHAR(40) @NOT_NULL,          -- Master
-    Code @NVARCHAR(40) @NOT_NULL,               -- Code BR-XXXXXX
+    Code @NVARCHAR(40) @NOT_NULL,                
     Name @NVARCHAR(96) @NOT_NULL,
     AddressLine1 @NVARCHAR(160) @NULL,
     AddressLine2 @NVARCHAR(160) @NULL,
@@ -688,7 +688,7 @@ Group: People
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,           -- XXXXXX
+    Code @NVARCHAR(40) @NOT_NULL,            
 
     Name @NVARCHAR(96) @NOT_NULL,
     Title @NVARCHAR(160) @NULL,

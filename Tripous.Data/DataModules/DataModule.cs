@@ -499,6 +499,13 @@ public class DataModule
         {
             Editing(RowId);
             TableSet.Load(RowId);
+
+            /*
+            var Table = this.tblItem;
+            var Flag = this.tblItem.DetailsActive;
+            var S = this.tblItem.DetailRowFilter;
+            */
+            
             LastEditedId = RowId;
             Edited(RowId);
         }

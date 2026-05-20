@@ -510,7 +510,7 @@ public partial class DataForm : AppForm
             string S = Flag ? "Hide Ids" : "Show Ids";
             ToolTip.SetTip(btnToggleIds, S);
         
-            List<GridColumnInfo> List = gridList.GetInfoList();
+            List<GridColumnBinding> List = gridList.GetInfoList();
             foreach (var CI in List)
             {
                 if (CI.FieldName.EndsWithText("Id"))

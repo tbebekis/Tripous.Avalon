@@ -1,12 +1,11 @@
 namespace tERP;
 
- static internal partial class Registry
+static internal partial class Registry
 {
     // ● private
     static void RegisterCodeProviders_FromModules()
     {
         DataRegistry.AddCodeProvider("Company");
-        DataRegistry.AddCodeProvider("CompanyBranch");
         DataRegistry.AddCodeProvider("Product");
         DataRegistry.AddCodeProvider("Project");
         DataRegistry.AddCodeProvider("SalesPerson");
@@ -14,33 +13,33 @@ namespace tERP;
     }
     static void RegisterLookupSources_FromModules()
     {
-        DataRegistry.AddLookupSourceWithTableName("Bank", "Bank", FormName: "Bank");
-        DataRegistry.AddLookupSourceWithTableName("Carrier", "Carrier", FormName: "Carrier");
-        DataRegistry.AddLookupSourceWithTableName("Category", "Category", FormName: "Category");
-        DataRegistry.AddLookupSourceWithTableName("Company", "Company", FormName: "Company");
-        DataRegistry.AddLookupSourceWithTableName("CompanyBranch", "CompanyBranch");
-        DataRegistry.AddLookupSourceWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
-        DataRegistry.AddLookupSourceWithTableName("Country", "Country", FormName: "Country");
-        DataRegistry.AddLookupSourceWithTableName("Currency", "Currency", FormName: "Currency");
-        DataRegistry.AddLookupSourceWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
-        DataRegistry.AddLookupSourceWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
-        DataRegistry.AddLookupSourceWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
-        DataRegistry.AddLookupSourceWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
-        DataRegistry.AddLookupSourceWithTableName("Language", "Language", FormName: "Language");
-        DataRegistry.AddLookupSourceWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
-        DataRegistry.AddLookupSourceWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
-        DataRegistry.AddLookupSourceWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
-        DataRegistry.AddLookupSourceWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
-        DataRegistry.AddLookupSourceWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
-        DataRegistry.AddLookupSourceWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
-        DataRegistry.AddLookupSourceWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
-        DataRegistry.AddLookupSourceWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
-        DataRegistry.AddLookupSourceWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
-        DataRegistry.AddLookupSourceWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
-        DataRegistry.AddLookupSourceWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
-        DataRegistry.AddLookupSourceWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
-        DataRegistry.AddLookupSourceWithTableName("VatRate", "VatRate", FormName: "VatRate");
-        DataRegistry.AddLookupSourceWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
+        DataRegistry.AddLookupWithTableName("Bank", "Bank", FormName: "Bank");
+        DataRegistry.AddLookupWithTableName("Carrier", "Carrier", FormName: "Carrier");
+        DataRegistry.AddLookupWithTableName("Category", "Category", FormName: "Category");
+        DataRegistry.AddLookupWithTableName("Company", "Company", FormName: "Company");
+        DataRegistry.AddLookupWithTableName("CompanyBranch", "CompanyBranch");
+        DataRegistry.AddLookupWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
+        DataRegistry.AddLookupWithTableName("Country", "Country", FormName: "Country");
+        DataRegistry.AddLookupWithTableName("Currency", "Currency", FormName: "Currency");
+        DataRegistry.AddLookupWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
+        DataRegistry.AddLookupWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
+        DataRegistry.AddLookupWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
+        DataRegistry.AddLookupWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
+        DataRegistry.AddLookupWithTableName("Language", "Language", FormName: "Language");
+        DataRegistry.AddLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
+        DataRegistry.AddLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
+        DataRegistry.AddLookupWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
+        DataRegistry.AddLookupWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
+        DataRegistry.AddLookupWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
+        DataRegistry.AddLookupWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
+        DataRegistry.AddLookupWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
+        DataRegistry.AddLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
+        DataRegistry.AddLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
+        DataRegistry.AddLookupWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
+        DataRegistry.AddLookupWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
+        DataRegistry.AddLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
+        DataRegistry.AddLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");
+        DataRegistry.AddLookupWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
     }
     static void RegisterLocators_FromModules()
     {
@@ -257,7 +256,7 @@ from
         tblCompanyBranch.KeyField = "Id";
         tblCompanyBranch.AddId("Id").SetNullable(false);
         tblCompanyBranch.AddString("CompanyId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblCompanyBranch.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("CompanyBranch");
+        tblCompanyBranch.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblCompanyBranch.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCompanyBranch.AddString("AddressLine1", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblCompanyBranch.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
@@ -480,6 +479,15 @@ select
    DocumentType.Code,
    DocumentType.Name,
    DocumentType.TradeTypeId,
+   case
+      when DocumentType.TradeTypeId = 0 then 'None'
+      when DocumentType.TradeTypeId = 1 then 'Sales'
+      when DocumentType.TradeTypeId = 2 then 'Purchases'
+      when DocumentType.TradeTypeId = 3 then 'Warehouse'
+      when DocumentType.TradeTypeId = 4 then 'Financial'
+      when DocumentType.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
    DocumentType.NumberSeriesId,
    DocumentType.IsActive,
    DocumentType.AffectsStock,
@@ -509,7 +517,7 @@ from
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", typeof(TradeType), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("NumberSeriesId", "SYS_NUMBER_SERIES", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddBoolean("AffectsStock", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -527,7 +535,7 @@ from
         tblTop.AddString("PrintTemplate", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("ReportName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "AccountingDirection", "AffectsAccounting", "AffectsFinancial", "AffectsStock", "AutoComplete", "Code", "Color", "FinancialDirection", "IconName", "IsActive", "IsCancellation", "NumberSeries__Code", "NumberSeries__Name", "PrintTemplate", "ReportName", "RequiresApproval", "StockDirection"];
+        string[] FilterFields = ["Name", "AccountingDirection", "AffectsAccounting", "AffectsFinancial", "AffectsStock", "AutoComplete", "Code", "Color", "FinancialDirection", "IconName", "IsActive", "IsCancellation", "NumberSeries__Code", "NumberSeries__Name", "PrintTemplate", "ReportName", "RequiresApproval", "StockDirection", "TradeType"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -535,6 +543,7 @@ from
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
         SelectDef.ColumnTypes["NumberSeriesId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["AffectsStock"] = DataColumnType.Boolean;
@@ -751,6 +760,16 @@ select
    SYS_NUMBER_SERIES.Name,
    SYS_NUMBER_SERIES.Pattern,
    SYS_NUMBER_SERIES.ResetPeriodId,
+   case
+      when SYS_NUMBER_SERIES.ResetPeriodId = 0 then 'None'
+      when SYS_NUMBER_SERIES.ResetPeriodId = 1 then 'Year'
+      when SYS_NUMBER_SERIES.ResetPeriodId = 2 then 'Semester'
+      when SYS_NUMBER_SERIES.ResetPeriodId = 3 then 'Quarter'
+      when SYS_NUMBER_SERIES.ResetPeriodId = 4 then 'Month'
+      when SYS_NUMBER_SERIES.ResetPeriodId = 5 then 'Week'
+      when SYS_NUMBER_SERIES.ResetPeriodId = 6 then 'Day'
+      else ''
+   end as ResetPeriod,
    SYS_NUMBER_SERIES.NextNumber,
    SYS_NUMBER_SERIES.LastResetValue,
    SYS_NUMBER_SERIES.IsActive
@@ -765,11 +784,11 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Pattern", MaxLength: 64, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddEnumLookupId("ResetPeriodId", "ResetPeriod", typeof(ResetPeriod), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("ResetPeriodId", "ResetPeriod", TypeStore.Get("ResetPeriod"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddInteger("NextNumber", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddString("LastResetValue", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        string[] FilterFields = ["Name", "Code", "IsActive", "LastResetValue", "NextNumber", "Pattern"];
+        string[] FilterFields = ["Name", "Code", "IsActive", "LastResetValue", "NextNumber", "Pattern", "ResetPeriod"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -778,6 +797,7 @@ from
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Pattern"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ResetPeriodId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["ResetPeriod"] = DataColumnType.Text;
         SelectDef.ColumnTypes["NextNumber"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["LastResetValue"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
@@ -1163,6 +1183,13 @@ select
    Product.Code,
    Product.Name,
    Product.ProductTypeId,
+   case
+      when Product.ProductTypeId = 0 then 'None'
+      when Product.ProductTypeId = 1 then 'Goods'
+      when Product.ProductTypeId = 2 then 'Service'
+      when Product.ProductTypeId = 3 then 'RawMaterial'
+      else ''
+   end as ProductType,
    Product.CategoryId,
    Product.VatRateId,
    Product.PrimaryUnitOfMeasureId,
@@ -1191,7 +1218,7 @@ from
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddEnumLookupId("ProductTypeId", "ProductType", typeof(ProductType), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("ProductTypeId", "ProductType", TypeStore.Get("ProductType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CategoryId", "Category", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddStringLookupId("PrimaryUnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
@@ -1202,7 +1229,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "Barcode", "Category__Code", "Category__Name", "Code", "Color", "IconName", "IsActive", "PrimaryUnitOfMeasure__Code", "PrimaryUnitOfMeasure__Name", "VatRate__Code", "VatRate__Name", "Volume", "Weight"];
+        string[] FilterFields = ["Name", "Barcode", "Category__Code", "Category__Name", "Code", "Color", "IconName", "IsActive", "PrimaryUnitOfMeasure__Code", "PrimaryUnitOfMeasure__Name", "ProductType", "VatRate__Code", "VatRate__Name", "Volume", "Weight"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1210,6 +1237,7 @@ from
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ProductTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["ProductType"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CategoryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["VatRateId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PrimaryUnitOfMeasureId"] = DataColumnType.Text;
@@ -1330,6 +1358,15 @@ select
    Project.Name,
    Project.CustomerId,
    Project.ProjectStatusId,
+   case
+      when Project.ProjectStatusId = 0 then 'None'
+      when Project.ProjectStatusId = 1 then 'Draft'
+      when Project.ProjectStatusId = 2 then 'Active'
+      when Project.ProjectStatusId = 3 then 'Suspended'
+      when Project.ProjectStatusId = 4 then 'Completed'
+      when Project.ProjectStatusId = 5 then 'Cancelled'
+      else ''
+   end as ProjectStatus,
    Project.StartDate,
    Project.EndDate,
    Project.CostCenterId,
@@ -1359,7 +1396,7 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Project");
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("CustomerId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddEnumLookupId("ProjectStatusId", "ProjectStatus", typeof(ProjectStatus), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("ProjectStatusId", "ProjectStatus", TypeStore.Get("ProjectStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDate("StartDate", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddDate("EndDate", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true);
@@ -1382,7 +1419,7 @@ from
         tblManagerPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblManagerPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
         tblManagerPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "Code", "Color", "CostCenter__Code", "CostCenter__Name", "Customer__Code", "Customer__Name", "Customer__Title", "EndDate", "IconName", "IsActive", "ManagerPerson__Code", "ManagerPerson__Name", "ManagerPerson__Title", "StartDate"];
+        string[] FilterFields = ["Name", "Code", "Color", "CostCenter__Code", "CostCenter__Name", "Customer__Code", "Customer__Name", "Customer__Title", "EndDate", "IconName", "IsActive", "ManagerPerson__Code", "ManagerPerson__Name", "ManagerPerson__Title", "ProjectStatus", "StartDate"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1391,6 +1428,7 @@ from
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CustomerId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ProjectStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["ProjectStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["StartDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["EndDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
@@ -1691,6 +1729,16 @@ select
    Warehouse.CompanyId,
    Warehouse.BranchId,
    Warehouse.WarehouseTypeId,
+   case
+      when Warehouse.WarehouseTypeId = 0 then 'None'
+      when Warehouse.WarehouseTypeId = 1 then 'Main'
+      when Warehouse.WarehouseTypeId = 2 then 'Store'
+      when Warehouse.WarehouseTypeId = 3 then 'Transit'
+      when Warehouse.WarehouseTypeId = 4 then 'Production'
+      when Warehouse.WarehouseTypeId = 5 then 'Scrap'
+      when Warehouse.WarehouseTypeId = 6 then 'Virtual'
+      else ''
+   end as WarehouseType,
    Warehouse.AddressLine1,
    Warehouse.AddressLine2,
    Warehouse.City,
@@ -1731,7 +1779,7 @@ from
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CompanyId", "Company", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddEnumLookupId("WarehouseTypeId", "WarehouseType", typeof(WarehouseType), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("WarehouseTypeId", "WarehouseType", TypeStore.Get("WarehouseType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddString("AddressLine1", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("City", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
@@ -1754,7 +1802,7 @@ from
         tblResponsiblePerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblResponsiblePerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
         tblResponsiblePerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "AffectsAvailability", "AllowNegativeStock", "Branch__Code", "Branch__Name", "City", "Code", "Color", "Company__Code", "Company__Name", "Company__Title", "Country__Code", "Country__Name", "Email", "IconName", "IsActive", "IsVirtual", "Phone", "PostalCode", "ResponsiblePerson__Code", "ResponsiblePerson__Name", "ResponsiblePerson__Title"];
+        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "AffectsAvailability", "AllowNegativeStock", "Branch__Code", "Branch__Name", "City", "Code", "Color", "Company__Code", "Company__Name", "Company__Title", "Country__Code", "Country__Name", "Email", "IconName", "IsActive", "IsVirtual", "Phone", "PostalCode", "ResponsiblePerson__Code", "ResponsiblePerson__Name", "ResponsiblePerson__Title", "WarehouseType"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1764,6 +1812,7 @@ from
         SelectDef.ColumnTypes["CompanyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["WarehouseTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["WarehouseType"] = DataColumnType.Text;
         SelectDef.ColumnTypes["AddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["AddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["City"] = DataColumnType.Text;

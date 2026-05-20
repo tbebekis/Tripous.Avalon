@@ -369,7 +369,7 @@ public static class DataGridBinder
 
         List<DataGridColumn> Result = CreateColumns(Grid, DataColumns, SupportsRecycling);
 
-        Grid.ItemsSource = DataView;
+        Grid.ItemsSource = new DataViewItemsSource(DataView);
 
         if (GoToFirst && DataView.Count > 0)
             Grid.SelectedItem = DataView[0];
@@ -386,7 +386,7 @@ public static class DataGridBinder
 
         List<DataGridColumn> Result = CreateColumns(Grid, DataColumns, SupportsRecycling);
  
-        Grid.ItemsSource = DataView;
+        Grid.ItemsSource = new DataViewItemsSource(DataView);
 
         if (GoToFirst && DataView.Count > 0)
             Grid.SelectedItem = DataView[0];
@@ -438,9 +438,6 @@ public static class DataGridBinder
 
     static public DataGridColumn CreateGridColumn(DataColumn Column, string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
-        //bool IsBoolean = Column.DataType == typeof(bool) 
-        //                 || (Column.ExtendedProperties.ContainsKey("IsBoolean") && Convert.ToBoolean(Column.ExtendedProperties["IsBoolean"]));
-        
         DataColumnType ColumnType = Column.ExtendedProperties.ContainsKey("ColumnType")
             ? (DataColumnType)Column.ExtendedProperties["ColumnType"]
             : DataColumnType.None;
@@ -454,16 +451,18 @@ public static class DataGridBinder
         else
             Align = IsBoolean ? TextAlignment.Center : Column.DataType.GetTextAlignment();
         
+        
         DataGridColumn Result = null;
         if (IsBoolean)
-            Result = CreateBoolColumn(Column.ColumnName, Header: Column.Caption, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
+            Result = CreateBoolColumn(Column.ColumnName, Header: Texts.L(Column.Caption), IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
         else
-            Result = CreateTextColumn(Column.ColumnName, Header: Column.Caption, Format: Format, Alignment: Align, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
+            Result = CreateTextColumn(Column.ColumnName, Header: Texts.L(Column.Caption), Format: Format, Alignment: Align, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
 
-        Result.Header = Column.Caption.SplitToWords();
+        string Caption = Texts.L(Column.Caption);
+        Result.Header = Caption.SplitToWords();
         Result.IsReadOnly = IsReadOnly;
         
-        GridColumnInfo CI = new GridColumnInfo(Result, Column);
+        GridColumnBinding CI = new GridColumnBinding(Result, Column);
         Result.Tag = CI;
 
         return Result;
@@ -482,7 +481,7 @@ public static class DataGridBinder
         Result.Header = FieldDef.Title.SplitToWords();
         Result.IsReadOnly = FieldDef.IsReadOnly;
         
-        GridColumnInfo CI = new GridColumnInfo(Result, FieldDef);
+        GridColumnBinding CI = new GridColumnBinding(Result, FieldDef);
         Result.Tag = CI;
 
         return Result;                  
@@ -493,7 +492,7 @@ public static class DataGridBinder
         LookupSource LookupSource = LookupDef.Create();
         
         DataGridColumn Result = CreateLookupColumn(Column.ColumnName, LookupSource, Column.Caption, IsReadOnly, SupportsRecycling: SupportsRecycling);
-        GridColumnInfo CI = new GridColumnInfo(Result, Column);
+        GridColumnBinding CI = new GridColumnBinding(Result, Column);
         CI.LookupSource = LookupSource;
         Result.Tag = CI; 
         return Result;
@@ -504,19 +503,19 @@ public static class DataGridBinder
         LookupSource LookupSource = LookupDef.Create();
         
         DataGridColumn Result = CreateLookupColumn(FieldDef.Name, LookupSource, FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
-        GridColumnInfo CI = new GridColumnInfo(Result, FieldDef);
+        GridColumnBinding CI = new GridColumnBinding(Result, FieldDef);
         CI.LookupSource = LookupSource;
         Result.Tag = CI;    
         return Result;
     }
 
-    static public GridColumnInfo GetInfo(this DataGridColumn Column) => Column != null ? Column.Tag as GridColumnInfo : null;
+    static public GridColumnBinding GetInfo(this DataGridColumn Column) => Column != null ? Column.Tag as GridColumnBinding : null;
 
-    static public List<GridColumnInfo> GetInfoList(this DataGrid Grid)
+    static public List<GridColumnBinding> GetInfoList(this DataGrid Grid)
     {
-        List<GridColumnInfo> Result = new();
+        List<GridColumnBinding> Result = new();
 
-        GridColumnInfo CI;
+        GridColumnBinding CI;
         if (Grid != null && Grid.Columns.Count > 0)
         {
             foreach (var GridColumn in Grid.Columns)

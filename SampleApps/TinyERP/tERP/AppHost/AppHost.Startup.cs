@@ -80,15 +80,7 @@ static internal partial class AppHost
     {
         Schemas.Execute();
     }
-    /// <summary>
-    /// Adds sample data to the database.
-    /// </summary>
-    static void AddSampleData(int TradeCount)
-    {
-       // string SqlText = "select * from Country";
-       //if (Store.TableExists("Country") && Store.TableIsEmpty("Country"))
-       //    SampleData.Execute(Store, TradeCount);
-    }
+ 
     /// <summary>
     /// Register descriptors, i.e. commands, lookup sources, locators, modules and forms.
     /// </summary>
@@ -142,15 +134,13 @@ static internal partial class AppHost
             ExecuteSchemas();
 
             Store = SqlStores.CreateDefaultSqlStore();
-            AddSampleData(10000);
-
-            RegisterDescriptors();
- 
             Ui.MainWindow = AppHost.MainWindow;
             
             LoadLibraries();
             TypeStore.RegisterLoadedAssemblies();
+            RegisterDescriptors();
             MainWindow.Show();
+            
             AddDefaultInitialData();
             InitializeLibraries();
             

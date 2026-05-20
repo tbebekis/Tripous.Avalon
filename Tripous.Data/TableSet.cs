@@ -103,49 +103,49 @@ public class TableSet
     /// <summary>
     /// Executes the SELECT SqlText and appends the resulted rows to the DetailTable MemTable.
     /// </summary>
-    void Select_DoAddToDetail(string SqlText, MemTable Detail)
+    void Select_DoAddToDetail(string SqlText, MemTable tblDetail)
     {
         DataTable Source = Store.Select(SqlText);
 
-        if (Detail.Columns.Count == 0)
-            Source.CopyStructureTo(Detail);
+        if (tblDetail.Columns.Count == 0)
+            Source.CopyStructureTo(tblDetail);
 
-        Detail.BeginLoadData();
+        tblDetail.BeginLoadData();
         try
         {
-            string FieldName = Detail.KeyField;
+            string FieldName = tblDetail.KeyField;
             object Value;
             for (int i = 0; i < Source.Rows.Count; i++)
             {
                 Value = Source.Rows[i][FieldName];
-                if (Detail.Locate(FieldName, Value, LocateOptions.None) == null)
-                    Source.Rows[i].AppendTo(Detail);
+                if (tblDetail.Locate(FieldName, Value, LocateOptions.None) == null)
+                    Source.Rows[i].AppendTo(tblDetail);
             }
         }
         finally
         {
-            Detail.EndLoadData();
+            tblDetail.EndLoadData();
         }
 
     }
     /// <summary>
     /// Executes the SELECT of the DetailTable.  
     /// </summary>
-    void Select_DoDetail(MemTable MasterTable, MemTable Detail)
+    void Select_DoDetail(MemTable tblMaster, MemTable tblDetail)
     {
         string SqlText;
 
-        if (!string.IsNullOrWhiteSpace(Detail.Sqls.SelectSql))
+        if (!string.IsNullOrWhiteSpace(tblDetail.Sqls.SelectSql))
         {
             // 1. SqlText execution ===================================================
-            if ((MasterTable.Rows.Count > 0) && (MasterTable.Columns.Contains(Detail.MasterField)))
+            if ((tblMaster.Rows.Count > 0) && (tblMaster.Columns.Contains(tblDetail.MasterField)))
             {
-                SelectSql SS = new SelectSql(Detail.Sqls.SelectSql);
+                SelectSql SS = new SelectSql(tblDetail.Sqls.SelectSql);
                 SS.Where = "";
 
                 //  limit the number of elements inside the in (...),  in order
                 //    to avoid problems with database servers that have such a limit.   
-                List<string> KeyValuesList = MasterTable.GetKeyValuesList(Detail.MasterField, 100);
+                List<string> KeyValuesList = tblMaster.GetKeyValuesList(tblDetail.MasterField, 100);
 
                 StringBuilder SB = new StringBuilder();
                 for (int i = 0; i < KeyValuesList.Count; i++)
@@ -153,29 +153,29 @@ public class TableSet
                     SB.Clear();
                     SB.AppendLine(SS.Text);
                     SB.AppendLine($"where ");
-                    SB.AppendLine($"{Detail.TableName}.{Detail.DetailField} in ({KeyValuesList[i]})");
+                    SB.AppendLine($"{tblDetail.TableName}.{tblDetail.DetailField} in ({KeyValuesList[i]})");
 
                     SqlText = SB.ToString();
 
-                    Select_DoAddToDetail(SqlText, Detail);
+                    Select_DoAddToDetail(SqlText, tblDetail);
                 }
             }
 
-            Detail.SetColumnCaptionsFrom(Detail.Sqls.DisplayLabels, HideUntitledDisplayLabels);
+            tblDetail.SetColumnCaptionsFrom(tblDetail.Sqls.DisplayLabels, HideUntitledDisplayLabels);
 
-            if (!Detail.IsEmpty)
-                Select_DoDetails(Detail);
+            if (!tblDetail.IsEmpty)
+                Select_DoDetails(tblDetail);
         }
     }
     /// <summary>
     /// Executes the SELECT of Details of the MasterTable.
     /// </summary>
-    void Select_DoDetails(MemTable MasterTable)
+    void Select_DoDetails(MemTable tblMaster)
     {
-        foreach (MemTable DetailTable in MasterTable.Details)
+        foreach (MemTable tblDetail in tblMaster.Details)
         {
-            Select_DoDetail(MasterTable, DetailTable);
-            DetailTable.AcceptChanges();
+            Select_DoDetail(tblMaster, tblDetail);
+            tblDetail.AcceptChanges();
         }
     }
 
@@ -343,6 +343,7 @@ public class TableSet
 
         IsInsert = false;
         ItemTable.UpdateCurrentRow();
+        ItemTable.RefreshDetails();
         return ItemTable.Rows.Count >= 1;
     }
     /// <summary>

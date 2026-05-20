@@ -17,7 +17,12 @@ static public class Texts
         if (string.IsNullOrWhiteSpace(Default))
             Default = SplitKeys ? Key.SplitToWords() : Key;
 
-        return Current != null ? Current.GetText(Key) : Default;
+        string Result = Current != null ? Current.GetText(Key) : Default;
+
+        if (!string.IsNullOrWhiteSpace(Result))
+            Result = Result.Replace("__", " ");
+        
+        return Result;
     }
 
     static public bool SplitKeys { get; set; } = true;

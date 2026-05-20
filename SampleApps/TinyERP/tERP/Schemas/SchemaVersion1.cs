@@ -241,71 +241,6 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_PriceListType()
-    {
-        string TableName = "PriceListType";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-     Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    Code @NVARCHAR(40) @NOT_NULL,
-    Name @NVARCHAR(96) @NOT_NULL,
-
-    CurrencyId @NVARCHAR(40) @NOT_NULL,             -- Lookup
-
-    IsTaxIncluded @BOOL default 1 @NOT_NULL,
-    IsDefault @BOOL default 0 @NOT_NULL,
-
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    Color @NVARCHAR(32) @NULL,
-    IconName @NVARCHAR(96) @NULL,
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-
-    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id)
-    )
-";
-        Version.AddTable(SqlText);
-    }
-    void RegisterTable_PriceList()
-    {
-        string TableName = "PriceList";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-   Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    PriceListTypeId @NVARCHAR(40) @NOT_NULL,        -- Lookup
-
-    DiscountCategoryId @NVARCHAR(40) @NULL,        -- Lookup
-    CustomerId @NVARCHAR(40) @NULL,             -- Locator Customer
-
-    ProductId @NVARCHAR(40) @NOT_NULL,          -- Locator Product
-    UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,    -- Lookup
-
-    MinQuantity @DECIMAL_(18, 4) default 0 @NOT_NULL,
-
-    UnitPrice @DECIMAL_(18, 4) @NOT_NULL,
-
-    ValidFrom @DATE @NULL,
-    ValidTo @DATE @NULL,
-
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    FOREIGN KEY (PriceListTypeId) REFERENCES PriceListType(Id),
-    FOREIGN KEY (DiscountCategoryId) REFERENCES DiscountCategory(Id),
-    FOREIGN KEY (CustomerId) REFERENCES Person(Id),
-    FOREIGN KEY (ProductId) REFERENCES Product(Id),
-    FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id)
-    )
-";
-        Version.AddTable(SqlText);
-    }
     void RegisterTable_PaymentTerm()
     {
         string TableName = "PaymentTerm";
@@ -352,22 +287,136 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_ProductGroups()
+    void RegisterTable_FiscalYear()
     {
-        string TableName = "ProductGroups";
+        string TableName = "FiscalYear";
         string SqlText = $@"
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    ProductId @NVARCHAR(40) @NOT_NULL,  -- Master
-    GroupId @NVARCHAR(40) @NOT_NULL,    -- Lookup
+    Code @NVARCHAR(40) @NOT_NULL,    -- business code
+    Name @NVARCHAR(96) @NOT_NULL,    -- display title
+
+    StartDate @DATE @NOT_NULL,       -- fiscal year start
+    EndDate @DATE @NOT_NULL,         -- fiscal year end
+
+    IsActive @BOOL default 1 @NOT_NULL,
+    IsClosed @BOOL default 0 @NOT_NULL, -- no more postings allowed
 
     Remarks @NBLOB_TEXT @NULL,
 
-    CONSTRAINT UQ_{TableName}_Product_Group UNIQUE (ProductId, GroupId),
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_Language()
+    {
+        string TableName = "Language";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    FOREIGN KEY (ProductId) REFERENCES Product(Id),
-    FOREIGN KEY (GroupId) REFERENCES ProductGroup(Id)
+    Code @NVARCHAR(16) @NOT_NULL,                   -- ISO code, e.g. EN, EL, DE
+    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
+
+    CultureName @NVARCHAR(32) @NULL,                -- en-US, el-GR, de-DE
+
+    IsDefault @BOOL default 0 @NOT_NULL,
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    IsRightToLeft @BOOL default 0 @NOT_NULL,        -- Arabic, Hebrew, etc.
+
+    Color @NVARCHAR(32) @NULL,                      -- ui display color
+    IconName @NVARCHAR(96) @NULL,                   -- ui icon / flag icon
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_PersonRoleType()
+    {
+        string TableName = "PersonRoleType";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code @NVARCHAR(40) @NOT_NULL,
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    Color @NVARCHAR(32) @NULL,
+    IconName @NVARCHAR(96) @NULL,
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_StockReason()
+    {
+        string TableName = "StockReason";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code @NVARCHAR(40) @NOT_NULL,                   -- business code
+    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
+
+    StockDirection integer default 0 @NOT_NULL,     -- 1=in, -1=out, 0=no stock effect
+
+    AffectsCost @BOOL default 0 @NOT_NULL,          -- affects inventory valuation
+    RequiresRemarks @BOOL default 0 @NOT_NULL,      -- user must enter explanation
+
+    IsSystem @BOOL default 0 @NOT_NULL,             -- protected/system-defined reason
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    Color @NVARCHAR(32) @NULL,                      -- ui display color
+    IconName @NVARCHAR(96) @NULL,                   -- ui icon
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_PriceListType()
+    {
+        string TableName = "PriceListType";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+     Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code @NVARCHAR(40) @NOT_NULL,
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    CurrencyId @NVARCHAR(40) @NOT_NULL,             -- Lookup
+
+    IsTaxIncluded @BOOL default 1 @NOT_NULL,
+    IsDefault @BOOL default 0 @NOT_NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    Color @NVARCHAR(32) @NULL,
+    IconName @NVARCHAR(96) @NULL,
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+
+    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -399,59 +448,6 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (TaxOfficeId) REFERENCES TaxOffice(Id),
     FOREIGN KEY (CountryId) REFERENCES Country(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id)
-    )
-";
-        Version.AddTable(SqlText);
-    }
-    void RegisterTable_CompanyBranch()
-    {
-        string TableName = "CompanyBranch";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id  @NVARCHAR(40)  @NOT_NULL primary key,
-    CompanyId @NVARCHAR(40) @NOT_NULL,          -- Master
-    Code @NVARCHAR(40) @NOT_NULL,               -- Code BR-XXXXXX
-    Name @NVARCHAR(96) @NOT_NULL,
-    AddressLine1 @NVARCHAR(160) @NULL,
-    AddressLine2 @NVARCHAR(160) @NULL,
-    City @NVARCHAR(96) @NULL,
-    PostalCode @NVARCHAR(16) @NULL,
-    CountryId @NVARCHAR(40) @NOT_NULL,          -- Lookup
-    Phone @NVARCHAR(32) @NULL,
-    Email @NVARCHAR(96) @NULL,
-    IsPrimary int default 0 @NOT_NULL,
-    IsActive int default 1 @NOT_NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
-
-    FOREIGN KEY (CompanyId) REFERENCES Company(Id),
-    FOREIGN KEY (CountryId) REFERENCES Country(Id),
-    CONSTRAINT UQ_{TableName}_CompanyId_Code UNIQUE (CompanyId, Code)
-    )
-";
-        Version.AddTable(SqlText);
-    }
-    void RegisterTable_CompanyBankAccount()
-    {
-        string TableName = "CompanyBankAccount";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id  @NVARCHAR(40)  @NOT_NULL primary key,
-    CompanyId @NVARCHAR(40) @NOT_NULL,              -- Master
-    Code @NVARCHAR(40) @NOT_NULL,
-    Name @NVARCHAR(96) @NOT_NULL,
-    BankName @NVARCHAR(96) @NOT_NULL,
-    Iban @NVARCHAR(40) @NOT_NULL,
-    SwiftBic @NVARCHAR(16) @NULL,
-    CurrencyId @NVARCHAR(40) @NOT_NULL,             -- Lookup
-    IsDefault int default 0 @NOT_NULL,
-    IsActive int default 1 @NOT_NULL,
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
-    FOREIGN KEY (CompanyId) REFERENCES Company(Id),
-    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
-    CONSTRAINT UQ_{TableName}_CompanyId_Code UNIQUE (CompanyId, Code)
     )
 ";
         Version.AddTable(SqlText);
@@ -492,30 +488,6 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_FiscalYear()
-    {
-        string TableName = "FiscalYear";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    Code @NVARCHAR(40) @NOT_NULL,    -- business code
-    Name @NVARCHAR(96) @NOT_NULL,    -- display title
-
-    StartDate @DATE @NOT_NULL,       -- fiscal year start
-    EndDate @DATE @NOT_NULL,         -- fiscal year end
-
-    IsActive @BOOL default 1 @NOT_NULL,
-    IsClosed @BOOL default 0 @NOT_NULL, -- no more postings allowed
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
-    )
-";
-        Version.AddTable(SqlText);
-    }
     void RegisterTable_FiscalPeriod()
     {
         string TableName = "FiscalPeriod";
@@ -541,53 +513,6 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_FiscalYear_PeriodNo UNIQUE (YearId, PeriodNo),
 
     FOREIGN KEY (YearId) REFERENCES FiscalYear(Id)
-    )
-";
-        Version.AddTable(SqlText);
-    }
-    void RegisterTable_Warehouse()
-    {
-        string TableName = "Warehouse";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    Code @NVARCHAR(40) @NOT_NULL,                       -- Code WH-XXXXXX -- business code
-    Name @NVARCHAR(96) @NOT_NULL,                       -- display title
-
-    CompanyId @NVARCHAR(40) @NOT_NULL,                  -- Lookup      -- owner company
-    BranchId @NVARCHAR(40) @NULL,                       -- Lookup      -- optional company branch
-
-    WarehouseTypeId integer default 0 @NOT_NULL,        -- Enum -- Main, Store, Transit, Production, Scrap, Virtual
-
-    AddressLine1 @NVARCHAR(160) @NULL,
-    AddressLine2 @NVARCHAR(160) @NULL,
-    City @NVARCHAR(96) @NULL,
-    PostalCode @NVARCHAR(16) @NULL,
-    CountryId @NVARCHAR(40) @NULL,                      -- Lookup
-
-    Phone @NVARCHAR(32) @NULL,
-    Email @NVARCHAR(96) @NULL,
-
-    ResponsiblePersonId @NVARCHAR(40) @NULL,            -- Locator Person  -- Person responsible for warehouse
-
-    IsActive @BOOL default 1 @NOT_NULL,
-    IsVirtual @BOOL default 0 @NOT_NULL,                -- logical/non-physical warehouse
-    AllowNegativeStock @BOOL default 0 @NOT_NULL,       -- allow stock below zero
-    AffectsAvailability @BOOL default 1 @NOT_NULL,      -- participates in available stock
-
-    Color @NVARCHAR(32) @NULL,                          -- ui display color
-    IconName @NVARCHAR(96) @NULL,                       -- ui icon
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
-
-    FOREIGN KEY (CompanyId) REFERENCES Company(Id),
-    FOREIGN KEY (BranchId) REFERENCES CompanyBranch(Id),
-    FOREIGN KEY (CountryId) REFERENCES Country(Id),
-    FOREIGN KEY (ResponsiblePersonId) REFERENCES Person(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -635,34 +560,6 @@ CREATE TABLE {TableName} (
 
     FOREIGN KEY (NumberSeriesId) REFERENCES SYS_NUMBER_SERIES(Id),
     FOREIGN KEY (TargetDocumentTypeId) REFERENCES DocumentType(Id)
-    )
-";
-        Version.AddTable(SqlText);
-    }
-    void RegisterTable_Language()
-    {
-        string TableName = "Language";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    Code @NVARCHAR(16) @NOT_NULL,                   -- ISO code, e.g. EN, EL, DE
-    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
-
-    CultureName @NVARCHAR(32) @NULL,                -- en-US, el-GR, de-DE
-
-    IsDefault @BOOL default 0 @NOT_NULL,
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    IsRightToLeft @BOOL default 0 @NOT_NULL,        -- Arabic, Hebrew, etc.
-
-    Color @NVARCHAR(32) @NULL,                      -- ui display color
-    IconName @NVARCHAR(96) @NULL,                   -- ui icon / flag icon
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
     )
 ";
         Version.AddTable(SqlText);
@@ -716,25 +613,92 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_PersonRoleType()
+    void RegisterTable_Category()
     {
-        string TableName = "PersonRoleType";
+        string TableName = "Category";
         string SqlText = $@"
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    Code @NVARCHAR(40) @NOT_NULL,
-    Name @NVARCHAR(96) @NOT_NULL,
+    ParentId @NVARCHAR(40) @NULL,                   -- Lookup       -- parent category
 
+    Code @NVARCHAR(40) @NOT_NULL,                   -- business code
+    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
+
+    LevelNo integer default 0 @NOT_NULL,            -- optional hierarchy level
+
+    SortNo integer default 0 @NOT_NULL,             -- display order
+
+    VatRateId @NVARCHAR(40) @NULL,                  -- Lookup       -- default vat rate
+    RevenueAccount @NVARCHAR(40) @NULL,             -- optional accounting account
+    ExpenseAccount @NVARCHAR(40) @NULL,             -- optional accounting account
+
+    IsSystem @BOOL default 0 @NOT_NULL,             -- protected/system category
     IsActive @BOOL default 1 @NOT_NULL,
 
-    Color @NVARCHAR(32) @NULL,
-    IconName @NVARCHAR(96) @NULL,
+    Color @NVARCHAR(32) @NULL,                      -- ui display color
+    IconName @NVARCHAR(96) @NULL,                   -- ui icon
 
     Remarks @NBLOB_TEXT @NULL,
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
+
+    FOREIGN KEY (ParentId) REFERENCES Category(Id),
+    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_CompanyBranch()
+    {
+        string TableName = "CompanyBranch";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id  @NVARCHAR(40)  @NOT_NULL primary key,
+    CompanyId @NVARCHAR(40) @NOT_NULL,          -- Master
+    Code @NVARCHAR(40) @NOT_NULL,               -- Code BR-XXXXXX
+    Name @NVARCHAR(96) @NOT_NULL,
+    AddressLine1 @NVARCHAR(160) @NULL,
+    AddressLine2 @NVARCHAR(160) @NULL,
+    City @NVARCHAR(96) @NULL,
+    PostalCode @NVARCHAR(16) @NULL,
+    CountryId @NVARCHAR(40) @NOT_NULL,          -- Lookup
+    Phone @NVARCHAR(32) @NULL,
+    Email @NVARCHAR(96) @NULL,
+    IsPrimary int default 0 @NOT_NULL,
+    IsActive int default 1 @NOT_NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
+
+    FOREIGN KEY (CompanyId) REFERENCES Company(Id),
+    FOREIGN KEY (CountryId) REFERENCES Country(Id),
+    CONSTRAINT UQ_{TableName}_CompanyId_Code UNIQUE (CompanyId, Code)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_CompanyBankAccount()
+    {
+        string TableName = "CompanyBankAccount";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id  @NVARCHAR(40)  @NOT_NULL primary key,
+    CompanyId @NVARCHAR(40) @NOT_NULL,              -- Master
+    Code @NVARCHAR(40) @NOT_NULL,
+    Name @NVARCHAR(96) @NOT_NULL,
+    BankName @NVARCHAR(96) @NOT_NULL,
+    Iban @NVARCHAR(40) @NOT_NULL,
+    SwiftBic @NVARCHAR(16) @NULL,
+    CurrencyId @NVARCHAR(40) @NOT_NULL,             -- Lookup
+    IsDefault int default 0 @NOT_NULL,
+    IsActive int default 1 @NOT_NULL,
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
+    FOREIGN KEY (CompanyId) REFERENCES Company(Id),
+    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
+    CONSTRAINT UQ_{TableName}_CompanyId_Code UNIQUE (CompanyId, Code)
     )
 ";
         Version.AddTable(SqlText);
@@ -796,110 +760,6 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_Project()
-    {
-        string TableName = "Project";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    Code @NVARCHAR(40) @NOT_NULL,                   -- Code YYYY-XXXX -- business code
-    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
-
-    CustomerId @NVARCHAR(40) @NULL,                 -- Locator Customer    -- customer/person owner
-
-    ProjectStatusId integer default 0 @NOT_NULL,    -- Enum         -- Draft, Active, Completed, Cancelled
-
-    StartDate @DATE @NULL,
-    EndDate @DATE @NULL,
-
-    CostCenterId @NVARCHAR(40) @NULL,
-
-    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator Person     -- responsible person
-
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    Color @NVARCHAR(32) @NULL,                      -- ui display color
-    IconName @NVARCHAR(96) @NULL,                   -- ui icon
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
-
-    FOREIGN KEY (CustomerId) REFERENCES Person(Id),
-    FOREIGN KEY (CostCenterId) REFERENCES CostCenter(Id),
-    FOREIGN KEY (ManagerPersonId) REFERENCES Person(Id)
-    )
-";
-        Version.AddTable(SqlText);
-    }
-    void RegisterTable_StockReason()
-    {
-        string TableName = "StockReason";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    Code @NVARCHAR(40) @NOT_NULL,                   -- business code
-    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
-
-    StockDirection integer default 0 @NOT_NULL,     -- 1=in, -1=out, 0=no stock effect
-
-    AffectsCost @BOOL default 0 @NOT_NULL,          -- affects inventory valuation
-    RequiresRemarks @BOOL default 0 @NOT_NULL,      -- user must enter explanation
-
-    IsSystem @BOOL default 0 @NOT_NULL,             -- protected/system-defined reason
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    Color @NVARCHAR(32) @NULL,                      -- ui display color
-    IconName @NVARCHAR(96) @NULL,                   -- ui icon
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
-    )
-";
-        Version.AddTable(SqlText);
-    }
-    void RegisterTable_Category()
-    {
-        string TableName = "Category";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    ParentId @NVARCHAR(40) @NULL,                   -- Lookup       -- parent category
-
-    Code @NVARCHAR(40) @NOT_NULL,                   -- business code
-    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
-
-    LevelNo integer default 0 @NOT_NULL,            -- optional hierarchy level
-
-    SortNo integer default 0 @NOT_NULL,             -- display order
-
-    VatRateId @NVARCHAR(40) @NULL,                  -- Lookup       -- default vat rate
-    RevenueAccount @NVARCHAR(40) @NULL,             -- optional accounting account
-    ExpenseAccount @NVARCHAR(40) @NULL,             -- optional accounting account
-
-    IsSystem @BOOL default 0 @NOT_NULL,             -- protected/system category
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    Color @NVARCHAR(32) @NULL,                      -- ui display color
-    IconName @NVARCHAR(96) @NULL,                   -- ui icon
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
-
-    FOREIGN KEY (ParentId) REFERENCES Category(Id),
-    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id)
-    )
-";
-        Version.AddTable(SqlText);
-    }
     void RegisterTable_Product()
     {
         string TableName = "Product";
@@ -935,6 +795,146 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (CategoryId) REFERENCES Category(Id),
     FOREIGN KEY (VatRateId) REFERENCES VatRate(Id),
     FOREIGN KEY (PrimaryUnitOfMeasureId) REFERENCES UnitOfMeasure(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_PriceList()
+    {
+        string TableName = "PriceList";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+   Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    PriceListTypeId @NVARCHAR(40) @NOT_NULL,        -- Lookup
+
+    DiscountCategoryId @NVARCHAR(40) @NULL,        -- Lookup
+    CustomerId @NVARCHAR(40) @NULL,             -- Locator Customer
+
+    ProductId @NVARCHAR(40) @NOT_NULL,          -- Locator Product
+    UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,    -- Lookup
+
+    MinQuantity @DECIMAL_(18, 4) default 0 @NOT_NULL,
+
+    UnitPrice @DECIMAL_(18, 4) @NOT_NULL,
+
+    ValidFrom @DATE @NULL,
+    ValidTo @DATE @NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    FOREIGN KEY (PriceListTypeId) REFERENCES PriceListType(Id),
+    FOREIGN KEY (DiscountCategoryId) REFERENCES DiscountCategory(Id),
+    FOREIGN KEY (CustomerId) REFERENCES Person(Id),
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_ProductGroups()
+    {
+        string TableName = "ProductGroups";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    ProductId @NVARCHAR(40) @NOT_NULL,  -- Master
+    GroupId @NVARCHAR(40) @NOT_NULL,    -- Lookup
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Product_Group UNIQUE (ProductId, GroupId),
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (GroupId) REFERENCES ProductGroup(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_Warehouse()
+    {
+        string TableName = "Warehouse";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code WH-XXXXXX -- business code
+    Name @NVARCHAR(96) @NOT_NULL,                       -- display title
+
+    CompanyId @NVARCHAR(40) @NOT_NULL,                  -- Lookup      -- owner company
+    BranchId @NVARCHAR(40) @NULL,                       -- Lookup      -- optional company branch
+
+    WarehouseTypeId integer default 0 @NOT_NULL,        -- Enum -- Main, Store, Transit, Production, Scrap, Virtual
+
+    AddressLine1 @NVARCHAR(160) @NULL,
+    AddressLine2 @NVARCHAR(160) @NULL,
+    City @NVARCHAR(96) @NULL,
+    PostalCode @NVARCHAR(16) @NULL,
+    CountryId @NVARCHAR(40) @NULL,                      -- Lookup
+
+    Phone @NVARCHAR(32) @NULL,
+    Email @NVARCHAR(96) @NULL,
+
+    ResponsiblePersonId @NVARCHAR(40) @NULL,            -- Locator Person  -- Person responsible for warehouse
+
+    IsActive @BOOL default 1 @NOT_NULL,
+    IsVirtual @BOOL default 0 @NOT_NULL,                -- logical/non-physical warehouse
+    AllowNegativeStock @BOOL default 0 @NOT_NULL,       -- allow stock below zero
+    AffectsAvailability @BOOL default 1 @NOT_NULL,      -- participates in available stock
+
+    Color @NVARCHAR(32) @NULL,                          -- ui display color
+    IconName @NVARCHAR(96) @NULL,                       -- ui icon
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
+
+    FOREIGN KEY (CompanyId) REFERENCES Company(Id),
+    FOREIGN KEY (BranchId) REFERENCES CompanyBranch(Id),
+    FOREIGN KEY (CountryId) REFERENCES Country(Id),
+    FOREIGN KEY (ResponsiblePersonId) REFERENCES Person(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_Project()
+    {
+        string TableName = "Project";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code @NVARCHAR(40) @NOT_NULL,                   -- Code YYYY-XXXX -- business code
+    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
+
+    CustomerId @NVARCHAR(40) @NULL,                 -- Locator Customer    -- customer/person owner
+
+    ProjectStatusId integer default 0 @NOT_NULL,    -- Enum         -- Draft, Active, Completed, Cancelled
+
+    StartDate @DATE @NULL,
+    EndDate @DATE @NULL,
+
+    CostCenterId @NVARCHAR(40) @NULL,
+
+    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator Person     -- responsible person
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    Color @NVARCHAR(32) @NULL,                      -- ui display color
+    IconName @NVARCHAR(96) @NULL,                   -- ui icon
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
+
+    FOREIGN KEY (CustomerId) REFERENCES Person(Id),
+    FOREIGN KEY (CostCenterId) REFERENCES CostCenter(Id),
+    FOREIGN KEY (ManagerPersonId) REFERENCES Person(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -1008,28 +1008,28 @@ CREATE TABLE {TableName} (
         RegisterTable_Country();
         RegisterTable_Currency();
         RegisterTable_VatRate();
-        RegisterTable_PriceListType();
-        RegisterTable_PriceList();
         RegisterTable_PaymentTerm();
         RegisterTable_ProductGroup();
-        RegisterTable_ProductGroups();
+        RegisterTable_FiscalYear();
+        RegisterTable_Language();
+        RegisterTable_PersonRoleType();
+        RegisterTable_StockReason();
+        RegisterTable_PriceListType();
         RegisterTable_Company();
+        RegisterTable_TaxCategory();
+        RegisterTable_FiscalPeriod();
+        RegisterTable_DocumentType();
+        RegisterTable_Person();
+        RegisterTable_Category();
         RegisterTable_CompanyBranch();
         RegisterTable_CompanyBankAccount();
-        RegisterTable_TaxCategory();
-        RegisterTable_FiscalYear();
-        RegisterTable_FiscalPeriod();
-        RegisterTable_Warehouse();
-        RegisterTable_DocumentType();
-        RegisterTable_Language();
-        RegisterTable_Person();
-        RegisterTable_PersonRoleType();
         RegisterTable_PersonRole();
         RegisterTable_CostCenter();
-        RegisterTable_Project();
-        RegisterTable_StockReason();
-        RegisterTable_Category();
         RegisterTable_Product();
+        RegisterTable_PriceList();
+        RegisterTable_ProductGroups();
+        RegisterTable_Warehouse();
+        RegisterTable_Project();
         RegisterTable_ProductCategory();
         RegisterTable_ProductUnitOfMeasure();
     }

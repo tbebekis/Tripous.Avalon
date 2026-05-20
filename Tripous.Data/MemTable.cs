@@ -61,6 +61,17 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     void Table_TableNewRow(object sender, DataTableNewRowEventArgs e)
     {
     }
+
+    void SetCurrentRow(DataRow Row, bool Force)
+    {
+        DataRow newValue = IsValidRow(Row) ? Row : null;
+ 
+        if (!Force && ReferenceEquals(fCurrentRow, newValue))
+            return;
+
+        fCurrentRow = newValue;
+        OnCurrentRowChanged();
+    }
     
     //  ● private - static
     static string QuoteColumnName(string ColumnName)
@@ -372,7 +383,7 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     public void UpdateCurrentRow()
     {
         DataRow Row = DataView.Count > 0 ? DataView[0].Row : null;
-        CurrentRow = Row;
+        SetCurrentRow(Row, Force: true);
     }
     public DataColumn[] GetColumns(string[] ColumnNames)
     {
@@ -494,7 +505,7 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
         {
             if (!Details.Active)
             {
-                DataView.RowFilter = string.Empty;
+                DetailRowFilter = string.Empty; //DataView.RowFilter = string.Empty;
                 return;
             }
 
@@ -502,7 +513,7 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
 
             if (Master.CurrentRow == null)
             {
-                DataView.RowFilter = "1 = 0";
+                DetailRowFilter = "1 = 0"; // DataView.RowFilter = "1 = 0";
                 return;
             }
 
@@ -511,8 +522,15 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
 
             string Filter = CreateRowFilter(Master.CurrentRow, MasterFields, DetailFields, ParentColumns, ChildColumns);
             DataView.Sort = "";
-            DataView.RowFilter = Filter;
+            DetailRowFilter = Filter; // DataView.RowFilter = Filter;
         }
+    }
+
+    public void RefreshDetails()
+    {
+        UpdateCurrentRow();
+        foreach (MemTable tblDetail in Details)
+            tblDetail.MasterRowChanged();
     }
 
     /// <summary>
@@ -602,7 +620,6 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
         }
     }
     public void SetCurrentRowToNull() => CurrentRow = null;
- 
     
     // ● all (this table and its details)
     /// <summary>
@@ -867,27 +884,17 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     /// When true it automatically generates Guid keys for the primary key column, when a new row is added
     /// </summary>
     public bool AutoGenerateGuidKeys { get; set; }
-
   
     public DataRow CurrentRow
     {
-        get
+        get  
         {
             if (!IsValidRow(fCurrentRow) && !IsDetail)
                 fCurrentRow = FirstRowOrNull();
 
             return fCurrentRow;
         }
-        set
-        {
-            DataRow newValue = IsValidRow(value) ? value : null;
-
-            if (ReferenceEquals(fCurrentRow, newValue))
-                return;
-
-            fCurrentRow = newValue;
-            OnCurrentRowChanged();
-        }
+        set => SetCurrentRow(value, Force: false);
     }
     public DataRowView CurrentRowView
     {

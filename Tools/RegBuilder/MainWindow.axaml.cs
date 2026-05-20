@@ -12,6 +12,8 @@ public partial class MainWindow : Window
     void WindowInitialize()
     {
         LogBox.Initialize(edtLog);
+        
+        // LoadAndRegisterAssemblies
 
         btnOpenOutputFolder.Click += (sender, args) => ShowOutputFolder();
         btnExecute.Click += (sender, args) => Execute();
@@ -24,8 +26,26 @@ public partial class MainWindow : Window
         {
             SetHighlighters();
             LoadSettings();
+
+            string RootFolderPath = FindRepoRootFolderPath();
+            TypeStore.LoadAndRegisterAssemblies(Path.Combine(RootFolderPath, "SampleApps"));
         });
 
+    }
+    static string FindRepoRootFolderPath()
+    {
+        string Dir = AppContext.BaseDirectory;
+
+        while (!string.IsNullOrWhiteSpace(Dir))
+        {
+            if (Directory.Exists(Path.Combine(Dir, "SampleApps")) &&
+                Directory.Exists(Path.Combine(Dir, "Tools")))
+                return Dir;
+
+            Dir = Directory.GetParent(Dir)?.FullName;
+        }
+
+        return AppContext.BaseDirectory;
     }
     void SetHighlighters()
     {

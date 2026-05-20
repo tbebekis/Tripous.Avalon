@@ -107,6 +107,29 @@ static public class TypeStore
         }
     }
     
+    static public void LoadAndRegisterAssemblies(params string[] FolderPaths)
+    {
+        foreach (string FolderPath in FolderPaths)
+        {
+            if (string.IsNullOrWhiteSpace(FolderPath) || !Directory.Exists(FolderPath))
+                continue;
+
+            string[] FilePaths = Directory.GetFiles(FolderPath, "*.dll", SearchOption.AllDirectories);
+
+            foreach (string FilePath in FilePaths)
+            {
+                try
+                {
+                    Assembly Assembly = Assembly.LoadFrom(FilePath);
+                    TypeStore.Register(Assembly);
+                }
+                catch
+                {
+                    // Ignore files that are not valid .NET assemblies or cannot be loaded.
+                }
+            }
+        }
+    }
     /// <summary>
     /// Registers all discoverable types of all loaded assemblies.
     /// </summary>

@@ -94,7 +94,7 @@ static public class DbOps
 
                 foreach (string KeyValues in KeyValuesList)
                 {
-                    SqlText = $"delete from {Table.TableName} where {Table.KeyField} in {KeyValues}";
+                    SqlText = $"delete from {Table.TableName} where {Table.KeyField} in ({KeyValues})";
                     Context.Store.ExecSql(Context.Transaction, SqlText);
                 }
             }

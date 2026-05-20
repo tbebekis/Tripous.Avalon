@@ -136,7 +136,7 @@ public class LookupSource
         foreach (var Value in System.Enum.GetValues(EnumType))
         {
             string Display = Value.ToString();
-            List.Add(new LookupItem(Value, Display));
+            List.Add(new LookupItem(Convert.ToInt32(Value), Display));
         }
     }
 
