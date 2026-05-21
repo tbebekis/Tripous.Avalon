@@ -104,6 +104,8 @@ public partial class DataForm : AppForm
                 case DataFormState.Edit:
                     pnlList.IsVisible = false;
                     pnlItem.IsVisible = true;
+                    KeyboardNavigation.SetTabNavigation(pnlItem, KeyboardNavigationMode.Cycle);
+                    Ui.Post(() => FindFirstFocusableControl(pnlItem)?.Focus(NavigationMethod.Tab, KeyModifiers.None));
                     break;
             }
         } 
@@ -408,6 +410,37 @@ public partial class DataForm : AppForm
 
     protected virtual void BindListGrid(SelectDef SelectDef) => DataGridBinder.BindGrid(SelectDef, gridList, Module.tblList.DataView, SupportsRecycling: false, GoToFirst: true);
     protected virtual void UnBindListGrid() => DataGridBinder.UnBindGrid(gridList);
+    protected override Control FindFirstFocusableControl(Control Container)
+    {
+        if (Container == null)
+            return null;
+
+        foreach (Control Control in Container.GetVisualDescendants().OfType<Control>())
+        {
+            if (IsEditableFocusControl(Control))
+                return Control;
+        }
+
+        return null;
+    }
+    protected virtual bool IsEditableFocusControl(Control Control)
+    {
+        if (Control == null || !Control.IsEffectivelyVisible || !Control.IsEnabled)
+            return false;
+
+        if (Control is TextBox TextBox)
+            return !TextBox.IsReadOnly && TextBox.Focusable;
+        if (Control is ComboBox ComboBox)
+            return ComboBox.Focusable;
+        if (Control is CalendarDatePicker CalendarDatePicker)
+            return CalendarDatePicker.Focusable;
+        if (Control is CheckBox CheckBox)
+            return CheckBox.Focusable;
+        if (Control is LocatorBox LocatorBox)
+            return LocatorBox.Focusable;
+
+        return false;
+    }
  
     protected virtual void CreateItemPanel()
     {

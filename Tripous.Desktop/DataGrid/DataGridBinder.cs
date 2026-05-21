@@ -113,8 +113,8 @@ public static class DataGridBinder
                 {
                     Item?.BeginEdit();
                     IsLoading = false;
-                    Result.Focus();
-                    Result.SelectAll();
+                    Result.Focus(NavigationMethod.Tab, KeyModifiers.None);
+                    Dispatcher.UIThread.Post(() => Result.SelectAll(), DispatcherPriority.Input);
                 }, DispatcherPriority.Input);
             };
 

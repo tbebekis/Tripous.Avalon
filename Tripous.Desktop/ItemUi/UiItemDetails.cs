@@ -158,6 +158,7 @@ static public class UiItemDetails
         foreach (GridCommand Command in Commands)
         {
             Button Button = ToolBar.AddButton(Command.ImageFileName, Command.ToolTip, () => Execute(Command));
+            Button.IsTabStop = false;
             Button.Tag = Command;
             Buttons[Command] = Button;
         }
@@ -189,11 +190,14 @@ static public class UiItemDetails
         DataGrid Result = new()
         {
             AutoGenerateColumns = false,
+            Focusable = true,
             HorizontalAlignment = HorizontalAlignment.Stretch,
+            IsTabStop = true,
             Margin = new Thickness(0, 8, 0, 8)
         };
         CreateDetailGridColumns(Result, TableDef);
         BindDetailGrid(context, Result, TableDef);
+        GridEditController.Attach(Result);
         return Result;
     }
     /// <summary>
@@ -222,6 +226,27 @@ static public class UiItemDetails
     /// </summary>
     static public void BindDetailGrid(UiItemContext context, DataGrid Grid, TableDef TableDef)
     {
-        Grid.ItemsSource = new DataViewItemsSource(context.Module.GetTable(TableDef.Name).DataView);
+        MemTable Table = context.Module.GetTable(TableDef.Name);
+        DataView DataView = Table.DataView;
+        DataViewItemsSource ItemsSource = new(DataView);
+        Grid.ItemsSource = ItemsSource;
+
+        void SelectFirstRow()
+        {
+            Ui.Post(() =>
+            {
+                if (ItemsSource.Count > 0 && Grid.SelectedItem == null)
+                {
+                    Grid.SelectedIndex = 0;
+                    Grid.SelectedItem = ItemsSource[0];
+                    Table.CurrentRowView = ItemsSource[0];
+                    if (Grid.CurrentColumn == null)
+                        Grid.CurrentColumn = Grid.Columns.FirstOrDefault(Column => Column.IsVisible);
+                }
+            });
+        }
+
+        ItemsSource.CollectionChanged += (Sender, Args) => SelectFirstRow();
+        SelectFirstRow();
     }
 }
