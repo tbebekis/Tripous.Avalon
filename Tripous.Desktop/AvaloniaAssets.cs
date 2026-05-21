@@ -3,7 +3,7 @@ namespace Tripous.Desktop;
 /// <summary>
 /// Handles Avalonia resources.
 /// </summary>
-static public class Assets
+static public class AvaloniaAssets
 {
     const string Protocol = "avares://";
     /// <summary>
@@ -38,7 +38,7 @@ static public class Assets
         List<Assembly> List = Sys.GetApplicationAssemblies(["SkiaSharp", "Tmds.DBus.Protocol", "HarfBuzzSharp", "FirebirdSql", "Npgsql", "MySql", "Oracle"]);
         InsertToTop(Assembly.GetEntryAssembly(), List);
         InsertToTop(Assembly.GetExecutingAssembly(), List);
-        InsertToTop(typeof(Assets).Assembly, List);
+        InsertToTop(typeof(AvaloniaAssets).Assembly, List);
         InsertToTop(Assembly.GetCallingAssembly(), List);
  
         foreach (Assembly A in List)

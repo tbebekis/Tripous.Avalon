@@ -3,8 +3,8 @@ namespace Tripous.Desktop;
 public interface IReferenceContextMenuHost
 {
     bool CanOpenRefContextMenu(ReferenceContextMenu RefContextMenu);
-    void EnableRefContextMenuItems(ReferenceContextMenu RefContextMenu);
-    object GetCurrentOID();
+    bool CanExecute(ReferenceMenuCommandContext Context);
+    object Execute(ReferenceMenuCommandContext Context);
 }
 
 /// <summary>
@@ -16,62 +16,74 @@ public class ReferenceContextMenu
     // ● protected
     protected IReferenceContextMenuHost MenuHost;
     
-    /// <summary>
-    /// Shows the related list form.
-    /// </summary>
-    protected virtual async Task ShowList() => await ShowFormModal(DataFormAction.List);
-    /// <summary>
-    /// Reloads the reference source.
-    /// </summary>
-    protected virtual void ReloadList()
+    // ● protected
+    protected virtual string GetFormName()
     {
+        return Binding.LookupSource?.LookupDef?.Form ?? Binding.LocatorDef?.Form;
     }
-    /// <summary>
-    /// Edits the current reference item.
-    /// </summary>
-    protected virtual async Task Edit() => await ShowFormModal(DataFormAction.Edit, MenuHost.GetCurrentOID());
-    /// <summary>
-    /// Adds a new reference item.
-    /// </summary>
-    protected virtual async Task Add() => await ShowFormModal(DataFormAction.Insert);
-    /// <summary>
-    /// Clears the current reference value.
-    /// </summary>
-    protected virtual void Clear()
+    protected virtual object GetRowId()
     {
+        if (Binding?.Table?.CurrentRow == null || string.IsNullOrWhiteSpace(Binding.FieldName))
+            return null;
+
+        return Binding.Table.CurrentRow[Binding.FieldName];
     }
-    
+    protected virtual ReferenceMenuActionType GetActionType(MenuItem MenuItem)
+    {
+        if (MenuItem == mnuShowList)
+            return ReferenceMenuActionType.ShowList;
+        if (MenuItem == mnuReload)
+            return ReferenceMenuActionType.Reload;
+        if (MenuItem == mnuEdit)
+            return ReferenceMenuActionType.Edit;
+        if (MenuItem == mnuAdd)
+            return ReferenceMenuActionType.Add;
+        if (MenuItem == mnuClear)
+            return ReferenceMenuActionType.Clear;
+
+        return ReferenceMenuActionType.ShowList;
+    }
+    protected virtual ReferenceMenuCommandContext CreateContext(ReferenceMenuActionType ActionType)
+    {
+        return new ReferenceMenuCommandContext()
+        {
+            ActionType = ActionType,
+            Menu = this,
+            Binding = Binding,
+            FormName = GetFormName(),
+            RowId = ActionType == ReferenceMenuActionType.Edit ? GetRowId() : null,
+            Caller = (Binding as ControlBinding)?.Control
+        };
+    }
+    protected virtual void EnableMenuItems()
+    {
+        mnuShowList.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.ShowList));
+        mnuReload.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Reload));
+        mnuEdit.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Edit));
+        mnuAdd.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Add));
+        mnuClear.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Clear));
+    }
     /// <summary>
     /// Dispatches a menu click to the corresponding operation.
     /// </summary>
     protected virtual async void AnyMenuItem_Click(object Sender, RoutedEventArgs Args)
     {
         MenuItem MenuItem = Sender as MenuItem;
+        ReferenceMenuCommandContext Context = CreateContext(GetActionType(MenuItem));
+        if (!MenuHost.CanExecute(Context))
+            return;
         
-        if (MenuItem == mnuShowList)
-            await ShowList();
-        else if (MenuItem == mnuReload)
-            ReloadList();
-        else if (MenuItem == mnuEdit)
-            await Edit();
-        else if (MenuItem == mnuAdd)
-            await Add();
-        else if (MenuItem == mnuClear)
-            Clear();
+        object Result = MenuHost.Execute(Context);
+        if (Result is Task<DataFormContext> DataFormTask)
+            Context.Result = await DataFormTask;
+        else if (Result is Task<object> ObjectTask)
+            Context.Result = await ObjectTask;
+        else if (Result is Task Task)
+            await Task;
+        else
+            Context.Result = Result;
     }
     protected virtual bool CanOpen() => MenuHost.CanOpenRefContextMenu(this);
-    /// <summary>
-    /// Shows the related data form as a modal dialog.
-    /// </summary>
-    protected virtual async Task<DataFormContext> ShowFormModal(DataFormAction StartAction, object RowId = null)
-    {
-        string FormName = Binding.LookupSource.LookupDef?.Form ?? Binding.LocatorDef?.Form;
-        if (string.IsNullOrWhiteSpace(FormName))
-            return null;
-
-        Control Caller = (Binding as ControlBinding)?.Control;
-        return await DataFormContext.ShowFormModal(FormName, StartAction, RowId, Caller);
-    }
 
     // ● construction
     /// <summary>
@@ -135,7 +147,7 @@ public class ReferenceContextMenu
             }, RoutingStrategies.Tunnel);
         }
         // -----------------------------------------------
-        Menu.Opening += (Sender, Args) => MenuHost.EnableRefContextMenuItems(this);
+        Menu.Opening += (Sender, Args) => EnableMenuItems();
     }
 
     // ● properties

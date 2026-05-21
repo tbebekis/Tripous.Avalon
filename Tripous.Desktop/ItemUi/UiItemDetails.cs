@@ -118,7 +118,7 @@ static public class UiItemDetails
         if (context.GridHandler == null || DetailUiInfo.ToolBarPanel == null || DetailUiInfo.Grid == null)
             return;
 
-        GridCommand[] Commands = context.GridHandler.GetCommands();
+        GridCommand[] Commands = context.GridHandler.GetGridCommands();
         Commands = Commands.Where(Command => Command.IsVisible).ToArray();
         if (Commands.Length == 0)
         {

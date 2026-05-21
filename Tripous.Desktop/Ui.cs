@@ -160,7 +160,7 @@ static public class Ui
         
         if (!string.IsNullOrWhiteSpace(IconFile))
         {
-            Image Img = Assets.FindImage16(IconFile);
+            Image Img = AvaloniaAssets.FindImage16(IconFile);
             if (Img != null) 
                 Panel.Children.Add(Img);
         }

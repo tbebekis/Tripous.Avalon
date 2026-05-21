@@ -83,10 +83,10 @@ public partial class DataForm : AppForm
         {
             if (StartAction == DataFormAction.List)
                 SelectedSelectChanged();
-            await Execute(StartAction);
+            await ExecuteStartAction();
         }
 
-        Ui.Post(() => btnRefreshList.Focus());
+        
     }
     
     // ● form state
@@ -99,6 +99,7 @@ public partial class DataForm : AppForm
                 case DataFormState.List:
                     pnlItem.IsVisible = false;
                     pnlList.IsVisible = true;
+                    Ui.Post(() => btnRefreshList.Focus());
                     break;
                 case DataFormState.Insert:
                 case DataFormState.Edit:
@@ -112,6 +113,31 @@ public partial class DataForm : AppForm
     }
  
     // ● form actions
+    protected virtual async Task ExecuteStartAction()
+    {
+        if (StartAction == DataFormAction.Edit && !Sys.IsNull(DataFormContext.RowId))
+        {
+            Ui.Post(() =>
+            {
+                ExecuteEdit(DataFormContext.RowId);
+                UpdateUi();
+            });
+
+            return;
+        }
+        else if (StartAction == DataFormAction.Insert)
+        {
+            Ui.Post(() =>
+            {
+                ExecuteInsert();
+                UpdateUi();
+            });
+
+            return;
+        }
+
+        await Execute(StartAction);
+    }
     protected virtual async Task Execute(DataFormAction Value)
     {
         if (!Executing(Value))
@@ -160,9 +186,12 @@ public partial class DataForm : AppForm
                         else
                             CloseForm();
                     }
-                    else if (FormState == DataFormState.Insert || FormState == DataFormState.Edit)  
+                    else if (FormState == DataFormState.Insert || FormState == DataFormState.Edit)
                     {
-                        await ExecuteCancelEdit();
+                        if (HasChanges())
+                            await ExecuteCancelEdit();
+                        else
+                            await ExecuteList();
                     } 
                     break;
                 case DataFormAction.Ok:
@@ -192,7 +221,7 @@ public partial class DataForm : AppForm
 
     protected virtual async Task ExecuteList()
     {
-        await Task.CompletedTask;
+        //await Task.CompletedTask;
         
         if (!Saving && FormState.In(DataFormState.Insert |DataFormState.Edit))  
         {
@@ -224,6 +253,7 @@ public partial class DataForm : AppForm
         if (!Sys.IsNull(oId))
         {
             Load(oId);
+            ItemPage?.Binders.ForEach(Binder => Binder.Refresh());
             this.FormState = DataFormState.Edit;
         }
     }
@@ -584,13 +614,20 @@ public partial class DataForm : AppForm
     /// </summary>
     protected override bool ProcessEscapeKey()
     {
+        //if (btnCancel.IsVisible && btnCancel.IsEnabled)
+        {
+            Ui.Post(async () => await Execute(DataFormAction.Cancel));
+            return true;
+        }
+        /*
         if (!IsModal && this.FormState == DataFormState.List)
         {
             this.CloseForm();
             return true;
         }
+        */
 
-        return base.ProcessEscapeKey();
+        //return base.ProcessEscapeKey();
     }    
  
     // ● construction

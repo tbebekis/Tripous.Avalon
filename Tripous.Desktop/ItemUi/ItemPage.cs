@@ -132,14 +132,85 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         bool Result = RefContextMenu.Binding.FieldDef.IsReadOnlyEdit? DataForm.FormState == DataFormState.Insert : true;
         return Result;
     }
-    public virtual void EnableRefContextMenuItems(ReferenceContextMenu RefContextMenu)
+    public virtual bool CanExecute(ReferenceMenuCommandContext Context)
     {
-       // TODO: EnableRefContextMenuItems()
+        if (Context == null || Context.Binding == null)
+            return false;
+
+        switch (Context.ActionType)
+        {
+            case ReferenceMenuActionType.ShowList:
+            case ReferenceMenuActionType.Add:
+                return !string.IsNullOrWhiteSpace(Context.FormName);
+            case ReferenceMenuActionType.Reload:
+                return Context.Binding.LookupSource != null;
+            case ReferenceMenuActionType.Edit:
+                return !string.IsNullOrWhiteSpace(Context.FormName) && !Sys.IsNull(Context.RowId);
+            case ReferenceMenuActionType.Clear:
+                return DataForm.FormState.In(DataFormState.Insert | DataFormState.Edit);
+        }
+
+        return false;
     }
-    public object GetCurrentOID()
+    public virtual object Execute(ReferenceMenuCommandContext Context)
     {
-        object Result = Module.Id;
-        return Result;
+        if (!CanExecute(Context))
+            return null;
+
+        switch (Context.ActionType)
+        {
+            case ReferenceMenuActionType.ShowList:
+                return ExecuteReferenceShowList(Context);
+            case ReferenceMenuActionType.Reload:
+                return ExecuteReferenceReload(Context);
+            case ReferenceMenuActionType.Edit:
+                return ExecuteReferenceEdit(Context);
+            case ReferenceMenuActionType.Add:
+                return ExecuteReferenceAdd(Context);
+            case ReferenceMenuActionType.Clear:
+                return ExecuteReferenceClear(Context);
+        }
+
+        return null;
+    }
+    
+    public virtual async Task<DataFormContext> ExecuteReferenceShowList(ReferenceMenuCommandContext Context)
+    {
+        Context.FormContext = await DataFormContext.ShowFormModal(Context.FormName, DataFormAction.List, null, Context.Caller);
+        return Context.FormContext;
+    }
+    public virtual object ExecuteReferenceReload(ReferenceMenuCommandContext Context)
+    {
+        if (Context.Binding.LookupSource == null)
+            return null;
+
+        Context.Binding.LookupSource.ClearList();
+        if (Context.Binding is ControlBinding ControlBinding && ControlBinding.Control is ComboBox ComboBox)
+        {
+            ComboBox.ItemsSource = null;
+            ComboBox.ItemsSource = Context.Binding.LookupSource.GetList();
+        }
+        return null;
+    }
+    public virtual async Task<DataFormContext> ExecuteReferenceEdit(ReferenceMenuCommandContext Context)
+    {
+        Context.FormContext = await DataFormContext.ShowFormModal(Context.FormName, DataFormAction.Edit, Context.RowId, Context.Caller);
+        return Context.FormContext;
+    }
+    public virtual async Task<DataFormContext> ExecuteReferenceAdd(ReferenceMenuCommandContext Context)
+    {
+        Context.FormContext = await DataFormContext.ShowFormModal(Context.FormName, DataFormAction.Insert, null, Context.Caller);
+        return Context.FormContext;
+    }
+    public virtual object ExecuteReferenceClear(ReferenceMenuCommandContext Context)
+    {
+        if (Context.Binding?.Table?.CurrentRow == null || string.IsNullOrWhiteSpace(Context.Binding.FieldName))
+            return null;
+
+        Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = DBNull.Value;
+        if (Context.Binding is ControlBinding ControlBinding && ControlBinding.Control is ComboBox ComboBox)
+            ComboBox.SelectedItem = null;
+        return null;
     }
 
     // ● properties
@@ -212,7 +283,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     public event EventHandler CurrentRowChanged;
 
 
-    public virtual GridCommand[] GetCommands()
+    public virtual GridCommand[] GetGridCommands()
     {
         List<GridCommand> Result = new();
 

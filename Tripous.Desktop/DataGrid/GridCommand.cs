@@ -58,7 +58,7 @@ public class DetailGridCommandContext: GridCommandContext
 /// </summary>
 public interface IGridHandler
 {
-    GridCommand[] GetCommands();
+    GridCommand[] GetGridCommands();
     bool CanExecute(GridCommandContext Context);
     object Execute(GridCommandContext Context);
 }

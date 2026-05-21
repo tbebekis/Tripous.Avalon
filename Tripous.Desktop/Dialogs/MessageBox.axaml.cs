@@ -35,7 +35,7 @@ public partial class MessageBox : Window
         };
 
        
-        Assets.SetImage(imgIcon, fileName);
+        AvaloniaAssets.SetImage(imgIcon, fileName);
  
     }
     private void FocusDefaultButton()
