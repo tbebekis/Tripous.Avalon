@@ -29,3 +29,5 @@ Thumbs.db
 
 ## [ Avalonia specific ]
 *.visualstate
+
+AGENTS.md

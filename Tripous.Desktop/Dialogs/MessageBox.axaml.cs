@@ -15,14 +15,16 @@ public enum MessageBoxMode
 
 public partial class MessageBox : Window
 {
-    private MessageBoxMode BoxMode;
-    private Button btnYes;
-    private Button btnNo;
-    private Button btnClose;
+    // ● private fields
+    private MessageBoxMode fBoxMode;
+    private Button fBtnYes;
+    private Button fBtnNo;
+    private Button fBtnClose;
     
+    // ● private
     private void SetIcon(MessageBoxMode boxMode)
     {
-        BoxMode = boxMode;
+        fBoxMode = boxMode;
         
         string fileName = boxMode switch
         {
@@ -36,8 +38,28 @@ public partial class MessageBox : Window
         Assets.SetImage(imgIcon, fileName);
  
     }
-    
-    // ● Private Helper  
+    private void FocusDefaultButton()
+    {
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (fBtnClose != null)
+                fBtnClose.Focus(NavigationMethod.Tab, KeyModifiers.None);
+            else
+                fBtnNo.Focus(NavigationMethod.Tab, KeyModifiers.None);
+        }, DispatcherPriority.Input);
+    }
+    private void QuestionButton_KeyDown(object Sender, KeyEventArgs Args)
+    {
+        if (Args.Key != Key.Left && Args.Key != Key.Right && Args.Key != Key.Up && Args.Key != Key.Down)
+            return;
+
+        if (Sender == fBtnYes)
+            fBtnNo.Focus(NavigationMethod.Directional, KeyModifiers.None);
+        else
+            fBtnYes.Focus(NavigationMethod.Directional, KeyModifiers.None);
+
+        Args.Handled = true;
+    }
     private static async Task<bool> ShowDialog(string title, string Message, bool isQuestion, MessageBoxMode boxMode, Control Caller)
     {
         var Dlg = new MessageBox();
@@ -48,36 +70,38 @@ public partial class MessageBox : Window
  
         if (isQuestion)
         {
-            Dlg.btnYes = new Button
+            Dlg.fBtnYes = new Button
             {
-                Content = "Yes", Width = 70, IsDefault = true,
+                Content = "Yes", Width = 70,
                 HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Center,
             };
-            Dlg.btnYes.Click += (s, e) => { Dlg.DialogResultValue = true; Dlg.Close(); };
+            Dlg.fBtnYes.Click += (s, e) => { Dlg.DialogResultValue = true; Dlg.Close(); };
+            Dlg.fBtnYes.KeyDown += Dlg.QuestionButton_KeyDown;
             
-            Dlg.btnNo = new Button
+            Dlg.fBtnNo = new Button
             {
-                Content = "No", Width = 70, IsCancel = true,
+                Content = "No", Width = 70, IsDefault = true, IsCancel = true,
                 HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Center,
             };
-            Dlg.btnNo.Click += (s, e) => { Dlg.DialogResultValue = false; Dlg.Close(); };
+            Dlg.fBtnNo.Click += (s, e) => { Dlg.DialogResultValue = false; Dlg.Close(); };
+            Dlg.fBtnNo.KeyDown += Dlg.QuestionButton_KeyDown;
 
-            Dlg.pnlButtons.Children.Add(Dlg.btnYes);
-            Dlg.pnlButtons.Children.Add(Dlg.btnNo);
+            Dlg.pnlButtons.Children.Add(Dlg.fBtnYes);
+            Dlg.pnlButtons.Children.Add(Dlg.fBtnNo);
  
         }
         else
         {
-            Dlg.btnClose = new Button
+            Dlg.fBtnClose = new Button
             {
                 Content = "Close", Width = 70, IsDefault = true, IsCancel = true,
                 HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Center,
             };
-            Dlg.btnClose.Click += (s, e) => Dlg.Close();
-            Dlg.pnlButtons.Children.Add(Dlg.btnClose);
+            Dlg.fBtnClose.Click += (s, e) => Dlg.Close();
+            Dlg.pnlButtons.Children.Add(Dlg.fBtnClose);
         }
 
         if (Caller == null)
@@ -92,16 +116,7 @@ public partial class MessageBox : Window
     public MessageBox()
     {
         InitializeComponent();
-        
-        this.Loaded += (s, e) =>
-        {
-            //edtMessage.Focus();
-            //this.Focus();
-            if (btnClose != null)
-                btnClose.Focus();
-            else
-                btnNo.Focus();
-        };
+        Loaded += (s, e) => FocusDefaultButton();
     }
     
     // ● Static Methods

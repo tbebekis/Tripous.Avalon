@@ -226,9 +226,9 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
                 ActionType = GridActionType.Add,
                 Name = "Add",
                 Title = "Add",
-                ToolTip = "Add row",
+                ToolTip = "Add row (Ctrl+Insert)",
                 ImageFileName = "table_add.png",
-                KeyGesture = new KeyGesture(Key.Insert)
+                KeyGesture = new KeyGesture(Key.Insert, KeyModifiers.Control)
             });
         }
 
@@ -239,9 +239,9 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
                 ActionType = GridActionType.Delete,
                 Name = "Delete",
                 Title = "Delete",
-                ToolTip = "Delete row",
+                ToolTip = "Delete row (Ctrl+Delete)",
                 ImageFileName = "table_delete.png",
-                KeyGesture = new KeyGesture(Key.Delete)
+                KeyGesture = new KeyGesture(Key.Delete, KeyModifiers.Control)
             });
         }
 

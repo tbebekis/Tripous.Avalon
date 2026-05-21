@@ -163,7 +163,7 @@ static public class UiItemDetails
         }
 
         DetailUiInfo.Grid.SelectionChanged += (Sender, Args) => UpdateButtons();
-        DetailUiInfo.Grid.KeyDown += (Sender, Args) =>
+        DetailUiInfo.Grid.AddHandler(InputElement.KeyDownEvent, (Sender, Args) =>
         {
             foreach (GridCommand Command in Commands)
             {
@@ -174,7 +174,7 @@ static public class UiItemDetails
                     break;
                 }
             }
-        };
+        }, RoutingStrategies.Tunnel, handledEventsToo: true);
 
         ToolBar.IsVisible = true;
         UpdateButtons();
