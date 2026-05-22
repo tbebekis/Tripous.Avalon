@@ -27,4 +27,6 @@ public class GridColumnBinding: TripousBinding
 
     // ● properties
     public DataGridColumn GridColumn { get; }
+    public bool IsReference => LookupSource != null || LocatorDef != null || (FieldDef != null && (FieldDef.IsLookup || !string.IsNullOrWhiteSpace(FieldDef.Locator)));
+    public bool IsPlainId => FieldName.EndsWithText("Id") && !IsReference;
 }

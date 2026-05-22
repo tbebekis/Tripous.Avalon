@@ -72,6 +72,7 @@ static public class UiItemDetails
         Panel.Children.Add(ToolBarBorder);
         Panel.Children.Add(Grid);
         CreateDetailGridToolBar(context, DetailUiInfo);
+        CreateDetailGridReferenceMenus(context, DetailUiInfo);
         UiFactory.AddChild(ParentControl, Panel);
     }
     /// <summary>
@@ -179,6 +180,48 @@ static public class UiItemDetails
 
         ToolBar.IsVisible = true;
         UpdateButtons();
+    }
+    static public void CreateDetailGridReferenceMenus(UiItemContext context, UiDetailTableInfo DetailUiInfo)
+    {
+        if (DetailUiInfo.Grid == null || DetailUiInfo.Table == null || context.GridHandler is not IReferenceContextMenuHost MenuHost)
+            return;
+
+        Dictionary<GridColumnBinding, ReferenceContextMenu> Menus = new();
+        foreach (GridColumnBinding Binding in DetailUiInfo.Grid.GetInfoList())
+        {
+            if (!Binding.IsReference)
+                continue;
+
+            if (Binding.DataColumn == null)
+                Binding.DataColumn = DetailUiInfo.Table.FindColumn(Binding.FieldName);
+
+            ReferenceContextMenu Menu = new();
+            Menu.Initialize(MenuHost, Binding);
+            Menus[Binding] = Menu;
+        }
+
+        if (Menus.Count == 0)
+            return;
+
+        DetailUiInfo.Grid.CellPointerPressed += (Sender, Args) =>
+        {
+            if (!Args.PointerPressedEventArgs.GetCurrentPoint(DetailUiInfo.Grid).Properties.IsRightButtonPressed)
+                return;
+
+            GridColumnBinding Binding = Args.Column.GetInfo();
+            if (Binding == null || !Menus.TryGetValue(Binding, out ReferenceContextMenu Menu))
+                return;
+
+            if (Args.Row.DataContext is DataRowView RowView)
+            {
+                DetailUiInfo.Grid.SelectedItem = RowView;
+                DetailUiInfo.Table.CurrentRowView = RowView;
+            }
+
+            DetailUiInfo.Grid.CurrentColumn = Args.Column;
+            if (Menu.Open(DetailUiInfo.Grid))
+                Args.PointerPressedEventArgs.Handled = true;
+        };
     }
 
     // ● detail grids

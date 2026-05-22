@@ -53,7 +53,7 @@
                                          VerticalContentAlignment="Top"
                                          Background="Transparent"
                                          BorderThickness="0"
-                                         FontFamily="Cascadia Code,Consolas,Monospace"
+                                         FontFamily="Cascadia Mono, Cascadia Code, Consolas, Courier New, Monospace"
                                          FontSize="12"/>
  
                         </Grid>

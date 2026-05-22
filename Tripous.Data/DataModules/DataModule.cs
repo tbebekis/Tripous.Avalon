@@ -284,6 +284,8 @@ public class DataModule
     protected virtual void Commited(bool Reselect, object RowId)
     {
     }
+    protected virtual bool MustReselectAfterCommit() => CodeProviderDef != null;
+ 
     
 
     // ● construction
@@ -547,6 +549,7 @@ public class DataModule
         IsCommiting = true;
         try
         {
+            Reselect = Reselect || MustReselectAfterCommit();
             EndEdit();
             SetDefaultValues();
             EndEdit();

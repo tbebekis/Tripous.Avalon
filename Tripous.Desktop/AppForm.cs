@@ -300,7 +300,11 @@ public class AppForm: UserControl
             {
                 fModalResult = value;
                 if (fModalResult != ModalResult.None)
+                {
+                    Context.ModalResult = fModalResult;
+                    PassResultBack();
                     CloseForm();     
+                }
             }
         }
     }

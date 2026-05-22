@@ -58,7 +58,7 @@ public class DbGlobalSettings: SettingsBase, INotifyPropertyChanged
     /// </summary>
     public int LocatorMinimumSearchTextLength
     {
-        get => fLocatorMinimumSearchTextLength >= 3 && fLocatorMinimumSearchTextLength <= 6 ? fLocatorMinimumSearchTextLength : 4;
+        get => fLocatorMinimumSearchTextLength >= 3 && fLocatorMinimumSearchTextLength <= 6 ? fLocatorMinimumSearchTextLength : 3;
         set { if (fLocatorMinimumSearchTextLength != value) { fLocatorMinimumSearchTextLength = value; NotifyPropertyChanged(nameof(LocatorMinimumSearchTextLength)); } }
     }
     /// <summary>

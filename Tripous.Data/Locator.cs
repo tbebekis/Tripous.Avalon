@@ -111,6 +111,9 @@ public class Locator
             if (!string.IsNullOrEmpty(LocatorDef.SourceTableName))
             {
                 List<string> SelectList = new();
+                if (!LocatorDef.Fields.Any(item => item.Name.IsSameText(LocatorDef.KeyField) || item.Alias.IsSameText(LocatorDef.KeyField)))
+                    SelectList.Add($"  {LocatorDef.SourceTableName}.{LocatorDef.KeyField} as {LocatorDef.KeyField}");
+
                 foreach (LocatorFieldDef FieldDef in LocatorDef.Fields)
                 {
                     string FieldLine = $"  {LocatorDef.SourceTableName}.{FieldDef.Name} as {FieldDef.Alias}";
@@ -263,6 +266,39 @@ public class Locator
     {
         Result = Execute(Term);
         return Result.IsSingleRow;
+    }
+    /// <summary>
+    /// Locates a single source row by the locator key value.
+    /// </summary>
+    public virtual bool LocateByKey(object KeyValue)
+    {
+        if (Sys.IsNull(KeyValue))
+            return false;
+
+        string FieldName = LocatorDef.KeyField;
+        string ValueText;
+        if (KeyValue is string)
+        {
+            string V = KeyValue.ToString().Replace("'", "''");
+            ValueText = $"'{V}'";
+        }
+        else if (KeyValue is DateTime Date)
+        {
+            ValueText = $"'{Date:yyyy-MM-dd HH:mm:ss}'";
+        }
+        else
+        {
+            ValueText = KeyValue.ToString();
+        }
+
+        SelectSql SS = GetSelectSql();
+        int RowCount = SelectSourceTable(SS, $"{FieldName} = {ValueText}");
+        if (RowCount != 1)
+            return false;
+
+        SelectedRow = SourceTable.Rows[0];
+        this.KeyValue = SelectedRow[LocatorDef.KeyField];
+        return true;
     }
     /// <summary>
     /// Assigns locator values from a source row to a target row.

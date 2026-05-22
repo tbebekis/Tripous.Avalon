@@ -143,7 +143,11 @@ public class ItemBinder
     /// </summary>
     public virtual ControlBinding Bind(LocatorBox Box, FieldDef Field)
     {
+        if (Field != null && Field.TableDef == null)
+            Field.TableDef = TableInfo?.TableDef;
+
         ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, Field);
+        Result.DataColumn = TableInfo?.Table?.FindColumn(Field.Name);
         Bindings.Add(Result);
         return Result;
     }

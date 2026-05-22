@@ -420,12 +420,9 @@ where
     public void UpdateFrom(DataTable Table)
     {
         FieldFlags Flags;
-        string TitleKey;
 
         foreach (DataColumn Column in Table.Columns)
         {
-            TitleKey = Texts.GS(Column.Caption);
-            
             FieldDef FieldDef = Fields.FirstOrDefault(item => item.Name.IsSameText(Column.ColumnName));
 
             // ● missing field
@@ -462,8 +459,8 @@ where
                 FieldDef.MaxLength = Column.MaxLength;
 
             // ● TitleKey
-            if (FieldDef.IsTitleKeyEmpty)
-                FieldDef.TitleKey = TitleKey;
+            if (FieldDef.IsTitleKeyEmpty && !FieldDef.Name.IsSameText(Column.Caption))
+                FieldDef.TitleKey = Texts.GS(Column.Caption);
 
             // ● IsNullable
             FieldDef.IsNullable = Column.AllowDBNull;
@@ -682,6 +679,9 @@ where
     /// </summary>
     public FieldDef AddLookupId(string Name, DataFieldType DataType, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
     {
+        if (string.IsNullOrWhiteSpace(TitleKey))
+            TitleKey = LookupSource;
+        
         FieldDef Result = AddField(Name, DataType, Group: Group, TitleKey: TitleKey, Flags: Flags);
         Result.LookupSource = LookupSource;
         return Result;

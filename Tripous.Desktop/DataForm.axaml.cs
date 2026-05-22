@@ -1,5 +1,32 @@
 namespace Tripous.Desktop;
 
+/// <summary>
+/// A data form with a List part and an Item part.
+/// <para>
+/// All user initiated form actions should enter through <see cref="Execute(DataFormAction)"/>.
+/// The <c>ExecuteXXXX()</c> methods are the action handlers and they are the only methods that should
+/// directly change, or eventually cause a change to, the <see cref="FormState"/>.
+/// </para>
+/// <para>
+/// Low level data operation methods, such as <see cref="ListSelect"/>, <see cref="Insert"/>,
+/// <see cref="Load"/>, <see cref="Delete"/> and <see cref="Save"/>, should be called only by the
+/// corresponding <c>ExecuteXXXX()</c> method. This keeps UI commands, keyboard shortcuts and toolbar
+/// buttons on the same execution path.
+/// </para>
+/// <para>
+/// The cancel flow is intentionally split. <see cref="ExecuteCancel"/> handles the Cancel action.
+/// <see cref="ExecuteCancelEdit"/> handles only rejecting item changes. When an item has changes,
+/// Cancel asks for confirmation, rejects the changes, refreshes the item controls and stays in the
+/// Item part. A second Cancel, with no changes left, returns to the List part.
+/// </para>
+/// <para>
+/// Startup is the only intentional exception to the general rule. <see cref="ExecuteStartAction"/>
+/// may call <c>ExecuteEdit(RowId)</c> or <c>ExecuteInsert()</c> directly and delayed through the UI
+/// dispatcher. At startup the list part may not be loaded yet, so <c>Execute(Edit)</c> cannot always
+/// resolve the desired row through the current list row. This exception is for bootstrapping only;
+/// normal UI actions should still use <see cref="Execute(DataFormAction)"/>.
+/// </para>
+/// </summary>
 public partial class DataForm : AppForm
 {
     protected DataFormState fFormState = DataFormState.None;
@@ -8,6 +35,7 @@ public partial class DataForm : AppForm
     protected bool Saving;
     protected bool fIdColumnsVisible = false;
     protected bool fFiltersSideBarVisible = true;
+    protected object fListTargetId;
     
     protected ToolBar ToolBar;
 
@@ -45,7 +73,57 @@ public partial class DataForm : AppForm
         _ = Execute(DataFormAction.Edit);
     }
  
+    // ● shortcuts
+    protected virtual bool ExecuteShortcut(Button Button, DataFormAction Action)
+    {
+        if (Button == null || !Button.IsVisible || !Button.IsEnabled)
+            return false;
+
+        Ui.Post(async () => await Execute(Action));
+        return true;
+    }
+    protected virtual bool ProcessShortcutKey(KeyEventArgs e)
+    {
+        if (e.KeyModifiers == KeyModifiers.None)
+        {
+            switch (e.Key)
+            {
+                case Key.F5:
+                    return ExecuteShortcut(btnList, DataFormAction.List);
+            }
+        }
+        else if (e.KeyModifiers == KeyModifiers.Control)
+        {
+            switch (e.Key)
+            {
+                case Key.F5:
+                    return ExecuteShortcut(btnRefreshList, DataFormAction.RefreshList);
+                case Key.F:
+                    return ExecuteShortcut(btnFind, DataFormAction.Find);
+                case Key.Insert:
+                    return ExecuteShortcut(btnInsert, DataFormAction.Insert);
+                case Key.Enter:
+                    if (IsModal && FormState == DataFormState.List)
+                        return ExecuteShortcut(btnOK, DataFormAction.Ok);
+                    return ExecuteShortcut(btnEdit, DataFormAction.Edit);
+                case Key.Delete:
+                    return ExecuteShortcut(btnDelete, DataFormAction.Delete);
+                case Key.S:
+                    return ExecuteShortcut(btnSave, DataFormAction.Save);
+            }
+        }
+
+        return false;
+    }
+
     // ● overrides
+    protected override bool ProcessKeyDown(KeyEventArgs e)
+    {
+        if (!Design.IsDesignMode && ProcessShortcutKey(e))
+            return true;
+
+        return base.ProcessKeyDown(e);
+    }
     /// <summary>
     /// Called when the control is added to a rooted visual tree. 
     /// </summary>
@@ -117,6 +195,7 @@ public partial class DataForm : AppForm
     {
         if (StartAction == DataFormAction.Edit && !Sys.IsNull(DataFormContext.RowId))
         {
+            fListTargetId = DataFormContext.RowId;
             Ui.Post(() =>
             {
                 ExecuteEdit(DataFormContext.RowId);
@@ -179,20 +258,7 @@ public partial class DataForm : AppForm
                     break;
                 
                 case DataFormAction.Cancel:
-                    if (FormState == DataFormState.List)  
-                    {
-                        if (IsModal)
-                            this.ModalResult = ModalResult.Cancel;
-                        else
-                            CloseForm();
-                    }
-                    else if (FormState == DataFormState.Insert || FormState == DataFormState.Edit)
-                    {
-                        if (HasChanges())
-                            await ExecuteCancelEdit();
-                        else
-                            await ExecuteList();
-                    } 
+                    await ExecuteCancel();
                     break;
                 case DataFormAction.Ok:
                     if (IsModal)
@@ -218,11 +284,35 @@ public partial class DataForm : AppForm
     protected virtual void ExecuteFind() => FiltersSideBarVisible = !FiltersSideBarVisible;
 
     protected virtual void ExecuteToggleIds() => IdColumnsVisible = !IdColumnsVisible;
+    protected virtual string GetItemLogText(object Id)
+    {
+        List<string> Parts = new();
+        if (!Sys.IsNull(Id))
+            Parts.Add(Convert.ToString(Id, CultureInfo.CurrentCulture));
+
+        string FieldName = ModuleDef.ItemCaptionField;
+        if (CurrentRow != null)
+        {
+            if (!FieldName.IsSameText("Code") && CurrentRow.Table.Columns.Contains("Code"))
+            {
+                object Code = CurrentRow["Code"];
+                if (!Sys.IsNull(Code))
+                    Parts.Add(Convert.ToString(Code, CultureInfo.CurrentCulture));
+            }
+
+            if (!string.IsNullOrWhiteSpace(FieldName) && CurrentRow.Table.Columns.Contains(FieldName))
+            {
+                object Caption = CurrentRow[FieldName];
+                if (!Sys.IsNull(Caption))
+                    Parts.Add(Convert.ToString(Caption, CultureInfo.CurrentCulture));
+            }
+        }
+
+        return string.Join(" - ", Parts);
+    }
 
     protected virtual async Task ExecuteList()
     {
-        //await Task.CompletedTask;
-        
         if (!Saving && FormState.In(DataFormState.Insert |DataFormState.Edit))  
         {
             if (!await ExecuteCancelEdit())
@@ -230,7 +320,7 @@ public partial class DataForm : AppForm
         }
         
         if (ListIsDirty)  
-            ListSelect();
+            await ListSelect();
         
         this.FormState = DataFormState.List;
     }
@@ -253,6 +343,7 @@ public partial class DataForm : AppForm
         if (!Sys.IsNull(oId))
         {
             Load(oId);
+            LogBox.AppendLine($"{TitleText}: Loaded {GetItemLogText(oId)}");
             ItemPage?.Binders.ForEach(Binder => Binder.Refresh());
             this.FormState = DataFormState.Edit;
         }
@@ -266,7 +357,9 @@ public partial class DataForm : AppForm
         {
             if (await MessageBox.YesNo("Delete item?", this))
             {
+                string LogText = GetItemLogText(oId);
                 Delete(oId);
+                LogBox.AppendLine($"{TitleText}: Deleted {LogText}");
             }
         }
     }
@@ -276,6 +369,8 @@ public partial class DataForm : AppForm
         try
         {
             Save();
+            fListTargetId = Module.LastCommitedId;
+            LogBox.AppendLine($"{TitleText}: Saved {GetItemLogText(Module.LastCommitedId)}");
         }
         finally
         {
@@ -284,31 +379,47 @@ public partial class DataForm : AppForm
 
         this.FormState = DataFormState.Edit;
     }
+    protected virtual async Task ExecuteCancel()
+    {
+        if (FormState == DataFormState.List)  
+        {
+            if (IsModal)
+                this.ModalResult = ModalResult.Cancel;
+            else
+                CloseForm();
+        }
+        else if (FormState == DataFormState.Insert || FormState == DataFormState.Edit)
+        {
+            if (HasChanges())
+                await ExecuteCancelEdit();
+            else
+                await ExecuteList();
+        } 
+    }
     protected virtual async Task<bool> ExecuteCancelEdit()
     {
         if (HasChanges())
         {
             if (IsEditableForm) // edit button is visible even when the form is read-only.
             {
-                if (!await MessageBox.YesNo("Cancel changes?"))
+                if (!await MessageBox.YesNo("Cancel changes?", this))
                     return false;
             }
 
             CancelChanges();
+            ItemPage?.Refresh();
         }
 
         return true;
     }
  
     // ● list
-    protected virtual void ListSelect()
+    protected virtual async Task ListSelect()
     {
         SelectDef SelectDef = cboSelectList.SelectedItem as SelectDef;
         if (SelectDef != null)
         {
-            object LastOID = GetCurrentListId();
-            
-            UnBindListGrid();
+            object LastOID = !Sys.IsNull(fListTargetId) ? fListTargetId : GetCurrentListId();
 
             string SqlText = SelectDef.SqlText;
             string Where = FilterPanelHandler.GetWhere();
@@ -317,14 +428,15 @@ public partial class DataForm : AppForm
 
             cboSelectList.Focus();
  
-            Ui.Post(() => 
+            await Dispatcher.UIThread.InvokeAsync(() => 
             {
+                UnBindListGrid();
                 Module.ListSelect(SqlText);
                 ListIsDirty = false;
                 BindListGrid(SelectDef);
                 ApplyIdColumnsVisible();
                 
-                LogBox.AppendLine(SqlText);
+                LogBox.AppendLine($"{TitleText}: List select SQL: {SqlText}");
                 
                 GoToListOID(LastOID);
             });
@@ -369,6 +481,17 @@ public partial class DataForm : AppForm
         
         return null;
     }
+    protected override void PassResultBack()
+    {
+        if (!IsModal || DataFormContext == null || ModalResult != ModalResult.Ok)
+            return;
+
+        object ResultData = Module?.LastCommitedId;
+        if (Sys.IsNull(ResultData))
+            ResultData = GetCurrentListId();
+
+        DataFormContext.ResultData = ResultData;
+    }
   
     // ● item
     protected virtual void Insert() => Module.Insert();
@@ -388,7 +511,6 @@ public partial class DataForm : AppForm
     protected virtual void CancelChanges()
     {
         Module.Cancel();
-        ListIsDirty = false;
     }
 
     // ● UI
@@ -402,22 +524,22 @@ public partial class DataForm : AppForm
             btnHome = ToolBar.AddButton("application_home.png", "Home", async () => await Execute(DataFormAction.Home));
             sepHome  = ToolBar.AddSeparator();
                 
-            btnList = ToolBar.AddButton("table.png", "List", async () => await Execute(DataFormAction.List));
-            btnRefreshList = ToolBar.AddButton("table_refresh.png", "Refresh List", async () => await Execute(DataFormAction.RefreshList));
-            btnFind = ToolBar.AddButton("find.png", "Find", async () => await Execute(DataFormAction.Find));
+            btnList = ToolBar.AddButton("table.png", "List (F5)", async () => await Execute(DataFormAction.List));
+            btnRefreshList = ToolBar.AddButton("table_refresh.png", "Refresh List (Ctrl+F5)", async () => await Execute(DataFormAction.RefreshList));
+            btnFind = ToolBar.AddButton("find.png", "Find (Ctrl+F)", async () => await Execute(DataFormAction.Find));
             btnToggleIds = ToolBar.AddToggleButton("table_select_row.png", "Toggle Ids", async () => await Execute(DataFormAction.ToggleIds));
             sepList  = ToolBar.AddSeparator(); // sepEdit
             
-            btnInsert = ToolBar.AddButton("table_add.png", "Insert", async () => await Execute(DataFormAction.Insert));
-            btnEdit = ToolBar.AddButton("table_edit.png", "Edit", async () => await Execute(DataFormAction.Edit));
-            btnDelete = ToolBar.AddButton("table_delete.png", "Delete", async () => await Execute(DataFormAction.Delete));
+            btnInsert = ToolBar.AddButton("table_add.png", "Insert (Ctrl+Insert)", async () => await Execute(DataFormAction.Insert));
+            btnEdit = ToolBar.AddButton("table_edit.png", "Edit (Ctrl+Enter)", async () => await Execute(DataFormAction.Edit));
+            btnDelete = ToolBar.AddButton("table_delete.png", "Delete (Ctrl+Delete)", async () => await Execute(DataFormAction.Delete));
             sepEdit = ToolBar.AddSeparator(); // sepEdit
             
-            btnSave = ToolBar.AddButton("disk.png", "Save", async () => await Execute(DataFormAction.Save));
+            btnSave = ToolBar.AddButton("disk.png", "Save (Ctrl+S)", async () => await Execute(DataFormAction.Save));
             sepSave = ToolBar.AddSeparator(); // sepSave
 
-            btnCancel = ToolBar.AddButton("cancel.png", "Cancel", async () => await Execute(DataFormAction.Cancel));
-            btnOK = ToolBar.AddButton("accept.png", "OK", async () => await Execute(DataFormAction.Ok));
+            btnCancel = ToolBar.AddButton("cancel.png", "Cancel (Escape)", async () => await Execute(DataFormAction.Cancel));
+            btnOK = ToolBar.AddButton("accept.png", "OK (Ctrl+Enter)", async () => await Execute(DataFormAction.Ok));
             sepCancelOK = ToolBar.AddSeparator(); // sepCancelOK
             
             btnClose = ToolBar.AddButton("door_out.png", "Close", async () => await Execute(DataFormAction.Close));  
@@ -471,6 +593,27 @@ public partial class DataForm : AppForm
 
         return false;
     }
+    public virtual bool FocusPreviousEditableControl(Control Current)
+    {
+        // Used by CalendarDatePicker Shift+Tab workaround.
+        if (Current == null || pnlItem == null)
+            return false;
+
+        List<Control> Controls = pnlItem.GetVisualDescendants()
+            .OfType<Control>()
+            .Where(IsEditableFocusControl)
+            .ToList();
+
+        if (Controls.Count == 0)
+            return false;
+
+        int Index = Controls.IndexOf(Current);
+        if (Index < 0)
+            return false;
+
+        int PreviousIndex = Index > 0 ? Index - 1 : Controls.Count - 1;
+        return Controls[PreviousIndex].Focus(NavigationMethod.Tab, KeyModifiers.Shift);
+    }
  
     protected virtual void CreateItemPanel()
     {
@@ -483,6 +626,7 @@ public partial class DataForm : AppForm
             pnlItem.Children.Add(ItemPage);
 
             ItemPage.Bind();
+            ItemPage.ApplyIdColumnsVisible(IdColumnsVisible);
         }
     }
     
@@ -532,7 +676,7 @@ public partial class DataForm : AppForm
         btnList.IsEnabled = !DataFormAction.List.In(InvalidActions);
         btnRefreshList.IsEnabled = btnList.IsEnabled;
         btnFind.IsEnabled = !DataFormAction.Find.In(InvalidActions) && FormState == DataFormState.List;
-        btnToggleIds.IsEnabled = FormState == DataFormState.List;
+        btnToggleIds.IsEnabled = true;
         
         btnInsert.IsEnabled = IsEditableForm && !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List | DataFormState.Edit);
         btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List) && !IsListEmpty; 
@@ -576,9 +720,11 @@ public partial class DataForm : AppForm
             List<GridColumnBinding> List = gridList.GetInfoList();
             foreach (var CI in List)
             {
-                if (CI.FieldName.EndsWithText("Id"))
+                if (CI.IsPlainId)
                     CI.GridColumn.IsVisible = Flag;
             }
+
+            ItemPage?.ApplyIdColumnsVisible(Flag);
         });
     }
     /// <summary>
@@ -614,23 +760,19 @@ public partial class DataForm : AppForm
     /// </summary>
     protected override bool ProcessEscapeKey()
     {
-        //if (btnCancel.IsVisible && btnCancel.IsEnabled)
+        if (btnCancel.IsVisible && btnCancel.IsEnabled)
         {
             Ui.Post(async () => await Execute(DataFormAction.Cancel));
             return true;
         }
-        /*
-        if (!IsModal && this.FormState == DataFormState.List)
-        {
-            this.CloseForm();
-            return true;
-        }
-        */
 
-        //return base.ProcessEscapeKey();
+        return base.ProcessEscapeKey();
     }    
  
     // ● construction
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public DataForm()
     {
         InitializeComponent();

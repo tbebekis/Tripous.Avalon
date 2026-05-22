@@ -21,8 +21,14 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         if (!string.IsNullOrWhiteSpace(Field.Locator))
         {
             LocatorBox Box = new();
-            Binder.Bind(Box, Field);
-            return Box;
+            ControlBinding Binding = Binder.Bind(Box, Field);
+            if (!Field.IsReadOnly && !Field.IsReadOnlyUI)
+            {
+                // context menu for lookup combo boxes and locator box controls.
+                ReferenceContextMenu RefMenu = FormDef.CreateReferenceContextMenu();
+                RefMenu.Initialize(this, Binding);
+            }
+            Result = Box;
         }
         else if (Field.IsLookup)
         {
@@ -67,19 +73,99 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             }
             Result = Box;
         }
+        if (!string.IsNullOrWhiteSpace(Field.CodeProvider))
+            Result.Classes.Add("CodeProvider");
         Result.HorizontalAlignment = HorizontalAlignment.Stretch;
         Result.Margin = new Thickness(0, 0, 0, 6);
         return Result;
+    }
+    
+    // ● IReferenceContextMenuHost related
+    protected virtual bool IsSuccessfulReferenceResult(ReferenceMenuCommandContext Context) => Context?.FormContext != null && Context.FormContext.Result;
+    protected virtual void ReloadReferenceLookup(ReferenceMenuCommandContext Context)
+    {
+        if (Context.Binding.LookupSource == null)
+            return;
+
+        LookupSource LookupSource = Context.Binding.LookupSource.LookupDef.Create();
+        List<LookupItem> List = LookupSource.GetList();
+        Context.Binding.LookupSource = LookupSource;
+        if (Context.Binding is ControlBinding ControlBinding && ControlBinding.Control is ComboBox ComboBox)
+        {
+            ControlBinding.IsRefreshing = true;
+            try
+            {
+                ComboBox.SelectedItem = null;
+                ComboBox.SelectedIndex = -1;
+                ComboBox.ItemsSource = List;
+            }
+            finally
+            {
+                ControlBinding.IsRefreshing = false;
+            }
+        }
+    }
+    protected virtual void RefreshReferenceBinding(ReferenceMenuCommandContext Context)
+    {
+        if (Context.Binding is ControlBinding ControlBinding)
+            ControlBindingHelper.Refresh(Context.Binding.Table, ControlBinding);
+    }
+    protected virtual void SetReferenceValue(ReferenceMenuCommandContext Context, object Value)
+    {
+        if (Context.Binding?.Table?.CurrentRow == null || string.IsNullOrWhiteSpace(Context.Binding.FieldName))
+            return;
+
+        if (Context.Binding is ControlBinding ControlBinding && ControlBinding.Control is LocatorBox && Context.Binding.Locator != null)
+        {
+            if (Sys.IsNull(Value))
+            {
+                Context.Binding.Locator.Assign(null, Context.Binding.Table.CurrentRow);
+                Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = DBNull.Value;
+            }
+            else if (Context.Binding.Locator.LocateByKey(Value))
+            {
+                Context.Binding.Locator.Assign(Context.Binding.Locator.SelectedRow, Context.Binding.Table.CurrentRow);
+                Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Context.Binding.Locator.KeyValue;
+            }
+            else
+            {
+                Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Value;
+            }
+
+            RefreshReferenceBinding(Context);
+            return;
+        }
+
+        Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Sys.IsNull(Value) ? DBNull.Value : Value;
+        RefreshReferenceBinding(Context);
     }
  
     // ● binding
     /// <summary>
     /// Refreshes all binders.
     /// </summary>
-    protected virtual void Refresh()
+    public virtual void Refresh()
     {
         foreach (ItemBinder Binder in Binders)
             Binder.Refresh();
+    }
+    /// <summary>
+    /// Applies the visibility of detail grid columns ending with ID.
+    /// </summary>
+    public virtual void ApplyIdColumnsVisible(bool Value)
+    {
+        foreach (UiDetailTableInfo DetailInfo in Context.TopTableUiInfo.DetailList)
+        {
+            if (DetailInfo.Grid == null)
+                continue;
+
+            List<GridColumnBinding> List = DetailInfo.Grid.GetInfoList();
+            foreach (GridColumnBinding CI in List)
+            {
+                if (CI.IsPlainId)
+                    CI.GridColumn.IsVisible = Value;
+            }
+        }
     }
 
     // ● constructors
@@ -173,43 +259,44 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
 
         return null;
     }
-    
+
+    // ● IReferenceContextMenuHost related
     public virtual async Task<DataFormContext> ExecuteReferenceShowList(ReferenceMenuCommandContext Context)
     {
         Context.FormContext = await DataFormContext.ShowFormModal(Context.FormName, DataFormAction.List, null, Context.Caller);
+        if (IsSuccessfulReferenceResult(Context))
+            SetReferenceValue(Context, Context.FormContext.ResultData);
         return Context.FormContext;
     }
     public virtual object ExecuteReferenceReload(ReferenceMenuCommandContext Context)
     {
-        if (Context.Binding.LookupSource == null)
-            return null;
-
-        Context.Binding.LookupSource.ClearList();
-        if (Context.Binding is ControlBinding ControlBinding && ControlBinding.Control is ComboBox ComboBox)
-        {
-            ComboBox.ItemsSource = null;
-            ComboBox.ItemsSource = Context.Binding.LookupSource.GetList();
-        }
+        ReloadReferenceLookup(Context);
+        RefreshReferenceBinding(Context);
         return null;
     }
     public virtual async Task<DataFormContext> ExecuteReferenceEdit(ReferenceMenuCommandContext Context)
     {
         Context.FormContext = await DataFormContext.ShowFormModal(Context.FormName, DataFormAction.Edit, Context.RowId, Context.Caller);
+        if (IsSuccessfulReferenceResult(Context))
+        {
+            ReloadReferenceLookup(Context);
+            SetReferenceValue(Context, Context.RowId);
+        }
         return Context.FormContext;
     }
     public virtual async Task<DataFormContext> ExecuteReferenceAdd(ReferenceMenuCommandContext Context)
     {
         Context.FormContext = await DataFormContext.ShowFormModal(Context.FormName, DataFormAction.Insert, null, Context.Caller);
+        if (IsSuccessfulReferenceResult(Context))
+        {
+            ReloadReferenceLookup(Context);
+            SetReferenceValue(Context, Context.FormContext.ResultData);
+        }
         return Context.FormContext;
     }
     public virtual object ExecuteReferenceClear(ReferenceMenuCommandContext Context)
     {
-        if (Context.Binding?.Table?.CurrentRow == null || string.IsNullOrWhiteSpace(Context.Binding.FieldName))
-            return null;
-
-        Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = DBNull.Value;
-        if (Context.Binding is ControlBinding ControlBinding && ControlBinding.Control is ComboBox ComboBox)
-            ComboBox.SelectedItem = null;
+        SetReferenceValue(Context, DBNull.Value);
         return null;
     }
 

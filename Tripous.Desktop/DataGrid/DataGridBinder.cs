@@ -72,7 +72,7 @@ public static class DataGridBinder
             TextBlock Result = new();
 
             object Value = GetValue(Item, ColumnName);
-            Result.Text = Value == null ? string.Empty : string.Format(CultureInfo.CurrentCulture, "{0}", Value);
+            Result.Text = FormatValue(Value, Format);
 
             Result.Padding = GetCellPadding();
             Result.VerticalAlignment = VerticalAlignment.Center;
@@ -82,7 +82,7 @@ public static class DataGridBinder
             return Result;
         }, SupportsRecycling);
     }
-    static IDataTemplate CreateTextEditTemplate(string ColumnName, TextAlignment Alignment, bool SupportsRecycling)
+    static IDataTemplate CreateTextEditTemplate(string ColumnName, TextAlignment Alignment, string Format, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
@@ -90,7 +90,7 @@ public static class DataGridBinder
             bool IsLoading = true;
 
             object Value = GetValue(Item, ColumnName);
-            Result.Text = Value == null ? string.Empty : Convert.ToString(Value, CultureInfo.CurrentCulture);
+            Result.Text = FormatValue(Value, Format);
 
             Result.Padding = GetCellPadding();
             Result.VerticalContentAlignment = VerticalAlignment.Center;
@@ -308,6 +308,35 @@ public static class DataGridBinder
     }
 
     static public string GetHeader(string ColumnName, string Header) => string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
+    static public string FormatValue(object Value, string Format)
+    {
+        if (Value == null)
+            return string.Empty;
+        if (!string.IsNullOrWhiteSpace(Format))
+            return string.Format(CultureInfo.CurrentCulture, $"{{0:{Format}}}", Value);
+        return string.Format(CultureInfo.CurrentCulture, "{0}", Value);
+    }
+    static public string GetDateAwareFormat(string FieldName, Type DataType, string Format)
+    {
+        if (DataType != typeof(DateTime))
+            return Format;
+        if (FieldName.EndsWithText("Date"))
+            return Sys.Settings.DateFormat;
+        if (FieldName.EndsWithText("DateTime") || FieldName.EndsWithText("DT"))
+            return Sys.Settings.DateTimeFormat;
+        return Format;
+    }
+    static public string GetDateAwareFormat(FieldDef FieldDef)
+    {
+        string Format = FieldDef.DisplayFormat;
+        if (!FieldDef.DataType.IsDateTime())
+            return Format;
+        if (FieldDef.Name.EndsWithText("Date"))
+            return Sys.Settings.DateFormat;
+        if (FieldDef.Name.EndsWithText("DateTime") || FieldDef.Name.EndsWithText("DT"))
+            return Sys.Settings.DateTimeFormat;
+        return Format;
+    }
  
     // ● private - create columns
     static DataGridColumn CreateTextColumn(string ColumnName, string Header = "", string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
@@ -319,7 +348,7 @@ public static class DataGridBinder
         Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
         Result.IsReadOnly = IsReadOnly;
         Result.CellTemplate = CreateTextDisplayTemplate(ColumnName, Align, Format, SupportsRecycling);
-        Result.CellEditingTemplate = IsReadOnly ? null : CreateTextEditTemplate(ColumnName, Align, SupportsRecycling);
+        Result.CellEditingTemplate = IsReadOnly ? null : CreateTextEditTemplate(ColumnName, Align, Format, SupportsRecycling);
 
         return Result;
     }
@@ -438,6 +467,8 @@ public static class DataGridBinder
 
     static public DataGridColumn CreateGridColumn(DataColumn Column, string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
+        Format = GetDateAwareFormat(Column.ColumnName, Column.DataType, Format);
+
         DataColumnType ColumnType = Column.ExtendedProperties.ContainsKey("ColumnType")
             ? (DataColumnType)Column.ExtendedProperties["ColumnType"]
             : DataColumnType.None;
@@ -476,7 +507,7 @@ public static class DataGridBinder
         if (IsBoolean)
             Result = CreateBoolColumn(FieldDef.Name, Header: FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
         else
-            Result = CreateTextColumn(FieldDef.Name, Header: FieldDef.Title, Format: FieldDef.DisplayFormat, Alignment: Align, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
+            Result = CreateTextColumn(FieldDef.Name, Header: FieldDef.Title, Format: GetDateAwareFormat(FieldDef), Alignment: Align, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
 
         Result.Header = FieldDef.Title.SplitToWords();
         Result.IsReadOnly = FieldDef.IsReadOnly;

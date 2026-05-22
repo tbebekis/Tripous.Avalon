@@ -23,6 +23,12 @@ public class ReferenceContextMenu
     }
     protected virtual object GetRowId()
     {
+        if (Binding is ControlBinding ControlBinding && ControlBinding.Control is ComboBox ComboBox)
+        {
+            if (ComboBox.SelectedItem is LookupItem Item && Item.IsNullItem)
+                return null;
+        }
+
         if (Binding?.Table?.CurrentRow == null || string.IsNullOrWhiteSpace(Binding.FieldName))
             return null;
 
@@ -57,11 +63,14 @@ public class ReferenceContextMenu
     }
     protected virtual void EnableMenuItems()
     {
+        mnuReload.IsVisible = Binding.LocatorDef == null;
         mnuShowList.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.ShowList));
         mnuReload.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Reload));
         mnuEdit.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Edit));
         mnuAdd.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Add));
         mnuClear.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Clear));
+
+        ToolTip.SetTip(mnuEdit, mnuEdit.IsEnabled ? null : "No reference item selected.");
     }
     /// <summary>
     /// Dispatches a menu click to the corresponding operation.
@@ -123,31 +132,67 @@ public class ReferenceContextMenu
         this.Binding = Binding;
 
         Binding.ReferenceContextMenu = this;
+        mnuReload.IsVisible = Binding.LocatorDef == null;
             
         // -----------------------------------------------
         if (Binding is ControlBinding ControlBinding)
         {
-            ControlBinding.Control.AddHandler(InputElement.PointerPressedEvent, (Sender, Args) =>
+            if (ControlBinding.Control is LocatorBox LocatorBox)
             {
-                if (Sender is not Control Control)
-                    return;
+                if (LocatorBox.MenuButton != null)
+                {
+                    LocatorBox.MenuButton.Click += (Sender, Args) =>
+                    {
+                        if (!CanOpen())
+                            return;
+
+                        Menu.Open(LocatorBox.MenuButton);
+                    };
+                    LocatorBox.MenuButton.AddHandler(InputElement.PointerPressedEvent, (Sender, Args) =>
+                    {
+                        if (!Args.GetCurrentPoint(LocatorBox.MenuButton).Properties.IsRightButtonPressed)
+                            return;
+
+                        if (!CanOpen())
+                            return;
+
+                        Menu.Open(LocatorBox.MenuButton);
+                        Args.Handled = true;
+                    }, RoutingStrategies.Tunnel);
+                }
+            }
+            else
+            {
+                ControlBinding.Control.AddHandler(InputElement.PointerPressedEvent, (Sender, Args) =>
+                {
+                    if (Sender is not Control Control)
+                        return;
                 
-                if (!Args.GetCurrentPoint(Control).Properties.IsRightButtonPressed)
-                    return;
+                    if (!Args.GetCurrentPoint(Control).Properties.IsRightButtonPressed)
+                        return;
 
-                if (!CanOpen())
-                    return;
+                    if (!CanOpen())
+                        return;
                     
-                if (Control is ComboBox ComboBox)
-                    ComboBox.IsDropDownOpen = false;
+                    if (Control is ComboBox ComboBox)
+                        ComboBox.IsDropDownOpen = false;
 
-                Menu.Open(Control);
+                    Menu.Open(Control);
 
-                Args.Handled = true;
-            }, RoutingStrategies.Tunnel);
+                    Args.Handled = true;
+                }, RoutingStrategies.Tunnel);
+            }
         }
         // -----------------------------------------------
         Menu.Opening += (Sender, Args) => EnableMenuItems();
+    }
+    public virtual bool Open(Control Control)
+    {
+        if (Control == null || !CanOpen())
+            return false;
+
+        Menu.Open(Control);
+        return true;
     }
 
     // ● properties

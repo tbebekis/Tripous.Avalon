@@ -20,6 +20,18 @@ public class FieldDef: BaseDef
     int fDecimals = -1;
     string fCodeProvider;
     bool fIsNullable = true;
+    string fToolTip;
+
+    protected override string GetTitleKey()
+    {
+        if (!string.IsNullOrWhiteSpace(Locator))
+        {
+            if (string.IsNullOrWhiteSpace(fTitleKey) || fTitleKey == Name)
+                return Locator;
+        }
+        
+        return base.GetTitleKey();
+    }
 
     // ● construction
     /// <summary>
@@ -247,6 +259,11 @@ public class FieldDef: BaseDef
         get => fCodeProvider;
         set { if (fCodeProvider != value) { fCodeProvider = value; NotifyPropertyChanged(nameof(CodeProvider)); } }
     }
+    public string ToolTip 
+    {
+        get => !string.IsNullOrWhiteSpace(fToolTip)? fToolTip: Name;
+        set { if (fToolTip != value) { fToolTip = value; NotifyPropertyChanged(nameof(ToolTip)); } }
+    }
 
     /// <summary>
     /// Returns true when the Required flag is set in Flags.
@@ -317,4 +334,5 @@ public class FieldDef: BaseDef
     
     [JsonIgnore] public bool IsBindable => Flags.HasFlag(FieldFlags.Visible) && !DataType.In(DataFieldType.None | DataFieldType.Blob);
     [JsonIgnore] public bool IsLookup => !string.IsNullOrWhiteSpace(LookupSource);
+    [JsonIgnore] public bool IsLocator => !string.IsNullOrWhiteSpace(Locator);
 }

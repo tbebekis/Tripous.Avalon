@@ -3,6 +3,50 @@ namespace Tripous.Desktop;
 static public class ControlBindingHelper
 {
     // ● private
+    static void EnsureLocatorFields(LocatorDef LocatorDef, FieldDef FieldDef)
+    {
+        if (LocatorDef == null || FieldDef?.TableDef == null || LocatorDef.Fields.Count > 0)
+            return;
+
+        TableDef JoinTable = FieldDef.TableDef.Joins.FirstOrDefault(item => item.MasterField.IsSameText(FieldDef.Name));
+        if (JoinTable == null)
+            return;
+
+        List<FieldDef> Fields = JoinTable.Fields
+            .Where(JoinField => JoinField.IsVisible && !JoinField.Name.IsSameText(JoinTable.KeyField))
+            .OrderBy(JoinField =>
+            {
+                if (JoinField.Name.IsSameText("Code"))
+                    return 0;
+                if (JoinField.Name.IsSameText("Name"))
+                    return 1;
+                if (JoinField.Name.EndsWithText("Code"))
+                    return 2;
+                if (JoinField.Name.EndsWithText("Name"))
+                    return 3;
+                if (JoinField.DataType == DataFieldType.String)
+                    return 4;
+                return 5;
+            })
+            .ThenBy(JoinField => JoinField.Name)
+            .Take(2)
+            .ToList();
+
+        foreach (FieldDef JoinField in Fields)
+        {
+            LocatorFieldDef LocatorField = new()
+            {
+                Name = JoinField.Name,
+                Alias = JoinField.Alias,
+                TargetField = JoinField.Alias,
+                DataType = JoinField.DataType,
+                IsVisible = JoinField.IsVisible,
+                IsSearchable = JoinField.DataType == DataFieldType.String,
+                DisplayWidth = JoinField.DisplayWidth
+            };
+            LocatorDef.Fields.Add(LocatorField);
+        }
+    }
     static DataRow GetCurrentRow(IRowProvider RowProvider)
     {
         return RowProvider?.CurrentRow;
@@ -397,16 +441,27 @@ static public class ControlBindingHelper
             e.ThrowException = false;
             NormalizeOrRefresh(e.Text);
         };
+        EventHandler<KeyEventArgs> KeyDownHandler = (Sender, Args) =>
+        {
+            // CalendarDatePicker does not navigate correctly with Shift+Tab when its drop-down is closed.
+            if (Args.Key == Key.Tab && Args.KeyModifiers.HasFlag(KeyModifiers.Shift))
+            {
+                DataForm Form = Box.FindAncestorOfType<DataForm>();
+                Args.Handled = Form?.FocusPreviousEditableControl(Box) == true;
+            }
+        };
 
         Box.SelectedDateChanged += Handler;
         Box.LostFocus += LostFocusHandler;
         Box.DateValidationError += DateValidationErrorHandler;
+        Box.AddHandler(InputElement.KeyDownEvent, KeyDownHandler, RoutingStrategies.Tunnel);
 
         Result.DisposeAction = () =>
         {
             Box.SelectedDateChanged -= Handler;
             Box.LostFocus -= LostFocusHandler;
             Box.DateValidationError -= DateValidationErrorHandler;
+            Box.RemoveHandler(InputElement.KeyDownEvent, KeyDownHandler);
         };
 
         Refresh(RowProvider, Result);
@@ -618,9 +673,13 @@ static public class ControlBindingHelper
         LocatorDef LocatorDef = DataRegistry.Locators[FieldDef.Locator];
         if (LocatorDef == null)
             throw new TripousException($"LocatorDef not found. Locator: {FieldDef.Locator}");
+        EnsureLocatorFields(LocatorDef, FieldDef);
 
         Locator Locator = TypeStore.CreateInstance<Locator>(LocatorDef.ClassName);
         Locator.Initialize(LocatorDef);
+
+        Box.Locator = Locator;
+        Box.IsReadOnly = FieldDef.IsReadOnly || FieldDef.IsReadOnlyUI || LocatorDef.IsReadOnly;
         
         ControlBinding Binding = new()
         {
@@ -629,6 +688,28 @@ static public class ControlBindingHelper
             FieldDef = FieldDef,
             LocatorDef = LocatorDef,
             Locator = Locator
+        };
+
+        Box.RowSelected += (Sender, Args) =>
+        {
+            if (Binding.IsRefreshing)
+                return;
+
+            DataRow Row = RowProvider != null ? RowProvider.CurrentRow : null;
+            if (Row == null)
+                return;
+
+            Binding.IsRefreshing = true;
+            try
+            {
+                Locator.Assign(Args.Row, Row);
+                SetLocatorBoxValue(RowProvider, Binding);
+                RefreshLocatorBox(RowProvider, Binding);
+            }
+            finally
+            {
+                Binding.IsRefreshing = false;
+            }
         };
 
         RefreshLocatorBox(RowProvider, Binding);

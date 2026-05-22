@@ -619,7 +619,8 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             this.EventsDisabled = false;
         }
     }
-    public void SetCurrentRowToNull() => CurrentRow = null;
+
+    public void SetCurrentRowToNull() => SetCurrentRow(null, Force: true);
     
     // ● all (this table and its details)
     /// <summary>

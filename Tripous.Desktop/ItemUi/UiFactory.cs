@@ -100,14 +100,20 @@ static public class UiFactory
         string Title = Field.Title;
         if (Field.IsLookup && Title.EndsWith(" Id", StringComparison.OrdinalIgnoreCase))
             Title = Title.Substring(0, Title.Length - 3);
+        bool IsRequired = Field.IsRequired && !Field.IsBoolean;
+        if (IsRequired)
+            Title += " *";
 
-        return new TextBlock
+        TextBlock Result = new()
         {
             Text = Title,
+            FontWeight = IsRequired ? FontWeight.SemiBold : FontWeight.Normal,
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Right,
             Margin = new Thickness(0, 0, 6, 6)
         };
+        ToolTip.SetTip(Result, Field.ToolTip);
+        return Result;
     }
     /// <summary>
     /// Creates and binds the editor used for a large memo field.
