@@ -79,6 +79,14 @@
 - Applications call `BindingComplete()` after all bindings are assigned.
 - `BindingComplete()` performs the initial current-row synchronization without replacing an existing current row.
 
+## Lifecycle Notes
+
+- Avoid per-cell manual event subscriptions in `DataGrid` templates when native binding can be used.
+- If a cell template subscribes to row or provider events, it must unsubscribe when the cell visual is detached.
+- `DataGrid` cell virtualization and visual recycling can otherwise keep old rows alive.
+- The current design keeps row notifications centralized through `DataSource` and `DataSourceRow`.
+- `DataSourceBinding` owns disposable binding subscriptions for controls and grids.
+
 ## Tested Behavior
 
 - Loading and navigation from `DataTable`.
