@@ -252,8 +252,90 @@ static public class UiItemDetails
         {
             if (!UiItemPage.IsDetailGridField(Field))
                 continue;
-            Grid.Columns.Add(CreateDetailGridColumn(Field));
+            Grid.Columns.AddRange(CreateDetailGridColumns(Field));
         }
+    }
+    /// <summary>
+    /// Creates columns for a detail grid field.
+    /// </summary>
+    static public List<DataGridColumn> CreateDetailGridColumns(FieldDef Field)
+    {
+        if (Field.IsLocator)
+        {
+            List<DataGridColumn> LocatorColumns = CreateLocatorDetailGridColumns(Field);
+            if (LocatorColumns.Count > 0)
+                return LocatorColumns;
+        }
+
+        return [CreateDetailGridColumn(Field)];
+    }
+    /// <summary>
+    /// Creates display columns for a locator detail grid field.
+    /// </summary>
+    static public List<DataGridColumn> CreateLocatorDetailGridColumns(FieldDef Field)
+    {
+        List<DataGridColumn> Result = [];
+        if (Field.TableDef == null)
+            return Result;
+
+        LocatorDef LocatorDef = DataRegistry.Locators.Find(Field.Locator);
+        if (LocatorDef == null)
+            return Result;
+
+        ControlBindingHelper.EnsureLocatorFields(LocatorDef, Field);
+
+        TableDef JoinTable = Field.TableDef.Joins.FirstOrDefault(item => item.MasterField.IsSameText(Field.Name));
+        if (JoinTable == null)
+            return Result;
+
+        Dictionary<string, string> TargetFieldMap = CreateLocatorTargetFieldMap(LocatorDef, JoinTable);
+        foreach (LocatorFieldDef LocatorField in LocatorDef.Fields.Where(item => item.IsVisible))
+        {
+            if (LocatorDef.KeyField.IsSameText(LocatorField.Name))
+                continue;
+
+            FieldDef JoinField = FindLocatorJoinField(JoinTable, LocatorField);
+            if (JoinField == null)
+                continue;
+
+            bool IsReadOnly = Field.IsReadOnly || LocatorDef.IsReadOnly || !LocatorField.IsSearchable;
+            Result.Add(DataGridBinder.CreateLocatorColumn(JoinField.Alias, JoinField.Title, Field, LocatorDef, LocatorField, TargetFieldMap, IsReadOnly: IsReadOnly));
+        }
+
+        return Result;
+    }
+    /// <summary>
+    /// Creates a locator field to target field map.
+    /// </summary>
+    static public Dictionary<string, string> CreateLocatorTargetFieldMap(LocatorDef LocatorDef, TableDef JoinTable)
+    {
+        Dictionary<string, string> Result = new(StringComparer.OrdinalIgnoreCase);
+        foreach (LocatorFieldDef LocatorField in LocatorDef.Fields)
+        {
+            FieldDef JoinField = FindLocatorJoinField(JoinTable, LocatorField);
+            if (JoinField == null)
+                continue;
+
+            Result[LocatorField.Name] = JoinField.Alias;
+            Result[LocatorField.Alias] = JoinField.Alias;
+        }
+        return Result;
+    }
+    /// <summary>
+    /// Finds the join field that matches a locator field.
+    /// </summary>
+    static public FieldDef FindLocatorJoinField(TableDef JoinTable, LocatorFieldDef LocatorField)
+    {
+        return JoinTable.Fields.FirstOrDefault(item =>
+        {
+            if (item.Name.IsSameText(LocatorField.Name))
+                return true;
+            if (item.Alias.IsSameText(LocatorField.Alias))
+                return true;
+            if (!string.IsNullOrWhiteSpace(LocatorField.TargetField) && item.Alias.IsSameText(LocatorField.TargetField))
+                return true;
+            return false;
+        });
     }
     /// <summary>
     /// Creates a column for a detail data grid.

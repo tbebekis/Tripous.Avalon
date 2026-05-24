@@ -1,0 +1,79 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TestBindingApp.MainWindow"
+        WindowStartupLocation="CenterScreen"
+        Width="1300"
+        Height="900"
+        Title="TestBindingApp">
+        
+<DockPanel LastChildFill="True">
+    <!-- ● Top Panel: Button & Entry Fields -->
+    <StackPanel DockPanel.Dock="Top" Spacing="10" Margin="10">
+        <!-- ● Buttons WrapPanel -->
+        <WrapPanel Orientation="Horizontal" ItemSpacing="10" LineSpacing="10">
+            <Button Name="btnDefaultBinding" Content="Default" Width="120" HorizontalContentAlignment="Center"/>
+            <Button Name="btnDataRowViewIndexerBinding" Content="Default Indexer" HorizontalContentAlignment="Center"/>
+            <Button Name="btnDataRowViewTemplateColumn" Content="Template Columns" HorizontalContentAlignment="Center"/>
+            <Button Name="btnDataRowViewTemplateColumnRowView" Content="Template Columns: RowView" HorizontalContentAlignment="Center"/>
+            <Button Name="btnDataRowViewTemplateColumnRow" Content="Template Columns: Row" HorizontalContentAlignment="Center"/>
+            <Button Name="btnDataRowViewEventsRowView" Content="RowView Events: RowView" HorizontalContentAlignment="Center"/>
+            <Button Name="btnDataRowViewEventsRow" Content="RowView Events: Row" HorizontalContentAlignment="Center"/>
+            <Button Name="btnRowItemBinding" Content="Row Item" HorizontalContentAlignment="Center"/>
+            
+            <Button Name="btnRowItemBindingChangeByRowItem" Content="Row Item: RowItem" HorizontalContentAlignment="Center"/>
+            <Button Name="btnRowItemBindingChangeByRowView" Content="Row Item: RowView" HorizontalContentAlignment="Center"/>
+            <Button Name="btnRowItemBindingChangeByDataRow" Content="Row Item: Row" HorizontalContentAlignment="Center"/>
+        </WrapPanel>
+        
+        
+        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Padding="10">
+            <Grid ColumnDefinitions="Auto, *, Auto, *, Auto, *" RowDefinitions="Auto, Auto, Auto">
+                <!-- Row 0 -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Id:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Name="edtId" Margin="5"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Code:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="0" Grid.Column="3" Name="edtCode" Margin="5"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="4" Text="Name:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="0" Grid.Column="5" Name="edtName" Margin="5"/>
+
+                <!-- Row 1 -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Country Id:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Name="edtCountryId" Margin="5"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="Country Code:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="1" Grid.Column="3" Name="edtCountry__Code" Margin="5"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="4" Text="Country Name:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="1" Grid.Column="5" Name="edtCountry__Name" Margin="5"/>
+
+                <!-- Row 2 -->
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Is Active:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Name="edtIsActive" Margin="5"/>
+            </Grid>
+        </Border>
+    </StackPanel>
+
+    <!-- ● Bottom Panel: DataGrid & Log Splitter -->
+    <Grid RowDefinitions="*, 4, 150">
+        <!-- DataGrid -->
+        <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+            <DataGrid Name="gridList" AutoGenerateColumns="True"/>
+        </Border>
+
+        <!-- Vertical Resizer -->
+        <GridSplitter Grid.Row="1" Background="Transparent" ResizeDirection="Rows"/>
+
+        <!-- Log Textbox -->
+        <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+            <TextBox Name="edtLog" AcceptsReturn="True" TextWrapping="Wrap" Watermark="System log..." BorderThickness="0" IsReadOnly="False"/>
+        </Border>
+    </Grid>
+</DockPanel>
+      
+ 
+</Window>

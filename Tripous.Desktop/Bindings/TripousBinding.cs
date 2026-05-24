@@ -79,6 +79,10 @@ public class TripousBinding
     /// </summary>
     public LocatorDef LocatorDef { get; set; }
     /// <summary>
+    /// Maps locator field names to target row field names.
+    /// </summary>
+    public Dictionary<string, string> LocatorTargetFieldMap { get; set; }
+    /// <summary>
     /// Optional reference context menu associated to the binding.
     /// </summary>
     public ReferenceContextMenu ReferenceContextMenu { get; set; }

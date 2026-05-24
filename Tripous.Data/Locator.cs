@@ -235,7 +235,124 @@ public class Locator
         string Result = UserWhereList.Count > 0? string.Join(" or ", UserWhereList): string.Empty;
         return Result;
     }
+    /// <summary>
+    /// Finds the source row key column.
+    /// </summary>
+    protected virtual DataColumn FindSourceKeyColumn(DataRow SourceRow)
+    {
+        DataColumn Result = SourceRow.Table.FindColumn(LocatorDef.KeyField);
+        if (Result != null)
+            return Result;
 
+        LocatorFieldDef KeyFieldDef = LocatorDef.Fields.FirstOrDefault(item => item.Name.IsSameText(LocatorDef.KeyField));
+        return KeyFieldDef != null ? SourceRow.Table.FindColumn(KeyFieldDef.Alias) : null;
+    }
+    /// <summary>
+    /// Returns a source row key value.
+    /// </summary>
+    protected virtual object GetSourceKeyValue(DataRow SourceRow)
+    {
+        DataColumn Column = FindSourceKeyColumn(SourceRow);
+        return Column != null ? SourceRow[Column] : DBNull.Value;
+    }
+    /// <summary>
+    /// Returns a source row locator field value.
+    /// </summary>
+    protected virtual object GetSourceFieldValue(DataRow SourceRow, LocatorFieldDef FieldDef)
+    {
+        DataColumn Column = SourceRow.Table.FindColumn(FieldDef.Alias);
+        if (Column == null)
+            Column = SourceRow.Table.FindColumn(FieldDef.Name);
+        return Column != null ? SourceRow[Column] : DBNull.Value;
+    }
+    /// <summary>
+    /// Resolves a target field name for a locator field.
+    /// </summary>
+    protected virtual string ResolveTargetFieldName(LocatorFieldDef FieldDef, Dictionary<string, string> TargetFieldMap, bool UseAliasFallback)
+    {
+        if (FieldDef == null)
+            return null;
+
+        if (TargetFieldMap != null)
+        {
+            if (TargetFieldMap.TryGetValue(FieldDef.Name, out string Result))
+                return Result;
+            if (TargetFieldMap.TryGetValue(FieldDef.Alias, out Result))
+                return Result;
+        }
+        if (!string.IsNullOrWhiteSpace(FieldDef.TargetField))
+            return FieldDef.TargetField;
+        return UseAliasFallback ? FieldDef.Alias : null;
+    }
+    /// <summary>
+    /// Sets a target row value.
+    /// </summary>
+    protected virtual void SetTargetRowValue(DataRow TargetRow, string FieldName, object Value, bool ForceReadOnly)
+    {
+        if (TargetRow == null || string.IsNullOrWhiteSpace(FieldName))
+            return;
+
+        DataColumn Column = TargetRow.Table.FindColumn(FieldName);
+        if (Column == null)
+            return;
+        if (Column.ReadOnly && !ForceReadOnly)
+            return;
+
+        object NewValue = Sys.IsNull(Value) ? DBNull.Value : Value;
+        if (Sys.IsNull(NewValue) && !Column.AllowDBNull)
+            return;
+
+        if (object.Equals(TargetRow[Column], NewValue))
+            return;
+
+        bool WasReadOnly = Column.ReadOnly;
+        try
+        {
+            if (WasReadOnly && ForceReadOnly)
+                Column.ReadOnly = false;
+            TargetRow[Column] = NewValue;
+        }
+        finally
+        {
+            if (WasReadOnly && ForceReadOnly)
+                Column.ReadOnly = true;
+        }
+    }
+    /// <summary>
+    /// Assigns locator values using optional key and target map information.
+    /// </summary>
+    protected virtual void Assign(DataRow SourceRow, DataRow TargetRow, string KeyFieldName, Dictionary<string, string> TargetFieldMap, bool UseAliasFallback, bool ForceTargetReadOnly)
+    {
+        bool Clearing = SourceRow == null;
+
+        if (Clearing)
+        {
+            SelectedRow = null;
+            KeyValue = DBNull.Value;
+        }
+        else
+        {
+            SelectedRow = SourceRow;
+            KeyValue = GetSourceKeyValue(SourceRow);
+        }
+
+        MemTable tblTarget = TargetRow.Table as MemTable;
+        if (tblTarget == null)
+            throw new TripousDataException($"{this.GetType().FullName} cannot assign values when the target table is not a {nameof(MemTable)} ");
+
+        if (!string.IsNullOrWhiteSpace(KeyFieldName))
+            SetTargetRowValue(TargetRow, KeyFieldName, KeyValue, ForceReadOnly: false);
+
+        foreach (LocatorFieldDef FieldDef in LocatorDef.Fields)
+        {
+            if (LocatorDef.KeyField.IsSameText(FieldDef.Name))
+                continue;
+
+            string TargetFieldName = ResolveTargetFieldName(FieldDef, TargetFieldMap, UseAliasFallback);
+            object Value = Clearing ? DBNull.Value : GetSourceFieldValue(SourceRow, FieldDef);
+            SetTargetRowValue(TargetRow, TargetFieldName, Value, ForceTargetReadOnly);
+        }
+    }
 
     // ● constructor
     /// <summary>
@@ -267,28 +384,29 @@ public class Locator
         Result = Execute(Term);
         return Result.IsSingleRow;
     }
+    
     /// <summary>
     /// Locates a single source row by the locator key value.
     /// </summary>
-    public virtual bool LocateByKey(object KeyValue)
+    public virtual bool LocateByKey(object Value)
     {
-        if (Sys.IsNull(KeyValue))
+        if (Sys.IsNull(Value))
             return false;
 
         string FieldName = LocatorDef.KeyField;
         string ValueText;
-        if (KeyValue is string)
+        if (Value is string)
         {
-            string V = KeyValue.ToString().Replace("'", "''");
+            string V = Value.ToString().Replace("'", "''");
             ValueText = $"'{V}'";
         }
-        else if (KeyValue is DateTime Date)
+        else if (Value is DateTime Date)
         {
             ValueText = $"'{Date:yyyy-MM-dd HH:mm:ss}'";
         }
         else
         {
-            ValueText = KeyValue.ToString();
+            ValueText = Value.ToString();
         }
 
         SelectSql SS = GetSelectSql();
@@ -297,7 +415,7 @@ public class Locator
             return false;
 
         SelectedRow = SourceTable.Rows[0];
-        this.KeyValue = SelectedRow[LocatorDef.KeyField];
+        this.KeyValue = GetSourceKeyValue(SelectedRow);
         return true;
     }
     /// <summary>
@@ -306,47 +424,15 @@ public class Locator
     /// </summary>
     public virtual void Assign(DataRow SourceRow, DataRow TargetRow)
     {
-        bool Clearing = SourceRow == null;
-
-        if (Clearing)
-        {
-            SelectedRow = null;
-            KeyValue = DBNull.Value;
-        }
-        else
-        {
-            SelectedRow = SourceRow;
-            KeyValue = SourceRow[LocatorDef.KeyField];
-        }
-
-        MemTable tblTarget = TargetRow.Table as MemTable;
-        if (tblTarget == null)
-            throw new TripousDataException($"{this.GetType().FullName} cannot assign values when the target table is not a {nameof(MemTable)} ");
-       
-        foreach (LocatorFieldDef FieldDef in LocatorDef.Fields)
-        {
-            if (!LocatorDef.KeyField.IsSameText(FieldDef.Name))
-            {
-                DataColumn TargetColumn = !string.IsNullOrWhiteSpace(FieldDef.TargetField) ? tblTarget.FindColumn(FieldDef.TargetField) : null;
-                if (TargetColumn != null && !TargetColumn.ReadOnly)
-                {
-                    if (Clearing)
-                    {
-                        if (TargetColumn.AllowDBNull)
-                            TargetRow[TargetColumn] = DBNull.Value;
-                    }
-                    else
-                    {
-                        DataColumn SourceColumn = SourceRow.Table.FindColumn(FieldDef.Alias);
-                        if (SourceColumn != null)
-                        {
-                            TargetRow[TargetColumn] = SourceRow[SourceColumn];
-                        }
-                    }
-                }
-            }
-
-        }
+        Assign(SourceRow, TargetRow, KeyFieldName: null, TargetFieldMap: null, UseAliasFallback: false, ForceTargetReadOnly: false);
+    }
+    /// <summary>
+    /// Assigns locator key and values from a source row to a target row using a target field map.
+    /// <para>NOTE: When <see cref="SourceRow"/> is null, it just clears the appropriate fields in <see cref="TargetRow"/></para>
+    /// </summary>
+    public virtual void Assign(DataRow SourceRow, DataRow TargetRow, string KeyFieldName, Dictionary<string, string> TargetFieldMap)
+    {
+        Assign(SourceRow, TargetRow, KeyFieldName, TargetFieldMap, UseAliasFallback: true, ForceTargetReadOnly: true);
     }
 
     // ● source table specific

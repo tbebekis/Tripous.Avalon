@@ -3,7 +3,7 @@ namespace Tripous.Desktop;
 static public class ControlBindingHelper
 {
     // ● private
-    static void EnsureLocatorFields(LocatorDef LocatorDef, FieldDef FieldDef)
+    static void EnsureLocatorFieldsCore(LocatorDef LocatorDef, FieldDef FieldDef)
     {
         if (LocatorDef == null || FieldDef?.TableDef == null || LocatorDef.Fields.Count > 0)
             return;
@@ -270,6 +270,10 @@ static public class ControlBindingHelper
         }
     }
 
+    static public void EnsureLocatorFields(LocatorDef LocatorDef, FieldDef FieldDef)
+    {
+        EnsureLocatorFieldsCore(LocatorDef, FieldDef);
+    }
     static public ControlBinding Bind(IRowProvider RowProvider, TextBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         if (RowProvider == null)

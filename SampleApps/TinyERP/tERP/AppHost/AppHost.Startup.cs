@@ -91,6 +91,7 @@ static internal partial class AppHost
  
          Registry.RegisterModules();
          Registry.RegisterForms();
+         Registry.RegisterLocatorFields();
          
          Registry.RegisterCommands();
     }

@@ -15,7 +15,10 @@ public class LocatorFieldDef: BaseDef
     DataFieldType fDataType = DataFieldType.String;
     bool fIsSearchable;
     bool fIsVisible;
-    
+
+    protected override string GetTitleKey() => !string.IsNullOrWhiteSpace(fTitleKey) ? fTitleKey : Alias;
+ 
+
     // ● construction
     /// <summary>
     /// Constructor
@@ -35,7 +38,7 @@ public class LocatorFieldDef: BaseDef
     /// </summary>
     public string Alias
     {
-        get => !string.IsNullOrWhiteSpace(fAlias) ? fAlias : Name;
+        get => !string.IsNullOrWhiteSpace(fAlias) ? fAlias : (LocatorDef != null? SqlHelper.FieldAlias(LocatorDef.SourceTableName, Name): Name);
         set { if (fAlias != value) { fAlias = value; NotifyPropertyChanged(nameof(Alias)); } }
     }
     /// <summary>

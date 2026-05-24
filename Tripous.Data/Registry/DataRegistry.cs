@@ -1,5 +1,3 @@
-using System.Xml.XPath;
-
 namespace Tripous.Data;
 
 /// <summary>
@@ -278,6 +276,14 @@ static public class DataRegistry
         if (Result == null)
             Result = AddLocatorInternal(Name, SourceTableName, KeyField, ClassName, FormName);
         return Result;
+    }
+    /// <summary>
+    /// Locators are not part of module, so we need a way to update references.
+    /// </summary>
+    static public void UpdateLocatorReferences()
+    {
+        foreach (LocatorDef LocatorDef in Locators)
+            LocatorDef.UpdateReferences();
     }
 
     // ● code providers

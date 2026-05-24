@@ -312,11 +312,11 @@ public class DataModule
         {
             if (ModuleDef == null)
                 throw new TripousArgumentNullException(nameof(ModuleDef));
+
+            DataRegistry.UpdateLocatorReferences();
             
             this.ModuleDef = ModuleDef;
             ModuleDef.UpdateReferences();
-            
-            
             
             // ● Connection Info
             DbConnectionInfo ConnectionInfo = Db.GetConnectionInfo(ModuleDef.ConnectionName);

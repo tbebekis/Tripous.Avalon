@@ -24,11 +24,11 @@ public class FieldDef: BaseDef
 
     protected override string GetTitleKey()
     {
-        if (!string.IsNullOrWhiteSpace(Locator))
-        {
-            if (string.IsNullOrWhiteSpace(fTitleKey) || fTitleKey == Name)
-                return Locator;
-        }
+        if ((string.IsNullOrWhiteSpace(fTitleKey) || fTitleKey == Name) && !string.IsNullOrWhiteSpace(Locator))
+            return Locator;
+        
+        if (string.IsNullOrWhiteSpace(fTitleKey) && TableDef != null && TableDef.IsJoin)
+            return SqlHelper.FieldAlias(TableDef.Alias, Name);
         
         return base.GetTitleKey();
     }

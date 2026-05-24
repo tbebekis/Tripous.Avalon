@@ -64,6 +64,52 @@ public class LocatorDef: BaseDef
         if (Fields.Count == 0)
             throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no Fields.");
     }
+    /// <summary>
+    /// Updates references such as when an instance has references to other instances, e.g. tables of a module definition.
+    /// </summary>
+    public override void UpdateReferences()
+    {
+        base.UpdateReferences();
+
+        foreach (LocatorFieldDef FieldDef in Fields)
+            FieldDef.LocatorDef = this;
+    }
+
+    /// <summary>
+    /// Adds a field to the locator.
+    /// </summary>
+    public LocatorFieldDef Add(string Name, DataFieldType DataType, string TargetField, string Alias, string TitleKey, bool IsVisible, bool IsSearchable)
+    {
+        LocatorFieldDef Result = Fields.FindOrdAdd(Name);
+        Result.DataType = DataType;
+        Result.TargetField = TargetField;
+        Result.Alias = Alias;
+        Result.TitleKey = TitleKey;
+        Result.IsVisible = IsVisible;
+        Result.IsSearchable = IsSearchable;
+        return Result;
+    }
+    /// <summary>
+    /// Adds a field to the locator.
+    /// </summary>
+    public LocatorFieldDef Add(string Name, DataFieldType DataType, string TargetField)
+    {
+        return Add(Name, DataType, TargetField, Alias: null, TitleKey: null, IsVisible: true, IsSearchable: true);
+    }
+    /// <summary>
+    /// Adds a field to the locator.
+    /// </summary>
+    public LocatorFieldDef Add(string Name, DataFieldType DataType)
+    {
+        return Add(Name, DataType, TargetField: null, Alias: null, TitleKey: null, IsVisible: true, IsSearchable: true);
+    }
+    /// <summary>
+    /// Adds a string field to the locator.
+    /// </summary>
+    public LocatorFieldDef Add(string Name)
+    {
+        return Add(Name, DataType: DataFieldType.String, TargetField: null, Alias: null, TitleKey: null, IsVisible: true, IsSearchable: true);
+    }
 
     // ● properties
     /// <summary>

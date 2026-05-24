@@ -1,0 +1,88 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="BindingStudyApp_01.MainWindow"
+        WindowStartupLocation="CenterScreen"
+        Width="1024"
+        Height="1024"
+        Title="TestBindingApp">
+
+    <DockPanel LastChildFill="True">
+        <!-- ● Top Panel: Button & Entry Fields -->
+        <StackPanel DockPanel.Dock="Top" Spacing="10" Margin="10">
+            <!-- ● Navigation Buttons WrapPanel -->
+            <WrapPanel Orientation="Horizontal" ItemSpacing="10" LineSpacing="10">
+                <Button Name="btnFirst" Content="First" Width="100" HorizontalContentAlignment="Center"/>
+                <Button Name="btnPrior" Content="Prior" Width="100" HorizontalContentAlignment="Center"/>
+                <Button Name="btnNext" Content="Next" Width="100" HorizontalContentAlignment="Center"/>
+                <Button Name="btnLast" Content="Last" Width="100" HorizontalContentAlignment="Center"/>
+                <Button Name="btnAdd" Content="Add" Width="100" HorizontalContentAlignment="Center"/>
+                <Button Name="btnDelete" Content="Delete" Width="100" HorizontalContentAlignment="Center"/>
+            </WrapPanel>
+
+            <!-- ● Buttons WrapPanel -->
+            <WrapPanel Orientation="Horizontal" ItemSpacing="10" LineSpacing="10">
+                <Button Name="btnChangeSourceRow" Content="Change Source Row"  HorizontalContentAlignment="Center"/>
+                <Button Name="btnChangeRowView" Content="Change RowView"  HorizontalContentAlignment="Center"/>
+                <Button Name="btnChangeRow" Content="Change Row" HorizontalContentAlignment="Center"/>
+            </WrapPanel>
+            
+            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Padding="10">
+                <Grid ColumnDefinitions="Auto, *, Auto, *, Auto, *" RowDefinitions="Auto, Auto, Auto">
+                    <!-- Row 0 -->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Id:" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="edtId" Margin="5"/>
+
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Code:" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" Name="edtCode" Margin="5"/>
+
+                    <TextBlock Grid.Row="0" Grid.Column="4" Text="Name:" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="0" Grid.Column="5" Name="edtName" Margin="5"/>
+
+                    <!-- Row 1 -->
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Country Id:" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Name="edtCountryId" Margin="5"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="Country Code:" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" Name="edtCountry__Code" Margin="5"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="4" Text="Country Name:" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="1" Grid.Column="5" Name="edtCountry__Name" Margin="5"/>
+
+                    <!-- Row 2 -->
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Is Active:" VerticalAlignment="Center" Margin="5"/>
+                    <CheckBox Grid.Row="2" Grid.Column="1" Name="chkIsActive" Margin="5" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <!-- ● Bottom Panel: DataGrid & Log Splitter -->
+        <Grid RowDefinitions="*, 4, Auto, *, 4, 300">
+            <!-- Master DataGrid -->
+            <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                <DataGrid Name="gridList" AutoGenerateColumns="True"/>
+            </Border>
+
+            <!-- Vertical Resizer -->
+            <GridSplitter Grid.Row="1" Background="Transparent" ResizeDirection="Rows"/>
+
+            <!-- Detail Buttons WrapPanel -->
+            <WrapPanel Grid.Row="2" Orientation="Horizontal" ItemSpacing="10" LineSpacing="10" Margin="0,5">
+                <Button Name="btnAddOrder" Content="Add Order" Width="120" HorizontalContentAlignment="Center"/>
+                <Button Name="btnDeleteOrder" Content="Delete Order" Width="120" HorizontalContentAlignment="Center"/>
+            </WrapPanel>
+
+            <!-- Detail DataGrid -->
+            <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                <DataGrid Name="gridDetail" AutoGenerateColumns="True"/>
+            </Border>
+
+            <!-- Vertical Resizer -->
+            <GridSplitter Grid.Row="4" Background="Transparent" ResizeDirection="Rows"/>
+
+            <!-- Log Textbox -->
+            <Border Grid.Row="5" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                <TextBox Name="edtLog" AcceptsReturn="True" TextWrapping="Wrap" Watermark="System log..." BorderThickness="0" IsReadOnly="False"/>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>

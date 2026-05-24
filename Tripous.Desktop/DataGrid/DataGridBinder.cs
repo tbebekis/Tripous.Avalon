@@ -3,11 +3,54 @@ namespace Tripous.Desktop;
 public static class DataGridBinder
 {
     // ● private
+    class LookupDisplayValueConverter: IValueConverter
+    {
+        // ● private fields
+        readonly LookupSource fLookupSource;
+
+        // ● constructors
+        public LookupDisplayValueConverter(LookupSource LookupSource)
+        {
+            fLookupSource = LookupSource;
+        }
+
+        // ● public methods
+        public object Convert(object Value, Type TargetType, object Parameter, CultureInfo Culture)
+        {
+            LookupItem LookupItem = fLookupSource?.FindItem(Value == DBNull.Value ? null : Value);
+            return LookupItem?.DisplayText ?? string.Empty;
+        }
+        public object ConvertBack(object Value, Type TargetType, object Parameter, CultureInfo Culture)
+        {
+            return Avalonia.Data.BindingOperations.DoNothing;
+        }
+    }
+    class BoolDisplayConverter: IValueConverter
+    {
+        // ● public methods
+        public object Convert(object Value, Type TargetType, object Parameter, CultureInfo Culture)
+        {
+            bool Flag = false;
+            if (!Sys.IsNull(Value))
+            {
+                if (Value is bool B)
+                    Flag = B;
+                else
+                    Flag = System.Convert.ToInt32(Value) != 0;
+            }
+            return Flag ? "x" : string.Empty;
+        }
+        public object ConvertBack(object Value, Type TargetType, object Parameter, CultureInfo Culture)
+        {
+            return Avalonia.Data.BindingOperations.DoNothing;
+        }
+    }
+
     static Thickness GetCellPadding()
     {
         return new Thickness(6, 2, 6, 2);
     }
-    
+
     static object GetValue(DataRowView RowView, string ColumnName)
     {
         if (RowView == null || RowView.Row == null || RowView.Row.RowState.In(DataRowState.Deleted))
@@ -129,13 +172,10 @@ public static class DataGridBinder
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
             TextBlock Result = new();
-
-            object Value = GetValue(Item, ColumnName);
-            LookupItem LookupItem = LookupSource.FindItem(Value);
-
-            //Console.WriteLine($"LOOKUP DISPLAY: Column={ColumnName}, Value={Value}, ValueType={Value?.GetType().FullName}, Found={LookupItem?.DisplayText}");
-
-            Result.Text = LookupItem?.DisplayText ?? string.Empty;
+            Result.Bind(TextBlock.TextProperty, new Binding($"[{ColumnName}]", BindingMode.OneWay)
+            {
+                Converter = new LookupDisplayValueConverter(LookupSource)
+            });
             Result.Padding = GetCellPadding();
             Result.VerticalAlignment = VerticalAlignment.Center;
             Result.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -239,25 +279,43 @@ public static class DataGridBinder
             return Result;
         }, SupportsRecycling);
     }
+    static IDataTemplate CreateLocatorEditTemplate(string ColumnName, FieldDef FieldDef, LocatorDef LocatorDef, LocatorFieldDef LocatorFieldDef, Dictionary<string, string> TargetFieldMap, bool SupportsRecycling)
+    {
+        return new FuncDataTemplate<DataRowView>((Item, _) =>
+        {
+            GridLocatorBox Result = new();
+            object Value = GetValue(Item, ColumnName);
+            Result.Initialize(LocatorDef, LocatorFieldDef, Item, FieldDef.Name, TargetFieldMap);
+            Result.SetText(FormatValue(Value, null));
+
+            EventHandler<VisualTreeAttachmentEventArgs> AttachedHandler = null;
+            AttachedHandler = (Sender, Args) =>
+            {
+                Result.AttachedToVisualTree -= AttachedHandler;
+
+                Dispatcher.UIThread.Post(() =>
+                {
+                    Item?.BeginEdit();
+                    Result.FocusEditor();
+                }, DispatcherPriority.Input);
+            };
+
+            Result.AttachedToVisualTree += AttachedHandler;
+
+            return Result;
+        }, SupportsRecycling);
+    }
     
     static IDataTemplate CreateBoolDisplayTemplate(string ColumnName, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
             TextBlock Result = new();
-
-            object Value = GetValue(Item, ColumnName);
-            bool Flag = false;
-
-            if (!Sys.IsNull(Value))
+            Result.Bind(TextBlock.TextProperty, new Binding($"[{ColumnName}]", BindingMode.OneWay)
             {
-                if (Value is bool B)
-                    Flag = B;
-                else
-                    Flag = Convert.ToInt32(Value) != 0;
-            }
+                Converter = new BoolDisplayConverter()
+            });
 
-            Result.Text = Flag ? "x" : string.Empty;
             Result.Padding = GetCellPadding();
             Result.VerticalAlignment = VerticalAlignment.Center;
             Result.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -494,6 +552,47 @@ public static class DataGridBinder
         Result.IsReadOnly = IsReadOnly;
         
         GridColumnBinding CI = new GridColumnBinding(Result, Column);
+        Result.Tag = CI;
+
+        return Result;
+    }
+    static public DataGridColumn CreateGridColumn(string ColumnName, string Header, DataFieldType DataType, string Format = null, bool IsReadOnly = false, bool SupportsRecycling = false)
+    {
+        Header = GetHeader(ColumnName, Header);
+        bool IsBoolean = DataType == DataFieldType.Boolean;
+        TextAlignment Align = IsBoolean ? TextAlignment.Center : DataType.GetTextAlignment();
+        Type NetType = DataType.GetNetType();
+
+        DataGridColumn Result = null;
+        if (IsBoolean)
+            Result = CreateBoolColumn(ColumnName, Header: Header, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
+        else
+            Result = CreateTextColumn(ColumnName, Header: Header, Format: GetDateAwareFormat(ColumnName, NetType, Format), Alignment: Align, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
+
+        Result.Header = Header.SplitToWords();
+        Result.IsReadOnly = IsReadOnly;
+
+        GridColumnBinding CI = new GridColumnBinding(Result, ColumnName, NetType);
+        Result.Tag = CI;
+
+        return Result;
+    }
+    static public DataGridColumn CreateLocatorColumn(string ColumnName, string Header, FieldDef FieldDef, LocatorDef LocatorDef, LocatorFieldDef LocatorFieldDef, Dictionary<string, string> TargetFieldMap, bool IsReadOnly = false, bool SupportsRecycling = false)
+    {
+        Header = GetHeader(ColumnName, Header);
+        TextAlignment Align = LocatorFieldDef.DataType.GetTextAlignment();
+
+        DataGridTemplateColumn Result = new();
+        Result.Header = Header.SplitToWords();
+        Result.IsReadOnly = IsReadOnly;
+        Result.CellTemplate = CreateTextDisplayTemplate(ColumnName, Align, null, SupportsRecycling);
+        Result.CellEditingTemplate = IsReadOnly ? null : CreateLocatorEditTemplate(ColumnName, FieldDef, LocatorDef, LocatorFieldDef, TargetFieldMap, SupportsRecycling);
+
+        GridColumnBinding CI = new GridColumnBinding(Result, FieldDef.Name, FieldDef.DataType.GetNetType());
+        CI.FieldDef = FieldDef;
+        CI.LocatorDef = LocatorDef;
+        CI.Locator = LocatorDef.Create();
+        CI.LocatorTargetFieldMap = TargetFieldMap;
         Result.Tag = CI;
 
         return Result;

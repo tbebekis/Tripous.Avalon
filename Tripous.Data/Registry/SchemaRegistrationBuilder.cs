@@ -1673,14 +1673,11 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static bool IsLookupField(SchemaScript Script, SchemaField Field)
     {
+        if (IsLocatorField(Field))
+            return false;
+
         if (Field.MetadataKind == FieldMetadataKind.Lookup)
             return true;
-
-        if (Field.ForeignKey != null)
-        {
-            SchemaTable RefTable = Script.FindTable(Field.ForeignKey.ReferenceTable);
-            return RefTable != null && RefTable.IsLookup;
-        }
 
         return false;
     }

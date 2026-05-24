@@ -43,6 +43,7 @@ static internal partial class Registry
     }
     static void RegisterLocators_FromModules()
     {
+        DataRegistry.AddLocator("Country", "Country", "Id", FormName: "Country");
         DataRegistry.AddLocator("Customer", "Person", "Id", FormName: "Person");
         DataRegistry.AddLocator("Person", "Person", "Id", FormName: "Person");
         DataRegistry.AddLocator("Product", "Product", "Id", FormName: "Product");
@@ -262,11 +263,16 @@ from
         tblCompanyBranch.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
         tblCompanyBranch.AddString("City", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblCompanyBranch.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblCompanyBranch.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblCompanyBranch.AddString("CountryId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblCompanyBranch.AddString("Phone", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
         tblCompanyBranch.AddString("Email", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblCompanyBranch.AddBoolean("IsPrimary", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblCompanyBranch.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        TableDef tblCountry = tblCompanyBranch.AddJoin("CountryId", "Country", "Country", "Id");
+        tblCompanyBranch.Fields.Get("CountryId").Locator = "Country";
+        tblCountry.AddId("Id").SetNullable(false);
+        tblCountry.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblCountry.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         TableDef tblCompanyBankAccount = tblTop.AddDetail("CompanyBankAccount", "Id", "CompanyId");
         tblCompanyBankAccount.KeyField = "Id";
         tblCompanyBankAccount.AddId("Id").SetNullable(false);
@@ -527,7 +533,7 @@ from
         tblTop.AddInteger("FinancialDirection", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddInteger("AccountingDirection", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancellation", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddStringLookupId("TargetDocumentTypeId", "DocumentType", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("TargetDocumentTypeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("RequiresApproval", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("AutoComplete", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
@@ -1399,7 +1405,7 @@ from
         tblTop.AddEnumLookupId("ProjectStatusId", "ProjectStatus", TypeStore.Get("ProjectStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDate("StartDate", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddDate("EndDate", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("CostCenterId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("ManagerPersonId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);

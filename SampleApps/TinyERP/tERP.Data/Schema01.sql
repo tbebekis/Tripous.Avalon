@@ -413,7 +413,7 @@ CREATE TABLE {TableName} (
     AddressLine2 @NVARCHAR(160) @NULL,
     City @NVARCHAR(96) @NULL,
     PostalCode @NVARCHAR(16) @NULL,
-    CountryId @NVARCHAR(40) @NOT_NULL,          -- Lookup
+    CountryId @NVARCHAR(40) @NOT_NULL,          -- Locator
     Phone @NVARCHAR(32) @NULL,
     Email @NVARCHAR(96) @NULL,
     IsPrimary int default 0 @NOT_NULL,

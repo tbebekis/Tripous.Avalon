@@ -967,4 +967,5 @@ where
     [JsonIgnore] public bool HasDetails => fDetails != null && fDetails.Count > 0;
     [JsonIgnore] public bool HasJoins => fJoins != null && fJoins.Count > 0;
     [JsonIgnore] public bool HasStocks => fStocks != null && fStocks.Count > 0;
+    [JsonIgnore] public bool IsJoin => Owner != null;
 }

@@ -136,6 +136,25 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             return;
         }
 
+        if (Context.Binding.LocatorDef != null && Context.Binding.Locator != null)
+        {
+            if (Sys.IsNull(Value))
+            {
+                Context.Binding.Locator.Assign(null, Context.Binding.Table.CurrentRow, Context.Binding.FieldName, Context.Binding.LocatorTargetFieldMap);
+            }
+            else if (Context.Binding.Locator.LocateByKey(Value))
+            {
+                Context.Binding.Locator.Assign(Context.Binding.Locator.SelectedRow, Context.Binding.Table.CurrentRow, Context.Binding.FieldName, Context.Binding.LocatorTargetFieldMap);
+            }
+            else
+            {
+                Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Value;
+            }
+
+            RefreshReferenceBinding(Context);
+            return;
+        }
+
         Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Sys.IsNull(Value) ? DBNull.Value : Value;
         RefreshReferenceBinding(Context);
     }
