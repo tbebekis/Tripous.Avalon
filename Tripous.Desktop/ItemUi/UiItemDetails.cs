@@ -67,7 +67,7 @@ static public class UiItemDetails
     {
         DockPanel Panel = new();
         Border ToolBarBorder = CreateDetailToolBarBorder(DetailUiInfo);
-        DataGrid Grid = CreateDetailDataGrid(context, DetailUiInfo.TableDef);
+        DataGrid Grid = CreateDetailDataGrid(context, DetailUiInfo);
         DetailUiInfo.Grid = Grid;
         Panel.Children.Add(ToolBarBorder);
         Panel.Children.Add(Grid);
@@ -228,7 +228,7 @@ static public class UiItemDetails
     /// <summary>
     /// Creates a detail data grid.
     /// </summary>
-    static public DataGrid CreateDetailDataGrid(UiItemContext context, TableDef TableDef)
+    static public DataGrid CreateDetailDataGrid(UiItemContext context, UiDetailTableInfo DetailUiInfo)
     {
         DataGrid Result = new()
         {
@@ -238,8 +238,8 @@ static public class UiItemDetails
             IsTabStop = true,
             Margin = new Thickness(0, 8, 0, 8)
         };
-        CreateDetailGridColumns(Result, TableDef);
-        BindDetailGrid(context, Result, TableDef);
+        CreateDetailGridColumns(Result, DetailUiInfo.TableDef);
+        BindDetailGrid(context, Result, DetailUiInfo);
         GridEditController.Attach(Result);
         return Result;
     }
@@ -349,12 +349,39 @@ static public class UiItemDetails
     /// <summary>
     /// Binds a detail data grid to the view of its table.
     /// </summary>
-    static public void BindDetailGrid(UiItemContext context, DataGrid Grid, TableDef TableDef)
+    static DataSourceRow FindDataSourceRow(DataSource DataSource, DataRowView RowView)
     {
-        MemTable Table = context.Module.GetTable(TableDef.Name);
+        if (DataSource == null || RowView == null)
+            return null;
+
+        foreach (DataSourceRow Row in DataSource.Rows)
+        {
+            if (Row.InnerObject is DataRowView SourceRowView && ReferenceEquals(SourceRowView.Row, RowView.Row))
+                return Row;
+            if (Row.InnerObject is DataRow SourceRow && ReferenceEquals(SourceRow, RowView.Row))
+                return Row;
+        }
+
+        return null;
+    }
+    static public void BindDetailGrid(UiItemContext context, DataGrid Grid, UiDetailTableInfo DetailUiInfo)
+    {
+        MemTable Table = DetailUiInfo.Table ?? context.Module.GetTable(DetailUiInfo.TableDef.Name);
+        DataSource DataSource = DetailUiInfo.DataSource ?? context.Module.FindDataSource(DetailUiInfo.TableDef.Name);
         DataView DataView = Table.DataView;
         DataViewItemsSource ItemsSource = new(DataView);
+        bool IsSyncing = false;
         Grid.ItemsSource = ItemsSource;
+
+        void SetDataSourceCurrent(DataRowView RowView)
+        {
+            if (DataSource == null)
+                return;
+
+            DataSourceRow Row = FindDataSourceRow(DataSource, RowView);
+            if (!ReferenceEquals(DataSource.Current, Row))
+                DataSource.Current = Row;
+        }
 
         void SelectFirstRow()
         {
@@ -365,10 +392,51 @@ static public class UiItemDetails
                     Grid.SelectedIndex = 0;
                     Grid.SelectedItem = ItemsSource[0];
                     Table.CurrentRowView = ItemsSource[0];
+                    SetDataSourceCurrent(ItemsSource[0]);
                     if (Grid.CurrentColumn == null)
                         Grid.CurrentColumn = Grid.Columns.FirstOrDefault(Column => Column.IsVisible);
                 }
             });
+        }
+
+        Grid.SelectionChanged += (Sender, Args) =>
+        {
+            if (IsSyncing)
+                return;
+
+            IsSyncing = true;
+            try
+            {
+                DataRowView RowView = Grid.SelectedItem as DataRowView;
+                Table.CurrentRowView = RowView;
+                SetDataSourceCurrent(RowView);
+            }
+            finally
+            {
+                IsSyncing = false;
+            }
+        };
+
+        if (DataSource != null)
+        {
+            DataSource.PropertyChanged += (Sender, Args) =>
+            {
+                if (IsSyncing || Args.PropertyName != nameof(DataSource.Current))
+                    return;
+
+                IsSyncing = true;
+                try
+                {
+                    DataRow DataRow = DataSource.Current?.InnerObject is DataRowView RowView ? RowView.Row : DataSource.Current?.InnerObject as DataRow;
+                    DataRowView TargetRowView = DataRow != null ? MemTable.GetDataRowView(DataRow, DataView) : null;
+                    Grid.SelectedItem = TargetRowView;
+                    Table.CurrentRowView = TargetRowView;
+                }
+                finally
+                {
+                    IsSyncing = false;
+                }
+            };
         }
 
         ItemsSource.CollectionChanged += (Sender, Args) => SelectFirstRow();

@@ -26,4 +26,8 @@ public class UiDetailTableInfo
     /// The table.
     /// </summary>
     public MemTable Table { get; set; }
+    /// <summary>
+    /// The data source.
+    /// </summary>
+    public DataSource DataSource { get; set; }
 }

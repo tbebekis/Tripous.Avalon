@@ -228,6 +228,9 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         else
             UiItemPage.CreateTabbedTopLayout(Context);
 
+        foreach (ItemBinder Binder in Binders)
+            Binder.DataSource?.BindingComplete();
+
         IsBindingDone = true;
     }
 

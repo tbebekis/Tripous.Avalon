@@ -216,6 +216,8 @@ public partial class DataForm : AppForm
         }
 
         await Execute(StartAction);
+
+        
     }
     protected virtual async Task Execute(DataFormAction Value)
     {
@@ -310,6 +312,33 @@ public partial class DataForm : AppForm
 
         return string.Join(" - ", Parts);
     }
+    protected virtual void LogDataSources(string CallSite)
+    {
+        LogBox.AppendLine("DATA_FORM: " + CallSite);
+        
+        DataSourceList Sources = Module?.DataSources;
+
+        if (Sources == null)
+        {
+            LogBox.AppendLine($"{TitleText}: DataSources: null");
+            return;
+        }
+
+        LogBox.AppendLine($"{TitleText}: DataSources: {Sources.Count}");
+
+        foreach (DataSource Source in Sources)
+        {
+            string MasterName = Source.Master != null ? Source.Master.Name : string.Empty;
+            LogBox.AppendLine($"{TitleText}: DataSource {Source.Name}, Rows: {Source.Count}, AllRows: {Source.AllRows.Count}, Details: {Source.Details.Count}, Master: {MasterName}");
+
+            foreach (DataSourceRelation Relation in Source.Relations)
+            {
+                string ParentFields = string.Join(", ", Relation.ParentFieldNames);
+                string ChildFields = string.Join(", ", Relation.ChildFieldNames);
+                LogBox.AppendLine($"{TitleText}: Relation {Relation.Name}, Parent: {Relation.Parent.Name} ({ParentFields}), Child: {Relation.Child.Name} ({ChildFields})");
+            }
+        }
+    }
 
     protected virtual async Task ExecuteList()
     {
@@ -334,6 +363,7 @@ public partial class DataForm : AppForm
     {
         Insert();
         this.FormState = DataFormState.Insert;
+        //LogDataSources("Insert");
     }
     protected virtual void ExecuteEdit(object oId = null)
     {
@@ -346,6 +376,8 @@ public partial class DataForm : AppForm
             LogBox.AppendLine($"{TitleText}: Loaded {GetItemLogText(oId)}");
             ItemPage?.Binders.ForEach(Binder => Binder.Refresh());
             this.FormState = DataFormState.Edit;
+            
+            //LogDataSources("Edit");
         }
     }
     protected virtual async Task ExecuteDelete(object oId = null)
@@ -360,6 +392,7 @@ public partial class DataForm : AppForm
                 string LogText = GetItemLogText(oId);
                 Delete(oId);
                 LogBox.AppendLine($"{TitleText}: Deleted {LogText}");
+                //LogDataSources("Delete");
             }
         }
     }
@@ -371,6 +404,7 @@ public partial class DataForm : AppForm
             Save();
             fListTargetId = Module.LastCommitedId;
             LogBox.AppendLine($"{TitleText}: Saved {GetItemLogText(Module.LastCommitedId)}");
+            //LogDataSources("Save");
         }
         finally
         {
@@ -408,6 +442,7 @@ public partial class DataForm : AppForm
 
             CancelChanges();
             ItemPage?.Refresh();
+            //LogDataSources("CancelEdit");
         }
 
         return true;

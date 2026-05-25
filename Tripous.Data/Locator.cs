@@ -427,12 +427,42 @@ public class Locator
         Assign(SourceRow, TargetRow, KeyFieldName: null, TargetFieldMap: null, UseAliasFallback: false, ForceTargetReadOnly: false);
     }
     /// <summary>
+    /// Assigns locator values from a source row to a target DataSource row.
+    /// </summary>
+    public virtual void Assign(DataRow SourceRow, DataSourceRow TargetRow)
+    {
+        if (TargetRow == null)
+            throw new TripousArgumentNullException(nameof(TargetRow));
+
+        DataRow Row = TargetRow.InnerObject is DataRowView RowView ? RowView.Row : TargetRow.InnerObject as DataRow;
+
+        if (Row == null)
+            throw new TripousDataException($"{this.GetType().FullName} cannot assign values when the target row is not a {nameof(DataRow)} or {nameof(DataRowView)}.");
+
+        Assign(SourceRow, Row);
+    }
+    /// <summary>
     /// Assigns locator key and values from a source row to a target row using a target field map.
     /// <para>NOTE: When <see cref="SourceRow"/> is null, it just clears the appropriate fields in <see cref="TargetRow"/></para>
     /// </summary>
     public virtual void Assign(DataRow SourceRow, DataRow TargetRow, string KeyFieldName, Dictionary<string, string> TargetFieldMap)
     {
         Assign(SourceRow, TargetRow, KeyFieldName, TargetFieldMap, UseAliasFallback: true, ForceTargetReadOnly: true);
+    }
+    /// <summary>
+    /// Assigns locator key and values from a source row to a target DataSource row using a target field map.
+    /// </summary>
+    public virtual void Assign(DataRow SourceRow, DataSourceRow TargetRow, string KeyFieldName, Dictionary<string, string> TargetFieldMap)
+    {
+        if (TargetRow == null)
+            throw new TripousArgumentNullException(nameof(TargetRow));
+
+        DataRow Row = TargetRow.InnerObject is DataRowView RowView ? RowView.Row : TargetRow.InnerObject as DataRow;
+
+        if (Row == null)
+            throw new TripousDataException($"{this.GetType().FullName} cannot assign values when the target row is not a {nameof(DataRow)} or {nameof(DataRowView)}.");
+
+        Assign(SourceRow, Row, KeyFieldName, TargetFieldMap);
     }
 
     // ● source table specific

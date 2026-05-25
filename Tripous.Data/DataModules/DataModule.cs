@@ -11,6 +11,7 @@ public class DataModule
 
     protected Dictionary<string, object> fVariables;
     protected TableSet TableSet;
+    protected DataSourceList fDataSources;
     
     // ● tableset event handlers  
     /// <summary>
@@ -199,9 +200,9 @@ public class DataModule
                                 if (Sys.IsNull(Row[Column]) && FieldDes.IsBoolean)
                                 {
                                     Row[Column] = 0;
-                                }
-                            }
-                        }
+            }
+        }
+    }
 
                     }
 
@@ -219,6 +220,29 @@ public class DataModule
 
         }
 
+    }
+
+    // ● overridables - data sources
+    /// <summary>
+    /// Creates the binding DataSources.
+    /// </summary>
+    protected virtual void CreateDataSources()
+    {
+        fDataSources = new DataSourceList() { Owner = this };
+
+        foreach (MemTable Table in Tables)
+            fDataSources.Add(DataSource.FromTable(Table));
+
+        foreach (MemTable Table in Tables)
+        {
+            DataSource MasterSource = fDataSources.Get(Table.TableName);
+
+            foreach (MemTable DetailTable in Table.Details)
+            {
+                DataSource DetailSource = fDataSources.Get(DetailTable.TableName);
+                MasterSource.AddDetail(DetailSource, DetailTable.MasterFields, DetailTable.DetailFields);
+            }
+        }
     }
  
     /// <summary>
@@ -427,6 +451,9 @@ public class DataModule
 
             // ● code provider
             AssignCodeProviderDef();
+
+            // ● binding DataSources
+            CreateDataSources();
             
             // ● TableSet
             TableSetFlags TableSetFlags = TableSetFlags.None;
@@ -707,6 +734,26 @@ public class DataModule
 
         return Result;
     }
+    /// <summary>
+    /// True if a DataSource exists, by name.
+    /// </summary>
+    public bool DataSourceExists(string Name) => FindDataSource(Name) != null;
+    /// <summary>
+    /// Finds a DataSource by name, if any, else null.
+    /// </summary>
+    public DataSource FindDataSource(string Name) => DataSources?.Find(Name);
+    /// <summary>
+    /// Gets a DataSource by name, if any, else exception.
+    /// </summary>
+    public DataSource GetDataSource(string Name)
+    {
+        DataSource Result = FindDataSource(Name);
+
+        if (Result == null)
+            throw new DataModuleException($"DataSource {Name} not found.");
+
+        return Result;
+    }
     
     // ● properties
     public bool IsInitialized => ModuleDef != null;
@@ -719,6 +766,7 @@ public class DataModule
     public MemTable tblItem { get; protected set; }
     public IEnumerable<MemTable> Tables => DataSet.Tables.Cast<MemTable>();
     public List<MemTable> Stocks => new();
+    public DataSourceList DataSources => fDataSources;
     public string Name => ModuleDef.Name;
     public bool DetailsActive
     {

@@ -29,6 +29,7 @@ public class UiItemContext
     {
         ItemBinder Result = new();
         Result.RowProvider = GetRowProvider(TableDef);
+        Result.DataSource = Module.GetDataSource(TableDef.Name);
         return Result;
     }
  
@@ -60,6 +61,7 @@ public class UiItemContext
             
             TopTableUiInfo = UiItemInfo.CreateTopTableUiInfo(Module);
             ItemBinder.RowProvider = GetRowProvider(fModule.ModuleDef.Table);
+            ItemBinder.DataSource = Module.GetDataSource(fModule.ModuleDef.Table.Name);
             ItemBinder.TableInfo = TopTableUiInfo;
         }
     }

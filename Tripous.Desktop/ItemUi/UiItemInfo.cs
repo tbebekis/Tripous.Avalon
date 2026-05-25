@@ -50,6 +50,7 @@ static public class UiItemInfo
         Result.ParentTableDef = ParentTableDef;
         Result.TableDef = TableDef;
         Result.Table = Module.GetTable(TableDef.Name);
+        Result.DataSource = Module.FindDataSource(TableDef.Name);
         return Result;
     }
     /// <summary>

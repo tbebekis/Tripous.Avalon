@@ -16,6 +16,8 @@ public class GridLocatorBox: UserControl
     LocatorDef fLocatorDef;
     LocatorFieldDef fLocatorFieldDef;
     DataRowView fRowView;
+    DataGrid fOwnerGrid;
+    DataGridColumn fOwnerColumn;
     string fKeyFieldName;
     Dictionary<string, string> fTargetFieldMap = [];
 
@@ -91,15 +93,23 @@ public class GridLocatorBox: UserControl
     }
     void CommitCell()
     {
-        DataGrid Grid = this.FindAncestorOfType<DataGrid>();
+        DataGrid Grid = GetOwnerGrid();
+        object SelectedItem = RowView;
+        DataGridColumn CurrentColumn = fOwnerColumn ?? Grid?.CurrentColumn;
         Grid?.CommitEdit(DataGridEditingUnit.Cell, true);
-        Ui.Post(() => Grid?.Focus(NavigationMethod.Tab, KeyModifiers.None));
+        UpdateLocatorDisplayCells(Grid, RowView);
+        RestoreGridCellFocus(Grid, SelectedItem, CurrentColumn);
     }
     void CancelCell()
     {
-        DataGrid Grid = this.FindAncestorOfType<DataGrid>();
+        DataGrid Grid = GetOwnerGrid();
         RowView?.CancelEdit();
         Grid?.CancelEdit();
+    }
+    DataGrid GetOwnerGrid()
+    {
+        fOwnerGrid ??= this.FindAncestorOfType<DataGrid>();
+        return fOwnerGrid;
     }
     string GetLogSearchTerm(string Term)
     {
@@ -107,11 +117,67 @@ public class GridLocatorBox: UserControl
     }
     void AssignSourceRow(DataRow SourceRow)
     {
-        if (SourceRow == null || RowView?.Row == null || Locator == null)
+        if (SourceRow == null || RowView?.Row == null || RowView.Row.RowState.In(DataRowState.Deleted | DataRowState.Detached) || Locator == null)
             return;
 
         RowView.BeginEdit();
         Locator.Assign(SourceRow, RowView.Row, KeyFieldName, TargetFieldMap);
+        RowView.EndEdit();
+    }
+    void UpdateLocatorDisplayCells(DataGrid Grid, DataRowView TargetRowView)
+    {
+        if (Grid == null || TargetRowView?.Row == null)
+            return;
+
+        foreach (DataGridCell Cell in Grid.GetVisualDescendants().OfType<DataGridCell>())
+        {
+            if (Cell.DataContext is not DataRowView RowView || !ReferenceEquals(RowView.Row, TargetRowView.Row))
+                continue;
+
+            DataGridColumn Column = DataGridColumn.GetColumnContainingElement(Cell);
+            GridColumnBinding Binding = Column.GetInfo();
+            if (Binding == null || Binding.LocatorDef != LocatorDef || !Binding.FieldName.IsSameText(KeyFieldName) || string.IsNullOrWhiteSpace(Binding.DisplayFieldName))
+                continue;
+            if (!RowView.Row.Table.Columns.Contains(Binding.DisplayFieldName))
+                continue;
+
+            object Value = RowView[Binding.DisplayFieldName];
+            foreach (TextBlock TextBlock in Cell.GetVisualDescendants().OfType<TextBlock>())
+                TextBlock.Text = DataGridBinder.FormatValue(Value == DBNull.Value ? null : Value, null);
+        }
+    }
+    void RestoreGridCellFocus(DataGrid Grid, object SelectedItem, DataGridColumn CurrentColumn)
+    {
+        if (Grid == null || SelectedItem == null || CurrentColumn == null)
+            return;
+
+        void Apply()
+        {
+            Grid.SelectedItem = SelectedItem;
+            Grid.CurrentColumn = CurrentColumn;
+            Grid.ScrollIntoView(SelectedItem, CurrentColumn);
+            UpdateLocatorDisplayCells(Grid, RowView);
+        }
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            Apply();
+            Dispatcher.UIThread.Post(() =>
+            {
+                Apply();
+                UpdateLocatorDisplayCells(Grid, RowView);
+                foreach (DataGridCell Cell in Grid.GetVisualDescendants().OfType<DataGridCell>())
+                {
+                    if (!object.Equals(Cell.DataContext, SelectedItem))
+                        continue;
+                    if (DataGridColumn.GetColumnContainingElement(Cell) != CurrentColumn)
+                        continue;
+
+                    Cell.Focus(NavigationMethod.Tab, KeyModifiers.None);
+                    break;
+                }
+            }, DispatcherPriority.Input);
+        }, DispatcherPriority.Background);
     }
     void SelectCurrentRow()
     {
@@ -211,6 +277,14 @@ public class GridLocatorBox: UserControl
             SelectCurrentRow();
             Args.Handled = true;
         }
+    }
+
+    // ● overridables
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        fOwnerGrid = this.FindAncestorOfType<DataGrid>();
+        fOwnerColumn = DataGridColumn.GetColumnContainingElement(this);
     }
 
     // ● constructors
