@@ -12,8 +12,11 @@ public class DataSource: INotifyPropertyChanged
     DataSourceRow fCurrent;
     int fPosition = -1;
     DataSource fMaster;
-    DataRelation fMasterRelation;
-    List<DataRelation> fRelations;
+    DataSourceRelation fMasterRelation;
+    List<DataSourceRelation> fRelations;
+    List<DataSource> fDetails;
+    string fFilterFieldName;
+    object fFilterValue;
 
     // ● private
     void OnPropertyChanged(string PropertyName)
@@ -80,11 +83,14 @@ public class DataSource: INotifyPropertyChanged
                 break;
             }
         }
+
+        if (IsFiltered && string.Equals(fFilterFieldName, e.FieldName, StringComparison.OrdinalIgnoreCase))
+            RebuildRows();
     }
     void Parent_PropertyChanged(object Sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(Current))
-            RefreshDetailRows();
+        if (e.PropertyName == nameof(Current) && fMaster != null && fMaster.DetailsActive)
+            RebuildRows();
     }
     bool PassesMasterFilter(DataSourceRow Row)
     {
@@ -102,7 +108,30 @@ public class DataSource: INotifyPropertyChanged
 
         return true;
     }
-    bool RowMatchesRelation(DataRelation Relation, DataSourceRow ParentRow, DataSourceRow ChildRow)
+    bool PassesFilter(DataSourceRow Row)
+    {
+        if (!IsFiltered)
+            return true;
+
+        object Value = Row[fFilterFieldName];
+
+        if (Value is string Text && fFilterValue is string FilterText)
+        {
+            if (string.IsNullOrEmpty(FilterText))
+                return true;
+            if (FilterText.EndsWith("*") && FilterText.Length > 1)
+                return Text.StartsWith(FilterText.Substring(0, FilterText.Length - 1), StringComparison.OrdinalIgnoreCase);
+
+            return Text.Contains(FilterText, StringComparison.OrdinalIgnoreCase);
+        }
+
+        return Equals(Value, fFilterValue);
+    }
+    bool PassesRowFilters(DataSourceRow Row)
+    {
+        return PassesMasterFilter(Row) && PassesFilter(Row);
+    }
+    bool RowMatchesRelation(DataSourceRelation Relation, DataSourceRow ParentRow, DataSourceRow ChildRow)
     {
         for (int i = 0; i < Relation.ParentFieldNames.Length; i++)
         {
@@ -117,7 +146,7 @@ public class DataSource: INotifyPropertyChanged
     }
     bool HasDetailRows(DataSourceRow ParentRow)
     {
-        foreach (DataRelation Relation in fRelations)
+        foreach (DataSourceRelation Relation in fRelations)
         {
             foreach (DataSourceRow ChildRow in Relation.Child.AllRows)
             {
@@ -128,9 +157,45 @@ public class DataSource: INotifyPropertyChanged
 
         return false;
     }
+    DataSourceRelation FindRelation(DataSource Child)
+    {
+        return fRelations.FirstOrDefault(Relation => ReferenceEquals(Relation.Child, Child));
+    }
+    DataSourceRelation FindRelation(string ChildName)
+    {
+        return fRelations.FirstOrDefault(Relation => string.Equals(Relation.Child.Name, ChildName, StringComparison.OrdinalIgnoreCase));
+    }
+    string CreateRelationName(DataSource Child)
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new ApplicationException("Master DataSource name is not specified.");
+        if (Child == null)
+            throw new ArgumentNullException(nameof(Child));
+        if (string.IsNullOrWhiteSpace(Child.Name))
+            throw new ApplicationException("Detail DataSource name is not specified.");
+
+        return $"{Name}_TO_{Child.Name}";
+    }
+    void ValidateRelation(DataSource Child, string[] ParentFieldNames, string[] ChildFieldNames)
+    {
+        if (Child == null)
+            throw new ArgumentNullException(nameof(Child));
+        if (ReferenceEquals(Child, this))
+            throw new ApplicationException("A DataSource cannot be a detail of itself.");
+        if (ParentFieldNames == null || ParentFieldNames.Length == 0)
+            throw new ArgumentException("Parent field names are not specified.", nameof(ParentFieldNames));
+        if (ChildFieldNames == null || ChildFieldNames.Length == 0)
+            throw new ArgumentException("Child field names are not specified.", nameof(ChildFieldNames));
+        if (ParentFieldNames.Length != ChildFieldNames.Length)
+            throw new ArgumentException("Parent and child field name counts do not match.", nameof(ChildFieldNames));
+        if (fDetails.Contains(Child))
+            throw new ApplicationException($"Detail DataSource already exists: {Child.Name}");
+        if (Child.Master != null)
+            throw new ApplicationException($"Detail DataSource already has a master: {Child.Name}");
+    }
     void DeleteDetailRows(DataSourceRow ParentRow)
     {
-        foreach (DataRelation Relation in fRelations)
+        foreach (DataSourceRelation Relation in fRelations)
         {
             List<DataSourceRow> Rows = Relation.Child.AllRows
                 .Where(ChildRow => RowMatchesRelation(Relation, ParentRow, ChildRow))
@@ -140,7 +205,7 @@ public class DataSource: INotifyPropertyChanged
                 Relation.Child.DeleteRow(Row);
         }
     }
-    void RefreshDetailRows()
+    void RebuildRows()
     {
         DataSourceRow OldCurrent = Current;
 
@@ -148,7 +213,7 @@ public class DataSource: INotifyPropertyChanged
 
         foreach (DataSourceRow Row in fAllRows)
         {
-            if (PassesMasterFilter(Row))
+            if (PassesRowFilters(Row))
                 fRows.Add(Row);
         }
 
@@ -159,13 +224,13 @@ public class DataSource: INotifyPropertyChanged
 
         OnPropertyChanged(nameof(Count));
     }
-    void SetMaster(DataSource Master, DataRelation Relation)
+    void SetMaster(DataSource Master, DataSourceRelation Relation)
     {
         ClearMaster();
         fMaster = Master;
         fMasterRelation = Relation;
         fMaster.PropertyChanged += Parent_PropertyChanged;
-        RefreshDetailRows();
+        RebuildRows();
     }
     void ClearMaster()
     {
@@ -174,7 +239,7 @@ public class DataSource: INotifyPropertyChanged
 
         fMaster = null;
         fMasterRelation = null;
-        RefreshDetailRows();
+        RebuildRows();
     }
 
     // ● constructors
@@ -188,7 +253,16 @@ public class DataSource: INotifyPropertyChanged
         fRows = new();
         fAllRows = new();
         fRelations = new();
+        fDetails = new();
+        DetailsActive = true;
         Load();
+    }
+    /// <summary>
+    /// Initializes a new instance with a name.
+    /// </summary>
+    public DataSource(IDataProvider Provider, string Name) : this(Provider)
+    {
+        this.Name = Name;
     }
 
     // ● static public
@@ -197,14 +271,28 @@ public class DataSource: INotifyPropertyChanged
     /// </summary>
     static public DataSource FromTable(DataTable Table)
     {
-        return new DataSource(new DataTableProvider(Table));
+        return new DataSource(new DataTableProvider(Table), Table.TableName);
+    }
+    /// <summary>
+    /// Creates a DataSource from a DataTable.
+    /// </summary>
+    static public DataSource FromTable(DataTable Table, string Name)
+    {
+        return new DataSource(new DataTableProvider(Table), Name);
     }
     /// <summary>
     /// Creates a DataSource from a DataView.
     /// </summary>
     static public DataSource FromDataView(DataView View)
     {
-        return new DataSource(new DataViewProvider(View));
+        return new DataSource(new DataViewProvider(View), View.Table.TableName);
+    }
+    /// <summary>
+    /// Creates a DataSource from a DataView.
+    /// </summary>
+    static public DataSource FromDataView(DataView View, string Name)
+    {
+        return new DataSource(new DataViewProvider(View), Name);
     }
     /// <summary>
     /// Creates a DataSource from a list of notifying objects.
@@ -212,6 +300,13 @@ public class DataSource: INotifyPropertyChanged
     static public DataSource FromList<T>(IList<T> List) where T: class, INotifyPropertyChanged, new()
     {
         return new DataSource(new ListProvider<T>(List));
+    }
+    /// <summary>
+    /// Creates a DataSource from a list of notifying objects.
+    /// </summary>
+    static public DataSource FromList<T>(IList<T> List, string Name) where T: class, INotifyPropertyChanged, new()
+    {
+        return new DataSource(new ListProvider<T>(List), Name);
     }
 
     // ● public
@@ -229,7 +324,7 @@ public class DataSource: INotifyPropertyChanged
         foreach (object Item in fProvider.GetItems())
             fAllRows.Add(new DataSourceRow(this, Item));
 
-        RefreshDetailRows();
+        RebuildRows();
         Loaded?.Invoke(this, EventArgs.Empty);
     }
     /// <summary>
@@ -246,35 +341,75 @@ public class DataSource: INotifyPropertyChanged
         OnPropertyChanged(nameof(Count));
         Cleared?.Invoke(this, EventArgs.Empty);
     }
+    
     /// <summary>
     /// Adds a detail relation using one parent field and one child field.
     /// </summary>
-    public DataRelation AddDetail(string Name, DataSource Child, string ParentFieldName, string ChildFieldName)
+    public DataSourceRelation AddDetail(DataSource Child, string ParentFieldName, string ChildFieldName)
     {
-        return AddDetail(Name, Child, new[] { ParentFieldName }, new[] { ChildFieldName });
+        return AddDetail(Child, new[] { ParentFieldName }, new[] { ChildFieldName });
     }
     /// <summary>
     /// Adds a detail relation using parent and child field arrays.
     /// </summary>
-    public DataRelation AddDetail(string Name, DataSource Child, string[] ParentFieldNames, string[] ChildFieldNames)
+    public DataSourceRelation AddDetail(DataSource Child, string[] ParentFieldNames, string[] ChildFieldNames)
     {
-        DataRelation Relation = new(Name, this, Child, ParentFieldNames, ChildFieldNames);
+        ValidateRelation(Child, ParentFieldNames, ChildFieldNames);
+        DataSourceRelation Relation = new(CreateRelationName(Child), this, Child, ParentFieldNames, ChildFieldNames);
 
         fRelations.Add(Relation);
+        fDetails.Add(Child);
         Child.SetMaster(this, Relation);
         return Relation;
     }
     /// <summary>
     /// Removes a detail relation.
     /// </summary>
-    public void RemoveDetail(DataRelation Relation)
+    public void RemoveDetail(DataSourceRelation Relation)
     {
         if (Relation == null)
             return;
 
         if (fRelations.Remove(Relation))
+        {
+            fDetails.Remove(Relation.Child);
             Relation.Child.ClearMaster();
+        }
     }
+    /// <summary>
+    /// Removes a detail relation by child DataSource.
+    /// </summary>
+    public void RemoveDetail(DataSource Child)
+    {
+        RemoveDetail(FindRelation(Child));
+    }
+    /// <summary>
+    /// Removes a detail relation by child DataSource name.
+    /// </summary>
+    public void RemoveDetail(string Name)
+    {
+        RemoveDetail(FindRelation(Name));
+    }
+    /// <summary>
+    /// Finds a detail DataSource by name, or returns null.
+    /// </summary>
+    public DataSource FindDetail(string Name)
+    {
+        return fDetails.FirstOrDefault(Detail => string.Equals(Detail.Name, Name, StringComparison.OrdinalIgnoreCase));
+    }
+    /// <summary>
+    /// Gets a detail DataSource by name, or throws an exception.
+    /// </summary>
+    public DataSource GetDetail(string Name)
+    {
+        DataSource Result = FindDetail(Name);
+
+        if (Result == null)
+            throw new ApplicationException($"Detail DataSource not found: {Name}");
+
+        return Result;
+    }
+    
     /// <summary>
     /// Creates a new row without adding it to the source.
     /// </summary>
@@ -310,7 +445,7 @@ public class DataSource: INotifyPropertyChanged
         fProvider.AddItem(Row.InnerObject);
         fAllRows.Add(Row);
 
-        if (PassesMasterFilter(Row))
+        if (PassesRowFilters(Row))
             fRows.Add(Row);
 
         Current = Row;
@@ -333,6 +468,7 @@ public class DataSource: INotifyPropertyChanged
     {
         return AppendRow();
     }
+    
     /// <summary>
     /// Deletes the current row.
     /// </summary>
@@ -375,6 +511,7 @@ public class DataSource: INotifyPropertyChanged
         RaiseRow(Deleted, Row);
         return true;
     }
+    
     /// <summary>
     /// Moves to the first row.
     /// </summary>
@@ -419,6 +556,7 @@ public class DataSource: INotifyPropertyChanged
         Position--;
         return true;
     }
+    
     /// <summary>
     /// Refreshes the current row notification.
     /// </summary>
@@ -427,8 +565,90 @@ public class DataSource: INotifyPropertyChanged
         SetCurrentByPosition();
         OnPropertyChanged(nameof(Current));
     }
+    /// <summary>
+    /// Refreshes the visible rows.
+    /// </summary>
+    public void RefreshRows()
+    {
+        RebuildRows();
+    }
+    /// <summary>
+    /// Sets a field/value filter.
+    /// </summary>
+    public void SetFilter(string FieldName, object Value)
+    {
+        if (string.IsNullOrWhiteSpace(FieldName))
+            throw new ArgumentException("Filter field name is not specified.", nameof(FieldName));
+        if (!Provider.ContainsField(FieldName))
+            throw new ApplicationException($"Filter field not found: {FieldName}");
+
+        fFilterFieldName = FieldName;
+        fFilterValue = Value;
+        RebuildRows();
+        OnPropertyChanged(nameof(FilterFieldName));
+        OnPropertyChanged(nameof(FilterValue));
+        OnPropertyChanged(nameof(IsFiltered));
+    }
+    /// <summary>
+    /// Clears the field/value filter.
+    /// </summary>
+    public void CancelFilter()
+    {
+        fFilterFieldName = null;
+        fFilterValue = null;
+        RebuildRows();
+        OnPropertyChanged(nameof(FilterFieldName));
+        OnPropertyChanged(nameof(FilterValue));
+        OnPropertyChanged(nameof(IsFiltered));
+    }
+    /// <summary>
+    /// Sets whether this DataSource propagates current-row changes to its details.
+    /// </summary>
+    public void ActivateDetails(bool Value)
+    {
+        ActivateDetails(Value, true);
+    }
+    /// <summary>
+    /// Sets whether this DataSource propagates current-row changes to its details.
+    /// </summary>
+    public void ActivateDetails(bool Value, bool Propagate)
+    {
+        if (DetailsActive != Value)
+        {
+            DetailsActive = Value;
+
+            if (DetailsActive)
+            {
+                foreach (DataSource Detail in fDetails)
+                    Detail.RebuildRows();
+            }
+
+            if (Propagate)
+            {
+                foreach (DataSource Detail in fDetails)
+                    Detail.ActivateDetails(Value, Propagate);
+            }
+
+            OnPropertyChanged(nameof(DetailsActive));
+        }
+    }
+    /// <summary>
+    /// Returns the DataSource name.
+    /// </summary>
+    public override string ToString()
+    {
+        return Name;
+    }
 
     // ● properties
+    /// <summary>
+    /// Gets or sets the DataSource name.
+    /// </summary>
+    public string Name { get; set; }
+    /// <summary>
+    /// Gets or sets the owner context.
+    /// </summary>
+    public object Owner { get; set; }
     /// <summary>
     /// Gets the provider.
     /// </summary>
@@ -446,9 +666,17 @@ public class DataSource: INotifyPropertyChanged
     /// </summary>
     public DataSource Master => fMaster;
     /// <summary>
+    /// Gets the master relation.
+    /// </summary>
+    public DataSourceRelation MasterRelation => fMasterRelation;
+    /// <summary>
+    /// Gets the detail DataSources.
+    /// </summary>
+    public IReadOnlyList<DataSource> Details => fDetails;
+    /// <summary>
     /// Gets the detail relations.
     /// </summary>
-    public IReadOnlyList<DataRelation> Relations => fRelations;
+    public IReadOnlyList<DataSourceRelation> Relations => fRelations;
     /// <summary>
     /// Gets the visible row count.
     /// </summary>
@@ -525,6 +753,22 @@ public class DataSource: INotifyPropertyChanged
     /// Gets or sets the cascade delete rule.
     /// </summary>
     public CascadeDeleteRule CascadeDeleteRule { get; set; } = CascadeDeleteRule.Restrict;
+    /// <summary>
+    /// Gets a value indicating whether current-row changes are propagated to details.
+    /// </summary>
+    public bool DetailsActive { get; private set; }
+    /// <summary>
+    /// Gets the filter field name.
+    /// </summary>
+    public string FilterFieldName => fFilterFieldName;
+    /// <summary>
+    /// Gets the filter value.
+    /// </summary>
+    public object FilterValue => fFilterValue;
+    /// <summary>
+    /// Gets a value indicating whether a filter is active.
+    /// </summary>
+    public bool IsFiltered => !string.IsNullOrWhiteSpace(fFilterFieldName) && fFilterValue != null;
 
     // ● events
     /// <summary>

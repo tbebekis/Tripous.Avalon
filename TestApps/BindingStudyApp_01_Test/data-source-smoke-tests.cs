@@ -58,6 +58,7 @@ public class DataSourceSmokeTests
     {
         DataSource Source = DataSource.FromTable(CreateCustomerTable());
 
+        Assert.Equal("Customer", Source.Name);
         Assert.Equal(3, Source.Count);
         Assert.Equal(0, Source.Position);
         Assert.Equal("CUST-001", Source.Current.AsString("Code"));
@@ -78,12 +79,154 @@ public class DataSourceSmokeTests
         View.Sort = "Code DESC";
         DataSource Source = DataSource.FromDataView(View);
 
+        Assert.Equal("Customer", Source.Name);
         Assert.Equal(2, Source.Count);
         Assert.Equal("CUST-002", Source.Current.AsString("Code"));
 
         Source.MoveNext();
 
         Assert.Equal("CUST-001", Source.Current.AsString("Code"));
+    }
+    [Fact]
+    public void DataSource_SetFilter_FiltersDataTableRows()
+    {
+        DataSource Source = DataSource.FromTable(CreateCustomerTable());
+
+        Source.SetFilter("Name", "North");
+
+        Assert.Single(Source.Rows);
+        Assert.Equal("Northwind Traders", Source.Current.AsString("Name"));
+
+        Source.CancelFilter();
+
+        Assert.Equal(3, Source.Count);
+    }
+    [Fact]
+    public void DataSource_SetFilter_SupportsStringPrefix()
+    {
+        DataSource Source = DataSource.FromTable(CreateCustomerTable());
+
+        Source.SetFilter("Code", "CUST-00*");
+
+        Assert.Equal(3, Source.Count);
+    }
+    [Fact]
+    public void DataSource_SetFilter_FiltersPocoRows()
+    {
+        DataSource Source = DataSource.FromList(CreateCustomerPocoList());
+
+        Source.SetFilter("Name", "Two");
+
+        Assert.Single(Source.Rows);
+        Assert.Equal("Poco Two", Source.Current.AsString("Name"));
+    }
+    [Fact]
+    public void DataSource_SetFilter_RefreshesAfterPocoChange()
+    {
+        List<CustomerPoco> List = CreateCustomerPocoList();
+        DataSource Source = DataSource.FromList(List);
+
+        Source.SetFilter("Name", "Acme");
+        List[1].Name = "Acme Poco";
+
+        Assert.Single(Source.Rows);
+        Assert.Equal("Acme Poco", Source.Current.AsString("Name"));
+    }
+    [Fact]
+    public void DataSource_SetFilter_RefreshesAfterRowChange()
+    {
+        DataSource Source = DataSource.FromTable(CreateCustomerTable());
+
+        Source.SetFilter("Name", "Acme");
+        Source.AllRows[1]["Name"] = "Acme Branch";
+
+        Assert.Equal(2, Source.Count);
+    }
+    [Fact]
+    public void DataSourceList_FindsAndGetsByName()
+    {
+        DataSourceList List = new();
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable());
+        DataSource Orders = DataSource.FromTable(CreateOrderTable());
+
+        List.Add(Customers);
+        List.Add(Orders);
+
+        Assert.Same(Customers, List.Find("customer"));
+        Assert.Same(Orders, List.Get("ORDER"));
+        Assert.Null(List.Find("Missing"));
+        Assert.Throws<ApplicationException>(() => List.Get("Missing"));
+    }
+    [Fact]
+    public void DataSourceList_RejectsInvalidItems()
+    {
+        DataSourceList List = new();
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable());
+        DataSource DuplicateCustomers = DataSource.FromTable(CreateCustomerTable(), "customer");
+        DataSource Unnamed = DataSource.FromList(CreateCustomerPocoList());
+
+        List.Add(Customers);
+
+        Assert.Throws<ArgumentNullException>(() => List.Add(null));
+        Assert.Throws<ApplicationException>(() => List.Add(Unnamed));
+        Assert.Throws<ApplicationException>(() => List.Add(DuplicateCustomers));
+    }
+    [Fact]
+    public void DataSourceList_AssignsAndClearsOwner()
+    {
+        object Owner = new();
+        DataSourceList List = new() { Owner = Owner };
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable());
+        DataSource Orders = DataSource.FromTable(CreateOrderTable());
+
+        List.Add(Customers);
+
+        Assert.Same(Owner, Customers.Owner);
+
+        List[0] = Orders;
+
+        Assert.Null(Customers.Owner);
+        Assert.Same(Owner, Orders.Owner);
+
+        List.Remove(Orders);
+
+        Assert.Null(Orders.Owner);
+    }
+    [Fact]
+    public void DataSourceList_ClearClearsOwner()
+    {
+        object Owner = new();
+        DataSourceList List = new() { Owner = Owner };
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable());
+        DataSource Orders = DataSource.FromTable(CreateOrderTable());
+
+        List.Add(Customers);
+        List.Add(Orders);
+        List.Clear();
+
+        Assert.Null(Customers.Owner);
+        Assert.Null(Orders.Owner);
+    }
+    [Fact]
+    public void DataSourceList_OwnerChangeUpdatesExistingItems()
+    {
+        object Owner = new();
+        object NewOwner = new();
+        DataSourceList List = new() { Owner = Owner };
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable());
+        DataSource Orders = DataSource.FromTable(CreateOrderTable());
+
+        List.Add(Customers);
+        List.Add(Orders);
+        List.Owner = NewOwner;
+
+        Assert.Same(NewOwner, Customers.Owner);
+        Assert.Same(NewOwner, Orders.Owner);
+
+        List.Clear();
+
+        Assert.Null(Customers.Owner);
+        Assert.Null(Orders.Owner);
     }
     [Fact]
     public void DataSourceRow_ChangesUnderlyingDataRowView()
@@ -142,9 +285,9 @@ public class DataSourceSmokeTests
     [Fact]
     public void MasterDetail_FiltersDetailRowsByCurrentMaster()
     {
-        DataSource Customers = DataSource.FromTable(CreateCustomerTable());
-        DataSource Orders = DataSource.FromTable(CreateOrderTable());
-        Customers.AddDetail("CustomerOrders", Orders, "Id", "CustomerId");
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+        Customers.AddDetail(Orders, "Id", "CustomerId");
 
         Assert.Equal(2, Orders.Count);
         Assert.All(Orders.Rows, Row => Assert.Equal(1, Row.AsInteger("CustomerId")));
@@ -155,11 +298,145 @@ public class DataSourceSmokeTests
         Assert.Equal(2, Orders.Current.AsInteger("CustomerId"));
     }
     [Fact]
+    public void DetailsActive_DisablesDetailRefresh()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+        Customers.AddDetail(Orders, "Id", "CustomerId");
+
+        Customers.ActivateDetails(false);
+        Customers.MoveNext();
+
+        Assert.Equal(2, Orders.Count);
+        Assert.All(Orders.Rows, Row => Assert.Equal(1, Row.AsInteger("CustomerId")));
+
+        Customers.ActivateDetails(true);
+
+        Assert.Single(Orders.Rows);
+        Assert.Equal(2, Orders.Current.AsInteger("CustomerId"));
+    }
+    [Fact]
+    public void AddDetail_CreatesRelationNameFromSourceNames()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+        DataSourceRelation Relation = Customers.AddDetail(Orders, "Id", "CustomerId");
+
+        Assert.Equal("Customers_TO_Orders", Relation.Name);
+        Assert.Equal("Customers_TO_Orders", Relation.ToString());
+        Assert.Equal("Customers", Customers.ToString());
+    }
+    [Fact]
+    public void RemoveDetail_RemovesByChild()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+        Customers.AddDetail(Orders, "Id", "CustomerId");
+
+        Customers.RemoveDetail(Orders);
+
+        Assert.Empty(Customers.Details);
+        Assert.Empty(Customers.Relations);
+        Assert.Null(Orders.Master);
+        Assert.Equal(4, Orders.Count);
+    }
+    [Fact]
+    public void RemoveDetail_RemovesByName()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+        Customers.AddDetail(Orders, "Id", "CustomerId");
+
+        Customers.RemoveDetail("orders");
+
+        Assert.Empty(Customers.Details);
+        Assert.Empty(Customers.Relations);
+        Assert.Null(Orders.Master);
+        Assert.Equal(4, Orders.Count);
+    }
+    [Fact]
+    public void AddDetail_RequiresChild()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+
+        Assert.Throws<ArgumentNullException>(() => Customers.AddDetail(null, "Id", "CustomerId"));
+    }
+    [Fact]
+    public void AddDetail_RequiresMasterName()
+    {
+        DataTable Table = CreateCustomerTable();
+        Table.TableName = string.Empty;
+        DataSource Customers = DataSource.FromTable(Table);
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+
+        Assert.Throws<ApplicationException>(() => Customers.AddDetail(Orders, "Id", "CustomerId"));
+    }
+    [Fact]
+    public void AddDetail_RequiresDetailName()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataTable Table = CreateOrderTable();
+        Table.TableName = string.Empty;
+        DataSource Orders = DataSource.FromTable(Table);
+
+        Assert.Throws<ApplicationException>(() => Customers.AddDetail(Orders, "Id", "CustomerId"));
+    }
+    [Fact]
+    public void AddDetail_RejectsSelfDetail()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+
+        Assert.Throws<ApplicationException>(() => Customers.AddDetail(Customers, "Id", "Id"));
+    }
+    [Fact]
+    public void AddDetail_RequiresParentFields()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+
+        Assert.Throws<ArgumentException>(() => Customers.AddDetail(Orders, Array.Empty<string>(), new[] { "CustomerId" }));
+    }
+    [Fact]
+    public void AddDetail_RequiresChildFields()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+
+        Assert.Throws<ArgumentException>(() => Customers.AddDetail(Orders, new[] { "Id" }, Array.Empty<string>()));
+    }
+    [Fact]
+    public void AddDetail_RequiresSameFieldCount()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+
+        Assert.Throws<ArgumentException>(() => Customers.AddDetail(Orders, new[] { "Id", "Code" }, new[] { "CustomerId" }));
+    }
+    [Fact]
+    public void AddDetail_RejectsDuplicateChild()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+        Customers.AddDetail(Orders, "Id", "CustomerId");
+
+        Assert.Throws<ApplicationException>(() => Customers.AddDetail(Orders, "Id", "CustomerId"));
+    }
+    [Fact]
+    public void AddDetail_RejectsChildWithExistingMaster()
+    {
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource OtherCustomers = DataSource.FromTable(CreateCustomerTable(), "OtherCustomers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+        OtherCustomers.AddDetail(Orders, "Id", "CustomerId");
+
+        Assert.Throws<ApplicationException>(() => Customers.AddDetail(Orders, "Id", "CustomerId"));
+    }
+    [Fact]
     public void CascadeDeleteRule_RestrictBlocksMasterDelete()
     {
-        DataSource Customers = DataSource.FromTable(CreateCustomerTable());
-        DataSource Orders = DataSource.FromTable(CreateOrderTable());
-        Customers.AddDetail("CustomerOrders", Orders, "Id", "CustomerId");
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+        Customers.AddDetail(Orders, "Id", "CustomerId");
         Customers.CascadeDeleteRule = CascadeDeleteRule.Restrict;
 
         bool Deleted = Customers.DeleteCurrent();
@@ -170,9 +447,9 @@ public class DataSourceSmokeTests
     [Fact]
     public void CascadeDeleteRule_CascadeDeletesDetailRows()
     {
-        DataSource Customers = DataSource.FromTable(CreateCustomerTable());
-        DataSource Orders = DataSource.FromTable(CreateOrderTable());
-        Customers.AddDetail("CustomerOrders", Orders, "Id", "CustomerId");
+        DataSource Customers = DataSource.FromTable(CreateCustomerTable(), "Customers");
+        DataSource Orders = DataSource.FromTable(CreateOrderTable(), "Orders");
+        Customers.AddDetail(Orders, "Id", "CustomerId");
         Customers.CascadeDeleteRule = CascadeDeleteRule.Cascade;
 
         bool Deleted = Customers.DeleteCurrent();
@@ -203,9 +480,9 @@ public class DataSourceSmokeTests
     [Fact]
     public void PocoMasterDetail_FiltersDetailRowsByCurrentMaster()
     {
-        DataSource Customers = DataSource.FromList(CreateCustomerPocoList());
-        DataSource Orders = DataSource.FromList(CreateOrderPocoList());
-        Customers.AddDetail("CustomerOrders", Orders, "Id", "CustomerId");
+        DataSource Customers = DataSource.FromList(CreateCustomerPocoList(), "Customers");
+        DataSource Orders = DataSource.FromList(CreateOrderPocoList(), "Orders");
+        Customers.AddDetail(Orders, "Id", "CustomerId");
 
         Assert.Equal(2, Orders.Count);
         Assert.All(Orders.Rows, Row => Assert.Equal(1, Row.AsInteger("CustomerId")));
@@ -218,9 +495,9 @@ public class DataSourceSmokeTests
     [Fact]
     public void PocoCascadeDeleteRule_RestrictBlocksMasterDelete()
     {
-        DataSource Customers = DataSource.FromList(CreateCustomerPocoList());
-        DataSource Orders = DataSource.FromList(CreateOrderPocoList());
-        Customers.AddDetail("CustomerOrders", Orders, "Id", "CustomerId");
+        DataSource Customers = DataSource.FromList(CreateCustomerPocoList(), "Customers");
+        DataSource Orders = DataSource.FromList(CreateOrderPocoList(), "Orders");
+        Customers.AddDetail(Orders, "Id", "CustomerId");
         Customers.CascadeDeleteRule = CascadeDeleteRule.Restrict;
 
         bool Deleted = Customers.DeleteCurrent();
@@ -232,9 +509,9 @@ public class DataSourceSmokeTests
     [Fact]
     public void PocoCascadeDeleteRule_CascadeDeletesDetailRows()
     {
-        DataSource Customers = DataSource.FromList(CreateCustomerPocoList());
-        DataSource Orders = DataSource.FromList(CreateOrderPocoList());
-        Customers.AddDetail("CustomerOrders", Orders, "Id", "CustomerId");
+        DataSource Customers = DataSource.FromList(CreateCustomerPocoList(), "Customers");
+        DataSource Orders = DataSource.FromList(CreateOrderPocoList(), "Orders");
+        Customers.AddDetail(Orders, "Id", "CustomerId");
         Customers.CascadeDeleteRule = CascadeDeleteRule.Cascade;
 
         bool Deleted = Customers.DeleteCurrent();

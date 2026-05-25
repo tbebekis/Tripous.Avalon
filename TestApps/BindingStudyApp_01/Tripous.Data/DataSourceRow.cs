@@ -33,6 +33,7 @@ public class DataSourceRow: INotifyPropertyChanged
     {
         return fSource.Provider.ContainsField(FieldName);
     }
+    
     /// <summary>
     /// Gets a field value.
     /// </summary>
@@ -87,7 +88,11 @@ public class DataSourceRow: INotifyPropertyChanged
         OnPropertyChanged("Item");
         OnPropertyChanged("Item[]");
         fSource.RaiseChanged(this, FieldName, OldValue, GetValue(FieldName));
+
+        if (fSource.IsFiltered && string.Equals(fSource.FilterFieldName, FieldName, StringComparison.OrdinalIgnoreCase))
+            fSource.RefreshRows();
     }
+    
     /// <summary>
     /// Returns true when a field value is null or DBNull.
     /// </summary>
@@ -111,6 +116,7 @@ public class DataSourceRow: INotifyPropertyChanged
             return false;
         }
     }
+    
     /// <summary>
     /// Gets a field value as object.
     /// </summary>
@@ -237,6 +243,7 @@ public class DataSourceRow: INotifyPropertyChanged
     {
         this[FieldName] = Value;
     }
+    
     /// <summary>
     /// Notifies bindings that a field value changed.
     /// </summary>

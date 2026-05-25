@@ -31,26 +31,54 @@
 
 ## Architecture
 
+### Tripous.Data/Bindings
+
 - `IDataProvider`
 - `DataTableProvider`
 - `DataViewProvider`
 - `ListProvider<T>`
 - `DataSource`
+- `DataSourceList`
 - `DataSourceRow`
-- `DataRelation`
+- `DataSourceRelation`
+
+### Tripous.Desktop/Bindings
+
 - `DataSourceBinding`
 - `DataSourceBindingExtensions`
 
 ## DataSource
 
 - Owns the provider.
+- Has a stable `Name` used as the association key with a `DataModule` table, usually the `MemTable.Name` or an alias supplied by `DataModule`.
+- Can be retrieved by name through the owning `DataModule` or a similar owner-level lookup.
+- May keep an owner/context reference, preferably through a neutral interface, so it remains a binding facade and not the data lifecycle owner.
 - Exposes `Rows`, `AllRows`, `Current`, `Position`, `Count`, `IsBof`, `IsEof`, `IsEmpty`, and `HasRows`.
 - Supports navigation through `MoveFirst()`, `MovePrevious()`, `MoveNext()`, and `MoveLast()`.
 - Supports row creation through `NewRow()`, `AddRow()`, `AppendRow()`, and `AddNew()`.
 - Supports deletion through `DeleteCurrent()` and `DeleteRow()`.
 - Supports master-detail through `AddDetail()` and `RemoveDetail()`.
+- Exposes its detail `DataSource` list and optional master `DataSource`.
+- Builds relation names from the master and detail names as `{Master.Name}_TO_{Detail.Name}`.
+- Removes details by relation, child `DataSource`, or child `DataSource.Name`.
+- Supports `DetailsActive` to temporarily stop current-row propagation from a master to its details.
+- Supports field/value filtering through `SetFilter()` and `CancelFilter()`.
+- Applies visible-row filtering as master-detail condition plus field/value filter.
+- String filters support case-insensitive contains and `prefix*` matching for all providers, including POCO lists.
 - Supports cascade behavior through `CascadeDeleteRule`.
+- Full expression filtering similar to `DataView.RowFilter` remains a later design step.
 - Raises events for loading, clearing, creating, adding, deleting, changing, and position changes.
+
+## DataSourceList
+
+- Represents an owner-level collection of named `DataSource` instances.
+- Uses case-insensitive name lookup.
+- `Find(Name)` returns null when not found.
+- `Get(Name)` throws when not found.
+- Rejects null items, unnamed items, and duplicate names.
+- Has an `Owner` context and assigns it to added/replaced `DataSource` items.
+- Clears item `Owner` when removing, replacing, or clearing items.
+- Changing `Owner` updates existing items that still point to the previous owner.
 
 ## DataSourceRow
 
@@ -91,10 +119,16 @@
 
 - Loading and navigation from `DataTable`.
 - Loading from filtered and sorted `DataView`.
+- Automatic `DataSource.Name` from `DataTable.TableName` and `DataView.Table.TableName`.
 - Changing values through `DataSourceRow`.
 - Detecting external changes through `DataRowView`, `DataRow`, and POCO notifications.
 - Add and delete rows.
 - Master-detail filtering.
+- Generated `DataSourceRelation.Name` from master and detail `DataSource` names.
+- `DetailsActive` activation and deactivation.
+- Field/value filtering through `SetFilter()` and `CancelFilter()`.
+- POCO list filtering, including refresh after POCO property changes.
+- `DataSourceList` name lookup, duplicate protection, and owner propagation.
 - Restrict and cascade delete behavior.
 - `ListProvider<T>` with POCO objects.
 - Position and change events, including cancellation.

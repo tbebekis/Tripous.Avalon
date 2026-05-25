@@ -111,9 +111,9 @@ static public class DataSourceTest
         if (fBindingAssigned)
             return;
 
-        dsCustomer = DataSource.FromTable(Tests.tblCustomer);
-        dsOrder = DataSource.FromTable(Tests.tblOrder);
-        dsCustomer.AddDetail("CustomerOrders", dsOrder, "Id", "CustomerId");
+        dsCustomer = DataSource.FromTable(Tests.tblCustomer, "Customer");
+        dsOrder = DataSource.FromTable(Tests.tblOrder, "Order");
+        dsCustomer.AddDetail(dsOrder, "Id", "CustomerId");
         BindGrid();
         BindDetailGrid();
         BindControls();
