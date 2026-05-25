@@ -33,10 +33,17 @@ public static class DataGridBinder
             bool Flag = false;
             if (!Sys.IsNull(Value))
             {
-                if (Value is bool B)
-                    Flag = B;
-                else
-                    Flag = System.Convert.ToInt32(Value) != 0;
+                try
+                {
+                    if (Value is bool B)
+                        Flag = B;
+                    else
+                        Flag = System.Convert.ToInt32(Value, CultureInfo.InvariantCulture) != 0;
+                }
+                catch
+                {
+                    Flag = System.Convert.ToString(Value, CultureInfo.InvariantCulture).IsSameText("true");
+                }
             }
             return Flag ? "x" : string.Empty;
         }
@@ -107,6 +114,69 @@ public static class DataGridBinder
             // ● ignore invalid input for now
         }
     }
+    static bool AsBoolean(object Value)
+    {
+        if (Sys.IsNull(Value))
+            return false;
+
+        try
+        {
+            if (Value is bool B)
+                return B;
+            return System.Convert.ToInt32(Value, CultureInfo.InvariantCulture) != 0;
+        }
+        catch
+        {
+            return System.Convert.ToString(Value, CultureInfo.InvariantCulture).IsSameText("true");
+        }
+    }
+    static void SetBooleanValue(DataRowView RowView, string ColumnName, bool Value)
+    {
+        if (RowView == null || RowView.Row == null || RowView.Row.RowState.In(DataRowState.Deleted | DataRowState.Detached))
+            return;
+
+        DataColumn Column = RowView.Row.Table.Columns[ColumnName];
+        object NewValue = Column.DataType == typeof(bool) ? Value : System.Convert.ChangeType(Value ? 1 : 0, Column.DataType, CultureInfo.InvariantCulture);
+        object Current = RowView[ColumnName];
+
+        if (!object.Equals(Current, NewValue))
+        {
+            RowView.BeginEdit();
+            RowView[ColumnName] = NewValue;
+        }
+    }
+    static void RestoreGridCellFocus(DataGrid Grid, object SelectedItem, DataGridColumn CurrentColumn)
+    {
+        if (Grid == null || SelectedItem == null || CurrentColumn == null)
+            return;
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            Grid.SelectedItem = SelectedItem;
+            Grid.CurrentColumn = CurrentColumn;
+            Grid.ScrollIntoView(SelectedItem, CurrentColumn);
+
+            Dispatcher.UIThread.Post(() =>
+            {
+                foreach (DataGridCell Cell in Grid.GetVisualDescendants().OfType<DataGridCell>())
+                {
+                    if (!object.Equals(Cell.DataContext, SelectedItem))
+                        continue;
+                    if (DataGridColumn.GetColumnContainingElement(Cell) != CurrentColumn)
+                        continue;
+
+                    Cell.Focus(NavigationMethod.Tab, KeyModifiers.None);
+                    break;
+                }
+            }, DispatcherPriority.Input);
+        }, DispatcherPriority.Background);
+    }
+    static void SetLookupSelectedItem(ComboBox ComboBox, LookupSource LookupSource, object Value)
+    {
+        ComboBox.SelectedItem = null;
+        ComboBox.SelectedIndex = -1;
+        ComboBox.SelectedItem = LookupSource.FindItem(Value);
+    }
  
     static IDataTemplate CreateTextDisplayTemplate(string ColumnName, TextAlignment Alignment, string Format, bool SupportsRecycling)
     {
@@ -172,10 +242,9 @@ public static class DataGridBinder
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
             TextBlock Result = new();
-            Result.Bind(TextBlock.TextProperty, new Binding($"[{ColumnName}]", BindingMode.OneWay)
-            {
-                Converter = new LookupDisplayValueConverter(LookupSource)
-            });
+            object Value = GetValue(Item, ColumnName);
+            LookupItem LookupItem = LookupSource?.FindItem(Value);
+            Result.Text = LookupItem?.DisplayText ?? string.Empty;
             Result.Padding = GetCellPadding();
             Result.VerticalAlignment = VerticalAlignment.Center;
             Result.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -190,11 +259,10 @@ public static class DataGridBinder
         {
             ComboBox Result = new();
             bool IsLoading = true;
-
-            object CurrentValue = GetValue(Item, ColumnName);
-            Result.SelectedItem = LookupSource.FindItem(CurrentValue);
+            DataRowView CurrentItem = Item;
 
             Result.ItemsSource = LookupSource.GetList();
+            SetLookupSelectedItem(Result, LookupSource, GetValue(CurrentItem, ColumnName));
             Result.Padding = new Thickness(0);
             Result.Margin = new Thickness(0);
             Result.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -223,11 +291,9 @@ public static class DataGridBinder
 
                 Dispatcher.UIThread.Post(() =>
                 {
-                    Item?.BeginEdit();
-
-                    object CurrentValue = GetValue(Item, ColumnName);
-                    Result.SelectedItem = LookupSource.FindItem(CurrentValue);
-
+                    CurrentItem = Result.DataContext as DataRowView ?? CurrentItem;
+                    CurrentItem?.BeginEdit();
+                    SetLookupSelectedItem(Result, LookupSource, GetValue(CurrentItem, ColumnName));
                     IsLoading = false;
 
                     Result.Focus();
@@ -235,29 +301,86 @@ public static class DataGridBinder
             };
 
             Result.AttachedToVisualTree += AttachedHandler;
+            Result.DataContextChanged += (Sender, Args) =>
+            {
+                CurrentItem = Result.DataContext as DataRowView ?? CurrentItem;
+                IsLoading = true;
+                SetLookupSelectedItem(Result, LookupSource, GetValue(CurrentItem, ColumnName));
+                IsLoading = false;
+            };
  
-            Result.SelectionChanged += (Sender, Args) =>
+            void CommitSelection()
             {
                 if (IsLoading)
                     return;
 
                 if (Result.SelectedItem is LookupItem SelectedItem)
                 {
-                    SetValue(Item, ColumnName, SelectedItem.Value);
+                    object CurrentValue = GetValue(CurrentItem, ColumnName);
+                    object NewValue = SelectedItem.Value;
+                    if (Equals(CurrentValue, NewValue) || Convert.ToString(CurrentValue, CultureInfo.InvariantCulture) == Convert.ToString(NewValue, CultureInfo.InvariantCulture))
+                        return;
+
+                    CurrentItem?.BeginEdit();
+                    SetValue(CurrentItem, ColumnName, NewValue);
 
                     DataGrid Grid = Result.FindAncestorOfType<DataGrid>();
+                    object SelectedRow = Grid?.SelectedItem;
+                    DataGridColumn CurrentColumn = Grid?.CurrentColumn;
                     Grid?.CommitEdit(DataGridEditingUnit.Cell, true);
+                    RestoreGridCellFocus(Grid, SelectedRow, CurrentColumn);
                 }
+            }
+            void MoveSelection(int Delta)
+            {
+                if (Result.ItemsSource is not IList List || List.Count == 0)
+                    return;
+
+                int Index = Result.SelectedIndex >= 0 ? Result.SelectedIndex : 0;
+                Index += Delta;
+                if (Index < 0)
+                    Index = 0;
+                if (Index >= List.Count)
+                    Index = List.Count - 1;
+                Result.SelectedIndex = Index;
+            }
+            Result.SelectionChanged += (Sender, Args) =>
+            {
+                CommitSelection();
             };
 
             Result.DropDownOpened += (Sender, Args) =>
             {
-                object CurrentValue = GetValue(Item, ColumnName);
-                Result.SelectedItem = LookupSource.FindItem(CurrentValue);
+                IsLoading = true;
+                CurrentItem = Result.DataContext as DataRowView ?? CurrentItem;
+                SetLookupSelectedItem(Result, LookupSource, GetValue(CurrentItem, ColumnName));
+                IsLoading = false;
             };
 
             Result.KeyDown += (Sender, Args) =>
             {
+                if (Result.IsDropDownOpen)
+                {
+                    if (Args.Key == Key.Down)
+                    {
+                        MoveSelection(1);
+                        Args.Handled = true;
+                        return;
+                    }
+                    if (Args.Key == Key.Up)
+                    {
+                        MoveSelection(-1);
+                        Args.Handled = true;
+                        return;
+                    }
+                    if (Args.Key == Key.Enter)
+                    {
+                        Result.IsDropDownOpen = false;
+                        CommitSelection();
+                        Args.Handled = true;
+                        return;
+                    }
+                }
                 if (Args.Key != Key.Escape)
                     return;
 
@@ -311,10 +434,8 @@ public static class DataGridBinder
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
             TextBlock Result = new();
-            Result.Bind(TextBlock.TextProperty, new Binding($"[{ColumnName}]", BindingMode.OneWay)
-            {
-                Converter = new BoolDisplayConverter()
-            });
+            object Value = GetValue(Item, ColumnName);
+            Result.Text = new BoolDisplayConverter().Convert(Value, typeof(string), null, CultureInfo.CurrentCulture)?.ToString();
 
             Result.Padding = GetCellPadding();
             Result.VerticalAlignment = VerticalAlignment.Center;
@@ -329,10 +450,24 @@ public static class DataGridBinder
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
             CheckBox Result = new();
+            bool IsLoading = true;
 
-            Result.Bind(ToggleButton.IsCheckedProperty, new Binding($"[{ColumnName}]", BindingMode.TwoWay));
+            Result.IsChecked = AsBoolean(GetValue(Item, ColumnName));
             Result.HorizontalAlignment = HorizontalAlignment.Center;
             Result.VerticalAlignment = VerticalAlignment.Center;
+            Result.IsCheckedChanged += (Sender, Args) =>
+            {
+                if (IsLoading)
+                    return;
+
+                SetBooleanValue(Item, ColumnName, Result.IsChecked == true);
+
+                DataGrid Grid = Result.FindAncestorOfType<DataGrid>();
+                object SelectedItem = Grid?.SelectedItem;
+                DataGridColumn CurrentColumn = Grid?.CurrentColumn;
+                Grid?.CommitEdit(DataGridEditingUnit.Cell, true);
+                RestoreGridCellFocus(Grid, SelectedItem, CurrentColumn);
+            };
 
             EventHandler<VisualTreeAttachmentEventArgs> AttachedHandler = null;
             AttachedHandler = (Sender, Args) =>
@@ -342,6 +477,7 @@ public static class DataGridBinder
                 Dispatcher.UIThread.Post(() =>
                 {
                     Item?.BeginEdit();
+                    IsLoading = false;
                     Result.Focus();
                 }, DispatcherPriority.Input);
             };
@@ -532,7 +668,8 @@ public static class DataGridBinder
             : DataColumnType.None;
 
         bool IsBoolean = ColumnType.HasFlag(DataColumnType.Boolean)
-                         || Column.DataType == typeof(bool);
+                         || Column.DataType == typeof(bool)
+                         || Column.IsCheckBox();
         
         TextAlignment Align = TextAlignment.Left;
         if (Alignment.HasValue)
@@ -590,6 +727,7 @@ public static class DataGridBinder
 
         GridColumnBinding CI = new GridColumnBinding(Result, FieldDef.Name, FieldDef.DataType.GetNetType());
         CI.FieldDef = FieldDef;
+        CI.DisplayFieldName = ColumnName;
         CI.LocatorDef = LocatorDef;
         CI.Locator = LocatorDef.Create();
         CI.LocatorTargetFieldMap = TargetFieldMap;

@@ -50,6 +50,14 @@ public class GridEditController
             || Visual.FindAncestorOfType<ComboBox>() != null
             || Visual.FindAncestorOfType<CheckBox>() != null;
     }
+    private ComboBox GetFocusedComboBox()
+    {
+        IInputElement FocusedElement = TopLevel.GetTopLevel(fGrid)?.FocusManager?.GetFocusedElement();
+        if (FocusedElement is not Visual Visual)
+            return null;
+
+        return Visual as ComboBox ?? Visual.FindAncestorOfType<ComboBox>();
+    }
     private bool CanBeginEdit()
     {
         if (fGrid.IsReadOnly || fGrid.SelectedItem == null || fGrid.CurrentColumn == null)
@@ -143,6 +151,29 @@ public class GridEditController
     {
         return fGrid.CancelEdit(DataGridEditingUnit.Cell);
     }
+    private bool ToggleCurrentBooleanCell()
+    {
+        if (fGrid.SelectedItem is not DataRowView RowView || fGrid.CurrentColumn == null)
+            return false;
+
+        GridColumnBinding Binding = fGrid.CurrentColumn.GetInfo();
+        if (Binding == null || Binding.DataColumn == null)
+            return false;
+
+        DataColumn Column = Binding.DataColumn;
+        DataColumnType ColumnType = Column.ExtendedProperties.ContainsKey("ColumnType")
+            ? (DataColumnType)Column.ExtendedProperties["ColumnType"]
+            : DataColumnType.None;
+        bool IsBoolean = ColumnType.HasFlag(DataColumnType.Boolean) || Column.DataType == typeof(bool) || Column.IsCheckBox();
+        if (!IsBoolean || Column.ReadOnly)
+            return false;
+
+        bool Value = RowView.AsBoolean(Column.ColumnName);
+        RowView.BeginEdit();
+        RowView[Column.ColumnName] = Column.DataType == typeof(bool) ? !Value : !Value ? 1 : 0;
+        FocusCurrentCell();
+        return true;
+    }
     private void Grid_TextInput(object Sender, TextInputEventArgs Args)
     {
         if (fIsEditing || !IsPrintableText(Args.Text) || IsFocusedEditor() || !CanBeginEdit())
@@ -165,6 +196,18 @@ public class GridEditController
 
         if (fIsEditing)
         {
+            ComboBox ComboBox = GetFocusedComboBox();
+            bool IsComboDropDownKey = Args.Key switch
+            {
+                Key.Enter => true,
+                Key.Escape => true,
+                Key.Up => true,
+                Key.Down => true,
+                _ => false
+            };
+            if (ComboBox != null && ComboBox.IsDropDownOpen && IsComboDropDownKey)
+                return;
+
             if (Args.Key == Key.Enter)
             {
                 CommitCellEdit();
@@ -191,6 +234,11 @@ public class GridEditController
         if (Args.Key == Key.Up || Args.Key == Key.Down)
         {
             MoveCurrentRow(Args.Key == Key.Up ? -1 : 1);
+            Args.Handled = true;
+            return;
+        }
+        if (Args.Key == Key.Space && ToggleCurrentBooleanCell())
+        {
             Args.Handled = true;
             return;
         }
