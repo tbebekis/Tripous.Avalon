@@ -2,29 +2,6 @@ namespace Tripous.Desktop;
  
 public static class DataGridBinder
 {
-    // ● private
-    class LookupDisplayValueConverter: IValueConverter
-    {
-        // ● private fields
-        readonly LookupSource fLookupSource;
-
-        // ● constructors
-        public LookupDisplayValueConverter(LookupSource LookupSource)
-        {
-            fLookupSource = LookupSource;
-        }
-
-        // ● public methods
-        public object Convert(object Value, Type TargetType, object Parameter, CultureInfo Culture)
-        {
-            LookupItem LookupItem = fLookupSource?.FindItem(Value == DBNull.Value ? null : Value);
-            return LookupItem?.DisplayText ?? string.Empty;
-        }
-        public object ConvertBack(object Value, Type TargetType, object Parameter, CultureInfo Culture)
-        {
-            return Avalonia.Data.BindingOperations.DoNothing;
-        }
-    }
     class BoolDisplayConverter: IValueConverter
     {
         // ● public methods

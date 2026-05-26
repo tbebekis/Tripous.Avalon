@@ -5,17 +5,17 @@ namespace Tripous.Desktop;
 /// </summary>
 public class GridEditController
 {
-    // ● private fields
-    private readonly DataGrid fGrid;
-    private bool fIsAttached;
-    private bool fIsEditing;
+    // ● fields
+    readonly DataGrid fGrid;
+    bool fIsAttached;
+    bool fIsEditing;
 
     // ● private
-    private GridEditController(DataGrid Grid)
+    GridEditController(DataGrid Grid)
     {
         fGrid = Grid ?? throw new TripousArgumentNullException(nameof(Grid));
     }
-    private void Attach()
+    void Attach()
     {
         if (fIsAttached)
             return;
@@ -26,7 +26,7 @@ public class GridEditController
         fGrid.CellEditEnded += Grid_CellEditEnded;
         fIsAttached = true;
     }
-    private void Detach()
+    void Detach()
     {
         if (!fIsAttached)
             return;
@@ -37,7 +37,7 @@ public class GridEditController
         fGrid.CellEditEnded -= Grid_CellEditEnded;
         fIsAttached = false;
     }
-    private bool IsFocusedEditor()
+    bool IsFocusedEditor()
     {
         IInputElement FocusedElement = TopLevel.GetTopLevel(fGrid)?.FocusManager?.GetFocusedElement();
         if (FocusedElement is not Visual Visual)
@@ -50,7 +50,7 @@ public class GridEditController
             || Visual.FindAncestorOfType<ComboBox>() != null
             || Visual.FindAncestorOfType<CheckBox>() != null;
     }
-    private ComboBox GetFocusedComboBox()
+    ComboBox GetFocusedComboBox()
     {
         IInputElement FocusedElement = TopLevel.GetTopLevel(fGrid)?.FocusManager?.GetFocusedElement();
         if (FocusedElement is not Visual Visual)
@@ -58,38 +58,38 @@ public class GridEditController
 
         return Visual as ComboBox ?? Visual.FindAncestorOfType<ComboBox>();
     }
-    private ComboBox GetOpenComboBox()
+    ComboBox GetOpenComboBox()
     {
         return fGrid.GetVisualDescendants().OfType<ComboBox>().FirstOrDefault(ComboBox => ComboBox.IsDropDownOpen);
     }
-    private ComboBox GetCurrentCellComboBox()
+    ComboBox GetCurrentCellComboBox()
     {
         DataGridCell Cell = FindCurrentCell();
         return Cell?.GetVisualDescendants().OfType<ComboBox>().FirstOrDefault();
     }
-    private bool CanBeginEdit()
+    bool CanBeginEdit()
     {
         if (fGrid.IsReadOnly || fGrid.SelectedItem == null || fGrid.CurrentColumn == null)
             return false;
 
         return !fGrid.CurrentColumn.IsReadOnly;
     }
-    private bool IsPrintableText(string Text)
+    bool IsPrintableText(string Text)
     {
         return !string.IsNullOrEmpty(Text) && !Text.Any(c => char.IsControl(c));
     }
-    private List<DataGridColumn> GetVisibleColumns()
+    List<DataGridColumn> GetVisibleColumns()
     {
         return fGrid.Columns.Where(Column => Column.IsVisible).ToList();
     }
-    private int GetCurrentColumnIndex(List<DataGridColumn> Columns)
+    int GetCurrentColumnIndex(List<DataGridColumn> Columns)
     {
         if (fGrid.CurrentColumn == null)
             return Columns.Count > 0 ? 0 : -1;
 
         return Columns.IndexOf(fGrid.CurrentColumn);
     }
-    private bool MoveCurrentCell(int Delta)
+    bool MoveCurrentCell(int Delta)
     {
         List<DataGridColumn> Columns = GetVisibleColumns();
         int Index = GetCurrentColumnIndex(Columns);
@@ -104,7 +104,7 @@ public class GridEditController
         FocusCurrentCell();
         return true;
     }
-    private bool MoveCurrentRow(int Delta)
+    bool MoveCurrentRow(int Delta)
     {
         if (fGrid.ItemsSource is not IList Items || Items.Count == 0)
             return false;
@@ -119,14 +119,14 @@ public class GridEditController
         FocusCurrentCell();
         return true;
     }
-    private void EnsureCurrentColumn()
+    void EnsureCurrentColumn()
     {
         if (fGrid.CurrentColumn != null)
             return;
 
         fGrid.CurrentColumn = GetVisibleColumns().FirstOrDefault();
     }
-    private void FocusCurrentCell()
+    void FocusCurrentCell()
     {
         EnsureCurrentColumn();
         fGrid.ScrollIntoView(fGrid.SelectedItem, fGrid.CurrentColumn);
@@ -137,7 +137,7 @@ public class GridEditController
             Cell?.Focus(NavigationMethod.Tab, KeyModifiers.None);
         }, DispatcherPriority.Input);
     }
-    private DataGridCell FindCurrentCell()
+    DataGridCell FindCurrentCell()
     {
         if (fGrid.SelectedItem == null || fGrid.CurrentColumn == null)
             return null;
@@ -152,11 +152,11 @@ public class GridEditController
 
         return null;
     }
-    private bool CommitCellEdit()
+    bool CommitCellEdit()
     {
         return fGrid.CommitEdit(DataGridEditingUnit.Cell, true);
     }
-    private bool OpenCurrentLookupDropDown()
+    bool OpenCurrentLookupDropDown()
     {
         if (!CanBeginEdit())
             return false;
@@ -179,11 +179,11 @@ public class GridEditController
 
         return true;
     }
-    private bool CancelCellEdit()
+    bool CancelCellEdit()
     {
         return fGrid.CancelEdit(DataGridEditingUnit.Cell);
     }
-    private bool ToggleCurrentBooleanCell()
+    bool ToggleCurrentBooleanCell()
     {
         if (fGrid.SelectedItem is not DataRowView RowView || fGrid.CurrentColumn == null)
             return false;
@@ -206,7 +206,7 @@ public class GridEditController
         FocusCurrentCell();
         return true;
     }
-    private void Grid_TextInput(object Sender, TextInputEventArgs Args)
+    void Grid_TextInput(object Sender, TextInputEventArgs Args)
     {
         if (fIsEditing || !IsPrintableText(Args.Text) || IsFocusedEditor() || !CanBeginEdit())
             return;
@@ -214,7 +214,7 @@ public class GridEditController
         if (fGrid.BeginEdit())
             Args.Handled = true;
     }
-    private void Grid_KeyDown(object Sender, KeyEventArgs Args)
+    void Grid_KeyDown(object Sender, KeyEventArgs Args)
     {
         if (Args.Key == Key.Tab)
         {
@@ -290,11 +290,11 @@ public class GridEditController
                 Args.Handled = true;
         }
     }
-    private void Grid_BeginningEdit(object Sender, DataGridBeginningEditEventArgs Args)
+    void Grid_BeginningEdit(object Sender, DataGridBeginningEditEventArgs Args)
     {
         fIsEditing = true;
     }
-    private void Grid_CellEditEnded(object Sender, DataGridCellEditEndedEventArgs Args)
+    void Grid_CellEditEnded(object Sender, DataGridCellEditEndedEventArgs Args)
     {
         fIsEditing = false;
     }

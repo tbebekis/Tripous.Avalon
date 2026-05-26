@@ -102,19 +102,6 @@ static public class ControlBindingHelper
             Row[FieldName] = Result;
   
     }
- 
-    static FuncDataTemplate<LookupItem> CreateLookupItemTemplate()
-    {
-        return new FuncDataTemplate<LookupItem>((Item, _) =>
-        {
-            TextBlock Result = new();
-
-            Result.Text = Item?.DisplayText ?? string.Empty;
-            Result.VerticalAlignment = VerticalAlignment.Center;
-
-            return Result;
-        }, true);
-    }
     
     static void RefreshTextBox(IRowProvider RowProvider, ControlBinding Binding)
     {
@@ -587,8 +574,8 @@ static public class ControlBindingHelper
         // Using a DataTemplate here may cause the selected item text NOT to appear
         // in the closed (selection) part of the ComboBox, even though the correct item is selected.
         // Rely on LookupItem.ToString() instead for display.
-        Box.ItemTemplate = null;                // CreateLookupItemTemplate();
-        Box.SelectionBoxItemTemplate = null;    // CreateLookupItemTemplate();
+        Box.ItemTemplate = null;                
+        Box.SelectionBoxItemTemplate = null;    
         Box.IsEnabled = FieldDef == null || !FieldDef.Flags.HasFlag(FieldFlags.ReadOnlyUI);
  
         EventHandler<SelectionChangedEventArgs> SelectionChangedHandler = (Sender, Args) =>
