@@ -1,3 +1,11 @@
+﻿/*
+ * Tripous.Avalon
+ * Copyright (c) Theo Bebekis
+ *
+ * Licensed under the Tripous License.
+ * See License.txt for details.
+ */
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;

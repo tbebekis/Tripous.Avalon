@@ -1,4 +1,12 @@
-﻿namespace Tripous.Logging;
+﻿/*
+ * Tripous.Avalon
+ * Copyright (c) Theo Bebekis
+ *
+ * Licensed under the Tripous License.
+ * See License.txt for details.
+ */
+
+namespace Tripous.Logging;
 
 /// <summary>
 /// A log listener that writes log info to file(s).

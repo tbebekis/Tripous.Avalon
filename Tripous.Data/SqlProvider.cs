@@ -1,3 +1,11 @@
+﻿/*
+ * Tripous.Avalon
+ * Copyright (c) Theo Bebekis
+ *
+ * Licensed under the Tripous License.
+ * See License.txt for details.
+ */
+
 using K4os.Compression.LZ4.Internal;
 
 namespace Tripous.Data;

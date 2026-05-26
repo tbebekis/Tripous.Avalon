@@ -1,4 +1,12 @@
-﻿using Avalonia;
+﻿/*
+ * Tripous.Avalon
+ * Copyright (c) Theo Bebekis
+ *
+ * Licensed under the Tripous License.
+ * See License.txt for details.
+ */
+
+using Avalonia;
 using System;
 
 namespace SingleContextFile;

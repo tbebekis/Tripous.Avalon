@@ -1,4 +1,12 @@
-﻿namespace Tripous.Logging;
+﻿/*
+ * Tripous.Avalon
+ * Copyright (c) Theo Bebekis
+ *
+ * Licensed under the Tripous License.
+ * See License.txt for details.
+ */
+
+namespace Tripous.Logging;
 
 /// <summary>
 /// The level of log info to issue, display, or persist

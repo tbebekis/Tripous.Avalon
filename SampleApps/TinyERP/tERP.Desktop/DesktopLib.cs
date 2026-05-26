@@ -1,4 +1,12 @@
-﻿namespace tERP.Desktop;
+﻿/*
+ * Tripous.Avalon
+ * Copyright (c) Theo Bebekis
+ *
+ * Licensed under the Tripous License.
+ * See License.txt for details.
+ */
+
+namespace tERP.Desktop;
 
 /// <summary>
 /// Represents this library.

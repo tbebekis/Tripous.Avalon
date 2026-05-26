@@ -1,7 +1,10 @@
-using DocumentFormat.OpenXml.Drawing.Charts;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DataTable = System.Data.DataTable;
-using Tuple = System.Tuple;
+/*
+ * Tripous.Avalon
+ * Copyright (c) Theo Bebekis
+ *
+ * Licensed under the Tripous License.
+ * See License.txt for details.
+ */
 
 namespace Tripous.Data;
 

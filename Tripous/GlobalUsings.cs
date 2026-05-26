@@ -1,3 +1,11 @@
+﻿/*
+ * Tripous.Avalon
+ * Copyright (c) Theo Bebekis
+ *
+ * Licensed under the Tripous License.
+ * See License.txt for details.
+ */
+
 global using System;
 global using System.Threading.Tasks;
 global using System.IO;

@@ -1,3 +1,11 @@
+﻿/*
+ * Tripous.Avalon
+ * Copyright (c) Theo Bebekis
+ *
+ * Licensed under the Tripous License.
+ * See License.txt for details.
+ */
+
 using System.Data;
 using System.Data.Common;
 using Avalonia;
