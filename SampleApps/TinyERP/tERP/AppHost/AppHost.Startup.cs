@@ -9,10 +9,12 @@ static internal partial class AppHost
     /// <summary>
     /// Initializes the <see cref="SysConfig"/> static class.
     /// </summary>
-    static void InitializeSysConfig()
+    static void InitializeConfigs()
     {
         SysConfig.ApplicationMode = ApplicationMode.Desktop;
         SysConfig.MainAssembly = typeof(AppHost).Assembly;
+
+        Db.Settings.LogSqlStatements = true;
     }
  
     /// <summary>
@@ -126,7 +128,7 @@ static internal partial class AppHost
         {
             AppHost.MainWindow = new MainWindow();
             
-            InitializeSysConfig();
+            InitializeConfigs();
 
             await LoadConnectionStrings();
             CreateDatabases();
@@ -144,6 +146,8 @@ static internal partial class AppHost
             
             AddDefaultInitialData();
             InitializeLibraries();
+            
+            
             
             
         }

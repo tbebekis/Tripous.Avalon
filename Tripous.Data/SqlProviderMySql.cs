@@ -27,6 +27,7 @@ public class SqlProviderMySql : SqlProvider
 
         using DbCommand Cmd = Con.CreateCommand();
         Cmd.CommandText = $"create database if not exists `{DatabaseName}`;";
+        LogSql(Cmd);
         Cmd.ExecuteNonQuery();
 
         if (!WaitUntilDatabaseReady(ConnectionString))

@@ -44,6 +44,7 @@ public class SqlProviderMsSql : SqlProvider
 
         using DbCommand Cmd = Con.CreateCommand();
         Cmd.CommandText = $"create database [{DbName}]";
+        LogSql(Cmd);
         Cmd.ExecuteNonQuery();
 
         if (!WaitUntilDatabaseReady(ConnectionString))

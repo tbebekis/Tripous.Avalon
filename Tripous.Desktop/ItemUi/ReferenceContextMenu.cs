@@ -15,6 +15,7 @@ public class ReferenceContextMenu
 {
     // ● protected
     protected IReferenceContextMenuHost MenuHost;
+    protected Control fCallerControl;
     
     // ● protected
     protected virtual string GetFormName()
@@ -58,7 +59,7 @@ public class ReferenceContextMenu
             Binding = Binding,
             FormName = GetFormName(),
             RowId = ActionType == ReferenceMenuActionType.Edit ? GetRowId() : null,
-            Caller = (Binding as ControlBinding)?.Control
+            Caller = (Binding as ControlBinding)?.Control ?? fCallerControl
         };
     }
     protected virtual void EnableMenuItems()
@@ -191,6 +192,7 @@ public class ReferenceContextMenu
         if (Control == null || !CanOpen())
             return false;
 
+        fCallerControl = Control;
         Menu.Open(Control);
         return true;
     }

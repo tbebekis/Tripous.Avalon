@@ -301,25 +301,11 @@ static public class ControlBindingHelper
             SetValue(RowProvider, FieldName, Box.Text);
         };
 
-        EventHandler<KeyEventArgs> KeyDownHandler = (Sender, Args) =>
-        {
-            if (Args.Key != Key.Escape)
-                return;
-
-            DataRow Row = GetCurrentRow(RowProvider);
-            Row?.CancelEdit();
-
-            Refresh(RowProvider, Result);
-            Args.Handled = true;
-        };
-
         Box.TextChanged += TextChangedHandler;
-        Box.KeyDown += KeyDownHandler;
 
         Result.DisposeAction = () =>
         {
             Box.TextChanged -= TextChangedHandler;
-            Box.KeyDown -= KeyDownHandler;
         };
 
         Refresh(RowProvider, Result);
@@ -616,25 +602,11 @@ static public class ControlBindingHelper
                 SetValue(RowProvider, FieldName, null);
         };
 
-        EventHandler<KeyEventArgs> KeyDownHandler = (Sender, Args) =>
-        {
-            if (Args.Key != Key.Escape)
-                return;
-
-            DataRow Row = GetCurrentRow(RowProvider);
-            Row?.CancelEdit();
-
-            Refresh(RowProvider, Result);
-            Args.Handled = true;
-        };
-
         Box.SelectionChanged += SelectionChangedHandler;
-        Box.KeyDown += KeyDownHandler;
 
         Result.DisposeAction = () =>
         {
             Box.SelectionChanged -= SelectionChangedHandler;
-            Box.KeyDown -= KeyDownHandler;
         };
 
         Refresh(RowProvider, Result);

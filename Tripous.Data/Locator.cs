@@ -256,6 +256,14 @@ public class Locator
         return Column != null ? SourceRow[Column] : DBNull.Value;
     }
     /// <summary>
+    /// Returns the source key field name as exposed by the locator SELECT.
+    /// </summary>
+    protected virtual string GetSourceKeySelectFieldName()
+    {
+        LocatorFieldDef KeyFieldDef = LocatorDef.Fields.FirstOrDefault(item => item.Name.IsSameText(LocatorDef.KeyField));
+        return KeyFieldDef != null ? KeyFieldDef.Alias : LocatorDef.KeyField;
+    }
+    /// <summary>
     /// Returns a source row locator field value.
     /// </summary>
     protected virtual object GetSourceFieldValue(DataRow SourceRow, LocatorFieldDef FieldDef)
@@ -393,7 +401,7 @@ public class Locator
         if (Sys.IsNull(Value))
             return false;
 
-        string FieldName = LocatorDef.KeyField;
+        string FieldName = GetSourceKeySelectFieldName();
         string ValueText;
         if (Value is string)
         {

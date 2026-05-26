@@ -10,6 +10,7 @@ public class DbGlobalSettings: SettingsBase, INotifyPropertyChanged
     int fDefaultCommandTimeoutSeconds = 300;
     int fLocatorMinimumSearchTextLength;
     int fLocatorMaximumDropDownRows;
+    bool fLogSqlStatements;
     
     // ● private  
     void NotifyPropertyChanged(string PropertyName)
@@ -68,6 +69,14 @@ public class DbGlobalSettings: SettingsBase, INotifyPropertyChanged
     {
         get => fLocatorMaximumDropDownRows >= 30 && fLocatorMaximumDropDownRows <= 150 ? fLocatorMaximumDropDownRows : 75;
         set { if (fLocatorMaximumDropDownRows != value) { fLocatorMaximumDropDownRows = value; NotifyPropertyChanged(nameof(LocatorMaximumDropDownRows)); } }
+    }
+    /// <summary>
+    /// When true then all executed SQL statements are logged.
+    /// </summary>
+    public bool LogSqlStatements
+    {
+        get => fLogSqlStatements;
+        set { if (fLogSqlStatements != value) { fLogSqlStatements = value; NotifyPropertyChanged(nameof(LogSqlStatements)); } }
     }
     
     // ● events

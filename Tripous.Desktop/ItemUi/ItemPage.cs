@@ -59,6 +59,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             if (Field.IsNumeric)
             {
                 Box.TextAlignment = TextAlignment.Right;
+                Binder.Bind(Box, Field.Name, DataColumn, Field);
             }
             else if (Field.IsMemo)
             {
@@ -90,6 +91,18 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         LookupSource LookupSource = Context.Binding.LookupSource.LookupDef.Create();
         List<LookupItem> List = LookupSource.GetList();
         Context.Binding.LookupSource = LookupSource;
+        if (Context.Binding is GridColumnBinding GridBinding)
+        {
+            if (GridBinding.ActiveLookupComboBox != null)
+            {
+                GridBinding.ActiveLookupComboBox.ItemsSource = List;
+                object Value = Context.Binding.Table.CurrentRowView != null ? Context.Binding.Table.CurrentRowView[Context.Binding.FieldName] : null;
+                GridBinding.ActiveLookupComboBox.SelectedItem = LookupSource.FindItem(Value);
+            }
+            RefreshReferenceBinding(Context);
+            return;
+        }
+
         if (Context.Binding is ControlBinding ControlBinding && ControlBinding.Control is ComboBox ComboBox)
         {
             ControlBinding.IsRefreshing = true;
@@ -108,7 +121,15 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     protected virtual void RefreshReferenceBinding(ReferenceMenuCommandContext Context)
     {
         if (Context.Binding is ControlBinding ControlBinding)
+        {
             ControlBindingHelper.Refresh(Context.Binding.Table, ControlBinding);
+            return;
+        }
+
+        if (Context.Caller is not DataGrid Grid || Context.Binding is not GridColumnBinding || Context.Binding.Table == null)
+            return;
+
+        Grid.InvalidateVisual();
     }
     protected virtual void SetReferenceValue(ReferenceMenuCommandContext Context, object Value)
     {
@@ -155,7 +176,15 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             return;
         }
 
-        Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Sys.IsNull(Value) ? DBNull.Value : Value;
+        if (Context.Binding is GridColumnBinding && Context.Binding.Table.CurrentRowView != null)
+        {
+            Context.Binding.Table.CurrentRowView.BeginEdit();
+            Context.Binding.Table.CurrentRowView[Context.Binding.FieldName] = Sys.IsNull(Value) ? DBNull.Value : Value;
+        }
+        else
+        {
+            Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Sys.IsNull(Value) ? DBNull.Value : Value;
+        }
         RefreshReferenceBinding(Context);
     }
  
@@ -167,6 +196,59 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     {
         foreach (ItemBinder Binder in Binders)
             Binder.Refresh();
+    }
+    /// <summary>
+    /// Captures the current selection of all detail grids.
+    /// </summary>
+    public virtual Dictionary<DataGrid, Tuple<int, DataGridColumn>> CaptureDetailGridSelection()
+    {
+        Dictionary<DataGrid, Tuple<int, DataGridColumn>> Result = new();
+
+        foreach (UiDetailTableInfo DetailInfo in Context.TopTableUiInfo.DetailList)
+        {
+            if (DetailInfo.Grid == null || DetailInfo.Grid.SelectedIndex < 0)
+                continue;
+
+            Result[DetailInfo.Grid] = Tuple.Create(DetailInfo.Grid.SelectedIndex, DetailInfo.Grid.CurrentColumn);
+        }
+
+        return Result;
+    }
+    /// <summary>
+    /// Restores the selection of all detail grids.
+    /// </summary>
+    public virtual void RestoreDetailGridSelection(Dictionary<DataGrid, Tuple<int, DataGridColumn>> Selections)
+    {
+        if (Selections == null || Selections.Count == 0)
+            return;
+
+        Ui.Post(() => Ui.Post(() =>
+        {
+            foreach (KeyValuePair<DataGrid, Tuple<int, DataGridColumn>> Pair in Selections)
+            {
+                DataGrid Grid = Pair.Key;
+                int Index = Pair.Value.Item1;
+                DataGridColumn Column = Pair.Value.Item2;
+                if (Grid == null || Index < 0)
+                    continue;
+                if (Grid.ItemsSource is not IEnumerable Items)
+                    continue;
+
+                int Counter = 0;
+                foreach (object Item in Items)
+                {
+                    if (Counter++ != Index)
+                        continue;
+
+                    Grid.SelectedIndex = Index;
+                    Grid.SelectedItem = Item;
+                    if (Column != null)
+                        Grid.CurrentColumn = Column;
+                    Grid.ScrollIntoView(Item, Grid.CurrentColumn);
+                    break;
+                }
+            }
+        }));
     }
     /// <summary>
     /// Applies the visibility of detail grid columns ending with ID.
@@ -403,9 +485,9 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
                 ActionType = GridActionType.Add,
                 Name = "Add",
                 Title = "Add",
-                ToolTip = "Add row (Ctrl+Insert)",
+                ToolTip = "Add row (Shift+Insert)",
                 ImageFileName = "table_add.png",
-                KeyGesture = new KeyGesture(Key.Insert, KeyModifiers.Control)
+                KeyGesture = new KeyGesture(Key.Insert, KeyModifiers.Shift)
             });
         }
 
@@ -416,9 +498,9 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
                 ActionType = GridActionType.Delete,
                 Name = "Delete",
                 Title = "Delete",
-                ToolTip = "Delete row (Ctrl+Delete)",
+                ToolTip = "Delete row (Shift+Delete)",
                 ImageFileName = "table_delete.png",
-                KeyGesture = new KeyGesture(Key.Delete, KeyModifiers.Control)
+                KeyGesture = new KeyGesture(Key.Delete, KeyModifiers.Shift)
             });
         }
 

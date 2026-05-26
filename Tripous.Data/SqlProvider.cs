@@ -140,6 +140,62 @@ public abstract class SqlProvider
       
         Sys.LogError(e);
     }
+    protected virtual string FormatSqlLogValue(object Value)
+    {
+        if (Value == null || Value == DBNull.Value)
+            return "NULL";
+        if (Value is byte[] Bytes)
+            return $"byte[{Bytes.Length}]";
+        if (Value is DateTime Date)
+            return Date.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture);
+        if (Value is bool Flag)
+            return Flag ? "true" : "false";
+        return Convert.ToString(Value, CultureInfo.InvariantCulture);
+    }
+    protected virtual string FormatSqlParameters(DbParameterCollection Parameters)
+    {
+        StringBuilder SB = new();
+        SB.AppendLine("Parameters");
+
+        if (Parameters == null || Parameters.Count == 0)
+        {
+            SB.AppendLine("(none)");
+            return SB.ToString();
+        }
+
+        foreach (DbParameter Param in Parameters)
+            SB.AppendLine($"{Param.ParameterName} = {FormatSqlLogValue(Param.Value)}");
+
+        return SB.ToString();
+    }
+    protected virtual bool CanLogSql(string SqlText)
+    {
+        if (string.IsNullOrWhiteSpace(SqlText))
+            return false;
+
+        return !SqlText.Contains(DbConfig.SysDbIniTableName, StringComparison.OrdinalIgnoreCase)
+            && !SqlText.Contains(DbConfig.SysLogTableName, StringComparison.OrdinalIgnoreCase);
+    }
+    protected virtual void LogSql(DbCommand Command)
+    {
+        if (!Db.Settings.LogSqlStatements || Command == null)
+            return;
+        if (!CanLogSql(Command.CommandText))
+            return;
+
+        try
+        {
+            StringBuilder SB = new();
+            SB.AppendLine(Command.CommandText);
+            SB.AppendLine();
+            SB.Append(FormatSqlParameters(Command.Parameters));
+
+            Sys.LogInfo(SB.ToString());
+        }
+        catch
+        {
+        }
+    }
     
     // ● constructor
     internal SqlProvider(DbServerType ServerType)
@@ -410,6 +466,7 @@ public abstract class SqlProvider
                 using (DbCommand Command = CreateCommand(Connection, SqlText, Params))
                 {
                     Command.CommandTimeout = CommandTimeout;
+                    LogSql(Command);
 
                     using (DbDataReader Reader = Command.ExecuteReader())
                     {
@@ -451,6 +508,7 @@ public abstract class SqlProvider
             {
                 Command.Transaction = Transaction;
                 Command.CommandTimeout = CommandTimeout;
+                LogSql(Command);
 
                 using (DbDataReader Reader = Command.ExecuteReader())
                 {
@@ -509,6 +567,7 @@ public abstract class SqlProvider
                 using (DbCommand Command = CreateCommand(Connection, SqlText, Params))
                 {
                     Command.CommandTimeout = CommandTimeout;
+                    LogSql(Command);
 
                     int rowsAffected = Command.ExecuteNonQuery();
                     return rowsAffected;
@@ -574,6 +633,7 @@ public abstract class SqlProvider
             {
                 Command.Transaction = Transaction;
                 Command.CommandTimeout = CommandTimeout;
+                LogSql(Command);
                 return Command.ExecuteNonQuery();
             }
         }
@@ -764,6 +824,7 @@ public abstract class SqlProvider
             {
                 Command.Transaction = Transaction;
                 Command.CommandTimeout = CommandTimeout;
+                LogSql(Command);
 
                 using (DbDataReader Reader = Command.ExecuteReader())
                 {
@@ -841,6 +902,7 @@ public abstract class SqlProvider
             {
                 Command.Transaction = Transaction;
                 Command.CommandTimeout = CommandTimeout;
+                LogSql(Command);
                 Command.ExecuteNonQuery();
             }
 

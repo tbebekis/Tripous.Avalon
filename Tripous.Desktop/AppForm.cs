@@ -153,6 +153,9 @@ public class AppForm: UserControl
     {
         AddHandler(InputElement.KeyDownEvent, (Sender, Args) =>
         {
+            if (Args.Handled)
+                return;
+
             if (!Design.IsDesignMode)
             {
                 if (ProcessKeyDown(Args))

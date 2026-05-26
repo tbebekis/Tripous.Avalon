@@ -177,15 +177,50 @@ public static class DataGridBinder
         ComboBox.SelectedIndex = -1;
         ComboBox.SelectedItem = LookupSource.FindItem(Value);
     }
+    // Display templates listen to ColumnChanged because recycled cells may not refresh after programmatic row updates.
+    // Edit templates do not listen because refreshing while editing can overwrite typing or selection state.
  
     static IDataTemplate CreateTextDisplayTemplate(string ColumnName, TextAlignment Alignment, string Format, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
             TextBlock Result = new();
+            DataRowView CurrentItem = null;
+            DataColumnChangeEventHandler Handler = null;
 
-            object Value = GetValue(Item, ColumnName);
-            Result.Text = FormatValue(Value, Format);
+            void Refresh()
+            {
+                object Value = GetValue(CurrentItem, ColumnName);
+                Result.Text = FormatValue(Value, Format);
+            }
+            void SetCurrentItem(DataRowView RowView)
+            {
+                if (CurrentItem?.Row?.Table != null)
+                    CurrentItem.Row.Table.ColumnChanged -= Handler;
+
+                CurrentItem = RowView;
+                if (CurrentItem?.Row?.Table != null)
+                    CurrentItem.Row.Table.ColumnChanged += Handler;
+
+                Refresh();
+            }
+
+            Handler = (Sender, Args) =>
+            {
+                if (CurrentItem == null || Args.Row != CurrentItem.Row || !Args.Column.ColumnName.IsSameText(ColumnName))
+                    return;
+
+                Refresh();
+            };
+
+            SetCurrentItem(Item);
+            Result.DataContextChanged += (Sender, Args) => SetCurrentItem(Result.DataContext as DataRowView);
+            Result.DetachedFromVisualTree += (Sender, Args) =>
+            {
+                if (CurrentItem?.Row?.Table != null)
+                    CurrentItem.Row.Table.ColumnChanged -= Handler;
+                CurrentItem = null;
+            };
 
             Result.Padding = GetCellPadding();
             Result.VerticalAlignment = VerticalAlignment.Center;
@@ -237,14 +272,49 @@ public static class DataGridBinder
         }, SupportsRecycling);
     }
     
-    static IDataTemplate CreateLookupDisplayTemplate(string ColumnName, LookupSource LookupSource, bool SupportsRecycling)
+    static IDataTemplate CreateLookupDisplayTemplate(string ColumnName, LookupSource LookupSource, GridColumnBinding Binding, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
             TextBlock Result = new();
-            object Value = GetValue(Item, ColumnName);
-            LookupItem LookupItem = LookupSource?.FindItem(Value);
-            Result.Text = LookupItem?.DisplayText ?? string.Empty;
+            DataRowView CurrentItem = null;
+            DataColumnChangeEventHandler Handler = null;
+
+            LookupSource GetLookupSource() => Binding?.LookupSource ?? LookupSource;
+            void Refresh()
+            {
+                object Value = GetValue(CurrentItem, ColumnName);
+                LookupItem LookupItem = GetLookupSource()?.FindItem(Value);
+                Result.Text = LookupItem?.DisplayText ?? string.Empty;
+            }
+            void SetCurrentItem(DataRowView RowView)
+            {
+                if (CurrentItem?.Row?.Table != null)
+                    CurrentItem.Row.Table.ColumnChanged -= Handler;
+
+                CurrentItem = RowView;
+                if (CurrentItem?.Row?.Table != null)
+                    CurrentItem.Row.Table.ColumnChanged += Handler;
+
+                Refresh();
+            }
+
+            Handler = (Sender, Args) =>
+            {
+                if (CurrentItem == null || Args.Row != CurrentItem.Row || !Args.Column.ColumnName.IsSameText(ColumnName))
+                    return;
+
+                Refresh();
+            };
+
+            SetCurrentItem(Item);
+            Result.DataContextChanged += (Sender, Args) => SetCurrentItem(Result.DataContext as DataRowView);
+            Result.DetachedFromVisualTree += (Sender, Args) =>
+            {
+                if (CurrentItem?.Row?.Table != null)
+                    CurrentItem.Row.Table.ColumnChanged -= Handler;
+                CurrentItem = null;
+            };
             Result.Padding = GetCellPadding();
             Result.VerticalAlignment = VerticalAlignment.Center;
             Result.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -253,16 +323,19 @@ public static class DataGridBinder
             return Result;
         }, SupportsRecycling);
     }
-    static IDataTemplate CreateLookupEditTemplate(string ColumnName, LookupSource LookupSource, bool SupportsRecycling)
+    static IDataTemplate CreateLookupEditTemplate(string ColumnName, LookupSource LookupSource, GridColumnBinding Binding, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
         {
             ComboBox Result = new();
             bool IsLoading = true;
             DataRowView CurrentItem = Item;
+            if (Binding != null)
+                Binding.ActiveLookupComboBox = Result;
 
-            Result.ItemsSource = LookupSource.GetList();
-            SetLookupSelectedItem(Result, LookupSource, GetValue(CurrentItem, ColumnName));
+            LookupSource GetLookupSource() => Binding?.LookupSource ?? LookupSource;
+            Result.ItemsSource = GetLookupSource().GetList();
+            SetLookupSelectedItem(Result, GetLookupSource(), GetValue(CurrentItem, ColumnName));
             Result.Padding = new Thickness(0);
             Result.Margin = new Thickness(0);
             Result.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -293,7 +366,8 @@ public static class DataGridBinder
                 {
                     CurrentItem = Result.DataContext as DataRowView ?? CurrentItem;
                     CurrentItem?.BeginEdit();
-                    SetLookupSelectedItem(Result, LookupSource, GetValue(CurrentItem, ColumnName));
+                    Result.ItemsSource = GetLookupSource().GetList();
+                    SetLookupSelectedItem(Result, GetLookupSource(), GetValue(CurrentItem, ColumnName));
                     IsLoading = false;
 
                     Result.Focus();
@@ -301,11 +375,17 @@ public static class DataGridBinder
             };
 
             Result.AttachedToVisualTree += AttachedHandler;
+            Result.DetachedFromVisualTree += (Sender, Args) =>
+            {
+                if (Binding != null && ReferenceEquals(Binding.ActiveLookupComboBox, Result))
+                    Binding.ActiveLookupComboBox = null;
+            };
             Result.DataContextChanged += (Sender, Args) =>
             {
                 CurrentItem = Result.DataContext as DataRowView ?? CurrentItem;
                 IsLoading = true;
-                SetLookupSelectedItem(Result, LookupSource, GetValue(CurrentItem, ColumnName));
+                Result.ItemsSource = GetLookupSource().GetList();
+                SetLookupSelectedItem(Result, GetLookupSource(), GetValue(CurrentItem, ColumnName));
                 IsLoading = false;
             };
  
@@ -331,19 +411,6 @@ public static class DataGridBinder
                     RestoreGridCellFocus(Grid, SelectedRow, CurrentColumn);
                 }
             }
-            void MoveSelection(int Delta)
-            {
-                if (Result.ItemsSource is not IList List || List.Count == 0)
-                    return;
-
-                int Index = Result.SelectedIndex >= 0 ? Result.SelectedIndex : 0;
-                Index += Delta;
-                if (Index < 0)
-                    Index = 0;
-                if (Index >= List.Count)
-                    Index = List.Count - 1;
-                Result.SelectedIndex = Index;
-            }
             Result.SelectionChanged += (Sender, Args) =>
             {
                 CommitSelection();
@@ -353,34 +420,20 @@ public static class DataGridBinder
             {
                 IsLoading = true;
                 CurrentItem = Result.DataContext as DataRowView ?? CurrentItem;
-                SetLookupSelectedItem(Result, LookupSource, GetValue(CurrentItem, ColumnName));
+                Result.ItemsSource = GetLookupSource().GetList();
+                SetLookupSelectedItem(Result, GetLookupSource(), GetValue(CurrentItem, ColumnName));
                 IsLoading = false;
             };
 
-            Result.KeyDown += (Sender, Args) =>
+            Result.AddHandler(InputElement.KeyDownEvent, (Sender, Args) =>
             {
-                if (Result.IsDropDownOpen)
+                if (!Result.IsDropDownOpen && Args.Key == Key.Down && Args.KeyModifiers.HasFlag(KeyModifiers.Alt))
                 {
-                    if (Args.Key == Key.Down)
-                    {
-                        MoveSelection(1);
-                        Args.Handled = true;
-                        return;
-                    }
-                    if (Args.Key == Key.Up)
-                    {
-                        MoveSelection(-1);
-                        Args.Handled = true;
-                        return;
-                    }
-                    if (Args.Key == Key.Enter)
-                    {
-                        Result.IsDropDownOpen = false;
-                        CommitSelection();
-                        Args.Handled = true;
-                        return;
-                    }
+                    Result.IsDropDownOpen = true;
+                    Args.Handled = true;
+                    return;
                 }
+
                 if (Args.Key != Key.Escape)
                     return;
 
@@ -397,7 +450,7 @@ public static class DataGridBinder
                 Grid?.CancelEdit();
 
                 Args.Handled = true;
-            };
+            }, RoutingStrategies.Tunnel | RoutingStrategies.Bubble, handledEventsToo: true);
 
             return Result;
         }, SupportsRecycling);
@@ -557,16 +610,12 @@ public static class DataGridBinder
 
         return Result;
     }
-    static DataGridColumn CreateLookupColumn(string ColumnName, LookupSource LookupSource, string Header = "", bool IsReadOnly = false, bool SupportsRecycling = false)
+    static void ConfigureLookupColumn(DataGridTemplateColumn Column, string ColumnName, LookupSource LookupSource, GridColumnBinding Binding, string Header = "", bool IsReadOnly = false, bool SupportsRecycling = false)
     {
-        DataGridTemplateColumn Result = new();
-
-        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
-        Result.IsReadOnly = IsReadOnly;
-        Result.CellTemplate = CreateLookupDisplayTemplate(ColumnName, LookupSource, SupportsRecycling);
-        Result.CellEditingTemplate = IsReadOnly ? null : CreateLookupEditTemplate(ColumnName, LookupSource, SupportsRecycling);
-
-        return Result;
+        Column.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
+        Column.IsReadOnly = IsReadOnly;
+        Column.CellTemplate = CreateLookupDisplayTemplate(ColumnName, LookupSource, Binding, SupportsRecycling);
+        Column.CellEditingTemplate = IsReadOnly ? null : CreateLookupEditTemplate(ColumnName, LookupSource, Binding, SupportsRecycling);
     }
     
     // ● static public
@@ -759,8 +808,9 @@ public static class DataGridBinder
     {
         LookupSource LookupSource = LookupDef.Create();
         
-        DataGridColumn Result = CreateLookupColumn(Column.ColumnName, LookupSource, Column.Caption, IsReadOnly, SupportsRecycling: SupportsRecycling);
+        DataGridTemplateColumn Result = new();
         GridColumnBinding CI = new GridColumnBinding(Result, Column);
+        ConfigureLookupColumn(Result, Column.ColumnName, LookupSource, CI, Column.Caption, IsReadOnly, SupportsRecycling: SupportsRecycling);
         CI.LookupSource = LookupSource;
         Result.Tag = CI; 
         return Result;
@@ -770,11 +820,24 @@ public static class DataGridBinder
         LookupDef = LookupDef ?? DataRegistry.Lookups.Get(FieldDef.LookupSource);
         LookupSource LookupSource = LookupDef.Create();
         
-        DataGridColumn Result = CreateLookupColumn(FieldDef.Name, LookupSource, FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
+        DataGridTemplateColumn Result = new();
         GridColumnBinding CI = new GridColumnBinding(Result, FieldDef);
+        ConfigureLookupColumn(Result, FieldDef.Name, LookupSource, CI, FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
         CI.LookupSource = LookupSource;
         Result.Tag = CI;    
         return Result;
+    }
+    static public void ResetLookupColumnTemplates(DataGridColumn Column, LookupSource LookupSource, bool SupportsRecycling = false)
+    {
+        if (Column is not DataGridTemplateColumn TemplateColumn || LookupSource == null)
+            return;
+
+        GridColumnBinding Binding = Column.GetInfo();
+        if (Binding == null)
+            return;
+
+        TemplateColumn.CellTemplate = CreateLookupDisplayTemplate(Binding.FieldName, LookupSource, Binding, SupportsRecycling);
+        TemplateColumn.CellEditingTemplate = TemplateColumn.IsReadOnly ? null : CreateLookupEditTemplate(Binding.FieldName, LookupSource, Binding, SupportsRecycling);
     }
 
     static public GridColumnBinding GetInfo(this DataGridColumn Column) => Column != null ? Column.Tag as GridColumnBinding : null;

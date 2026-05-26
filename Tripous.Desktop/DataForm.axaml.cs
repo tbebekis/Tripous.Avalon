@@ -287,28 +287,33 @@ public partial class DataForm : AppForm
     protected virtual string GetItemLogText(object Id)
     {
         List<string> Parts = new();
-        if (!Sys.IsNull(Id))
-            Parts.Add(Convert.ToString(Id, CultureInfo.CurrentCulture));
 
         string FieldName = ModuleDef.ItemCaptionField;
-        if (CurrentRow != null)
+        DataRow Row = IsInListState ? ListCurrentRow : CurrentRow;
+        
+        if (Row != null)
         {
-            if (!FieldName.IsSameText("Code") && CurrentRow.Table.Columns.Contains("Code"))
+            if (!FieldName.IsSameText("Code") && Row.Table.Columns.Contains("Code"))
             {
-                object Code = CurrentRow["Code"];
+                object Code = Row["Code"];
                 if (!Sys.IsNull(Code))
                     Parts.Add(Convert.ToString(Code, CultureInfo.CurrentCulture));
             }
 
-            if (!string.IsNullOrWhiteSpace(FieldName) && CurrentRow.Table.Columns.Contains(FieldName))
+            if (!string.IsNullOrWhiteSpace(FieldName) && Row.Table.Columns.Contains(FieldName))
             {
-                object Caption = CurrentRow[FieldName];
+                object Caption = Row[FieldName];
                 if (!Sys.IsNull(Caption))
                     Parts.Add(Convert.ToString(Caption, CultureInfo.CurrentCulture));
             }
         }
 
-        return string.Join(" - ", Parts);
+        string Result = "Current item";
+        if (Parts.Count > 0)
+            Result = string.Join(" - ", Parts);
+        else if (!Sys.IsNull(Id))
+            Result = Convert.ToString(Id, CultureInfo.CurrentCulture);
+        return Result;
     }
 
     protected virtual async Task ExecuteList()
@@ -343,7 +348,7 @@ public partial class DataForm : AppForm
         if (!Sys.IsNull(oId))
         {
             Load(oId);
-            LogBox.AppendLine($"{TitleText}: Loaded {GetItemLogText(oId)}");
+            UiLog($"Loaded {GetItemLogText(oId)}");
             ItemPage?.Binders.ForEach(Binder => Binder.Refresh());
             this.FormState = DataFormState.Edit;
         }
@@ -355,22 +360,27 @@ public partial class DataForm : AppForm
 
         if (!Sys.IsNull(oId))
         {
-            if (await MessageBox.YesNo("Delete item?", this))
+            string LogText = GetItemLogText(oId);
+            
+            if (await MessageBox.YesNo($"Delete item: {LogText}?", this))
             {
-                string LogText = GetItemLogText(oId);
                 Delete(oId);
-                LogBox.AppendLine($"{TitleText}: Deleted {LogText}");
+                UiLog($"Deleted {LogText}");
+                if (IsInListState)
+                    await Execute(DataFormAction.RefreshList);
             }
         }
     }
     protected virtual void ExecuteSave()
     {
+        Dictionary<DataGrid, Tuple<int, DataGridColumn>> DetailGridSelection = ItemPage?.CaptureDetailGridSelection();
         Saving = true;
         try
         {
             Save();
             fListTargetId = Module.LastCommitedId;
-            LogBox.AppendLine($"{TitleText}: Saved {GetItemLogText(Module.LastCommitedId)}");
+            UiLog($"Saved {GetItemLogText(Module.LastCommitedId)}");
+            ItemPage?.RestoreDetailGridSelection(DetailGridSelection);
         }
         finally
         {
@@ -435,9 +445,11 @@ public partial class DataForm : AppForm
                 ListIsDirty = false;
                 BindListGrid(SelectDef);
                 ApplyIdColumnsVisible();
-                
-                LogBox.AppendLine($"{TitleText}: List select SQL: {SqlText}");
-                
+
+                string Message = $@"List SELECT - Rows: {Module.tblList.Rows.Count}
+{SqlText}
+";
+                UiLog(Message);
                 GoToListOID(LastOID);
             });
         }
@@ -680,7 +692,7 @@ public partial class DataForm : AppForm
         
         btnInsert.IsEnabled = IsEditableForm && !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List | DataFormState.Edit);
         btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List) && !IsListEmpty; 
-        btnDelete.IsEnabled = IsEditableForm && !DataFormAction.Delete.In(InvalidActions) && !IsListEmpty;
+        btnDelete.IsEnabled = IsEditableForm && !DataFormAction.Delete.In(InvalidActions) && FormState.In(DataFormState.List) && !IsListEmpty;
         btnSave.IsEnabled = IsEditableForm && FormState.In(DataFormState.Insert | DataFormState.Edit);
         
         // Edit states: cancels edits and returns to List state
@@ -767,8 +779,11 @@ public partial class DataForm : AppForm
         }
 
         return base.ProcessEscapeKey();
-    }    
+    }
+
+    protected virtual void UiLog(string Message) =>  LogBox.AppendLine($"[{TitleText}] - {Message}");
  
+        
     // ● construction
     /// <summary>
     /// Constructor
@@ -833,6 +848,10 @@ public partial class DataForm : AppForm
             }
         }
     }
+    /// <summary>
+    /// True when the form is in list state
+    /// </summary>
+    public virtual bool IsInListState => FormState == DataFormState.List;
     
     /// <summary>
     /// Returns true if this is a form where insert-edit-delete is NOT allowed 

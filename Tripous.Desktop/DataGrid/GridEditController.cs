@@ -58,6 +58,15 @@ public class GridEditController
 
         return Visual as ComboBox ?? Visual.FindAncestorOfType<ComboBox>();
     }
+    private ComboBox GetOpenComboBox()
+    {
+        return fGrid.GetVisualDescendants().OfType<ComboBox>().FirstOrDefault(ComboBox => ComboBox.IsDropDownOpen);
+    }
+    private ComboBox GetCurrentCellComboBox()
+    {
+        DataGridCell Cell = FindCurrentCell();
+        return Cell?.GetVisualDescendants().OfType<ComboBox>().FirstOrDefault();
+    }
     private bool CanBeginEdit()
     {
         if (fGrid.IsReadOnly || fGrid.SelectedItem == null || fGrid.CurrentColumn == null)
@@ -147,6 +156,29 @@ public class GridEditController
     {
         return fGrid.CommitEdit(DataGridEditingUnit.Cell, true);
     }
+    private bool OpenCurrentLookupDropDown()
+    {
+        if (!CanBeginEdit())
+            return false;
+
+        GridColumnBinding Binding = fGrid.CurrentColumn.GetInfo();
+        if (Binding == null || Binding.LookupSource == null)
+            return false;
+        if (!fIsEditing && !fGrid.BeginEdit())
+            return false;
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            ComboBox ComboBox = GetFocusedComboBox() ?? GetCurrentCellComboBox();
+            if (ComboBox == null)
+                return;
+
+            ComboBox.Focus(NavigationMethod.Tab, KeyModifiers.None);
+            ComboBox.IsDropDownOpen = true;
+        }, DispatcherPriority.Input);
+
+        return true;
+    }
     private bool CancelCellEdit()
     {
         return fGrid.CancelEdit(DataGridEditingUnit.Cell);
@@ -196,7 +228,7 @@ public class GridEditController
 
         if (fIsEditing)
         {
-            ComboBox ComboBox = GetFocusedComboBox();
+            ComboBox ComboBox = GetFocusedComboBox() ?? GetOpenComboBox();
             bool IsComboDropDownKey = Args.Key switch
             {
                 Key.Enter => true,
@@ -229,6 +261,12 @@ public class GridEditController
         {
             MoveCurrentCell(Args.Key == Key.Left ? -1 : 1);
             Args.Handled = true;
+            return;
+        }
+        if (Args.Key == Key.Down && Args.KeyModifiers.HasFlag(KeyModifiers.Alt))
+        {
+            if (OpenCurrentLookupDropDown())
+                Args.Handled = true;
             return;
         }
         if (Args.Key == Key.Up || Args.Key == Key.Down)

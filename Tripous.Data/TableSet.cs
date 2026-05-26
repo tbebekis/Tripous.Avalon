@@ -365,7 +365,7 @@ public class TableSet
         ItemTable.EventsDisabled = true;
         try
         {
-            ItemTable.DeleteAll(); 
+            ItemTable.DeleteAll(AcceptChangesToo: false); 
 
             // then, inside a Transaction
             OnTransactionStageDelete(TransactionStage.Start, ExecTime.Before, RowId);

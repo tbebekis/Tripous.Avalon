@@ -27,6 +27,7 @@ public class SqlProviderPostgreSql : SqlProvider
 
         using DbCommand Cmd = Con.CreateCommand();
         Cmd.CommandText = $"create database \"{DatabaseName}\" encoding = 'UTF8'";
+        LogSql(Cmd);
         Cmd.ExecuteNonQuery();
 
         if (!WaitUntilDatabaseReady(ConnectionString))
