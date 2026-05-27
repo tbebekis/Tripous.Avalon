@@ -1,7 +1,7 @@
 /*---------------------------------------------------
 Table: SYS_LOG
 Module: Log  LogDataModule
-Group: Log 
+Group: System 
 IsReadOnly
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
@@ -16,7 +16,7 @@ CREATE TABLE {TableName} (
     ,Source @NVARCHAR(512) @NOT_NULL
     ,Scope @NVARCHAR(512) @NOT_NULL
     ,EventId @NVARCHAR(96) @NOT_NULL
-    ,Message @NBLOB_TEXT @NOT_NULL
+    ,Message @NBLOB_TEXT @NOT_NULL          -- LargeMemo 
     )
 
 /*---------------------------------------------------
@@ -1032,3 +1032,675 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (ProductId) REFERENCES Product(Id),
     FOREIGN KEY (UnitId) REFERENCES UnitOfMeasure(Id)
     )
+
+/*---------------------------------------------------
+Table: PersonAddress
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    PersonId            @NVARCHAR(40) @NOT_NULL, -- Master
+    AddressTypeId       int @NOT_NULL,      -- Enum AddressType
+    Code                @NVARCHAR(40) @NULL,     -- Code [ADR-XXXXXX]
+
+    Name                @NVARCHAR(96) @NULL,
+    CountryId           @NVARCHAR(40) @NULL,     -- Lookup
+    Region              @NVARCHAR(96) @NULL,
+    City                @NVARCHAR(96) @NULL,
+    PostalCode          @NVARCHAR(40) @NULL,
+
+    AddressLine1        @NVARCHAR(96) @NULL,
+    AddressLine2        @NVARCHAR(96) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
+    FOREIGN KEY (CountryId) REFERENCES Country(Id)
+)
+
+/*---------------------------------------------------
+Table: ContactType
+Group: Setup
+Module: ContactType
+
+IsLookup
+-----------------------------------------------------
+Defines contact role/type values used by PersonContact.
+
+Examples:
+- Sales
+- Accounting
+- Technical
+- Logistics
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    Name                @NVARCHAR(96) @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL
+)
+
+/*---------------------------------------------------
+Table: PersonContact
+-----------------------------------------------------
+Stores contact persons or contact points for a Person.
+
+Examples:
+- sales contact for a customer
+- accounting contact for a supplier
+- technical contact for a partner
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    PersonId            @NVARCHAR(40) @NOT_NULL, -- Master
+    ContactTypeId       @NVARCHAR(40) @NOT_NULL, -- Lookup
+
+    Name                @NVARCHAR(96) @NOT_NULL,
+    JobTitle            @NVARCHAR(96) @NULL,
+
+    Phone               @NVARCHAR(40) @NULL,
+    Mobile              @NVARCHAR(40) @NULL,
+    Email               @NVARCHAR(96) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
+    FOREIGN KEY (ContactTypeId) REFERENCES ContactType(Id)
+)
+
+/*---------------------------------------------------
+Table: PersonBankAccount
+-----------------------------------------------------
+Stores bank accounts belonging to a Person.
+
+Examples:
+- customer bank account
+- supplier IBAN
+- partner settlement account
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    PersonId            @NVARCHAR(40) @NOT_NULL, -- Master
+
+    BankId              @NVARCHAR(40) @NOT_NULL, -- Lookup
+    Name                @NVARCHAR(96) @NOT_NULL,
+
+    Iban                @NVARCHAR(40) @NULL,
+    SwiftCode           @NVARCHAR(40) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
+    FOREIGN KEY (BankId) REFERENCES Bank(Id)
+)
+
+/*---------------------------------------------------
+Table: ProductBarcode
+-----------------------------------------------------
+Stores multiple barcodes for a product.
+
+Examples:
+- retail barcode (EAN13)
+- box barcode
+- pallet barcode
+- internal barcode
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    ProductId           @NVARCHAR(40) @NOT_NULL, -- Master
+
+    Barcode             @NVARCHAR(512) @NOT_NULL,
+    Name                @NVARCHAR(96) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
+)
+
+/*---------------------------------------------------
+Table: ProductSupplier
+-----------------------------------------------------
+Stores supplier relations for a product.
+
+Examples:
+- default supplier
+- alternative supplier
+- supplier product code
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    ProductId           @NVARCHAR(40) @NOT_NULL, -- Master
+
+    SupplierId          @NVARCHAR(40) @NOT_NULL, -- Locator Person
+    SupplierCode        @NVARCHAR(96) @NULL,
+
+    LeadDays            int @NULL,
+    LastCost            @DECIMAL_(18, 4) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (SupplierId) REFERENCES Person(Id)
+)
+
+/*---------------------------------------------------
+Table: ProductWarehouse
+-----------------------------------------------------
+Stores product settings per warehouse.
+
+Examples:
+- min/max stock
+- reorder level
+- preferred warehouse
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    ProductId           @NVARCHAR(40) @NOT_NULL, -- Master
+
+    WarehouseId         @NVARCHAR(40) @NOT_NULL, -- Lookup
+
+    MinStock            @DECIMAL_(18, 4) @NULL,
+    MaxStock            @DECIMAL_(18, 4) @NULL,
+    ReorderPoint        @DECIMAL_(18, 4) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id)
+)
+
+/*---------------------------------------------------
+Table: WarehouseLocation
+-----------------------------------------------------
+Stores internal locations inside a warehouse.
+
+Examples:
+- Zone A
+- Rack B
+- Shelf C
+- Bin A-01-03
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    WarehouseId         @NVARCHAR(40) @NOT_NULL, -- Master
+
+    Code                @NVARCHAR(40) @NOT_NULL, -- Code [LOC-XXXXXX]
+    Name                @NVARCHAR(96) @NOT_NULL,
+
+    Zone                @NVARCHAR(40) @NULL,
+    Aisle               @NVARCHAR(40) @NULL,
+    Rack                @NVARCHAR(40) @NULL,
+    Shelf               @NVARCHAR(40) @NULL,
+    Bin                 @NVARCHAR(40) @NULL,
+
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id)
+)
+
+/*---------------------------------------------------
+Table: BillOfMaterial
+-----------------------------------------------------
+Defines product composition.
+
+Examples:
+- bicycle consists of frame, wheels and seat
+- recipe consists of raw materials
+- assembly product
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    ProductId           @NVARCHAR(40) @NOT_NULL, -- Master
+
+    Code                @NVARCHAR(40) @NOT_NULL, -- Code [BOM-XXXXXX]
+    Name                @NVARCHAR(96) @NOT_NULL,
+
+    Quantity            @DECIMAL_(18, 4) @NOT_NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
+)
+
+/*---------------------------------------------------
+Table: BillOfMaterialLine
+-----------------------------------------------------
+Stores product components of a Bill Of Material.
+
+Examples:
+- wheel x 2
+- seat x 1
+- screw x 12
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    BillOfMaterialId    @NVARCHAR(40) @NOT_NULL, -- Master
+
+    ProductId           @NVARCHAR(40) @NOT_NULL, -- Locator Product
+
+    Quantity            @DECIMAL_(18, 4) @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (BillOfMaterialId) REFERENCES BillOfMaterial(Id),
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
+)
+
+/*---------------------------------------------------
+Table: CashAccount
+Group: Finance
+Module: CashAccount
+-----------------------------------------------------
+Defines cash accounts used for financial transactions.
+
+Examples:
+- Main Cash
+- Store Cash
+- Petty Cash
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code                @NVARCHAR(40) @NOT_NULL, -- Code [CASH-XXXXXX]
+    Name                @NVARCHAR(96) @NOT_NULL,
+
+    CurrencyId          @NVARCHAR(40) @NOT_NULL, -- Lookup
+    CompanyBranchId     @NVARCHAR(40) @NULL,     -- Lookup
+
+    Balance             @DECIMAL_(18, 4) @NULL,
+
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
+    FOREIGN KEY (CompanyBranchId) REFERENCES CompanyBranch(Id)
+)
+
+/*---------------------------------------------------
+Table: AssetCategory
+Group: Assets
+Module: AssetCategory
+
+IsLookup
+-----------------------------------------------------
+Defines fixed asset categories.
+
+Examples:
+- Vehicles
+- Computers
+- Machinery
+- Furniture
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    Name                @NVARCHAR(96) @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL
+)
+
+/*---------------------------------------------------
+Table: AssetLocation
+Group: Assets
+Module: AssetLocation
+
+IsLookup
+-----------------------------------------------------
+Defines asset locations.
+
+Examples:
+- Head Office
+- Warehouse A
+- Production Line 1
+- Branch Office
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    Name                @NVARCHAR(96) @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL 
+)
+
+/*---------------------------------------------------
+Table: AssetDepreciationMethod
+Group: Assets
+Module: AssetDepreciationMethod
+
+IsLookup
+-----------------------------------------------------
+Defines depreciation methods.
+
+Examples:
+- Straight Line
+- Declining Balance
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    Name                @NVARCHAR(96) @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL 
+)
+
+/*---------------------------------------------------
+Table: FixedAsset
+Group: Assets
+Module: FixedAsset
+
+-----------------------------------------------------
+Defines company fixed assets.
+
+Examples:
+- company vehicle
+- office computer
+- production machine
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code                @NVARCHAR(40) @NOT_NULL, -- Code [AST-XXXXXX]
+    Name                @NVARCHAR(96) @NOT_NULL,
+
+    AssetCategoryId     @NVARCHAR(40) @NOT_NULL, -- Lookup
+    AssetLocationId     @NVARCHAR(40) @NOT_NULL, -- Lookup
+    AssetDepreciationMethodId   @NVARCHAR(40) @NULL,         -- Lookup
+
+    PurchaseDate           @DATE @NULL,
+    PurchaseValue          @DECIMAL_(18, 4) @NULL,
+
+    UsefulLifeMonths       int @NULL,
+    DepreciationRate       @DECIMAL_(18, 4) @NULL,    
+
+    SerialNumber        @NVARCHAR(96) @NULL,
+    Manufacturer        @NVARCHAR(96) @NULL,
+    Model               @NVARCHAR(96) @NULL,
+
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (AssetCategoryId) REFERENCES AssetCategory(Id),
+    FOREIGN KEY (AssetLocationId) REFERENCES AssetLocation(Id),
+    FOREIGN KEY (AssetDepreciationMethodId) REFERENCES AssetDepreciationMethod(Id)
+)
+
+/*---------------------------------------------------
+Table: AssetAssignment
+-----------------------------------------------------
+Stores asset assignments.
+
+Examples:
+- laptop assigned to employee
+- vehicle assigned to manager
+- machine assigned to department
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    FixedAssetId        @NVARCHAR(40) @NOT_NULL, -- Master
+
+    PersonId            @NVARCHAR(40) @NULL,     -- Locator Person
+
+    AssignmentDate      @DATE @NULL,
+    ReturnDate          @DATE @NULL,
+
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (FixedAssetId) REFERENCES FixedAsset(Id),
+    FOREIGN KEY (PersonId) REFERENCES Person(Id)
+)
+
+/*---------------------------------------------------
+Table: AssetMaintenance
+-----------------------------------------------------
+Stores maintenance history of an asset.
+
+Examples:
+- vehicle service
+- machine repair
+- computer upgrade
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    FixedAssetId        @NVARCHAR(40) @NOT_NULL, -- Master
+
+    Date                @DATE @NOT_NULL,
+    Description         @NVARCHAR(255) @NOT_NULL,
+
+    Cost                @DECIMAL_(18, 4) @NULL,
+
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (FixedAssetId) REFERENCES FixedAsset(Id)
+)
+
+/*---------------------------------------------------
+Table: AssetDocument
+-----------------------------------------------------
+Stores documents related to an asset.
+
+Examples:
+- invoice
+- warranty
+- manual
+- certificate
+----------------------------------------------------*/
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    FixedAssetId        @NVARCHAR(40) @NOT_NULL, -- Master
+
+    Name                @NVARCHAR(96) @NOT_NULL,
+    FileName            @NVARCHAR(255) @NULL,
+    Description         @NVARCHAR(255) @NULL,
+
+    BlobText            @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (FixedAssetId) REFERENCES FixedAsset(Id)
+)
+
+/*---------------------------------------------------
+Table: AssetInsurance
+-----------------------------------------------------
+Stores insurance information of an asset.
+
+Examples:
+- vehicle insurance
+- equipment insurance
+- machinery insurance
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    FixedAssetId @NVARCHAR(40) @NOT_NULL,         -- Master
+
+    PolicyNumber @NVARCHAR(96) @NULL,
+
+    StartDate @DATE @NULL,
+    EndDate @DATE @NULL,
+
+    Amount @DECIMAL_(18, 4) @NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    Notes @NBLOB_TEXT @NULL,
+
+    FOREIGN KEY (FixedAssetId) REFERENCES FixedAsset(Id)
+    )
+
+/*---------------------------------------------------
+Table: ProductDimension
+Group: Inventory
+Module: ProductDimension
+
+IsLookup
+-----------------------------------------------------
+Defines product dimensions.
+
+Examples:
+- Color
+- Size
+- Material
+- Package
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL
+    )
+
+/*---------------------------------------------------
+Table: ProductDimensionValue
+-----------------------------------------------------
+Defines values of a product dimension.
+
+Examples:
+- Black
+- XL
+- Cotton
+- 250g
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    ProductDimensionId @NVARCHAR(40) @NOT_NULL,   -- Master
+
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    FOREIGN KEY (ProductDimensionId) REFERENCES ProductDimension(Id)
+    )
+
+ 
+
+/*---------------------------------------------------
+Table: ProductImage
+-----------------------------------------------------
+Stores product images.
+
+Examples:
+- catalog image
+- package image
+- technical image
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    ProductId @NVARCHAR(40) @NOT_NULL,            -- Master
+
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    ImageBlob @BLOB @NULL,
+
+    IsDefault @BOOL default 0 @NOT_NULL,
+    IsActive @BOOL default 1 @NOT_NULL,
+    DisplayOrder int default 0 @NOT_NULL,
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
+    )
+
+
+/*---------------------------------------------------
+Table: ProductAttributeGroup
+Group: Inventory
+Module: ProductAttributeGroup
+
+IsLookup
+-----------------------------------------------------
+Defines groups for product attributes.
+
+Examples:
+- Technical
+- Dimensions
+- Performance
+- Packaging
+- eShop
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    DisplayOrder int default 0 @NOT_NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+
+/*---------------------------------------------------
+Table: ProductAttribute
+-----------------------------------------------------
+Stores product-specific attributes.
+
+Rules:
+- each row belongs to one Product
+- TypeId defines how TextValue is interpreted
+- TextValue always stores the actual value as text
+- Integer and Decimal values are validated by TypeId
+- Option means TextValue contains one or more option values
+- when Option contains multiple values, values are separated by ;
+- UnitOfMeasure is optional and mainly useful for numeric values
+
+Examples:
+- Color, Option, TextValue = Red
+- Available Colors, Option, TextValue = Red;Green;Blue
+- Weight, Decimal, TextValue = 12.5, UnitOfMeasure = Kg
+- Pieces, Integer, TextValue = 24
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    ProductId @NVARCHAR(40) @NOT_NULL,              -- Master
+    ProductAttributeGroupId @NVARCHAR(40) @NULL,    -- Lookup
+
+    Name @NVARCHAR(96) @NOT_NULL,
+    TypeId int @NOT_NULL,                           -- Enum ProductAttributeType -- Text, Integer, Decimal, Option
+    TextValue @NVARCHAR(512) @NOT_NULL,
+
+    UnitOfMeasure @NVARCHAR(30) @NULL,
+
+    DisplayOrder int default 0 @NOT_NULL,
+    IsSpec @BOOL default 1 @NOT_NULL,
+    IsFilter @BOOL default 0 @NOT_NULL,
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    CONSTRAINT UQ_{TableName}_Product_Name UNIQUE (ProductId, Name),
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (ProductAttributeGroupId) REFERENCES ProductAttributeGroup(Id)
+    )
+ 

@@ -1707,6 +1707,9 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static string GetEnumName(SchemaScript Script, SchemaField Field)
     {
+        if (!string.IsNullOrWhiteSpace(Field.MetadataName))
+            return Field.MetadataName;
+
         return RemoveIdSuffix(Field.Name);
     }
     /// <summary>

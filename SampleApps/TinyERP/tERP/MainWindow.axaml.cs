@@ -49,12 +49,18 @@ public partial class MainWindow : Window
             if (Flag)
             {
                 LogBox.AppendLine("Adding sample data. Please wait...");
-                
-                AppHost.AddSampleData();
-                Db.MainIni.WriteBool("AreSampleDataAdded", true);
-                
-                LogBox.Append("DONE.");
-                await MessageBox.Info("DONE", this);
+                try
+                {
+                    await AppHost.AddSampleDataAsync();
+                    Db.MainIni.WriteBool("AreSampleDataAdded", true);
+                    LogBox.Append("DONE.");
+                    await MessageBox.Info("DONE", this);
+                }
+                catch (Exception e)
+                {
+                    LogBox.AppendLine(e.ToString());
+                    await MessageBox.Error(e.Message, this);
+                }
             }
         }
          
@@ -96,7 +102,6 @@ public partial class MainWindow : Window
         LogBox.AppendLine(Text);
     }
 
- 
 
     void Test()
     {

@@ -11,68 +11,103 @@ namespace Tripous.Desktop;
 public static class LogBox
 {
     private const string SLine = "-------------------------------------------------------------------";
-    private static TextBox _box;
+    static readonly object fLock = new();
+    static readonly StringBuilder fBuffer = new();
+    static TextBox fBox;
+    static bool fFlushPosted;
+    static int fMaxLength = 200000;
 
+    // ● private
     /// <summary>
-    /// Initializes this class.
+    /// Appends buffered text to the text box on the UI thread.
     /// </summary>
-    public static void Initialize(TextBox box)
+    static void Flush()
     {
-        _box ??= box;
-    }
+        string Text;
+        lock (fLock)
+        {
+            Text = fBuffer.ToString();
+            fBuffer.Clear();
+            fFlushPosted = false;
+        }
 
+        if (fBox == null || string.IsNullOrEmpty(Text))
+            return;
+
+        fBox.Text += Text;
+        if (fBox.Text.Length > fMaxLength)
+            fBox.Text = fBox.Text.Substring(fBox.Text.Length - fMaxLength);
+        fBox.CaretIndex = fBox.Text?.Length ?? 0;
+    }
     /// <summary>
     /// The core logging method. Thread-safe implementation for Avalonia.
     /// </summary>
-    private static void Log(string text)
+    static void Log(string Text)
     {
-        if (_box == null) return;
- 
-        Dispatcher.UIThread.Post(() =>
+        if (fBox == null || string.IsNullOrEmpty(Text))
+            return;
+
+        lock (fLock)
         {
-            _box.Text += text;
- 
-            _box.CaretIndex = _box.Text?.Length ?? 0;
-        });
+            fBuffer.Append(Text);
+            if (fFlushPosted)
+                return;
+
+            fFlushPosted = true;
+        }
+
+        Dispatcher.UIThread.Post(Flush, DispatcherPriority.Background);
     }
 
+    // ● static public
+    /// <summary>
+    /// Initializes this class.
+    /// </summary>
+    static public void Initialize(TextBox Box)
+    {
+        fBox ??= Box;
+    }
     /// <summary>
     /// Clears the box in a thread-safe manner.
     /// </summary>
-    public static void Clear()
+    static public void Clear()
     {
         if (IsInitialized)
-            Dispatcher.UIThread.Post(() => _box!.Text = string.Empty);
-    }
+        {
+            lock (fLock)
+            {
+                fBuffer.Clear();
+            }
 
+            Dispatcher.UIThread.Post(() => fBox.Text = string.Empty, DispatcherPriority.Background);
+        }
+    }
     /// <summary>
     /// Appends text in the box, in the last existing text line, if any.
     /// </summary>
-    public static void Append(string text)
+    static public void Append(string Text)
     {
-        if (IsInitialized && !string.IsNullOrWhiteSpace(text))
-            Log(text);
+        if (IsInitialized && !string.IsNullOrWhiteSpace(Text))
+            Log(Text);
     }
-
     /// <summary>
     /// Appends a new text line in the box.
     /// </summary>
-    public static void AppendLine(string text)
+    static public void AppendLine(string Text)
     {
         if (!IsInitialized) return;
 
-        string finalPath;
+        string FinalText;
         
-        if (string.IsNullOrWhiteSpace(text))
-            finalPath = Environment.NewLine;
-        else if (text == SLine)
-            finalPath = Environment.NewLine + text;
+        if (string.IsNullOrWhiteSpace(Text))
+            FinalText = Environment.NewLine;
+        else if (Text == SLine)
+            FinalText = Environment.NewLine + Text;
         else
-            finalPath = $"{Environment.NewLine}[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {text} ";
+            FinalText = $"{Environment.NewLine}[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {Text} ";
 
-        Log(finalPath);
+        Log(FinalText);
     }
-
     static public void AppendLine(object Data)
     {
         if (Data != null)
@@ -89,24 +124,26 @@ public static class LogBox
             AppendLine(JsonText);
         }
     }
-    
     /// <summary>
     /// Appends a new empty text line in the box.
     /// </summary>
-    public static void AppendLineEmpty() => AppendLine(string.Empty);
-
+    static public void AppendLineEmpty() => AppendLine(string.Empty);
     /// <summary>
     /// Appends a new text line in the box based on an Exception.
     /// </summary>
-    public static void AppendLine(Exception ex) => AppendLine(ex.ToString());
-
+    static public void AppendLine(Exception ex) => AppendLine(ex.ToString());
     /// <summary>
     /// Appends a separator line in the box.
     /// </summary>
-    public static void AppendLine() => AppendLine(SLine);
+    static public void AppendLine() => AppendLine(SLine);
 
+    // ● properties
     /// <summary>
     /// Returns true if this class has been initialized via Initialize
     /// </summary>
-    public static bool IsInitialized => _box != null;
+    static public bool IsInitialized => fBox != null;
+    /// <summary>
+    /// Maximum number of characters kept in the text box.
+    /// </summary>
+    static public int MaxLength { get => fMaxLength; set => fMaxLength = value; }
 }

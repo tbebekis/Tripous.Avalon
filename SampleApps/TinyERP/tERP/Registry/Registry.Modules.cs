@@ -13,41 +13,151 @@ static internal partial class Registry
     // ● private
     static void RegisterCodeProviders_FromModules()
     {
+        DataRegistry.AddCodeProvider("BillOfMaterial");
+        DataRegistry.AddCodeProvider("CashAccount");
         DataRegistry.AddCodeProvider("Company");
+        DataRegistry.AddCodeProvider("FixedAsset");
+        DataRegistry.AddCodeProvider("PersonAddress");
         DataRegistry.AddCodeProvider("Product");
         DataRegistry.AddCodeProvider("Project");
         DataRegistry.AddCodeProvider("SalesPerson");
         DataRegistry.AddCodeProvider("Warehouse");
+        DataRegistry.AddCodeProvider("WarehouseLocation");
     }
     static void RegisterLookupSources_FromModules()
     {
-        DataRegistry.AddLookupWithTableName("Bank", "Bank", FormName: "Bank");
-        DataRegistry.AddLookupWithTableName("Carrier", "Carrier", FormName: "Carrier");
-        DataRegistry.AddLookupWithTableName("Category", "Category", FormName: "Category");
-        DataRegistry.AddLookupWithTableName("Company", "Company", FormName: "Company");
-        DataRegistry.AddLookupWithTableName("CompanyBranch", "CompanyBranch");
-        DataRegistry.AddLookupWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
-        DataRegistry.AddLookupWithTableName("Country", "Country", FormName: "Country");
-        DataRegistry.AddLookupWithTableName("Currency", "Currency", FormName: "Currency");
-        DataRegistry.AddLookupWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
-        DataRegistry.AddLookupWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
-        DataRegistry.AddLookupWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
-        DataRegistry.AddLookupWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
-        DataRegistry.AddLookupWithTableName("Language", "Language", FormName: "Language");
-        DataRegistry.AddLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
-        DataRegistry.AddLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
-        DataRegistry.AddLookupWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
-        DataRegistry.AddLookupWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
-        DataRegistry.AddLookupWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
-        DataRegistry.AddLookupWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
-        DataRegistry.AddLookupWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
-        DataRegistry.AddLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
-        DataRegistry.AddLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
-        DataRegistry.AddLookupWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
-        DataRegistry.AddLookupWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
-        DataRegistry.AddLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
-        DataRegistry.AddLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");
-        DataRegistry.AddLookupWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
+        if (!DataRegistry.Lookups.Contains("AssetCategory"))
+        {
+            DataRegistry.AddLookupWithTableName("AssetCategory", "AssetCategory", FormName: "AssetCategory");
+        }
+        if (!DataRegistry.Lookups.Contains("AssetDepreciationMethod"))
+        {
+            DataRegistry.AddLookupWithTableName("AssetDepreciationMethod", "AssetDepreciationMethod", FormName: "AssetDepreciationMethod");
+        }
+        if (!DataRegistry.Lookups.Contains("AssetLocation"))
+        {
+            DataRegistry.AddLookupWithTableName("AssetLocation", "AssetLocation", FormName: "AssetLocation");
+        }
+        if (!DataRegistry.Lookups.Contains("Bank"))
+        {
+            DataRegistry.AddLookupWithTableName("Bank", "Bank", FormName: "Bank");
+        }
+        if (!DataRegistry.Lookups.Contains("Carrier"))
+        {
+            DataRegistry.AddLookupWithTableName("Carrier", "Carrier", FormName: "Carrier");
+        }
+        if (!DataRegistry.Lookups.Contains("Category"))
+        {
+            DataRegistry.AddLookupWithTableName("Category", "Category", FormName: "Category");
+        }
+        if (!DataRegistry.Lookups.Contains("Company"))
+        {
+            DataRegistry.AddLookupWithTableName("Company", "Company", FormName: "Company");
+        }
+        if (!DataRegistry.Lookups.Contains("CompanyBranch"))
+        {
+            DataRegistry.AddLookupWithTableName("CompanyBranch", "CompanyBranch");
+        }
+        if (!DataRegistry.Lookups.Contains("ContactType"))
+        {
+            DataRegistry.AddLookupWithTableName("ContactType", "ContactType", FormName: "ContactType");
+        }
+        if (!DataRegistry.Lookups.Contains("CostCenter"))
+        {
+            DataRegistry.AddLookupWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
+        }
+        if (!DataRegistry.Lookups.Contains("Country"))
+        {
+            DataRegistry.AddLookupWithTableName("Country", "Country", FormName: "Country");
+        }
+        if (!DataRegistry.Lookups.Contains("Currency"))
+        {
+            DataRegistry.AddLookupWithTableName("Currency", "Currency", FormName: "Currency");
+        }
+        if (!DataRegistry.Lookups.Contains("CustomerCategory"))
+        {
+            DataRegistry.AddLookupWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
+        }
+        if (!DataRegistry.Lookups.Contains("DiscountCategory"))
+        {
+            DataRegistry.AddLookupWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
+        }
+        if (!DataRegistry.Lookups.Contains("DocumentType"))
+        {
+            DataRegistry.AddLookupWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
+        }
+        if (!DataRegistry.Lookups.Contains("ExpenseCategory"))
+        {
+            DataRegistry.AddLookupWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
+        }
+        if (!DataRegistry.Lookups.Contains("Language"))
+        {
+            DataRegistry.AddLookupWithTableName("Language", "Language", FormName: "Language");
+        }
+        if (!DataRegistry.Lookups.Contains("PaymentMethod"))
+        {
+            DataRegistry.AddLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
+        }
+        if (!DataRegistry.Lookups.Contains("PaymentTerm"))
+        {
+            DataRegistry.AddLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
+        }
+        if (!DataRegistry.Lookups.Contains("PersonRoleType"))
+        {
+            DataRegistry.AddLookupWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
+        }
+        if (!DataRegistry.Lookups.Contains("PriceListType"))
+        {
+            DataRegistry.AddLookupWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
+        }
+        if (!DataRegistry.Lookups.Contains("ProductAttributeGroup"))
+        {
+            DataRegistry.AddLookupWithTableName("ProductAttributeGroup", "ProductAttributeGroup", FormName: "ProductAttributeGroup");
+        }
+        if (!DataRegistry.Lookups.Contains("ProductBrand"))
+        {
+            DataRegistry.AddLookupWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
+        }
+        if (!DataRegistry.Lookups.Contains("ProductDimension"))
+        {
+            DataRegistry.AddLookupWithTableName("ProductDimension", "ProductDimension", FormName: "ProductDimension");
+        }
+        if (!DataRegistry.Lookups.Contains("ProductGroup"))
+        {
+            DataRegistry.AddLookupWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
+        }
+        if (!DataRegistry.Lookups.Contains("SalesPerson"))
+        {
+            DataRegistry.AddLookupWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
+        }
+        if (!DataRegistry.Lookups.Contains("SupplierCategory"))
+        {
+            DataRegistry.AddLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
+        }
+        if (!DataRegistry.Lookups.Contains("SYS_NUMBER_SERIES"))
+        {
+            DataRegistry.AddLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
+        }
+        if (!DataRegistry.Lookups.Contains("TaxCategory"))
+        {
+            DataRegistry.AddLookupWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
+        }
+        if (!DataRegistry.Lookups.Contains("TaxOffice"))
+        {
+            DataRegistry.AddLookupWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
+        }
+        if (!DataRegistry.Lookups.Contains("UnitOfMeasure"))
+        {
+            DataRegistry.AddLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
+        }
+        if (!DataRegistry.Lookups.Contains("VatRate"))
+        {
+            DataRegistry.AddLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");
+        }
+        if (!DataRegistry.Lookups.Contains("Warehouse"))
+        {
+            DataRegistry.AddLookupWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
+        }
     }
     static void RegisterLocators_FromModules()
     {
@@ -56,8 +166,103 @@ static internal partial class Registry
         DataRegistry.AddLocator("Person", "Person", "Id", FormName: "Person");
         DataRegistry.AddLocator("Product", "Product", "Id", FormName: "Product");
     }
+    static void RegisterModule_AssetCategory()
+    {
+        if (DataRegistry.Modules.Contains("AssetCategory"))
+            return;
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   AssetCategory.Id,
+   AssetCategory.Name,
+   AssetCategory.IsActive
+from
+  AssetCategory
+";
+        Module = DataRegistry.AddModule("AssetCategory", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "AssetCategory";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        string[] FilterFields = ["Name", "IsActive"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+    }
+    static void RegisterModule_AssetDepreciationMethod()
+    {
+        if (DataRegistry.Modules.Contains("AssetDepreciationMethod"))
+            return;
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   AssetDepreciationMethod.Id,
+   AssetDepreciationMethod.Name,
+   AssetDepreciationMethod.IsActive
+from
+  AssetDepreciationMethod
+";
+        Module = DataRegistry.AddModule("AssetDepreciationMethod", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "AssetDepreciationMethod";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        string[] FilterFields = ["Name", "IsActive"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+    }
+    static void RegisterModule_AssetLocation()
+    {
+        if (DataRegistry.Modules.Contains("AssetLocation"))
+            return;
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   AssetLocation.Id,
+   AssetLocation.Name,
+   AssetLocation.IsActive
+from
+  AssetLocation
+";
+        Module = DataRegistry.AddModule("AssetLocation", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "AssetLocation";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        string[] FilterFields = ["Name", "IsActive"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+    }
     static void RegisterModule_Bank()
     {
+        if (DataRegistry.Modules.Contains("Bank"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -87,6 +292,8 @@ from
     }
     static void RegisterModule_Carrier()
     {
+        if (DataRegistry.Modules.Contains("Carrier"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -117,8 +324,64 @@ from
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
+    static void RegisterModule_CashAccount()
+    {
+        if (DataRegistry.Modules.Contains("CashAccount"))
+            return;
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   CashAccount.Id,
+   CashAccount.Code,
+   CashAccount.Name,
+   CashAccount.CurrencyId,
+   CashAccount.CompanyBranchId,
+   CashAccount.Balance,
+   CashAccount.IsActive,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(CompanyBranch.Code, '') as CompanyBranch__Code,
+   COALESCE(CompanyBranch.Name, '') as CompanyBranch__Name
+from
+  CashAccount
+    left join Currency Currency on Currency.Id = CashAccount.CurrencyId
+    left join CompanyBranch CompanyBranch on CompanyBranch.Id = CashAccount.CompanyBranchId
+";
+        Module = DataRegistry.AddModule("CashAccount", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "CashAccount";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("CashAccount");
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("CompanyBranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddDecimal("Balance", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        string[] FilterFields = ["Name", "Balance", "Code", "CompanyBranch__Code", "CompanyBranch__Name", "Currency__Code", "Currency__Name", "IsActive"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Balance"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBranch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBranch__Name"] = DataColumnType.Text;
+    }
     static void RegisterModule_Category()
     {
+        if (DataRegistry.Modules.Contains("Category"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -184,6 +447,8 @@ from
     }
     static void RegisterModule_Company()
     {
+        if (DataRegistry.Modules.Contains("Company"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -294,8 +559,41 @@ from
         tblCompanyBankAccount.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblCompanyBankAccount.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
     }
+    static void RegisterModule_ContactType()
+    {
+        if (DataRegistry.Modules.Contains("ContactType"))
+            return;
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   ContactType.Id,
+   ContactType.Name,
+   ContactType.IsActive
+from
+  ContactType
+";
+        Module = DataRegistry.AddModule("ContactType", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "ContactType";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        string[] FilterFields = ["Name", "IsActive"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+    }
     static void RegisterModule_CostCenter()
     {
+        if (DataRegistry.Modules.Contains("CostCenter"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -361,6 +659,8 @@ from
     }
     static void RegisterModule_Country()
     {
+        if (DataRegistry.Modules.Contains("Country"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -396,6 +696,8 @@ from
     }
     static void RegisterModule_Currency()
     {
+        if (DataRegistry.Modules.Contains("Currency"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -431,6 +733,8 @@ from
     }
     static void RegisterModule_CustomerCategory()
     {
+        if (DataRegistry.Modules.Contains("CustomerCategory"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -457,6 +761,8 @@ from
     }
     static void RegisterModule_DiscountCategory()
     {
+        if (DataRegistry.Modules.Contains("DiscountCategory"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -483,6 +789,8 @@ from
     }
     static void RegisterModule_DocumentType()
     {
+        if (DataRegistry.Modules.Contains("DocumentType"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -579,6 +887,8 @@ from
     }
     static void RegisterModule_ExpenseCategory()
     {
+        if (DataRegistry.Modules.Contains("ExpenseCategory"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -608,6 +918,8 @@ from
     }
     static void RegisterModule_FiscalYear()
     {
+        if (DataRegistry.Modules.Contains("FiscalYear"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -659,8 +971,125 @@ from
         tblFiscalPeriod.AddBoolean("IsClosed", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblFiscalPeriod.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
     }
+    static void RegisterModule_FixedAsset()
+    {
+        if (DataRegistry.Modules.Contains("FixedAsset"))
+            return;
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   FixedAsset.Id,
+   FixedAsset.Code,
+   FixedAsset.Name,
+   FixedAsset.AssetCategoryId,
+   FixedAsset.AssetLocationId,
+   FixedAsset.AssetDepreciationMethodId,
+   FixedAsset.PurchaseDate,
+   FixedAsset.PurchaseValue,
+   FixedAsset.UsefulLifeMonths,
+   FixedAsset.DepreciationRate,
+   FixedAsset.SerialNumber,
+   FixedAsset.Manufacturer,
+   FixedAsset.Model,
+   FixedAsset.IsActive,
+   COALESCE(AssetCategory.Name, '') as AssetCategory__Name,
+   COALESCE(AssetLocation.Name, '') as AssetLocation__Name,
+   COALESCE(AssetDepreciationMethod.Name, '') as AssetDepreciationMethod__Name
+from
+  FixedAsset
+    left join AssetCategory AssetCategory on AssetCategory.Id = FixedAsset.AssetCategoryId
+    left join AssetLocation AssetLocation on AssetLocation.Id = FixedAsset.AssetLocationId
+    left join AssetDepreciationMethod AssetDepreciationMethod on AssetDepreciationMethod.Id = FixedAsset.AssetDepreciationMethodId
+";
+        Module = DataRegistry.AddModule("FixedAsset", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "FixedAsset";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("FixedAsset");
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("AssetCategoryId", "AssetCategory", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("AssetLocationId", "AssetLocation", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("AssetDepreciationMethodId", "AssetDepreciationMethod", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddDate("PurchaseDate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddDecimal("PurchaseValue", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddInteger("UsefulLifeMonths", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddDecimal("DepreciationRate", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("SerialNumber", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("Manufacturer", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("Model", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        string[] FilterFields = ["Name", "AssetCategory__Name", "AssetDepreciationMethod__Name", "AssetLocation__Name", "Code", "DepreciationRate", "IsActive", "Manufacturer", "Model", "PurchaseDate", "PurchaseValue", "SerialNumber", "UsefulLifeMonths"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AssetCategoryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AssetLocationId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AssetDepreciationMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PurchaseDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PurchaseValue"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["UsefulLifeMonths"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["DepreciationRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["SerialNumber"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Manufacturer"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Model"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AssetCategory__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AssetLocation__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AssetDepreciationMethod__Name"] = DataColumnType.Text;
+        TableDef tblAssetAssignment = tblTop.AddDetail("AssetAssignment", "Id", "FixedAssetId");
+        tblAssetAssignment.KeyField = "Id";
+        tblAssetAssignment.AddId("Id").SetNullable(false);
+        tblAssetAssignment.AddString("FixedAssetId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblAssetAssignment.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetAssignment.AddDate("AssignmentDate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetAssignment.AddDate("ReturnDate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetAssignment.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        TableDef tblPerson = tblAssetAssignment.AddJoin("PersonId", "Person", "Person", "Id");
+        tblAssetAssignment.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblAssetMaintenance = tblTop.AddDetail("AssetMaintenance", "Id", "FixedAssetId");
+        tblAssetMaintenance.KeyField = "Id";
+        tblAssetMaintenance.AddId("Id").SetNullable(false);
+        tblAssetMaintenance.AddString("FixedAssetId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblAssetMaintenance.AddDate("Date", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblAssetMaintenance.AddString("Description", MaxLength: 255, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblAssetMaintenance.AddDecimal("Cost", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetMaintenance.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        TableDef tblAssetDocument = tblTop.AddDetail("AssetDocument", "Id", "FixedAssetId");
+        tblAssetDocument.KeyField = "Id";
+        tblAssetDocument.AddId("Id").SetNullable(false);
+        tblAssetDocument.AddString("FixedAssetId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblAssetDocument.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblAssetDocument.AddString("FileName", MaxLength: 255, Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetDocument.AddString("Description", MaxLength: 255, Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetDocument.AddTextBlob("BlobText", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        TableDef tblAssetInsurance = tblTop.AddDetail("AssetInsurance", "Id", "FixedAssetId");
+        tblAssetInsurance.KeyField = "Id";
+        tblAssetInsurance.AddId("Id").SetNullable(false);
+        tblAssetInsurance.AddString("FixedAssetId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblAssetInsurance.AddString("PolicyNumber", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetInsurance.AddDate("StartDate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetInsurance.AddDate("EndDate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetInsurance.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetInsurance.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblAssetInsurance.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true);
+    }
     static void RegisterModule_Language()
     {
+        if (DataRegistry.Modules.Contains("Language"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -709,6 +1138,8 @@ from
     }
     static void RegisterModule_Log()
     {
+        if (DataRegistry.Modules.Contains("Log"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -744,7 +1175,7 @@ from
         tblTop.AddString("Source", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Scope", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("EventId", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddTextBlob("Message", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddTextBlob("Message", Flags: FieldFlags.Visible| FieldFlags.LargeMemo | FieldFlags.Required).SetNullable(false);
         string[] FilterFields = ["DayOfMonth", "Host", "Level", "LogTime", "Month", "Scope", "Source", "User", "Year"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -763,6 +1194,8 @@ from
     }
     static void RegisterModule_NumberSeries()
     {
+        if (DataRegistry.Modules.Contains("NumberSeries"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -818,6 +1251,8 @@ from
     }
     static void RegisterModule_PaymentMethod()
     {
+        if (DataRegistry.Modules.Contains("PaymentMethod"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -850,6 +1285,8 @@ from
     }
     static void RegisterModule_PaymentTerm()
     {
+        if (DataRegistry.Modules.Contains("PaymentTerm"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -886,6 +1323,8 @@ from
     }
     static void RegisterModule_Person()
     {
+        if (DataRegistry.Modules.Contains("Person"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -999,9 +1438,49 @@ from
         tblPersonRole.AddDate("StartDate", Flags: FieldFlags.Visible).SetNullable(true);
         tblPersonRole.AddDate("EndDate", Flags: FieldFlags.Visible).SetNullable(true);
         tblPersonRole.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblPersonAddress = tblTop.AddDetail("PersonAddress", "Id", "PersonId");
+        tblPersonAddress.KeyField = "Id";
+        tblPersonAddress.AddId("Id").SetNullable(false);
+        tblPersonAddress.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPersonAddress.AddEnumLookupId("AddressTypeId", "AddressType", TypeStore.Get("AddressType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPersonAddress.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(true).SetCodeProviderName("PersonAddress");
+        tblPersonAddress.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonAddress.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonAddress.AddString("Region", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonAddress.AddString("City", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonAddress.AddString("PostalCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonAddress.AddString("AddressLine1", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonAddress.AddString("AddressLine2", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonAddress.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPersonAddress.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        TableDef tblPersonContact = tblTop.AddDetail("PersonContact", "Id", "PersonId");
+        tblPersonContact.KeyField = "Id";
+        tblPersonContact.AddId("Id").SetNullable(false);
+        tblPersonContact.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPersonContact.AddStringLookupId("ContactTypeId", "ContactType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPersonContact.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPersonContact.AddString("JobTitle", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonContact.AddString("Phone", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonContact.AddString("Mobile", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonContact.AddString("Email", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonContact.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPersonContact.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        TableDef tblPersonBankAccount = tblTop.AddDetail("PersonBankAccount", "Id", "PersonId");
+        tblPersonBankAccount.KeyField = "Id";
+        tblPersonBankAccount.AddId("Id").SetNullable(false);
+        tblPersonBankAccount.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPersonBankAccount.AddStringLookupId("BankId", "Bank", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPersonBankAccount.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPersonBankAccount.AddString("Iban", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonBankAccount.AddString("SwiftCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPersonBankAccount.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPersonBankAccount.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblPersonBankAccount.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
     }
     static void RegisterModule_PersonRoleType()
     {
+        if (DataRegistry.Modules.Contains("PersonRoleType"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1041,6 +1520,8 @@ from
     }
     static void RegisterModule_PriceList()
     {
+        if (DataRegistry.Modules.Contains("PriceList"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1134,6 +1615,8 @@ from
     }
     static void RegisterModule_PriceListType()
     {
+        if (DataRegistry.Modules.Contains("PriceListType"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1187,6 +1670,8 @@ from
     }
     static void RegisterModule_Product()
     {
+        if (DataRegistry.Modules.Contains("Product"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1290,9 +1775,130 @@ from
         tblProductUnitOfMeasure.AddBoolean("IsPurchaseDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblProductUnitOfMeasure.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblProductUnitOfMeasure.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProductBarcode = tblTop.AddDetail("ProductBarcode", "Id", "ProductId");
+        tblProductBarcode.KeyField = "Id";
+        tblProductBarcode.AddId("Id").SetNullable(false);
+        tblProductBarcode.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductBarcode.AddString("Barcode", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductBarcode.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProductBarcode.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblProductBarcode.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblProductBarcode.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        TableDef tblProductSupplier = tblTop.AddDetail("ProductSupplier", "Id", "ProductId");
+        tblProductSupplier.KeyField = "Id";
+        tblProductSupplier.AddId("Id").SetNullable(false);
+        tblProductSupplier.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductSupplier.AddString("SupplierId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductSupplier.AddString("SupplierCode", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProductSupplier.AddInteger("LeadDays", Flags: FieldFlags.Visible).SetNullable(true);
+        tblProductSupplier.AddDecimal("LastCost", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProductSupplier.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblProductSupplier.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblProductSupplier.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        TableDef tblSupplier = tblProductSupplier.AddJoin("SupplierId", "Person", "Supplier", "Id");
+        tblProductSupplier.Fields.Get("SupplierId").Locator = "Person";
+        tblSupplier.AddId("Id").SetNullable(false);
+        tblSupplier.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblSupplier.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblSupplier.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSupplier.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblBillOfMaterial = tblTop.AddDetail("BillOfMaterial", "Id", "ProductId");
+        tblBillOfMaterial.KeyField = "Id";
+        tblBillOfMaterial.AddId("Id").SetNullable(false);
+        tblBillOfMaterial.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblBillOfMaterial.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("BillOfMaterial");
+        tblBillOfMaterial.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblBillOfMaterial.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblBillOfMaterial.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblBillOfMaterial.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblBillOfMaterial.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        TableDef tblBillOfMaterialLine = tblBillOfMaterial.AddDetail("BillOfMaterialLine", "Id", "BillOfMaterialId");
+        tblBillOfMaterialLine.KeyField = "Id";
+        tblBillOfMaterialLine.AddId("Id").SetNullable(false);
+        tblBillOfMaterialLine.AddString("BillOfMaterialId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblBillOfMaterialLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblBillOfMaterialLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblBillOfMaterialLine.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        TableDef tblProduct = tblBillOfMaterialLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblBillOfMaterialLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProductImage = tblTop.AddDetail("ProductImage", "Id", "ProductId");
+        tblProductImage.KeyField = "Id";
+        tblProductImage.AddId("Id").SetNullable(false);
+        tblProductImage.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductImage.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductImage.AddBlob("ImageBlob", Flags: FieldFlags.None).SetNullable(true);
+        tblProductImage.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblProductImage.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblProductImage.AddInteger("DisplayOrder", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblProductImage.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProductAttribute = tblTop.AddDetail("ProductAttribute", "Id", "ProductId");
+        tblProductAttribute.KeyField = "Id";
+        tblProductAttribute.AddId("Id").SetNullable(false);
+        tblProductAttribute.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductAttribute.AddStringLookupId("ProductAttributeGroupId", "ProductAttributeGroup", Flags: FieldFlags.Visible).SetNullable(true);
+        tblProductAttribute.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductAttribute.AddEnumLookupId("TypeId", "ProductAttributeType", TypeStore.Get("ProductAttributeType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductAttribute.AddString("TextValue", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductAttribute.AddString("UnitOfMeasure", MaxLength: 30, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProductAttribute.AddInteger("DisplayOrder", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblProductAttribute.AddBoolean("IsSpec", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblProductAttribute.AddBoolean("IsFilter", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblProductAttribute.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        TableDef tblProductWarehouse = tblTop.AddDetail("ProductWarehouse", "Id", "ProductId");
+        tblProductWarehouse.KeyField = "Id";
+        tblProductWarehouse.AddId("Id").SetNullable(false);
+        tblProductWarehouse.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductWarehouse.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductWarehouse.AddDecimal("MinStock", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProductWarehouse.AddDecimal("MaxStock", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProductWarehouse.AddDecimal("ReorderPoint", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProductWarehouse.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblProductWarehouse.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblProductWarehouse.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+    }
+    static void RegisterModule_ProductAttributeGroup()
+    {
+        if (DataRegistry.Modules.Contains("ProductAttributeGroup"))
+            return;
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   ProductAttributeGroup.Id,
+   ProductAttributeGroup.Name,
+   ProductAttributeGroup.DisplayOrder,
+   ProductAttributeGroup.IsActive
+from
+  ProductAttributeGroup
+";
+        Module = DataRegistry.AddModule("ProductAttributeGroup", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "ProductAttributeGroup";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddInteger("DisplayOrder", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        string[] FilterFields = ["Name", "DisplayOrder", "IsActive"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DisplayOrder"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
     static void RegisterModule_ProductBrand()
     {
+        if (DataRegistry.Modules.Contains("ProductBrand"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1317,8 +1923,47 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
+    static void RegisterModule_ProductDimension()
+    {
+        if (DataRegistry.Modules.Contains("ProductDimension"))
+            return;
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   ProductDimension.Id,
+   ProductDimension.Name,
+   ProductDimension.IsActive
+from
+  ProductDimension
+";
+        Module = DataRegistry.AddModule("ProductDimension", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "ProductDimension";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        string[] FilterFields = ["Name", "IsActive"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        TableDef tblProductDimensionValue = tblTop.AddDetail("ProductDimensionValue", "Id", "ProductDimensionId");
+        tblProductDimensionValue.KeyField = "Id";
+        tblProductDimensionValue.AddId("Id").SetNullable(false);
+        tblProductDimensionValue.AddString("ProductDimensionId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductDimensionValue.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProductDimensionValue.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+    }
     static void RegisterModule_ProductGroup()
     {
+        if (DataRegistry.Modules.Contains("ProductGroup"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1361,6 +2006,8 @@ from
     }
     static void RegisterModule_Project()
     {
+        if (DataRegistry.Modules.Contains("Project"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1461,6 +2108,8 @@ from
     }
     static void RegisterModule_SalesPerson()
     {
+        if (DataRegistry.Modules.Contains("SalesPerson"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1493,6 +2142,8 @@ from
     }
     static void RegisterModule_StockReason()
     {
+        if (DataRegistry.Modules.Contains("StockReason"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1544,6 +2195,8 @@ from
     }
     static void RegisterModule_SupplierCategory()
     {
+        if (DataRegistry.Modules.Contains("SupplierCategory"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1570,6 +2223,8 @@ from
     }
     static void RegisterModule_TaxCategory()
     {
+        if (DataRegistry.Modules.Contains("TaxCategory"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1638,6 +2293,8 @@ from
     }
     static void RegisterModule_TaxOffice()
     {
+        if (DataRegistry.Modules.Contains("TaxOffice"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1667,6 +2324,8 @@ from
     }
     static void RegisterModule_UnitOfMeasure()
     {
+        if (DataRegistry.Modules.Contains("UnitOfMeasure"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1696,6 +2355,8 @@ from
     }
     static void RegisterModule_VatRate()
     {
+        if (DataRegistry.Modules.Contains("VatRate"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1731,6 +2392,8 @@ from
     }
     static void RegisterModule_Warehouse()
     {
+        if (DataRegistry.Modules.Contains("Warehouse"))
+            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1851,6 +2514,19 @@ from
         SelectDef.ColumnTypes["ResponsiblePerson__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ResponsiblePerson__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ResponsiblePerson__Title"] = DataColumnType.Text;
+        TableDef tblWarehouseLocation = tblTop.AddDetail("WarehouseLocation", "Id", "WarehouseId");
+        tblWarehouseLocation.KeyField = "Id";
+        tblWarehouseLocation.AddId("Id").SetNullable(false);
+        tblWarehouseLocation.AddString("WarehouseId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblWarehouseLocation.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("WarehouseLocation");
+        tblWarehouseLocation.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblWarehouseLocation.AddString("Zone", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblWarehouseLocation.AddString("Aisle", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblWarehouseLocation.AddString("Rack", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblWarehouseLocation.AddString("Shelf", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblWarehouseLocation.AddString("Bin", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblWarehouseLocation.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblWarehouseLocation.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
     }
 
     // ● static public
@@ -1859,10 +2535,15 @@ from
         RegisterCodeProviders_FromModules();
         RegisterLookupSources_FromModules();
         RegisterLocators_FromModules();
+        RegisterModule_AssetCategory();
+        RegisterModule_AssetDepreciationMethod();
+        RegisterModule_AssetLocation();
         RegisterModule_Bank();
         RegisterModule_Carrier();
+        RegisterModule_CashAccount();
         RegisterModule_Category();
         RegisterModule_Company();
+        RegisterModule_ContactType();
         RegisterModule_CostCenter();
         RegisterModule_Country();
         RegisterModule_Currency();
@@ -1871,6 +2552,7 @@ from
         RegisterModule_DocumentType();
         RegisterModule_ExpenseCategory();
         RegisterModule_FiscalYear();
+        RegisterModule_FixedAsset();
         RegisterModule_Language();
         RegisterModule_Log();
         RegisterModule_NumberSeries();
@@ -1881,7 +2563,9 @@ from
         RegisterModule_PriceList();
         RegisterModule_PriceListType();
         RegisterModule_Product();
+        RegisterModule_ProductAttributeGroup();
         RegisterModule_ProductBrand();
+        RegisterModule_ProductDimension();
         RegisterModule_ProductGroup();
         RegisterModule_Project();
         RegisterModule_SalesPerson();

@@ -701,6 +701,9 @@ public static class DataGridBinder
             ? (DataColumnType)Column.ExtendedProperties["ColumnType"]
             : DataColumnType.None;
 
+        if (ColumnType.HasFlag(DataColumnType.Integer))
+            Format = "0";
+
         bool IsBoolean = ColumnType.HasFlag(DataColumnType.Boolean)
                          || Column.DataType == typeof(bool)
                          || Column.IsCheckBox();

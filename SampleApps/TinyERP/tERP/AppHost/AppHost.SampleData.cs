@@ -476,6 +476,113 @@ static internal partial class AppHost
 
         Module.BatchInsert(tblSource);
     }
+    static void Add_ContactType()
+    {
+        string ModuleName = "ContactType";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Sales"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Accounting"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Technical"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Logistics"), ("IsActive", true));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_AssetCategory()
+    {
+        string ModuleName = "AssetCategory";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Vehicles"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Computers"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Machinery"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Furniture"), ("IsActive", true));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_AssetLocation()
+    {
+        string ModuleName = "AssetLocation";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Head Office"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Main Warehouse"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Production Line 1"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Branch Office"), ("IsActive", true));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_AssetDepreciationMethod()
+    {
+        string ModuleName = "AssetDepreciationMethod";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Straight Line"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Declining Balance"), ("IsActive", true));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_ProductDimension()
+    {
+        string ModuleName = "ProductDimension";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Color"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Size"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Material"), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Package"), ("IsActive", true));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_ProductAttributeGroup()
+    {
+        string ModuleName = "ProductAttributeGroup";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Technical"), ("DisplayOrder", 10), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Dimensions"), ("DisplayOrder", 20), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Performance"), ("DisplayOrder", 30), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Packaging"), ("DisplayOrder", 40), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "eShop"), ("DisplayOrder", 50), ("IsActive", true));
+
+        Module.BatchInsert(tblSource);
+    }
     static void Add_PriceListType()
     {
         string ModuleName = "PriceListType";
@@ -634,6 +741,75 @@ static internal partial class AppHost
 
         Module.BatchInsert(tblSource);
     }
+    static void Add_FixedAsset()
+    {
+        string ModuleName = "FixedAsset";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        MemTable tblAssetCategory = SampleTables["AssetCategory"];
+        MemTable tblAssetLocation = SampleTables["AssetLocation"];
+        MemTable tblAssetDepreciationMethod = SampleTables["AssetDepreciationMethod"];
+
+        object ComputersId = tblAssetCategory.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Computers"))["Id"];
+        object VehiclesId = tblAssetCategory.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Vehicles"))["Id"];
+        object HeadOfficeId = tblAssetLocation.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Head Office"))["Id"];
+        object WarehouseId = tblAssetLocation.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Main Warehouse"))["Id"];
+        object StraightLineId = tblAssetDepreciationMethod.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Straight Line"))["Id"];
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "AST-LAP-001"), ("Name", "Office Laptop"), ("AssetCategoryId", ComputersId), ("AssetLocationId", HeadOfficeId), ("AssetDepreciationMethodId", StraightLineId), ("PurchaseDate", DateTime.Today.AddMonths(-8)), ("PurchaseValue", 1250.0000m), ("UsefulLifeMonths", 36), ("DepreciationRate", 33.3300m), ("SerialNumber", "LAP-2025-001"), ("Manufacturer", "Apex"), ("Model", "Book Pro 14"), ("IsActive", true), ("Notes", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "AST-VAN-001"), ("Name", "Delivery Van"), ("AssetCategoryId", VehiclesId), ("AssetLocationId", WarehouseId), ("AssetDepreciationMethodId", StraightLineId), ("PurchaseDate", DateTime.Today.AddYears(-1)), ("PurchaseValue", 24500.0000m), ("UsefulLifeMonths", 60), ("DepreciationRate", 20.0000m), ("SerialNumber", "VAN-2024-001"), ("Manufacturer", "Orion"), ("Model", "Cargo 2.0"), ("IsActive", true), ("Notes", DBNull.Value));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_ProductDimensionValue()
+    {
+        string TableName = "ProductDimensionValue";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("ProductDimension").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblProductDimensionValue = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblProductDimensionValue);
+
+        MemTable tblProductDimension = SampleTables["ProductDimension"];
+
+        void AddValue(DataRow ProductDimensionRow, string Name)
+        {
+            object ProductDimensionId = ProductDimensionRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(ProductDimensionId);
+            tblProductDimensionValue = Module.GetTable(TableName);
+
+            AddRow(tblProductDimensionValue, ("Id", Id), ("ProductDimensionId", ProductDimensionId), ("Name", Name), ("IsActive", true));
+            AddRow(tblSource, ("Id", Id), ("ProductDimensionId", ProductDimensionId), ("Name", Name), ("IsActive", true));
+
+            Module.Commit();
+        }
+
+        DataRow ColorRow = tblProductDimension.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Color"));
+        DataRow SizeRow = tblProductDimension.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Size"));
+        DataRow MaterialRow = tblProductDimension.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Material"));
+        DataRow PackageRow = tblProductDimension.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Package"));
+
+        AddValue(ColorRow, "Black");
+        AddValue(ColorRow, "Silver");
+        AddValue(SizeRow, "Small");
+        AddValue(SizeRow, "Large");
+        AddValue(MaterialRow, "Steel");
+        AddValue(MaterialRow, "Plastic");
+        AddValue(PackageRow, "Box");
+        AddValue(PackageRow, "Bag");
+    }
     static void Add_CompanyBranch()
     {
         string TableName = "CompanyBranch";
@@ -783,6 +959,230 @@ static internal partial class AppHost
         AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Espresso Beans"), ("ProductTypeId", (int)ProductType.Goods), ("CategoryId", CoffeeCategoryId), ("VatRateId", Vat13Id), ("PrimaryUnitOfMeasureId", KilogramId), ("Barcode", "5200000000028"), ("Weight", 1.000m), ("Volume", 0.004m), ("IsActive", true), ("Color", "#92400E"), ("IconName", "Bean"), ("Remarks", DBNull.Value));
 
         Module.BatchInsert(tblSource);
+    }
+    static void Add_PersonAddress()
+    {
+        string TableName = "PersonAddress";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Person").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblPersonAddress = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblPersonAddress);
+
+        MemTable tblPerson = SampleTables["Person"];
+        MemTable tblCountry = SampleTables["Country"];
+
+        object GreeceId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("GR"))["Id"];
+        object GermanyId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("DE"))["Id"];
+
+        void AddAddress(DataRow PersonRow, int AddressTypeId, string Code, string Name, object CountryId, string City, string PostalCode, string AddressLine1)
+        {
+            object PersonId = PersonRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(PersonId);
+            tblPersonAddress = Module.GetTable(TableName);
+
+            AddRow(tblPersonAddress, ("Id", Id), ("PersonId", PersonId), ("AddressTypeId", AddressTypeId), ("Code", Code), ("Name", Name), ("CountryId", CountryId), ("Region", DBNull.Value), ("City", City), ("PostalCode", PostalCode), ("AddressLine1", AddressLine1), ("AddressLine2", DBNull.Value), ("IsDefault", true), ("Notes", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("PersonId", PersonId), ("AddressTypeId", AddressTypeId), ("Code", Code), ("Name", Name), ("CountryId", CountryId), ("Region", DBNull.Value), ("City", City), ("PostalCode", PostalCode), ("AddressLine1", AddressLine1), ("AddressLine2", DBNull.Value), ("IsDefault", true), ("Notes", DBNull.Value));
+
+            Module.Commit();
+        }
+
+        AddAddress(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Acme Retail SA")), (int)AddressType.Billing, "ADR-ACME-BILL", "Billing Address", GreeceId, "Athens", "10563", "10 Ermou Street");
+        AddAddress(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Northwind Traders Ltd")), (int)AddressType.Shipping, "ADR-NORTH-SHIP", "Shipping Address", GreeceId, "Athens", "11523", "25 Kifisias Avenue");
+        AddAddress(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Berlin Components GmbH")), (int)AddressType.Main, "ADR-BERLIN-MAIN", "Main Address", GermanyId, "Berlin", "10178", "42 Alexanderplatz");
+    }
+    static void Add_PersonContact()
+    {
+        string TableName = "PersonContact";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Person").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblPersonContact = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblPersonContact);
+
+        MemTable tblPerson = SampleTables["Person"];
+        MemTable tblContactType = SampleTables["ContactType"];
+
+        object SalesId = tblContactType.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Sales"))["Id"];
+        object AccountingId = tblContactType.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Accounting"))["Id"];
+        object TechnicalId = tblContactType.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Technical"))["Id"];
+
+        void AddContact(DataRow PersonRow, object ContactTypeId, string Name, string JobTitle, string Phone, string Email, bool IsDefault)
+        {
+            object PersonId = PersonRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(PersonId);
+            tblPersonContact = Module.GetTable(TableName);
+
+            AddRow(tblPersonContact, ("Id", Id), ("PersonId", PersonId), ("ContactTypeId", ContactTypeId), ("Name", Name), ("JobTitle", JobTitle), ("Phone", Phone), ("Mobile", DBNull.Value), ("Email", Email), ("IsDefault", IsDefault), ("Notes", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("PersonId", PersonId), ("ContactTypeId", ContactTypeId), ("Name", Name), ("JobTitle", JobTitle), ("Phone", Phone), ("Mobile", DBNull.Value), ("Email", Email), ("IsDefault", IsDefault), ("Notes", DBNull.Value));
+
+            Module.Commit();
+        }
+
+        AddContact(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Acme Retail SA")), SalesId, "Maria Antoniou", "Sales Manager", "+30 210 1000001", "sales@acmeretail.example", true);
+        AddContact(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Northwind Traders Ltd")), AccountingId, "Alex Morgan", "Accounting Manager", "+30 210 1000002", "accounts@northwind.example", true);
+        AddContact(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Helios Supplies OE")), TechnicalId, "Nikos Papadopoulos", "Technical Contact", "+30 210 1000003", "support@helios.example", true);
+    }
+    static void Add_PersonBankAccount()
+    {
+        string TableName = "PersonBankAccount";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Person").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblPersonBankAccount = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblPersonBankAccount);
+
+        MemTable tblPerson = SampleTables["Person"];
+        MemTable tblBank = SampleTables["Bank"];
+
+        object FirstBankId = tblBank.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("BNK-001"))["Id"];
+        object UnionBankId = tblBank.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("BNK-003"))["Id"];
+
+        void AddBankAccount(DataRow PersonRow, object BankId, string Name, string Iban, string SwiftCode)
+        {
+            object PersonId = PersonRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(PersonId);
+            tblPersonBankAccount = Module.GetTable(TableName);
+
+            AddRow(tblPersonBankAccount, ("Id", Id), ("PersonId", PersonId), ("BankId", BankId), ("Name", Name), ("Iban", Iban), ("SwiftCode", SwiftCode), ("IsDefault", true), ("IsActive", true), ("Notes", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("PersonId", PersonId), ("BankId", BankId), ("Name", Name), ("Iban", Iban), ("SwiftCode", SwiftCode), ("IsDefault", true), ("IsActive", true), ("Notes", DBNull.Value));
+
+            Module.Commit();
+        }
+
+        AddBankAccount(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Acme Retail SA")), FirstBankId, "Main Account", "GR1601101250000000012300701", "ETHNGRAA");
+        AddBankAccount(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Helios Supplies OE")), UnionBankId, "Settlement Account", "GR1601101250000000012300702", "UNBNGRAA");
+    }
+    static void Add_AssetAssignment()
+    {
+        string TableName = "AssetAssignment";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("FixedAsset").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblAssetAssignment = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblAssetAssignment);
+
+        MemTable tblFixedAsset = SampleTables["FixedAsset"];
+        MemTable tblPerson = SampleTables["Person"];
+
+        object AcmeRetailId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Acme Retail SA"))["Id"];
+
+        void AddAssignment(DataRow FixedAssetRow, object PersonId)
+        {
+            object FixedAssetId = FixedAssetRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(FixedAssetId);
+            tblAssetAssignment = Module.GetTable(TableName);
+
+            AddRow(tblAssetAssignment, ("Id", Id), ("FixedAssetId", FixedAssetId), ("PersonId", PersonId), ("AssignmentDate", DateTime.Today.AddMonths(-3)), ("ReturnDate", DBNull.Value), ("Notes", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("FixedAssetId", FixedAssetId), ("PersonId", PersonId), ("AssignmentDate", DateTime.Today.AddMonths(-3)), ("ReturnDate", DBNull.Value), ("Notes", DBNull.Value));
+
+            Module.Commit();
+        }
+
+        AddAssignment(tblFixedAsset.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Office Laptop")), AcmeRetailId);
+    }
+    static void Add_AssetMaintenance()
+    {
+        string TableName = "AssetMaintenance";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("FixedAsset").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblAssetMaintenance = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblAssetMaintenance);
+
+        MemTable tblFixedAsset = SampleTables["FixedAsset"];
+        DataRow VanRow = tblFixedAsset.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Delivery Van"));
+        object FixedAssetId = VanRow["Id"];
+        object Id = Sys.GenId();
+
+        Module.Edit(FixedAssetId);
+        tblAssetMaintenance = Module.GetTable(TableName);
+
+        AddRow(tblAssetMaintenance, ("Id", Id), ("FixedAssetId", FixedAssetId), ("Date", DateTime.Today.AddMonths(-2)), ("Description", "Scheduled service"), ("Cost", 320.0000m), ("Notes", DBNull.Value));
+        AddRow(tblSource, ("Id", Id), ("FixedAssetId", FixedAssetId), ("Date", DateTime.Today.AddMonths(-2)), ("Description", "Scheduled service"), ("Cost", 320.0000m), ("Notes", DBNull.Value));
+
+        Module.Commit();
+    }
+    static void Add_AssetDocument()
+    {
+        string TableName = "AssetDocument";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("FixedAsset").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblAssetDocument = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblAssetDocument);
+
+        MemTable tblFixedAsset = SampleTables["FixedAsset"];
+        DataRow LaptopRow = tblFixedAsset.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Office Laptop"));
+        object FixedAssetId = LaptopRow["Id"];
+        object Id = Sys.GenId();
+
+        Module.Edit(FixedAssetId);
+        tblAssetDocument = Module.GetTable(TableName);
+
+        AddRow(tblAssetDocument, ("Id", Id), ("FixedAssetId", FixedAssetId), ("Name", "Purchase Invoice"), ("FileName", "office-laptop-invoice.pdf"), ("Description", "Purchase invoice"), ("BlobText", DBNull.Value));
+        AddRow(tblSource, ("Id", Id), ("FixedAssetId", FixedAssetId), ("Name", "Purchase Invoice"), ("FileName", "office-laptop-invoice.pdf"), ("Description", "Purchase invoice"), ("BlobText", DBNull.Value));
+
+        Module.Commit();
+    }
+    static void Add_AssetInsurance()
+    {
+        string TableName = "AssetInsurance";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("FixedAsset").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblAssetInsurance = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblAssetInsurance);
+
+        MemTable tblFixedAsset = SampleTables["FixedAsset"];
+        DataRow VanRow = tblFixedAsset.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Delivery Van"));
+        object FixedAssetId = VanRow["Id"];
+        object Id = Sys.GenId();
+        DateTime StartDate = new(DateTime.Today.Year, 1, 1);
+
+        Module.Edit(FixedAssetId);
+        tblAssetInsurance = Module.GetTable(TableName);
+
+        AddRow(tblAssetInsurance, ("Id", Id), ("FixedAssetId", FixedAssetId), ("PolicyNumber", "POL-VAN-001"), ("StartDate", StartDate), ("EndDate", StartDate.AddYears(1).AddDays(-1)), ("Amount", 850.0000m), ("IsActive", true), ("Notes", DBNull.Value));
+        AddRow(tblSource, ("Id", Id), ("FixedAssetId", FixedAssetId), ("PolicyNumber", "POL-VAN-001"), ("StartDate", StartDate), ("EndDate", StartDate.AddYears(1).AddDays(-1)), ("Amount", 850.0000m), ("IsActive", true), ("Notes", DBNull.Value));
+
+        Module.Commit();
     }
     static void Add_PriceList()
     {
@@ -985,11 +1385,299 @@ static internal partial class AppHost
 
         Module.Commit();
     }
-    
-    static public void AddSampleData()
+    static void Add_ProductBarcode()
     {
-        
-        
+        string TableName = "ProductBarcode";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Product").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblProductBarcode = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblProductBarcode);
+
+        MemTable tblProduct = SampleTables["Product"];
+
+        void AddBarcode(DataRow ProductRow, string Barcode, string Name, bool IsDefault)
+        {
+            object ProductId = ProductRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(ProductId);
+            tblProductBarcode = Module.GetTable(TableName);
+
+            AddRow(tblProductBarcode, ("Id", Id), ("ProductId", ProductId), ("Barcode", Barcode), ("Name", Name), ("IsDefault", IsDefault), ("IsActive", true), ("Notes", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("ProductId", ProductId), ("Barcode", Barcode), ("Name", Name), ("IsDefault", IsDefault), ("IsActive", true), ("Notes", DBNull.Value));
+
+            Module.Commit();
+        }
+
+        AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine")), "5200000000011", "Retail Barcode", true);
+        AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine")), "5200000001018", "Box Barcode", false);
+        AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Espresso Beans")), "5200000000028", "Retail Barcode", true);
+    }
+    static void Add_ProductSupplier()
+    {
+        string TableName = "ProductSupplier";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Product").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblProductSupplier = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblProductSupplier);
+
+        MemTable tblProduct = SampleTables["Product"];
+        MemTable tblPerson = SampleTables["Person"];
+
+        object HeliosId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Helios Supplies OE"))["Id"];
+        object BerlinId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Berlin Components GmbH"))["Id"];
+
+        void AddSupplier(DataRow ProductRow, object SupplierId, string SupplierCode, int LeadDays, decimal LastCost, bool IsDefault)
+        {
+            object ProductId = ProductRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(ProductId);
+            tblProductSupplier = Module.GetTable(TableName);
+
+            AddRow(tblProductSupplier, ("Id", Id), ("ProductId", ProductId), ("SupplierId", SupplierId), ("SupplierCode", SupplierCode), ("LeadDays", LeadDays), ("LastCost", LastCost), ("IsDefault", IsDefault), ("IsActive", true), ("Notes", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("ProductId", ProductId), ("SupplierId", SupplierId), ("SupplierCode", SupplierCode), ("LeadDays", LeadDays), ("LastCost", LastCost), ("IsDefault", IsDefault), ("IsActive", true), ("Notes", DBNull.Value));
+
+            Module.Commit();
+        }
+
+        AddSupplier(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine")), BerlinId, "CM-2000", 14, 175.0000m, true);
+        AddSupplier(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Espresso Beans")), HeliosId, "EB-1KG", 5, 11.2000m, true);
+    }
+    static void Add_BillOfMaterial()
+    {
+        string TableName = "BillOfMaterial";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Product").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblBillOfMaterial = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblBillOfMaterial);
+
+        MemTable tblProduct = SampleTables["Product"];
+        DataRow CoffeeMachineRow = tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine"));
+        object ProductId = CoffeeMachineRow["Id"];
+        object Id = Sys.GenId();
+
+        Module.Edit(ProductId);
+        tblBillOfMaterial = Module.GetTable(TableName);
+
+        AddRow(tblBillOfMaterial, ("Id", Id), ("ProductId", ProductId), ("Code", "BOM-CM-001"), ("Name", "Coffee Machine Bundle"), ("Quantity", 1.0000m), ("IsDefault", true), ("IsActive", true), ("Notes", DBNull.Value));
+        AddRow(tblSource, ("Id", Id), ("ProductId", ProductId), ("Code", "BOM-CM-001"), ("Name", "Coffee Machine Bundle"), ("Quantity", 1.0000m), ("IsDefault", true), ("IsActive", true), ("Notes", DBNull.Value));
+
+        Module.Commit();
+    }
+    static void Add_CashAccount()
+    {
+        string ModuleName = "CashAccount";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        MemTable tblCurrency = SampleTables["Currency"];
+        MemTable tblCompanyBranch = SampleTables["CompanyBranch"];
+
+        object EurId = tblCurrency.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EUR"))["Id"];
+        object BranchId = tblCompanyBranch.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("MAIN"))["Id"];
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CASH-MAIN"), ("Name", "Main Cash"), ("CurrencyId", EurId), ("CompanyBranchId", BranchId), ("Balance", 1000.0000m), ("IsActive", true), ("Notes", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CASH-STORE"), ("Name", "Store Cash"), ("CurrencyId", EurId), ("CompanyBranchId", BranchId), ("Balance", 350.0000m), ("IsActive", true), ("Notes", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CASH-PETTY"), ("Name", "Petty Cash"), ("CurrencyId", EurId), ("CompanyBranchId", BranchId), ("Balance", 150.0000m), ("IsActive", true), ("Notes", DBNull.Value));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_ProductImage()
+    {
+        string TableName = "ProductImage";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Product").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblProductImage = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblProductImage);
+
+        MemTable tblProduct = SampleTables["Product"];
+
+        void AddImage(DataRow ProductRow, string Name, int DisplayOrder, bool IsDefault)
+        {
+            object ProductId = ProductRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(ProductId);
+            tblProductImage = Module.GetTable(TableName);
+
+            AddRow(tblProductImage, ("Id", Id), ("ProductId", ProductId), ("Name", Name), ("ImageBlob", DBNull.Value), ("IsDefault", IsDefault), ("IsActive", true), ("DisplayOrder", DisplayOrder), ("Remarks", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("ProductId", ProductId), ("Name", Name), ("ImageBlob", DBNull.Value), ("IsDefault", IsDefault), ("IsActive", true), ("DisplayOrder", DisplayOrder), ("Remarks", DBNull.Value));
+
+            Module.Commit();
+        }
+
+        AddImage(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine")), "Catalog Image", 10, true);
+        AddImage(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Espresso Beans")), "Package Image", 10, true);
+    }
+    static void Add_ProductAttribute()
+    {
+        string TableName = "ProductAttribute";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Product").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblProductAttribute = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblProductAttribute);
+
+        MemTable tblProduct = SampleTables["Product"];
+        MemTable tblProductAttributeGroup = SampleTables["ProductAttributeGroup"];
+
+        object TechnicalId = tblProductAttributeGroup.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Technical"))["Id"];
+        object DimensionsId = tblProductAttributeGroup.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Dimensions"))["Id"];
+        object PackagingId = tblProductAttributeGroup.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Packaging"))["Id"];
+
+        void AddAttribute(DataRow ProductRow, object ProductAttributeGroupId, string Name, int TypeId, string TextValue, object UnitOfMeasure, int DisplayOrder, bool IsFilter)
+        {
+            object ProductId = ProductRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(ProductId);
+            tblProductAttribute = Module.GetTable(TableName);
+
+            AddRow(tblProductAttribute, ("Id", Id), ("ProductId", ProductId), ("ProductAttributeGroupId", ProductAttributeGroupId), ("Name", Name), ("TypeId", TypeId), ("TextValue", TextValue), ("UnitOfMeasure", UnitOfMeasure), ("DisplayOrder", DisplayOrder), ("IsSpec", true), ("IsFilter", IsFilter), ("IsActive", true));
+            AddRow(tblSource, ("Id", Id), ("ProductId", ProductId), ("ProductAttributeGroupId", ProductAttributeGroupId), ("Name", Name), ("TypeId", TypeId), ("TextValue", TextValue), ("UnitOfMeasure", UnitOfMeasure), ("DisplayOrder", DisplayOrder), ("IsSpec", true), ("IsFilter", IsFilter), ("IsActive", true));
+
+            Module.Commit();
+        }
+
+        DataRow CoffeeMachineRow = tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine"));
+        DataRow EspressoBeansRow = tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Espresso Beans"));
+
+        AddAttribute(CoffeeMachineRow, TechnicalId, "Power", (int)ProductAttributeType.Integer, "1450", "W", 10, true);
+        AddAttribute(CoffeeMachineRow, DimensionsId, "Weight", (int)ProductAttributeType.Decimal, "6.5", "Kg", 20, true);
+        AddAttribute(EspressoBeansRow, PackagingId, "Package", (int)ProductAttributeType.Option, "Bag", DBNull.Value, 10, true);
+    }
+    static void Add_ProductWarehouse()
+    {
+        string TableName = "ProductWarehouse";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Product").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblProductWarehouse = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblProductWarehouse);
+
+        MemTable tblProduct = SampleTables["Product"];
+        MemTable tblWarehouse = SampleTables["Warehouse"];
+
+        object MainWarehouseId = tblWarehouse.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Main Warehouse"))["Id"];
+        object RetailStoreId = tblWarehouse.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Retail Store"))["Id"];
+
+        void AddWarehouse(DataRow ProductRow, object WarehouseId, decimal MinStock, decimal MaxStock, decimal ReorderPoint, bool IsDefault)
+        {
+            object ProductId = ProductRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(ProductId);
+            tblProductWarehouse = Module.GetTable(TableName);
+
+            AddRow(tblProductWarehouse, ("Id", Id), ("ProductId", ProductId), ("WarehouseId", WarehouseId), ("MinStock", MinStock), ("MaxStock", MaxStock), ("ReorderPoint", ReorderPoint), ("IsDefault", IsDefault), ("IsActive", true), ("Notes", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("ProductId", ProductId), ("WarehouseId", WarehouseId), ("MinStock", MinStock), ("MaxStock", MaxStock), ("ReorderPoint", ReorderPoint), ("IsDefault", IsDefault), ("IsActive", true), ("Notes", DBNull.Value));
+
+            Module.Commit();
+        }
+
+        AddWarehouse(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine")), MainWarehouseId, 2.0000m, 20.0000m, 5.0000m, true);
+        AddWarehouse(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Espresso Beans")), RetailStoreId, 5.0000m, 80.0000m, 15.0000m, true);
+    }
+    static void Add_WarehouseLocation()
+    {
+        string TableName = "WarehouseLocation";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Warehouse").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblWarehouseLocation = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblWarehouseLocation);
+
+        MemTable tblWarehouse = SampleTables["Warehouse"];
+
+        void AddLocation(DataRow WarehouseRow, string Code, string Name, string Zone, string Aisle, string Rack, string Shelf, string Bin)
+        {
+            object WarehouseId = WarehouseRow["Id"];
+            object Id = Sys.GenId();
+
+            Module.Edit(WarehouseId);
+            tblWarehouseLocation = Module.GetTable(TableName);
+
+            AddRow(tblWarehouseLocation, ("Id", Id), ("WarehouseId", WarehouseId), ("Code", Code), ("Name", Name), ("Zone", Zone), ("Aisle", Aisle), ("Rack", Rack), ("Shelf", Shelf), ("Bin", Bin), ("IsActive", true), ("Notes", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("WarehouseId", WarehouseId), ("Code", Code), ("Name", Name), ("Zone", Zone), ("Aisle", Aisle), ("Rack", Rack), ("Shelf", Shelf), ("Bin", Bin), ("IsActive", true), ("Notes", DBNull.Value));
+
+            Module.Commit();
+        }
+
+        AddLocation(tblWarehouse.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Main Warehouse")), "LOC-A-01-01", "Zone A Rack 01", "A", "01", "01", "01", "A-01-01");
+        AddLocation(tblWarehouse.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Retail Store")), "LOC-R-01-01", "Retail Shelf 01", "R", "01", "01", "01", "R-01-01");
+    }
+    static void Add_BillOfMaterialLine()
+    {
+        string TableName = "BillOfMaterialLine";
+        if (!Store.TableExists(TableName) || !Store.TableIsEmpty(TableName))
+            return;
+
+        DataModule Module = DataRegistry.Modules.Get("Product").Create();
+        MemTable tblSource = new() { TableName = TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        MemTable tblBillOfMaterialLine = Module.GetTable(TableName);
+        tblSource.CopyColumnsFrom(tblBillOfMaterialLine);
+
+        MemTable tblProduct = SampleTables["Product"];
+        MemTable tblBillOfMaterial = SampleTables["BillOfMaterial"];
+
+        DataRow BillOfMaterialRow = tblBillOfMaterial.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine Bundle"));
+        DataRow CoffeeMachineRow = tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine"));
+        DataRow EspressoBeansRow = tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Espresso Beans"));
+        object ProductId = CoffeeMachineRow["Id"];
+        object BillOfMaterialId = BillOfMaterialRow["Id"];
+        object Id = Sys.GenId();
+
+        Module.Edit(ProductId);
+        tblBillOfMaterialLine = Module.GetTable(TableName);
+
+        AddRow(tblBillOfMaterialLine, ("Id", Id), ("BillOfMaterialId", BillOfMaterialId), ("ProductId", EspressoBeansRow["Id"]), ("Quantity", 1.0000m), ("Notes", DBNull.Value));
+        AddRow(tblSource, ("Id", Id), ("BillOfMaterialId", BillOfMaterialId), ("ProductId", EspressoBeansRow["Id"]), ("Quantity", 1.0000m), ("Notes", DBNull.Value));
+
+        Module.Commit();
+    }
+    
+    static void AddSampleDataInternal()
+    {
         Add_CustomerCategory();
         Add_SupplierCategory();
         Add_ProductBrand();
@@ -1010,26 +1698,61 @@ static internal partial class AppHost
         Add_Language();
         Add_PersonRoleType();
         Add_StockReason();
+        Add_ContactType();
+        Add_AssetCategory();
+        Add_AssetLocation();
+        Add_AssetDepreciationMethod();
+        Add_ProductDimension();
+        Add_ProductAttributeGroup();
         Add_PriceListType();
         Add_TaxCategory();
         Add_FiscalPeriod();
         Add_DocumentType();
         Add_Person();
         Add_Category();
+        Add_FixedAsset();
+        Add_ProductDimensionValue();
         Add_CompanyBranch();
         Add_CompanyBankAccount();
         Add_PersonRole();
         Add_CostCenter();
         Add_Product();
+        Add_PersonAddress();
+        Add_PersonContact();
+        Add_PersonBankAccount();
+        Add_AssetAssignment();
+        Add_AssetMaintenance();
+        Add_AssetDocument();
+        Add_AssetInsurance();
         Add_PriceList();
         Add_ProductGroups();
         Add_Warehouse();
         Add_Project();
         Add_ProductCategory();
         Add_ProductUnitOfMeasure();
-        
-        
-        
+        Add_ProductBarcode();
+        Add_ProductSupplier();
+        Add_BillOfMaterial();
+        Add_CashAccount();
+        Add_ProductImage();
+        Add_ProductAttribute();
+        Add_ProductWarehouse();
+        Add_WarehouseLocation();
+        Add_BillOfMaterialLine();
+    }
+
+    static public async Task AddSampleDataAsync()
+    {
+        bool Flag = Db.Settings.LogSqlStatements;
+        Db.Settings.LogSqlStatements = false;
+        try
+        {
+            await Task.Run(AddSampleDataInternal);
+        }
+        finally
+        {
+            Db.Settings.LogSqlStatements = Flag;
+        }
     }
     
     // ● default initial data - added always
@@ -1037,12 +1760,16 @@ static internal partial class AppHost
     {
         Dictionary<string, string> Result = [];
 
+        Result["BillOfMaterial"] = "BOM-XXXXXX";
+        Result["CashAccount"] = "CASH-XXXXXX";
         Result["Company"] = "XXXXXX";
-        Result["CompanyBranch"] = "XXXXXX";
+        Result["FixedAsset"] = "AST-XXXXXX";
+        Result["PersonAddress"] = "ADR-XXXXXX";
         Result["Product"] = "XXXXXX";
         Result["Project"] = "XXXXXX";
         Result["SalesPerson"] = "XXXXXX";
         Result["Warehouse"] = "XXXXXX";
+        Result["WarehouseLocation"] = "LOC-XXXXXX";
 
         return Result;
     }

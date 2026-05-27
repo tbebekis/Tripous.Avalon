@@ -399,6 +399,90 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
+    void RegisterTable_ContactType()
+    {
+        string TableName = "ContactType";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    Name                @NVARCHAR(96) @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_AssetCategory()
+    {
+        string TableName = "AssetCategory";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    Name                @NVARCHAR(96) @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_AssetLocation()
+    {
+        string TableName = "AssetLocation";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    Name                @NVARCHAR(96) @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL 
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_AssetDepreciationMethod()
+    {
+        string TableName = "AssetDepreciationMethod";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    Name                @NVARCHAR(96) @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL 
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_ProductDimension()
+    {
+        string TableName = "ProductDimension";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_ProductAttributeGroup()
+    {
+        string TableName = "ProductAttributeGroup";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    DisplayOrder int default 0 @NOT_NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
     void RegisterTable_PriceListType()
     {
         string TableName = "PriceListType";
@@ -578,7 +662,7 @@ CREATE TABLE {TableName} (
         string SqlText = $@"
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,           -- XXXXXX
+    Code @NVARCHAR(40) @NOT_NULL,            
 
     Name @NVARCHAR(96) @NOT_NULL,
     Title @NVARCHAR(160) @NULL,
@@ -658,6 +742,60 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
+    void RegisterTable_FixedAsset()
+    {
+        string TableName = "FixedAsset";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code                @NVARCHAR(40) @NOT_NULL, -- Code [AST-XXXXXX]
+    Name                @NVARCHAR(96) @NOT_NULL,
+
+    AssetCategoryId     @NVARCHAR(40) @NOT_NULL, -- Lookup
+    AssetLocationId     @NVARCHAR(40) @NOT_NULL, -- Lookup
+    AssetDepreciationMethodId   @NVARCHAR(40) @NULL,         -- Lookup
+
+    PurchaseDate           @DATE @NULL,
+    PurchaseValue          @DECIMAL_(18, 4) @NULL,
+
+    UsefulLifeMonths       int @NULL,
+    DepreciationRate       @DECIMAL_(18, 4) @NULL,    
+
+    SerialNumber        @NVARCHAR(96) @NULL,
+    Manufacturer        @NVARCHAR(96) @NULL,
+    Model               @NVARCHAR(96) @NULL,
+
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (AssetCategoryId) REFERENCES AssetCategory(Id),
+    FOREIGN KEY (AssetLocationId) REFERENCES AssetLocation(Id),
+    FOREIGN KEY (AssetDepreciationMethodId) REFERENCES AssetDepreciationMethod(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_ProductDimensionValue()
+    {
+        string TableName = "ProductDimensionValue";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    ProductDimensionId @NVARCHAR(40) @NOT_NULL,   -- Master
+
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    FOREIGN KEY (ProductDimensionId) REFERENCES ProductDimension(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
     void RegisterTable_CompanyBranch()
     {
         string TableName = "CompanyBranch";
@@ -665,13 +803,13 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id  @NVARCHAR(40)  @NOT_NULL primary key,
     CompanyId @NVARCHAR(40) @NOT_NULL,          -- Master
-    Code @NVARCHAR(40) @NOT_NULL,               -- Code BR-XXXXXX
+    Code @NVARCHAR(40) @NOT_NULL,                
     Name @NVARCHAR(96) @NOT_NULL,
     AddressLine1 @NVARCHAR(160) @NULL,
     AddressLine2 @NVARCHAR(160) @NULL,
     City @NVARCHAR(96) @NULL,
     PostalCode @NVARCHAR(16) @NULL,
-    CountryId @NVARCHAR(40) @NOT_NULL,          -- Lookup
+    CountryId @NVARCHAR(40) @NOT_NULL,          -- Locator
     Phone @NVARCHAR(32) @NULL,
     Email @NVARCHAR(96) @NULL,
     IsPrimary int default 0 @NOT_NULL,
@@ -803,6 +941,176 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (CategoryId) REFERENCES Category(Id),
     FOREIGN KEY (VatRateId) REFERENCES VatRate(Id),
     FOREIGN KEY (PrimaryUnitOfMeasureId) REFERENCES UnitOfMeasure(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_PersonAddress()
+    {
+        string TableName = "PersonAddress";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    PersonId            @NVARCHAR(40) @NOT_NULL, -- Master
+    AddressTypeId       int @NOT_NULL,      -- Enum AddressType
+    Code                @NVARCHAR(40) @NULL,     -- Code [ADR-XXXXXX]
+
+    Name                @NVARCHAR(96) @NULL,
+    CountryId           @NVARCHAR(40) @NULL,     -- Lookup
+    Region              @NVARCHAR(96) @NULL,
+    City                @NVARCHAR(96) @NULL,
+    PostalCode          @NVARCHAR(40) @NULL,
+
+    AddressLine1        @NVARCHAR(96) @NULL,
+    AddressLine2        @NVARCHAR(96) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
+    FOREIGN KEY (CountryId) REFERENCES Country(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_PersonContact()
+    {
+        string TableName = "PersonContact";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    PersonId            @NVARCHAR(40) @NOT_NULL, -- Master
+    ContactTypeId       @NVARCHAR(40) @NOT_NULL, -- Lookup
+
+    Name                @NVARCHAR(96) @NOT_NULL,
+    JobTitle            @NVARCHAR(96) @NULL,
+
+    Phone               @NVARCHAR(40) @NULL,
+    Mobile              @NVARCHAR(40) @NULL,
+    Email               @NVARCHAR(96) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
+    FOREIGN KEY (ContactTypeId) REFERENCES ContactType(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_PersonBankAccount()
+    {
+        string TableName = "PersonBankAccount";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    PersonId            @NVARCHAR(40) @NOT_NULL, -- Master
+
+    BankId              @NVARCHAR(40) @NOT_NULL, -- Lookup
+    Name                @NVARCHAR(96) @NOT_NULL,
+
+    Iban                @NVARCHAR(40) @NULL,
+    SwiftCode           @NVARCHAR(40) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
+    FOREIGN KEY (BankId) REFERENCES Bank(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_AssetAssignment()
+    {
+        string TableName = "AssetAssignment";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    FixedAssetId        @NVARCHAR(40) @NOT_NULL, -- Master
+
+    PersonId            @NVARCHAR(40) @NULL,     -- Locator Person
+
+    AssignmentDate      @DATE @NULL,
+    ReturnDate          @DATE @NULL,
+
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (FixedAssetId) REFERENCES FixedAsset(Id),
+    FOREIGN KEY (PersonId) REFERENCES Person(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_AssetMaintenance()
+    {
+        string TableName = "AssetMaintenance";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    FixedAssetId        @NVARCHAR(40) @NOT_NULL, -- Master
+
+    Date                @DATE @NOT_NULL,
+    Description         @NVARCHAR(255) @NOT_NULL,
+
+    Cost                @DECIMAL_(18, 4) @NULL,
+
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (FixedAssetId) REFERENCES FixedAsset(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_AssetDocument()
+    {
+        string TableName = "AssetDocument";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    FixedAssetId        @NVARCHAR(40) @NOT_NULL, -- Master
+
+    Name                @NVARCHAR(96) @NOT_NULL,
+    FileName            @NVARCHAR(255) @NULL,
+    Description         @NVARCHAR(255) @NULL,
+
+    BlobText            @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (FixedAssetId) REFERENCES FixedAsset(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_AssetInsurance()
+    {
+        string TableName = "AssetInsurance";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    FixedAssetId @NVARCHAR(40) @NOT_NULL,         -- Master
+
+    PolicyNumber @NVARCHAR(96) @NULL,
+
+    StartDate @DATE @NULL,
+    EndDate @DATE @NULL,
+
+    Amount @DECIMAL_(18, 4) @NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    Notes @NBLOB_TEXT @NULL,
+
+    FOREIGN KEY (FixedAssetId) REFERENCES FixedAsset(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -996,6 +1304,229 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
+    void RegisterTable_ProductBarcode()
+    {
+        string TableName = "ProductBarcode";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    ProductId           @NVARCHAR(40) @NOT_NULL, -- Master
+
+    Barcode             @NVARCHAR(512) @NOT_NULL,
+    Name                @NVARCHAR(96) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_ProductSupplier()
+    {
+        string TableName = "ProductSupplier";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    ProductId           @NVARCHAR(40) @NOT_NULL, -- Master
+
+    SupplierId          @NVARCHAR(40) @NOT_NULL, -- Locator Person
+    SupplierCode        @NVARCHAR(96) @NULL,
+
+    LeadDays            int @NULL,
+    LastCost            @DECIMAL_(18, 4) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (SupplierId) REFERENCES Person(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_BillOfMaterial()
+    {
+        string TableName = "BillOfMaterial";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    ProductId           @NVARCHAR(40) @NOT_NULL, -- Master
+
+    Code                @NVARCHAR(40) @NOT_NULL, -- Code [BOM-XXXXXX]
+    Name                @NVARCHAR(96) @NOT_NULL,
+
+    Quantity            @DECIMAL_(18, 4) @NOT_NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_CashAccount()
+    {
+        string TableName = "CashAccount";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code                @NVARCHAR(40) @NOT_NULL, -- Code [CASH-XXXXXX]
+    Name                @NVARCHAR(96) @NOT_NULL,
+
+    CurrencyId          @NVARCHAR(40) @NOT_NULL, -- Lookup
+    CompanyBranchId     @NVARCHAR(40) @NULL,     -- Lookup
+
+    Balance             @DECIMAL_(18, 4) @NULL,
+
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
+    FOREIGN KEY (CompanyBranchId) REFERENCES CompanyBranch(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_ProductImage()
+    {
+        string TableName = "ProductImage";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    ProductId @NVARCHAR(40) @NOT_NULL,            -- Master
+
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    ImageBlob @BLOB @NULL,
+
+    IsDefault @BOOL default 0 @NOT_NULL,
+    IsActive @BOOL default 1 @NOT_NULL,
+    DisplayOrder int default 0 @NOT_NULL,
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_ProductAttribute()
+    {
+        string TableName = "ProductAttribute";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    ProductId @NVARCHAR(40) @NOT_NULL,              -- Master
+    ProductAttributeGroupId @NVARCHAR(40) @NULL,    -- Lookup
+
+    Name @NVARCHAR(96) @NOT_NULL,
+    TypeId int @NOT_NULL,                           -- Enum ProductAttributeType -- Text, Integer, Decimal, Option
+    TextValue @NVARCHAR(512) @NOT_NULL,
+
+    UnitOfMeasure @NVARCHAR(30) @NULL,
+
+    DisplayOrder int default 0 @NOT_NULL,
+    IsSpec @BOOL default 1 @NOT_NULL,
+    IsFilter @BOOL default 0 @NOT_NULL,
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    CONSTRAINT UQ_{TableName}_Product_Name UNIQUE (ProductId, Name),
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (ProductAttributeGroupId) REFERENCES ProductAttributeGroup(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_ProductWarehouse()
+    {
+        string TableName = "ProductWarehouse";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    ProductId           @NVARCHAR(40) @NOT_NULL, -- Master
+
+    WarehouseId         @NVARCHAR(40) @NOT_NULL, -- Lookup
+
+    MinStock            @DECIMAL_(18, 4) @NULL,
+    MaxStock            @DECIMAL_(18, 4) @NULL,
+    ReorderPoint        @DECIMAL_(18, 4) @NULL,
+
+    IsDefault           @BOOL default 0 @NOT_NULL,
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_WarehouseLocation()
+    {
+        string TableName = "WarehouseLocation";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    WarehouseId         @NVARCHAR(40) @NOT_NULL, -- Master
+
+    Code                @NVARCHAR(40) @NOT_NULL, -- Code [LOC-XXXXXX]
+    Name                @NVARCHAR(96) @NOT_NULL,
+
+    Zone                @NVARCHAR(40) @NULL,
+    Aisle               @NVARCHAR(40) @NULL,
+    Rack                @NVARCHAR(40) @NULL,
+    Shelf               @NVARCHAR(40) @NULL,
+    Bin                 @NVARCHAR(40) @NULL,
+
+    IsActive            @BOOL default 1 @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+ 
+
+    FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_BillOfMaterialLine()
+    {
+        string TableName = "BillOfMaterialLine";
+        string SqlText = $@"
+CREATE TABLE {TableName}
+(
+    Id                  @NVARCHAR(40) @NOT_NULL primary key,
+    BillOfMaterialId    @NVARCHAR(40) @NOT_NULL, -- Master
+
+    ProductId           @NVARCHAR(40) @NOT_NULL, -- Locator Product
+
+    Quantity            @DECIMAL_(18, 4) @NOT_NULL,
+    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+
+    FOREIGN KEY (BillOfMaterialId) REFERENCES BillOfMaterial(Id),
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
+)
+";
+        Version.AddTable(SqlText);
+    }
 
     // ● protected
     protected override void RegisterInternal()
@@ -1022,6 +1553,12 @@ CREATE TABLE {TableName} (
         RegisterTable_Language();
         RegisterTable_PersonRoleType();
         RegisterTable_StockReason();
+        RegisterTable_ContactType();
+        RegisterTable_AssetCategory();
+        RegisterTable_AssetLocation();
+        RegisterTable_AssetDepreciationMethod();
+        RegisterTable_ProductDimension();
+        RegisterTable_ProductAttributeGroup();
         RegisterTable_PriceListType();
         RegisterTable_Company();
         RegisterTable_TaxCategory();
@@ -1029,17 +1566,35 @@ CREATE TABLE {TableName} (
         RegisterTable_DocumentType();
         RegisterTable_Person();
         RegisterTable_Category();
+        RegisterTable_FixedAsset();
+        RegisterTable_ProductDimensionValue();
         RegisterTable_CompanyBranch();
         RegisterTable_CompanyBankAccount();
         RegisterTable_PersonRole();
         RegisterTable_CostCenter();
         RegisterTable_Product();
+        RegisterTable_PersonAddress();
+        RegisterTable_PersonContact();
+        RegisterTable_PersonBankAccount();
+        RegisterTable_AssetAssignment();
+        RegisterTable_AssetMaintenance();
+        RegisterTable_AssetDocument();
+        RegisterTable_AssetInsurance();
         RegisterTable_PriceList();
         RegisterTable_ProductGroups();
         RegisterTable_Warehouse();
         RegisterTable_Project();
         RegisterTable_ProductCategory();
         RegisterTable_ProductUnitOfMeasure();
+        RegisterTable_ProductBarcode();
+        RegisterTable_ProductSupplier();
+        RegisterTable_BillOfMaterial();
+        RegisterTable_CashAccount();
+        RegisterTable_ProductImage();
+        RegisterTable_ProductAttribute();
+        RegisterTable_ProductWarehouse();
+        RegisterTable_WarehouseLocation();
+        RegisterTable_BillOfMaterialLine();
     }
 
     // ● construction

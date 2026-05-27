@@ -83,3 +83,13 @@ public enum DocStatus
     Cancelled = 5,
     Closed = 6,
 }
+
+[TypeStore]
+public enum ProductAttributeType
+{
+    None = 0,
+    Text = 1, 
+    Integer = 2, 
+    Decimal = 3, 
+    Option = 4,
+}

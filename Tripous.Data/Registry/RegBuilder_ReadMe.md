@@ -21,6 +21,158 @@ and generates:
 - table registration code
 
 ---
+ 
+# What is a Module
+
+A module represents a business object together with its complete table tree.
+
+A module always starts from one top table.
+
+The top table is identified by the `Module` header metadata.
+
+Example:
+
+```text
+Module: Product
+````
+
+The table declaring `Module` becomes the root table of the module.
+
+All child tables belong to the same module and are connected through `Master` fields.
+
+Example:
+
+```text
+Product
+    ProductBarcode
+    ProductSupplier
+    ProductPrice
+    BillOfMaterial
+        BillOfMaterialLine
+```
+
+Rules:
+
+* only top tables declare `Module`
+* detail tables never declare `Module`
+* detail tables belong to the module automatically through `Master`
+* one module corresponds to one table tree
+
+Example:
+
+```sql
+/*---------------------------------------------------
+Table: Product
+Group: Inventory
+Module: Product
+----------------------------------------------------*/
+```
+
+```sql
+/*---------------------------------------------------
+Table: ProductBarcode
+----------------------------------------------------*/
+```
+
+```sql
+ProductId @NVARCHAR(40) @NOT_NULL, -- Master
+```
+
+`ProductBarcode` automatically becomes part of module `Product`.
+
+Lookup tables are usually standalone modules because they have no detail tables.
+
+Example:
+
+```text
+Currency
+Country
+ContactType
+VatRate
+```
+
+Conceptually:
+
+```text
+Module
+    -> top table
+    -> detail tables
+    -> forms
+    -> UI tree node
+    -> data entry object
+```
+
+---
+
+# What is a Group
+
+A group is a UI and business classification mechanism used to organize modules.
+
+Groups do not define ownership or table relationships.
+
+Groups define navigation structure.
+
+Modules belonging to the same business area are placed in the same group.
+
+Examples:
+
+```text
+Setup
+Company
+People
+Inventory
+Sales
+Purchases
+Accounting
+Finance
+Assets
+Projects
+```
+
+Example:
+
+```text
+People
+    Person
+    ContactType
+
+Inventory
+    Product
+    Warehouse
+    Category
+```
+
+Groups are used by the application to automatically build the navigation tree.
+
+Example:
+
+```text
+Inventory
+    Product
+    Warehouse
+    UnitOfMeasure
+```
+
+Rules:
+
+* only top tables declare `Group`
+* detail tables never declare `Group`
+* groups contain modules
+* groups are independent from table relationships
+
+Conceptually:
+
+```text
+Group
+    -> Module
+        -> Top Table
+            -> Detail Tables
+```
+
+ 
+
+
+---
 
 # Processing Model
 
