@@ -663,26 +663,6 @@ static internal partial class AppHost
             Module.Commit();
         }
     }
-    static void Add_DocumentType()
-    {
-        string ModuleName = "DocumentType";
-        if (!CanAdd(ModuleName, out DataModule Module))
-            return;
-
-        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
-        SampleTables[tblSource.TableName] = tblSource;
-
-        tblSource.CopyColumnsFrom(Module.tblItem);
-
-        object SalesInvoiceId = Sys.GenId();
-
-        AddRow(tblSource, ("Id", SalesInvoiceId), ("Code", "SAL-INV"), ("Name", "Sales Invoice"), ("TradeTypeId", (int)TradeType.Sales), ("NumberSeriesId", DBNull.Value), ("IsActive", true), ("AffectsStock", true), ("AffectsFinancial", true), ("AffectsAccounting", true), ("StockDirection", -1), ("FinancialDirection", 1), ("AccountingDirection", 0), ("IsCancellation", false), ("TargetDocumentTypeId", DBNull.Value), ("RequiresApproval", false), ("AutoComplete", true), ("Color", "#2563EB"), ("IconName", "FileText"), ("PrintTemplate", "SalesInvoice"), ("ReportName", "SalesInvoice"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "PUR-INV"), ("Name", "Purchase Invoice"), ("TradeTypeId", (int)TradeType.Purchases), ("NumberSeriesId", DBNull.Value), ("IsActive", true), ("AffectsStock", true), ("AffectsFinancial", true), ("AffectsAccounting", true), ("StockDirection", 1), ("FinancialDirection", -1), ("AccountingDirection", 0), ("IsCancellation", false), ("TargetDocumentTypeId", DBNull.Value), ("RequiresApproval", false), ("AutoComplete", true), ("Color", "#16A34A"), ("IconName", "FileInput"), ("PrintTemplate", "PurchaseInvoice"), ("ReportName", "PurchaseInvoice"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "RETAIL"), ("Name", "Retail Receipt"), ("TradeTypeId", (int)TradeType.Sales), ("NumberSeriesId", DBNull.Value), ("IsActive", true), ("AffectsStock", true), ("AffectsFinancial", true), ("AffectsAccounting", true), ("StockDirection", -1), ("FinancialDirection", 1), ("AccountingDirection", 0), ("IsCancellation", false), ("TargetDocumentTypeId", DBNull.Value), ("RequiresApproval", false), ("AutoComplete", true), ("Color", "#F59E0B"), ("IconName", "Receipt"), ("PrintTemplate", "RetailReceipt"), ("ReportName", "RetailReceipt"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SAL-CREDIT"), ("Name", "Sales Credit Note"), ("TradeTypeId", (int)TradeType.Sales), ("NumberSeriesId", DBNull.Value), ("IsActive", true), ("AffectsStock", true), ("AffectsFinancial", true), ("AffectsAccounting", true), ("StockDirection", 1), ("FinancialDirection", -1), ("AccountingDirection", 0), ("IsCancellation", true), ("TargetDocumentTypeId", SalesInvoiceId), ("RequiresApproval", false), ("AutoComplete", true), ("Color", "#DC2626"), ("IconName", "FileMinus"), ("PrintTemplate", "SalesCreditNote"), ("ReportName", "SalesCreditNote"), ("Remarks", DBNull.Value));
-
-        Module.BatchInsert(tblSource);
-    }
     static void Add_Person()
     {
         string ModuleName = "Person";

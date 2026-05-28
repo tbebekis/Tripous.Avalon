@@ -1,409 +1,225 @@
-# Registration Builder
+# RegBuilder
 
-`RegBuilder` parses `.sql` schema files written with the server-neutral SQL syntax of Tripous and generates Tripous registration source code.
+Parses `.sql` schema files written in Tripous neutral SQL syntax and generates Tripous registration source code.
 
-The input schema acts as a declarative ERP/module definition language.
+The input `.sql` file acts as a **declarative module definition language**.
 
-The builder reads:
-
-- table header metadata
-- field inline metadata
-- foreign key relations
-
-and generates:
-
-- ordered schema SQL
-- `ModuleDef` registrations
-- `FormDef` registrations
-- `LookupSource` registrations
-- `LocatorDef` registrations
-- select definitions
-- table registration code
+**Reads:** table headers · field inline metadata · foreign key relations  
+**Generates:** ordered schema SQL · `ModuleDef` · `FormDef` · `LookupSource` · `LocatorDef` · select definitions · table registration code
 
 ---
- 
-# What is a Module
 
-A module represents a business object together with its complete table tree.
 
-A module always starts from one top table.
+## Quick Overview
 
-The top table is identified by the `Module` header metadata.
-
-Example:
-
-```text
-Module: Product
-````
-
-The table declaring `Module` becomes the root table of the module.
-
-All child tables belong to the same module and are connected through `Master` fields.
-
-Example:
-
-```text
-Product
-    ProductBarcode
-    ProductSupplier
-    ProductPrice
-    BillOfMaterial
-        BillOfMaterialLine
+```
+Input:  .sql file with special comments (metadata)
+          ↓
+RegBuilder
+          ↓
+Output: • Ordered CREATE TABLE SQL (RDBMS-neutral)
+        • C# registration code
+        • Module/Form/Lookup/Locator definitions
 ```
 
-Rules:
+**Key features:**
+- RDBMS-neutral type tokens (`@NVARCHAR`, `@DECIMAL`, `@DATE_TIME`, etc.)
+- Automatic dependency resolution (correct table creation order)
+- Metadata-driven module/group organization
+- Built-in support for Lookups, Locators, Enums, and Auto-code fields
 
-* only top tables declare `Module`
-* detail tables never declare `Module`
-* detail tables belong to the module automatically through `Master`
-* one module corresponds to one table tree
+---
 
-Example:
+## The Input Schema File
+
+### Anatomy of a Table Definition
 
 ```sql
 /*---------------------------------------------------
 Table: Product
 Group: Inventory
 Module: Product
-----------------------------------------------------*/
-```
-
-```sql
-/*---------------------------------------------------
-Table: ProductBarcode
-----------------------------------------------------*/
-```
-
-```sql
-ProductId @NVARCHAR(40) @NOT_NULL, -- Master
-```
-
-`ProductBarcode` automatically becomes part of module `Product`.
-
-Lookup tables are usually standalone modules because they have no detail tables.
-
-Example:
-
-```text
-Currency
-Country
-ContactType
-VatRate
-```
-
-Conceptually:
-
-```text
-Module
-    -> top table
-    -> detail tables
-    -> forms
-    -> UI tree node
-    -> data entry object
-```
-
----
-
-# What is a Group
-
-A group is a UI and business classification mechanism used to organize modules.
-
-Groups do not define ownership or table relationships.
-
-Groups define navigation structure.
-
-Modules belonging to the same business area are placed in the same group.
-
-Examples:
-
-```text
-Setup
-Company
-People
-Inventory
-Sales
-Purchases
-Accounting
-Finance
-Assets
-Projects
-```
-
-Example:
-
-```text
-People
-    Person
-    ContactType
-
-Inventory
-    Product
-    Warehouse
-    Category
-```
-
-Groups are used by the application to automatically build the navigation tree.
-
-Example:
-
-```text
-Inventory
-    Product
-    Warehouse
-    UnitOfMeasure
-```
-
-Rules:
-
-* only top tables declare `Group`
-* detail tables never declare `Group`
-* groups contain modules
-* groups are independent from table relationships
-
-Conceptually:
-
-```text
-Group
-    -> Module
-        -> Top Table
-            -> Detail Tables
-```
-
- 
-
-
----
-
-# Processing Model
-
-The source `.sql` file is the declarative input.
-
-The builder:
-
-- parses table headers, fields and foreign keys
-- resolves table dependencies
-- calculates table creation order
-- rebuilds the schema SQL in dependency order
-- injects generated `CreationOrder` metadata into the rebuilt headers
-- generates Tripous registration source code
-
-`CreationOrder` is generated output metadata.
-
-It is not required in the initial input schema.
-
-The rebuilt ordered schema is returned through:
-
-```text
-SchemaParserResult.SchemaSql
-```
-
----
-
-# Schema Structure
-
-Each table consists of:
-
-- one metadata header
-- one `CREATE TABLE` statement
-- field definitions
-- optional inline field metadata
-- foreign keys
-
-Conceptually:
-
-```text
-Table Header
-CREATE TABLE
-Field Definitions
-Inline Metadata
-Foreign Keys
-```
-
----
-
-# Table Header Metadata
-
-## Input Header Syntax
-
-```sql
-/*---------------------------------------------------
-Table: TABLE_NAME
-Group: GROUP_NAME
-Module: Default|MODULE_NAME [MODULE_CLASS_NAME]
-Form: Default|FORM_NAME [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
-
-IsLookup
-NotUiVisible
-IsReadOnly
-
-IsSingleSelect
-NoFilters
-NoCascadeDeletes
-NoGuidOids
+Form: Default
 -----------------------------------------------------
-    comments / examples
+Description of what this table represents
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Code @NVARCHAR(40) @NOT_NULL,           -- Code [PRD-XXXX]
+    Name @NVARCHAR(96) @NOT_NULL,
+    CategoryId @NVARCHAR(40) @NOT_NULL,     -- Lookup
+    Price @DECIMAL @NOT_NULL,
+    IsActive @BOOL DEFAULT 1 @NOT_NULL,
+    CreatedAt @DATE_TIME @NOT_NULL,
+
+    FOREIGN KEY (CategoryId) REFERENCES Category(Id)
+);
+```
+
+
+## Core Concepts
+
+### Group
+
+UI/navigation classification. Organizes modules into business areas. Does **not** define table relationships.
+
+```
+People       → Person, ContactType
+Inventory    → Product, Warehouse, Category
+Sales        → Trade, Customer
+```
+
+Only **top tables** declare `Group`.
+
+### Module
+
+A business object with its complete table tree. Always has one **top table** (declares `Module`) and zero or more **detail tables** (connected via `Master` field).
+
+```
+Product               ← top table (declares Module)
+    ProductBarcode    ← detail (Master field → Product)
+    ProductSupplier
+    ProductPrice
+    BillOfMaterial
+        BillOfMaterialLine
+```
+
+Only top tables declare `Module` and `Group`.  
+Lookup tables are typically standalone single-table modules.
+
+**Hierarchy:**
+```
+Group → Module → Top Table → Detail Tables
+```
+
+---
+
+## Processing
+
+1. Parses table headers, fields, and foreign keys
+2. Resolves dependencies and calculates creation order
+3. Rebuilds schema SQL in dependency order
+4. Injects `CreationOrder` into rebuilt headers
+5. Generates Tripous registration source code
+
+Result available at `SchemaParserResult.SchemaSql`.
+
+> `CreationOrder` is **generated output** — not required in the input schema.
+
+---
+
+## Schema Structure
+
+Each table block contains:
+
+```
+/*--- header metadata ---*/
+CREATE TABLE {TableName} (
+    field definitions    -- METADATA -- comment
+    foreign keys
+)
+```
+
+---
+
+## Header Syntax
+
+```sql
+/*---------------------------------------------------
+Table:  TABLE_NAME
+Group:  GROUP_NAME
+Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
+Form:   Default | FORM_NAME  [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+
+IsLookup | NotUiVisible | IsReadOnly
+IsSingleSelect | NoFilters | NoCascadeDeletes | NoGuidOids
+-----------------------------------------------------
+  comments / examples
 ----------------------------------------------------*/
 ```
 
-## Generated Header Metadata
+### Required
+- `Table` — always required
 
-The builder adds:
+### Top-table only
+- `Module`, `Group`, `Form`
 
-```text
-CreationOrder: NUMBER
+### Boolean flags
+Presence = `true`, absence = `false`.
+
+| Flag               | Default   |
+| ------------------ | --------- |
+| `IsLookup`         | heuristic |
+| `NotUiVisible`     | false     |
+| `IsReadOnly`       | false     |
+| `IsSingleSelect`   | false     |
+| `NoFilters`        | false     |
+| `NoCascadeDeletes` | false     |
+| `NoGuidOids`       | false     |
+
+### Module syntax
 ```
-
-to the rebuilt ordered schema returned by `SchemaParserResult.SchemaSql`.
-
-## Required Input Metadata
-
-- `Table`
-
-## Top Table Metadata
-
-Only top tables use:
-
-- `Module`
-- `Group`
-- `Form`
-
-## Optional Top Table Metadata
-
-- `Form`
-- `IsLookup`
-- `NotUiVisible`
-- `IsReadOnly`
-- `IsSingleSelect`
-- `NoFilters`
-- `NoCascadeDeletes`
-- `NoGuidOids`
-
----
-
-# Header Boolean Flags
-
-Boolean header options are presence flags.
-
-Examples:
-
-```text
-IsLookup
-NotUiVisible
-IsReadOnly
-IsSingleSelect
-NoFilters
-NoCascadeDeletes
-NoGuidOids
-```
-
-Meaning:
-
-```text
-existence = true
-absence = false
-```
-
----
-
-# Default Values
-
-Default module values:
-
-```text
-UiVisible = true
-IsReadOnly = false
-IsSingleSelect = false
-UseFilters = true
-CascadeDeletes = true
-GuidOids = true
-```
-
-`IsLookup` is determined by heuristic unless explicitly declared.
-
-Lookup is a table property, not a module property.
-
----
-
-# Module Header Rules
-
-## Syntax
-
-```text
-Module: Default|MODULE_NAME [MODULE_CLASS_NAME]
-```
-
-## Default Module
-
-`Default` means:
-
-```text
-ModuleName = TableName
-```
-
-## Examples
-
-```text
-Module: Default
-
+Module: Default                        → ModuleName = TableName
 Module: Default LogDataModule
-
 Module: Customer
-
 Module: Customer CustomerDataModule
 ```
+If `ModuleClassName` is omitted → default `DataModule` type.
 
-If `ModuleClassName` is omitted, generated code uses the default `DataModule` type.
-
----
-
-# Form Header Rules
-
-## Syntax
-
-```text
-Form: Default|FORM_NAME [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+### Form syntax
 ```
-
-## Default Form
-
-`Default` means:
-
-```text
-FormName = ModuleName
-```
-
-## Examples
-
-```text
-Form: Default
-
+Form: Default                          → FormName = ModuleName
 Form: Default LogDataForm
-
 Form: Default LogDataForm LogItemPage
-
-Form: Customer
-
 Form: Customer CustomerDataForm CustomerItemPage
 ```
-
-If `Form` is omitted, the builder uses its current/default form registration behavior.
-
-If `FormClassName` is omitted, generated code uses the default `DataForm` type.
-
-If `ItemPageClassName` is omitted, generated code uses the default `ItemPage` type.
+If `Form` is omitted → default form registration behavior.  
+If class names are omitted → default `DataForm` / `ItemPage` types.
 
 ---
 
-# Lookup Rules
+## Field Metadata Syntax
 
-## Lookup Tables
+```sql
+FieldName TYPE, -- METADATA -- plain comment
+```
 
-A table is lookup when:
+The first `--` begins metadata. A second `--` separates metadata from plain comment.
 
-- the header contains `IsLookup`
-- or it is a top table and its native fields are exactly one of:
+```sql
+CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
+```
 
-```text
+### Metadata keywords
+
+| Keyword     | Syntax                          | Meaning                                             |
+| ----------- | ------------------------------- | --------------------------------------------------- |
+| `Master`    | `Master` / `Master OneToOne`    | FK to parent table. `OneToOne` = single-row detail. |
+| `Lookup`    | `Lookup [SourceName]`           | Small in-memory reference selector                  |
+| `Enum`      | `Enum [EnumName]`               | Enum-backed selector                                |
+| `Locator`   | `Locator [LocatorName]`         | Searchable large reference selector                 |
+| `Code`      | `Code [Pattern] [ProviderName]` | Auto-generated code field                           |
+| `LargeMemo` | `LargeMemo`                     | Text blob with LargeMemo flag                       |
+
+**Name resolution when omitted:**
+
+| Keyword         | Default name                 |
+| --------------- | ---------------------------- |
+| `Lookup`        | FK referenced table          |
+| `Enum`          | field name minus `Id` suffix |
+| `Locator`       | FK referenced table          |
+| `Code` Provider | TableName                    |
+| `Code` Pattern  | `XXX-XXX`                    |
+
+---
+
+## Lookup
+
+A table is identified as **lookup** when:
+- header contains `IsLookup`, **or**
+- it is a top table whose native fields match exactly one of:
+
+```
 Id, Name
 Id, Code, Name
 Id, Name, IsActive
@@ -412,502 +228,153 @@ Id, Code, Name, IsActive
 
 Explicit `IsLookup` overrides the heuristic.
 
-## Lookup Fields
-
-A field becomes a lookup field when its first inline metadata comment contains:
-
-```text
-Lookup
-```
-
-Extended syntax:
-
-```text
-Lookup [LookupSourceName]
-```
-
-Examples:
-
-```sql
-CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup
-```
-
-```sql
-CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup Currency
-```
-
-Rules:
-
-```text
-LookupSourceName omitted
-    => FK.ReferenceTable
-
-LookupSourceName specified
-    => explicit lookup source name
-```
-
-Lookup fields are intended for small in-memory reference datasets.
-
-Lookup source forms are resolved automatically from the referenced table metadata.
-
-Conceptually:
-
-```text
-LookupSource
-    -> TableName
-    -> Table Form
-    -> LookupSource.Form
-```
-
-## Lookup Registration
-
-A `LookupSource` registration is generated when:
-
-- a table is identified as lookup
-- a field is declared with `Lookup` metadata
-
-Therefore lookup registration is generated when any of the following is true:
-
-- the table header contains `IsLookup`
-- the table matches the lookup field heuristic
-- a field contains `-- Lookup`
-- a field contains `-- Lookup [LookupSourceName]`
+A **LookupSource** registration is generated when any of the following is true:
+- table is identified as lookup
+- any field declares `-- Lookup` or `-- Lookup [SourceName]`
 
 ---
-
-# Enum Rules
-
-A field becomes an enum-backed selector when its first inline metadata comment contains:
-
-```text
-Enum
-```
-
-Extended syntax:
-
-```text
-Enum [EnumName]
-```
-
-Rules:
-
-```text
-EnumName omitted
-    => field name without Id suffix
-```
-
----
-
-# Locator Rules
-
-## Locator Fields
-
-A field becomes a locator field when its first inline metadata comment contains:
-
-```text
-Locator
-```
-
-Extended syntax:
-
-```text
-Locator [LocatorName]
-```
-
-Examples:
-
-```sql
-CustomerId @NVARCHAR(40) @NULL, -- Locator
-```
-
-```sql
-CustomerId @NVARCHAR(40) @NULL, -- Locator PersonCustomer
-```
-
-Rules:
-
-```text
-LocatorName omitted
-    => FK.ReferenceTable
-
-LocatorName specified
-    => explicit locator definition name
-```
-
-Locator forms are resolved automatically from the referenced table metadata.
-
-Conceptually:
-
-```text
-LocatorDef
-    -> SourceTableName
-    -> Table Form
-    -> LocatorDef.Form
-```
-
-## Locator Registration
-
-The builder performs base locator registration only.
-
-Complex locator behavior is intentionally left to the application developer.
-
-Usually the developer additionally configures:
-
-- `LocatorFieldDefs`
-- `SelectSql`
-- custom joins
-- custom search behavior
-- custom return fields
-
-The builder provides the registration infrastructure, not a complete locator implementation.
-
-## Locator Joins
-
-When a field has `-- Locator`, the builder uses its foreign key to find the referenced table.
-
-Example:
-
-```sql
-ProductId @NVARCHAR(40) @NOT_NULL, -- Locator
-
-FOREIGN KEY (ProductId) REFERENCES Product(Id)
-```
-
-The builder creates a join from the owning table to the referenced table.
-
-Conceptual generated join:
-
-```text
-OwnKeyField = ProductId
-ForeignTable = Product
-ForeignAlias = Product
-ForeignPrimaryKey = Id
-```
-
-If the same foreign table is joined more than once, aliases are required.
-
-Example:
-
-```text
-CustomerId      -> Customer
-ManagerId       -> Manager
-SalesPersonId   -> SalesPerson
-```
-
-The alias acts as a namespace for generated extra fields.
-
-## Locator Extra Fields
-
-Locator returned fields are materialized as extra fields in the owning `TableDef`.
-
-Naming convention:
-
-```text
-JoinAlias__SourceField
-```
-
-Example:
-
-```text
-Product__Code
-Product__Name
-```
-
-Meaning:
-
-```text
-ProductId      <- Product.Id
-Product__Code  <- Product.Code
-Product__Name  <- Product.Name
-```
-
-`ProductId` is persisted.
-
-Alias-based extra fields are non-persistent display/runtime fields.
-
-## Locator In Forms
-
-A locator field is displayed using a searchable locator control.
-
-Example:
-
-```sql
-CustomerId @NVARCHAR(40) @NULL, -- Locator
-```
-
-may display:
-
-```text
-Customer.Code
-Customer.Name
-```
-
-User selection writes:
-
-```text
-CustomerId <- Customer.Id
-```
-
-and updates extra alias-based fields.
-
-## Locator In Grids
-
-Raw FK fields are normally hidden.
-
-Example generated fields:
-
-```text
-ProductId
-Product__Code
-Product__Name
-```
-
-Grid displays:
-
-```text
-Product__Code
-Product__Name
-```
-
-instead of the raw FK value.
-
----
-
-# Field Metadata
-
-Field inline comments may contain both metadata and plain comments.
-
-Syntax:
-
-```text
--- METADATA -- COMMENT
-```
-
-Example:
-
-```sql
-CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
-```
-
-Rules:
-
-```text
-text before the second --
-    => field metadata
-
-text after the second --
-    => plain field comment
-```
-
-## Master
-
-The table is a detail table and this field points to the master table.
-
-`Master OneToOne` designates a single-row detail table.
-
-## Lookup
-
-Defines a small in-memory reference selector.
-
-Syntax:
-
-```text
-Lookup [LookupSourceName]
-```
-
-If omitted:
-
-```text
-LookupSourceName
-    => FK.ReferenceTable
-```
-
-## Enum
-
-Defines an enum-backed selector.
-
-Syntax:
-
-```text
-Enum [EnumName]
-```
-
-If omitted:
-
-```text
-EnumName
-    => field name without Id suffix
-```
 
 ## Locator
 
-Defines a searchable large reference selector.
+Locator fields use a searchable control (not a simple dropdown).
 
-Syntax:
+The builder generates **base registration only**. The developer is expected to further configure:
+- `LocatorFieldDefs`
+- `SelectSql` / custom joins
+- custom search and return fields
 
-```text
-Locator [LocatorName]
+**Joins:** the builder uses the FK to find the referenced table and creates a join.  
+**Extra fields** are materialized on the owning `TableDef` using the alias convention:
+
+```
+ProductId       → persisted FK
+Product__Code   → display/runtime (non-persistent)
+Product__Name   → display/runtime (non-persistent)
 ```
 
-If omitted:
+In grids, raw FK fields are hidden; alias fields are shown instead.
 
-```text
-LocatorName
-    => FK.ReferenceTable
-```
+---
 
-## LargeMemo
-
-Generates a text blob field with `LargeMemo` flag.
-
-# Code Provider Rules
-
-A field becomes an auto-generated code field when its first inline metadata comment contains:
-
-```text
-Code
-```
-
-Extended syntax:
-
-```text
-Code
-
-Code [Pattern]
-
-Code [Pattern] [CodeProviderName]
-```
-
-Examples:
-
-```sql
-Code @NVARCHAR(40) @NOT_NULL, -- Code
-```
-
-```sql
-Code @NVARCHAR(40) @NOT_NULL, -- Code [SO-YYYY-XXXXXX]
-```
+## Code Provider
 
 ```sql
 Code @NVARCHAR(40) @NOT_NULL, -- Code [SO-YYYY-XXXXXX] [SALES_ORDER]
 ```
 
-Rules:
+Discovered providers are stored in `SchemaParserResult.CodeProviderPatterns`:
 
-```text
-Pattern omitted
-    => default pattern
-
-CodeProviderName omitted
-    => TableName
-
-CodeProviderName specified
-    => explicit code provider name
+```csharp
+Dictionary<string, string>  // Key = ProviderName, Value = Pattern
 ```
 
-Default pattern:
+Same provider name with different patterns → **parsing error**.
 
-```text
-XXX-XXX
+Generated output:
+```csharp
+FieldDef.CodeProvider = "SALES_ORDER";
+DataRegistry.AddCodeProvider("SALES_ORDER");
 ```
 
-Examples:
-
-```sql
-Customer.Code
-    -> Code
-```
-
-Result:
-
-```text
-CodeProviderName = Customer
-Pattern = XXX-XXX
-```
+On startup, missing `SYS_NumberSeries` rows are created automatically. Existing rows are never overwritten.
 
 ---
 
-```sql
-Customer.Code
-    -> Code [CUS-YYYY-XXXXXX]
-```
+# Appendix
 
-Result:
-
-```text
-CodeProviderName = Customer
-Pattern = CUS-YYYY-XXXXXX
-```
-
----
+## Header Syntax
 
 ```sql
-Order.Code
-    -> Code [SO-YYYY-XXXXXX] [SALES_ORDER]
+/*---------------------------------------------------
+Table:  TABLE_NAME
+Group:  GROUP_NAME
+Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
+Form:   Default | FORM_NAME  [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+
+IsLookup 
+NotUiVisible 
+IsReadOnly
+IsSingleSelect 
+NoFilters 
+NoCascadeDeletes 
+NoGuidOids
+-----------------------------------------------------
+  comments / examples
+----------------------------------------------------*/
 ```
 
-Result:
 
-```text
-CodeProviderName = SALES_ORDER
-Pattern = SO-YYYY-XXXXXX
+### Required
+- `Table` — always required
+
+### Top-table only
+- `Module`, `Group`, `Form`
+
+### Boolean flags
+Presence = `true`, absence = `false`.
+
+| Flag               | Default   |
+| ------------------ | --------- |
+| `IsLookup`         | heuristic |
+| `NotUiVisible`     | false     |
+| `IsReadOnly`       | false     |
+| `IsSingleSelect`   | false     |
+| `NoFilters`        | false     |
+| `NoCascadeDeletes` | false     |
+| `NoGuidOids`       | false     |
+
+
+## Field Syntax
+
+```sql
+FieldName TYPE, -- METADATA -- plain comment
 ```
 
-The builder stores discovered provider patterns in:
+The first `--` begins metadata. A second `--` separates metadata from plain comment.
 
-```text
-SchemaParserResult.CodeProviderPatterns
+```sql
+CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
 ```
 
-Type:
+### Metadata keywords
 
-```csharp
-Dictionary<string, string>
-```
+| Keyword     | Syntax                          | Meaning                                             |
+| ----------- | ------------------------------- | --------------------------------------------------- |
+| `Master`    | `Master` / `Master OneToOne`    | FK to parent table. `OneToOne` = single-row detail. |
+| `Lookup`    | `Lookup [SourceName]`           | Small in-memory reference selector                  |
+| `Enum`      | `Enum [EnumName]`               | Enum-backed selector                                |
+| `Locator`   | `Locator [LocatorName]`         | Searchable large reference selector                 |
+| `Code`      | `Code [Pattern] [ProviderName]` | Auto-generated code field                           |
+| `LargeMemo` | `LargeMemo`                     | Text blob with LargeMemo flag                       |
 
-Meaning:
+**Name resolution when omitted:**
 
-```text
-Key
-    => CodeProviderName
+| Keyword         | Default name                 |
+| --------------- | ---------------------------- |
+| `Lookup`        | FK referenced table          |
+| `Enum`          | field name minus `Id` suffix |
+| `Locator`       | FK referenced table          |
+| `Code` Provider | TableName                    |
+| `Code` Pattern  | `XXX-XXX`                    |
 
-Value
-    => Pattern
-```
 
-Example:
+## SQL Type Tokens
 
-```text
-SALES_ORDER -> SO-YYYY-XXXXXX
+RDBMS-neutral tokens replaced at `CREATE TABLE` time:
 
-Customer -> CUS-YYYY-XXXXXX
-```
-
-Builder validation rules:
-
-```text
-Same CodeProviderName with different Pattern
-    => parsing error
-```
-
-The builder generates:
-
-```csharp
-FieldDef.CodeProvider = CodeProviderName;
-```
-
-and registration code:
-
-```csharp
-DataRegistry.AddCodeProvider(CodeProviderName);
-```
-
-Application startup may later synchronize registry definitions into:
-
-```text
-SYS_NumberSeries
-```
-
-creating missing rows automatically.
-
-Existing rows are never overwritten.
+| Token            | Meaning                      |
+| ---------------- | ---------------------------- |
+| `@NVARCHAR(n)`   | Unicode string               |
+| `@VARCHAR(n)`    | ASCII string                 |
+| `@DECIMAL`       | Decimal number               |
+| `@DECIMAL_(p,s)` | Decimal with precision/scale |
+| `@FLOAT`         | Float                        |
+| `@DATE`          | Date                         |
+| `@DATE_TIME`     | DateTime                     |
+| `@BOOL`          | Boolean                      |
+| `@BLOB`          | Binary blob                  |
+| `@BLOB_TEXT`     | ASCII text blob              |
+| `@NBLOB_TEXT`    | Unicode text blob            |
+| `@NOT_NULL`      | NOT NULL constraint          |
+| `@NULL`          | NULL constraint              |
+| `@AUTO_INC`      | Auto-increment PK            |

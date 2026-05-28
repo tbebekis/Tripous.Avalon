@@ -40,6 +40,36 @@ CREATE TABLE {TableName} (
     )
 
 /*---------------------------------------------------
+Table: AppUser
+Group: Setup
+Module: AppUser
+-----------------------------------------------------
+Application users
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    UserName @NVARCHAR(64) @NOT_NULL,
+    Password @NVARCHAR(512) @NOT_NULL,
+    Salt @NVARCHAR(256) @NOT_NULL,
+
+    FullName @NVARCHAR(96) @NOT_NULL,
+
+    UserLevelId int @NOT_NULL,                     -- Enum UserLevel
+
+    Email @NVARCHAR(96) @NULL,
+    Phone @NVARCHAR(40) @NULL,
+
+    LastLoginAt @DATE_TIME @NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_UserName UNIQUE (UserName)
+    )
+
+/*---------------------------------------------------
 Table: CustomerCategory
 Module: CustomerCategory  
 Group: Sales 
@@ -597,57 +627,6 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (ResponsiblePersonId) REFERENCES Person(Id)
     )
 
-/*---------------------------------------------------
-Table: DocumentType
-Module: DocumentType
-Group: Documents
-IsLookup: true
------------------------------------------------------  
-    SAL-INV     Sales Invoice
-    PUR-INV     Purchase Invoice
-    RETAIL      Retail Receipt
-    SAL-CREDIT  Sales Credit Note
-----------------------------------------------------*/
-CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    Code @NVARCHAR(40) @NOT_NULL,                       -- business code
-    Name @NVARCHAR(96) @NOT_NULL,                       -- display title
-
-    TradeTypeId integer @NOT_NULL,                      -- Enum   -- Sales, Purchases, Warehouse, etc.
-
-    NumberSeriesId @NVARCHAR(40) @NULL,                 -- Lookup -- numbering series
-
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    AffectsStock @BOOL default 0 @NOT_NULL,             -- creates stock movements
-    AffectsFinancial @BOOL default 0 @NOT_NULL,         -- affects customer/supplier balances
-    AffectsAccounting @BOOL default 0 @NOT_NULL,        -- creates accounting entries
-
-    StockDirection integer default 0 @NOT_NULL,         -- 1=in, -1=out, 0=no stock effect
-    FinancialDirection integer default 0 @NOT_NULL,     -- 1=debit, -1=credit, 0=no effect
-    AccountingDirection integer default 0 @NOT_NULL,    -- reserved for accounting logic
-
-    IsCancellation @BOOL default 0 @NOT_NULL,           -- reverses/cancels another document type
-    TargetDocumentTypeId @NVARCHAR(40) @NULL,           -- target/reversed document type
-
-    RequiresApproval @BOOL default 0 @NOT_NULL,         -- requires approval before completion
-    AutoComplete @BOOL default 0 @NOT_NULL,             -- auto-post on save
-
-    Color @NVARCHAR(32) @NULL,                          -- ui display color
-    IconName @NVARCHAR(96) @NULL,                       -- ui icon
-
-    PrintTemplate @NVARCHAR(96) @NULL,                  -- print layout/template
-    ReportName @NVARCHAR(96) @NULL,                     -- internal report identifier
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
-
-    FOREIGN KEY (NumberSeriesId) REFERENCES SYS_NUMBER_SERIES(Id),
-    FOREIGN KEY (TargetDocumentTypeId) REFERENCES DocumentType(Id)
-    )
 
 /*---------------------------------------------------
 Table: Language
@@ -1495,7 +1474,7 @@ CREATE TABLE {TableName}
     Date                @DATE @NOT_NULL,
     Description         @NVARCHAR(255) @NOT_NULL,
 
-    Cost                @DECIMAL_(18, 4) @NULL,
+Cost                @DECIMAL_(18, 4) @NULL,
 
     Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
 
@@ -1703,4 +1682,473 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (ProductId) REFERENCES Product(Id),
     FOREIGN KEY (ProductAttributeGroupId) REFERENCES ProductAttributeGroup(Id)
     )
- 
+
+
+/*---------------------------------------------------
+Table: DocumentType
+Module: DocumentType
+Group: Documents
+IsLookup
+-----------------------------------------------------  
+Defines document types and their posting behavior.
+
+Examples:
+    SAL-INV     Sales Invoice
+    PUR-INV     Purchase Invoice
+    RETAIL      Retail Receipt
+    SAL-CREDIT  Sales Credit Note
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code @NVARCHAR(40) @NOT_NULL,
+    Name @NVARCHAR(96) @NOT_NULL,
+
+    TradeTypeId int @NOT_NULL,                         -- Enum TradeType
+
+    NumberSeriesId @NVARCHAR(40) @NULL,                -- Lookup
+
+    HandlerClass @NVARCHAR(256) @NULL,                  -- IDocumentHandler full class name
+
+    IsActive @BOOL default 1 @NOT_NULL,
+    IsSystem @BOOL default 0 @NOT_NULL,                 -- system defined and protected type
+    AllowManualNumber @BOOL default 0 @NOT_NULL,
+    AutoComplete @BOOL default 0 @NOT_NULL,
+
+    AffectsStock @BOOL default 0 @NOT_NULL,
+    AffectsFinancial @BOOL default 0 @NOT_NULL,
+    AffectsAccounting @BOOL default 0 @NOT_NULL,
+
+    StockDirection int default 0 @NOT_NULL,
+    FinancialDirection int default 0 @NOT_NULL,
+    AccountingDirection int default 0 @NOT_NULL,
+
+    IsCancellation @BOOL default 0 @NOT_NULL,
+    CancellationTargetId @NVARCHAR(40) @NULL,          -- Lookup  -- what document type may cancel
+
+    PrintTemplate @NVARCHAR(96) @NULL,
+    ReportName @NVARCHAR(96) @NULL,
+
+    DisplayOrder int default 0 @NOT_NULL,
+
+    Color @NVARCHAR(32) @NULL,                          -- ui display color
+    IconName @NVARCHAR(96) @NULL,                       -- ui icon
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
+
+    FOREIGN KEY (NumberSeriesId) REFERENCES SYS_NUMBER_SERIES(Id),
+    FOREIGN KEY (CancellationTargetId) REFERENCES DocumentType(Id)
+    )
+
+
+/*---------------------------------------------------
+Table: Trade
+Group: Sales
+Module: Trade
+-----------------------------------------------------
+Commercial document header.
+
+Used for sales and purchase documents:
+orders, delivery notes, invoices, returns and cancellations.
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+                             Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code TR-DRAFT-YYYY-XXXXXX TRADE-DRAFT
+
+    TradeStatusId int default 0 @NOT_NULL,              -- Enum TradeStatus
+    TaxTreatmentId int default 1 @NOT_NULL,             -- Enum TaxTreatment
+
+    TradeDate @DATE @NOT_NULL,
+    PostingDate @DATE @NULL,
+    DeliveryDate @DATE @NULL,
+    DueDate @DATE @NULL,
+
+    ExternalRef @NVARCHAR(96) @NULL,                    -- e.g. "Related to Order 123", "Your ref: PO-456"
+
+    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person -- Customer, Supplier, etc
+    WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup
+
+    SalesPersonId @NVARCHAR(40) @NULL,                  -- Lookup Person
+    ProjectId @NVARCHAR(40) @NULL,                      -- Lookup
+    CostCenterId @NVARCHAR(40) @NULL,                   -- Lookup
+    BranchId @NVARCHAR(40) @NULL,                       -- Lookup
+
+    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup
+    ExchangeRate @DECIMAL default 1 @NOT_NULL,          -- Exchange Rate for base currency
+
+    PaymentMethodId @NVARCHAR(40) @NULL,                -- Lookup
+    PaymentTermId @NVARCHAR(40) @NULL,                  -- Lookup
+
+    BillingName @NVARCHAR(96) @NULL,
+    BillingAddressLine1 @NVARCHAR(128) @NULL,
+    BillingAddressLine2 @NVARCHAR(128) @NULL,
+    BillingCity @NVARCHAR(64) @NULL,
+    BillingPostalCode @NVARCHAR(20) @NULL,
+    BillingCountryId @NVARCHAR(40) @NULL,               -- Lookup
+
+    ShippingName @NVARCHAR(96) @NULL,
+    ShippingAddressLine1 @NVARCHAR(128) @NULL,
+    ShippingAddressLine2 @NVARCHAR(128) @NULL,
+    ShippingCity @NVARCHAR(64) @NULL,
+    ShippingPostalCode @NVARCHAR(20) @NULL,
+    ShippingCountryId @NVARCHAR(40) @NULL,              -- Lookup
+
+    SourceId @NVARCHAR(40) @NULL,                       -- Locator Trade
+    CancelsTradeId @NVARCHAR(40) @NULL,                 -- Locator Trade
+    CancelledByTradeId @NVARCHAR(40) @NULL,             -- Locator Trade
+
+    LinesAmount @DECIMAL default 0 @NOT_NULL,           -- sum of lines before header discounts/charges/taxes
+    DiscountPercent @DECIMAL default 0 @NOT_NULL,       -- Header Discount %
+    DiscountAmount @DECIMAL default 0 @NOT_NULL,
+    DiscountReason @NVARCHAR(256) @NULL,
+
+    ChargesAmount @DECIMAL default 0 @NOT_NULL,
+
+    NetAmount @DECIMAL default 0 @NOT_NULL,             -- = LinesAmount - DiscountAmount + ChargesAmount
+    VatAmount @DECIMAL default 0 @NOT_NULL,
+    TotalAmount @DECIMAL default 0 @NOT_NULL,
+
+    IsLocked @BOOL default 0 @NOT_NULL,                 -- Lock document from editing
+    IsCancelled @BOOL default 0 @NOT_NULL,
+
+    CreatedAt @DATE_TIME @NOT_NULL,
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser
+    ModifiedAt @DATE_TIME @NULL,
+    ModifiedBy @NVARCHAR(40) @NULL,                     -- Lookup AppUser
+    PostedAt @DATE_TIME @NULL,
+    PostedBy @NVARCHAR(40) @NULL,                       -- Lookup AppUser
+    CancelledAt @DATE_TIME @NULL,
+    CancelledBy @NVARCHAR(40) @NULL,                    -- Lookup AppUser
+
+    Remarks @NVARCHAR(512) @NULL,                       -- internal
+    Comments @NVARCHAR(512) @NULL,                      -- customer visible                      
+
+    CONSTRAINT UQ_{TableName}_DocumentType_Code UNIQUE (DocumentTypeId, Code),
+
+    FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
+
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
+    FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
+
+    FOREIGN KEY (SalesPersonId) REFERENCES Person(Id),
+    FOREIGN KEY (ProjectId) REFERENCES Project(Id),
+    FOREIGN KEY (CostCenterId) REFERENCES CostCenter(Id),
+    FOREIGN KEY (BranchId) REFERENCES Branch(Id),
+
+    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
+
+    FOREIGN KEY (PaymentMethodId) REFERENCES PaymentMethod(Id),
+    FOREIGN KEY (PaymentTermId) REFERENCES PaymentTerm(Id),
+
+    FOREIGN KEY (BillingCountryId) REFERENCES Country(Id),
+    FOREIGN KEY (ShippingCountryId) REFERENCES Country(Id),
+
+    FOREIGN KEY (SourceId) REFERENCES Trade(Id),
+    FOREIGN KEY (CancelsTradeId) REFERENCES Trade(Id),
+    FOREIGN KEY (CancelledByTradeId) REFERENCES Trade(Id),
+
+    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id),
+    FOREIGN KEY (ModifiedBy) REFERENCES AppUser(Id),
+    FOREIGN KEY (PostedBy) REFERENCES AppUser(Id),
+    FOREIGN KEY (CancelledBy) REFERENCES AppUser(Id)
+    )
+
+
+
+/*---------------------------------------------------
+Table: TradeTax
+-----------------------------------------------------
+Hidden detail table.
+
+Stores VAT summary lines per VAT rate for a Trade document.
+Generated and maintained by TradeDataModule.
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    TradeId @NVARCHAR(40) @NOT_NULL,                    -- Master
+    VatRateId @NVARCHAR(40) @NOT_NULL,                  -- Lookup
+
+    VatRatePercent @DECIMAL default 0 @NOT_NULL,        -- Snapshot of the percent at production time
+
+    NetAmount @DECIMAL default 0 @NOT_NULL,
+    VatAmount @DECIMAL default 0 @NOT_NULL,
+    TotalAmount @DECIMAL default 0 @NOT_NULL,
+
+    CONSTRAINT UQ_{TableName}_Trade_VatRate UNIQUE (TradeId, VatRateId),
+
+    FOREIGN KEY (TradeId) REFERENCES Trade(Id),
+    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id)
+    )
+
+
+
+/*---------------------------------------------------
+Table: TradeLine
+Master: Trade
+-----------------------------------------------------
+Commercial document line.
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    TradeId @NVARCHAR(40) @NOT_NULL,                    -- Master
+
+    LineNo int @NOT_NULL,
+
+    LineTypeId int default 1 @NOT_NULL,                 -- Enum TradeLineType
+
+    ProductId @NVARCHAR(40) @NULL,                      -- Locator Product
+
+    ProductCode @NVARCHAR(40) @NULL,                    -- Snapshot
+    ProductName @NVARCHAR(128) @NULL,                   -- Snapshot
+
+    Description @NVARCHAR(256) @NULL,                   -- Snapshot
+
+    WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup (line override)
+
+    UnitOfMeasureId @NVARCHAR(40) @NULL,                -- Lookup
+    UnitOfMeasureName @NVARCHAR(40) @NULL,              -- Snapshot
+
+    UnitRatio @DECIMAL default 1 @NOT_NULL,             -- Snapshot ratio to primary unit
+
+    Quantity @DECIMAL default 0 @NOT_NULL,
+    PrimaryUnitQuantity @DECIMAL default 0 @NOT_NULL,
+
+    ReservedQuantity @DECIMAL default 0 @NOT_NULL,
+    ExecutedQuantity @DECIMAL default 0 @NOT_NULL,
+
+    VatRateId @NVARCHAR(40) @NULL,                      -- Lookup
+    VatRatePercent @DECIMAL default 0 @NOT_NULL,        -- Snapshot
+
+    UnitPrice @DECIMAL default 0 @NOT_NULL,
+
+    GrossAmount @DECIMAL default 0 @NOT_NULL,           -- Quantity * UnitPrice
+
+    DiscountPercent @DECIMAL default 0 @NOT_NULL,
+    DiscountAmount @DECIMAL default 0 @NOT_NULL,
+
+    NetUnitPrice @DECIMAL default 0 @NOT_NULL,          -- Display/convenience value
+
+    NetAmount @DECIMAL default 0 @NOT_NULL,             -- GrossAmount - DiscountAmount
+    VatAmount @DECIMAL default 0 @NOT_NULL,
+    TotalAmount @DECIMAL default 0 @NOT_NULL,
+
+    SourceTradeLineId @NVARCHAR(40) @NULL,              -- Locator TradeLine
+
+    CONSTRAINT UQ_{TableName}_Trade_LineNo UNIQUE (TradeId, LineNo),
+
+    FOREIGN KEY (TradeId) REFERENCES Trade(Id),
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
+
+    FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id),
+
+    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id),
+
+    FOREIGN KEY (SourceTradeLineId) REFERENCES TradeLine(Id)
+    )
+
+
+
+
+/*---------------------------------------------------
+Table: StockTrade
+Group: Inventory
+Module: StockTrade
+Form: Default
+-----------------------------------------------------
+Warehouse transaction document.
+
+Used for pure stock operations such as:
+- warehouse transfer
+- stock count adjustment
+- destruction / write-off
+- internal stock correction
+
+Posting this document produces StockMovement rows.
+It does not represent sales or purchases.
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup -- controls numbering, posting behavior and movement direction
+    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup -- main/source warehouse
+    ToWarehouseId @NVARCHAR(40) @NULL,                  -- Lookup -- destination warehouse, used only for transfers
+
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code STK-DRAFT-YYYY-XXXXXX STOCK_TRADE_DRAFT
+    DocumentDate @DATE @NOT_NULL,
+    PostingDate @DATE @NULL,                            -- date used for generated stock movements
+    StatusId int @NOT_NULL,                             -- Enum TradeStatus -- Draft, Posted, Cancelled
+
+    TotalCostAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- total internal stock cost value posted by this document
+
+    Remarks @NVARCHAR(512) @NULL,                       -- internal notes
+
+    IsLocked @BOOL DEFAULT 0 @NOT_NULL,
+    IsCancelled @BOOL DEFAULT 0 @NOT_NULL,
+
+    CancelsStockTradeId @NVARCHAR(40) @NULL,            -- Locator StockTrade -- original document cancelled by this one
+    CancelledByStockTradeId @NVARCHAR(40) @NULL,        -- Locator StockTrade -- reverse/cancellation document
+
+    CreatedAt @DATE_TIME @NOT_NULL,
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser
+    ModifiedAt @DATE_TIME @NULL,
+    ModifiedBy @NVARCHAR(40) @NULL,                     -- Lookup AppUser
+    PostedAt @DATE_TIME @NULL,
+    PostedBy @NVARCHAR(40) @NULL,                       -- Lookup AppUser
+    CancelledAt @DATE_TIME @NULL,
+    CancelledBy @NVARCHAR(40) @NULL,                    -- Lookup AppUser
+
+    CONSTRAINT UQ_{TableName}_DocumentType_Code UNIQUE (DocumentTypeId, Code),
+
+    FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
+    FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
+    FOREIGN KEY (ToWarehouseId) REFERENCES Warehouse(Id),
+
+    FOREIGN KEY (CancelsStockTradeId) REFERENCES StockTrade(Id),
+    FOREIGN KEY (CancelledByStockTradeId) REFERENCES StockTrade(Id),
+
+    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id),
+    FOREIGN KEY (ModifiedBy) REFERENCES AppUser(Id),
+    FOREIGN KEY (PostedBy) REFERENCES AppUser(Id),
+    FOREIGN KEY (CancelledBy) REFERENCES AppUser(Id)
+    )
+
+
+
+
+/*---------------------------------------------------
+Table: StockTradeLine
+-----------------------------------------------------
+Stock transaction document line.
+
+Represents the intended stock operation for one product.
+Posting StockTradeLine rows produces immutable StockMovement rows.
+
+Examples:
+- one transfer line produces one OUT movement and one IN movement
+- one write-off line produces one OUT movement
+- one positive adjustment line produces one IN movement
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+
+    StockTradeId @NVARCHAR(40) @NOT_NULL,               -- Master
+    LineNo int @NOT_NULL,
+
+    ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
+    ProductCode @NVARCHAR(40) @NOT_NULL,                -- product code snapshot
+    ProductName @NVARCHAR(128) @NOT_NULL,               -- product name snapshot
+
+    WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup -- optional source warehouse override
+
+    UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,            -- Lookup
+    UnitOfMeasureName @NVARCHAR(40) @NOT_NULL,          -- unit of measure snapshot
+    UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- converts line quantity to primary/base quantity
+
+    Quantity @DECIMAL DEFAULT 0 @NOT_NULL,              -- always positive; direction is determined by DocumentType
+    PrimaryQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- Quantity * UnitRatio
+
+    UnitCost @DECIMAL DEFAULT 0 @NOT_NULL,              -- internal stock cost per primary unit
+    CostAmount @DECIMAL DEFAULT 0 @NOT_NULL,            -- PrimaryQuantity * UnitCost
+
+    SourceTradeLineId @NVARCHAR(40) @NULL,              -- optional source commercial line
+    SourceStockTradeLineId @NVARCHAR(40) @NULL,         -- optional source stock line, e.g. reversal/copy/adjustment flow
+
+    Remarks @NVARCHAR(512) @NULL,                       -- internal line notes
+
+    CONSTRAINT UQ_{TableName}_StockTrade_LineNo UNIQUE (StockTradeId, LineNo),
+
+    FOREIGN KEY (StockTradeId) REFERENCES StockTrade(Id),
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
+    FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id),
+    FOREIGN KEY (SourceTradeLineId) REFERENCES TradeLine(Id),
+    FOREIGN KEY (SourceStockTradeLineId) REFERENCES StockTradeLine(Id)
+    )
+
+/*---------------------------------------------------
+Table: StockMovement
+Group: Inventory
+Module: StockMovement
+  
+IsReadOnly
+NotUiVisible
+-----------------------------------------------------
+Immutable stock ledger movement.
+
+Produced only by posting business documents:
+- Trade / TradeLine for sales and purchases
+- StockTrade / StockTradeLine for warehouse operations
+
+Each row represents one physical stock effect in one warehouse.
+Quantities are always positive.
+Direction is stored separately.
+-----------------------------------------------------
+The central stock ledger of the ERP system.
+
+All inventory changes are recorded here as immutable movement rows.
+
+StockMovement is the single source of truth for:
+- current stock balances
+- stock history
+- inventory valuation
+- stock audits and traceability
+
+Rows are generated only by posting business documents and are never edited or deleted.
+
+Typical sources include:
+- sales and purchase documents
+- warehouse transfers
+- stock adjustments
+- write-offs and destructions
+
+Current stock quantities are calculated from StockMovement, not from document tables.  
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+
+    ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
+    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup
+
+    MovementDate @DATE @NOT_NULL,                       -- stock ledger date
+    Direction int @NOT_NULL,                            -- 1=in, -1=out
+
+    Quantity @DECIMAL DEFAULT 0 @NOT_NULL,              -- always positive, in movement unit
+    PrimaryQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- quantity in product primary unit
+
+    UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,            -- Lookup
+    UnitOfMeasureName @NVARCHAR(40) @NOT_NULL,          -- unit of measure snapshot
+    UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- converts Quantity to PrimaryQuantity
+
+    UnitCost @DECIMAL DEFAULT 0 @NOT_NULL,              -- internal stock cost per primary unit at movement time
+    CostAmount @DECIMAL DEFAULT 0 @NOT_NULL,            -- PrimaryQuantity * UnitCost
+
+    SourceModule @NVARCHAR(64) @NOT_NULL,               -- source module name, e.g. Trade or StockTrade
+    SourceTable @NVARCHAR(64) @NOT_NULL,                -- source line table, e.g. TradeLine or StockTradeLine
+    SourceId @NVARCHAR(40) @NOT_NULL,                   -- source line Id
+
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup -- source document type
+    DocumentCode @NVARCHAR(40) @NOT_NULL,               -- source document code snapshot
+    DocumentDate @DATE @NOT_NULL,                       -- source document date snapshot
+
+    CreatedAt @DATE_TIME @NOT_NULL,
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser
+
+    CONSTRAINT CHK_{TableName}_Direction CHECK (Direction IN (1, -1)),
+    CONSTRAINT CHK_{TableName}_Quantity CHECK (Quantity >= 0),
+    CONSTRAINT CHK_{TableName}_PrimaryQuantity CHECK (PrimaryQuantity >= 0),
+
+    FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
+    FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id),
+    FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
+    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id)
+    )

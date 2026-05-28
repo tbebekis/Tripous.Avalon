@@ -39,17 +39,6 @@ public enum ContactType
 }
 
 [TypeStore]
-public enum TradeType
-{
-    None = 0,
-    Sales = 1,
-    Purchases = 2,
-    Warehouse = 3,
-    Financial = 4,
-    Accounting = 5,
-}
-
-[TypeStore]
 public enum WarehouseType
 {
     None = 0,
@@ -73,18 +62,6 @@ public enum ProjectStatus
 }
 
 [TypeStore]
-public enum DocStatus
-{
-    None = 0,
-    Draft = 1,
-    PendingApproval = 2,
-    Posted = 3,
-    Completed = 4,
-    Cancelled = 5,
-    Closed = 6,
-}
-
-[TypeStore]
 public enum ProductAttributeType
 {
     None = 0,
@@ -92,4 +69,51 @@ public enum ProductAttributeType
     Integer = 2, 
     Decimal = 3, 
     Option = 4,
+}
+
+[TypeStore]
+public enum TradeType
+{
+    None = 0,
+    Sales = 1,
+    Purchases = 2,
+    Warehouse = 3,
+    Financial = 4,
+    Accounting = 5,
+}
+
+[TypeStore]
+public enum TradeStatus
+{
+    Draft = 0,
+    Posted = 1,
+    Cancelled = 2,
+}
+
+[TypeStore]
+public enum TaxTreatment
+{
+    None = 0,
+    Normal = 1,
+    Exempt = 2,
+    ThirdCountry = 3,
+    IntraCommunity = 4,
+}
+
+[TypeStore]
+public enum TradeLineType
+{
+    None = 0,
+    Item = 1,
+    Service = 2,
+}
+
+[TypeStore]
+public enum StockCostingMethod
+{
+    None = 0,
+    MovingAverage = 1,
+    Fifo = 2,
+    Lifo = 3,
+    StandardCost = 4,
 }
