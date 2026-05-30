@@ -27,7 +27,7 @@ CREATE TABLE {TableName} (
     ,Source @NVARCHAR(512) @NOT_NULL
     ,Scope @NVARCHAR(512) @NOT_NULL
     ,EventId @NVARCHAR(96) @NOT_NULL
-    ,Message @NBLOB_TEXT @NOT_NULL
+    ,Message @NBLOB_TEXT @NOT_NULL          -- LargeMemo 
     )
 ";
         Version.AddTable(SqlText);
@@ -48,6 +48,35 @@ CREATE TABLE {TableName} (
 
     CONSTRAINT UQ_NumberSeries_Code UNIQUE (Code),
     CONSTRAINT UQ_NumberSeries_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_AppUser()
+    {
+        string TableName = "AppUser";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    UserName @NVARCHAR(64) @NOT_NULL,
+    Password @NVARCHAR(512) @NOT_NULL,
+    Salt @NVARCHAR(256) @NOT_NULL,
+
+    FullName @NVARCHAR(96) @NOT_NULL,
+
+    UserLevelId int @NOT_NULL,                     -- Enum UserLevel
+
+    Email @NVARCHAR(96) @NULL,
+    Phone @NVARCHAR(40) @NULL,
+
+    LastLoginAt @DATE_TIME @NULL,
+
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_UserName UNIQUE (UserName)
     )
 ";
         Version.AddTable(SqlText);
@@ -609,53 +638,6 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_DocumentType()
-    {
-        string TableName = "DocumentType";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    Code @NVARCHAR(40) @NOT_NULL,                       -- business code
-    Name @NVARCHAR(96) @NOT_NULL,                       -- display title
-
-    TradeTypeId integer @NOT_NULL,                      -- Enum   -- Sales, Purchases, Warehouse, etc.
-
-    NumberSeriesId @NVARCHAR(40) @NULL,                 -- Lookup -- numbering series
-
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    AffectsStock @BOOL default 0 @NOT_NULL,             -- creates stock movements
-    AffectsFinancial @BOOL default 0 @NOT_NULL,         -- affects customer/supplier balances
-    AffectsAccounting @BOOL default 0 @NOT_NULL,        -- creates accounting entries
-
-    StockDirection integer default 0 @NOT_NULL,         -- 1=in, -1=out, 0=no stock effect
-    FinancialDirection integer default 0 @NOT_NULL,     -- 1=debit, -1=credit, 0=no effect
-    AccountingDirection integer default 0 @NOT_NULL,    -- reserved for accounting logic
-
-    IsCancellation @BOOL default 0 @NOT_NULL,           -- reverses/cancels another document type
-    TargetDocumentTypeId @NVARCHAR(40) @NULL,           -- target/reversed document type
-
-    RequiresApproval @BOOL default 0 @NOT_NULL,         -- requires approval before completion
-    AutoComplete @BOOL default 0 @NOT_NULL,             -- auto-post on save
-
-    Color @NVARCHAR(32) @NULL,                          -- ui display color
-    IconName @NVARCHAR(96) @NULL,                       -- ui icon
-
-    PrintTemplate @NVARCHAR(96) @NULL,                  -- print layout/template
-    ReportName @NVARCHAR(96) @NULL,                     -- internal report identifier
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
-
-    FOREIGN KEY (NumberSeriesId) REFERENCES SYS_NUMBER_SERIES(Id),
-    FOREIGN KEY (TargetDocumentTypeId) REFERENCES DocumentType(Id)
-    )
-";
-        Version.AddTable(SqlText);
-    }
     void RegisterTable_Person()
     {
         string TableName = "Person";
@@ -1061,7 +1043,7 @@ CREATE TABLE {TableName}
     Date                @DATE @NOT_NULL,
     Description         @NVARCHAR(255) @NOT_NULL,
 
-    Cost                @DECIMAL_(18, 4) @NULL,
+Cost                @DECIMAL_(18, 4) @NULL,
 
     Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
 
@@ -1533,6 +1515,7 @@ CREATE TABLE {TableName}
     {
         RegisterTable_SYS_LOG();
         RegisterTable_SYS_NUMBER_SERIES();
+        RegisterTable_AppUser();
         RegisterTable_CustomerCategory();
         RegisterTable_SupplierCategory();
         RegisterTable_ProductBrand();
@@ -1563,7 +1546,6 @@ CREATE TABLE {TableName}
         RegisterTable_Company();
         RegisterTable_TaxCategory();
         RegisterTable_FiscalPeriod();
-        RegisterTable_DocumentType();
         RegisterTable_Person();
         RegisterTable_Category();
         RegisterTable_FixedAsset();

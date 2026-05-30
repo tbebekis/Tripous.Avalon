@@ -1687,7 +1687,6 @@ static internal partial class AppHost
         Add_PriceListType();
         Add_TaxCategory();
         Add_FiscalPeriod();
-        Add_DocumentType();
         Add_Person();
         Add_Category();
         Add_FixedAsset();
@@ -1736,29 +1735,14 @@ static internal partial class AppHost
     }
     
     // ● default initial data - added always
-    static public Dictionary<string, string> GetCodeProviderPatterns()
-    {
-        Dictionary<string, string> Result = [];
 
-        Result["BillOfMaterial"] = "BOM-XXXXXX";
-        Result["CashAccount"] = "CASH-XXXXXX";
-        Result["Company"] = "XXXXXX";
-        Result["FixedAsset"] = "AST-XXXXXX";
-        Result["PersonAddress"] = "ADR-XXXXXX";
-        Result["Product"] = "XXXXXX";
-        Result["Project"] = "XXXXXX";
-        Result["SalesPerson"] = "XXXXXX";
-        Result["Warehouse"] = "XXXXXX";
-        Result["WarehouseLocation"] = "LOC-XXXXXX";
-
-        return Result;
-    }
+    
     static void AddCodeProviderPatterns()
     {
         string TableName = DbConfig.SysNumberSeriesTableName;
         if (Store.TableExists(TableName) && Store.TableIsEmpty(TableName))
         {
-            Dictionary<string, string> CodeProviderPatters = GetCodeProviderPatterns();
+            Dictionary<string, string> CodeProviderPatters = Registry.GetCodeProviderPatterns();
             CodeProviderEntries.SeedPatterns(CodeProviderPatters);
         }
     }

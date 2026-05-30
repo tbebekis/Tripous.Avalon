@@ -45,7 +45,7 @@ Description of what this table represents
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
-    Code @NVARCHAR(40) @NOT_NULL,           -- Code [PRD-XXXX]
+    Code @NVARCHAR(40) @NOT_NULL,           -- Code PRD-XXXX
     Name @NVARCHAR(96) @NOT_NULL,
     CategoryId @NVARCHAR(40) @NOT_NULL,     -- Lookup
     Price @DECIMAL @NOT_NULL,
@@ -185,9 +185,13 @@ FieldName TYPE, -- METADATA -- plain comment
 ```
 
 The first `--` begins metadata. A second `--` separates metadata from plain comment.
+Multiple metadata entries are separated with `;`.
 
 ```sql
 CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
+Code @NVARCHAR(40) @NOT_NULL, -- Code CUS-XXXX; Group General -- customer code
+Notes @BLOB_TEXT, -- Memo; Group Notes -- short notes
+Remarks @BLOB_TEXT, -- LargeMemo; Group Notes -- long notes
 ```
 
 ### Metadata keywords
@@ -199,7 +203,12 @@ CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
 | `Enum`      | `Enum [EnumName]`               | Enum-backed selector                                |
 | `Locator`   | `Locator [LocatorName]`         | Searchable large reference selector                 |
 | `Code`      | `Code [Pattern] [ProviderName]` | Auto-generated code field                           |
+| `Memo`      | `Memo`                          | Text field with Memo flag                           |
 | `LargeMemo` | `LargeMemo`                     | Text blob with LargeMemo flag                       |
+| `Group`     | `Group GroupName`               | Field UI group                                      |
+
+`Memo` and `LargeMemo` are mutually exclusive.
+Square brackets in this specification mean optional arguments and are not part of the actual schema syntax.
 
 **Name resolution when omitted:**
 
@@ -259,7 +268,7 @@ In grids, raw FK fields are hidden; alias fields are shown instead.
 ## Code Provider
 
 ```sql
-Code @NVARCHAR(40) @NOT_NULL, -- Code [SO-YYYY-XXXXXX] [SALES_ORDER]
+Code @NVARCHAR(40) @NOT_NULL, -- Code SO-YYYY-XXXXXX SALES_ORDER
 ```
 
 Discovered providers are stored in `SchemaParserResult.CodeProviderPatterns`:
@@ -331,9 +340,13 @@ FieldName TYPE, -- METADATA -- plain comment
 ```
 
 The first `--` begins metadata. A second `--` separates metadata from plain comment.
+Multiple metadata entries are separated with `;`.
 
 ```sql
 CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
+Code @NVARCHAR(40) @NOT_NULL, -- Code CUS-XXXX; Group General -- customer code
+Notes @BLOB_TEXT, -- Memo; Group Notes -- short notes
+Remarks @BLOB_TEXT, -- LargeMemo; Group Notes -- long notes
 ```
 
 ### Metadata keywords
@@ -345,7 +358,12 @@ CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
 | `Enum`      | `Enum [EnumName]`               | Enum-backed selector                                |
 | `Locator`   | `Locator [LocatorName]`         | Searchable large reference selector                 |
 | `Code`      | `Code [Pattern] [ProviderName]` | Auto-generated code field                           |
+| `Memo`      | `Memo`                          | Text field with Memo flag                           |
 | `LargeMemo` | `LargeMemo`                     | Text blob with LargeMemo flag                       |
+| `Group`     | `Group GroupName`               | Field UI group                                      |
+
+`Memo` and `LargeMemo` are mutually exclusive.
+Square brackets in this specification mean optional arguments and are not part of the actual schema syntax.
 
 **Name resolution when omitted:**
 

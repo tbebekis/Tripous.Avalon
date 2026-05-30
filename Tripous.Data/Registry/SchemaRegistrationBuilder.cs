@@ -192,6 +192,9 @@ static public class SchemaRegistrationBuilder
         }
 
         ValidateScript(Result, Script);
+        if (Result.HasErrors)
+            return Result;
+
         CollectCodeProviderPatterns(Result, Script);
 
         if (Result.HasErrors)
@@ -249,9 +252,24 @@ static public class SchemaRegistrationBuilder
         ValidateForeignKeys(Result, Script);
         ValidateCircularReferences(Result, Script);
         ValidateSuspiciousUniqueConstraints(Result, Script);
+        ValidateFieldMetadata(Result, Script);
         ValidateLookupFields(Result, Script);
         ValidateEnumFields(Result, Script);
         ValidateLocatorFields(Result, Script);
+    }
+    /// <summary>
+    /// Validates field metadata.
+    /// </summary>
+    static void ValidateFieldMetadata(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable Table in Script.Tables)
+        {
+            foreach (SchemaField Field in Table.Fields)
+            {
+                foreach (string Error in Field.MetadataErrors)
+                    AddError(Result, "FIELD_METADATA_INVALID", Table.Name + "." + Field.Name + ": " + Error);
+            }
+        }
     }
     /// <summary>
     /// Collects discovered code provider patterns and validates duplicate definitions.
@@ -1173,6 +1191,10 @@ static public class SchemaRegistrationBuilder
         string NullSuffix = ".SetNullable(" + BoolLiteral(Field.IsNullable) + ")";
         string DefaultSuffix = !string.IsNullOrWhiteSpace(Field.DefaultValue) ? ".SetDefaultValue(\"" + EscapeString(Field.DefaultValue) + "\")" : "";
         string CodeProviderSuffix = Field.MetadataKind == FieldMetadataKind.Code ? ".SetCodeProviderName(\"" + EscapeString(GetCodeProviderName(Table, Field)) + "\")" : "";
+        string MemoSuffix = Field.IsMemo ? ".SetMemo()" : "";
+        string LargeMemoSuffix = Field.IsLargeMemo ? ".SetLargeMemo()" : "";
+        string GroupSuffix = !string.IsNullOrWhiteSpace(Field.GroupName) ? ".SetGroup(\"" + EscapeString(Field.GroupName) + "\")" : "";
+        string MetadataSuffix = NullSuffix + DefaultSuffix + CodeProviderSuffix + MemoSuffix + LargeMemoSuffix + GroupSuffix;
         string Flags = BuildFlags(Field);
 
         if (Field.IsPrimaryKey)
@@ -1181,44 +1203,44 @@ static public class SchemaRegistrationBuilder
         if (Field.MetadataKind == FieldMetadataKind.Enum)
         {
             string EnumName = GetEnumName(Script, Field);
-            return TableVarName + ".AddEnumLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(EnumName) + "\", TypeStore.Get(\"" + EscapeString(EnumName) + "\"), Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+            return TableVarName + ".AddEnumLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(EnumName) + "\", TypeStore.Get(\"" + EscapeString(EnumName) + "\"), Flags: " + Flags + ")" + MetadataSuffix + ";";
         }
 
         if (IsLookupField(Script, Field))
         {
             string LookupSource = GetLookupSourceName(Script, Field);
             if (Field.DataType == DataFieldType.Integer)
-                return TableVarName + ".AddIntegerLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(LookupSource) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
-            return TableVarName + ".AddStringLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(LookupSource) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+                return TableVarName + ".AddIntegerLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(LookupSource) + "\", Flags: " + Flags + ")" + MetadataSuffix + ";";
+            return TableVarName + ".AddStringLookupId(\"" + EscapeString(Field.Name) + "\", \"" + EscapeString(LookupSource) + "\", Flags: " + Flags + ")" + MetadataSuffix + ";";
         }
 
-        if (Field.MetadataKind == FieldMetadataKind.LargeMemo)
-            return TableVarName + ".AddTextBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + BuildFlags(Field, FieldFlagsText.LargeMemo) + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+        if (Field.IsLargeMemo)
+            return TableVarName + ".AddTextBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + MetadataSuffix + ";";
 
         switch (Field.DataType)
         {
             case DataFieldType.String:
-                return TableVarName + ".AddString(\"" + EscapeString(Field.Name) + "\", MaxLength: " + Field.MaxLength + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+                return TableVarName + ".AddString(\"" + EscapeString(Field.Name) + "\", MaxLength: " + Field.MaxLength + ", Flags: " + Flags + ")" + MetadataSuffix + ";";
             case DataFieldType.Integer:
-                return TableVarName + ".AddInteger(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+                return TableVarName + ".AddInteger(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + MetadataSuffix + ";";
             case DataFieldType.Double:
-                return TableVarName + ".AddDouble(\"" + EscapeString(Field.Name) + "\", Decimals: " + Field.Decimals + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+                return TableVarName + ".AddDouble(\"" + EscapeString(Field.Name) + "\", Decimals: " + Field.Decimals + ", Flags: " + Flags + ")" + MetadataSuffix + ";";
             case DataFieldType.Decimal:
             case DataFieldType.Decimal_:
-                return TableVarName + ".AddDecimal(\"" + EscapeString(Field.Name) + "\", Decimals: " + Field.Decimals + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+                return TableVarName + ".AddDecimal(\"" + EscapeString(Field.Name) + "\", Decimals: " + Field.Decimals + ", Flags: " + Flags + ")" + MetadataSuffix + ";";
             case DataFieldType.Date:
-                return TableVarName + ".AddDate(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+                return TableVarName + ".AddDate(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + MetadataSuffix + ";";
             case DataFieldType.DateTime:
-                return TableVarName + ".AddDateTime(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+                return TableVarName + ".AddDateTime(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + MetadataSuffix + ";";
             case DataFieldType.Boolean:
-                return TableVarName + ".AddBoolean(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+                return TableVarName + ".AddBoolean(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + MetadataSuffix + ";";
             case DataFieldType.Blob:
-                return TableVarName + ".AddBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + BuildFlags(Field, FieldFlagsText.None) + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+                return TableVarName + ".AddBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + BuildFlags(Field, FieldFlagsText.None) + ")" + MetadataSuffix + ";";
             case DataFieldType.TextBlob:
-                return TableVarName + ".AddTextBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+                return TableVarName + ".AddTextBlob(\"" + EscapeString(Field.Name) + "\", Flags: " + Flags + ")" + MetadataSuffix + ";";
         }
 
-        return TableVarName + ".AddString(\"" + EscapeString(Field.Name) + "\", MaxLength: " + Field.MaxLength + ", Flags: " + Flags + ")" + NullSuffix + DefaultSuffix + CodeProviderSuffix + ";";
+        return TableVarName + ".AddString(\"" + EscapeString(Field.Name) + "\", MaxLength: " + Field.MaxLength + ", Flags: " + Flags + ")" + MetadataSuffix + ";";
     }
 
     // ● private - select source
@@ -1494,29 +1516,108 @@ static public class SchemaRegistrationBuilder
         Result.CommentText = Parts.Length > 1 ? Parts[1].Trim() : string.Empty;
         Result.MetadataText = MetadataText;
 
-        if (MetadataText.StartsWith("Correlation Lookup", StringComparison.OrdinalIgnoreCase))
-            Result.Kind = FieldMetadataKind.CorrelationLookup;
-        else if (MetadataText.StartsWith("Correlation Locator", StringComparison.OrdinalIgnoreCase))
-            Result.Kind = FieldMetadataKind.CorrelationLocator;
-        else if (MetadataText.StartsWith("Master", StringComparison.OrdinalIgnoreCase))
-            Result.Kind = FieldMetadataKind.Master;
-        else if (MetadataText.StartsWith("Lookup", StringComparison.OrdinalIgnoreCase))
-            Result.Kind = FieldMetadataKind.Lookup;
-        else if (MetadataText.StartsWith("Enum", StringComparison.OrdinalIgnoreCase))
-            Result.Kind = FieldMetadataKind.Enum;
-        else if (MetadataText.StartsWith("Locator", StringComparison.OrdinalIgnoreCase))
-            Result.Kind = FieldMetadataKind.Locator;
-        else if (MetadataText.StartsWith("LargeMemo", StringComparison.OrdinalIgnoreCase))
-            Result.Kind = FieldMetadataKind.LargeMemo;
-        else if (MetadataText.IsSameText("Code") || MetadataText.StartsWith("Code ", StringComparison.OrdinalIgnoreCase))
-            Result.Kind = FieldMetadataKind.Code;
+        string[] Entries = MetadataText.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        foreach (string Entry in Entries)
+            ParseFieldMetadataEntry(Result, Entry, Entries.Length > 1);
 
-        Result.MetadataName = ParseMetadataName(MetadataText, Result.Kind);
-        if (Result.Kind == FieldMetadataKind.Code)
-            ParseCodeMetadata(Result, MetadataText);
-        Result.IsOneToOne = MetadataText.IndexOf("OneToOne", StringComparison.OrdinalIgnoreCase) >= 0;
+        if (Result.IsMemo && Result.IsLargeMemo)
+            AddFieldMetadataError(Result, "Field metadata cannot contain both Memo and LargeMemo: " + MetadataText);
 
         return Result;
+    }
+    /// <summary>
+    /// Adds a field metadata error.
+    /// </summary>
+    static void AddFieldMetadataError(FieldMetadata Metadata, string Text)
+    {
+        Metadata.Errors.Add(Text);
+    }
+    /// <summary>
+    /// Parses a single field metadata entry.
+    /// </summary>
+    static void ParseFieldMetadataEntry(FieldMetadata Metadata, string Entry, bool Strict)
+    {
+        if (string.IsNullOrWhiteSpace(Entry))
+            return;
+        if (Entry.Contains("[") || Entry.Contains("]"))
+        {
+            AddFieldMetadataError(Metadata, "Square brackets are not allowed in field metadata syntax: " + Entry);
+            return;
+        }
+
+        FieldMetadataKind Kind = GetFieldMetadataKind(Entry);
+
+        if (Kind != FieldMetadataKind.None)
+        {
+            if (Metadata.Kind != FieldMetadataKind.None)
+            {
+                AddFieldMetadataError(Metadata, "Field metadata contains multiple primary entries: " + Metadata.MetadataText);
+                return;
+            }
+
+            Metadata.Kind = Kind;
+            Metadata.MetadataName = ParseMetadataName(Entry, Kind);
+            Metadata.IsOneToOne = Entry.IndexOf("OneToOne", StringComparison.OrdinalIgnoreCase) >= 0;
+
+            if (Kind == FieldMetadataKind.Code)
+                ParseCodeMetadata(Metadata, Entry);
+            return;
+        }
+
+        if (Entry.IsSameText("Memo"))
+        {
+            Metadata.IsMemo = true;
+            return;
+        }
+        if (Entry.StartsWith("Memo ", StringComparison.OrdinalIgnoreCase))
+        {
+            AddFieldMetadataError(Metadata, "Invalid Memo metadata syntax: " + Entry);
+            return;
+        }
+        if (Entry.IsSameText("LargeMemo"))
+        {
+            Metadata.IsLargeMemo = true;
+            return;
+        }
+        if (Entry.StartsWith("LargeMemo ", StringComparison.OrdinalIgnoreCase))
+        {
+            AddFieldMetadataError(Metadata, "Invalid LargeMemo metadata syntax: " + Entry);
+            return;
+        }
+        if (Entry.IsSameText("Group"))
+        {
+            AddFieldMetadataError(Metadata, "Invalid Group metadata syntax: " + Entry);
+            return;
+        }
+        if (Entry.StartsWith("Group ", StringComparison.OrdinalIgnoreCase))
+        {
+            ParseGroupMetadata(Metadata, Entry);
+            return;
+        }
+
+        if (Strict)
+            AddFieldMetadataError(Metadata, "Unknown field metadata: " + Entry);
+    }
+    /// <summary>
+    /// Returns the field metadata kind of an entry.
+    /// </summary>
+    static FieldMetadataKind GetFieldMetadataKind(string Entry)
+    {
+        if (Entry.StartsWith("Correlation Lookup", StringComparison.OrdinalIgnoreCase))
+            return FieldMetadataKind.CorrelationLookup;
+        if (Entry.StartsWith("Correlation Locator", StringComparison.OrdinalIgnoreCase))
+            return FieldMetadataKind.CorrelationLocator;
+        if (Entry.StartsWith("Master", StringComparison.OrdinalIgnoreCase))
+            return FieldMetadataKind.Master;
+        if (Entry.StartsWith("Lookup", StringComparison.OrdinalIgnoreCase))
+            return FieldMetadataKind.Lookup;
+        if (Entry.StartsWith("Enum", StringComparison.OrdinalIgnoreCase))
+            return FieldMetadataKind.Enum;
+        if (Entry.StartsWith("Locator", StringComparison.OrdinalIgnoreCase))
+            return FieldMetadataKind.Locator;
+        if (Entry.IsSameText("Code") || Entry.StartsWith("Code ", StringComparison.OrdinalIgnoreCase))
+            return FieldMetadataKind.Code;
+        return FieldMetadataKind.None;
     }
     /// <summary>
     /// Parses an optional metadata name.
@@ -1546,18 +1647,33 @@ static public class SchemaRegistrationBuilder
         return SplitHeaderTokens(Text).FirstOrDefault() ?? string.Empty;
     }
     /// <summary>
+    /// Parses group metadata.
+    /// </summary>
+    static void ParseGroupMetadata(FieldMetadata Metadata, string MetadataText)
+    {
+        List<string> Parts = SplitHeaderTokens(MetadataText);
+        if (Parts.Count != 2)
+        {
+            AddFieldMetadataError(Metadata, "Invalid Group metadata syntax: " + MetadataText);
+            return;
+        }
+
+        Metadata.GroupName = Parts[1];
+    }
+    /// <summary>
     /// Parses code metadata.
     /// </summary>
     static void ParseCodeMetadata(FieldMetadata Metadata, string MetadataText)
     {
-        MatchCollection Matches = Regex.Matches(MetadataText, @"\[(.*?)\]");
+        List<string> Parts = SplitHeaderTokens(MetadataText);
+        if (Parts.Count > 3)
+        {
+            AddFieldMetadataError(Metadata, "Invalid Code metadata syntax: " + MetadataText);
+            return;
+        }
 
-        Metadata.CodeProviderPattern = Matches.Count > 0 && !string.IsNullOrWhiteSpace(Matches[0].Groups[1].Value)
-            ? Matches[0].Groups[1].Value.Trim()
-            : "XXXXXX";
-        Metadata.CodeProviderName = Matches.Count > 1 && !string.IsNullOrWhiteSpace(Matches[1].Groups[1].Value)
-            ? Matches[1].Groups[1].Value.Trim()
-            : string.Empty;
+        Metadata.CodeProviderPattern = Parts.Count > 1 ? Parts[1] : "XXXXXX";
+        Metadata.CodeProviderName = Parts.Count > 2 ? Parts[2] : string.Empty;
     }
     /// <summary>
     /// Returns true if a line can be parsed as a field line.
@@ -1946,8 +2062,6 @@ static public class SchemaRegistrationBuilder
             Parts.Add("FieldFlags.ReadOnlyEdit");
         if (Field.Name.IsSameText("Code") && Field.MetadataKind == FieldMetadataKind.Code)
             Parts.Add("FieldFlags.ReadOnlyUI");
-        if (Extra == FieldFlagsText.LargeMemo)
-            Parts.Add("FieldFlags.LargeMemo");
 
         if (Parts.Count == 0)
             return "FieldFlags.None";
@@ -2561,6 +2675,10 @@ static public class SchemaRegistrationBuilder
             Result.MetadataName = Metadata.MetadataName;
             Result.CommentText = Metadata.CommentText;
             Result.IsOneToOne = Metadata.IsOneToOne;
+            Result.IsMemo = Metadata.IsMemo;
+            Result.IsLargeMemo = Metadata.IsLargeMemo;
+            Result.GroupName = Metadata.GroupName;
+            Result.MetadataErrors = Metadata.Errors;
             Result.CodeProviderPattern = Metadata.CodeProviderPattern;
             Result.CodeProviderName = Metadata.CodeProviderName;
             Result.IsPrimaryKey = SqlPart.ContainsText("primary key");
@@ -2633,6 +2751,22 @@ static public class SchemaRegistrationBuilder
         /// True when one-to-one relation marker exists.
         /// </summary>
         public bool IsOneToOne { get; set; }
+        /// <summary>
+        /// True when Memo marker exists.
+        /// </summary>
+        public bool IsMemo { get; set; }
+        /// <summary>
+        /// True when LargeMemo marker exists.
+        /// </summary>
+        public bool IsLargeMemo { get; set; }
+        /// <summary>
+        /// Field UI group name.
+        /// </summary>
+        public string GroupName { get; set; }
+        /// <summary>
+        /// Metadata errors.
+        /// </summary>
+        public List<string> MetadataErrors { get; set; } = [];
         /// <summary>
         /// Default value.
         /// </summary>
@@ -2757,6 +2891,22 @@ static public class SchemaRegistrationBuilder
         /// True when one-to-one.
         /// </summary>
         public bool IsOneToOne { get; set; }
+        /// <summary>
+        /// True when Memo marker exists.
+        /// </summary>
+        public bool IsMemo { get; set; }
+        /// <summary>
+        /// True when LargeMemo marker exists.
+        /// </summary>
+        public bool IsLargeMemo { get; set; }
+        /// <summary>
+        /// Field UI group name.
+        /// </summary>
+        public string GroupName { get; set; }
+        /// <summary>
+        /// Metadata errors.
+        /// </summary>
+        public List<string> Errors { get; set; } = [];
     }
 
     /// <summary>
@@ -2771,8 +2921,7 @@ static public class SchemaRegistrationBuilder
         Locator = 4,
         CorrelationLookup = 5,
         CorrelationLocator = 6,
-        LargeMemo = 7,
-        Code = 8,
+        Code = 7,
     }
     private enum VisitState
     {
@@ -2831,6 +2980,5 @@ static public class SchemaRegistrationBuilder
     {
         Default = 0,
         None = 1,
-        LargeMemo = 2,
     }
 }

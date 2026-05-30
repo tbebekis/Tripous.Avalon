@@ -161,6 +161,23 @@ public class FieldDef: BaseDef
         this.fIsNullable = Value;
         return this;
     }
+    public FieldDef SetGroup(string Value)
+    {
+        this.Group = Value;
+        return this;
+    }
+    public FieldDef SetMemo()
+    {
+        Flags &= ~FieldFlags.LargeMemo;
+        this.Flags |= FieldFlags.Memo;
+        return this;
+    }
+    public FieldDef SetLargeMemo()
+    {
+        Flags &= ~FieldFlags.Memo;
+        this.Flags |= FieldFlags.LargeMemo;
+        return this;
+    }
     
     // ● properties
     /// <summary>

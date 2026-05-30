@@ -26,138 +26,38 @@ static internal partial class Registry
     }
     static void RegisterLookupSources_FromModules()
     {
-        if (!DataRegistry.Lookups.Contains("AssetCategory"))
-        {
-            DataRegistry.AddLookupWithTableName("AssetCategory", "AssetCategory", FormName: "AssetCategory");
-        }
-        if (!DataRegistry.Lookups.Contains("AssetDepreciationMethod"))
-        {
-            DataRegistry.AddLookupWithTableName("AssetDepreciationMethod", "AssetDepreciationMethod", FormName: "AssetDepreciationMethod");
-        }
-        if (!DataRegistry.Lookups.Contains("AssetLocation"))
-        {
-            DataRegistry.AddLookupWithTableName("AssetLocation", "AssetLocation", FormName: "AssetLocation");
-        }
-        if (!DataRegistry.Lookups.Contains("Bank"))
-        {
-            DataRegistry.AddLookupWithTableName("Bank", "Bank", FormName: "Bank");
-        }
-        if (!DataRegistry.Lookups.Contains("Carrier"))
-        {
-            DataRegistry.AddLookupWithTableName("Carrier", "Carrier", FormName: "Carrier");
-        }
-        if (!DataRegistry.Lookups.Contains("Category"))
-        {
-            DataRegistry.AddLookupWithTableName("Category", "Category", FormName: "Category");
-        }
-        if (!DataRegistry.Lookups.Contains("Company"))
-        {
-            DataRegistry.AddLookupWithTableName("Company", "Company", FormName: "Company");
-        }
-        if (!DataRegistry.Lookups.Contains("CompanyBranch"))
-        {
-            DataRegistry.AddLookupWithTableName("CompanyBranch", "CompanyBranch");
-        }
-        if (!DataRegistry.Lookups.Contains("ContactType"))
-        {
-            DataRegistry.AddLookupWithTableName("ContactType", "ContactType", FormName: "ContactType");
-        }
-        if (!DataRegistry.Lookups.Contains("CostCenter"))
-        {
-            DataRegistry.AddLookupWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
-        }
-        if (!DataRegistry.Lookups.Contains("Country"))
-        {
-            DataRegistry.AddLookupWithTableName("Country", "Country", FormName: "Country");
-        }
-        if (!DataRegistry.Lookups.Contains("Currency"))
-        {
-            DataRegistry.AddLookupWithTableName("Currency", "Currency", FormName: "Currency");
-        }
-        if (!DataRegistry.Lookups.Contains("CustomerCategory"))
-        {
-            DataRegistry.AddLookupWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
-        }
-        if (!DataRegistry.Lookups.Contains("DiscountCategory"))
-        {
-            DataRegistry.AddLookupWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
-        }
-        if (!DataRegistry.Lookups.Contains("DocumentType"))
-        {
-            DataRegistry.AddLookupWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
-        }
-        if (!DataRegistry.Lookups.Contains("ExpenseCategory"))
-        {
-            DataRegistry.AddLookupWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
-        }
-        if (!DataRegistry.Lookups.Contains("Language"))
-        {
-            DataRegistry.AddLookupWithTableName("Language", "Language", FormName: "Language");
-        }
-        if (!DataRegistry.Lookups.Contains("PaymentMethod"))
-        {
-            DataRegistry.AddLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
-        }
-        if (!DataRegistry.Lookups.Contains("PaymentTerm"))
-        {
-            DataRegistry.AddLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
-        }
-        if (!DataRegistry.Lookups.Contains("PersonRoleType"))
-        {
-            DataRegistry.AddLookupWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
-        }
-        if (!DataRegistry.Lookups.Contains("PriceListType"))
-        {
-            DataRegistry.AddLookupWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
-        }
-        if (!DataRegistry.Lookups.Contains("ProductAttributeGroup"))
-        {
-            DataRegistry.AddLookupWithTableName("ProductAttributeGroup", "ProductAttributeGroup", FormName: "ProductAttributeGroup");
-        }
-        if (!DataRegistry.Lookups.Contains("ProductBrand"))
-        {
-            DataRegistry.AddLookupWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
-        }
-        if (!DataRegistry.Lookups.Contains("ProductDimension"))
-        {
-            DataRegistry.AddLookupWithTableName("ProductDimension", "ProductDimension", FormName: "ProductDimension");
-        }
-        if (!DataRegistry.Lookups.Contains("ProductGroup"))
-        {
-            DataRegistry.AddLookupWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
-        }
-        if (!DataRegistry.Lookups.Contains("SalesPerson"))
-        {
-            DataRegistry.AddLookupWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
-        }
-        if (!DataRegistry.Lookups.Contains("SupplierCategory"))
-        {
-            DataRegistry.AddLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
-        }
-        if (!DataRegistry.Lookups.Contains("SYS_NUMBER_SERIES"))
-        {
-            DataRegistry.AddLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
-        }
-        if (!DataRegistry.Lookups.Contains("TaxCategory"))
-        {
-            DataRegistry.AddLookupWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
-        }
-        if (!DataRegistry.Lookups.Contains("TaxOffice"))
-        {
-            DataRegistry.AddLookupWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
-        }
-        if (!DataRegistry.Lookups.Contains("UnitOfMeasure"))
-        {
-            DataRegistry.AddLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
-        }
-        if (!DataRegistry.Lookups.Contains("VatRate"))
-        {
-            DataRegistry.AddLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");
-        }
-        if (!DataRegistry.Lookups.Contains("Warehouse"))
-        {
-            DataRegistry.AddLookupWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
-        }
+        DataRegistry.AddLookupWithTableName("AssetCategory", "AssetCategory", FormName: "AssetCategory");
+        DataRegistry.AddLookupWithTableName("AssetDepreciationMethod", "AssetDepreciationMethod", FormName: "AssetDepreciationMethod");
+        DataRegistry.AddLookupWithTableName("AssetLocation", "AssetLocation", FormName: "AssetLocation");
+        DataRegistry.AddLookupWithTableName("Bank", "Bank", FormName: "Bank");
+        DataRegistry.AddLookupWithTableName("Carrier", "Carrier", FormName: "Carrier");
+        DataRegistry.AddLookupWithTableName("Category", "Category", FormName: "Category");
+        DataRegistry.AddLookupWithTableName("Company", "Company", FormName: "Company");
+        DataRegistry.AddLookupWithTableName("CompanyBranch", "CompanyBranch");
+        DataRegistry.AddLookupWithTableName("ContactType", "ContactType", FormName: "ContactType");
+        DataRegistry.AddLookupWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
+        DataRegistry.AddLookupWithTableName("Country", "Country", FormName: "Country");
+        DataRegistry.AddLookupWithTableName("Currency", "Currency", FormName: "Currency");
+        DataRegistry.AddLookupWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
+        DataRegistry.AddLookupWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
+        DataRegistry.AddLookupWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
+        DataRegistry.AddLookupWithTableName("Language", "Language", FormName: "Language");
+        DataRegistry.AddLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
+        DataRegistry.AddLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
+        DataRegistry.AddLookupWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
+        DataRegistry.AddLookupWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
+        DataRegistry.AddLookupWithTableName("ProductAttributeGroup", "ProductAttributeGroup", FormName: "ProductAttributeGroup");
+        DataRegistry.AddLookupWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
+        DataRegistry.AddLookupWithTableName("ProductDimension", "ProductDimension", FormName: "ProductDimension");
+        DataRegistry.AddLookupWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
+        DataRegistry.AddLookupWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
+        DataRegistry.AddLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
+        DataRegistry.AddLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
+        DataRegistry.AddLookupWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
+        DataRegistry.AddLookupWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
+        DataRegistry.AddLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
+        DataRegistry.AddLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");
+        DataRegistry.AddLookupWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
     }
     static void RegisterLocators_FromModules()
     {
@@ -166,10 +66,70 @@ static internal partial class Registry
         DataRegistry.AddLocator("Person", "Person", "Id", FormName: "Person");
         DataRegistry.AddLocator("Product", "Product", "Id", FormName: "Product");
     }
+    static void RegisterModule_AppUser()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   AppUser.Id,
+   AppUser.UserName,
+   AppUser.Password,
+   AppUser.Salt,
+   AppUser.FullName,
+   AppUser.UserLevelId,
+   case
+      when AppUser.UserLevelId = 0 then 'None'
+      when AppUser.UserLevelId = 1 then 'Guest'
+      when AppUser.UserLevelId = 2 then 'User'
+      when AppUser.UserLevelId = 4 then 'Admin'
+      when AppUser.UserLevelId = 8 then 'ClientApp'
+      when AppUser.UserLevelId = 256 then 'Service'
+      when AppUser.UserLevelId = 4096 then 'God'
+      else ''
+   end as UserLevel,
+   AppUser.Email,
+   AppUser.Phone,
+   AppUser.LastLoginAt,
+   AppUser.IsActive
+from
+  AppUser
+";
+        Module = DataRegistry.AddModule("AppUser", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "AppUser";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("UserName", MaxLength: 64, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Password", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Salt", MaxLength: 256, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("FullName", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("UserLevelId", "UserLevel", TypeStore.Get("UserLevel"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Email", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("Phone", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddDateTime("LastLoginAt", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
+        string[] FilterFields = ["Email", "FullName", "IsActive", "LastLoginAt", "Password", "Phone", "Salt", "UserLevel", "UserName"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["UserName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Password"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Salt"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["FullName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["UserLevelId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["UserLevel"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Email"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Phone"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LastLoginAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+    }
     static void RegisterModule_AssetCategory()
     {
-        if (DataRegistry.Modules.Contains("AssetCategory"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -199,8 +159,6 @@ from
     }
     static void RegisterModule_AssetDepreciationMethod()
     {
-        if (DataRegistry.Modules.Contains("AssetDepreciationMethod"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -230,8 +188,6 @@ from
     }
     static void RegisterModule_AssetLocation()
     {
-        if (DataRegistry.Modules.Contains("AssetLocation"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -261,8 +217,6 @@ from
     }
     static void RegisterModule_Bank()
     {
-        if (DataRegistry.Modules.Contains("Bank"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -292,8 +246,6 @@ from
     }
     static void RegisterModule_Carrier()
     {
-        if (DataRegistry.Modules.Contains("Carrier"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -326,8 +278,6 @@ from
     }
     static void RegisterModule_CashAccount()
     {
-        if (DataRegistry.Modules.Contains("CashAccount"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -380,8 +330,6 @@ from
     }
     static void RegisterModule_Category()
     {
-        if (DataRegistry.Modules.Contains("Category"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -447,8 +395,6 @@ from
     }
     static void RegisterModule_Company()
     {
-        if (DataRegistry.Modules.Contains("Company"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -561,8 +507,6 @@ from
     }
     static void RegisterModule_ContactType()
     {
-        if (DataRegistry.Modules.Contains("ContactType"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -592,8 +536,6 @@ from
     }
     static void RegisterModule_CostCenter()
     {
-        if (DataRegistry.Modules.Contains("CostCenter"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -659,8 +601,6 @@ from
     }
     static void RegisterModule_Country()
     {
-        if (DataRegistry.Modules.Contains("Country"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -696,8 +636,6 @@ from
     }
     static void RegisterModule_Currency()
     {
-        if (DataRegistry.Modules.Contains("Currency"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -733,8 +671,6 @@ from
     }
     static void RegisterModule_CustomerCategory()
     {
-        if (DataRegistry.Modules.Contains("CustomerCategory"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -761,8 +697,6 @@ from
     }
     static void RegisterModule_DiscountCategory()
     {
-        if (DataRegistry.Modules.Contains("DiscountCategory"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -787,108 +721,8 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
-    static void RegisterModule_DocumentType()
-    {
-        if (DataRegistry.Modules.Contains("DocumentType"))
-            return;
-        ModuleDef Module;
-        TableDef tblTop;
-        SelectDef SelectDef;
-        string SqlText;
-        SqlText = @"
-select
-   DocumentType.Id,
-   DocumentType.Code,
-   DocumentType.Name,
-   DocumentType.TradeTypeId,
-   case
-      when DocumentType.TradeTypeId = 0 then 'None'
-      when DocumentType.TradeTypeId = 1 then 'Sales'
-      when DocumentType.TradeTypeId = 2 then 'Purchases'
-      when DocumentType.TradeTypeId = 3 then 'Warehouse'
-      when DocumentType.TradeTypeId = 4 then 'Financial'
-      when DocumentType.TradeTypeId = 5 then 'Accounting'
-      else ''
-   end as TradeType,
-   DocumentType.NumberSeriesId,
-   DocumentType.IsActive,
-   DocumentType.AffectsStock,
-   DocumentType.AffectsFinancial,
-   DocumentType.AffectsAccounting,
-   DocumentType.StockDirection,
-   DocumentType.FinancialDirection,
-   DocumentType.AccountingDirection,
-   DocumentType.IsCancellation,
-   DocumentType.TargetDocumentTypeId,
-   DocumentType.RequiresApproval,
-   DocumentType.AutoComplete,
-   DocumentType.Color,
-   DocumentType.IconName,
-   DocumentType.PrintTemplate,
-   DocumentType.ReportName,
-   COALESCE(NumberSeries.Code, '') as NumberSeries__Code,
-   COALESCE(NumberSeries.Name, '') as NumberSeries__Name
-from
-  DocumentType
-    left join SYS_NUMBER_SERIES NumberSeries on NumberSeries.Id = DocumentType.NumberSeriesId
-";
-        Module = DataRegistry.AddModule("DocumentType", ListSelectSql: SqlText);
-        tblTop = Module.Table;
-        tblTop.Name = "DocumentType";
-        tblTop.KeyField = "Id";
-        tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
-        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddStringLookupId("NumberSeriesId", "SYS_NUMBER_SERIES", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblTop.AddBoolean("AffectsStock", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("AffectsFinancial", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("AffectsAccounting", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddInteger("StockDirection", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddInteger("FinancialDirection", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddInteger("AccountingDirection", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("IsCancellation", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddString("TargetDocumentTypeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddBoolean("RequiresApproval", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("AutoComplete", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("PrintTemplate", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("ReportName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
-        string[] FilterFields = ["Name", "AccountingDirection", "AffectsAccounting", "AffectsFinancial", "AffectsStock", "AutoComplete", "Code", "Color", "FinancialDirection", "IconName", "IsActive", "IsCancellation", "NumberSeries__Code", "NumberSeries__Name", "PrintTemplate", "ReportName", "RequiresApproval", "StockDirection", "TradeType"];
-        SelectDef = Module.SelectList[0];
-        foreach (string FieldName in FilterFields)
-            SelectDef.AddFilter(FieldName, FieldName: FieldName);
-        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["NumberSeriesId"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["AffectsStock"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["AffectsFinancial"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["AffectsAccounting"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["StockDirection"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["FinancialDirection"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["AccountingDirection"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["IsCancellation"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["TargetDocumentTypeId"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["RequiresApproval"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["AutoComplete"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["PrintTemplate"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["ReportName"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["NumberSeries__Code"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["NumberSeries__Name"] = DataColumnType.Text;
-    }
     static void RegisterModule_ExpenseCategory()
     {
-        if (DataRegistry.Modules.Contains("ExpenseCategory"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -918,8 +752,6 @@ from
     }
     static void RegisterModule_FiscalYear()
     {
-        if (DataRegistry.Modules.Contains("FiscalYear"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -973,8 +805,6 @@ from
     }
     static void RegisterModule_FixedAsset()
     {
-        if (DataRegistry.Modules.Contains("FixedAsset"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1088,8 +918,6 @@ from
     }
     static void RegisterModule_Language()
     {
-        if (DataRegistry.Modules.Contains("Language"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1138,8 +966,6 @@ from
     }
     static void RegisterModule_Log()
     {
-        if (DataRegistry.Modules.Contains("Log"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1175,7 +1001,7 @@ from
         tblTop.AddString("Source", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Scope", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("EventId", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddTextBlob("Message", Flags: FieldFlags.Visible| FieldFlags.LargeMemo | FieldFlags.Required).SetNullable(false);
+        tblTop.AddTextBlob("Message", Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.LargeMemo).SetNullable(false);
         string[] FilterFields = ["DayOfMonth", "Host", "Level", "LogTime", "Month", "Scope", "Source", "User", "Year"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -1194,8 +1020,6 @@ from
     }
     static void RegisterModule_NumberSeries()
     {
-        if (DataRegistry.Modules.Contains("NumberSeries"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1251,8 +1075,6 @@ from
     }
     static void RegisterModule_PaymentMethod()
     {
-        if (DataRegistry.Modules.Contains("PaymentMethod"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1285,8 +1107,6 @@ from
     }
     static void RegisterModule_PaymentTerm()
     {
-        if (DataRegistry.Modules.Contains("PaymentTerm"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1323,8 +1143,6 @@ from
     }
     static void RegisterModule_Person()
     {
-        if (DataRegistry.Modules.Contains("Person"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1479,8 +1297,6 @@ from
     }
     static void RegisterModule_PersonRoleType()
     {
-        if (DataRegistry.Modules.Contains("PersonRoleType"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1520,8 +1336,6 @@ from
     }
     static void RegisterModule_PriceList()
     {
-        if (DataRegistry.Modules.Contains("PriceList"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1615,8 +1429,6 @@ from
     }
     static void RegisterModule_PriceListType()
     {
-        if (DataRegistry.Modules.Contains("PriceListType"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1670,8 +1482,6 @@ from
     }
     static void RegisterModule_Product()
     {
-        if (DataRegistry.Modules.Contains("Product"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1863,8 +1673,6 @@ from
     }
     static void RegisterModule_ProductAttributeGroup()
     {
-        if (DataRegistry.Modules.Contains("ProductAttributeGroup"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1897,8 +1705,6 @@ from
     }
     static void RegisterModule_ProductBrand()
     {
-        if (DataRegistry.Modules.Contains("ProductBrand"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1925,8 +1731,6 @@ from
     }
     static void RegisterModule_ProductDimension()
     {
-        if (DataRegistry.Modules.Contains("ProductDimension"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -1962,8 +1766,6 @@ from
     }
     static void RegisterModule_ProductGroup()
     {
-        if (DataRegistry.Modules.Contains("ProductGroup"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -2006,8 +1808,6 @@ from
     }
     static void RegisterModule_Project()
     {
-        if (DataRegistry.Modules.Contains("Project"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -2108,8 +1908,6 @@ from
     }
     static void RegisterModule_SalesPerson()
     {
-        if (DataRegistry.Modules.Contains("SalesPerson"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -2142,8 +1940,6 @@ from
     }
     static void RegisterModule_StockReason()
     {
-        if (DataRegistry.Modules.Contains("StockReason"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -2195,8 +1991,6 @@ from
     }
     static void RegisterModule_SupplierCategory()
     {
-        if (DataRegistry.Modules.Contains("SupplierCategory"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -2223,8 +2017,6 @@ from
     }
     static void RegisterModule_TaxCategory()
     {
-        if (DataRegistry.Modules.Contains("TaxCategory"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -2293,8 +2085,6 @@ from
     }
     static void RegisterModule_TaxOffice()
     {
-        if (DataRegistry.Modules.Contains("TaxOffice"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -2324,8 +2114,6 @@ from
     }
     static void RegisterModule_UnitOfMeasure()
     {
-        if (DataRegistry.Modules.Contains("UnitOfMeasure"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -2355,8 +2143,6 @@ from
     }
     static void RegisterModule_VatRate()
     {
-        if (DataRegistry.Modules.Contains("VatRate"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -2392,8 +2178,6 @@ from
     }
     static void RegisterModule_Warehouse()
     {
-        if (DataRegistry.Modules.Contains("Warehouse"))
-            return;
         ModuleDef Module;
         TableDef tblTop;
         SelectDef SelectDef;
@@ -2535,6 +2319,7 @@ from
         RegisterCodeProviders_FromModules();
         RegisterLookupSources_FromModules();
         RegisterLocators_FromModules();
+        RegisterModule_AppUser();
         RegisterModule_AssetCategory();
         RegisterModule_AssetDepreciationMethod();
         RegisterModule_AssetLocation();
@@ -2549,7 +2334,6 @@ from
         RegisterModule_Currency();
         RegisterModule_CustomerCategory();
         RegisterModule_DiscountCategory();
-        RegisterModule_DocumentType();
         RegisterModule_ExpenseCategory();
         RegisterModule_FiscalYear();
         RegisterModule_FixedAsset();
