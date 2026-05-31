@@ -21,8 +21,8 @@ static public class UiItemPage
     {
         if (ColumnCount < 1)
             return 1;
-        if (ColumnCount > 4)
-            return 4;
+        if (ColumnCount > 3)
+            return 3;
         return ColumnCount;
     }
     /// <summary>
@@ -45,10 +45,13 @@ static public class UiItemPage
     static public Dictionary<string, List<List<FieldDef>>> SplitBindableGroups(TableDef TableDef, int ColumnCount)
     {
         Dictionary<string, List<List<FieldDef>>> Result = new();
-        Dictionary<string, List<FieldDef>> Groups = TableDef.GetBindableFields()
-            .Where(Field => !Field.IsLargeMemo)
-            .GroupBy(Field => Field.Group)
-            .ToDictionary(Group => Group.Key, Group => Group.ToList());
+        Dictionary<string, List<FieldDef>> Groups = new();
+        foreach (var Entry in TableDef.GetBindableGroups())
+        {
+            List<FieldDef> Fields = Entry.Value.Where(Field => !Field.IsLargeMemo).ToList();
+            if (Fields.Count > 0)
+                Groups[Entry.Key] = Fields;
+        }
         int VisualColumnCount = NormalizeColumnCount(ColumnCount);
         int MaxControlsPerColumn = Ui.Settings.FormMaxControlsPerColumn;
         foreach (var Entry in Groups)
@@ -128,6 +131,7 @@ static public class UiItemPage
         foreach (var Entry in Groups)
         {
             Expander Expander = UiFactory.CreateExpander(ParentControl, Entry.Key);
+            Expander.IsExpanded = Entry.Key.IsSameText(Sys.GENERAL);
             List<Grid> ColumnGrids = UiItemPage.CreateGroupColumnGrids(Expander, Entry.Value.Count);
             for (int i = 0; i < Entry.Value.Count; i++)
             {
@@ -148,6 +152,7 @@ static public class UiItemPage
         foreach (FieldDef Field in Fields)
         {
             Expander Expander = UiFactory.CreateExpander(ParentControl, Field.Title);
+            Expander.IsExpanded = false;
             Control Editor = UiFactory.CreateLargeMemoEditor(Field, Binder);
             Expander.Content = Editor;
             UiItemInfo.AddFieldUiInfo(TableUiInfo, Field, Editor);

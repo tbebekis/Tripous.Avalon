@@ -404,9 +404,9 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void ValidateDuplicateModuleNames(SchemaParserResult Result, SchemaScript Script)
     {
-        var Items = Script.TopTables
-            .Where(x => !string.IsNullOrWhiteSpace(x.ModuleName))
-            .GroupBy(x => x.ModuleName, StringComparer.OrdinalIgnoreCase)
+        var Items = GetModuleRegistrations(Script)
+            .Where(x => !string.IsNullOrWhiteSpace(x.Module.ModuleName))
+            .GroupBy(x => x.Module.ModuleName, StringComparer.OrdinalIgnoreCase)
             .Where(x => x.Count() > 1)
             .ToList();
 
@@ -420,16 +420,18 @@ static public class SchemaRegistrationBuilder
     {
         foreach (SchemaTable Table in Script.Tables)
         {
-            bool HasModule = !string.IsNullOrWhiteSpace(Table.ModuleName);
-            bool HasGroup = !string.IsNullOrWhiteSpace(Table.GroupName);
+            bool HasModule = Table.ModuleBlocks.Count > 0;
             bool HasMaster = !string.IsNullOrWhiteSpace(Table.MasterName);
 
             if (string.IsNullOrWhiteSpace(Table.Name))
                 AddError(Result, "TABLE_NO_NAME", "Schema table has no name.");
-            if (HasModule && !HasGroup)
-                AddError(Result, "TOP_TABLE_NO_GROUP", "Top table has no Group: " + Table.Name);
-            if (!HasModule && HasGroup)
-                AddError(Result, "TABLE_GROUP_WITHOUT_MODULE", "Table has Group but no Module: " + Table.Name);
+            foreach (SchemaModuleBlock ModuleBlock in Table.ModuleBlocks)
+            {
+                if (string.IsNullOrWhiteSpace(ModuleBlock.ModuleName))
+                    AddError(Result, "TOP_TABLE_NO_MODULE", "Top table has empty Module: " + Table.Name);
+                if (string.IsNullOrWhiteSpace(ModuleBlock.GroupName))
+                    AddError(Result, "TOP_TABLE_NO_GROUP", "Top table module has no Group: " + Table.Name + " -> " + ModuleBlock.ModuleName);
+            }
             if (!HasModule && !HasMaster)
                 AddError(Result, "DETAIL_TABLE_NO_MASTER", "Detail table has no Master: " + Table.Name);
             if (HasMaster && Script.FindTable(Table.MasterName) == null)
@@ -543,14 +545,14 @@ static public class SchemaRegistrationBuilder
             AddError(Result, "DUPLICATE_TABLE_METHOD", $"Duplicate generated table method {Item.Key}: {TableNames}");
         }
 
-        var ModuleMethodNames = Script.TopTables
-            .GroupBy(x => "RegisterModule_" + SafeIdentifier(x.ModuleName), StringComparer.OrdinalIgnoreCase)
+        var ModuleMethodNames = GetModuleRegistrations(Script)
+            .GroupBy(x => "RegisterModule_" + SafeIdentifier(x.Module.ModuleName), StringComparer.OrdinalIgnoreCase)
             .Where(x => x.Count() > 1)
             .ToList();
 
         foreach (var Item in ModuleMethodNames)
         {
-            string ModuleNames = string.Join(", ", Item.Select(x => x.ModuleName));
+            string ModuleNames = string.Join(", ", Item.Select(x => x.Module.ModuleName));
             AddError(Result, "DUPLICATE_MODULE_METHOD", $"Duplicate generated module method {Item.Key}: {ModuleNames}");
         }
     }
@@ -764,12 +766,34 @@ static public class SchemaRegistrationBuilder
         return SB.ToString().TrimEnd();
     }
     /// <summary>
+    /// Returns module registrations.
+    /// </summary>
+    static List<SchemaModuleRegistration> GetModuleRegistrations(SchemaScript Script)
+    {
+        List<SchemaModuleRegistration> Result = [];
+
+        foreach (SchemaTable Table in Script.TopTables)
+        {
+            foreach (SchemaModuleBlock Module in Table.ModuleBlocks)
+            {
+                SchemaModuleRegistration Registration = new();
+                Registration.Table = Table;
+                Registration.Module = Module;
+                Result.Add(Registration);
+            }
+        }
+
+        return Result;
+    }
+    /// <summary>
     /// Builds source code for module registration.
     /// </summary>
     static string BuildModuleDefsSourceCode(SchemaScript Script, DuplicateCheck DuplicateChecks)
     {
         StringBuilder SB = new();
-        List<SchemaTable> TopTables = Script.TopTables.OrderBy(x => x.ModuleName).ToList();
+        List<SchemaModuleRegistration> Registrations = GetModuleRegistrations(Script)
+            .OrderBy(x => x.Module.ModuleName)
+            .ToList();
 
         SB.AppendLine("static internal partial class Registry");
         SB.AppendLine("{");
@@ -777,17 +801,17 @@ static public class SchemaRegistrationBuilder
         BuildRegisterCodeProvidersMethod(SB, Script, DuplicateChecks);
         BuildRegisterLookupSourcesMethod(SB, Script, DuplicateChecks);
         BuildRegisterLocatorsMethod(SB, Script, DuplicateChecks);
-        foreach (SchemaTable TopTable in TopTables)
-            BuildRegisterModuleMethod(SB, Script, TopTable, DuplicateChecks);
+        foreach (SchemaModuleRegistration Registration in Registrations)
+            BuildRegisterModuleMethod(SB, Script, Registration.Table, Registration.Module, DuplicateChecks);
         SB.AppendLine();
         SB.AppendLine("    // ● static public");
         SB.AppendLine("    static public void RegisterModules()");
         SB.AppendLine("    {");
         SB.AppendLine("        RegisterCodeProviders_FromModules();");
-        SB.AppendLine("        RegisterLookupSources_FromModules();");
+        SB.AppendLine("        RegisterLookups_FromModules();");
         SB.AppendLine("        RegisterLocators_FromModules();");
-        foreach (SchemaTable TopTable in TopTables)
-            SB.AppendLine("        RegisterModule_" + SafeIdentifier(TopTable.ModuleName) + "();");
+        foreach (SchemaModuleRegistration Registration in Registrations)
+            SB.AppendLine("        RegisterModule_" + SafeIdentifier(Registration.Module.ModuleName) + "();");
         SB.AppendLine("    }");
         SB.AppendLine("}");
 
@@ -800,7 +824,9 @@ static public class SchemaRegistrationBuilder
     static string BuildFormDefsSourceCode(SchemaScript Script, DuplicateCheck DuplicateChecks)
     {
         StringBuilder SB = new();
-        List<SchemaTable> TopTables = Script.TopTables.OrderBy(x => x.ModuleName).ToList();
+        List<SchemaModuleRegistration> Registrations = GetModuleRegistrations(Script)
+            .OrderBy(x => x.Module.ModuleName)
+            .ToList();
 
         SB.AppendLine("static internal partial class Registry");
         SB.AppendLine("{");
@@ -808,13 +834,13 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    static public void RegisterForms()");
         SB.AppendLine("    {");
 
-        foreach (SchemaTable TopTable in TopTables)
+        foreach (SchemaModuleRegistration Registration in Registrations)
         {
-            string AddFormSource = BuildAddFormSource(TopTable);
+            string AddFormSource = BuildAddFormSource(Registration.Table, Registration.Module);
 
             if (DuplicateChecks.HasFlag(DuplicateCheck.Form))
             {
-                SB.AppendLine("        if (!DesktopRegistry.Forms.Contains(\"" + EscapeString(TopTable.FormName) + "\"))");
+                SB.AppendLine("        if (!DesktopRegistry.Forms.Contains(\"" + EscapeString(Registration.Module.FormName) + "\"))");
                 SB.AppendLine("            " + AddFormSource);
             }
             else
@@ -831,19 +857,19 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds source code that adds a form definition.
     /// </summary>
-    static string BuildAddFormSource(SchemaTable TopTable)
+    static string BuildAddFormSource(SchemaTable TopTable, SchemaModuleBlock ModuleBlock)
     {
         List<string> Args = [];
-        Args.Add("\"" + EscapeString(TopTable.FormName) + "\"");
-        Args.Add("TitleKey: \"" + EscapeString(TopTable.FormName) + "\"");
-        Args.Add("Module: \"" + EscapeString(TopTable.ModuleName) + "\"");
+        Args.Add("\"" + EscapeString(ModuleBlock.FormName) + "\"");
+        Args.Add("TitleKey: \"" + EscapeString(ModuleBlock.FormName) + "\"");
+        Args.Add("Module: \"" + EscapeString(ModuleBlock.ModuleName) + "\"");
 
-        if (!string.IsNullOrWhiteSpace(TopTable.FormClassName))
-            Args.Add("ClassName: \"" + EscapeString(TopTable.FormClassName) + "\"");
-        if (!string.IsNullOrWhiteSpace(TopTable.GroupName))
-            Args.Add("Group: \"" + EscapeString(TopTable.GroupName) + "\"");
-        if (!string.IsNullOrWhiteSpace(TopTable.ItemPageClassName))
-            Args.Add("ItemClassName: \"" + EscapeString(TopTable.ItemPageClassName) + "\"");
+        if (!string.IsNullOrWhiteSpace(ModuleBlock.FormClassName))
+            Args.Add("ClassName: \"" + EscapeString(ModuleBlock.FormClassName) + "\"");
+        if (!string.IsNullOrWhiteSpace(ModuleBlock.GroupName))
+            Args.Add("Group: \"" + EscapeString(ModuleBlock.GroupName) + "\"");
+        if (!string.IsNullOrWhiteSpace(ModuleBlock.ItemPageClassName))
+            Args.Add("ItemClassName: \"" + EscapeString(ModuleBlock.ItemPageClassName) + "\"");
         if (TopTable.IsReadOnly)
             Args.Add("IsReadOnly: true");
 
@@ -898,7 +924,7 @@ static public class SchemaRegistrationBuilder
     {
         Dictionary<string, LookupSourceInfo> LookupSources = CollectLookupSources(Script);
 
-        SB.AppendLine("    static void RegisterLookupSources_FromModules()");
+        SB.AppendLine("    static void RegisterLookups_FromModules()");
         SB.AppendLine("    {");
 
         foreach (LookupSourceInfo LookupSource in LookupSources.Values.OrderBy(x => x.Name))
@@ -1017,13 +1043,13 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds source code that adds a module definition.
     /// </summary>
-    static string BuildAddModuleSource(SchemaTable TopTable)
+    static string BuildAddModuleSource(SchemaTable TopTable, SchemaModuleBlock ModuleBlock)
     {
         List<string> Args = [];
-        Args.Add("\"" + EscapeString(TopTable.ModuleName) + "\"");
+        Args.Add("\"" + EscapeString(ModuleBlock.ModuleName) + "\"");
 
-        if (!string.IsNullOrWhiteSpace(TopTable.ModuleClassName))
-            Args.Add("ClassName: \"" + EscapeString(TopTable.ModuleClassName) + "\"");
+        if (!string.IsNullOrWhiteSpace(ModuleBlock.ModuleClassName))
+            Args.Add("ClassName: \"" + EscapeString(ModuleBlock.ModuleClassName) + "\"");
 
         Args.Add("ListSelectSql: SqlText");
 
@@ -1048,15 +1074,15 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds a module registration method.
     /// </summary>
-    static void BuildRegisterModuleMethod(StringBuilder SB, SchemaScript Script, SchemaTable TopTable, DuplicateCheck DuplicateChecks)
+    static void BuildRegisterModuleMethod(StringBuilder SB, SchemaScript Script, SchemaTable TopTable, SchemaModuleBlock ModuleBlock, DuplicateCheck DuplicateChecks)
     {
         SelectBuildResult SelectResult = BuildListSelectSql(Script, TopTable);
 
-        SB.AppendLine("    static void RegisterModule_" + SafeIdentifier(TopTable.ModuleName) + "()");
+        SB.AppendLine("    static void RegisterModule_" + SafeIdentifier(ModuleBlock.ModuleName) + "()");
         SB.AppendLine("    {");
         if (DuplicateChecks.HasFlag(DuplicateCheck.Module))
         {
-            SB.AppendLine("        if (DataRegistry.Modules.Contains(\"" + EscapeString(TopTable.ModuleName) + "\"))");
+            SB.AppendLine("        if (DataRegistry.Modules.Contains(\"" + EscapeString(ModuleBlock.ModuleName) + "\"))");
             SB.AppendLine("            return;");
         }
         SB.AppendLine("        ModuleDef Module;");
@@ -1067,7 +1093,7 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("        SqlText = @\"");
         SB.AppendLine(EscapeVerbatim(SelectResult.SqlText));
         SB.AppendLine("\";");
-        SB.AppendLine("        " + BuildAddModuleSource(TopTable));
+        SB.AppendLine("        " + BuildAddModuleSource(TopTable, ModuleBlock));
         BuildModuleOptionAssignments(SB, TopTable);
         SB.AppendLine("        tblTop = Module.Table;");
         SB.AppendLine("        tblTop.Name = \"" + EscapeString(TopTable.Name) + "\";");
@@ -1115,6 +1141,9 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void BuildTableFieldsSource(StringBuilder SB, SchemaScript Script, SchemaTable Table, string TableVarName, string Indent)
     {
+        if (Table.FieldGroups.Count > 0)
+            SB.AppendLine(Indent + TableVarName + ".FieldGroups.AddRange([" + string.Join(", ", Table.FieldGroups.Select(x => "\"" + EscapeString(x) + "\"")) + "]);");
+
         foreach (SchemaField Field in Table.Fields)
             SB.AppendLine(Indent + BuildAddFieldSource(Script, Table, Field, TableVarName));
 
@@ -1384,13 +1413,38 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static string ExtractHeaderText(string Text, int CreateTableIndex)
     {
-        int HeaderStart = Text.LastIndexOf("/*", CreateTableIndex, StringComparison.Ordinal);
+        int HeaderStart = FindHeaderStartIndex(Text, CreateTableIndex);
         int HeaderEnd = Text.LastIndexOf("*/", CreateTableIndex, StringComparison.Ordinal);
 
         if (HeaderStart < 0 || HeaderEnd < HeaderStart)
             throw new TripousDataException("Schema table header not found.");
 
         return Text.Substring(HeaderStart, HeaderEnd - HeaderStart + 2).Trim();
+    }
+    /// <summary>
+    /// Returns the header start index before a CREATE TABLE statement.
+    /// </summary>
+    static int FindHeaderStartIndex(string Text, int CreateTableIndex)
+    {
+        return Text.LastIndexOf("/*", CreateTableIndex, StringComparison.Ordinal);
+    }
+    /// <summary>
+    /// Returns a one-based line number.
+    /// </summary>
+    static int GetLineNumber(string Text, int Index)
+    {
+        if (Index < 0)
+            return 0;
+
+        int Result = 1;
+        int MaxIndex = Math.Min(Index, Text.Length);
+        for (int i = 0; i < MaxIndex; i++)
+        {
+            if (Text[i] == '\n')
+                Result++;
+        }
+
+        return Result;
     }
     /// <summary>
     /// Returns a header value.
@@ -1406,6 +1460,34 @@ static public class SchemaRegistrationBuilder
     static bool HeaderKeyExists(string HeaderText, string Name)
     {
         return Regex.IsMatch(HeaderText, @"^\s*" + Regex.Escape(Name) + @"\s*(?::.*)?$", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+    }
+    /// <summary>
+    /// Returns ordered header entries.
+    /// </summary>
+    static List<HeaderEntry> GetHeaderEntries(string HeaderText)
+    {
+        List<HeaderEntry> Result = [];
+        string[] Lines = HeaderText.Split(["\r\n", "\n"], StringSplitOptions.None);
+
+        foreach (string Line in Lines)
+        {
+            string Text = Line.Trim();
+            if (string.IsNullOrWhiteSpace(Text))
+                continue;
+            if (Text.StartsWith("/*") || Text.StartsWith("*/") || Text.All(x => x == '-'))
+                continue;
+
+            Match Match = Regex.Match(Text, @"^(?<name>[A-Za-z][A-Za-z0-9]*)\s*(?::\s*(?<value>.*))?$");
+            if (!Match.Success)
+                continue;
+
+            HeaderEntry Entry = new();
+            Entry.Name = Match.Groups["name"].Value.Trim();
+            Entry.Value = Match.Groups["value"].Success ? Match.Groups["value"].Value.Trim() : string.Empty;
+            Result.Add(Entry);
+        }
+
+        return Result;
     }
     /// <summary>
     /// Returns true if a header flag exists.
@@ -1433,6 +1515,33 @@ static public class SchemaRegistrationBuilder
         if (string.IsNullOrWhiteSpace(Value))
             return [];
         return Value.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+    }
+    /// <summary>
+    /// Splits a comma separated header value.
+    /// </summary>
+    static List<string> SplitHeaderList(string Value)
+    {
+        if (string.IsNullOrWhiteSpace(Value))
+            return [];
+
+        return Value
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .GroupBy(x => x, StringComparer.OrdinalIgnoreCase)
+            .Select(x => x.First())
+            .ToList();
+    }
+    /// <summary>
+    /// Parses a single-token header value.
+    /// </summary>
+    static string ParseSingleHeaderToken(string Value, string HeaderName)
+    {
+        List<string> Parts = SplitHeaderTokens(Value);
+        if (Parts.Count == 0)
+            return string.Empty;
+        if (Parts.Count > 1)
+            throw new TripousDataException("Invalid " + HeaderName + " header syntax: \"" + Value + "\". Expected: " + HeaderName + ": " + HeaderName.ToUpperInvariant() + "_NAME");
+        return Parts[0];
     }
     /// <summary>
     /// Returns an integer header value.
@@ -2182,10 +2291,21 @@ static public class SchemaRegistrationBuilder
 
             foreach (Match Match in Matches)
             {
-                string HeaderText = ExtractHeaderText(SchemaSql, Match.Index);
-                string CreateSqlText = ExtractCreateTableSql(SchemaSql, Match.Index);
-                SchemaTable Table = SchemaTable.Parse(HeaderText, CreateSqlText);
-                Result.Tables.Add(Table);
+                int HeaderStartIndex = FindHeaderStartIndex(SchemaSql, Match.Index);
+                int HeaderLine = GetLineNumber(SchemaSql, HeaderStartIndex);
+                int CreateTableLine = GetLineNumber(SchemaSql, Match.Index);
+
+                try
+                {
+                    string HeaderText = ExtractHeaderText(SchemaSql, Match.Index);
+                    string CreateSqlText = ExtractCreateTableSql(SchemaSql, Match.Index);
+                    SchemaTable Table = SchemaTable.Parse(HeaderText, CreateSqlText);
+                    Result.Tables.Add(Table);
+                }
+                catch (Exception ex)
+                {
+                    throw new TripousDataException("Schema table parse failed near header line " + HeaderLine + ", CREATE TABLE line " + CreateTableLine + ". " + ex.Message);
+                }
             }
 
             Result.ResolveReferences();
@@ -2221,9 +2341,9 @@ static public class SchemaRegistrationBuilder
                     throw new TripousDataException("Schema table has no name.");
                 //if (Table.CreationOrder <= 0)
                 //    throw new TripousDataException("Schema table has no valid CreationOrder: " + Table.Name);
-                if (Table.IsTopTable && string.IsNullOrWhiteSpace(Table.ModuleName))
+                if (Table.IsTopTable && Table.ModuleBlocks.Any(x => string.IsNullOrWhiteSpace(x.ModuleName)))
                     throw new TripousDataException("Top table has no Module: " + Table.Name);
-                if (Table.IsTopTable && string.IsNullOrWhiteSpace(Table.GroupName))
+                if (Table.IsTopTable && Table.ModuleBlocks.Any(x => string.IsNullOrWhiteSpace(x.GroupName)))
                     throw new TripousDataException("Top table has no Group: " + Table.Name);
                 if (!Table.IsTopTable && string.IsNullOrWhiteSpace(Table.MasterName))
                     throw new TripousDataException("Detail table has no Master: " + Table.Name);
@@ -2389,6 +2509,22 @@ static public class SchemaRegistrationBuilder
     }
 
     /// <summary>
+    /// Header entry.
+    /// </summary>
+    private class HeaderEntry
+    {
+        // ● properties
+        /// <summary>
+        /// Header entry name.
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// Header entry value.
+        /// </summary>
+        public string Value { get; set; }
+    }
+
+    /// <summary>
     /// Parsed schema table.
     /// </summary>
     private class SchemaTable
@@ -2396,6 +2532,7 @@ static public class SchemaRegistrationBuilder
         // ● private fields
         List<SchemaField> fFields = [];
         List<SchemaForeignKey> fForeignKeys = [];
+        List<SchemaModuleBlock> fModuleBlocks = [];
 
         // ● static public
         /// <summary>
@@ -2408,10 +2545,9 @@ static public class SchemaRegistrationBuilder
             Result.CreateSqlText = CreateSqlText;
             Result.FullSqlText = HeaderText.Trim() + Environment.NewLine + CreateSqlText.Trim();
 
-            Result.Name = GetHeaderValue(HeaderText, "Table");
-            Result.ParseModuleHeader(GetHeaderValue(HeaderText, "Module"));
-            Result.GroupName = GetHeaderValue(HeaderText, "Group");
-            Result.ParseFormHeader(GetHeaderValue(HeaderText, "Form"));
+            Result.Name = ParseSingleHeaderToken(GetHeaderValue(HeaderText, "Table"), "Table");
+            Result.ParseModuleBlocks(HeaderText);
+            Result.FieldGroups = SplitHeaderList(GetHeaderValue(HeaderText, "FieldGroups"));
             Result.MasterName = GetHeaderValue(HeaderText, "Master");
             Result.UiVisible = !GetHeaderFlag(HeaderText, "NotUiVisible");
             Result.IsReadOnly = GetHeaderFlag(HeaderText, "IsReadOnly");
@@ -2426,7 +2562,6 @@ static public class SchemaRegistrationBuilder
             if (string.IsNullOrWhiteSpace(Result.Name))
                 throw new TripousDataException("Schema table header has no Table value.");
 
-            Result.ResolveFormDefaults();
             Result.ParseBody();
             return Result;
         }
@@ -2441,46 +2576,136 @@ static public class SchemaRegistrationBuilder
         /// <summary>
         /// Parses module header text.
         /// </summary>
-        void ParseModuleHeader(string Text)
+        void ParseModuleHeader(SchemaModuleBlock ModuleBlock, string Text)
         {
             List<string> Parts = SplitHeaderTokens(Text);
             if (Parts.Count == 0)
                 return;
+            if (Parts.Count > 2)
+                throw new TripousDataException("Invalid Module header syntax: \"" + Text + "\". Expected: Module: Default | MODULE_NAME [MODULE_CLASS_NAME]");
 
-            ModuleName = Parts[0].IsSameText("Default") ? Name : Parts[0];
+            ModuleBlock.ModuleName = Parts[0].IsSameText("Default") ? Name : Parts[0];
 
             if (Parts.Count > 1)
-                ModuleClassName = Parts[1];
+                ModuleBlock.ModuleClassName = Parts[1];
         }
         /// <summary>
         /// Parses form header text.
         /// </summary>
-        void ParseFormHeader(string Text)
+        void ParseFormHeader(SchemaModuleBlock ModuleBlock, string Text)
         {
-            IsFormSpecified = !string.IsNullOrWhiteSpace(Text);
+            ModuleBlock.IsFormSpecified = !string.IsNullOrWhiteSpace(Text);
             List<string> Parts = SplitHeaderTokens(Text);
             if (Parts.Count == 0)
                 return;
+            if (Parts.Count > 3)
+                throw new TripousDataException("Invalid Form header syntax: \"" + Text + "\". Expected: Form: Default | FORM_NAME [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]");
 
-            FormName = Parts[0];
+            ModuleBlock.FormName = Parts[0];
 
             if (Parts.Count > 1)
-                FormClassName = Parts[1];
+                ModuleBlock.FormClassName = Parts[1];
             if (Parts.Count > 2)
-                ItemPageClassName = Parts[2];
+                ModuleBlock.ItemPageClassName = Parts[2];
+        }
+        /// <summary>
+        /// Parses module blocks.
+        /// </summary>
+        void ParseModuleBlocks(string HeaderText)
+        {
+            SchemaModuleBlock Current = null;
+            bool ModuleMetadataClosed = false;
+            List<HeaderEntry> Entries = GetHeaderEntries(HeaderText);
+
+            if (Entries.Count > 0 && !Entries[0].Name.IsSameText("Table"))
+                throw new TripousDataException("Invalid header order. Table must be the first metadata entry.");
+
+            foreach (HeaderEntry Entry in Entries)
+            {
+                if (Entry.Name.IsSameText("Table"))
+                    continue;
+
+                if (Entry.Name.IsSameText("Module"))
+                {
+                    if (ModuleMetadataClosed)
+                        throw new TripousDataException("Invalid Module header order. Module blocks must appear before table-level metadata.");
+
+                    Current = new SchemaModuleBlock();
+                    ParseModuleHeader(Current, Entry.Value);
+                    ModuleBlocks.Add(Current);
+                    continue;
+                }
+
+                if (Entry.Name.IsSameText("Group"))
+                {
+                    if (Current == null)
+                        throw new TripousDataException("Invalid Group header order. Group must follow a Module line.");
+                    if (!string.IsNullOrWhiteSpace(Current.GroupName))
+                        throw new TripousDataException("Invalid Group header order. Module block contains duplicate Group: " + Current.ModuleName);
+                    if (!string.IsNullOrWhiteSpace(Current.FormName))
+                        throw new TripousDataException("Invalid Group header order. Group must appear before Form: " + Current.ModuleName);
+                    Current.GroupName = Entry.Value;
+                    continue;
+                }
+
+                if (Entry.Name.IsSameText("Form"))
+                {
+                    if (Current == null)
+                        throw new TripousDataException("Invalid Form header order. Form must follow a Module line.");
+                    if (string.IsNullOrWhiteSpace(Current.GroupName))
+                        throw new TripousDataException("Invalid Form header order. Form must follow Group: " + Current.ModuleName);
+                    if (!string.IsNullOrWhiteSpace(Current.FormName))
+                        throw new TripousDataException("Invalid Form header order. Module block contains duplicate Form: " + Current.ModuleName);
+                    ParseFormHeader(Current, Entry.Value);
+                    continue;
+                }
+
+                if (ModuleBlocks.Count > 0)
+                {
+                    Current = null;
+                    ModuleMetadataClosed = true;
+                }
+            }
+
+            foreach (SchemaModuleBlock ModuleBlock in ModuleBlocks)
+            {
+                if (string.IsNullOrWhiteSpace(ModuleBlock.GroupName))
+                    throw new TripousDataException("Module block has no Group: " + ModuleBlock.ModuleName);
+
+                ResolveFormDefaults(ModuleBlock);
+            }
+
+            SyncPrimaryModuleProperties();
         }
         /// <summary>
         /// Resolves default form values after module parsing.
         /// </summary>
-        void ResolveFormDefaults()
+        void ResolveFormDefaults(SchemaModuleBlock ModuleBlock)
         {
-            if (string.IsNullOrWhiteSpace(ModuleName))
+            if (string.IsNullOrWhiteSpace(ModuleBlock.ModuleName))
                 return;
 
-            if (string.IsNullOrWhiteSpace(FormName))
-                FormName = ModuleName;
-            else if (FormName.IsSameText("Default"))
-                FormName = ModuleName;
+            if (string.IsNullOrWhiteSpace(ModuleBlock.FormName))
+                ModuleBlock.FormName = ModuleBlock.ModuleName;
+            else if (ModuleBlock.FormName.IsSameText("Default"))
+                ModuleBlock.FormName = ModuleBlock.ModuleName;
+        }
+        /// <summary>
+        /// Synchronizes compatibility properties from the first module block.
+        /// </summary>
+        void SyncPrimaryModuleProperties()
+        {
+            SchemaModuleBlock ModuleBlock = ModuleBlocks.FirstOrDefault();
+            if (ModuleBlock == null)
+                return;
+
+            ModuleName = ModuleBlock.ModuleName;
+            ModuleClassName = ModuleBlock.ModuleClassName;
+            FormName = ModuleBlock.FormName;
+            FormClassName = ModuleBlock.FormClassName;
+            ItemPageClassName = ModuleBlock.ItemPageClassName;
+            IsFormSpecified = ModuleBlock.IsFormSpecified;
+            GroupName = ModuleBlock.GroupName;
         }
         /// <summary>
         /// Moves inline comments before comma.
@@ -2573,6 +2798,10 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public string GroupName { get; set; }
         /// <summary>
+        /// Preferred field group display order.
+        /// </summary>
+        public List<string> FieldGroups { get; set; } = [];
+        /// <summary>
         /// Master table name.
         /// </summary>
         public string MasterName { get; set; }
@@ -2638,7 +2867,7 @@ static public class SchemaRegistrationBuilder
         /// <summary>
         /// True when this table is top table of a module.
         /// </summary>
-        public bool IsTopTable => !string.IsNullOrWhiteSpace(ModuleName) && !string.IsNullOrWhiteSpace(GroupName);
+        public bool IsTopTable => ModuleBlocks.Count > 0;
         /// <summary>
         /// Parsed fields.
         /// </summary>
@@ -2647,6 +2876,62 @@ static public class SchemaRegistrationBuilder
         /// Parsed foreign keys.
         /// </summary>
         public List<SchemaForeignKey> ForeignKeys { get => fForeignKeys; set => fForeignKeys = value; }
+        /// <summary>
+        /// Module blocks.
+        /// </summary>
+        public List<SchemaModuleBlock> ModuleBlocks { get => fModuleBlocks; set => fModuleBlocks = value; }
+    }
+
+    /// <summary>
+    /// Parsed module block.
+    /// </summary>
+    private class SchemaModuleBlock
+    {
+        // ● properties
+        /// <summary>
+        /// Module name.
+        /// </summary>
+        public string ModuleName { get; set; }
+        /// <summary>
+        /// Module class name.
+        /// </summary>
+        public string ModuleClassName { get; set; }
+        /// <summary>
+        /// Module group name.
+        /// </summary>
+        public string GroupName { get; set; }
+        /// <summary>
+        /// Form name.
+        /// </summary>
+        public string FormName { get; set; }
+        /// <summary>
+        /// Form class name.
+        /// </summary>
+        public string FormClassName { get; set; }
+        /// <summary>
+        /// Item page class name.
+        /// </summary>
+        public string ItemPageClassName { get; set; }
+        /// <summary>
+        /// True when Form was explicitly defined.
+        /// </summary>
+        public bool IsFormSpecified { get; set; }
+    }
+
+    /// <summary>
+    /// Module registration.
+    /// </summary>
+    private class SchemaModuleRegistration
+    {
+        // ● properties
+        /// <summary>
+        /// Top table.
+        /// </summary>
+        public SchemaTable Table { get; set; }
+        /// <summary>
+        /// Module block.
+        /// </summary>
+        public SchemaModuleBlock Module { get; set; }
     }
 
     /// <summary>

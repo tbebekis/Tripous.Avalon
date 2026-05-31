@@ -13,26 +13,35 @@ static internal partial class Registry
     // ● private
     static void RegisterCodeProviders_FromModules()
     {
+        DataRegistry.AddCodeProvider("ASSET");
         DataRegistry.AddCodeProvider("BillOfMaterial");
         DataRegistry.AddCodeProvider("CashAccount");
         DataRegistry.AddCodeProvider("Company");
         DataRegistry.AddCodeProvider("FixedAsset");
+        DataRegistry.AddCodeProvider("JOURNAL_ENTRY");
         DataRegistry.AddCodeProvider("PersonAddress");
         DataRegistry.AddCodeProvider("Product");
         DataRegistry.AddCodeProvider("Project");
         DataRegistry.AddCodeProvider("SalesPerson");
+        DataRegistry.AddCodeProvider("STOCK_COUNT");
+        DataRegistry.AddCodeProvider("STOCK_TRADE_DRAFT");
+        DataRegistry.AddCodeProvider("TRADE-DRAFT");
         DataRegistry.AddCodeProvider("Warehouse");
         DataRegistry.AddCodeProvider("WarehouseLocation");
     }
-    static void RegisterLookupSources_FromModules()
+    static void RegisterLookups_FromModules()
     {
+        DataRegistry.AddLookupWithTableName("Account", "Account", FormName: "Account");
+        DataRegistry.AddLookupWithTableName("AppUser", "AppUser", FormName: "AppUser");
         DataRegistry.AddLookupWithTableName("AssetCategory", "AssetCategory", FormName: "AssetCategory");
         DataRegistry.AddLookupWithTableName("AssetDepreciationMethod", "AssetDepreciationMethod", FormName: "AssetDepreciationMethod");
         DataRegistry.AddLookupWithTableName("AssetLocation", "AssetLocation", FormName: "AssetLocation");
         DataRegistry.AddLookupWithTableName("Bank", "Bank", FormName: "Bank");
         DataRegistry.AddLookupWithTableName("Carrier", "Carrier", FormName: "Carrier");
+        DataRegistry.AddLookupWithTableName("CashAccount", "CashAccount", FormName: "CashAccount");
         DataRegistry.AddLookupWithTableName("Category", "Category", FormName: "Category");
         DataRegistry.AddLookupWithTableName("Company", "Company", FormName: "Company");
+        DataRegistry.AddLookupWithTableName("CompanyBankAccount", "CompanyBankAccount");
         DataRegistry.AddLookupWithTableName("CompanyBranch", "CompanyBranch");
         DataRegistry.AddLookupWithTableName("ContactType", "ContactType", FormName: "ContactType");
         DataRegistry.AddLookupWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
@@ -40,16 +49,20 @@ static internal partial class Registry
         DataRegistry.AddLookupWithTableName("Currency", "Currency", FormName: "Currency");
         DataRegistry.AddLookupWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
         DataRegistry.AddLookupWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
+        DataRegistry.AddLookupWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
         DataRegistry.AddLookupWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
+        DataRegistry.AddLookupWithTableName("JournalEntry", "JournalEntry", FormName: "JournalEntry");
         DataRegistry.AddLookupWithTableName("Language", "Language", FormName: "Language");
         DataRegistry.AddLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
         DataRegistry.AddLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
+        DataRegistry.AddLookupWithTableName("Person", "Person", FormName: "Person");
         DataRegistry.AddLookupWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
         DataRegistry.AddLookupWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
         DataRegistry.AddLookupWithTableName("ProductAttributeGroup", "ProductAttributeGroup", FormName: "ProductAttributeGroup");
         DataRegistry.AddLookupWithTableName("ProductBrand", "ProductBrand", FormName: "ProductBrand");
         DataRegistry.AddLookupWithTableName("ProductDimension", "ProductDimension", FormName: "ProductDimension");
         DataRegistry.AddLookupWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
+        DataRegistry.AddLookupWithTableName("Project", "Project", FormName: "Project");
         DataRegistry.AddLookupWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
         DataRegistry.AddLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
         DataRegistry.AddLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
@@ -63,8 +76,76 @@ static internal partial class Registry
     {
         DataRegistry.AddLocator("Country", "Country", "Id", FormName: "Country");
         DataRegistry.AddLocator("Customer", "Person", "Id", FormName: "Person");
+        DataRegistry.AddLocator("JournalEntry", "JournalEntry", "Id", FormName: "JournalEntry");
         DataRegistry.AddLocator("Person", "Person", "Id", FormName: "Person");
         DataRegistry.AddLocator("Product", "Product", "Id", FormName: "Product");
+        DataRegistry.AddLocator("StockCount", "StockCount", "Id", FormName: "StockCount");
+        DataRegistry.AddLocator("StockTrade", "StockTrade", "Id", FormName: "StockTrade");
+        DataRegistry.AddLocator("Supplier", "ProductSupplier", "Id");
+        DataRegistry.AddLocator("Trade", "Trade", "Id", FormName: "SalesOrder");
+        DataRegistry.AddLocator("TradeLine", "TradeLine", "Id");
+    }
+    static void RegisterModule_Account()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Account.Id,
+   Account.Code,
+   Account.Name,
+   Account.ParentAccountId,
+   Account.AccountTypeId,
+   case
+      when Account.AccountTypeId = 0 then 'None'
+      when Account.AccountTypeId = 1 then 'Asset'
+      when Account.AccountTypeId = 2 then 'Liability'
+      when Account.AccountTypeId = 3 then 'Equity'
+      when Account.AccountTypeId = 4 then 'Revenue'
+      when Account.AccountTypeId = 5 then 'Expense'
+      else ''
+   end as AccountType,
+   Account.NormalBalanceId,
+   case
+      when Account.NormalBalanceId = 0 then 'None'
+      when Account.NormalBalanceId = 1 then 'Debit'
+      when Account.NormalBalanceId = 2 then 'Credit'
+      else ''
+   end as NormalBalance,
+   Account.IsPosting,
+   Account.IsActive
+from
+  Account
+";
+        Module = DataRegistry.AddModule("Account", ClassName: "AccountDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Account";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("ParentAccountId", "Account", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddEnumLookupId("AccountTypeId", "AccountType", TypeStore.Get("AccountType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("NormalBalanceId", "NormalBalance", TypeStore.Get("NormalBalance"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddBoolean("IsPosting", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
+        string[] FilterFields = ["Name", "AccountType", "Code", "IsActive", "IsPosting", "NormalBalance"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ParentAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AccountTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["AccountType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["NormalBalanceId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["NormalBalance"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsPosting"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
     static void RegisterModule_AppUser()
     {
@@ -127,6 +208,126 @@ from
         SelectDef.ColumnTypes["Phone"] = DataColumnType.Text;
         SelectDef.ColumnTypes["LastLoginAt"] = DataColumnType.DateTime;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+    }
+    static void RegisterModule_Asset()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Asset.Id,
+   Asset.Code,
+   Asset.Name,
+   Asset.AssetCategoryId,
+   Asset.AssetLocationId,
+   Asset.StatusId,
+   case
+      when Asset.StatusId = 0 then 'None'
+      when Asset.StatusId = 1 then 'Draft'
+      when Asset.StatusId = 2 then 'Active'
+      when Asset.StatusId = 3 then 'Disposed'
+      when Asset.StatusId = 4 then 'Sold'
+      when Asset.StatusId = 5 then 'Scrapped'
+      else ''
+   end as AssetStatus,
+   Asset.AcquisitionDate,
+   Asset.InServiceDate,
+   Asset.AcquisitionCost,
+   Asset.DepreciationMethodId,
+   Asset.UsefulLifeMonths,
+   Asset.SalvageValue,
+   Asset.AccumulatedDepreciation,
+   Asset.BookValue,
+   Asset.SerialNumber,
+   Asset.SupplierId,
+   Asset.CreatedAt,
+   Asset.CreatedBy,
+   Asset.ModifiedAt,
+   Asset.ModifiedBy,
+   COALESCE(AssetCategory.Name, '') as AssetCategory__Name,
+   COALESCE(AssetLocation.Name, '') as AssetLocation__Name,
+   COALESCE(DepreciationMethod.Name, '') as DepreciationMethod__Name
+from
+  Asset
+    left join AssetCategory AssetCategory on AssetCategory.Id = Asset.AssetCategoryId
+    left join AssetLocation AssetLocation on AssetLocation.Id = Asset.AssetLocationId
+    left join AssetDepreciationMethod DepreciationMethod on DepreciationMethod.Id = Asset.DepreciationMethodId
+    left join ProductSupplier Supplier on Supplier.Id = Asset.SupplierId
+    left join AppUser CreatedBy on CreatedBy.Id = Asset.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Asset.ModifiedBy
+";
+        Module = DataRegistry.AddModule("Asset", ClassName: "AssetDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Asset";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Classification", "Acquisition", "Depreciation", "Supplier", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("ASSET");
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("AssetCategoryId", "AssetCategory", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Classification");
+        tblTop.AddStringLookupId("AssetLocationId", "AssetLocation", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Classification");
+        tblTop.AddEnumLookupId("StatusId", "AssetStatus", TypeStore.Get("AssetStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("AcquisitionDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Acquisition");
+        tblTop.AddDate("InServiceDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Acquisition");
+        tblTop.AddDecimal("AcquisitionCost", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Acquisition");
+        tblTop.AddStringLookupId("DepreciationMethodId", "AssetDepreciationMethod", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Depreciation");
+        tblTop.AddInteger("UsefulLifeMonths", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Depreciation");
+        tblTop.AddDecimal("SalvageValue", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Depreciation");
+        tblTop.AddDecimal("AccumulatedDepreciation", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Depreciation");
+        tblTop.AddDecimal("BookValue", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Depreciation");
+        tblTop.AddString("SerialNumber", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Classification");
+        tblTop.AddString("SupplierId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Supplier");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo().SetGroup("Notes");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        TableDef tblSupplier = tblTop.AddJoin("SupplierId", "ProductSupplier", "Supplier", "Id");
+        tblTop.Fields.Get("SupplierId").Locator = "Supplier";
+        tblSupplier.AddId("Id").SetNullable(false);
+        tblSupplier.AddString("SupplierCode", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        string[] FilterFields = ["Name", "AccumulatedDepreciation", "AcquisitionCost", "AcquisitionDate", "AssetCategory__Name", "AssetLocation__Name", "AssetStatus", "BookValue", "Code", "CreatedAt", "CreatedBy", "DepreciationMethod__Name", "InServiceDate", "ModifiedAt", "ModifiedBy", "SalvageValue", "SerialNumber", "UsefulLifeMonths"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AssetCategoryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AssetLocationId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["StatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["AssetStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AcquisitionDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["InServiceDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["AcquisitionCost"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DepreciationMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["UsefulLifeMonths"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["SalvageValue"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["AccumulatedDepreciation"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["BookValue"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["SerialNumber"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SupplierId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AssetCategory__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["AssetLocation__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DepreciationMethod__Name"] = DataColumnType.Text;
+        TableDef tblAssetDepreciationLine = tblTop.AddDetail("AssetDepreciationLine", "Id", "AssetId");
+        tblAssetDepreciationLine.KeyField = "Id";
+        tblAssetDepreciationLine.AddId("Id").SetNullable(false);
+        tblAssetDepreciationLine.AddString("AssetId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblAssetDepreciationLine.AddDate("DepreciationDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblAssetDepreciationLine.AddDecimal("DepreciationAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblAssetDepreciationLine.AddDecimal("AccumulatedDepreciation", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblAssetDepreciationLine.AddDecimal("BookValueAfter", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblAssetDepreciationLine.AddStringLookupId("JournalEntryId", "JournalEntry", Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetDepreciationLine.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true);
+        tblAssetDepreciationLine.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblAssetDepreciationLine.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
     }
     static void RegisterModule_AssetCategory()
     {
@@ -311,7 +512,7 @@ from
         tblTop.AddStringLookupId("CompanyBranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddDecimal("Balance", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblTop.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblTop.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         string[] FilterFields = ["Name", "Balance", "Code", "CompanyBranch__Code", "CompanyBranch__Name", "Currency__Code", "Currency__Name", "IsActive"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -579,8 +780,8 @@ from
         tblManagerPerson.AddId("Id").SetNullable(false);
         tblManagerPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblManagerPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblManagerPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblManagerPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblManagerPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblManagerPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
         string[] FilterFields = ["Name", "Code", "Color", "EndDate", "IconName", "IsActive", "ManagerPerson__Code", "ManagerPerson__Name", "ManagerPerson__Title", "StartDate"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -721,6 +922,112 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
+    static void RegisterModule_DocumentType()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   DocumentType.Id,
+   DocumentType.Code,
+   DocumentType.Name,
+   DocumentType.TradeTypeId,
+   case
+      when DocumentType.TradeTypeId = 0 then 'None'
+      when DocumentType.TradeTypeId = 1 then 'Sales'
+      when DocumentType.TradeTypeId = 2 then 'Purchases'
+      when DocumentType.TradeTypeId = 3 then 'Warehouse'
+      when DocumentType.TradeTypeId = 4 then 'Financial'
+      when DocumentType.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
+   DocumentType.NumberSeriesId,
+   DocumentType.HandlerClass,
+   DocumentType.IsActive,
+   DocumentType.IsSystem,
+   DocumentType.AllowManualNumber,
+   DocumentType.AutoComplete,
+   DocumentType.AffectsStock,
+   DocumentType.AffectsFinancial,
+   DocumentType.AffectsAccounting,
+   DocumentType.StockDirection,
+   DocumentType.FinancialDirection,
+   DocumentType.AccountingDirection,
+   DocumentType.IsCancellation,
+   DocumentType.CancellationTargetId,
+   DocumentType.PrintTemplate,
+   DocumentType.ReportName,
+   DocumentType.DisplayOrder,
+   DocumentType.Color,
+   DocumentType.IconName,
+   COALESCE(NumberSeries.Code, '') as NumberSeries__Code,
+   COALESCE(NumberSeries.Name, '') as NumberSeries__Name
+from
+  DocumentType
+    left join SYS_NUMBER_SERIES NumberSeries on NumberSeries.Id = DocumentType.NumberSeriesId
+";
+        Module = DataRegistry.AddModule("DocumentType", ClassName: "DocumentTypeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "DocumentType";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Posting", "Cancellation", "Output", "Appearance", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("NumberSeriesId", "SYS_NUMBER_SERIES", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("HandlerClass", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddBoolean("IsSystem", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("AllowManualNumber", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("AutoComplete", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("AffectsStock", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Posting");
+        tblTop.AddBoolean("AffectsFinancial", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Posting");
+        tblTop.AddBoolean("AffectsAccounting", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Posting");
+        tblTop.AddInteger("StockDirection", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Posting");
+        tblTop.AddInteger("FinancialDirection", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Posting");
+        tblTop.AddInteger("AccountingDirection", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Posting");
+        tblTop.AddBoolean("IsCancellation", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Cancellation");
+        tblTop.AddStringLookupId("CancellationTargetId", "DocumentType", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Cancellation");
+        tblTop.AddString("PrintTemplate", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Output");
+        tblTop.AddString("ReportName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Output");
+        tblTop.AddInteger("DisplayOrder", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo().SetGroup("Notes");
+        string[] FilterFields = ["Name", "AccountingDirection", "AffectsAccounting", "AffectsFinancial", "AffectsStock", "AllowManualNumber", "AutoComplete", "Code", "Color", "DisplayOrder", "FinancialDirection", "HandlerClass", "IconName", "IsActive", "IsCancellation", "IsSystem", "NumberSeries__Code", "NumberSeries__Name", "PrintTemplate", "ReportName", "StockDirection", "TradeType"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["NumberSeriesId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["HandlerClass"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsSystem"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AllowManualNumber"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AutoComplete"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AffectsStock"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AffectsFinancial"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["AffectsAccounting"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["StockDirection"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["FinancialDirection"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["AccountingDirection"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["IsCancellation"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CancellationTargetId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PrintTemplate"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ReportName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DisplayOrder"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["NumberSeries__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["NumberSeries__Name"] = DataColumnType.Text;
+    }
     static void RegisterModule_ExpenseCategory()
     {
         ModuleDef Module;
@@ -749,6 +1056,149 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+    }
+    static void RegisterModule_FinanceBalance()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   FinanceBalance.Id,
+   FinanceBalance.CashAccountId,
+   FinanceBalance.CompanyBankAccountId,
+   FinanceBalance.Balance,
+   FinanceBalance.LastMovementDate,
+   FinanceBalance.LastMovementId,
+   COALESCE(CashAccount.Code, '') as CashAccount__Code,
+   COALESCE(CashAccount.Name, '') as CashAccount__Name,
+   COALESCE(CompanyBankAccount.Code, '') as CompanyBankAccount__Code,
+   COALESCE(CompanyBankAccount.Name, '') as CompanyBankAccount__Name
+from
+  FinanceBalance
+    left join CashAccount CashAccount on CashAccount.Id = FinanceBalance.CashAccountId
+    left join CompanyBankAccount CompanyBankAccount on CompanyBankAccount.Id = FinanceBalance.CompanyBankAccountId
+    left join FinanceMovement LastMovement on LastMovement.Id = FinanceBalance.LastMovementId
+";
+        Module = DataRegistry.AddModule("FinanceBalance", ClassName: "FinanceBalanceDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "FinanceBalance";
+        tblTop.KeyField = "Id";
+        tblTop.IsUiVisible = false;
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("CashAccountId", "CashAccount", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddStringLookupId("CompanyBankAccountId", "CompanyBankAccount", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddDecimal("Balance", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDate("LastMovementDate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("LastMovementId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        string[] FilterFields = ["Balance", "CashAccount__Code", "CashAccount__Name", "CompanyBankAccount__Code", "CompanyBankAccount__Name", "LastMovementDate"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Balance"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["LastMovementDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["LastMovementId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Name"] = DataColumnType.Text;
+    }
+    static void RegisterModule_FinanceMovement()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   FinanceMovement.Id,
+   FinanceMovement.MovementDate,
+   FinanceMovement.CashAccountId,
+   FinanceMovement.CompanyBankAccountId,
+   FinanceMovement.Direction,
+   FinanceMovement.Amount,
+   FinanceMovement.CurrencyId,
+   FinanceMovement.ExchangeRate,
+   FinanceMovement.SourceModule,
+   FinanceMovement.SourceTable,
+   FinanceMovement.SourceId,
+   FinanceMovement.DocumentTypeId,
+   FinanceMovement.DocumentCode,
+   FinanceMovement.DocumentDate,
+   FinanceMovement.Remarks,
+   FinanceMovement.CreatedAt,
+   FinanceMovement.CreatedBy,
+   COALESCE(CashAccount.Code, '') as CashAccount__Code,
+   COALESCE(CashAccount.Name, '') as CashAccount__Name,
+   COALESCE(CompanyBankAccount.Code, '') as CompanyBankAccount__Code,
+   COALESCE(CompanyBankAccount.Name, '') as CompanyBankAccount__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name
+from
+  FinanceMovement
+    left join CashAccount CashAccount on CashAccount.Id = FinanceMovement.CashAccountId
+    left join CompanyBankAccount CompanyBankAccount on CompanyBankAccount.Id = FinanceMovement.CompanyBankAccountId
+    left join Currency Currency on Currency.Id = FinanceMovement.CurrencyId
+    left join DocumentType DocumentType on DocumentType.Id = FinanceMovement.DocumentTypeId
+    left join AppUser CreatedBy on CreatedBy.Id = FinanceMovement.CreatedBy
+";
+        Module = DataRegistry.AddModule("FinanceMovement", ClassName: "FinanceMovementDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "FinanceMovement";
+        tblTop.KeyField = "Id";
+        tblTop.IsUiVisible = false;
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddDate("MovementDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("CashAccountId", "CashAccount", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddStringLookupId("CompanyBankAccountId", "CompanyBankAccount", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddInteger("Direction", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddString("SourceModule", MaxLength: 64, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("SourceTable", MaxLength: 64, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDate("DocumentDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        string[] FilterFields = ["Amount", "CashAccount__Code", "CashAccount__Name", "CompanyBankAccount__Code", "CompanyBankAccount__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "Direction", "DocumentCode", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "ExchangeRate", "MovementDate", "Remarks", "SourceModule", "SourceTable"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["MovementDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["CashAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Direction"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["Amount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["SourceModule"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceTable"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
     }
     static void RegisterModule_FiscalYear()
     {
@@ -852,7 +1302,7 @@ from
         tblTop.AddString("Manufacturer", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddString("Model", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblTop.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblTop.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         string[] FilterFields = ["Name", "AssetCategory__Name", "AssetDepreciationMethod__Name", "AssetLocation__Name", "Code", "DepreciationRate", "IsActive", "Manufacturer", "Model", "PurchaseDate", "PurchaseValue", "SerialNumber", "UsefulLifeMonths"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -881,14 +1331,14 @@ from
         tblAssetAssignment.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblAssetAssignment.AddDate("AssignmentDate", Flags: FieldFlags.Visible).SetNullable(true);
         tblAssetAssignment.AddDate("ReturnDate", Flags: FieldFlags.Visible).SetNullable(true);
-        tblAssetAssignment.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblAssetAssignment.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         TableDef tblPerson = tblAssetAssignment.AddJoin("PersonId", "Person", "Person", "Id");
         tblAssetAssignment.Fields.Get("PersonId").Locator = "Person";
         tblPerson.AddId("Id").SetNullable(false);
         tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
         TableDef tblAssetMaintenance = tblTop.AddDetail("AssetMaintenance", "Id", "FixedAssetId");
         tblAssetMaintenance.KeyField = "Id";
         tblAssetMaintenance.AddId("Id").SetNullable(false);
@@ -896,7 +1346,7 @@ from
         tblAssetMaintenance.AddDate("Date", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblAssetMaintenance.AddString("Description", MaxLength: 255, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblAssetMaintenance.AddDecimal("Cost", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
-        tblAssetMaintenance.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblAssetMaintenance.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         TableDef tblAssetDocument = tblTop.AddDetail("AssetDocument", "Id", "FixedAssetId");
         tblAssetDocument.KeyField = "Id";
         tblAssetDocument.AddId("Id").SetNullable(false);
@@ -904,7 +1354,7 @@ from
         tblAssetDocument.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblAssetDocument.AddString("FileName", MaxLength: 255, Flags: FieldFlags.Visible).SetNullable(true);
         tblAssetDocument.AddString("Description", MaxLength: 255, Flags: FieldFlags.Visible).SetNullable(true);
-        tblAssetDocument.AddTextBlob("BlobText", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblAssetDocument.AddTextBlob("BlobText", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         TableDef tblAssetInsurance = tblTop.AddDetail("AssetInsurance", "Id", "FixedAssetId");
         tblAssetInsurance.KeyField = "Id";
         tblAssetInsurance.AddId("Id").SetNullable(false);
@@ -915,6 +1365,121 @@ from
         tblAssetInsurance.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
         tblAssetInsurance.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblAssetInsurance.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_JournalEntry()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   JournalEntry.Id,
+   JournalEntry.Code,
+   JournalEntry.EntryDate,
+   JournalEntry.StatusId,
+   case
+      when JournalEntry.StatusId = 0 then 'Draft'
+      when JournalEntry.StatusId = 1 then 'Posted'
+      when JournalEntry.StatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   JournalEntry.TotalDebit,
+   JournalEntry.TotalCredit,
+   JournalEntry.SourceModule,
+   JournalEntry.SourceTable,
+   JournalEntry.SourceId,
+   JournalEntry.DocumentTypeId,
+   JournalEntry.DocumentCode,
+   JournalEntry.DocumentDate,
+   JournalEntry.CancelledDocumentId,
+   JournalEntry.CancellationDocumentId,
+   JournalEntry.CreatedAt,
+   JournalEntry.CreatedBy,
+   JournalEntry.ModifiedAt,
+   JournalEntry.ModifiedBy,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name
+from
+  JournalEntry
+    left join DocumentType DocumentType on DocumentType.Id = JournalEntry.DocumentTypeId
+    left join AppUser CreatedBy on CreatedBy.Id = JournalEntry.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = JournalEntry.ModifiedBy
+";
+        Module = DataRegistry.AddModule("JournalEntry", ClassName: "JournalEntryDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "JournalEntry";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Source", "Document", "Relations", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("JOURNAL_ENTRY");
+        tblTop.AddDate("EntryDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDecimal("TotalDebit", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDecimal("TotalCredit", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddString("SourceModule", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Source");
+        tblTop.AddString("SourceTable", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Source");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Source");
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Document");
+        tblTop.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Document");
+        tblTop.AddDate("DocumentDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Document");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo().SetGroup("Notes");
+        tblTop.AddString("CancelledDocumentId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancellationDocumentId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        TableDef tblCancelledDocument = tblTop.AddJoin("CancelledDocumentId", "JournalEntry", "CancelledDocument", "Id");
+        tblTop.Fields.Get("CancelledDocumentId").Locator = "JournalEntry";
+        tblCancelledDocument.AddId("Id").SetNullable(false);
+        tblCancelledDocument.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("JOURNAL_ENTRY");
+        tblCancelledDocument.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Document");
+        TableDef tblCancellationDocument = tblTop.AddJoin("CancellationDocumentId", "JournalEntry", "CancellationDocument", "Id");
+        tblTop.Fields.Get("CancellationDocumentId").Locator = "JournalEntry";
+        tblCancellationDocument.AddId("Id").SetNullable(false);
+        tblCancellationDocument.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("JOURNAL_ENTRY");
+        tblCancellationDocument.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Document");
+        string[] FilterFields = ["Code", "CreatedAt", "CreatedBy", "DocumentCode", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "EntryDate", "ModifiedAt", "ModifiedBy", "SourceModule", "SourceTable", "TotalCredit", "TotalDebit", "TradeStatus"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["EntryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["StatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TotalDebit"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalCredit"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["SourceModule"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceTable"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["CancelledDocumentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancellationDocumentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        TableDef tblJournalEntryLine = tblTop.AddDetail("JournalEntryLine", "Id", "JournalEntryId");
+        tblJournalEntryLine.KeyField = "Id";
+        tblJournalEntryLine.AddId("Id").SetNullable(false);
+        tblJournalEntryLine.AddString("JournalEntryId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblJournalEntryLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblJournalEntryLine.AddStringLookupId("AccountId", "Account", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblJournalEntryLine.AddDecimal("DebitAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblJournalEntryLine.AddDecimal("CreditAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblJournalEntryLine.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible).SetNullable(true);
+        tblJournalEntryLine.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblJournalEntryLine.AddString("ReferenceNo", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblJournalEntryLine.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true);
+        tblJournalEntryLine.AddString("SourceModule", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblJournalEntryLine.AddString("SourceTable", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblJournalEntryLine.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
     }
     static void RegisterModule_Language()
     {
@@ -1001,7 +1566,7 @@ from
         tblTop.AddString("Source", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Scope", MaxLength: 512, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("EventId", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblTop.AddTextBlob("Message", Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.LargeMemo).SetNullable(false);
+        tblTop.AddTextBlob("Message", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetLargeMemo();
         string[] FilterFields = ["DayOfMonth", "Host", "Level", "LogTime", "Month", "Scope", "Source", "User", "Year"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -1190,29 +1755,30 @@ from
         tblTop = Module.Table;
         tblTop.Name = "Person";
         tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Tax", "Preferences", "Address", "Appearance", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Title", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("TaxNumber", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddStringLookupId("TaxOfficeId", "TaxOffice", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddStringLookupId("LanguageId", "Language", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("AddressLine1", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("City", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("Phone", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("Mobile", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("Email", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("Website", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("ContactPerson", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("TaxNumber", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Tax");
+        tblTop.AddStringLookupId("TaxOfficeId", "TaxOffice", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Tax");
+        tblTop.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Preferences");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Preferences");
+        tblTop.AddStringLookupId("LanguageId", "Language", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Preferences");
+        tblTop.AddString("AddressLine1", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("City", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("Phone", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("Mobile", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("Email", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("Website", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("ContactPerson", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo().SetGroup("Notes");
         tblTop.AddBoolean("IsCompany", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
         string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "City", "Code", "Color", "ContactPerson", "Country__Code", "Country__Name", "Currency__Code", "Currency__Name", "Email", "IconName", "IsActive", "IsCompany", "Language__Code", "Language__Name", "Mobile", "Phone", "PostalCode", "TaxNumber", "TaxOffice__Code", "TaxOffice__Name", "Title", "Website"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -1270,7 +1836,7 @@ from
         tblPersonAddress.AddString("AddressLine1", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblPersonAddress.AddString("AddressLine2", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblPersonAddress.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblPersonAddress.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblPersonAddress.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         TableDef tblPersonContact = tblTop.AddDetail("PersonContact", "Id", "PersonId");
         tblPersonContact.KeyField = "Id";
         tblPersonContact.AddId("Id").SetNullable(false);
@@ -1282,7 +1848,7 @@ from
         tblPersonContact.AddString("Mobile", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblPersonContact.AddString("Email", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblPersonContact.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblPersonContact.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblPersonContact.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         TableDef tblPersonBankAccount = tblTop.AddDetail("PersonBankAccount", "Id", "PersonId");
         tblPersonBankAccount.KeyField = "Id";
         tblPersonBankAccount.AddId("Id").SetNullable(false);
@@ -1293,7 +1859,7 @@ from
         tblPersonBankAccount.AddString("SwiftCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblPersonBankAccount.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblPersonBankAccount.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblPersonBankAccount.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblPersonBankAccount.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
     }
     static void RegisterModule_PersonRoleType()
     {
@@ -1392,8 +1958,8 @@ from
         tblCustomer.AddId("Id").SetNullable(false);
         tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblCustomer.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblCustomer.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblCustomer.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblCustomer.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblCustomer.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
         TableDef tblProduct = tblTop.AddJoin("ProductId", "Product", "Product", "Id");
         tblTop.Fields.Get("ProductId").Locator = "Product";
         tblProduct.AddId("Id").SetNullable(false);
@@ -1593,7 +2159,7 @@ from
         tblProductBarcode.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
         tblProductBarcode.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblProductBarcode.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblProductBarcode.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblProductBarcode.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         TableDef tblProductSupplier = tblTop.AddDetail("ProductSupplier", "Id", "ProductId");
         tblProductSupplier.KeyField = "Id";
         tblProductSupplier.AddId("Id").SetNullable(false);
@@ -1604,14 +2170,14 @@ from
         tblProductSupplier.AddDecimal("LastCost", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
         tblProductSupplier.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblProductSupplier.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblProductSupplier.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblProductSupplier.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         TableDef tblSupplier = tblProductSupplier.AddJoin("SupplierId", "Person", "Supplier", "Id");
         tblProductSupplier.Fields.Get("SupplierId").Locator = "Person";
         tblSupplier.AddId("Id").SetNullable(false);
         tblSupplier.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblSupplier.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblSupplier.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblSupplier.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSupplier.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblSupplier.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
         TableDef tblBillOfMaterial = tblTop.AddDetail("BillOfMaterial", "Id", "ProductId");
         tblBillOfMaterial.KeyField = "Id";
         tblBillOfMaterial.AddId("Id").SetNullable(false);
@@ -1621,14 +2187,14 @@ from
         tblBillOfMaterial.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblBillOfMaterial.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblBillOfMaterial.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblBillOfMaterial.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblBillOfMaterial.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         TableDef tblBillOfMaterialLine = tblBillOfMaterial.AddDetail("BillOfMaterialLine", "Id", "BillOfMaterialId");
         tblBillOfMaterialLine.KeyField = "Id";
         tblBillOfMaterialLine.AddId("Id").SetNullable(false);
         tblBillOfMaterialLine.AddString("BillOfMaterialId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblBillOfMaterialLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblBillOfMaterialLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblBillOfMaterialLine.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblBillOfMaterialLine.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
         TableDef tblProduct = tblBillOfMaterialLine.AddJoin("ProductId", "Product", "Product", "Id");
         tblBillOfMaterialLine.Fields.Get("ProductId").Locator = "Product";
         tblProduct.AddId("Id").SetNullable(false);
@@ -1669,7 +2235,7 @@ from
         tblProductWarehouse.AddDecimal("ReorderPoint", Decimals: 4, Flags: FieldFlags.Visible).SetNullable(true);
         tblProductWarehouse.AddBoolean("IsDefault", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblProductWarehouse.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblProductWarehouse.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblProductWarehouse.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
     }
     static void RegisterModule_ProductAttributeGroup()
     {
@@ -1871,15 +2437,15 @@ from
         tblCustomer.AddId("Id").SetNullable(false);
         tblCustomer.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblCustomer.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblCustomer.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblCustomer.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblCustomer.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblCustomer.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
         TableDef tblManagerPerson = tblTop.AddJoin("ManagerPersonId", "Person", "ManagerPerson", "Id");
         tblTop.Fields.Get("ManagerPersonId").Locator = "Person";
         tblManagerPerson.AddId("Id").SetNullable(false);
         tblManagerPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblManagerPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblManagerPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblManagerPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblManagerPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblManagerPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
         string[] FilterFields = ["Name", "Code", "Color", "CostCenter__Code", "CostCenter__Name", "Customer__Code", "Customer__Name", "Customer__Title", "EndDate", "IconName", "IsActive", "ManagerPerson__Code", "ManagerPerson__Name", "ManagerPerson__Title", "ProjectStatus", "StartDate"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -1905,6 +2471,3878 @@ from
         SelectDef.ColumnTypes["ManagerPerson__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ManagerPerson__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ManagerPerson__Title"] = DataColumnType.Text;
+    }
+    static void RegisterModule_PurchaseCancellation()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("PurchaseCancellation", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_PurchaseCreditNote()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("PurchaseCreditNote", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_PurchaseDeliveryNote()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("PurchaseDeliveryNote", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_PurchaseInvoice()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("PurchaseInvoice", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_PurchaseOrder()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("PurchaseOrder", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_PurchaseReturn()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("PurchaseReturn", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_SalesCancellation()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("SalesCancellation", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_SalesCreditNote()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("SalesCreditNote", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_SalesDeliveryNote()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("SalesDeliveryNote", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_SalesInvoice()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("SalesInvoice", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_SalesOrder()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("SalesOrder", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
     }
     static void RegisterModule_SalesPerson()
     {
@@ -1937,6 +6375,629 @@ from
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+    }
+    static void RegisterModule_SalesReturn()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Trade.Id,
+   Trade.DocumentTypeId,
+   Trade.Code,
+   Trade.TradeStatusId,
+   case
+      when Trade.TradeStatusId = 0 then 'Draft'
+      when Trade.TradeStatusId = 1 then 'Posted'
+      when Trade.TradeStatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   Trade.TaxTreatmentId,
+   case
+      when Trade.TaxTreatmentId = 0 then 'None'
+      when Trade.TaxTreatmentId = 1 then 'Normal'
+      when Trade.TaxTreatmentId = 2 then 'Exempt'
+      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
+      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
+      else ''
+   end as TaxTreatment,
+   Trade.TradeDate,
+   Trade.PostingDate,
+   Trade.DeliveryDate,
+   Trade.DueDate,
+   Trade.ExternalRef,
+   Trade.PersonId,
+   Trade.WarehouseId,
+   Trade.SalesPersonId,
+   Trade.ProjectId,
+   Trade.CostCenterId,
+   Trade.BranchId,
+   Trade.CurrencyId,
+   Trade.ExchangeRate,
+   Trade.PaymentMethodId,
+   Trade.PaymentTermId,
+   Trade.BillingName,
+   Trade.BillingAddressLine1,
+   Trade.BillingAddressLine2,
+   Trade.BillingCity,
+   Trade.BillingPostalCode,
+   Trade.BillingCountryId,
+   Trade.ShippingName,
+   Trade.ShippingAddressLine1,
+   Trade.ShippingAddressLine2,
+   Trade.ShippingCity,
+   Trade.ShippingPostalCode,
+   Trade.ShippingCountryId,
+   Trade.SourceId,
+   Trade.CancelsTradeId,
+   Trade.CancelledByTradeId,
+   Trade.LinesAmount,
+   Trade.DiscountPercent,
+   Trade.DiscountAmount,
+   Trade.DiscountReason,
+   Trade.ChargesAmount,
+   Trade.NetAmount,
+   Trade.VatAmount,
+   Trade.TotalAmount,
+   Trade.IsLocked,
+   Trade.IsCancelled,
+   Trade.CreatedAt,
+   Trade.CreatedBy,
+   Trade.ModifiedAt,
+   Trade.ModifiedBy,
+   Trade.PostedAt,
+   Trade.PostedBy,
+   Trade.CancelledAt,
+   Trade.CancelledBy,
+   Trade.Remarks,
+   Trade.Comments,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
+   COALESCE(SalesPerson.Name, '') as SalesPerson__Name,
+   COALESCE(SalesPerson.Title, '') as SalesPerson__Title,
+   COALESCE(Project.Code, '') as Project__Code,
+   COALESCE(Project.Name, '') as Project__Name,
+   COALESCE(CostCenter.Code, '') as CostCenter__Code,
+   COALESCE(CostCenter.Name, '') as CostCenter__Name,
+   COALESCE(Branch.Code, '') as Branch__Code,
+   COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(PaymentTerm.Code, '') as PaymentTerm__Code,
+   COALESCE(PaymentTerm.Name, '') as PaymentTerm__Name,
+   COALESCE(BillingCountry.Code, '') as BillingCountry__Code,
+   COALESCE(BillingCountry.Name, '') as BillingCountry__Name,
+   COALESCE(ShippingCountry.Code, '') as ShippingCountry__Code,
+   COALESCE(ShippingCountry.Name, '') as ShippingCountry__Name
+from
+  Trade
+    left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
+    left join Person Person on Person.Id = Trade.PersonId
+    left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
+    left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
+    left join Project Project on Project.Id = Trade.ProjectId
+    left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
+    left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join Currency Currency on Currency.Id = Trade.CurrencyId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
+    left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
+    left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
+    left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
+    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+";
+        Module = DataRegistry.AddModule("SalesReturn", ClassName: "TradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "Trade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Dates", "Party", "Organization", "Payment", "Billing", "Shipping", "Relations", "Amounts", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDate("TradeDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DeliveryDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddDate("DueDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Party");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Party");
+        tblTop.AddStringLookupId("SalesPersonId", "Person", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentTermId", "PaymentTerm", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Payment");
+        tblTop.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelsTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDecimal("LinesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Amounts");
+        tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        TableDef tblSource = tblTop.AddJoin("SourceId", "Trade", "Source", "Id");
+        tblTop.Fields.Get("SourceId").Locator = "Trade";
+        tblSource.AddId("Id").SetNullable(false);
+        tblSource.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblSource.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblSource.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblSource.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelsTrade = tblTop.AddJoin("CancelsTradeId", "Trade", "CancelsTrade", "Id");
+        tblTop.Fields.Get("CancelsTradeId").Locator = "Trade";
+        tblCancelsTrade.AddId("Id").SetNullable(false);
+        tblCancelsTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelsTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelsTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelsTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        TableDef tblCancelledByTrade = tblTop.AddJoin("CancelledByTradeId", "Trade", "CancelledByTrade", "Id");
+        tblTop.Fields.Get("CancelledByTradeId").Locator = "Trade";
+        tblCancelledByTrade.AddId("Id").SetNullable(false);
+        tblCancelledByTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("TRADE-DRAFT");
+        tblCancelledByTrade.AddString("BillingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Billing");
+        tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Shipping");
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["DueDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTermId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelsTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LinesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountPercent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["DiscountAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Comments"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SalesPerson__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Project__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentTerm__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingCountry__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
+        TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
+        tblTradeTax.KeyField = "Id";
+        tblTradeTax.AddId("Id").SetNullable(false);
+        tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
+        tblTradeLine.KeyField = "Id";
+        tblTradeLine.AddId("Id").SetNullable(false);
+        tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
+        tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
+        tblSourceTradeLine.AddId("Id").SetNullable(false);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible).SetNullable(true);
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_StockBalance()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   StockBalance.Id,
+   StockBalance.ProductId,
+   StockBalance.WarehouseId,
+   StockBalance.PrimaryQuantity,
+   StockBalance.TotalCostAmount,
+   StockBalance.AverageUnitCost,
+   StockBalance.LastMovementDate,
+   StockBalance.LastMovementId,
+   COALESCE(Product.Code, '') as Product__Code,
+   COALESCE(Product.Name, '') as Product__Name,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name
+from
+  StockBalance
+    left join Product Product on Product.Id = StockBalance.ProductId
+    left join Warehouse Warehouse on Warehouse.Id = StockBalance.WarehouseId
+    left join StockMovement LastMovement on LastMovement.Id = StockBalance.LastMovementId
+";
+        Module = DataRegistry.AddModule("StockBalance", ClassName: "StockBalanceDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "StockBalance";
+        tblTop.KeyField = "Id";
+        tblTop.IsUiVisible = false;
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDecimal("PrimaryQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDecimal("TotalCostAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDecimal("AverageUnitCost", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDate("LastMovementDate", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("LastMovementId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblTop.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTop.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        string[] FilterFields = ["AverageUnitCost", "LastMovementDate", "PrimaryQuantity", "Product__Code", "Product__Name", "TotalCostAmount", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProductId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PrimaryQuantity"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["TotalCostAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["AverageUnitCost"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["LastMovementDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["LastMovementId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Product__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Product__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+    }
+    static void RegisterModule_StockCount()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   StockCount.Id,
+   StockCount.Code,
+   StockCount.WarehouseId,
+   StockCount.CountDate,
+   StockCount.StatusId,
+   case
+      when StockCount.StatusId = 0 then 'Draft'
+      when StockCount.StatusId = 1 then 'Posted'
+      when StockCount.StatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   StockCount.CancelledDocumentId,
+   StockCount.CancellationDocumentId,
+   StockCount.CreatedAt,
+   StockCount.CreatedBy,
+   StockCount.ModifiedAt,
+   StockCount.ModifiedBy,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name
+from
+  StockCount
+    left join Warehouse Warehouse on Warehouse.Id = StockCount.WarehouseId
+    left join AppUser CreatedBy on CreatedBy.Id = StockCount.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = StockCount.ModifiedBy
+";
+        Module = DataRegistry.AddModule("StockCount", ClassName: "StockCountDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "StockCount";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Relations", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("STOCK_COUNT");
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDate("CountDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo().SetGroup("Notes");
+        tblTop.AddString("CancelledDocumentId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancellationDocumentId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        TableDef tblCancelledDocument = tblTop.AddJoin("CancelledDocumentId", "StockCount", "CancelledDocument", "Id");
+        tblTop.Fields.Get("CancelledDocumentId").Locator = "StockCount";
+        tblCancelledDocument.AddId("Id").SetNullable(false);
+        tblCancelledDocument.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("STOCK_COUNT");
+        TableDef tblCancellationDocument = tblTop.AddJoin("CancellationDocumentId", "StockCount", "CancellationDocument", "Id");
+        tblTop.Fields.Get("CancellationDocumentId").Locator = "StockCount";
+        tblCancellationDocument.AddId("Id").SetNullable(false);
+        tblCancellationDocument.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("STOCK_COUNT");
+        string[] FilterFields = ["Code", "CountDate", "CreatedAt", "CreatedBy", "ModifiedAt", "ModifiedBy", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CountDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["StatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledDocumentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancellationDocumentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        TableDef tblStockCountLine = tblTop.AddDetail("StockCountLine", "Id", "StockCountId");
+        tblStockCountLine.KeyField = "Id";
+        tblStockCountLine.AddId("Id").SetNullable(false);
+        tblStockCountLine.AddString("StockCountId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockCountLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockCountLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockCountLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockCountLine.AddString("ProductName", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockCountLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockCountLine.AddDecimal("SystemQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockCountLine.AddDecimal("CountedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockCountLine.AddDecimal("DifferenceQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockCountLine.AddDecimal("UnitCost", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockCountLine.AddDecimal("DifferenceCostAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockCountLine.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblStockCountLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblStockCountLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+    }
+    static void RegisterModule_StockMovement()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   StockMovement.Id,
+   StockMovement.ProductId,
+   StockMovement.WarehouseId,
+   StockMovement.MovementDate,
+   StockMovement.Direction,
+   StockMovement.Quantity,
+   StockMovement.PrimaryQuantity,
+   StockMovement.UnitOfMeasureId,
+   StockMovement.UnitOfMeasureName,
+   StockMovement.UnitRatio,
+   StockMovement.UnitCost,
+   StockMovement.CostAmount,
+   StockMovement.SourceModule,
+   StockMovement.SourceTable,
+   StockMovement.SourceId,
+   StockMovement.DocumentTypeId,
+   StockMovement.DocumentCode,
+   StockMovement.DocumentDate,
+   StockMovement.CreatedAt,
+   StockMovement.CreatedBy,
+   COALESCE(Product.Code, '') as Product__Code,
+   COALESCE(Product.Name, '') as Product__Name,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(UnitOfMeasure.Code, '') as UnitOfMeasure__Code,
+   COALESCE(UnitOfMeasure.Name, '') as UnitOfMeasure__Name,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name
+from
+  StockMovement
+    left join Product Product on Product.Id = StockMovement.ProductId
+    left join Warehouse Warehouse on Warehouse.Id = StockMovement.WarehouseId
+    left join UnitOfMeasure UnitOfMeasure on UnitOfMeasure.Id = StockMovement.UnitOfMeasureId
+    left join DocumentType DocumentType on DocumentType.Id = StockMovement.DocumentTypeId
+    left join AppUser CreatedBy on CreatedBy.Id = StockMovement.CreatedBy
+";
+        Module = DataRegistry.AddModule("StockMovement", ClassName: "StockMovementDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "StockMovement";
+        tblTop.KeyField = "Id";
+        tblTop.IsUiVisible = false;
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDate("MovementDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddInteger("Direction", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDecimal("PrimaryQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDecimal("UnitCost", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDecimal("CostAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddString("SourceModule", MaxLength: 64, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("SourceTable", MaxLength: 64, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDate("DocumentDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        TableDef tblProduct = tblTop.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTop.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        string[] FilterFields = ["CostAmount", "CreatedAt", "CreatedBy", "Direction", "DocumentCode", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "MovementDate", "PrimaryQuantity", "Product__Code", "Product__Name", "Quantity", "SourceModule", "SourceTable", "UnitCost", "UnitOfMeasure__Code", "UnitOfMeasure__Name", "UnitOfMeasureName", "UnitRatio", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProductId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["MovementDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["Direction"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["Quantity"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["PrimaryQuantity"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["UnitOfMeasureId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["UnitOfMeasureName"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["UnitRatio"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["UnitCost"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["CostAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["SourceModule"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceTable"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Product__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Product__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["UnitOfMeasure__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["UnitOfMeasure__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
     }
     static void RegisterModule_StockReason()
     {
@@ -1988,6 +7049,221 @@ from
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
+    }
+    static void RegisterModule_StockReservation()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   StockReservation.Id,
+   StockReservation.ProductId,
+   StockReservation.WarehouseId,
+   StockReservation.ReservedQuantity,
+   StockReservation.ExecutedQuantity,
+   StockReservation.SourceModule,
+   StockReservation.SourceTable,
+   StockReservation.SourceId,
+   StockReservation.SourceLineId,
+   StockReservation.CreatedAt,
+   COALESCE(Product.Code, '') as Product__Code,
+   COALESCE(Product.Name, '') as Product__Name,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name
+from
+  StockReservation
+    left join Product Product on Product.Id = StockReservation.ProductId
+    left join Warehouse Warehouse on Warehouse.Id = StockReservation.WarehouseId
+";
+        Module = DataRegistry.AddModule("StockReservation", ClassName: "StockReservationDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "StockReservation";
+        tblTop.KeyField = "Id";
+        tblTop.IsUiVisible = false;
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddString("SourceModule", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("SourceTable", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("SourceLineId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        TableDef tblProduct = tblTop.AddJoin("ProductId", "Product", "Product", "Id");
+        tblTop.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        string[] FilterFields = ["CreatedAt", "ExecutedQuantity", "Product__Code", "Product__Name", "ReservedQuantity", "SourceModule", "SourceTable", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ProductId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ReservedQuantity"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["ExecutedQuantity"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["SourceModule"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceTable"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["SourceLineId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["Product__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Product__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+    }
+    static void RegisterModule_StockTrade()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   StockTrade.Id,
+   StockTrade.DocumentTypeId,
+   StockTrade.WarehouseId,
+   StockTrade.ToWarehouseId,
+   StockTrade.Code,
+   StockTrade.DocumentDate,
+   StockTrade.PostingDate,
+   StockTrade.StatusId,
+   case
+      when StockTrade.StatusId = 0 then 'Draft'
+      when StockTrade.StatusId = 1 then 'Posted'
+      when StockTrade.StatusId = 2 then 'Cancelled'
+      else ''
+   end as TradeStatus,
+   StockTrade.TotalCostAmount,
+   StockTrade.Remarks,
+   StockTrade.IsLocked,
+   StockTrade.IsCancelled,
+   StockTrade.CancelsStockTradeId,
+   StockTrade.CancelledByStockTradeId,
+   StockTrade.CreatedAt,
+   StockTrade.CreatedBy,
+   StockTrade.ModifiedAt,
+   StockTrade.ModifiedBy,
+   StockTrade.PostedAt,
+   StockTrade.PostedBy,
+   StockTrade.CancelledAt,
+   StockTrade.CancelledBy,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Warehouse.Code, '') as Warehouse__Code,
+   COALESCE(Warehouse.Name, '') as Warehouse__Name,
+   COALESCE(ToWarehouse.Code, '') as ToWarehouse__Code,
+   COALESCE(ToWarehouse.Name, '') as ToWarehouse__Name
+from
+  StockTrade
+    left join DocumentType DocumentType on DocumentType.Id = StockTrade.DocumentTypeId
+    left join Warehouse Warehouse on Warehouse.Id = StockTrade.WarehouseId
+    left join Warehouse ToWarehouse on ToWarehouse.Id = StockTrade.ToWarehouseId
+    left join AppUser CreatedBy on CreatedBy.Id = StockTrade.CreatedBy
+    left join AppUser ModifiedBy on ModifiedBy.Id = StockTrade.ModifiedBy
+    left join AppUser PostedBy on PostedBy.Id = StockTrade.PostedBy
+    left join AppUser CancelledBy on CancelledBy.Id = StockTrade.CancelledBy
+";
+        Module = DataRegistry.AddModule("StockTrade", ClassName: "StockTradeDataModule", ListSelectSql: SqlText);
+        tblTop = Module.Table;
+        tblTop.Name = "StockTrade";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Warehouses", "Dates", "Relations", "Status", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Warehouses");
+        tblTop.AddStringLookupId("ToWarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Warehouses");
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("STOCK_TRADE_DRAFT");
+        tblTop.AddDate("DocumentDate", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Dates");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Dates");
+        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblTop.AddDecimal("TotalCostAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true).SetMemo().SetGroup("Notes");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
+        tblTop.AddString("CancelsStockTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancelledByStockTradeId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Relations");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Audit");
+        TableDef tblCancelsStockTrade = tblTop.AddJoin("CancelsStockTradeId", "StockTrade", "CancelsStockTrade", "Id");
+        tblTop.Fields.Get("CancelsStockTradeId").Locator = "StockTrade";
+        tblCancelsStockTrade.AddId("Id").SetNullable(false);
+        tblCancelsStockTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("STOCK_TRADE_DRAFT");
+        TableDef tblCancelledByStockTrade = tblTop.AddJoin("CancelledByStockTradeId", "StockTrade", "CancelledByStockTrade", "Id");
+        tblTop.Fields.Get("CancelledByStockTradeId").Locator = "StockTrade";
+        tblCancelledByStockTrade.AddId("Id").SetNullable(false);
+        tblCancelledByStockTrade.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("STOCK_TRADE_DRAFT");
+        string[] FilterFields = ["CancelledAt", "CancelledBy", "Code", "CreatedAt", "CreatedBy", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "IsCancelled", "IsLocked", "ModifiedAt", "ModifiedBy", "PostedAt", "PostedBy", "PostingDate", "Remarks", "TotalCostAmount", "ToWarehouse__Code", "ToWarehouse__Name", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ToWarehouseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["StatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TotalCostAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CancelsStockTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledByStockTradeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ToWarehouse__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ToWarehouse__Name"] = DataColumnType.Text;
+        TableDef tblStockTradeLine = tblTop.AddDetail("StockTradeLine", "Id", "StockTradeId");
+        tblStockTradeLine.KeyField = "Id";
+        tblStockTradeLine.AddId("Id").SetNullable(false);
+        tblStockTradeLine.AddString("StockTradeId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockTradeLine.AddInteger("LineNo", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Visible).SetNullable(true);
+        tblStockTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblStockTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblStockTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockTradeLine.AddDecimal("PrimaryQuantity", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockTradeLine.AddDecimal("UnitCost", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockTradeLine.AddDecimal("CostAmount", Decimals: 4, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblStockTradeLine.AddString("SourceStockTradeLineId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
+        tblStockTradeLine.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.Visible).SetNullable(true);
+        TableDef tblProduct = tblStockTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+        tblStockTradeLine.Fields.Get("ProductId").Locator = "Product";
+        tblProduct.AddId("Id").SetNullable(false);
+        tblProduct.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Product");
+        tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
+        tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.Visible).SetNullable(true);
+        tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
     }
     static void RegisterModule_SupplierCategory()
     {
@@ -2235,34 +7511,35 @@ from
         tblTop = Module.Table;
         tblTop.Name = "Warehouse";
         tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Address", "Settings", "Appearance", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Warehouse");
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CompanyId", "Company", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.Visible).SetNullable(true);
         tblTop.AddEnumLookupId("WarehouseTypeId", "WarehouseType", TypeStore.Get("WarehouseType"), Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddString("AddressLine1", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("City", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("Phone", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("Email", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("ResponsiblePersonId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblTop.AddBoolean("IsVirtual", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("AllowNegativeStock", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("AffectsAvailability", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
-        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true);
+        tblTop.AddString("AddressLine1", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("City", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("Phone", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("Email", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblTop.AddString("ResponsiblePersonId", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Settings");
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Settings");
+        tblTop.AddBoolean("IsVirtual", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Settings");
+        tblTop.AddBoolean("AllowNegativeStock", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Settings");
+        tblTop.AddBoolean("AffectsAvailability", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Settings");
+        tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo().SetGroup("Notes");
         TableDef tblResponsiblePerson = tblTop.AddJoin("ResponsiblePersonId", "Person", "ResponsiblePerson", "Id");
         tblTop.Fields.Get("ResponsiblePersonId").Locator = "Person";
         tblResponsiblePerson.AddId("Id").SetNullable(false);
         tblResponsiblePerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Visible | FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblResponsiblePerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false);
-        tblResponsiblePerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true);
-        tblResponsiblePerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true);
+        tblResponsiblePerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Address");
+        tblResponsiblePerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.Visible).SetNullable(true).SetGroup("Appearance");
         string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "AffectsAvailability", "AllowNegativeStock", "Branch__Code", "Branch__Name", "City", "Code", "Color", "Company__Code", "Company__Name", "Company__Title", "Country__Code", "Country__Name", "Email", "IconName", "IsActive", "IsVirtual", "Phone", "PostalCode", "ResponsiblePerson__Code", "ResponsiblePerson__Name", "ResponsiblePerson__Title", "WarehouseType"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -2310,16 +7587,18 @@ from
         tblWarehouseLocation.AddString("Shelf", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblWarehouseLocation.AddString("Bin", MaxLength: 40, Flags: FieldFlags.Visible).SetNullable(true);
         tblWarehouseLocation.AddBoolean("IsActive", Flags: FieldFlags.Visible | FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblWarehouseLocation.AddTextBlob("Notes", Flags: FieldFlags.Visible | FieldFlags.LargeMemo).SetNullable(true);
+        tblWarehouseLocation.AddTextBlob("Notes", Flags: FieldFlags.Visible).SetNullable(true).SetLargeMemo();
     }
 
     // ● static public
     static public void RegisterModules()
     {
         RegisterCodeProviders_FromModules();
-        RegisterLookupSources_FromModules();
+        RegisterLookups_FromModules();
         RegisterLocators_FromModules();
+        RegisterModule_Account();
         RegisterModule_AppUser();
+        RegisterModule_Asset();
         RegisterModule_AssetCategory();
         RegisterModule_AssetDepreciationMethod();
         RegisterModule_AssetLocation();
@@ -2334,9 +7613,13 @@ from
         RegisterModule_Currency();
         RegisterModule_CustomerCategory();
         RegisterModule_DiscountCategory();
+        RegisterModule_DocumentType();
         RegisterModule_ExpenseCategory();
+        RegisterModule_FinanceBalance();
+        RegisterModule_FinanceMovement();
         RegisterModule_FiscalYear();
         RegisterModule_FixedAsset();
+        RegisterModule_JournalEntry();
         RegisterModule_Language();
         RegisterModule_Log();
         RegisterModule_NumberSeries();
@@ -2352,8 +7635,25 @@ from
         RegisterModule_ProductDimension();
         RegisterModule_ProductGroup();
         RegisterModule_Project();
+        RegisterModule_PurchaseCancellation();
+        RegisterModule_PurchaseCreditNote();
+        RegisterModule_PurchaseDeliveryNote();
+        RegisterModule_PurchaseInvoice();
+        RegisterModule_PurchaseOrder();
+        RegisterModule_PurchaseReturn();
+        RegisterModule_SalesCancellation();
+        RegisterModule_SalesCreditNote();
+        RegisterModule_SalesDeliveryNote();
+        RegisterModule_SalesInvoice();
+        RegisterModule_SalesOrder();
         RegisterModule_SalesPerson();
+        RegisterModule_SalesReturn();
+        RegisterModule_StockBalance();
+        RegisterModule_StockCount();
+        RegisterModule_StockMovement();
         RegisterModule_StockReason();
+        RegisterModule_StockReservation();
+        RegisterModule_StockTrade();
         RegisterModule_SupplierCategory();
         RegisterModule_TaxCategory();
         RegisterModule_TaxOffice();

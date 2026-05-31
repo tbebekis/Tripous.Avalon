@@ -127,9 +127,14 @@ CREATE TABLE {TableName} (
 ```sql
 /*---------------------------------------------------
 Table:  TABLE_NAME
-Group:  GROUP_NAME
 Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
+Group:  GROUP_NAME
 Form:   Default | FORM_NAME  [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+
+Module: MODULE_NAME [MODULE_CLASS_NAME]
+Group:  GROUP_NAME
+Form:   Default | FORM_NAME  [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+FieldGroups: Address, Billing, Notes
 
 IsLookup | NotUiVisible | IsReadOnly
 IsSingleSelect | NoFilters | NoCascadeDeletes | NoGuidOids
@@ -141,8 +146,53 @@ IsSingleSelect | NoFilters | NoCascadeDeletes | NoGuidOids
 ### Required
 - `Table` — always required
 
-### Top-table only
-- `Module`, `Group`, `Form`
+### Header order
+- `Table` must be the first metadata entry.
+- If the table is a top table of one or more modules, `Table` is followed by one or more module blocks.
+- Table-level metadata such as `FieldGroups` and boolean flags follows the module blocks.
+- Free text comments may follow after the metadata section separator.
+
+### Module block
+Each `Module` line starts a new module block. The following `Group` and optional `Form` belong to that module block. A module block is complete when the next `Module` line starts or when non-module header metadata begins.
+
+A module block has the following entries, in this order:
+
+```sql
+Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
+Group:  GROUP_NAME
+Form:   Default | FORM_NAME [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+```
+
+- `Module` is required.
+- `Group` is required.
+- `Form` is optional.
+- If `Form` is omitted, default form registration behavior is used.
+- If class names are omitted, default `DataModule`, `DataForm`, and `ItemPage` types are used.
+
+### Multiple module example
+
+```sql
+/*---------------------------------------------------
+Table: Trade
+
+Module: SalesOrder SalesOrderDataModule
+Group: Sales Orders
+Form: SalesOrder TradeForm TradeItemPage
+
+Module: SalesInvoice SalesInvoiceDataModule
+Group: Sales Invoices
+Form: SalesInvoice TradeForm TradeItemPage
+
+Module: SalesCreditNote SalesCreditNoteDataModule
+Group: Sales Credit Notes
+Form: SalesCreditNote TradeForm TradeItemPage
+
+FieldGroups: Dates, Party, Organization, Payment, Billing, Shipping, Relations, Amounts, Status, Audit, Notes
+
+NoCascadeDeletes
+NoGuidOids
+----------------------------------------------------*/
+```
 
 ### Boolean flags
 Presence = `true`, absence = `false`.
@@ -175,6 +225,29 @@ Form: Customer CustomerDataForm CustomerItemPage
 ```
 If `Form` is omitted → default form registration behavior.  
 If class names are omitted → default `DataForm` / `ItemPage` types.
+
+### FieldGroups syntax
+Field grouping is defined at table level through an optional header entry:
+
+```sql
+FieldGroups: Address, Billing, Notes
+```
+
+The `General` group is a built-in system group and always exists. Any field that does not explicitly declare a `Group` metadata modifier is automatically assigned to `General`.
+
+If `FieldGroups` is present, it defines the display order of the generated ItemPage expanders. `General` is always inserted as the first group, even if not declared. Therefore, the previous example is treated internally as:
+
+```text
+General, Address, Billing, Notes
+```
+
+Fields may declare a group using:
+
+```sql
+-- Group Address
+```
+
+Group matching is case-insensitive. The display name keeps the first spelling declared or referenced. Any group referenced by a field but not listed in `FieldGroups` is appended after the declared groups in order of first appearance. If `FieldGroups` is omitted entirely, all groups are ordered by first appearance, with `General` remaining first.
 
 ---
 
@@ -296,9 +369,14 @@ On startup, missing `SYS_NumberSeries` rows are created automatically. Existing 
 ```sql
 /*---------------------------------------------------
 Table:  TABLE_NAME
-Group:  GROUP_NAME
 Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
+Group:  GROUP_NAME
 Form:   Default | FORM_NAME  [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+
+Module: MODULE_NAME [MODULE_CLASS_NAME]
+Group:  GROUP_NAME
+Form:   Default | FORM_NAME  [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+FieldGroups: Address, Billing, Notes
 
 IsLookup 
 NotUiVisible 
@@ -316,8 +394,14 @@ NoGuidOids
 ### Required
 - `Table` — always required
 
-### Top-table only
-- `Module`, `Group`, `Form`
+### Module blocks
+- `Table` must be the first metadata entry.
+- A top table may declare one or more module blocks.
+- Each `Module` line starts a new module block.
+- The following `Group` and optional `Form` belong to that module block.
+- A module block is complete when the next `Module` line starts or when non-module header metadata begins.
+- Module block order is `Module`, `Group`, `Form`.
+- `Group` is required for each module block.
 
 ### Boolean flags
 Presence = `true`, absence = `false`.

@@ -68,7 +68,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     /// </summary>
     public int FormColumnCount
     {
-        get => fFormColumnCount >= 250 && fFormColumnCount <= 600 ? fFormColumnCount : GetFormDefaultColumnCount();
+        get => fFormColumnCount >= 1 && fFormColumnCount <= 3 ? fFormColumnCount : GetFormDefaultColumnCount();
         set { if (fFormColumnCount != value) { fFormColumnCount = value; NotifyPropertyChanged(nameof(FormColumnCount)); } }
     }
     /// <summary>
@@ -123,8 +123,4 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
 
     // ● events
     public event PropertyChangedEventHandler PropertyChanged;
-    
 }
-
-
-    

@@ -96,13 +96,13 @@ public class LookupSource
     public void LoadForm(DataTable Table)
     {
         if (Table == null)
-            throw new TripousArgumentNullException(nameof(Table));
+            throw new TripousDataException($"Lookup {LookupDef.Name}: Parameter {nameof(Table)} is null. ");
 
         if (string.IsNullOrWhiteSpace(LookupDef.ValueField) || !Table.Columns.Contains(LookupDef.ValueField))
-            throw new TripousDataException($"Lookup: ValueField '{LookupDef.ValueField}' not found.");
+            throw new TripousDataException($"Lookup {LookupDef.Name}: ValueField '{LookupDef.ValueField}' not found.");
 
         if (string.IsNullOrWhiteSpace(LookupDef.DisplayField) || !Table.Columns.Contains(LookupDef.DisplayField))
-            throw new TripousDataException($"Lookup: DisplayField '{LookupDef.DisplayField}' not found.");
+            throw new TripousDataException($"Lookup {LookupDef.Name}: DisplayField '{LookupDef.DisplayField}' not found.");
 
         ClearList();
 
@@ -129,12 +129,12 @@ public class LookupSource
     public void LoadFrom(Enum Enum)
     {
         if (Enum == null)
-            throw new TripousArgumentNullException(nameof(Enum));
-
+            throw new TripousDataException($"Lookup {LookupDef.Name}: Parameter {nameof(Enum)} is null. ");
+        
         Type EnumType = Enum.GetType();
         
         if (!EnumType.IsEnum)
-            throw new TripousDataException($"Type {EnumType.FullName} is not an enum type");
+            throw new TripousDataException($"Lookup {LookupDef.Name}: Type {EnumType.FullName} is not an enum type");
 
         ClearList();
         
@@ -172,7 +172,7 @@ public class LookupSource
         {
             Type T = TypeStore.Get(LookupDef.EnumTypeName);
             if (T == null || !T.IsEnum)
-                throw new TripousDataException($"Type {LookupDef.EnumTypeName} is not an enum type");
+                throw new TripousDataException($"Lookup {LookupDef.Name}: Type {LookupDef.EnumTypeName} is not an enum type");
  
             var value = Enum.GetValues(T).GetValue(0);
             LoadFrom((Enum)value);

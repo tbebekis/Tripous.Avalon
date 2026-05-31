@@ -219,6 +219,22 @@ static public class DataRegistry
         LookupDef Result = AddLookupInternal(Name, EnumType, TableName: null, SqlText: null, FormName: null, UseNullItem: UseNullItem);
         return Result;
     }
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public LookupDef AddOrGetLookupSource(Type EnumType, bool UseNullItem = false)
+    {
+        return AddOrGetLookup(EnumType.FullName, EnumType, TableName: "", SqlText: "", FormName: "", UseNullItem);
+    }
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public LookupDef AddOrGetLookupSource(string Name, Type EnumType, bool UseNullItem = false)
+    {
+        return AddOrGetLookup(Name, EnumType, TableName: "", SqlText: "", FormName: "", UseNullItem);
+    }
     
     // ● lookups - with table name
     /// <summary>
@@ -234,7 +250,15 @@ static public class DataRegistry
         LookupDef Result = AddLookupInternal(Name, EnumType: null, TableName: TableName, SqlText: null, FormName: FormName, UseNullItem: UseNullItem);
         return Result;
     }
- 
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public LookupDef AddOrGetLookupWithTableName(string Name, string TableName = null, string FormName = null, bool UseNullItem = false)
+    {
+        return AddOrGetLookup(Name, EnumType: null, TableName: TableName, SqlText: "", FormName: FormName, UseNullItem);
+    }
+    
     // ● lookups - with SELECT Sql
     /// <summary>
     /// Adds a lookup source.
@@ -248,6 +272,14 @@ static public class DataRegistry
         CheckLookupWithSql(Name, SqlText);
         LookupDef Result = AddLookupInternal(Name, EnumType: null, TableName: null, SqlText: SqlText, FormName: FormName, UseNullItem: UseNullItem);
         return Result;
+    }
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public LookupDef AddOrGetLookupWithSql(string Name, string SqlText = null, string FormName = null, bool UseNullItem = false)
+    {
+        return AddOrGetLookup(Name, EnumType: null, TableName: "", SqlText: SqlText, FormName: FormName, UseNullItem);
     }
     
     // ● lookups - add or get

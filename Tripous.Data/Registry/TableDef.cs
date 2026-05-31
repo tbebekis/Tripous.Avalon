@@ -38,6 +38,7 @@ public class TableDef: BaseDef
     DefList<TableDef> fJoins;
     DefList<SelectDef> fStocks;
     DefList<TableDef> fDetails;
+    List<string> fFieldGroups;
     
     // ● construction  
     /// <summary>
@@ -836,9 +837,31 @@ where
     public Dictionary<string, List<FieldDef>> GetBindableGroups()
     {
         List<FieldDef> BindableFields = GetBindableFields();
-        var Result = BindableFields.GroupBy(x => x.Group)
-            .ToDictionary(g => g.Key, g => g
-                .ToList());
+        List<string> GroupNames = new();
+        void AddGroupName(string GroupName)
+        {
+            GroupName = string.IsNullOrWhiteSpace(GroupName) ? Sys.GENERAL : GroupName.Trim();
+            if (!GroupNames.Any(x => x.IsSameText(GroupName)))
+                GroupNames.Add(GroupName);
+        }
+
+        AddGroupName(Sys.GENERAL);
+
+        foreach (string GroupName in FieldGroups)
+            AddGroupName(GroupName);
+
+        foreach (FieldDef Field in BindableFields)
+            AddGroupName(Field.Group);
+
+        Dictionary<string, List<FieldDef>> Result = new();
+        foreach (string GroupName in GroupNames)
+        {
+            List<FieldDef> Fields = BindableFields
+                .Where(Field => Field.Group.IsSameText(GroupName))
+                .ToList();
+            if (Fields.Count > 0)
+                Result[GroupName] = Fields;
+        }
         return Result;
     }
         
@@ -922,7 +945,14 @@ where
     }
 
     public TableSqls Sqls { get; set; } = new();
-
+    /// <summary>
+    /// Preferred field group display order.
+    /// </summary>
+    public List<string> FieldGroups
+    {
+        get => fFieldGroups ??= new();
+        set => fFieldGroups = value;
+    }
     /// <summary>
     /// The fields of this table
     /// </summary>

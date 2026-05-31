@@ -28,10 +28,10 @@
 
             <StackPanel Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
                 <TextBlock Text="Duplicate Checks:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                <CheckBox Name="chLookup" Content="Lookups" IsChecked="True"/>
-                <CheckBox Name="chEnum" Content="Enums" IsChecked="True"/>
-                <CheckBox Name="chForm" Content="Forms" IsChecked="True"/>
-                <CheckBox Name="chModule" Content="Modules" IsChecked="True"/>
+                <CheckBox Name="chLookup" Content="Lookups" IsChecked="False"/>
+                <CheckBox Name="chEnum" Content="Enums" IsChecked="False"/>
+                <CheckBox Name="chForm" Content="Forms" IsChecked="False"/>
+                <CheckBox Name="chModule" Content="Modules" IsChecked="False"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">

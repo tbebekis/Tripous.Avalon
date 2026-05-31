@@ -1,11 +1,16 @@
 
 /*---------------------------------------------------
-Table: DocumentType
-Module: DocumentType
+Table: DocumentType 
+Module: DocumentType DocumentTypeDataModule
 Group: Documents
 IsLookup
------------------------------------------------------  
+FieldGroups: Posting, Cancellation, Output, Appearance, Notes
+-----------------------------------------------------
 Defines document types and their posting behavior.
+
+A document type controls numbering, posting handlers, stock effects,
+financial effects, accounting effects, cancellation behavior, and
+optional output templates.
 
 Examples:
     SAL-INV     Sales Invoice
@@ -14,7 +19,7 @@ Examples:
     SAL-CREDIT  Sales Credit Note
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
+                             Id @NVARCHAR(40) @NOT_NULL primary key,
 
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,
@@ -22,34 +27,33 @@ CREATE TABLE {TableName} (
     TradeTypeId int @NOT_NULL,                         -- Enum TradeType
 
     NumberSeriesId @NVARCHAR(40) @NULL,                -- Lookup
-
-    HandlerClass @NVARCHAR(256) @NULL,                  -- IDocumentHandler full class name
+    HandlerClass @NVARCHAR(256) @NULL,                 -- IDocumentHandler full class name
 
     IsActive @BOOL default 1 @NOT_NULL,
-    IsSystem @BOOL default 0 @NOT_NULL,                 -- system defined and protected type
+    IsSystem @BOOL default 0 @NOT_NULL,                -- system defined and protected type
     AllowManualNumber @BOOL default 0 @NOT_NULL,
     AutoComplete @BOOL default 0 @NOT_NULL,
 
-    AffectsStock @BOOL default 0 @NOT_NULL,
-    AffectsFinancial @BOOL default 0 @NOT_NULL,
-    AffectsAccounting @BOOL default 0 @NOT_NULL,
+    AffectsStock @BOOL default 0 @NOT_NULL,            -- Group Posting
+    AffectsFinancial @BOOL default 0 @NOT_NULL,        -- Group Posting
+    AffectsAccounting @BOOL default 0 @NOT_NULL,       -- Group Posting
 
-    StockDirection int default 0 @NOT_NULL,
-    FinancialDirection int default 0 @NOT_NULL,
-    AccountingDirection int default 0 @NOT_NULL,
+    StockDirection int default 0 @NOT_NULL,            -- Group Posting
+    FinancialDirection int default 0 @NOT_NULL,        -- Group Posting
+    AccountingDirection int default 0 @NOT_NULL,       -- Group Posting
 
-    IsCancellation @BOOL default 0 @NOT_NULL,
-    CancellationTargetId @NVARCHAR(40) @NULL,          -- Lookup  -- what document type may cancel
+    IsCancellation @BOOL default 0 @NOT_NULL,          -- Group Cancellation
+    CancellationTargetId @NVARCHAR(40) @NULL,          -- Lookup; Group Cancellation -- what document type may cancel
 
-    PrintTemplate @NVARCHAR(96) @NULL,
-    ReportName @NVARCHAR(96) @NULL,
+    PrintTemplate @NVARCHAR(96) @NULL,                 -- Group Output
+    ReportName @NVARCHAR(96) @NULL,                    -- Group Output
 
     DisplayOrder int default 0 @NOT_NULL,
 
-    Color @NVARCHAR(32) @NULL,                          -- ui display color
-    IconName @NVARCHAR(96) @NULL,                       -- ui icon
+    Color @NVARCHAR(32) @NULL,                         -- Group Appearance -- ui display color
+    IconName @NVARCHAR(96) @NULL,                      -- Group Appearance -- ui icon
 
-    Remarks @NBLOB_TEXT @NULL,
+    Remarks @NBLOB_TEXT @NULL,                         -- LargeMemo; Group Notes
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
@@ -59,15 +63,80 @@ CREATE TABLE {TableName} (
     )
 
 
+
 /*---------------------------------------------------
 Table: Trade
-Group: Sales
-Module: Trade
+
+Module: SalesOrder TradeDataModule
+Group: Sales Orders
+Form: SalesOrder TradeForm TradeItemPage
+
+Module: SalesDeliveryNote TradeDataModule
+Group: Sales Deliveries
+Form: SalesDeliveryNote TradeForm TradeItemPage
+
+Module: SalesInvoice TradeDataModule
+Group: Sales Invoices
+Form: SalesInvoice TradeForm TradeItemPage
+
+Module: SalesCreditNote TradeDataModule
+Group: Sales Credit Notes
+Form: SalesCreditNote TradeForm TradeItemPage
+
+Module: SalesReturn TradeDataModule
+Group: Sales Returns
+Form: SalesReturn TradeForm TradeItemPage
+
+Module: SalesCancellation TradeDataModule
+Group: Sales Cancellations
+Form: SalesCancellation TradeForm TradeItemPage
+
+Module: PurchaseOrder TradeDataModule
+Group: Purchase Orders
+Form: PurchaseOrder TradeForm TradeItemPage
+
+Module: PurchaseDeliveryNote TradeDataModule
+Group: Purchase Deliveries
+Form: PurchaseDeliveryNote TradeForm TradeItemPage
+
+Module: PurchaseInvoice TradeDataModule
+Group: Purchase Invoices
+Form: PurchaseInvoice TradeForm TradeItemPage
+
+Module: PurchaseCreditNote TradeDataModule
+Group: Purchase Credit Notes
+Form: PurchaseCreditNote TradeForm TradeItemPage
+
+Module: PurchaseReturn TradeDataModule
+Group: Purchase Returns
+Form: PurchaseReturn TradeForm TradeItemPage
+
+Module: PurchaseCancellation TradeDataModule
+Group: Purchase Cancellations
+Form: PurchaseCancellation TradeForm TradeItemPage
+
+FieldGroups: Dates, Party, Organization, Payment, Billing, Shipping, Relations, Amounts, Status, Audit, Notes
 -----------------------------------------------------
 Commercial document header.
 
-Used for sales and purchase documents:
-orders, delivery notes, invoices, returns and cancellations.
+Used as the shared storage table for sales and purchase documents.
+
+Supported business document types include:
+- orders
+- delivery notes
+- invoices
+- credit notes
+- returns
+- cancellation documents
+
+Each declared module represents a specific business view over this table,
+with its own menu command, form, module registration, document types,
+validation rules, and posting behavior.
+
+Document-specific behavior is determined by the selected DocumentType and
+its associated handler implementation.
+
+Line details are stored in TradeLine.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
                              Id @NVARCHAR(40) @NOT_NULL primary key,
@@ -78,70 +147,70 @@ CREATE TABLE {TableName} (
     TradeStatusId int default 0 @NOT_NULL,              -- Enum TradeStatus
     TaxTreatmentId int default 1 @NOT_NULL,             -- Enum TaxTreatment
 
-    TradeDate @DATE @NOT_NULL,
-    PostingDate @DATE @NULL,
-    DeliveryDate @DATE @NULL,
-    DueDate @DATE @NULL,
+    TradeDate @DATE @NOT_NULL,                          -- Group Dates
+    PostingDate @DATE @NULL,                            -- Group Dates
+    DeliveryDate @DATE @NULL,                           -- Group Dates
+    DueDate @DATE @NULL,                                -- Group Dates
 
     ExternalRef @NVARCHAR(96) @NULL,                    -- e.g. "Related to Order 123", "Your ref: PO-456"
 
-    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person -- Customer, Supplier, etc
-    WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup
+    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person; Group Party -- Customer, Supplier, etc
+    WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup; Group Party
 
-    SalesPersonId @NVARCHAR(40) @NULL,                  -- Lookup Person
-    ProjectId @NVARCHAR(40) @NULL,                      -- Lookup
-    CostCenterId @NVARCHAR(40) @NULL,                   -- Lookup
-    BranchId @NVARCHAR(40) @NULL,                       -- Lookup
+    SalesPersonId @NVARCHAR(40) @NULL,                  -- Lookup Person; Group Organization
+    ProjectId @NVARCHAR(40) @NULL,                      -- Lookup; Group Organization
+    CostCenterId @NVARCHAR(40) @NULL,                   -- Lookup; Group Organization
+    BranchId @NVARCHAR(40) @NULL,                       -- Lookup; Group Organization
 
-    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup
-    ExchangeRate @DECIMAL default 1 @NOT_NULL,          -- Exchange Rate for base currency
+    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup; Group Payment
+    ExchangeRate @DECIMAL default 1 @NOT_NULL,          -- Group Payment -- Exchange Rate for base currency
 
-    PaymentMethodId @NVARCHAR(40) @NULL,                -- Lookup
-    PaymentTermId @NVARCHAR(40) @NULL,                  -- Lookup
+    PaymentMethodId @NVARCHAR(40) @NULL,                -- Lookup; Group Payment
+    PaymentTermId @NVARCHAR(40) @NULL,                  -- Lookup; Group Payment
 
-    BillingName @NVARCHAR(96) @NULL,
-    BillingAddressLine1 @NVARCHAR(128) @NULL,
-    BillingAddressLine2 @NVARCHAR(128) @NULL,
-    BillingCity @NVARCHAR(64) @NULL,
-    BillingPostalCode @NVARCHAR(20) @NULL,
-    BillingCountryId @NVARCHAR(40) @NULL,               -- Lookup
+    BillingName @NVARCHAR(96) @NULL,                    -- Group Billing
+    BillingAddressLine1 @NVARCHAR(128) @NULL,           -- Group Billing
+    BillingAddressLine2 @NVARCHAR(128) @NULL,           -- Group Billing
+    BillingCity @NVARCHAR(64) @NULL,                    -- Group Billing
+    BillingPostalCode @NVARCHAR(20) @NULL,              -- Group Billing
+    BillingCountryId @NVARCHAR(40) @NULL,               -- Lookup; Group Billing
 
-    ShippingName @NVARCHAR(96) @NULL,
-    ShippingAddressLine1 @NVARCHAR(128) @NULL,
-    ShippingAddressLine2 @NVARCHAR(128) @NULL,
-    ShippingCity @NVARCHAR(64) @NULL,
-    ShippingPostalCode @NVARCHAR(20) @NULL,
-    ShippingCountryId @NVARCHAR(40) @NULL,              -- Lookup
+    ShippingName @NVARCHAR(96) @NULL,                   -- Group Shipping
+    ShippingAddressLine1 @NVARCHAR(128) @NULL,          -- Group Shipping
+    ShippingAddressLine2 @NVARCHAR(128) @NULL,          -- Group Shipping
+    ShippingCity @NVARCHAR(64) @NULL,                   -- Group Shipping
+    ShippingPostalCode @NVARCHAR(20) @NULL,             -- Group Shipping
+    ShippingCountryId @NVARCHAR(40) @NULL,              -- Lookup; Group Shipping
 
-    SourceId @NVARCHAR(40) @NULL,                       -- Locator Trade
-    CancelsTradeId @NVARCHAR(40) @NULL,                 -- Locator Trade
-    CancelledByTradeId @NVARCHAR(40) @NULL,             -- Locator Trade
+    SourceId @NVARCHAR(40) @NULL,                       -- Locator Trade; Group Relations
+    CancelsTradeId @NVARCHAR(40) @NULL,                 -- Locator Trade; Group Relations
+    CancelledByTradeId @NVARCHAR(40) @NULL,             -- Locator Trade; Group Relations
 
-    LinesAmount @DECIMAL default 0 @NOT_NULL,           -- sum of lines before header discounts/charges/taxes
-    DiscountPercent @DECIMAL default 0 @NOT_NULL,       -- Header Discount %
-    DiscountAmount @DECIMAL default 0 @NOT_NULL,
-    DiscountReason @NVARCHAR(256) @NULL,
+    LinesAmount @DECIMAL default 0 @NOT_NULL,           -- Group Amounts -- sum of lines before header discounts/charges/taxes
+    DiscountPercent @DECIMAL default 0 @NOT_NULL,       -- Group Amounts -- Header Discount %
+    DiscountAmount @DECIMAL default 0 @NOT_NULL,        -- Group Amounts
+    DiscountReason @NVARCHAR(256) @NULL,                -- Group Amounts
 
-    ChargesAmount @DECIMAL default 0 @NOT_NULL,
+    ChargesAmount @DECIMAL default 0 @NOT_NULL,         -- Group Amounts
 
-    NetAmount @DECIMAL default 0 @NOT_NULL,             -- = LinesAmount - DiscountAmount + ChargesAmount
-    VatAmount @DECIMAL default 0 @NOT_NULL,
-    TotalAmount @DECIMAL default 0 @NOT_NULL,
+    NetAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts -- = LinesAmount - DiscountAmount + ChargesAmount
+    VatAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts
+    TotalAmount @DECIMAL default 0 @NOT_NULL,           -- Group Amounts
 
-    IsLocked @BOOL default 0 @NOT_NULL,                 -- Lock document from editing
-    IsCancelled @BOOL default 0 @NOT_NULL,
+    IsLocked @BOOL default 0 @NOT_NULL,                 -- Group Status -- Lock document from editing
+    IsCancelled @BOOL default 0 @NOT_NULL,              -- Group Status
 
-    CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser
-    ModifiedAt @DATE_TIME @NULL,
-    ModifiedBy @NVARCHAR(40) @NULL,                     -- Lookup AppUser
-    PostedAt @DATE_TIME @NULL,
-    PostedBy @NVARCHAR(40) @NULL,                       -- Lookup AppUser
-    CancelledAt @DATE_TIME @NULL,
-    CancelledBy @NVARCHAR(40) @NULL,                    -- Lookup AppUser
+    CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser; Group Audit
+    ModifiedAt @DATE_TIME @NULL,                        -- Group Audit
+    ModifiedBy @NVARCHAR(40) @NULL,                     -- Lookup AppUser; Group Audit
+    PostedAt @DATE_TIME @NULL,                          -- Group Audit
+    PostedBy @NVARCHAR(40) @NULL,                       -- Lookup AppUser; Group Audit
+    CancelledAt @DATE_TIME @NULL,                       -- Group Audit
+    CancelledBy @NVARCHAR(40) @NULL,                    -- Lookup AppUser; Group Audit
 
-    Remarks @NVARCHAR(512) @NULL,                       -- internal
-    Comments @NVARCHAR(512) @NULL,                      -- customer visible                      
+    Remarks @NVARCHAR(512) @NULL,                       -- Memo; Group Notes -- internal
+    Comments @NVARCHAR(512) @NULL,                      -- Memo; Group Notes -- customer visible
 
     CONSTRAINT UQ_{TableName}_DocumentType_Code UNIQUE (DocumentTypeId, Code),
 
@@ -153,7 +222,7 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (SalesPersonId) REFERENCES Person(Id),
     FOREIGN KEY (ProjectId) REFERENCES Project(Id),
     FOREIGN KEY (CostCenterId) REFERENCES CostCenter(Id),
-    FOREIGN KEY (BranchId) REFERENCES Branch(Id),
+    FOREIGN KEY (BranchId) REFERENCES CompanyBranch(Id),
 
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
 
@@ -205,7 +274,6 @@ CREATE TABLE {TableName} (
 
 /*---------------------------------------------------
 Table: TradeLine
-Master: Trade
 -----------------------------------------------------
 Commercial document line.
 ----------------------------------------------------*/
@@ -272,54 +340,60 @@ CREATE TABLE {TableName} (
 
 
 
-
 /*---------------------------------------------------
-Table: StockTrade
+Table: StockTrade 
+Module: StockTrade StockTradeDataModule
 Group: Inventory
-Module: StockTrade
 Form: Default
+FieldGroups: Warehouses, Dates, Relations, Status, Audit, Notes
 -----------------------------------------------------
 Warehouse transaction document.
 
-Used for pure stock operations such as:
+Used for inventory-only operations that do not involve
+customers, suppliers, receivables, or payables.
+
+Examples:
 - warehouse transfer
 - stock count adjustment
-- destruction / write-off
+- stock write-off
 - internal stock correction
 
-Posting this document produces StockMovement rows.
-It does not represent sales or purchases.
+Posting this document generates StockMovement rows and updates
+inventory balances. It does not represent a commercial transaction.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
                              Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup -- controls numbering, posting behavior and movement direction
-    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup -- main/source warehouse
-    ToWarehouseId @NVARCHAR(40) @NULL,                  -- Lookup -- destination warehouse, used only for transfers
+
+    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup; Group Warehouses -- main/source warehouse
+    ToWarehouseId @NVARCHAR(40) @NULL,                  -- Lookup; Group Warehouses -- destination warehouse, used only for transfers
 
     Code @NVARCHAR(40) @NOT_NULL,                       -- Code STK-DRAFT-YYYY-XXXXXX STOCK_TRADE_DRAFT
-    DocumentDate @DATE @NOT_NULL,
-    PostingDate @DATE @NULL,                            -- date used for generated stock movements
-    StatusId int @NOT_NULL,                             -- Enum TradeStatus -- Draft, Posted, Cancelled
+
+    DocumentDate @DATE @NOT_NULL,                       -- Group Dates
+    PostingDate @DATE @NULL,                            -- Group Dates -- date used for generated stock movements
+
+    StatusId int @NOT_NULL,                             -- Enum TradeStatus
 
     TotalCostAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- total internal stock cost value posted by this document
 
-    Remarks @NVARCHAR(512) @NULL,                       -- internal notes
+    Remarks @NVARCHAR(512) @NULL,                       -- Memo; Group Notes -- internal notes
 
-    IsLocked @BOOL DEFAULT 0 @NOT_NULL,
-    IsCancelled @BOOL DEFAULT 0 @NOT_NULL,
+    IsLocked @BOOL DEFAULT 0 @NOT_NULL,                 -- Group Status
+    IsCancelled @BOOL DEFAULT 0 @NOT_NULL,              -- Group Status
 
-    CancelsStockTradeId @NVARCHAR(40) @NULL,            -- Locator StockTrade -- original document cancelled by this one
-    CancelledByStockTradeId @NVARCHAR(40) @NULL,        -- Locator StockTrade -- reverse/cancellation document
+    CancelsStockTradeId @NVARCHAR(40) @NULL,            -- Locator StockTrade; Group Relations -- original document cancelled by this one
+    CancelledByStockTradeId @NVARCHAR(40) @NULL,        -- Locator StockTrade; Group Relations -- reverse/cancellation document
 
-    CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser
-    ModifiedAt @DATE_TIME @NULL,
-    ModifiedBy @NVARCHAR(40) @NULL,                     -- Lookup AppUser
-    PostedAt @DATE_TIME @NULL,
-    PostedBy @NVARCHAR(40) @NULL,                       -- Lookup AppUser
-    CancelledAt @DATE_TIME @NULL,
-    CancelledBy @NVARCHAR(40) @NULL,                    -- Lookup AppUser
+    CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser; Group Audit
+    ModifiedAt @DATE_TIME @NULL,                        -- Group Audit
+    ModifiedBy @NVARCHAR(40) @NULL,                     -- Lookup AppUser; Group Audit
+    PostedAt @DATE_TIME @NULL,                          -- Group Audit
+    PostedBy @NVARCHAR(40) @NULL,                       -- Lookup AppUser; Group Audit
+    CancelledAt @DATE_TIME @NULL,                       -- Group Audit
+    CancelledBy @NVARCHAR(40) @NULL,                    -- Lookup AppUser; Group Audit
 
     CONSTRAINT UQ_{TableName}_DocumentType_Code UNIQUE (DocumentTypeId, Code),
 
@@ -368,7 +442,7 @@ CREATE TABLE {TableName} (
     UnitOfMeasureName @NVARCHAR(40) @NOT_NULL,          -- unit of measure snapshot
     UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- converts line quantity to primary/base quantity
 
-    Quantity @DECIMAL DEFAULT 0 @NOT_NULL,              -- always positive; direction is determined by DocumentType
+    Quantity @DECIMAL DEFAULT 0 @NOT_NULL,              -- always positive, direction is determined by DocumentType
     PrimaryQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- Quantity * UnitRatio
 
     UnitCost @DECIMAL DEFAULT 0 @NOT_NULL,              -- internal stock cost per primary unit
@@ -390,9 +464,9 @@ CREATE TABLE {TableName} (
     )
 
 /*---------------------------------------------------
-Table: StockMovement
+Table: StockMovement 
+Module: StockMovement StockMovementDataModule
 Group: Inventory
-Module: StockMovement
   
 IsReadOnly
 NotUiVisible
@@ -469,9 +543,9 @@ CREATE TABLE {TableName} (
     )
 
 /*---------------------------------------------------
-Table: StockBalance
+Table: StockBalance 
+Module: StockBalance StockBalanceDataModule 
 Group: Inventory
-Module: StockBalance 
 
 IsReadOnly
 NotUiVisible
@@ -518,16 +592,20 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (LastMovementId) REFERENCES StockMovement(Id)
     )
 
+
 /*---------------------------------------------------
-Table: StockCount
+Table: StockCount 
+Module: StockCount StockCountDataModule
 Group: Inventory
-Module: StockCount
+FieldGroups: Relations, Audit, Notes
 -----------------------------------------------------
 Physical inventory count document.
 
-Used to verify actual warehouse quantities against system quantities and produce inventory adjustment movements.
+Used to record the results of a physical warehouse inventory count
+and reconcile actual quantities against system quantities.
 
-After posting, the document generates StockMovement records for quantity differences and becomes immutable.
+After posting, the document generates StockMovement records for
+quantity differences and becomes immutable.
 
 Used for:
 - periodic inventory counts
@@ -538,7 +616,7 @@ Used for:
 CREATE TABLE {TableName} (
                              Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    Code @NVARCHAR(40) @NOT_NULL,                     -- Code [SC-YYYY-XXXXXX] [STOCK_COUNT]
+    Code @NVARCHAR(40) @NOT_NULL,                     -- Code SC-YYYY-XXXXXX STOCK_COUNT
 
     WarehouseId @NVARCHAR(40) @NOT_NULL,              -- Lookup
 
@@ -546,15 +624,15 @@ CREATE TABLE {TableName} (
 
     StatusId int DEFAULT 0 @NOT_NULL,                 -- Enum TradeStatus
 
-    Remarks @NBLOB_TEXT @NULL,
+    Remarks @NBLOB_TEXT @NULL,                        -- LargeMemo; Group Notes
 
-    CancelledDocumentId @NVARCHAR(40) @NULL,
-    CancellationDocumentId @NVARCHAR(40) @NULL,
+    CancelledDocumentId @NVARCHAR(40) @NULL,          -- Locator StockCount; Group Relations
+    CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator StockCount; Group Relations
 
-    CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                -- Lookup AppUser
-    ModifiedAt @DATE_TIME @NULL,
-    ModifiedBy @NVARCHAR(40) @NULL,                   -- Lookup AppUser
+    CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                -- Lookup AppUser; Group Audit
+    ModifiedAt @DATE_TIME @NULL,                      -- Group Audit
+    ModifiedBy @NVARCHAR(40) @NULL,                   -- Lookup AppUser; Group Audit
 
     FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
     FOREIGN KEY (CancelledDocumentId) REFERENCES StockCount(Id),
@@ -563,9 +641,10 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (ModifiedBy) REFERENCES AppUser(Id)
     )
 
+
+
 /*---------------------------------------------------
 Table: StockCountLine
-Master: StockCount
 -----------------------------------------------------
 Inventory count line.
 
@@ -615,9 +694,9 @@ CREATE TABLE {TableName} (
     )
 
 /*---------------------------------------------------
-Table: StockReservation
+Table: StockReservation 
+Module: StockReservation StockReservationDataModule
 Group: Inventory
-Module: StockReservation
 
 NotUiVisible
 IsReadOnly
@@ -661,9 +740,9 @@ CREATE TABLE {TableName} (
     )
 
 /*---------------------------------------------------
-Table: FinanceMovement
+Table: FinanceMovement 
+Module: FinanceMovement FinanceMovementDataModule
 Group: Finance
-Module: FinanceMovement
 
 NotUiVisible
 IsReadOnly
@@ -743,8 +822,8 @@ CREATE TABLE {TableName} (
 
 /*---------------------------------------------------
 Table: FinanceBalance
+Module: FinanceBalance FinanceBalanceDataModule
 Group: Finance
-Module: FinanceBalance
 
 NotUiVisible
 IsReadOnly
@@ -789,9 +868,9 @@ CREATE TABLE {TableName} (
 
 
 /*---------------------------------------------------
-Table: Account
+Table: Account 
+Module: Account AccountDataModule
 Group: Accounting
-Module: Account
 -----------------------------------------------------
 Defines general ledger accounts used by the accounting subsystem.
 
@@ -849,20 +928,24 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (ParentAccountId) REFERENCES Account(Id)
     )
 
+
+
+
 /*---------------------------------------------------
-Table: JournalEntry
+Table: JournalEntry  
+Module: JournalEntry JournalEntryDataModule
 Group: Accounting
-Module: JournalEntry
+FieldGroups: Source, Document, Relations, Audit, Notes
 -----------------------------------------------------
 Represents one accounting journal entry.
 
-A journal entry is the accounting document that records one balanced double-entry transaction.
+A journal entry records one balanced double-entry accounting transaction.
 
 Each JournalEntry contains two or more JournalEntryLine records.
-
 The total debit amount of all lines must always equal the total credit amount.
 
-Journal entries may be entered manually or generated automatically by posting business documents.
+Journal entries may be entered manually or generated automatically by
+posting business documents.
 
 Typical sources include:
 - sales invoices
@@ -874,12 +957,13 @@ Typical sources include:
 
 After posting, a journal entry becomes immutable.
 
-Corrections are made through reversal journal entries, never by editing or deleting posted records.
+Corrections are performed through reversal journal entries rather than
+editing or deleting posted records.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
                              Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    Code @NVARCHAR(40) @NOT_NULL,                     -- Code [JE-YYYY-XXXXXX] [JOURNAL_ENTRY]
+    Code @NVARCHAR(40) @NOT_NULL,                     -- Code JE-YYYY-XXXXXX JOURNAL_ENTRY
 
     EntryDate @DATE @NOT_NULL,
 
@@ -888,23 +972,23 @@ CREATE TABLE {TableName} (
     TotalDebit @DECIMAL DEFAULT 0 @NOT_NULL,
     TotalCredit @DECIMAL DEFAULT 0 @NOT_NULL,
 
-    SourceModule @NVARCHAR(64) @NULL,
-    SourceTable @NVARCHAR(64) @NULL,
-    SourceId @NVARCHAR(40) @NULL,
+    SourceModule @NVARCHAR(64) @NULL,                 -- Group Source
+    SourceTable @NVARCHAR(64) @NULL,                  -- Group Source
+    SourceId @NVARCHAR(40) @NULL,                     -- Group Source
 
-    DocumentTypeId @NVARCHAR(40) @NULL,               -- Lookup
-    DocumentCode @NVARCHAR(40) @NULL,
-    DocumentDate @DATE @NULL,
+    DocumentTypeId @NVARCHAR(40) @NULL,               -- Lookup; Group Document
+    DocumentCode @NVARCHAR(40) @NULL,                 -- Group Document
+    DocumentDate @DATE @NULL,                         -- Group Document
 
-    Remarks @NBLOB_TEXT @NULL,                        -- LargeMemo
+    Remarks @NBLOB_TEXT @NULL,                        -- LargeMemo; Group Notes
 
-    CancelledDocumentId @NVARCHAR(40) @NULL,
-    CancellationDocumentId @NVARCHAR(40) @NULL,
+    CancelledDocumentId @NVARCHAR(40) @NULL,          -- Locator JournalEntry; Group Relations
+    CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator JournalEntry; Group Relations
 
-    CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                -- Lookup AppUser
-    ModifiedAt @DATE_TIME @NULL,
-    ModifiedBy @NVARCHAR(40) @NULL,                   -- Lookup AppUser
+    CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                -- Lookup AppUser; Group Audit
+    ModifiedAt @DATE_TIME @NULL,                      -- Group Audit
+    ModifiedBy @NVARCHAR(40) @NULL,                   -- Lookup AppUser; Group Audit
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
     CONSTRAINT CHK_{TableName}_Totals CHECK (TotalDebit = TotalCredit),
@@ -918,7 +1002,6 @@ CREATE TABLE {TableName} (
 
 /*---------------------------------------------------
 Table: JournalEntryLine
-Master: JournalEntry
 -----------------------------------------------------
 Represents one accounting line within a journal entry.
 
@@ -990,14 +1073,18 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id)
     )
 
+
+
 /*---------------------------------------------------
-Table: Asset
+Table: Asset 
+Module: Asset AssetDataModule
 Group: Assets
-Module: Asset
+FieldGroups: Classification, Acquisition, Depreciation, Supplier, Audit, Notes
 -----------------------------------------------------
 Represents a fixed asset owned by the company.
 
-Assets are long-term resources used by the business and are subject to depreciation over their useful life.
+Assets are long-term resources used by the business and are subject to
+depreciation over their useful life.
 
 Examples:
 - vehicles
@@ -1006,7 +1093,8 @@ Examples:
 - furniture
 - office equipment
 
-An asset may generate depreciation records during its lifetime and may eventually be sold, disposed, or scrapped.
+An asset may generate depreciation records during its lifetime and may
+eventually be sold, disposed, or scrapped.
 
 The asset module is responsible for tracking:
 - acquisition cost
@@ -1022,52 +1110,51 @@ AcquisitionCost - AccumulatedDepreciation
 CREATE TABLE {TableName} (
                              Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    Code @NVARCHAR(40) @NOT_NULL,                  -- Code [AST-XXXXXX] [ASSET]
+    Code @NVARCHAR(40) @NOT_NULL,                  -- Code AST-XXXXXX ASSET
     Name @NVARCHAR(96) @NOT_NULL,
 
-    AssetCategoryId @NVARCHAR(40) @NOT_NULL,       -- Lookup
-    AssetLocationId @NVARCHAR(40) @NULL,           -- Lookup
+    AssetCategoryId @NVARCHAR(40) @NOT_NULL,       -- Lookup; Group Classification
+    AssetLocationId @NVARCHAR(40) @NULL,           -- Lookup; Group Classification
 
     StatusId int DEFAULT 1 @NOT_NULL,              -- Enum AssetStatus
 
-    AcquisitionDate @DATE @NOT_NULL,
-    InServiceDate @DATE @NULL,
+    AcquisitionDate @DATE @NOT_NULL,               -- Group Acquisition
+    InServiceDate @DATE @NULL,                     -- Group Acquisition
 
-    AcquisitionCost @DECIMAL @NOT_NULL,
+    AcquisitionCost @DECIMAL @NOT_NULL,            -- Group Acquisition
 
-    DepreciationMethodId @NVARCHAR(40) @NOT_NULL,  -- Lookup
+    DepreciationMethodId @NVARCHAR(40) @NOT_NULL,  -- Lookup; Group Depreciation
+    UsefulLifeMonths int @NOT_NULL,                -- Group Depreciation
+    SalvageValue @DECIMAL DEFAULT 0 @NOT_NULL,     -- Group Depreciation
 
-    UsefulLifeMonths int @NOT_NULL,
+    AccumulatedDepreciation @DECIMAL DEFAULT 0 @NOT_NULL, -- Group Depreciation
+    BookValue @DECIMAL DEFAULT 0 @NOT_NULL,        -- Group Depreciation
 
-    SalvageValue @DECIMAL DEFAULT 0 @NOT_NULL,
+    SerialNumber @NVARCHAR(96) @NULL,              -- Group Classification
 
-    AccumulatedDepreciation @DECIMAL DEFAULT 0 @NOT_NULL,
-    BookValue @DECIMAL DEFAULT 0 @NOT_NULL,
+    SupplierId @NVARCHAR(40) @NULL,                -- Locator Supplier; Group Supplier
 
-    SerialNumber @NVARCHAR(96) @NULL,
+    Remarks @NBLOB_TEXT @NULL,                     -- LargeMemo; Group Notes
 
-    SupplierId @NVARCHAR(40) @NULL,                -- Locator Supplier
-
-    Remarks @NBLOB_TEXT @NULL,                     -- LargeMemo
-
-    CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,             -- Lookup AppUser
-    ModifiedAt @DATE_TIME @NULL,
-    ModifiedBy @NVARCHAR(40) @NULL,                -- Lookup AppUser
+    CreatedAt @DATE_TIME @NOT_NULL,                -- Group Audit
+    CreatedBy @NVARCHAR(40) @NOT_NULL,             -- Lookup AppUser; Group Audit
+    ModifiedAt @DATE_TIME @NULL,                   -- Group Audit
+    ModifiedBy @NVARCHAR(40) @NULL,                -- Lookup AppUser; Group Audit
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
 
     FOREIGN KEY (AssetCategoryId) REFERENCES AssetCategory(Id),
     FOREIGN KEY (AssetLocationId) REFERENCES AssetLocation(Id),
     FOREIGN KEY (DepreciationMethodId) REFERENCES AssetDepreciationMethod(Id),
-    FOREIGN KEY (SupplierId) REFERENCES Supplier(Id),
+    FOREIGN KEY (SupplierId) REFERENCES ProductSupplier(Id),
     FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id),
     FOREIGN KEY (ModifiedBy) REFERENCES AppUser(Id)
     )
 
+
+
 /*---------------------------------------------------
-Table: AssetDepreciationLine
-Master: Asset
+Table: AssetDepreciationLine 
 -----------------------------------------------------
 Represents one depreciation event of a fixed asset.
 

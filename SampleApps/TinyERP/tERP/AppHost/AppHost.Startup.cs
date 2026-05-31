@@ -96,12 +96,17 @@ static internal partial class AppHost
     /// </summary>
     static void RegisterDescriptors()
     {
+         Registry.RegisterLookups();
          Registry.RegisterLookupSources();
          Registry.RegisterLocators();
  
          Registry.RegisterModules();
          Registry.RegisterForms();
-         Registry.RegisterLocatorFields();
+  
+         Registry.UpdateLookups();
+         Registry.UpdateLocators();
+         Registry.UpdateForms();
+         Registry.UpdateModules();
          
          Registry.RegisterCommands();
     }
