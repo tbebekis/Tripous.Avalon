@@ -123,6 +123,98 @@ static internal partial class AppHost
         DataLib.Initialize();
         DesktopLib.Initialize();
     }
+
+    static async Task<bool> EnsureAdminUser()
+    {
+        bool Result = Store.TableExists("AppUser") && !Store.TableIsEmpty("AppUser");
+        if (!Result)
+        {
+            FirstRunBoxData BoxData = await FirstRunDialog.ShowModal(Ui.MainWindow);
+            Result = BoxData.Result;
+            
+            if (!Result)
+            {
+                await MessageBox.Error("No Admin user. Terminating...", Ui.MainWindow);
+            }
+            else
+            {
+                AppUserDataModule Module = DataRegistry.CreateModule("AppUser") as AppUserDataModule;
+                Module.AddUser(FullName: BoxData.FullName, UserName: BoxData.UserName, PlainTextPassword: BoxData.Password, UserLevel: UserLevel.Admin);
+                Result = true;
+            }
+        }
+        
+        return Result;
+    }
+    static async Task<bool> LoginUser()
+    {
+        AppUserDataModule Module = DataRegistry.CreateModule("AppUser") as AppUserDataModule;
+
+        LoginBoxData BoxData = new();
+        BoxData.SupportedCultures = DataLib.SupportedCultures;
+
+        for (int i = 0; i < 3; i++)
+        {
+            BoxData = await LoginDialog.ShowModal(BoxData, Ui.MainWindow);
+
+            if (!BoxData.Result)
+                return false;
+
+            AppUser User = Module.LoadByUserName(BoxData.UserName);
+
+            if (User == null)
+            {
+                BoxData.Message = "Invalid user name or password.";
+                continue;
+            }
+
+            if (!User.IsActive)
+            {
+                BoxData.Message = "User account is disabled.";
+                continue;
+            }
+
+            string Password = User.Properties["Password"] as string;
+            string Salt = User.Properties["Salt"] as string;
+
+            bool Flag = Sec.VerifyPassword(BoxData.Password, Password, Salt, 100_000);
+
+            if (!Flag)
+            {
+                BoxData.Message = "Invalid user name or password.";
+                continue;
+            }
+
+            User.CultureCode = BoxData.CultureCode;
+
+            Sys.Context.CurrentUser = User;
+             
+
+            return true;
+        }
+
+        return false;
+    }
+    static async Task<bool> DebugAutoLoginUser()
+    {
+        if (string.IsNullOrWhiteSpace(DataLib.DebugUserName))
+            return await LoginUser();
+
+        AppUserDataModule Module = DataRegistry.CreateModule("AppUser") as AppUserDataModule;
+
+        AppUser User = Module.LoadByUserName(DataLib.DebugUserName);
+
+        if (User == null)
+            throw new TripousException($"Debug user not found: {DataLib.DebugUserName}");
+
+        if (!User.IsActive)
+            throw new TripousException($"Debug user is inactive: {DataLib.DebugUserName}");
+
+        Sys.Context.CurrentUser = User;
+
+        return true;
+    }
+ 
     
     // ● public
     /// <summary>
@@ -134,13 +226,13 @@ static internal partial class AppHost
     /// </summary>
     static public async Task Start(IClassicDesktopStyleApplicationLifetime AvaloniaDesktop)
     {
+        bool Flag = true;
+        
         AppHost.AvaloniaDesktop = AvaloniaDesktop;
         Ui.MainWindow = AppHost.HiddenMainWindow;
         
         try
         {
-            AppHost.MainWindow = new MainWindow();
-            
             InitializeConfigs();
 
             await LoadConnectionStrings();
@@ -150,25 +242,42 @@ static internal partial class AppHost
             ExecuteSchemas();
 
             Store = SqlStores.CreateDefaultSqlStore();
-            Ui.MainWindow = AppHost.MainWindow;
             
             LoadLibraries();
             TypeStore.RegisterLoadedAssemblies();
             RegisterDescriptors();
-            MainWindow.Show();
             
             AddDefaultInitialData();
             InitializeLibraries();
             
+            Flag = await EnsureAdminUser();
             
+#if DEBUG
+            Flag = await DebugAutoLoginUser();
+#else     
+            if (Flag)
+                Flag = await LoginUser();
+#endif
             
-            
+            if (Flag)
+            {
+                AppHost.MainWindow = new MainWindow();
+                Ui.MainWindow = AppHost.MainWindow;
+                MainWindow.Show();
+            }
+ 
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            await MessageBox.Error(e.Message, HiddenMainWindow);
-            throw;
+            await MessageBox.Error(e.Message, Ui.MainWindow);
+            Flag = false;
+        }
+
+        if (!Flag)
+        {
+            Ui.MainWindow.Close();
+            return;
         }
         
         DesktopExceptionHandler.Initialize();

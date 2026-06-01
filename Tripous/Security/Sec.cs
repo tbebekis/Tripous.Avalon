@@ -40,13 +40,13 @@ static public class Sec
     /// <summary>
     /// Verifies that a password matches a stored hash.
     /// </summary>
-    static public bool VerifyPassword(string PasswordPlainText, string StoredHashBase64, string SaltBase64, int Iterations)
+    static public bool VerifyPassword(string PasswordPlainText, string PasswordHashBase64, string SaltBase64, int Iterations)
     {
         string HashBase64 = HashPassword(PasswordPlainText, SaltBase64, Iterations);
 
         return CryptographicOperations.FixedTimeEquals(
             Convert.FromBase64String(HashBase64),
-            Convert.FromBase64String(StoredHashBase64));
+            Convert.FromBase64String(PasswordHashBase64));
     }
     /// <summary>
     /// Encrypts a plain text string and returns a Base64 encoded result.

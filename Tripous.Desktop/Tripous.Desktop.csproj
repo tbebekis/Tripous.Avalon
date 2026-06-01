@@ -47,6 +47,10 @@
       <DependentUpon>LocatorBox.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Dialogs\FirstRunDialog.axaml.cs">
+      <DependentUpon>FirstRunDialog.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

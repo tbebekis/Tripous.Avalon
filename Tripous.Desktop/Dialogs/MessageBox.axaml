@@ -6,7 +6,7 @@
         x:Class="Tripous.Desktop.MessageBox"
         SizeToContent="WidthAndHeight"
         CanResize="False"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         MinWidth="300" MaxWidth="500">
         
         <Grid Margin="20" ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">

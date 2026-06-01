@@ -37,6 +37,8 @@ public partial class MainWindow : Window
             cmdTest.ExecuteCommand += (sender, args) => Test();
             
             Ui.Post(async () => await CheckForSampleData());
+
+            UpdateStatusBar();
         });
 
     }
@@ -93,7 +95,13 @@ public partial class MainWindow : Window
         ToolBar.Panel = pnlToolBar;
         ToolBar.AddRange(AppRegistry.ToolBarCommands);
     }
- 
+    void UpdateStatusBar()
+    {
+        lblStatus.Text = $"tERP v1.0 - {Sys.Context.CultureCode}.";
+        lblMessage.Text = "Ready";
+        lblUser.Text = $"User: {Sys.Context.CurrentUser.UserName}";
+        lblUserRole.Text = $"User Role: {Sys.Context.CurrentUser.UserLevel}";
+    }
     void Log(string Text)
     {
         if (string.IsNullOrWhiteSpace(Text))

@@ -1,0 +1,45 @@
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="400"
+    d:DesignHeight="300"
+    x:Class="Tripous.Desktop.LoginDialog"
+    Title="Login"
+    Width="400"
+    Height="300"
+    WindowStartupLocation="CenterScreen"
+    CanResize="False">
+ 
+    <Border Padding="24">
+        <Grid RowDefinitions="Auto,*,Auto" RowSpacing="18">
+
+            <StackPanel Grid.Row="0" Spacing="4">
+                <TextBlock Text="Login" FontSize="20" FontWeight="SemiBold"/>
+                <TextBlock Text="Please enter your credentials." Opacity="0.75"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1" ColumnDefinitions="100,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="10" ColumnSpacing="12">
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="User Name" VerticalAlignment="Center"/>
+                <TextBox x:Name="edtUserName" Grid.Row="0" Grid.Column="1"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Password" VerticalAlignment="Center"/>
+                <TextBox x:Name="edtPassword" Grid.Row="1" Grid.Column="1" PasswordChar="●"/>
+                
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Language" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cboLanguage" Grid.Row="2" Grid.Column="1"/>
+
+                <TextBlock x:Name="lblMessage" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Foreground="Red"/>
+            </Grid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                <Button x:Name="btnOK" Content="OK" IsDefault="True"/>
+                <Button x:Name="btnCancel" Content="Cancel" IsCancel="True"/>
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</Window>

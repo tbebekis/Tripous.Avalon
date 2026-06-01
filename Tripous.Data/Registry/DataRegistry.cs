@@ -45,11 +45,11 @@ static public class DataRegistry
         Table.KeyField = "Id";
 
         if (Result.GuidOids)
-            Table.AddStringId("Id", FieldFlags.Required | FieldFlags.Visible);  
+            Table.AddStringId("Id", FieldFlags.Required | FieldFlags.Hidden);
         else
-            Table.AddIntegerId("Id", FieldFlags.Required | FieldFlags.Visible);  
+            Table.AddIntegerId("Id", FieldFlags.Required | FieldFlags.Hidden);
         
-        Table.AddString("Name", 96, TitleKey: "Name", Flags: FieldFlags.Required | FieldFlags.Visible);
+        Table.AddString("Name", 96, TitleKey: "Name", Flags: FieldFlags.Required);
  
         return Result;
     }
@@ -374,4 +374,3 @@ static public class DataRegistry
     /// </summary>
     static public DefList<CodeProviderDef> CodeProviders { get; } = new();
 }
-

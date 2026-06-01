@@ -20,10 +20,17 @@
     
                 <!-- StatusBar -->
                 <Border Name="StatusBar" DockPanel.Dock="Bottom" Height="28" Background="#F0F0F0" BorderBrush="#CCCCCC" BorderThickness="0,1,0,0">
-                        <Grid ColumnDefinitions="*, Auto, 150">
-                                <TextBlock Name="lblStatus" Grid.Column="0" Text="Ready" VerticalAlignment="Center" Margin="5,0"/>
-                                <Rectangle Grid.Column="1" Width="1" Fill="#CCCCCC" Margin="2"/>
-                                <TextBlock Name="lblDetails" Grid.Column="2" Text="v1.0" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Grid ColumnDefinitions="Auto, 150, Auto, 150, Auto, 150, *">
+                                <TextBlock Name="lblStatus" Grid.Column="0" VerticalAlignment="Center" Margin="5,0"/>
+                                <Rectangle Grid.Column="1" Width="3" Fill="#CCCCCC" Margin="2"/>
+                                
+                                <TextBlock Name="lblUser" Grid.Column="2" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <Rectangle Grid.Column="3" Width="3" Fill="#CCCCCC" Margin="2"/>
+                                
+                                <TextBlock Name="lblUserRole" Grid.Column="4"  FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <Rectangle Grid.Column="5" Width="3" Fill="#CCCCCC" Margin="2"/>
+                                
+                                <TextBlock Name="lblMessage" Grid.Column="6" Text="Ready" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         </Grid>
                 </Border>
 

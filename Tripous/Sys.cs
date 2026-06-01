@@ -55,7 +55,8 @@ static public class Sys
     public const string EnId = "D4997C35-6E89-499A-87BF-D5750D0D3F06";
     public const string GrId = "92A158E7-25CA-4367-BA57-FB79C40D775C";
     public const string GENERAL = "General";
-    
+
+    static HostContext fContext;
     
     // ●  public 
     /// <summary>
@@ -601,4 +602,9 @@ static public class Sys
     /// System global settings
     /// </summary>
     static public SysGlobalSettings Settings { get; } = new();
+    /// <summary>
+    /// Provides access to the current application execution context.
+    /// </summary>
+    static public HostContext Context => fContext ??= new();
+ 
 }   

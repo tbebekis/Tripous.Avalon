@@ -40,8 +40,25 @@ CREATE TABLE {TableName} (
     )
 
 /*---------------------------------------------------
+Table: SYS_STR_RES
+Module: ResourceStrings
+Group: Setup
+-----------------------------------------------------
+Application resource strings
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Lang @NVARCHAR(12) @NOT_NULL,           -- e.g. en, el
+    ResKey @NVARCHAR(96) @NOT_NULL,
+    ResValue @NBLOB_TEXT @NOT_NULL,         -- Memo
+
+    CONSTRAINT UQ_{TableName}_Lang_ResKey UNIQUE (Lang, ResKey)
+    )
+
+/*---------------------------------------------------
 Table: AppUser
-Module: AppUser
+Module: AppUser AppUserDataModule
 Group: Setup
 -----------------------------------------------------
 Application users
@@ -56,11 +73,13 @@ CREATE TABLE {TableName} (
     FullName @NVARCHAR(96) @NOT_NULL,
 
     UserLevelId int @NOT_NULL,                     -- Enum UserLevel
+    CultureCode @NVARCHAR(16) @NULL,
 
     Email @NVARCHAR(96) @NULL,
     Phone @NVARCHAR(40) @NULL,
 
     LastLoginAt @DATE_TIME @NULL,
+    PasswordChangedAt @DATE_TIME @NULL,
 
     IsActive @BOOL default 1 @NOT_NULL,
 

@@ -207,8 +207,8 @@ static public class SchemaRegistrationBuilder
 
         Result.SchemaSql = BuildOrderedSchemaSql(Script);
         Result.CreateTablesSourceCode = BuildCreateTablesSourceCode(Script, SchemaVersion);
-        Result.ModuleDefsSourceCode = BuildModuleDefsSourceCode(Script, DuplicateChecks);
-        Result.FormDefsSourceCode = BuildFormDefsSourceCode(Script, DuplicateChecks);
+        Result.ModuleDefsSourceCode = BuildModuleDefsSourceCode(Script);
+        Result.FormDefsSourceCode = BuildFormDefsSourceCode(Script);
 
         return Result;
     }
@@ -788,7 +788,7 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds source code for module registration.
     /// </summary>
-    static string BuildModuleDefsSourceCode(SchemaScript Script, DuplicateCheck DuplicateChecks)
+    static string BuildModuleDefsSourceCode(SchemaScript Script)
     {
         StringBuilder SB = new();
         List<SchemaModuleRegistration> Registrations = GetModuleRegistrations(Script)
@@ -798,11 +798,11 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("static internal partial class Registry");
         SB.AppendLine("{");
         SB.AppendLine("    // ● private");
-        BuildRegisterCodeProvidersMethod(SB, Script, DuplicateChecks);
-        BuildRegisterLookupSourcesMethod(SB, Script, DuplicateChecks);
-        BuildRegisterLocatorsMethod(SB, Script, DuplicateChecks);
+        BuildRegisterCodeProvidersMethod(SB, Script);
+        BuildRegisterLookupSourcesMethod(SB, Script);
+        BuildRegisterLocatorsMethod(SB, Script);
         foreach (SchemaModuleRegistration Registration in Registrations)
-            BuildRegisterModuleMethod(SB, Script, Registration.Table, Registration.Module, DuplicateChecks);
+            BuildRegisterModuleMethod(SB, Script, Registration.Table, Registration.Module);
         SB.AppendLine();
         SB.AppendLine("    // ● static public");
         SB.AppendLine("    static public void RegisterModules()");
@@ -821,7 +821,7 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds source code for form registration.
     /// </summary>
-    static string BuildFormDefsSourceCode(SchemaScript Script, DuplicateCheck DuplicateChecks)
+    static string BuildFormDefsSourceCode(SchemaScript Script)
     {
         StringBuilder SB = new();
         List<SchemaModuleRegistration> Registrations = GetModuleRegistrations(Script)
@@ -836,17 +836,7 @@ static public class SchemaRegistrationBuilder
 
         foreach (SchemaModuleRegistration Registration in Registrations)
         {
-            string AddFormSource = BuildAddFormSource(Registration.Table, Registration.Module);
-
-            if (DuplicateChecks.HasFlag(DuplicateCheck.Form))
-            {
-                SB.AppendLine("        if (!DesktopRegistry.Forms.Contains(\"" + EscapeString(Registration.Module.FormName) + "\"))");
-                SB.AppendLine("            " + AddFormSource);
-            }
-            else
-            {
-                SB.AppendLine("        " + AddFormSource);
-            }
+            SB.AppendLine("        " + BuildAddFormSource(Registration.Table, Registration.Module));
         }
 
         SB.AppendLine("    }");
@@ -873,7 +863,7 @@ static public class SchemaRegistrationBuilder
         if (TopTable.IsReadOnly)
             Args.Add("IsReadOnly: true");
 
-        return "DesktopRegistry.AddForm(" + string.Join(", ", Args) + ");";
+        return "DesktopRegistry.AddOrGetForm(" + string.Join(", ", Args) + ");";
     }
 
     // ● private - module source
@@ -920,7 +910,7 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds lookup source registration method.
     /// </summary>
-    static void BuildRegisterLookupSourcesMethod(StringBuilder SB, SchemaScript Script, DuplicateCheck DuplicateChecks)
+    static void BuildRegisterLookupSourcesMethod(StringBuilder SB, SchemaScript Script)
     {
         Dictionary<string, LookupSourceInfo> LookupSources = CollectLookupSources(Script);
 
@@ -928,19 +918,7 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    {");
 
         foreach (LookupSourceInfo LookupSource in LookupSources.Values.OrderBy(x => x.Name))
-        {
-            if (DuplicateChecks.HasFlag(DuplicateCheck.Lookup))
-            {
-                SB.AppendLine("        if (!DataRegistry.Lookups.Contains(\"" + EscapeString(LookupSource.Name) + "\"))");
-                SB.AppendLine("        {");
-                SB.AppendLine("            DataRegistry.AddLookupWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
-                SB.AppendLine("        }");
-            }
-            else
-            {
-                SB.AppendLine("        DataRegistry.AddLookupWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
-            }
-        }
+            SB.AppendLine("        DataRegistry.AddOrGetLookupWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
 
         SB.AppendLine("    }");
 
@@ -948,7 +926,7 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds code provider registration method.
     /// </summary>
-    static void BuildRegisterCodeProvidersMethod(StringBuilder SB, SchemaScript Script, DuplicateCheck DuplicateChecks)
+    static void BuildRegisterCodeProvidersMethod(StringBuilder SB, SchemaScript Script)
     {
         List<string> CodeProviderNames = CollectCodeProviderNames(Script);
 
@@ -956,19 +934,7 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    {");
 
         foreach (string CodeProviderName in CodeProviderNames)
-        {
-            if (DuplicateChecks.HasFlag(DuplicateCheck.CodeProvider))
-            {
-                SB.AppendLine("        if (!DataRegistry.CodeProviders.Contains(\"" + EscapeString(CodeProviderName) + "\"))");
-                SB.AppendLine("        {");
-                SB.AppendLine("            DataRegistry.AddCodeProvider(\"" + EscapeString(CodeProviderName) + "\");");
-                SB.AppendLine("        }");
-            }
-            else
-            {
-                SB.AppendLine("        DataRegistry.AddCodeProvider(\"" + EscapeString(CodeProviderName) + "\");");
-            }
-        }
+            SB.AppendLine("        DataRegistry.AddOrGetCodeProvider(\"" + EscapeString(CodeProviderName) + "\");");
 
         SB.AppendLine("    }");
     }
@@ -990,7 +956,7 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds the method that registers locator definitions.
     /// </summary>
-    static void BuildRegisterLocatorsMethod(StringBuilder SB, SchemaScript Script, DuplicateCheck DuplicateChecks)
+    static void BuildRegisterLocatorsMethod(StringBuilder SB, SchemaScript Script)
     {
         Dictionary<string, LocatorInfo> Locators = CollectLocators(Script);
 
@@ -999,18 +965,8 @@ static public class SchemaRegistrationBuilder
 
         foreach (LocatorInfo Locator in Locators.Values.OrderBy(x => x.Name))
         {
-            string Source = "DataRegistry.AddLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\"" + BuildOptionalClassNameArgument(Locator.ClassName) + BuildOptionalFormNameArgument(Locator.FormName) + ")";
-            if (DuplicateChecks.HasFlag(DuplicateCheck.Locator))
-            {
-                SB.AppendLine("        if (!DataRegistry.Locators.Contains(\"" + EscapeString(Locator.Name) + "\"))");
-                SB.AppendLine("        {");
-                SB.AppendLine("            " + Source + ";");
-                SB.AppendLine("        }");
-            }
-            else
-            {
-                SB.AppendLine("        " + Source + ";");
-            }
+            string Source = "DataRegistry.AddOrGetLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\"" + BuildOptionalClassNameArgument(Locator.ClassName) + BuildOptionalFormNameArgument(Locator.FormName) + ")";
+            SB.AppendLine("        " + Source + ";");
         }
 
         SB.AppendLine("    }");
@@ -1056,7 +1012,7 @@ static public class SchemaRegistrationBuilder
         if (TopTable.IsSingleSelect)
             Args.Add("IsSingleSelect: true");
 
-        return "Module = DataRegistry.AddModule(" + string.Join(", ", Args) + ");";
+        return "Module = DataRegistry.AddOrGetModule(" + string.Join(", ", Args) + ");";
     }
     /// <summary>
     /// Builds module option assignments.
@@ -1074,17 +1030,12 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds a module registration method.
     /// </summary>
-    static void BuildRegisterModuleMethod(StringBuilder SB, SchemaScript Script, SchemaTable TopTable, SchemaModuleBlock ModuleBlock, DuplicateCheck DuplicateChecks)
+    static void BuildRegisterModuleMethod(StringBuilder SB, SchemaScript Script, SchemaTable TopTable, SchemaModuleBlock ModuleBlock)
     {
         SelectBuildResult SelectResult = BuildListSelectSql(Script, TopTable);
 
         SB.AppendLine("    static void RegisterModule_" + SafeIdentifier(ModuleBlock.ModuleName) + "()");
         SB.AppendLine("    {");
-        if (DuplicateChecks.HasFlag(DuplicateCheck.Module))
-        {
-            SB.AppendLine("        if (DataRegistry.Modules.Contains(\"" + EscapeString(ModuleBlock.ModuleName) + "\"))");
-            SB.AppendLine("            return;");
-        }
         SB.AppendLine("        ModuleDef Module;");
         SB.AppendLine("        TableDef tblTop;");
         SB.AppendLine("        SelectDef SelectDef;");
@@ -1094,6 +1045,8 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine(EscapeVerbatim(SelectResult.SqlText));
         SB.AppendLine("\";");
         SB.AppendLine("        " + BuildAddModuleSource(TopTable, ModuleBlock));
+        SB.AppendLine("        if (Module.Table.Fields.Count > 0)");
+        SB.AppendLine("            return;");
         BuildModuleOptionAssignments(SB, TopTable);
         SB.AppendLine("        tblTop = Module.Table;");
         SB.AppendLine("        tblTop.Name = \"" + EscapeString(TopTable.Name) + "\";");
@@ -1648,9 +1601,14 @@ static public class SchemaRegistrationBuilder
     {
         if (string.IsNullOrWhiteSpace(Entry))
             return;
+        if (Entry.StartsWith("[") && Entry.EndsWith("]"))
+        {
+            ParseFieldFlagsMetadata(Metadata, Entry);
+            return;
+        }
         if (Entry.Contains("[") || Entry.Contains("]"))
         {
-            AddFieldMetadataError(Metadata, "Square brackets are not allowed in field metadata syntax: " + Entry);
+            AddFieldMetadataError(Metadata, "Invalid FieldFlags metadata syntax: " + Entry);
             return;
         }
 
@@ -1706,6 +1664,36 @@ static public class SchemaRegistrationBuilder
 
         if (Strict)
             AddFieldMetadataError(Metadata, "Unknown field metadata: " + Entry);
+    }
+    /// <summary>
+    /// Parses FieldFlags metadata.
+    /// </summary>
+    static void ParseFieldFlagsMetadata(FieldMetadata Metadata, string MetadataText)
+    {
+        string Text = MetadataText.Substring(1, MetadataText.Length - 2).Trim();
+        if (string.IsNullOrWhiteSpace(Text))
+        {
+            AddFieldMetadataError(Metadata, "FieldFlags metadata is empty: " + MetadataText);
+            return;
+        }
+
+        string[] Parts = Text.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (Parts.Length == 0)
+        {
+            AddFieldMetadataError(Metadata, "FieldFlags metadata is empty: " + MetadataText);
+            return;
+        }
+
+        foreach (string Part in Parts)
+        {
+            if (!Enum.TryParse(Part, ignoreCase: true, out FieldFlags Flag))
+            {
+                AddFieldMetadataError(Metadata, "Unknown FieldFlags value: " + Part);
+                continue;
+            }
+
+            Metadata.FieldFlags |= Flag;
+        }
     }
     /// <summary>
     /// Returns the field metadata kind of an entry.
@@ -2162,20 +2150,36 @@ static public class SchemaRegistrationBuilder
     static string BuildFlags(SchemaField Field, FieldFlagsText Extra = FieldFlagsText.Default)
     {
         List<string> Parts = [];
+        void AddPart(FieldFlags Flag)
+        {
+            string Text = "FieldFlags." + Flag;
+            if (!Parts.Contains(Text))
+                Parts.Add(Text);
+        }
 
-        if (Extra != FieldFlagsText.None)
-            Parts.Add("FieldFlags.Visible");
+        if (IsIdField(Field))
+            AddPart(FieldFlags.Hidden);
         if (!Field.IsNullable)
-            Parts.Add("FieldFlags.Required");
+            AddPart(FieldFlags.Required);
         if (Field.Name.IsSameText("Code"))
-            Parts.Add("FieldFlags.ReadOnlyEdit");
+            AddPart(FieldFlags.ReadOnlyEdit);
         if (Field.Name.IsSameText("Code") && Field.MetadataKind == FieldMetadataKind.Code)
-            Parts.Add("FieldFlags.ReadOnlyUI");
+            AddPart(FieldFlags.ReadOnlyUI);
+        foreach (FieldFlags Flag in Enum.GetValues(typeof(FieldFlags)))
+            if (Flag != FieldFlags.None && Field.FieldFlags.HasFlag(Flag))
+                AddPart(Flag);
 
         if (Parts.Count == 0)
             return "FieldFlags.None";
 
         return string.Join(" | ", Parts);
+    }
+    /// <summary>
+    /// Returns true when a field is an Id field.
+    /// </summary>
+    static bool IsIdField(SchemaField Field)
+    {
+        return Field.Name.IsSameText("Id") || Field.Name.EndsWithText("Id");
     }
     /// <summary>
     /// Escapes a C# string.
@@ -2963,6 +2967,7 @@ static public class SchemaRegistrationBuilder
             Result.IsMemo = Metadata.IsMemo;
             Result.IsLargeMemo = Metadata.IsLargeMemo;
             Result.GroupName = Metadata.GroupName;
+            Result.FieldFlags = Metadata.FieldFlags;
             Result.MetadataErrors = Metadata.Errors;
             Result.CodeProviderPattern = Metadata.CodeProviderPattern;
             Result.CodeProviderName = Metadata.CodeProviderName;
@@ -3048,6 +3053,10 @@ static public class SchemaRegistrationBuilder
         /// Field UI group name.
         /// </summary>
         public string GroupName { get; set; }
+        /// <summary>
+        /// Field flags.
+        /// </summary>
+        public FieldFlags FieldFlags { get; set; }
         /// <summary>
         /// Metadata errors.
         /// </summary>
@@ -3188,6 +3197,10 @@ static public class SchemaRegistrationBuilder
         /// Field UI group name.
         /// </summary>
         public string GroupName { get; set; }
+        /// <summary>
+        /// Field flags.
+        /// </summary>
+        public FieldFlags FieldFlags { get; set; }
         /// <summary>
         /// Metadata errors.
         /// </summary>

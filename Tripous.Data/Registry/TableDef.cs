@@ -417,7 +417,6 @@ where
         foreach (var JoinTableDescriptor in JoinTableDes.Joins)
             BuildSqlAddJoin(JoinTableNamesList, SelectSql, JoinTableDes.Alias, JoinTableDescriptor);
     }
- 
     /// <summary>
     /// Updates this descriptor information using a specified DataTable schema.
     /// </summary>
@@ -436,7 +435,7 @@ where
                 FieldDef.Name = Column.ColumnName;
                 FieldDef.DataType = DataFieldTypeHelper.GetDataFieldType(Column.DataType);
                 
-                Flags = Db.Settings.IdFieldsVisible && Column.ColumnName.EndsWithText("Id")? FieldFlags.None:  FieldFlags.Visible;
+                Flags = !Db.Settings.IdFieldsVisible && Column.ColumnName.EndsWithText("Id")? FieldFlags.Hidden: FieldFlags.None;
                 if (Simple.IsString(Column.DataType) || Simple.IsDateTime(Column.DataType))
                     Flags |= FieldFlags.Searchable;
                 
@@ -654,7 +653,7 @@ where
     /// <summary>
     /// Adds and returns an Id field.
     /// </summary>
-    public FieldDef AddId(string Name, DataFieldType DataType, FieldFlags Flags = FieldFlags.Required, int MaxLength = 40)
+    public FieldDef AddId(string Name, DataFieldType DataType, FieldFlags Flags = FieldFlags.Required | FieldFlags.Hidden, int MaxLength = 40)
     {
         if (!DataType.In(DataFieldType.String | DataFieldType.Integer))
             throw new TripousDataException($"DataType not supported for a table Primary Key. {DataType}");
@@ -664,24 +663,24 @@ where
         return Result;
     }
     /// <summary>
-    /// Adds and returns an Id field based on settings on <see cref="SysConfig.OidDataType"/> and <see cref="SysConfig.OidSize"/>.
+    /// Adds and returns an Id field based on settings on <see cref="DbConfig.OidDataType"/> and <see cref="DbConfig.OidSize"/>.
     /// </summary>
-    public FieldDef AddId(string Name = "Id", FieldFlags Flags = FieldFlags.Required) => AddId(Name, DbConfig.OidDataType, Flags: Flags, MaxLength: DbConfig.OidSize);
+    public FieldDef AddId(string Name = "Id", FieldFlags Flags = FieldFlags.Required | FieldFlags.Hidden) => AddId(Name, DbConfig.OidDataType, Flags: Flags, MaxLength: DbConfig.OidSize);
     /// <summary>
     /// Adds and returns a string Id field
     /// </summary>
-    public FieldDef AddStringId(string Name = "Id", FieldFlags Flags = FieldFlags.Required, int MaxLength = 40) => AddId(Name, DataFieldType.String, Flags: Flags, MaxLength: MaxLength);
+    public FieldDef AddStringId(string Name = "Id", FieldFlags Flags = FieldFlags.Required | FieldFlags.Hidden, int MaxLength = 40) => AddId(Name, DataFieldType.String, Flags: Flags, MaxLength: MaxLength);
     /// <summary>
     /// Adds and returns an integer Id field
     /// </summary>
-    public FieldDef AddIntegerId(string Name = "Id", FieldFlags Flags = FieldFlags.Required) => AddId(Name, DataFieldType.Integer,  Flags: Flags);
+    public FieldDef AddIntegerId(string Name = "Id", FieldFlags Flags = FieldFlags.Required | FieldFlags.Hidden) => AddId(Name, DataFieldType.Integer,  Flags: Flags);
 
     // ● fields - Lookup Ids
     /// <summary>
     /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupDef"/> in order to be displayed correctly in the Ui.
     /// <para>The <see cref="LookupDef"/> should be registered in the registry.</para>
     /// </summary>
-    public FieldDef AddLookupId(string Name, DataFieldType DataType, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddLookupId(string Name, DataFieldType DataType, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Hidden)
     {
         if (string.IsNullOrWhiteSpace(TitleKey))
             TitleKey = LookupSource;
@@ -694,20 +693,20 @@ where
     /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupDef"/> in order to be displayed correctly in the Ui.
     /// <para>The <see cref="LookupDef"/> should be registered in the registry.</para>
     /// </summary>
-    public FieldDef AddStringLookupId(string Name, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddStringLookupId(string Name, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Hidden)
         => AddLookupId(Name, DataFieldType.String, LookupSource, Group: Group, TitleKey: TitleKey, Flags: Flags);
     /// <summary>
     /// Adds a fields, such as <c>CountryId</c> which needs a <see cref="LookupDef"/> in order to be displayed correctly in the Ui.
     /// <para>The <see cref="LookupDef"/> should be registered in the registry.</para>
     /// </summary>
-    public FieldDef AddIntegerLookupId(string Name, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddIntegerLookupId(string Name, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.Hidden)
         => AddLookupId(Name, DataFieldType.Integer, LookupSource, Group: Group, TitleKey: TitleKey, Flags: Flags);
     /// <summary>
     /// Adds a fields, such as <c>AggregateId</c> which needs a <see cref="LookupDef"/> of an enum type, such as the <see cref="AggregateType"/>,
     /// in order to be displayed correctly in the Ui.
     /// <para><b>NOTE</b>: This method creates and registers the required <see cref="LookupDef"/> to the registry.</para>
     /// </summary>
-    public FieldDef AddEnumLookupId(string Name, string LookupSource, Type EnumType, string Group = null, bool UseNullItem = false, string TitleKey = null, FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddEnumLookupId(string Name, string LookupSource, Type EnumType, string Group = null, bool UseNullItem = false, string TitleKey = null, FieldFlags Flags = FieldFlags.Hidden)
     {
         if (!EnumType.IsEnum)
             throw new TripousDataException($"Type {EnumType.FullName} is not an enum type");
@@ -723,44 +722,44 @@ where
     /// <summary>
     /// Adds and returns a string field.
     /// </summary>
-    public FieldDef Add(string Name, int MaxLength, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible) 
+    public FieldDef Add(string Name, int MaxLength, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
         => AddField(Name, DataFieldType.String, MaxLength: MaxLength, Group: Group, TitleKey: TitleKey, Flags: Flags);
     /// <summary>
     /// Adds and returns a string field.
     /// </summary>
-    public FieldDef AddString(string Name, int MaxLength = 96, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddString(string Name, int MaxLength = 96, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
         => AddField(Name, DataFieldType.String, MaxLength: MaxLength, Group: Group, TitleKey: TitleKey, Flags: Flags);
     
     // ● fields - Other types
     /// <summary>
     /// Adds and returns an integer field.
     /// </summary>
-    public FieldDef AddInteger(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible) 
+    public FieldDef AddInteger(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
         => AddField(Name, DataFieldType.Integer, Group: Group, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns an double field.
     /// </summary>
-    public FieldDef AddDouble(string Name, string Group = null, int Decimals = 4, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddDouble(string Name, string Group = null, int Decimals = 4, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
         => AddField(Name, DataFieldType.Double, Group: Group, Decimals: Decimals, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns an decimal field.
     /// </summary>
-    public FieldDef AddDecimal(string Name, string Group = null, int Decimals = 4, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddDecimal(string Name, string Group = null, int Decimals = 4, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
         => AddField(Name, DataFieldType.Decimal, Group: Group, Decimals: Decimals, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns an date field.
     /// </summary>
-    public FieldDef AddDate(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddDate(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
         =>  AddField(Name, DataFieldType.Date, Group: Group, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns an date-time field.
     /// </summary>
-    public FieldDef AddDateTime(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddDateTime(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
         =>  AddField(Name, DataFieldType.DateTime, Group: Group, TitleKey: TitleKey, Flags: Flags); 
     /// <summary>
     /// Adds and returns an integer-boolean field.
     /// </summary>
-    public FieldDef AddBoolean(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddBoolean(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
         =>  AddField(Name, DataFieldType.Boolean, Group: Group, TitleKey: TitleKey, Flags: Flags| FieldFlags.Boolean); 
     /// <summary>
     /// Adds and returns a blob field.
@@ -770,7 +769,7 @@ where
     /// <summary>
     /// Adds and returns a text blob field.
     /// </summary>
-    public FieldDef AddTextBlob(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.Visible)
+    public FieldDef AddTextBlob(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
         =>  AddField(Name, DataFieldType.TextBlob, Group: Group, TitleKey: TitleKey, Flags: Flags | FieldFlags.Memo); 
  
     // ● miscs

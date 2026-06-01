@@ -19,9 +19,9 @@ public enum FieldFlags
     /// </summary>
     None = 0,
     /// <summary>
-    /// Must be visible
+    /// Must be hidden
     /// </summary>
-    Visible = 1,
+    Hidden = 1,
     /// <summary>
     /// Determines whether the field can be modified
     /// </summary>

@@ -53,13 +53,13 @@ from
         Module = DataRegistry.AddModule("Customer", ListSelectSql: SqlText); 
  
         tblTop = Module.Table;
-        tblTop.AddId().Flags |= FieldFlags.Visible;
-        tblTop.AddString("Name").Flags |= FieldFlags.Required | FieldFlags.Visible;
-        //Table.AddStringLookupId("CountryId", "Country", TitleKey: "Country").Flags |= FieldFlags.Visible;  
+        tblTop.AddId();
+        tblTop.AddString("Name").Flags |= FieldFlags.Required;
+        //Table.AddStringLookupId("CountryId", "Country", TitleKey: "Country");
 
         TableDef JoinTable = tblTop.AddJoin("CountryId", "Country");
-        JoinTable.AddId().Flags |= FieldFlags.Visible;
-        JoinTable.AddString("Name").Flags |= FieldFlags.Visible;
+        JoinTable.AddId();
+        JoinTable.AddString("Name");
         
     }
     static void RegisterForms()

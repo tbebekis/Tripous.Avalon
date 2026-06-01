@@ -295,13 +295,13 @@ public class FieldDef: BaseDef
     /// </summary>
     [JsonIgnore] public bool IsRequired => (FieldFlags.Required & Flags) == FieldFlags.Required;
     /// <summary>
-    /// Returns true when the IsHidden flag is NOT set in Flags.
+    /// Returns true when the Hidden flag is NOT set in Flags.
     /// </summary>
-    [JsonIgnore] public bool IsVisible => (FieldFlags.Visible & Flags) == FieldFlags.Visible;
+    [JsonIgnore] public bool IsVisible => (FieldFlags.Hidden & Flags) != FieldFlags.Hidden;
     /// <summary>
-    /// Returns true when the IsHidden flag is set in Flags.
+    /// Returns true when the Hidden flag is set in Flags.
     /// </summary>
-    [JsonIgnore] public bool IsHidden => !IsVisible;
+    [JsonIgnore] public bool IsHidden => (FieldFlags.Hidden & Flags) == FieldFlags.Hidden;
     /// <summary>
     /// Returns true when the ReadOnly flag is set in Flags.
     /// </summary>
@@ -357,7 +357,7 @@ public class FieldDef: BaseDef
     /// </summary>
     [JsonIgnore] public bool IsNoInsertOrUpdate => (FieldFlags.NoInsertUpdate & Flags) == FieldFlags.NoInsertUpdate;
     
-    [JsonIgnore] public bool IsBindable => Flags.HasFlag(FieldFlags.Visible) && !DataType.In(DataFieldType.None | DataFieldType.Blob);
+    [JsonIgnore] public bool IsBindable => IsVisible && !DataType.In(DataFieldType.None | DataFieldType.Blob);
     [JsonIgnore] public bool IsLookup => !string.IsNullOrWhiteSpace(LookupSource);
     [JsonIgnore] public bool IsLocator => !string.IsNullOrWhiteSpace(Locator);
 }

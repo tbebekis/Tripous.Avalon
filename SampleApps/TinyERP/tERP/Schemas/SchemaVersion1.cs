@@ -52,6 +52,22 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
+    void RegisterTable_SYS_STR_RES()
+    {
+        string TableName = "SYS_STR_RES";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Lang @NVARCHAR(12) @NOT_NULL,           -- e.g. en, el
+    ResKey @NVARCHAR(96) @NOT_NULL,
+    ResValue @NBLOB_TEXT @NOT_NULL,         -- Memo
+
+    CONSTRAINT UQ_{TableName}_Lang_ResKey UNIQUE (Lang, ResKey)
+    )
+";
+        Version.AddTable(SqlText);
+    }
     void RegisterTable_AppUser()
     {
         string TableName = "AppUser";
@@ -66,11 +82,13 @@ CREATE TABLE {TableName} (
     FullName @NVARCHAR(96) @NOT_NULL,
 
     UserLevelId int @NOT_NULL,                     -- Enum UserLevel
+    CultureCode @NVARCHAR(16) @NULL,
 
     Email @NVARCHAR(96) @NULL,
     Phone @NVARCHAR(40) @NULL,
 
     LastLoginAt @DATE_TIME @NULL,
+    PasswordChangedAt @DATE_TIME @NULL,
 
     IsActive @BOOL default 1 @NOT_NULL,
 
@@ -1676,7 +1694,7 @@ CREATE TABLE {TableName}
         string TableName = "Trade";
         string SqlText = $@"
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL primary key,
+    Id @NVARCHAR(40) @NOT_NULL primary key,
 
     DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup
     Code @NVARCHAR(40) @NOT_NULL,                       -- Code TR-DRAFT-YYYY-XXXXXX TRADE-DRAFT
@@ -2292,6 +2310,7 @@ CREATE TABLE {TableName} (
     {
         RegisterTable_SYS_LOG();
         RegisterTable_SYS_NUMBER_SERIES();
+        RegisterTable_SYS_STR_RES();
         RegisterTable_AppUser();
         RegisterTable_CustomerCategory();
         RegisterTable_SupplierCategory();
