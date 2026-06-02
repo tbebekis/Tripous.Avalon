@@ -59,7 +59,34 @@ static internal partial class Registry
     /// </summary>
     static public void UpdateModules()
     {
+        DataRegistry.Modules.Get("SalesOrder").IsDocument = true;
+        DataRegistry.Modules.Get("SalesDeliveryNote").IsDocument = true;
+        DataRegistry.Modules.Get("SalesInvoice").IsDocument = true;
+        DataRegistry.Modules.Get("SalesCreditNote").IsDocument = true;
+        DataRegistry.Modules.Get("SalesReturn").IsDocument = true;
+        DataRegistry.Modules.Get("SalesCancellation").IsDocument = true;
+        
+        DataRegistry.Modules.Get("PurchaseOrder").IsDocument = true;
+        DataRegistry.Modules.Get("PurchaseDeliveryNote").IsDocument = true;
+        DataRegistry.Modules.Get("PurchaseInvoice").IsDocument = true;
+        DataRegistry.Modules.Get("PurchaseCreditNote").IsDocument = true;
+        DataRegistry.Modules.Get("PurchaseReturn").IsDocument = true;
+        DataRegistry.Modules.Get("PurchaseCancellation").IsDocument = true;
+        
+        DataRegistry.Modules.Get("StockTrade").IsDocument = true;
+        DataRegistry.Modules.Get("StockCount").IsDocument = true;
+        
+        DataRegistry.Modules.Get("JournalEntry").IsDocument = true;
+        
+        DataRegistry.Modules.Get("StockMovement").IsDocumentSnapshot = true;
+        DataRegistry.Modules.Get("FinanceMovement").IsDocumentSnapshot = true;
     }
+
+ 
+ 
+
+
+
 
 
 }

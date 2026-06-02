@@ -81,7 +81,7 @@ public class LookupSource
     /// <summary>
     /// Fills the list using a SELECT statement
     /// </summary>
-    public void Select(string SqlText)
+    public virtual void Select(string SqlText)
     {
         ClearList();
         if (!string.IsNullOrWhiteSpace(SqlText))
@@ -93,7 +93,7 @@ public class LookupSource
     /// <summary>
     /// Fills the list using a <see cref="DataTable"/>
     /// </summary>
-    public void LoadForm(DataTable Table)
+    public virtual void LoadForm(DataTable Table)
     {
         if (Table == null)
             throw new TripousDataException($"Lookup {LookupDef.Name}: Parameter {nameof(Table)} is null. ");
@@ -126,7 +126,7 @@ public class LookupSource
     /// Fills the list using an enum type.
     /// </summary>
     /// <param name="Enum"></param>
-    public void LoadFrom(Enum Enum)
+    public virtual void LoadFrom(Enum Enum)
     {
         if (Enum == null)
             throw new TripousDataException($"Lookup {LookupDef.Name}: Parameter {nameof(Enum)} is null. ");
@@ -151,7 +151,7 @@ public class LookupSource
     /// <summary>
     /// Returns the lookup list, full of items.
     /// </summary>
-    public List<LookupItem> GetList()
+    public virtual List<LookupItem> GetList()
     {
         if (List != null)
             return List;
@@ -191,7 +191,7 @@ public class LookupSource
     /// <summary>
     /// Clears the lookup list.
     /// </summary>
-    public void ClearList()
+    public virtual void ClearList()
     {
         if (List == null)
             List = [];

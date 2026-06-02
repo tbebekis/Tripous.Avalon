@@ -101,6 +101,7 @@ static internal partial class AppHost
          Registry.RegisterLocators();
  
          Registry.RegisterModules();
+         Registry.RegisterDocumentHandlers();
          Registry.RegisterForms();
   
          Registry.UpdateLookups();

@@ -61,14 +61,14 @@ static public class DataRegistry
             throw new TripousException($"Cannot add a {nameof(ModuleDef)}. '{Name}' is already registered.");
     }
 
-    static LookupDef AddLookupInternal(string Name, Type EnumType, string TableName, string SqlText, string FormName, bool UseNullItem)
+    static LookupDef AddLookupInternal(string Name, Type EnumType, string TableName, string SqlText, string ClassName, string FormName, bool UseNullItem)
     {
-        if (EnumType == null && string.IsNullOrWhiteSpace(TableName) && string.IsNullOrWhiteSpace(SqlText))
-            throw new TripousException($"Cannot add a {nameof(LookupDef)}. No '{nameof(EnumType)}' or  '{nameof(TableName)}' or  '{nameof(SqlText)}' is provided.");
+        if (EnumType == null && string.IsNullOrWhiteSpace(TableName) && string.IsNullOrWhiteSpace(SqlText) && string.IsNullOrWhiteSpace(ClassName))
+            throw new TripousException($"Cannot add a {nameof(LookupDef)}. No '{nameof(EnumType)}' or  '{nameof(TableName)}' or  '{nameof(SqlText)}' or  '{nameof(ClassName)}' is provided.");
 
         string EnumTypeName = EnumType != null ? EnumType.FullName : null;
         
-        if (string.IsNullOrWhiteSpace(EnumTypeName))
+        if (string.IsNullOrWhiteSpace(EnumTypeName) && string.IsNullOrWhiteSpace(ClassName))
         {
             if (string.IsNullOrWhiteSpace(SqlText) && string.IsNullOrWhiteSpace(TableName))
                 TableName = Name;
@@ -84,6 +84,7 @@ static public class DataRegistry
             Result.EnumTypeName = EnumType.FullName;
         Result.TableName = TableName;
         Result.SqlText = SqlText;
+        Result.ClassName = ClassName;
         Result.Form = FormName;
         DataRegistry.Lookups.Add(Result);
         return Result;
@@ -115,6 +116,12 @@ static public class DataRegistry
         if (string.IsNullOrWhiteSpace(SqlText))
             throw new TripousException($"Cannot add a {nameof(LookupDef)}. No '{nameof(SqlText)}' is provided.");
     }
+    static void CheckLookupWithClassName(string Name, string ClassName)
+    {
+        CheckLookup(Name);
+        if (string.IsNullOrWhiteSpace(ClassName))
+            throw new TripousException($"Cannot add a {nameof(LookupDef)}. No '{nameof(ClassName)}' is provided.");
+    }
 
     static void CheckLocator(string Name, string KeyField)
     {
@@ -141,6 +148,13 @@ static public class DataRegistry
             throw new TripousException($"Cannot add a {nameof(CodeProviderDef)}. No '{nameof(Name)}' is provided.");
         if (CodeProviders.Contains(Name))
             throw new TripousException($"Cannot add a {nameof(CodeProviderDef)}. '{Name}' is already registered.");
+    }
+    static void CheckDocumentHandler(string Name)
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add a {nameof(DocumentHandlerDef)}. No '{nameof(Name)}' is provided.");
+        if (DocumentHandlers.Contains(Name))
+            throw new TripousException($"Cannot add a {nameof(DocumentHandlerDef)}. '{Name}' is already registered.");
     }
     
     // ● modules
@@ -216,7 +230,7 @@ static public class DataRegistry
     static public LookupDef AddLookupSource(string Name, Type EnumType, bool UseNullItem = false)
     {
         CheckLookup(Name, EnumType);
-        LookupDef Result = AddLookupInternal(Name, EnumType, TableName: null, SqlText: null, FormName: null, UseNullItem: UseNullItem);
+        LookupDef Result = AddLookupInternal(Name, EnumType, TableName: null, SqlText: null, ClassName: null, FormName: null, UseNullItem: UseNullItem);
         return Result;
     }
     /// <summary>
@@ -225,7 +239,7 @@ static public class DataRegistry
     /// </summary>
     static public LookupDef AddOrGetLookupSource(Type EnumType, bool UseNullItem = false)
     {
-        return AddOrGetLookup(EnumType.FullName, EnumType, TableName: "", SqlText: "", FormName: "", UseNullItem);
+        return AddOrGetLookup(EnumType.FullName, EnumType, TableName: "", SqlText: "", ClassName: "", FormName: "", UseNullItem);
     }
     /// <summary>
     /// Adds a definition to the registry.
@@ -233,7 +247,7 @@ static public class DataRegistry
     /// </summary>
     static public LookupDef AddOrGetLookupSource(string Name, Type EnumType, bool UseNullItem = false)
     {
-        return AddOrGetLookup(Name, EnumType, TableName: "", SqlText: "", FormName: "", UseNullItem);
+        return AddOrGetLookup(Name, EnumType, TableName: "", SqlText: "", ClassName: "", FormName: "", UseNullItem);
     }
     
     // ● lookups - with table name
@@ -247,7 +261,7 @@ static public class DataRegistry
             TableName = Name;
         
         CheckLookupWithTableName(Name, TableName);
-        LookupDef Result = AddLookupInternal(Name, EnumType: null, TableName: TableName, SqlText: null, FormName: FormName, UseNullItem: UseNullItem);
+        LookupDef Result = AddLookupInternal(Name, EnumType: null, TableName: TableName, SqlText: null, ClassName: null, FormName: FormName, UseNullItem: UseNullItem);
         return Result;
     }
     /// <summary>
@@ -256,7 +270,7 @@ static public class DataRegistry
     /// </summary>
     static public LookupDef AddOrGetLookupWithTableName(string Name, string TableName = null, string FormName = null, bool UseNullItem = false)
     {
-        return AddOrGetLookup(Name, EnumType: null, TableName: TableName, SqlText: "", FormName: FormName, UseNullItem);
+        return AddOrGetLookup(Name, EnumType: null, TableName: TableName, SqlText: "", ClassName: "", FormName: FormName, UseNullItem);
     }
     
     // ● lookups - with SELECT Sql
@@ -270,7 +284,7 @@ static public class DataRegistry
             SqlText = $"select * from {Name}";
         
         CheckLookupWithSql(Name, SqlText);
-        LookupDef Result = AddLookupInternal(Name, EnumType: null, TableName: null, SqlText: SqlText, FormName: FormName, UseNullItem: UseNullItem);
+        LookupDef Result = AddLookupInternal(Name, EnumType: null, TableName: null, SqlText: SqlText, ClassName: null, FormName: FormName, UseNullItem: UseNullItem);
         return Result;
     }
     /// <summary>
@@ -279,7 +293,27 @@ static public class DataRegistry
     /// </summary>
     static public LookupDef AddOrGetLookupWithSql(string Name, string SqlText = null, string FormName = null, bool UseNullItem = false)
     {
-        return AddOrGetLookup(Name, EnumType: null, TableName: "", SqlText: SqlText, FormName: FormName, UseNullItem);
+        return AddOrGetLookup(Name, EnumType: null, TableName: "", SqlText: SqlText, ClassName: "", FormName: FormName, UseNullItem);
+    }
+
+    // ● lookups - with class name
+    /// <summary>
+    /// Adds a lookup source.
+    /// <para>If the definition exists, an exception is thrown.</para>
+    /// </summary>
+    static public LookupDef AddLookupWithClassName(string Name, string ClassName, string FormName = null, bool UseNullItem = false)
+    {
+        CheckLookupWithClassName(Name, ClassName);
+        LookupDef Result = AddLookupInternal(Name, EnumType: null, TableName: null, SqlText: null, ClassName: ClassName, FormName: FormName, UseNullItem: UseNullItem);
+        return Result;
+    }
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public LookupDef AddOrGetLookupWithClassName(string Name, string ClassName, string FormName = null, bool UseNullItem = false)
+    {
+        return AddOrGetLookup(Name, EnumType: null, TableName: "", SqlText: "", ClassName: ClassName, FormName: FormName, UseNullItem);
     }
     
     // ● lookups - add or get
@@ -287,11 +321,11 @@ static public class DataRegistry
     /// Adds a definition to the registry.
     /// <para>If the definition exists, that definition is returned.</para>
     /// </summary>
-    static public LookupDef AddOrGetLookup(string Name, Type EnumType, string TableName, string SqlText, string FormName, bool UseNullItem)
+    static public LookupDef AddOrGetLookup(string Name, Type EnumType, string TableName, string SqlText, string ClassName, string FormName, bool UseNullItem)
     {
         LookupDef Result = Lookups.Find(Name);
         if (Result == null)
-            Result = AddLookupInternal(Name, EnumType, TableName, SqlText, FormName: FormName, UseNullItem);
+            Result = AddLookupInternal(Name, EnumType, TableName, SqlText, ClassName, FormName: FormName, UseNullItem);
         return Result;
     }
     
@@ -350,12 +384,50 @@ static public class DataRegistry
         return Result;
     }
     
-    // ● create 
+    // ● document handlers
+    /// <summary>
+    /// Adds a definition.
+    /// <para>If the definition exists, an exception is thrown.</para>
+    /// </summary>
+    static public DocumentHandlerDef AddDocumentHandler(string Name, string ClassName)
+    {
+        CheckDocumentHandler(Name);
+        DocumentHandlerDef Result = new DocumentHandlerDef() { Name = Name, ClassName = ClassName };
+        DocumentHandlers.Add(Result);
+        return Result;
+    }
+    /// <summary>
+    /// Adds a definition to the registry.
+    /// <para>If the definition exists, that definition is returned.</para>
+    /// </summary>
+    static public DocumentHandlerDef AddOrGetDocumentHandler(string Name, string ClassName)
+    {
+        DocumentHandlerDef Result = DocumentHandlers.Find(Name);
+        if (Result == null)
+            Result = AddDocumentHandler(Name, ClassName);
+        return Result;
+    }
+
+    // ● create
     /// <summary>
     /// Creates and returns a <see cref="DataModule"/> based on its registered name.
     /// </summary>
     static public DataModule CreateModule(string Name, bool InitializeToo = true) => Modules.Get(Name).Create(InitializeToo);
-    
+
+    // ● miscs
+    static public ModuleDef[] GetDocumentModules()
+    {
+        return Modules
+            .Where(x => x.IsDocument && !x.IsDocumentSnapshot)
+            .ToArray();
+    }
+    static public ModuleDef[] GetDocumentSnapshotModules()
+    {
+        return Modules
+            .Where(x => x.IsDocumentSnapshot)
+            .ToArray();
+    }
+
     // ● properties
     /// <summary>
     /// The list of locator definitions.
@@ -373,4 +445,8 @@ static public class DataRegistry
     /// The list of code providers.
     /// </summary>
     static public DefList<CodeProviderDef> CodeProviders { get; } = new();
+    /// <summary>
+    /// The list of document handlers
+    /// </summary>
+    static public DefList<DocumentHandlerDef> DocumentHandlers { get; } = new();
 }

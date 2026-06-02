@@ -16,6 +16,7 @@ namespace Tripous.Data;
 /// <item>a SELECT statement constructed using the <see cref="TableName"/></item>
 /// <item>a <see cref="DataTable"/> passed to <see cref="LookupSource.LoadForm"/>() method</item>
 /// <item>an enum type, given in the <see cref="EnumTypeName"/> property</item>
+/// <item>a <see cref="LookupSource"/> derived class, given in the <see cref="ClassName"/> property</item>
 /// <item>as a last resort using the <see cref="BaseDef.Name"/> as a <see cref="TableName"/></item>
 /// </list>
 /// </summary>
@@ -28,6 +29,7 @@ public class LookupDef : BaseDef
     string fTableName;
     string fConnectionName;
     string fEnumTypeName;
+    string fClassName;
     string fForm;
     
     // ● construction
@@ -43,7 +45,7 @@ public class LookupDef : BaseDef
     /// </summary>
     public LookupSource Create()
     {
-        LookupSource Result = new();
+        LookupSource Result = TypeStore.CreateInstance<LookupSource>(ClassName);
         Result.Initialize(this);
         return Result;
     }
@@ -152,6 +154,21 @@ public class LookupDef : BaseDef
         }
     }
     /// <summary>
+    /// The class name of a <see cref="LookupSource"/> derived class.
+    /// </summary>
+    public string ClassName
+    {
+        get => !string.IsNullOrWhiteSpace(fClassName)? fClassName: typeof(LookupSource).FullName;
+        set
+        {
+            if (fClassName != value)
+            {
+                fClassName = value;
+                NotifyPropertyChanged(nameof(ClassName));
+            }
+        }
+    }
+    /// <summary>
     /// The name of a form that displays the table.
     /// </summary>
     public string Form
@@ -160,8 +177,3 @@ public class LookupDef : BaseDef
         set { if (fForm != value) { fForm = value; NotifyPropertyChanged(nameof(Form)); } }
     }
 }
-
-
-
-
- 

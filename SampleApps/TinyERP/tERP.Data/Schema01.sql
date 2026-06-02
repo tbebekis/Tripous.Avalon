@@ -1750,15 +1750,16 @@ Examples:
     SAL-CREDIT  Sales Credit Note
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL primary key,
+    Id @NVARCHAR(40) @NOT_NULL primary key,
 
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,
 
     TradeTypeId int @NOT_NULL,                         -- Enum TradeType
 
-    NumberSeriesId @NVARCHAR(40) @NULL,                -- Lookup
-    HandlerClass @NVARCHAR(256) @NULL,                 -- IDocumentHandler full class name
+    NumberSeriesId @NVARCHAR(40) @NOT_NULL,            -- Lookup
+    ModuleName @NVARCHAR(96) @NOT_NULL,                -- Module Name 
+    HandlerName @NVARCHAR(96) @NOT_NULL,               -- DocumentHandler Name
 
     IsActive @BOOL default 1 @NOT_NULL,
     IsSystem @BOOL default 0 @NOT_NULL,                -- system defined and protected type
@@ -1798,51 +1799,51 @@ CREATE TABLE {TableName} (
 /*---------------------------------------------------
 Table: Trade
 
-Module: SalesOrder TradeDataModule
+Module: SalesOrder SalesOrderDataModule
 Group: Sales
 Form: SalesOrder DataForm TradeItemPage
 
-Module: SalesDeliveryNote TradeDataModule
+Module: SalesDeliveryNote SalesDeliveryNoteDataModule
 Group: Sales
 Form: SalesDeliveryNote DataForm TradeItemPage
 
-Module: SalesInvoice TradeDataModule
+Module: SalesInvoice SalesInvoiceDataModule
 Group: Sales
 Form: SalesInvoice DataForm TradeItemPage
 
-Module: SalesCreditNote TradeDataModule
+Module: SalesCreditNote SalesCreditNoteDataModule
 Group: Sales
 Form: SalesCreditNote DataForm TradeItemPage
 
-Module: SalesReturn TradeDataModule
+Module: SalesReturn SalesReturnDataModule
 Group: Sales
 Form: SalesReturn DataForm TradeItemPage
 
-Module: SalesCancellation TradeDataModule
+Module: SalesCancellation SalesCancellationDataModule
 Group: Sales
 Form: SalesCancellation DataForm TradeItemPage
 
-Module: PurchaseOrder TradeDataModule
+Module: PurchaseOrder PurchaseOrderDataModule
 Group: Purchases
 Form: PurchaseOrder DataForm TradeItemPage
 
-Module: PurchaseDeliveryNote TradeDataModule
+Module: PurchaseDeliveryNote PurchaseDeliveryNoteDataModule
 Group: Purchases
 Form: PurchaseDeliveryNote DataForm TradeItemPage
 
-Module: PurchaseInvoice TradeDataModule
+Module: PurchaseInvoice PurchaseInvoiceDataModule
 Group: Purchases
 Form: PurchaseInvoice DataForm TradeItemPage
 
-Module: PurchaseCreditNote TradeDataModule
+Module: PurchaseCreditNote PurchaseCreditNoteDataModule
 Group: Purchases
 Form: PurchaseCreditNote DataForm TradeItemPage
 
-Module: PurchaseReturn TradeDataModule
+Module: PurchaseReturn PurchaseReturnDataModule
 Group: Purchases
 Form: PurchaseReturn DataForm TradeItemPage
 
-Module: PurchaseCancellation TradeDataModule
+Module: PurchaseCancellation PurchaseCancellationDataModule
 Group: Purchases
 Form: PurchaseCancellation DataForm TradeItemPage
 
@@ -2143,7 +2144,6 @@ CREATE TABLE {TableName} (
 
 
 
-
 /*---------------------------------------------------
 Table: StockTradeLine
 -----------------------------------------------------
@@ -2345,10 +2345,11 @@ Used for:
 - inventory reconciliation
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     Code @NVARCHAR(40) @NOT_NULL,                     -- Code SC-YYYY-XXXXXX STOCK_COUNT
-
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,           -- Lookup -- controls numbering, posting behavior and movement direction
+    
     WarehouseId @NVARCHAR(40) @NOT_NULL,              -- Lookup
 
     CountDate @DATE @NOT_NULL,
@@ -2365,6 +2366,7 @@ CREATE TABLE {TableName} (
     ModifiedAt @DATE_TIME @NULL,                      -- Group Audit
     ModifiedBy @NVARCHAR(40) @NULL,                   -- Lookup AppUser; Group Audit
 
+    FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
     FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
     FOREIGN KEY (CancelledDocumentId) REFERENCES StockCount(Id),
     FOREIGN KEY (CancellationDocumentId) REFERENCES StockCount(Id),
@@ -2908,7 +2910,7 @@ Corrections are performed through reversal records and reversal journal entries 
 The parent Asset stores AccumulatedDepreciation and BookValue as cached current values, but the authoritative depreciation history is this table.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     AssetId @NVARCHAR(40) @NOT_NULL,                  -- Master
 

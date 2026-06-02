@@ -308,7 +308,7 @@ static public class SchemaRegistrationBuilder
             {
                 if (!IsLookupField(Script, Field) || Field.MetadataKind == FieldMetadataKind.Enum)
                     continue;
-                if (Field.ForeignKey == null)
+                if (Field.ForeignKey == null && string.IsNullOrWhiteSpace(Field.LookupTableName) && string.IsNullOrWhiteSpace(Field.LookupEnumTypeName) && string.IsNullOrWhiteSpace(Field.LookupClassName))
                     AddError(Result, "LOOKUP_NO_REFERENCE", "Lookup field has no foreign key reference: " + Table.Name + "." + Field.Name);
             }
         }
@@ -891,14 +891,16 @@ static public class SchemaRegistrationBuilder
                     continue;
 
                 string LookupSourceName = GetLookupSourceName(Script, Field);
-                string LookupTableName = Field.ForeignKey != null ? Field.ForeignKey.ReferenceTable : LookupSourceName;
+                string LookupTableName = !string.IsNullOrWhiteSpace(Field.LookupTableName) ? Field.LookupTableName : Field.ForeignKey != null ? Field.ForeignKey.ReferenceTable : LookupSourceName;
                 SchemaTable LookupTable = Script.FindTable(LookupTableName);
 
-                if (!string.IsNullOrWhiteSpace(LookupSourceName) && !string.IsNullOrWhiteSpace(LookupTableName))
+                if (!string.IsNullOrWhiteSpace(LookupSourceName) && (!string.IsNullOrWhiteSpace(LookupTableName) || !string.IsNullOrWhiteSpace(Field.LookupEnumTypeName) || !string.IsNullOrWhiteSpace(Field.LookupClassName)))
                 {
                     LookupSourceInfo Info = new();
                     Info.Name = LookupSourceName;
                     Info.TableName = LookupTableName;
+                    Info.EnumTypeName = Field.LookupEnumTypeName;
+                    Info.ClassName = Field.LookupClassName;
                     Info.FormName = LookupTable != null ? LookupTable.FormName : string.Empty;
                     Result[Info.Name] = Info;
                 }
@@ -918,7 +920,14 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    {");
 
         foreach (LookupSourceInfo LookupSource in LookupSources.Values.OrderBy(x => x.Name))
-            SB.AppendLine("        DataRegistry.AddOrGetLookupWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
+        {
+            if (!string.IsNullOrWhiteSpace(LookupSource.ClassName))
+                SB.AppendLine("        DataRegistry.AddOrGetLookupWithClassName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.ClassName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
+            else if (!string.IsNullOrWhiteSpace(LookupSource.EnumTypeName))
+                SB.AppendLine("        DataRegistry.AddOrGetLookupSource(\"" + EscapeString(LookupSource.Name) + "\", TypeStore.Get(\"" + EscapeString(LookupSource.EnumTypeName) + "\"));");
+            else
+                SB.AppendLine("        DataRegistry.AddOrGetLookupWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
+        }
 
         SB.AppendLine("    }");
 
@@ -1623,8 +1632,12 @@ static public class SchemaRegistrationBuilder
             }
 
             Metadata.Kind = Kind;
-            Metadata.MetadataName = ParseMetadataName(Entry, Kind);
             Metadata.IsOneToOne = Entry.IndexOf("OneToOne", StringComparison.OrdinalIgnoreCase) >= 0;
+
+            if (Kind == FieldMetadataKind.Lookup)
+                ParseLookupMetadata(Metadata, Entry);
+            else
+                Metadata.MetadataName = ParseMetadataName(Entry, Kind);
 
             if (Kind == FieldMetadataKind.Code)
                 ParseCodeMetadata(Metadata, Entry);
@@ -1742,6 +1755,68 @@ static public class SchemaRegistrationBuilder
             Text = Text.Substring(0, OpenIndex).Trim();
 
         return SplitHeaderTokens(Text).FirstOrDefault() ?? string.Empty;
+    }
+    /// <summary>
+    /// Parses lookup metadata.
+    /// </summary>
+    static void ParseLookupMetadata(FieldMetadata Metadata, string MetadataText)
+    {
+        List<string> Parts = SplitHeaderTokens(MetadataText);
+        if (Parts.Count == 0)
+            return;
+
+        int SourceIndex = -1;
+        int SourceValueIndex = -1;
+        string SourceKey = string.Empty;
+        string SourceValue = string.Empty;
+
+        for (int i = 1; i < Parts.Count; i++)
+        {
+            string Part = Parts[i];
+            int Index = Part.IndexOf(':');
+            string Key = Index >= 0 ? Part.Substring(0, Index).Trim() : Part.EndsWith(":") ? Part.Substring(0, Part.Length - 1).Trim() : string.Empty;
+            if (!Key.IsSameText("TableName") && !Key.IsSameText("EnumName") && !Key.IsSameText("EnumType") && !Key.IsSameText("ClassName"))
+                continue;
+
+            SourceIndex = i;
+            SourceKey = Key;
+            SourceValue = Index >= 0 ? Part.Substring(Index + 1).Trim() : string.Empty;
+            if (string.IsNullOrWhiteSpace(SourceValue) && i + 1 < Parts.Count)
+            {
+                SourceValueIndex = i + 1;
+                SourceValue = Parts[i + 1];
+            }
+            break;
+        }
+
+        if (SourceIndex < 0)
+        {
+            if (Parts.Count > 2)
+                AddFieldMetadataError(Metadata, "Invalid Lookup metadata syntax: " + MetadataText);
+            Metadata.MetadataName = Parts.Count > 1 ? Parts[1] : string.Empty;
+            return;
+        }
+
+        if (SourceIndex != 2 || string.IsNullOrWhiteSpace(SourceValue))
+        {
+            AddFieldMetadataError(Metadata, "Invalid Lookup metadata syntax: " + MetadataText);
+            return;
+        }
+
+        int LastExpectedIndex = SourceValueIndex > 0 ? SourceValueIndex : SourceIndex;
+        if (Parts.Count - 1 > LastExpectedIndex)
+        {
+            AddFieldMetadataError(Metadata, "Invalid Lookup metadata syntax: " + MetadataText);
+            return;
+        }
+
+        Metadata.MetadataName = Parts[1];
+        if (SourceKey.IsSameText("TableName"))
+            Metadata.LookupTableName = SourceValue;
+        else if (SourceKey.IsSameText("EnumName") || SourceKey.IsSameText("EnumType"))
+            Metadata.LookupEnumTypeName = SourceValue;
+        else if (SourceKey.IsSameText("ClassName"))
+            Metadata.LookupClassName = SourceValue;
     }
     /// <summary>
     /// Parses group metadata.
@@ -2603,7 +2678,7 @@ static public class SchemaRegistrationBuilder
             if (Parts.Count == 0)
                 return;
             if (Parts.Count > 3)
-                throw new TripousDataException("Invalid Form header syntax: \"" + Text + "\". Expected: Form: Default | FORM_NAME [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]");
+                throw new TripousDataException("Invalid Form header syntax: \"" + Text + "\". Expected: Form: DataForm | FORM_NAME [FORM_CLASS_NAME]");
 
             ModuleBlock.FormName = Parts[0];
 
@@ -2611,6 +2686,17 @@ static public class SchemaRegistrationBuilder
                 ModuleBlock.FormClassName = Parts[1];
             if (Parts.Count > 2)
                 ModuleBlock.ItemPageClassName = Parts[2];
+        }
+        /// <summary>
+        /// Parses item page header text.
+        /// </summary>
+        void ParseItemPageHeader(SchemaModuleBlock ModuleBlock, string Text)
+        {
+            List<string> Parts = SplitHeaderTokens(Text);
+            if (Parts.Count != 1)
+                throw new TripousDataException("Invalid ItemPage header syntax: \"" + Text + "\". Expected: ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME");
+
+            ModuleBlock.ItemPageClassName = Parts[0];
         }
         /// <summary>
         /// Parses module blocks.
@@ -2648,6 +2734,8 @@ static public class SchemaRegistrationBuilder
                         throw new TripousDataException("Invalid Group header order. Module block contains duplicate Group: " + Current.ModuleName);
                     if (!string.IsNullOrWhiteSpace(Current.FormName))
                         throw new TripousDataException("Invalid Group header order. Group must appear before Form: " + Current.ModuleName);
+                    if (!string.IsNullOrWhiteSpace(Current.ItemPageClassName))
+                        throw new TripousDataException("Invalid Group header order. Group must appear before ItemPage: " + Current.ModuleName);
                     Current.GroupName = Entry.Value;
                     continue;
                 }
@@ -2660,7 +2748,21 @@ static public class SchemaRegistrationBuilder
                         throw new TripousDataException("Invalid Form header order. Form must follow Group: " + Current.ModuleName);
                     if (!string.IsNullOrWhiteSpace(Current.FormName))
                         throw new TripousDataException("Invalid Form header order. Module block contains duplicate Form: " + Current.ModuleName);
+                    if (!string.IsNullOrWhiteSpace(Current.ItemPageClassName))
+                        throw new TripousDataException("Invalid Form header order. Form must appear before ItemPage: " + Current.ModuleName);
                     ParseFormHeader(Current, Entry.Value);
+                    continue;
+                }
+
+                if (Entry.Name.IsSameText("ItemPage"))
+                {
+                    if (Current == null)
+                        throw new TripousDataException("Invalid ItemPage header order. ItemPage must follow a Module line.");
+                    if (string.IsNullOrWhiteSpace(Current.GroupName))
+                        throw new TripousDataException("Invalid ItemPage header order. ItemPage must follow Group: " + Current.ModuleName);
+                    if (!string.IsNullOrWhiteSpace(Current.ItemPageClassName))
+                        throw new TripousDataException("Invalid ItemPage header order. Module block contains duplicate ItemPage: " + Current.ModuleName);
+                    ParseItemPageHeader(Current, Entry.Value);
                     continue;
                 }
 
@@ -2691,7 +2793,7 @@ static public class SchemaRegistrationBuilder
 
             if (string.IsNullOrWhiteSpace(ModuleBlock.FormName))
                 ModuleBlock.FormName = ModuleBlock.ModuleName;
-            else if (ModuleBlock.FormName.IsSameText("Default"))
+            else if (ModuleBlock.FormName.IsSameText("Default") || ModuleBlock.FormName.IsSameText("DataForm"))
                 ModuleBlock.FormName = ModuleBlock.ModuleName;
         }
         /// <summary>
@@ -2962,6 +3064,9 @@ static public class SchemaRegistrationBuilder
             Result.MetadataKind = Metadata.Kind;
             Result.MetadataText = Metadata.MetadataText;
             Result.MetadataName = Metadata.MetadataName;
+            Result.LookupTableName = Metadata.LookupTableName;
+            Result.LookupEnumTypeName = Metadata.LookupEnumTypeName;
+            Result.LookupClassName = Metadata.LookupClassName;
             Result.CommentText = Metadata.CommentText;
             Result.IsOneToOne = Metadata.IsOneToOne;
             Result.IsMemo = Metadata.IsMemo;
@@ -3005,6 +3110,18 @@ static public class SchemaRegistrationBuilder
         /// Optional metadata name.
         /// </summary>
         public string MetadataName { get; set; }
+        /// <summary>
+        /// Lookup source table name.
+        /// </summary>
+        public string LookupTableName { get; set; }
+        /// <summary>
+        /// Lookup source enum type name.
+        /// </summary>
+        public string LookupEnumTypeName { get; set; }
+        /// <summary>
+        /// Lookup source class name.
+        /// </summary>
+        public string LookupClassName { get; set; }
         /// <summary>
         /// Code provider pattern.
         /// </summary>
@@ -3146,6 +3263,14 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public string TableName { get; set; }
         /// <summary>
+        /// Lookup source enum type name.
+        /// </summary>
+        public string EnumTypeName { get; set; }
+        /// <summary>
+        /// Lookup source class name.
+        /// </summary>
+        public string ClassName { get; set; }
+        /// <summary>
         /// Lookup source associated form name.
         /// </summary>
         public string FormName { get; set; }
@@ -3173,6 +3298,18 @@ static public class SchemaRegistrationBuilder
         /// Optional metadata name.
         /// </summary>
         public string MetadataName { get; set; }
+        /// <summary>
+        /// Lookup source table name.
+        /// </summary>
+        public string LookupTableName { get; set; }
+        /// <summary>
+        /// Lookup source enum type name.
+        /// </summary>
+        public string LookupEnumTypeName { get; set; }
+        /// <summary>
+        /// Lookup source class name.
+        /// </summary>
+        public string LookupClassName { get; set; }
         /// <summary>
         /// Code provider pattern.
         /// </summary>

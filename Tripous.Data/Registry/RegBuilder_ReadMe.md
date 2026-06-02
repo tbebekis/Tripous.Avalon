@@ -37,9 +37,9 @@ Output: • Ordered CREATE TABLE SQL (RDBMS-neutral)
 ```sql
 /*---------------------------------------------------
 Table: Product
-Group: Inventory
 Module: Product
-Form: Default
+Group: Inventory
+Form: DataForm
 -----------------------------------------------------
 Description of what this table represents
 ----------------------------------------------------*/
@@ -129,11 +129,13 @@ CREATE TABLE {TableName} (
 Table:  TABLE_NAME
 Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
-Form:   Default | FORM_NAME  [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
+ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 
 Module: MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
-Form:   Default | FORM_NAME  [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
+ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 FieldGroups: Address, Billing, Notes
 
 IsLookup | NotUiVisible | IsReadOnly
@@ -153,20 +155,23 @@ IsSingleSelect | NoFilters | NoCascadeDeletes | NoGuidOids
 - Free text comments may follow after the metadata section separator.
 
 ### Module block
-Each `Module` line starts a new module block. The following `Group` and optional `Form` belong to that module block. A module block is complete when the next `Module` line starts or when non-module header metadata begins.
+Each `Module` line starts a new module block. The following `Group`, optional `Form`, and optional `ItemPage` belong to that module block. A module block is complete when the next `Module` line starts or when non-module header metadata begins.
 
 A module block has the following entries, in this order:
 
 ```sql
 Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
-Form:   Default | FORM_NAME [FORM_CLASS_NAME] [ITEM_PAGE_CLASS_NAME]
+Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
+ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 ```
 
 - `Module` is required.
 - `Group` is required.
 - `Form` is optional.
-- If `Form` is omitted, default form registration behavior is used.
+- `ItemPage` is optional.
+- If `Form` is omitted, the form name defaults to the module name and the form class defaults to `DataForm`.
+- If `ItemPage` is omitted, the item page class defaults to `ItemPage`.
 - If class names are omitted, default `DataModule`, `DataForm`, and `ItemPage` types are used.
 
 ### Multiple module example
@@ -177,15 +182,18 @@ Table: Trade
 
 Module: SalesOrder SalesOrderDataModule
 Group: Sales Orders
-Form: SalesOrder TradeForm TradeItemPage
+Form: SalesOrder TradeForm
+ItemPage: TradeItemPage
 
 Module: SalesInvoice SalesInvoiceDataModule
 Group: Sales Invoices
-Form: SalesInvoice TradeForm TradeItemPage
+Form: SalesInvoice TradeForm
+ItemPage: TradeItemPage
 
 Module: SalesCreditNote SalesCreditNoteDataModule
 Group: Sales Credit Notes
-Form: SalesCreditNote TradeForm TradeItemPage
+Form: SalesCreditNote TradeForm
+ItemPage: TradeItemPage
 
 FieldGroups: Dates, Party, Organization, Payment, Billing, Shipping, Relations, Amounts, Status, Audit, Notes
 
@@ -218,13 +226,19 @@ If `ModuleClassName` is omitted → default `DataModule` type.
 
 ### Form syntax
 ```
-Form: Default                          → FormName = ModuleName
-Form: Default LogDataForm
-Form: Default LogDataForm LogItemPage
-Form: Customer CustomerDataForm CustomerItemPage
+Form: DataForm                         → FormName = ModuleName, FormClassName = DataForm
+Form: Customer                         → FormName = Customer, FormClassName = DataForm
+Form: Customer CustomerDataForm
 ```
-If `Form` is omitted → default form registration behavior.  
-If class names are omitted → default `DataForm` / `ItemPage` types.
+If `Form` is omitted → `FormName = ModuleName`, `FormClassName = DataForm`.
+To declare `FORM_CLASS_NAME`, `FORM_NAME` must also be declared.
+
+### ItemPage syntax
+```
+ItemPage: ItemPage                     → ItemPageClassName = ItemPage
+ItemPage: CustomerItemPage
+```
+If `ItemPage` is omitted → `ItemPageClassName = ItemPage`.
 
 ### FieldGroups syntax
 Field grouping is defined at table level through an optional header entry:
@@ -263,6 +277,7 @@ A metadata entry enclosed in square brackets is parsed as comma-separated `Field
 
 ```sql
 CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
+ModuleName @NVARCHAR(96) @NOT_NULL, -- Lookup DocumentModule ClassName:DocumentModuleLookupSource
 Code @NVARCHAR(40) @NOT_NULL, -- Code CUS-XXXX; Group General; [ReadOnlyUI, ReadOnlyEdit] -- customer code
 Notes @BLOB_TEXT, -- Memo; Group Notes -- short notes
 Remarks @BLOB_TEXT, -- LargeMemo; Group Notes -- long notes
@@ -271,17 +286,17 @@ Photo @BLOB, -- [Image] -- product photo
 
 ### Metadata keywords
 
-| Keyword     | Syntax                          | Meaning                                             |
-| ----------- | ------------------------------- | --------------------------------------------------- |
-| `Master`    | `Master` / `Master OneToOne`    | FK to parent table. `OneToOne` = single-row detail. |
-| `Lookup`    | `Lookup [SourceName]`           | Small in-memory reference selector                  |
-| `Enum`      | `Enum [EnumName]`               | Enum-backed selector                                |
-| `Locator`   | `Locator [LocatorName]`         | Searchable large reference selector                 |
-| `Code`      | `Code [Pattern] [ProviderName]` | Auto-generated code field                           |
-| `Memo`      | `Memo`                          | Text field with Memo flag                           |
-| `LargeMemo` | `LargeMemo`                     | Text blob with LargeMemo flag                       |
-| `Group`     | `Group GroupName`               | Field UI group                                      |
-| `FieldFlags` | `[Flag1, Flag2]`               | Adds `FieldFlags` values to the field               |
+| Keyword      | Syntax                                                                                                    | Meaning                                             |
+| ------------ | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `Master`     | `Master` / `Master OneToOne`                                                                              | FK to parent table. `OneToOne` = single-row detail. |
+| `Lookup`     | `Lookup [LOOKUP_NAME] [TableName:TABLE_NAME \| EnumName:ENUM_NAME \| ClassName:LOOKUP_SOURCE_CLASS_NAME]` | Small in-memory reference selector                  |
+| `Enum`       | `Enum [EnumName]`                                                                                         | Enum-backed selector                                |
+| `Locator`    | `Locator [LocatorName]`                                                                                   | Searchable large reference selector                 |
+| `Code`       | `Code [Pattern] [ProviderName]`                                                                           | Auto-generated code field                           |
+| `Memo`       | `Memo`                                                                                                    | Text field with Memo flag                           |
+| `LargeMemo`  | `LargeMemo`                                                                                               | Text blob with LargeMemo flag                       |
+| `Group`      | `Group GroupName`                                                                                         | Field UI group                                      |
+| `FieldFlags` | `[Flag1, Flag2]`                                                                                          | Adds `FieldFlags` values to the field               |
 
 `Memo` and `LargeMemo` are mutually exclusive.
 `FieldFlags` names are parsed from the `FieldFlags` enum. Common values are `Hidden`, `ReadOnly`, `ReadOnlyUI`, `ReadOnlyEdit`, `Required`, `Boolean`, `Memo`, `LargeMemo`, `Image`, `ImagePath`, `NoInsertUpdate`, `ForeignKey`, `Extra`, and `Searchable`.
@@ -302,6 +317,22 @@ For `FieldFlags`, square brackets are part of the actual schema syntax.
 
 ## Lookup
 
+`LOOKUP_NAME` is the name of the `LookupDef` registered in `DataRegistry.Lookups`.
+
+```sql
+CustomerId @NVARCHAR(40) @NOT_NULL, -- Lookup
+CustomerId @NVARCHAR(40) @NOT_NULL, -- Lookup Customer
+PersonId @NVARCHAR(40) @NOT_NULL, -- Lookup Customer TableName:Person
+TradeTypeId int @NOT_NULL, -- Lookup TradeType EnumName:TradeType
+ModuleName @NVARCHAR(96) @NOT_NULL, -- Lookup DocumentModule ClassName:DocumentModuleLookupSource
+```
+
+- If `LOOKUP_NAME` is omitted, it is resolved from the foreign key referenced table, or from the field name without the `Id` suffix.
+- If `TableName:`, `EnumName:`, or `ClassName:` is used, `LOOKUP_NAME` is required.
+- `TableName:` registers the lookup with `DataRegistry.AddOrGetLookupWithTableName()`.
+- `EnumName:` registers the lookup with `DataRegistry.AddOrGetLookupSource()`.
+- `ClassName:` registers the lookup with `DataRegistry.AddOrGetLookupWithClassName()`.
+
 A table is identified as **lookup** when:
 - header contains `IsLookup`, **or**
 - it is a top table whose native fields match exactly one of:
@@ -317,7 +348,7 @@ Explicit `IsLookup` overrides the heuristic.
 
 A **LookupSource** registration is generated when any of the following is true:
 - table is identified as lookup
-- any field declares `-- Lookup` or `-- Lookup [SourceName]`
+- any field declares `-- Lookup`, `-- Lookup LOOKUP_NAME`, or `-- Lookup LOOKUP_NAME SourceKind:SourceValue`
 
 ---
 
