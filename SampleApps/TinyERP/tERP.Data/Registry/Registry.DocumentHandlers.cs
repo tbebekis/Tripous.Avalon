@@ -6,9 +6,9 @@
  * See License.txt for details.
  */
 
-namespace tERP;
+namespace tERP.Data;
 
-static internal partial class Registry
+static public partial class Registry
 {
     // ● static public
     static public void RegisterDocumentHandlers()

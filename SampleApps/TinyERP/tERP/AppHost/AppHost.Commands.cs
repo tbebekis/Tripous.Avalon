@@ -8,7 +8,7 @@
 
 namespace tERP;
 
-static internal partial class Registry
+static internal partial class AppHost
 {
     static object ShowFormFunc(Command Cmd)
     {            
@@ -16,9 +16,6 @@ static internal partial class Registry
         return AppHost.ContentHandler.ShowDataForm(Cmd.Form);
     }
  
-
- 
-    
     static public void RegisterCommands()
     {
         // NOTE: ToolBar commands should define an ImageFileName.
@@ -50,13 +47,9 @@ static internal partial class Registry
         }
         AppRegistry.MenuCommands.Sort();
         AppRegistry.MenuCommands.Insert(0, cmdGeneral);
- 
         
         // ● split commands to toolbar and menu commands
         AppRegistry.ToolBarCommands.AddRange([cmdAppFolder, cmdConnectionInfo, cmdClearLog, cmdTest, cmdExit]);
-        
-        
- 
         //AppRegistry.MenuCommands.AddRange(MasterCommandGroups);
     }
 }

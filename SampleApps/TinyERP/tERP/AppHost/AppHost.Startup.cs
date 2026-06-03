@@ -78,39 +78,6 @@ static internal partial class AppHost
             }
         }
     }
-    /// <summary>
-    /// Registers database schema versions
-    /// </summary>
-    static void RegisterSchemas() => Registry.RegisterSchemas();
-    
-    /// <summary>
-    /// Creates database tables etc. based on the registered schemas
-    /// </summary>
-    static void ExecuteSchemas()
-    {
-        Schemas.Execute();
-    }
- 
-    /// <summary>
-    /// Register descriptors, i.e. commands, lookup sources, locators, modules and forms.
-    /// </summary>
-    static void RegisterDescriptors()
-    {
-         Registry.RegisterLookups();
-         Registry.RegisterLookupSources();
-         Registry.RegisterLocators();
- 
-         Registry.RegisterModules();
-         Registry.RegisterDocumentHandlers();
-         Registry.RegisterForms();
-  
-         Registry.UpdateLookups();
-         Registry.UpdateLocators();
-         Registry.UpdateForms();
-         Registry.UpdateModules();
-         
-         Registry.RegisterCommands();
-    }
 
     static void LoadLibraries()
     {
@@ -238,17 +205,18 @@ static internal partial class AppHost
 
             await LoadConnectionStrings();
             CreateDatabases();
-
-            RegisterSchemas(); 
-            ExecuteSchemas();
+           
+            Registry.RegisterSchemas();                 // Registers database schema versions
+            Schemas.Execute();                          // Creates database tables etc. based on the registered schemas
 
             Store = SqlStores.CreateDefaultSqlStore();
             
             LoadLibraries();
             TypeStore.RegisterLoadedAssemblies();
-            RegisterDescriptors();
+            Registry.RegisterDescriptors();             // Register descriptors, i.e. commands, lookup sources, locators, modules and forms.
             
-            AddDefaultInitialData();
+            RegisterCommands();
+ 
             InitializeLibraries();
             
             Flag = await EnsureAdminUser();

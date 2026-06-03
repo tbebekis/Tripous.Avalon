@@ -11,10 +11,10 @@ namespace tERP;
 public partial class MainWindow : Window
 {
     bool IsWindowInitialized = false;
-    private ToolBar ToolBar;
+    ToolBar ToolBar;
 
-    private AppFormPagerHandler SideBarHandler; // pagerSideBar
-    private AppFormPagerHandler ContentHandler; // pagerContent
+    AppFormPagerHandler SideBarHandler; 
+    AppFormPagerHandler ContentHandler; 
  
     // ● private
     void WindowInitialize()
@@ -53,7 +53,7 @@ public partial class MainWindow : Window
                 LogBox.AppendLine("Adding sample data. Please wait...");
                 try
                 {
-                    await AppHost.AddSampleDataAsync();
+                    await SampleData.AddSampleDataAsync();
                     Db.MainIni.WriteBool("AreSampleDataAdded", true);
                     LogBox.Append("DONE.");
                     await MessageBox.Info("DONE", this);

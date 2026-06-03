@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Tripous.Avalon
  * Copyright (c) Theo Bebekis
  *
@@ -6,36 +6,40 @@
  * See License.txt for details.
  */
 
-namespace tERP;
+namespace tERP.Data;
 
-static internal partial class AppHost
+public partial class SampleData1: SampleData
 {
-    static readonly Dictionary<string, MemTable> SampleTables = new(StringComparer.OrdinalIgnoreCase);
-
-    static bool CanAdd(string ModuleName, out DataModule Module)
+    static void Add_Company()
     {
-        bool Result = false;
-        Module = null;
-        ModuleDef ModuleDef = DataRegistry.Modules.Get(ModuleName);
-        string TableName = ModuleDef.Table.Name;
-        if (Store.TableExists(TableName) && Store.TableIsEmpty(TableName))
-        {
-            Module = ModuleDef.Create();
-            Result = true;
-        }
+        string ModuleName = "Company";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
 
-        return Result;
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        AddRow(tblSource,
+            ("Id", Sys.StandardCompanyGuid),
+            ("Name", "Default"),
+            ("Title", "Default Company"),
+            ("TaxNumber", "0123456789"),
+            ("TaxOfficeId", DBNull.Value),
+            ("CountryId", DBNull.Value),
+            ("CurrencyId", DBNull.Value),
+            ("AddressLine1", ""),
+            ("AddressLine2", ""),
+            ("City", ""),
+            ("PostalCode", ""),
+            ("Phone", ""),
+            ("Email", ""),
+            ("Website", "")
+        );
+
+        Module.BatchInsert(tblSource);
     }
-    static DataRow AddRow(MemTable Table, params (string ColumnName, object Value)[] Values)
-    {
-        DataRow Row = Table.NewRow();
-        foreach (var Value in Values)
-            Row[Value.ColumnName] = Value.Value;
-        Table.Rows.Add(Row);
-        return Row;
-    }
-    
-    // ● sample data - added after a user decision
     static void Add_CustomerCategory()
     {
         string ModuleName = "CustomerCategory";
@@ -1656,8 +1660,9 @@ static internal partial class AppHost
         Module.Commit();
     }
     
-    static void AddSampleDataInternal()
+    protected override void AddSampleDataInternal()
     {
+        Add_Company();
         Add_CustomerCategory();
         Add_SupplierCategory();
         Add_ProductBrand();
@@ -1720,67 +1725,8 @@ static internal partial class AppHost
         Add_BillOfMaterialLine();
     }
 
-    static public async Task AddSampleDataAsync()
+    // ● construction
+    public SampleData1()
     {
-        bool Flag = Db.Settings.LogSqlStatements;
-        Db.Settings.LogSqlStatements = false;
-        try
-        {
-            await Task.Run(AddSampleDataInternal);
-        }
-        finally
-        {
-            Db.Settings.LogSqlStatements = Flag;
-        }
     }
-    
-    // ● default initial data - added always
-
-    
-    static void AddCodeProviderPatterns()
-    {
-        string TableName = DbConfig.SysNumberSeriesTableName;
-        if (Store.TableExists(TableName) && Store.TableIsEmpty(TableName))
-        {
-            Dictionary<string, string> CodeProviderPatters = Registry.GetCodeProviderPatterns();
-            CodeProviderEntries.SeedPatterns(CodeProviderPatters);
-        }
-    }
-    static void Add_Company()
-    {
-        string ModuleName = "Company";
-        if (!CanAdd(ModuleName, out DataModule Module))
-            return;
-
-        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
-        SampleTables[tblSource.TableName] = tblSource;
-
-        tblSource.CopyColumnsFrom(Module.tblItem);
-
-        AddRow(tblSource,
-            ("Id", Sys.StandardCompanyGuid),
-            ("Name", "Default"),
-            ("Title", "Default Company"),
-            ("TaxNumber", "0123456789"),
-            ("TaxOfficeId", DBNull.Value),
-            ("CountryId", DBNull.Value),
-            ("CurrencyId", DBNull.Value),
-            ("AddressLine1", ""),
-            ("AddressLine2", ""),
-            ("City", ""),
-            ("PostalCode", ""),
-            ("Phone", ""),
-            ("Email", ""),
-            ("Website", "")
-        );
-
-        Module.BatchInsert(tblSource);
-    }
-    static void AddDefaultInitialData()
-    {
-        AddCodeProviderPatterns();
-        Add_Company();
-    }
-
-
 }

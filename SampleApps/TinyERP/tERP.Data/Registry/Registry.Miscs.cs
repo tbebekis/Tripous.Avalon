@@ -6,25 +6,12 @@
  * See License.txt for details.
  */
 
-namespace tERP;
+namespace tERP.Data;
 
-static internal partial class Registry
+static public partial class Registry
 {
-    static public void RegisterLookups()
-    {
-        // TODO: Register extra definitions
-    }
-    static public void RegisterLocators()
-    {
-        // TODO: Register extra definitions
-    }
-    static public void RegisterLookupSources()
-    {
-        // TODO: Register extra definitions
-    }
-    
     /// <summary>
-    /// Definitions added by registration builder may be incomplete.
+    /// Definitions added by the registration builder may be incomplete.
     /// <para>This method provides a chance to complete those definitions.</para>
     /// </summary>
     static public void UpdateLookups()
@@ -34,7 +21,7 @@ static internal partial class Registry
             LookupDef.DisplayField = "FullName";
     }
     /// <summary>
-    /// Definitions added by registration builder may be incomplete.
+    /// Definitions added by the registration builder may be incomplete.
     /// <para>This method provides a chance to complete those definitions.</para>
     /// </summary>
     static public void UpdateLocators()
@@ -45,14 +32,14 @@ static internal partial class Registry
         LocatorDef.Add("Name");
     }
     /// <summary>
-    /// Definitions added by registration builder may be incomplete.
+    /// Definitions added by the registration builder may be incomplete.
     /// <para>This method provides a chance to complete those definitions.</para>
     /// </summary>
     static public void UpdateForms()
     {
     }
     /// <summary>
-    /// Definitions added by registration builder may be incomplete.
+    /// Definitions added by the registration builder may be incomplete.
     /// <para>This method provides a chance to complete those definitions.</para>
     /// </summary>
     static public void UpdateModules()
@@ -81,12 +68,4 @@ static internal partial class Registry
         DataRegistry.Modules.Get("FinanceMovement").IsDocumentSnapshot = true;
         */
     }
-
- 
- 
-
-
-
-
-
 }

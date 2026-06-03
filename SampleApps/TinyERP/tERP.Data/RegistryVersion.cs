@@ -15,6 +15,9 @@ public class RegistryVersion
     public virtual void RegisterLookups()
     {
     }
+    public virtual void RegisterLookupSources()
+    {
+    }
     public virtual void RegisterLocators()
     {
     }

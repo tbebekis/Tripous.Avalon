@@ -36,7 +36,10 @@ global using System.Diagnostics.CodeAnalysis;
 global using Tripous;
 global using Tripous.Data;
 global using Tripous.Logging;
+global using Tripous.Desktop;
 
+global using tERP.Common;
 global using tERP.Data;
+
  
  
