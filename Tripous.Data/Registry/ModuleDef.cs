@@ -26,8 +26,6 @@ public class ModuleDef: BaseDef
     bool fCascadeDeletes = true;
     string fItemCaptionField;
     bool fUseFilters = true;
-    int fIsDocument = -1;
-    bool fIsDocumentSnapshot;
 
     string GetItemCaptionField()
    {
@@ -191,33 +189,7 @@ public class ModuleDef: BaseDef
         get => !string.IsNullOrWhiteSpace(fItemCaptionField)? fItemCaptionField: GetItemCaptionField();
         set { if (fItemCaptionField != value) { fItemCaptionField = value; NotifyPropertyChanged(nameof(ItemCaptionField)); } }
     }
-    /// <summary>
-    /// When true then this is a document data module.
-    /// </summary>
-    public bool IsDocument
-    {
-        get
-        {
-            if (fIsDocument < 0)
-                return Table.Fields.Contains("DocumentTypeId");
 
-            return fIsDocument == 1; 
-        }
-        set
-        {
-            int V = value? 1: 0;
-            if (fIsDocument != V) { fIsDocument = V; NotifyPropertyChanged(nameof(IsDocument)); } 
-        }
-    }
-    /// <summary>
-    /// When true then this is a document snapshot data module,
-    /// i.e. it may contain a DocumentTypeId field, but just as a snapshot of an actual document module.
-    /// </summary>
-    public bool IsDocumentSnapshot
-    {
-        get => fIsDocumentSnapshot;
-        set { if (fIsDocumentSnapshot != value) { fIsDocumentSnapshot = value; NotifyPropertyChanged(nameof(IsDocumentSnapshot)); } }
-    }
 
     /// <summary>
     /// The top table of the module, the one with the single data row.

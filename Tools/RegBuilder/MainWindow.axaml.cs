@@ -3,25 +3,25 @@ namespace RegBuilder;
 public partial class MainWindow : Window
 {
     bool IsWindowInitialized = false;
-    Settings Settings = new();
+    AppSettings Settings = new();
     string OutputFolderPath = Path.Combine(AppContext.BaseDirectory, "Output");
-    string LastSchemaSql = null;
- 
- 
+    
     // ● private
     void WindowInitialize()
     {
         LogBox.Initialize(edtLog);
         
-        // LoadAndRegisterAssemblies
+        if (!Directory.Exists(OutputFolderPath))
+            Directory.CreateDirectory(OutputFolderPath);
 
         btnOpenOutputFolder.Click += (sender, args) => ShowOutputFolder();
-        btnExecute.Click += (sender, args) => Execute();
-
-        cboServer.ItemsSource = Enum.GetValues(typeof(DbServerType));
-        cboServer.SelectedIndex = 0;
-        cboServer.SelectionChanged += (sender, args) => ReplaceDataTypePlaceholders();
-
+        btnExecute.Click += (sender, args) => Execute();    
+        btnAdd.Click += async (sender, args) => await Add();    
+        btnEdit.Click += async (sender, args) => await Edit();
+        btnDelete.Click += async (sender, args) => await Delete();
+        
+        btnExecute.IsEnabled = false;
+ 
         Ui.Post(() =>
         {
             SetHighlighters();
@@ -29,8 +29,108 @@ public partial class MainWindow : Window
 
             string RootFolderPath = FindRepoRootFolderPath();
             TypeStore.LoadAndRegisterAssemblies(Path.Combine(RootFolderPath, "SampleApps"));
+            
+            btnExecute.IsEnabled = true;
         });
 
+    }
+    void Execute()
+    {
+        RegBuilderProject Project = cboProjects.SelectedItem as RegBuilderProject;
+        if (Project == null)
+        {
+            LogBox.AppendLine("No project selected.");
+            return;
+        }
+
+        edtProjectLog.Text = $"Executing project: {Project.Name}. Please wait...";
+        LogBox.AppendLine(edtProjectLog.Text);
+
+        SchemaParserResult ParserResults = SchemaRegistrationBuilder.Parse(Project, OutputFolderPath);
+        
+        StringBuilder SB = new();
+        
+        if (ParserResults.HasErrors)
+        {
+            SB.AppendLine("ERRORS");
+            SB.AppendLine(ParserResults.GetErrors());
+        }
+        if (ParserResults.HasWarnings)
+        {
+            SB.AppendLine("WARNINGS");
+            SB.AppendLine(ParserResults.GetWarnings());
+        }
+        
+        if (SB.Length > 0)
+            SB.AppendLine();
+        SB.AppendLine( $"Executing project: {Project.Name}. DONE");
+        edtProjectLog.Text = SB.ToString();
+            
+        LogBox.AppendLine(SB.ToString());
+ 
+        edtSchema.Text = ParserResults.CreateTablesSourceCode ?? string.Empty;
+        edtModules.Text = ParserResults.ModuleDefsSourceCode ?? string.Empty;
+        edtForms.Text = ParserResults.FormDefsSourceCode ?? string.Empty;
+        edtLookups.Text = ParserResults.LookupDefsSourceCode ?? string.Empty;
+        edtLocators.Text = ParserResults.LocatorDefsSourceCode ?? string.Empty;
+        edtCodeProviders.Text = ParserResults.CodeProviderDefsSourceCode ?? string.Empty;
+        edtSql.Text = ParserResults.SchemaSql ?? string.Empty;
+ 
+    }
+    void ShowOutputFolder()
+    {        
+        if (Directory.Exists(OutputFolderPath))
+        Sys.OpenFileExplorer(OutputFolderPath);
+    }
+    async Task Add()
+    {
+        RegBuilderProject RegBuilderProject = new();
+        RegBuilderProjectData BoxData = await RegBuilderProjectDialog.ShowModal(RegBuilderProject, this);
+        if (BoxData.Result)
+        {
+            Settings.Projects.Add(BoxData.RegBuilderProject);
+            Settings.Save();
+            
+            cboProjects.SelectedItem = RegBuilderProject;
+        }
+    }
+    async Task Edit()
+    {
+        if (cboProjects.SelectedItem != null)
+        {
+            RegBuilderProject RegBuilderProject = cboProjects.SelectedItem as RegBuilderProject;
+            RegBuilderProjectData BoxData = await RegBuilderProjectDialog.ShowModal(RegBuilderProject, this);
+            if (BoxData.Result)
+            {
+                Settings.Save();
+            }
+        }
+    }
+    async Task Delete()
+    {
+        if (cboProjects.SelectedItem != null)
+        {
+            RegBuilderProject RegBuilderProject = cboProjects.SelectedItem as RegBuilderProject;
+            bool Flag = await MessageBox.YesNo($"Delete the selected project: {RegBuilderProject.Name}?", this);
+            if (Flag)
+            {
+                Settings.Projects.Remove(RegBuilderProject);
+                Settings.Save();
+            }
+        }
+    }
+    void SetHighlighters()
+    {
+        var CSharp = Highlighters.Find(HighlightMode.CSharp);   
+        var Sql =  Highlighters.Find(HighlightMode.SQL);  
+        
+        edtSchema.SyntaxHighlighting = CSharp;
+        edtModules.SyntaxHighlighting = CSharp;
+        edtForms.SyntaxHighlighting = CSharp;
+        edtLookups.SyntaxHighlighting = CSharp;
+        edtLocators.SyntaxHighlighting = CSharp;
+        edtCodeProviders.SyntaxHighlighting = CSharp;
+        edtSql.SyntaxHighlighting = Sql;
     }
     static string FindRepoRootFolderPath()
     {
@@ -47,145 +147,15 @@ public partial class MainWindow : Window
 
         return AppContext.BaseDirectory;
     }
-    void SetHighlighters()
-    {
-        var CSharp = Highlighters.Find(HighlightMode.CSharp);   
-        var Sql =  Highlighters.Find(HighlightMode.SQL);  
-        
-        edtTables.SyntaxHighlighting = CSharp;
-        edtModules.SyntaxHighlighting = CSharp;
-        edtForms.SyntaxHighlighting = CSharp;
-        edtSchemaSql.SyntaxHighlighting = Sql;
-        edtSchemaSqlServer.SyntaxHighlighting = Sql;
-    }
     void LoadSettings()
     {
         Settings.Load();
-        edtSourceFilePath.Text = Settings.SourceFilePath;
-        edtSchemaVersion.Text = Settings.SchemaVersion.ToString();
-        
-        LogBox.AppendLine("Settings loaded.");
-    }
-    void SaveSettings()
-    {
-        Settings.SourceFilePath = edtSourceFilePath.Text;
-        Settings.SchemaVersion = edtSchemaVersion.AsInt(-1);
-        
-        Settings.Save();  
-        LogBox.AppendLine("Settings saved.");
-    }
-    void ShowOutputFolder()
-    {
-        if (Directory.Exists(OutputFolderPath))
-            Sys.OpenFileExplorer(OutputFolderPath);
-    }
-    void Execute()
-    {
-        edtSchemaSql.Text = string.Empty;
-        edtTables.Text = string.Empty;
-        edtModules.Text = string.Empty;
-        edtForms.Text = string.Empty;
-            
-        LastSchemaSql = string.Empty;
-        
-        SaveSettings();
-        
-        if (!Settings.Validate())
-        {
-            LogBox.AppendLine("Settings are not valid.");
-            return;
-        }
-        
-        if (!Directory.Exists(OutputFolderPath))
-            Directory.CreateDirectory(OutputFolderPath);
-        
-        LogBox.AppendLine("Executing...");
+        cboProjects.ItemsSource = Settings.Projects;
 
-        DuplicateCheck Checks = DuplicateCheck.None;
-        if (chLookup.IsChecked == true)
-            Checks |= DuplicateCheck.Lookup;
-        if (chEnum.IsChecked == true)
-            Checks |= DuplicateCheck.Enum;
-        if (chModule.IsChecked == true)
-            Checks |= DuplicateCheck.Module;
-        if (chForm.IsChecked == true)
-            Checks |= DuplicateCheck.Form;
-
-        string SqlText = File.ReadAllText(Settings.SourceFilePath);
-        SchemaParserResult ParserResults = SchemaRegistrationBuilder.Parse(SqlText, Settings.SchemaVersion, Checks);
- 
-        if (ParserResults.HasErrors || ParserResults.HasWarnings)
-        {
-            if (ParserResults.HasErrors)
-            {
-                LogBox.AppendLine("ERRORS");
-                LogBox.AppendLine(ParserResults.GetErrors());
-            }
-            
-            if (ParserResults.HasWarnings)
-            {
-                LogBox.AppendLine("WARNINGS");
-                LogBox.AppendLine(ParserResults.GetWarnings());
-            }
-            
-            return;
-        }
-        
-        
-        LogBox.Append("No errors...");
-
-        string FilePath;
-        /*
-        string JsonText = Json.Serialize(ParserResults);
-        FilePath = Path.Combine(OutputFolderPath, "RegBuilderResults.json");
-        File.WriteAllText(FilePath, JsonText);
-        */
-       
-        FilePath = Path.Combine(OutputFolderPath, "CodeProviderPatterns.cs");
-        File.WriteAllText(FilePath, ParserResults.GenerateCodeProviderPatternsMethod());
-         
-        FilePath = Path.Combine(OutputFolderPath, "Schema.sql");
-        File.WriteAllText(FilePath, ParserResults.SchemaSql);
-       
-        FilePath = Path.Combine(OutputFolderPath, "DEF_Schema.cs");
-        File.WriteAllText(FilePath, ParserResults.CreateTablesSourceCode);
-         
-        FilePath = Path.Combine(OutputFolderPath, "DEF_Modules.cs");
-        File.WriteAllText(FilePath, ParserResults.ModuleDefsSourceCode);
-       
-        FilePath = Path.Combine(OutputFolderPath, "DEF_Forms.cs");
-        File.WriteAllText(FilePath, ParserResults.FormDefsSourceCode);
-        
-        Ui.Post(() =>
-        {
-            edtSchemaSql.Text = ParserResults.SchemaSql;
-            edtTables.Text = ParserResults.CreateTablesSourceCode;
-            edtModules.Text = ParserResults.ModuleDefsSourceCode;
-            edtForms.Text = ParserResults.FormDefsSourceCode;
-            
-            LastSchemaSql = ParserResults.SchemaSql;
-
-            ReplaceDataTypePlaceholders();
-        });
-        
-        LogBox.Append("DONE");
+        if (Settings.Projects.Count > 0)
+            cboProjects.SelectedIndex = 0;
     }
 
-    void ReplaceDataTypePlaceholders()
-    {
-        if (string.IsNullOrWhiteSpace(LastSchemaSql))
-            return;
-
-        DbServerType ServerType = (DbServerType)cboServer.SelectedItem;
-        
-        SqlProvider Provider = SqlProviders.GetSqlProvider(ServerType);
-        string SqlText = Provider.ReplaceDataTypePlaceholders(LastSchemaSql);
-        edtSchemaSqlServer.Text = SqlText;
-    }
- 
- 
-
- 
     // ● overrides
     protected override void OnOpened(EventArgs e)
     {

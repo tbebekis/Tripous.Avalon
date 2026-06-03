@@ -41,6 +41,17 @@ static public class TripousAvalonExtensions
             Result = TextAlignment.Center;
         return Result;
     }
+
+    static public string[] GetTextAsLines(this TextBox Box)
+    {
+        string[] Lines = Box.Text?
+            .Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(Line => Line.Trim())
+            .Where(Line => !string.IsNullOrWhiteSpace(Line))
+            .ToArray() ?? Array.Empty<string>();
+        
+        return Lines;
+    }
     
     // ● Button
     static public void PerformClick(this Button Button)

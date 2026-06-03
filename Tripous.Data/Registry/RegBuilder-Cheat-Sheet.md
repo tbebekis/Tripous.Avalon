@@ -92,6 +92,7 @@ A metadata entry enclosed in square brackets is parsed as comma-separated `Field
 CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
 ModuleName @NVARCHAR(96) @NOT_NULL, -- Lookup DocumentModule ClassName:DocumentModuleLookupSource
 Code @NVARCHAR(40) @NOT_NULL, -- Code CUS-XXXX; Group General; [ReadOnlyUI, ReadOnlyEdit] -- customer code
+Code @NVARCHAR(40) @NOT_NULL, -- Code Draft SO-YYYY-XXXXXX SALES_ORDER
 Notes @BLOB_TEXT, -- Memo; Group Notes -- short notes
 Remarks @BLOB_TEXT, -- LargeMemo; Group Notes -- long notes
 Photo @BLOB, -- [Image] -- product photo
@@ -105,7 +106,7 @@ Photo @BLOB, -- [Image] -- product photo
 | `Lookup`     | `Lookup [LOOKUP_NAME] [TableName:TABLE_NAME \| EnumName:ENUM_NAME \| ClassName:LOOKUP_SOURCE_CLASS_NAME]` | Small in-memory reference selector                  |
 | `Enum`       | `Enum [EnumName]`                                                                                         | Enum-backed selector                                |
 | `Locator`    | `Locator [LocatorName]`                                                                                   | Searchable large reference selector                 |
-| `Code`       | `Code [Pattern] [ProviderName]`                                                                           | Auto-generated code field                           |
+| `Code`       | `Code [Draft] [Pattern] [ProviderName]`                                                                   | Auto-generated code field                           |
 | `Memo`       | `Memo`                                                                                                    | Text field with Memo flag                           |
 | `LargeMemo`  | `LargeMemo`                                                                                               | Text blob with LargeMemo flag                       |
 | `Group`      | `Group GroupName`                                                                                         | Field UI group                                      |
@@ -116,6 +117,8 @@ Photo @BLOB, -- [Image] -- product photo
 - Common `FieldFlags`: `Hidden`, `ReadOnly`, `ReadOnlyUI`, `ReadOnlyEdit`, `Required`, `Boolean`, `Memo`, `LargeMemo`, `Image`, `ImagePath`, `NoInsertUpdate`, `ForeignKey`, `Extra`, `Searchable`.
 - Square brackets in this specification mean optional arguments and are not part of the actual schema syntax.
 - For `FieldFlags`, square brackets are part of the actual schema syntax.
+- `Code Draft PATTERN PROVIDER_NAME` generates `DRAFT-PROVIDER_NAME` with `DRAFT-PATTERN` and also the normal provider.
+- Document modules should use `Code Draft`; snapshot document modules should not declare `-- Code`.
 
 ## Name Resolution
 

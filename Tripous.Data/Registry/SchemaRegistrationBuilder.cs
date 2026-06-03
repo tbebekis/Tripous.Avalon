@@ -8,6 +8,27 @@
 
 namespace Tripous.Data;
 
+public class RegBuilderProject
+{
+    string[] fReferenceFilePaths;
+    public RegBuilderProject()
+    {
+    }
+
+    public override string ToString() => Name;
+
+    public string Name { get; set; }
+    public string SchemaFilePath { get; set; }
+    public string NamespaceName { get; set; }
+    public int SchemaVersion { get; set; }
+    public DuplicateCheck DuplicateChecks { get; set; } = DuplicateCheck.None;
+    public string[] ReferenceFilePaths
+    {
+        get => fReferenceFilePaths != null ? fReferenceFilePaths : [];
+        set => fReferenceFilePaths = value;
+    }
+}
+
 /// <summary>
 /// Parser message type.
 /// </summary>
@@ -141,6 +162,22 @@ public class SchemaParserResult
     /// </summary>
     public string FormDefsSourceCode { get; set; }
     /// <summary>
+    /// Source code that registers lookup definitions.
+    /// </summary>
+    public string LookupDefsSourceCode { get; set; }
+    /// <summary>
+    /// Source code that registers locator definitions.
+    /// </summary>
+    public string LocatorDefsSourceCode { get; set; }
+    /// <summary>
+    /// Source code that registers code provider definitions.
+    /// </summary>
+    public string CodeProviderDefsSourceCode { get; set; }
+    /// <summary>
+    /// Source code for the registry version root partial class.
+    /// </summary>
+    public string RegistryVersionSourceCode { get; set; }
+    /// <summary>
     /// A dictionary of CodeProviderName=Pattern
     /// </summary>
     public Dictionary<string, string> CodeProviderPatterns { get; set; } = [];
@@ -171,9 +208,53 @@ static public class SchemaRegistrationBuilder
     static public SchemaParserResult Parse(string SchemaSql, int SchemaVersion)
         => Parse(SchemaSql, SchemaVersion, DuplicateCheck.None);
     /// <summary>
+    /// Parses a Tripous schema project and writes generated files to an output folder.
+    /// </summary>
+    static public SchemaParserResult Parse(RegBuilderProject Project, string OutputFolderPath)
+    {
+        if (Project == null)
+            throw new TripousArgumentNullException(nameof(Project));
+        if (string.IsNullOrWhiteSpace(Project.SchemaFilePath))
+            throw new TripousArgumentNullException(nameof(Project.SchemaFilePath));
+        if (string.IsNullOrWhiteSpace(OutputFolderPath))
+            throw new TripousArgumentNullException(nameof(OutputFolderPath));
+        if (string.IsNullOrWhiteSpace(Project.NamespaceName))
+            throw new TripousArgumentNullException(nameof(Project.NamespaceName));
+
+        string SchemaSql = File.ReadAllText(Project.SchemaFilePath);
+        List<string> ReferenceSchemaSqls = [];
+        List<string> MissingReferenceFilePaths = [];
+        foreach (string ReferenceFilePath in Project.ReferenceFilePaths)
+        {
+            if (!string.IsNullOrWhiteSpace(ReferenceFilePath) && File.Exists(ReferenceFilePath))
+                ReferenceSchemaSqls.Add(File.ReadAllText(ReferenceFilePath));
+            else if (!string.IsNullOrWhiteSpace(ReferenceFilePath))
+                MissingReferenceFilePaths.Add(ReferenceFilePath);
+        }
+
+        SchemaParserResult Result = Parse(SchemaSql, Project.SchemaVersion, Project.DuplicateChecks, Project.NamespaceName, ReferenceSchemaSqls);
+        foreach (string ReferenceFilePath in MissingReferenceFilePaths)
+            AddWarning(Result, "REFERENCE_SCHEMA_FILE_NOT_FOUND", "Reference schema file not found: " + ReferenceFilePath);
+
+        if (!Result.Messages.Any(x => x.Code == "SCHEMA_PARSE_ERROR"))
+            WriteOutputFiles(Result, Project.SchemaVersion, OutputFolderPath);
+
+        return Result;
+    }
+    /// <summary>
     /// Parses a Tripous schema script and generates schema, module and form registration source code.
     /// </summary>
     static public SchemaParserResult Parse(string SchemaSql, int SchemaVersion, DuplicateCheck DuplicateChecks)
+        => Parse(SchemaSql, SchemaVersion, DuplicateChecks, string.Empty);
+    /// <summary>
+    /// Parses a Tripous schema script and generates schema, module and form registration source code.
+    /// </summary>
+    static SchemaParserResult Parse(string SchemaSql, int SchemaVersion, DuplicateCheck DuplicateChecks, string NamespaceName)
+        => Parse(SchemaSql, SchemaVersion, DuplicateChecks, NamespaceName, []);
+    /// <summary>
+    /// Parses a Tripous schema script and generates schema, module and form registration source code.
+    /// </summary>
+    static SchemaParserResult Parse(string SchemaSql, int SchemaVersion, DuplicateCheck DuplicateChecks, string NamespaceName, List<string> ReferenceSchemaSqls)
     {
         if (string.IsNullOrWhiteSpace(SchemaSql))
             throw new TripousArgumentNullException(nameof(SchemaSql));
@@ -183,7 +264,7 @@ static public class SchemaRegistrationBuilder
 
         try
         {
-            Script = SchemaScript.Parse(SchemaSql);
+            Script = SchemaScript.Parse(SchemaSql, ReferenceSchemaSqls);
         }
         catch (Exception ex)
         {
@@ -192,23 +273,73 @@ static public class SchemaRegistrationBuilder
         }
 
         ValidateScript(Result, Script);
-        if (Result.HasErrors)
-            return Result;
-
         CollectCodeProviderPatterns(Result, Script);
-
-        if (Result.HasErrors)
-            return Result;
-
         Script.ResolveCreationOrders(Result);
 
-        if (Result.HasErrors)
-            return Result;
-
-        Result.SchemaSql = BuildOrderedSchemaSql(Script);
-        Result.CreateTablesSourceCode = BuildCreateTablesSourceCode(Script, SchemaVersion);
-        Result.ModuleDefsSourceCode = BuildModuleDefsSourceCode(Script);
-        Result.FormDefsSourceCode = BuildFormDefsSourceCode(Script);
+        try
+        {
+            Result.SchemaSql = BuildOrderedSchemaSql(Script);
+        }
+        catch (Exception ex)
+        {
+            AddError(Result, "SCHEMA_SQL_BUILD_FAILED", ex.Message);
+        }
+        try
+        {
+            Result.CreateTablesSourceCode = BuildCreateTablesSourceCode(Script, SchemaVersion, NamespaceName);
+        }
+        catch (Exception ex)
+        {
+            AddError(Result, "CREATE_TABLES_SOURCE_BUILD_FAILED", ex.Message);
+        }
+        try
+        {
+            Result.RegistryVersionSourceCode = BuildRegistryVersionSourceCode(SchemaVersion, NamespaceName);
+        }
+        catch (Exception ex)
+        {
+            AddError(Result, "REGISTRY_VERSION_SOURCE_BUILD_FAILED", ex.Message);
+        }
+        try
+        {
+            Result.ModuleDefsSourceCode = BuildModuleDefsSourceCode(Script, SchemaVersion, NamespaceName);
+        }
+        catch (Exception ex)
+        {
+            AddError(Result, "MODULE_DEFS_SOURCE_BUILD_FAILED", ex.Message);
+        }
+        try
+        {
+            Result.FormDefsSourceCode = BuildFormDefsSourceCode(Script, SchemaVersion, NamespaceName);
+        }
+        catch (Exception ex)
+        {
+            AddError(Result, "FORM_DEFS_SOURCE_BUILD_FAILED", ex.Message);
+        }
+        try
+        {
+            Result.LookupDefsSourceCode = BuildLookupDefsSourceCode(Script, SchemaVersion, NamespaceName);
+        }
+        catch (Exception ex)
+        {
+            AddError(Result, "LOOKUP_DEFS_SOURCE_BUILD_FAILED", ex.Message);
+        }
+        try
+        {
+            Result.LocatorDefsSourceCode = BuildLocatorDefsSourceCode(Script, SchemaVersion, NamespaceName);
+        }
+        catch (Exception ex)
+        {
+            AddError(Result, "LOCATOR_DEFS_SOURCE_BUILD_FAILED", ex.Message);
+        }
+        try
+        {
+            Result.CodeProviderDefsSourceCode = BuildCodeProviderDefsSourceCode(Script, Result, SchemaVersion, NamespaceName);
+        }
+        catch (Exception ex)
+        {
+            AddError(Result, "CODE_PROVIDER_DEFS_SOURCE_BUILD_FAILED", ex.Message);
+        }
 
         return Result;
     }
@@ -262,7 +393,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void ValidateFieldMetadata(SchemaParserResult Result, SchemaScript Script)
     {
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
         {
             foreach (SchemaField Field in Table.Fields)
             {
@@ -276,7 +407,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void CollectCodeProviderPatterns(SchemaParserResult Result, SchemaScript Script)
     {
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
         {
             foreach (SchemaField Field in Table.Fields)
             {
@@ -285,24 +416,32 @@ static public class SchemaRegistrationBuilder
 
                 string CodeProviderName = GetCodeProviderName(Table, Field);
                 string Pattern = Field.CodeProviderPattern;
-
-                if (Result.CodeProviderPatterns.TryGetValue(CodeProviderName, out string ExistingPattern))
-                {
-                    if (!ExistingPattern.IsSameText(Pattern))
-                        AddError(Result, "CODE_PROVIDER_PATTERN_CONFLICT", "Code provider has conflicting patterns: " + CodeProviderName);
-                    continue;
-                }
-
-                Result.CodeProviderPatterns[CodeProviderName] = Pattern;
+                AddCodeProviderPattern(Result, CodeProviderName, Pattern);
+                if (Field.IsDraftCodeProvider)
+                    AddCodeProviderPattern(Result, GetDraftCodeProviderName(CodeProviderName), GetDraftCodeProviderPattern(Pattern));
             }
         }
+    }
+    /// <summary>
+    /// Adds or validates a code provider pattern.
+    /// </summary>
+    static void AddCodeProviderPattern(SchemaParserResult Result, string CodeProviderName, string Pattern)
+    {
+        if (Result.CodeProviderPatterns.TryGetValue(CodeProviderName, out string ExistingPattern))
+        {
+            if (!ExistingPattern.IsSameText(Pattern))
+                AddError(Result, "CODE_PROVIDER_PATTERN_CONFLICT", "Code provider has conflicting patterns: " + CodeProviderName);
+            return;
+        }
+
+        Result.CodeProviderPatterns[CodeProviderName] = Pattern;
     }
     /// <summary>
     /// Validates lookup fields.
     /// </summary>
     static void ValidateLookupFields(SchemaParserResult Result, SchemaScript Script)
     {
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
         {
             foreach (SchemaField Field in Table.Fields)
             {
@@ -318,7 +457,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void ValidateEnumFields(SchemaParserResult Result, SchemaScript Script)
     {
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
         {
             foreach (SchemaField Field in Table.Fields)
             {
@@ -350,7 +489,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void ValidateLocatorFields(SchemaParserResult Result, SchemaScript Script)
     {
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
         {
             foreach (SchemaField Field in Table.Fields)
             {
@@ -418,7 +557,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void ValidateTableHeaders(SchemaParserResult Result, SchemaScript Script)
     {
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
         {
             bool HasModule = Table.ModuleBlocks.Count > 0;
             bool HasMaster = !string.IsNullOrWhiteSpace(Table.MasterName);
@@ -443,7 +582,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void ValidateForeignKeys(SchemaParserResult Result, SchemaScript Script)
     {
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
         {
             foreach (SchemaForeignKey ForeignKey in Table.ForeignKeys)
             {
@@ -474,7 +613,7 @@ static public class SchemaRegistrationBuilder
         Dictionary<string, VisitState> States = new(StringComparer.OrdinalIgnoreCase);
         List<SchemaTable> Stack = [];
 
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
             VisitCircularReference(Result, Script, Table, States, Stack);
     }
     /// <summary>
@@ -517,7 +656,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void ValidateDuplicateCreationOrders(SchemaParserResult Result, SchemaScript Script)
     {
-        var Items = Script.Tables
+        var Items = Script.OutputTables
             .Where(x => x.CreationOrder > 0)
             .GroupBy(x => x.CreationOrder)
             .Where(x => x.Count() > 1)
@@ -534,7 +673,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void ValidateDuplicateGeneratedMethodNames(SchemaParserResult Result, SchemaScript Script)
     {
-        var TableMethodNames = Script.Tables
+        var TableMethodNames = Script.OutputTables
             .GroupBy(x => "RegisterTable_" + SafeIdentifier(x.Name), StringComparer.OrdinalIgnoreCase)
             .Where(x => x.Count() > 1)
             .ToList();
@@ -561,7 +700,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void ValidateSuspiciousUniqueConstraints(SchemaParserResult Result, SchemaScript Script)
     {
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
             ValidateSuspiciousUniqueConstraints(Result, Table);
     }
     /// <summary>
@@ -688,7 +827,7 @@ static public class SchemaRegistrationBuilder
     {
         StringBuilder SB = new();
 
-        foreach (SchemaTable Table in Script.Tables.OrderBy(x => x.CreationOrder))
+        foreach (SchemaTable Table in Script.OutputTables.OrderBy(x => x.CreationOrder))
         {
             if (SB.Length > 0)
                 SB.AppendLine().AppendLine();
@@ -725,13 +864,74 @@ static public class SchemaRegistrationBuilder
         return Prefix + Environment.NewLine + "CreationOrder: " + Table.CreationOrder + Environment.NewLine + Suffix;
     }
     /// <summary>
+    /// Writes generated output files.
+    /// </summary>
+    static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, string OutputFolderPath)
+    {
+        if (!Directory.Exists(OutputFolderPath))
+            Directory.CreateDirectory(OutputFolderPath);
+
+        WriteOutputFile(OutputFolderPath, "SchemaVersion" + SchemaVersion + ".cs", Result.CreateTablesSourceCode);
+        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".cs", Result.RegistryVersionSourceCode);
+        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".Modules.cs", Result.ModuleDefsSourceCode);
+        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".Forms.cs", Result.FormDefsSourceCode);
+        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".Lookups.cs", Result.LookupDefsSourceCode);
+        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".Locators.cs", Result.LocatorDefsSourceCode);
+        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".CodeProviders.cs", Result.CodeProviderDefsSourceCode);
+        WriteOutputFile(OutputFolderPath, "Schema.sql", Result.SchemaSql);
+    }
+    /// <summary>
+    /// Writes a generated output file.
+    /// </summary>
+    static void WriteOutputFile(string OutputFolderPath, string FileName, string SourceCode)
+    {
+        string FilePath = Path.Combine(OutputFolderPath, FileName);
+        File.WriteAllText(FilePath, SourceCode ?? string.Empty);
+    }
+    /// <summary>
+    /// Appends a namespace declaration.
+    /// </summary>
+    static void AppendNamespace(StringBuilder SB, string NamespaceName)
+    {
+        if (string.IsNullOrWhiteSpace(NamespaceName))
+            return;
+
+        SB.AppendLine("namespace " + NamespaceName + ";");
+        SB.AppendLine();
+    }
+    /// <summary>
+    /// Builds source code for the registry version root partial class.
+    /// </summary>
+    static string BuildRegistryVersionSourceCode(int SchemaVersion, string NamespaceName)
+    {
+        StringBuilder SB = new();
+        AppendNamespace(SB, NamespaceName);
+        SB.AppendLine("public partial class RegistryVersion" + SchemaVersion + ": RegistryVersion");
+        SB.AppendLine("{");
+        SB.AppendLine("    // ● construction");
+        SB.AppendLine("    public RegistryVersion" + SchemaVersion + "()");
+        SB.AppendLine("    {");
+        SB.AppendLine("    }");
+        SB.AppendLine();
+        SB.AppendLine("    // ● properties");
+        SB.AppendLine("    public override int VersionNumber { get; } = " + SchemaVersion + ";");
+        SB.AppendLine("}");
+        return SB.ToString().TrimEnd();
+    }
+    /// <summary>
     /// Builds source code for schema version registration.
     /// </summary>
     static string BuildCreateTablesSourceCode(SchemaScript Script, int SchemaVersion)
+        => BuildCreateTablesSourceCode(Script, SchemaVersion, string.Empty);
+    /// <summary>
+    /// Builds source code for schema version registration.
+    /// </summary>
+    static string BuildCreateTablesSourceCode(SchemaScript Script, int SchemaVersion, string NamespaceName)
     {
         StringBuilder SB = new();
-        List<SchemaTable> Tables = Script.Tables.OrderBy(x => x.CreationOrder).ToList();
+        List<SchemaTable> Tables = Script.OutputTables.OrderBy(x => x.CreationOrder).ToList();
 
+        AppendNamespace(SB, NamespaceName);
         SB.AppendLine("public partial class SchemaVersion" + SchemaVersion + ": SchemaVersionDef");
         SB.AppendLine("{");
         SB.AppendLine("    // ● private");
@@ -789,27 +989,44 @@ static public class SchemaRegistrationBuilder
     /// Builds source code for module registration.
     /// </summary>
     static string BuildModuleDefsSourceCode(SchemaScript Script)
+        => BuildModuleDefsSourceCode(Script, 0, string.Empty);
+    /// <summary>
+    /// Builds source code for module registration.
+    /// </summary>
+    static string BuildModuleDefsSourceCode(SchemaScript Script, int SchemaVersion, string NamespaceName)
     {
         StringBuilder SB = new();
         List<SchemaModuleRegistration> Registrations = GetModuleRegistrations(Script)
             .OrderBy(x => x.Module.ModuleName)
             .ToList();
 
-        SB.AppendLine("static internal partial class Registry");
+        if (SchemaVersion <= 0)
+            SB.AppendLine("static internal partial class Registry");
+        else
+        {
+            AppendNamespace(SB, NamespaceName);
+            SB.AppendLine("public partial class RegistryVersion" + SchemaVersion + ": RegistryVersion");
+        }
         SB.AppendLine("{");
         SB.AppendLine("    // ● private");
-        BuildRegisterCodeProvidersMethod(SB, Script);
-        BuildRegisterLookupSourcesMethod(SB, Script);
-        BuildRegisterLocatorsMethod(SB, Script);
+        if (SchemaVersion <= 0)
+        {
+            BuildRegisterCodeProvidersMethod(SB, Script);
+            BuildRegisterLookupSourcesMethod(SB, Script);
+            BuildRegisterLocatorsMethod(SB, Script);
+        }
         foreach (SchemaModuleRegistration Registration in Registrations)
             BuildRegisterModuleMethod(SB, Script, Registration.Table, Registration.Module);
         SB.AppendLine();
-        SB.AppendLine("    // ● static public");
-        SB.AppendLine("    static public void RegisterModules()");
+        SB.AppendLine("    // ● public");
+        SB.AppendLine(SchemaVersion <= 0 ? "    static public void RegisterModules()" : "    public override void RegisterModules()");
         SB.AppendLine("    {");
-        SB.AppendLine("        RegisterCodeProviders_FromModules();");
-        SB.AppendLine("        RegisterLookups_FromModules();");
-        SB.AppendLine("        RegisterLocators_FromModules();");
+        if (SchemaVersion <= 0)
+        {
+            SB.AppendLine("        RegisterCodeProviders_FromModules();");
+            SB.AppendLine("        RegisterLookups_FromModules();");
+            SB.AppendLine("        RegisterLocators_FromModules();");
+        }
         foreach (SchemaModuleRegistration Registration in Registrations)
             SB.AppendLine("        RegisterModule_" + SafeIdentifier(Registration.Module.ModuleName) + "();");
         SB.AppendLine("    }");
@@ -822,16 +1039,27 @@ static public class SchemaRegistrationBuilder
     /// Builds source code for form registration.
     /// </summary>
     static string BuildFormDefsSourceCode(SchemaScript Script)
+        => BuildFormDefsSourceCode(Script, 0, string.Empty);
+    /// <summary>
+    /// Builds source code for form registration.
+    /// </summary>
+    static string BuildFormDefsSourceCode(SchemaScript Script, int SchemaVersion, string NamespaceName)
     {
         StringBuilder SB = new();
         List<SchemaModuleRegistration> Registrations = GetModuleRegistrations(Script)
             .OrderBy(x => x.Module.ModuleName)
             .ToList();
 
-        SB.AppendLine("static internal partial class Registry");
+        if (SchemaVersion <= 0)
+            SB.AppendLine("static internal partial class Registry");
+        else
+        {
+            AppendNamespace(SB, NamespaceName);
+            SB.AppendLine("public partial class RegistryVersion" + SchemaVersion + ": RegistryVersion");
+        }
         SB.AppendLine("{");
-        SB.AppendLine("    // ● static public");
-        SB.AppendLine("    static public void RegisterForms()");
+        SB.AppendLine("    // ● public");
+        SB.AppendLine(SchemaVersion <= 0 ? "    static public void RegisterForms()" : "    public override void RegisterForms()");
         SB.AppendLine("    {");
 
         foreach (SchemaModuleRegistration Registration in Registrations)
@@ -842,6 +1070,50 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    }");
         SB.AppendLine("}");
 
+        return SB.ToString().TrimEnd();
+    }
+    /// <summary>
+    /// Builds source code for lookup registration.
+    /// </summary>
+    static string BuildLookupDefsSourceCode(SchemaScript Script, int SchemaVersion, string NamespaceName)
+    {
+        StringBuilder SB = new();
+        AppendNamespace(SB, NamespaceName);
+        SB.AppendLine("public partial class RegistryVersion" + SchemaVersion + ": RegistryVersion");
+        SB.AppendLine("{");
+        SB.AppendLine("    // ● public");
+        BuildRegisterLookupSourcesMethod(SB, Script, "public override void RegisterLookups");
+        SB.AppendLine("}");
+        return SB.ToString().TrimEnd();
+    }
+    /// <summary>
+    /// Builds source code for locator registration.
+    /// </summary>
+    static string BuildLocatorDefsSourceCode(SchemaScript Script, int SchemaVersion, string NamespaceName)
+    {
+        StringBuilder SB = new();
+        AppendNamespace(SB, NamespaceName);
+        SB.AppendLine("public partial class RegistryVersion" + SchemaVersion + ": RegistryVersion");
+        SB.AppendLine("{");
+        SB.AppendLine("    // ● public");
+        BuildRegisterLocatorsMethod(SB, Script, "public override void RegisterLocators");
+        SB.AppendLine("}");
+        return SB.ToString().TrimEnd();
+    }
+    /// <summary>
+    /// Builds source code for code provider registration.
+    /// </summary>
+    static string BuildCodeProviderDefsSourceCode(SchemaScript Script, SchemaParserResult ParserResult, int SchemaVersion, string NamespaceName)
+    {
+        StringBuilder SB = new();
+        AppendNamespace(SB, NamespaceName);
+        SB.AppendLine("public partial class RegistryVersion" + SchemaVersion + ": RegistryVersion");
+        SB.AppendLine("{");
+        SB.AppendLine("    // ● public");
+        BuildRegisterCodeProvidersMethod(SB, Script, "public override void RegisterCodeProviders");
+        SB.AppendLine();
+        BuildAddCodeProviderPatternsMethod(SB, ParserResult);
+        SB.AppendLine("}");
         return SB.ToString().TrimEnd();
     }
     /// <summary>
@@ -874,7 +1146,7 @@ static public class SchemaRegistrationBuilder
     {
         Dictionary<string, LookupSourceInfo> Result = new(StringComparer.OrdinalIgnoreCase);
 
-        foreach (SchemaTable Table in Script.Tables.Where(x => x.IsLookup))
+        foreach (SchemaTable Table in Script.OutputTables.Where(x => x.IsLookup))
         {
             LookupSourceInfo Info = new();
             Info.Name = Table.Name;
@@ -883,7 +1155,7 @@ static public class SchemaRegistrationBuilder
             Result[Info.Name] = Info;
         }
 
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
         {
             foreach (SchemaField Field in Table.Fields)
             {
@@ -913,10 +1185,15 @@ static public class SchemaRegistrationBuilder
     /// Builds lookup source registration method.
     /// </summary>
     static void BuildRegisterLookupSourcesMethod(StringBuilder SB, SchemaScript Script)
+        => BuildRegisterLookupSourcesMethod(SB, Script, "static void RegisterLookups_FromModules");
+    /// <summary>
+    /// Builds lookup source registration method.
+    /// </summary>
+    static void BuildRegisterLookupSourcesMethod(StringBuilder SB, SchemaScript Script, string MethodDeclaration)
     {
         Dictionary<string, LookupSourceInfo> LookupSources = CollectLookupSources(Script);
 
-        SB.AppendLine("    static void RegisterLookups_FromModules()");
+        SB.AppendLine("    " + MethodDeclaration + "()");
         SB.AppendLine("    {");
 
         foreach (LookupSourceInfo LookupSource in LookupSources.Values.OrderBy(x => x.Name))
@@ -936,10 +1213,15 @@ static public class SchemaRegistrationBuilder
     /// Builds code provider registration method.
     /// </summary>
     static void BuildRegisterCodeProvidersMethod(StringBuilder SB, SchemaScript Script)
+        => BuildRegisterCodeProvidersMethod(SB, Script, "static void RegisterCodeProviders_FromModules");
+    /// <summary>
+    /// Builds code provider registration method.
+    /// </summary>
+    static void BuildRegisterCodeProvidersMethod(StringBuilder SB, SchemaScript Script, string MethodDeclaration)
     {
         List<string> CodeProviderNames = CollectCodeProviderNames(Script);
 
-        SB.AppendLine("    static void RegisterCodeProviders_FromModules()");
+        SB.AppendLine("    " + MethodDeclaration + "()");
         SB.AppendLine("    {");
 
         foreach (string CodeProviderName in CodeProviderNames)
@@ -948,14 +1230,27 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    }");
     }
     /// <summary>
+    /// Builds code provider pattern registration method.
+    /// </summary>
+    static void BuildAddCodeProviderPatternsMethod(StringBuilder SB, SchemaParserResult ParserResult)
+    {
+        SB.AppendLine("    public override void AddCodeProviderPatterns(Dictionary<string, string> Patterns)");
+        SB.AppendLine("    {");
+
+        foreach (var Pair in ParserResult.CodeProviderPatterns.OrderBy(item => item.Key))
+            SB.AppendLine("        Patterns[\"" + EscapeString(Pair.Key) + "\"] = \"" + EscapeString(Pair.Value) + "\";");
+
+        SB.AppendLine("    }");
+    }
+    /// <summary>
     /// Collects code provider names.
     /// </summary>
     static List<string> CollectCodeProviderNames(SchemaScript Script)
     {
-        return Script.Tables
+        return Script.OutputTables
             .SelectMany(Table => Table.Fields
                 .Where(Field => Field.MetadataKind == FieldMetadataKind.Code)
-                .Select(Field => GetCodeProviderName(Table, Field)))
+                .SelectMany(Field => GetCodeProviderNames(Table, Field)))
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .OrderBy(x => x)
             .ToList();
@@ -966,10 +1261,15 @@ static public class SchemaRegistrationBuilder
     /// Builds the method that registers locator definitions.
     /// </summary>
     static void BuildRegisterLocatorsMethod(StringBuilder SB, SchemaScript Script)
+        => BuildRegisterLocatorsMethod(SB, Script, "static void RegisterLocators_FromModules");
+    /// <summary>
+    /// Builds the method that registers locator definitions.
+    /// </summary>
+    static void BuildRegisterLocatorsMethod(StringBuilder SB, SchemaScript Script, string MethodDeclaration)
     {
         Dictionary<string, LocatorInfo> Locators = CollectLocators(Script);
 
-        SB.AppendLine("    static void RegisterLocators_FromModules()");
+        SB.AppendLine("    " + MethodDeclaration + "()");
         SB.AppendLine("    {");
 
         foreach (LocatorInfo Locator in Locators.Values.OrderBy(x => x.Name))
@@ -987,7 +1287,7 @@ static public class SchemaRegistrationBuilder
     {
         Dictionary<string, LocatorInfo> Result = new(StringComparer.OrdinalIgnoreCase);
 
-        foreach (SchemaTable Table in Script.Tables)
+        foreach (SchemaTable Table in Script.OutputTables)
         {
             foreach (SchemaField Field in Table.Fields)
             {
@@ -1181,7 +1481,7 @@ static public class SchemaRegistrationBuilder
     {
         string NullSuffix = ".SetNullable(" + BoolLiteral(Field.IsNullable) + ")";
         string DefaultSuffix = !string.IsNullOrWhiteSpace(Field.DefaultValue) ? ".SetDefaultValue(\"" + EscapeString(Field.DefaultValue) + "\")" : "";
-        string CodeProviderSuffix = Field.MetadataKind == FieldMetadataKind.Code ? ".SetCodeProviderName(\"" + EscapeString(GetCodeProviderName(Table, Field)) + "\")" : "";
+        string CodeProviderSuffix = Field.MetadataKind == FieldMetadataKind.Code ? ".SetCodeProviderName(\"" + EscapeString(GetFieldCodeProviderName(Table, Field)) + "\")" : "";
         string MemoSuffix = Field.IsMemo ? ".SetMemo()" : "";
         string LargeMemoSuffix = Field.IsLargeMemo ? ".SetLargeMemo()" : "";
         string GroupSuffix = !string.IsNullOrWhiteSpace(Field.GroupName) ? ".SetGroup(\"" + EscapeString(Field.GroupName) + "\")" : "";
@@ -1761,6 +2061,10 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void ParseLookupMetadata(FieldMetadata Metadata, string MetadataText)
     {
+        int OpenIndex = MetadataText.IndexOf('(');
+        if (OpenIndex >= 0)
+            MetadataText = MetadataText.Substring(0, OpenIndex).Trim();
+
         List<string> Parts = SplitHeaderTokens(MetadataText);
         if (Parts.Count == 0)
             return;
@@ -1838,14 +2142,19 @@ static public class SchemaRegistrationBuilder
     static void ParseCodeMetadata(FieldMetadata Metadata, string MetadataText)
     {
         List<string> Parts = SplitHeaderTokens(MetadataText);
-        if (Parts.Count > 3)
+        bool IsDraft = Parts.Count > 1 && Parts[1].IsSameText("Draft");
+        int PatternIndex = IsDraft ? 2 : 1;
+        int NameIndex = IsDraft ? 3 : 2;
+
+        if (Parts.Count > NameIndex + 1)
         {
             AddFieldMetadataError(Metadata, "Invalid Code metadata syntax: " + MetadataText);
             return;
         }
 
-        Metadata.CodeProviderPattern = Parts.Count > 1 ? Parts[1] : "XXXXXX";
-        Metadata.CodeProviderName = Parts.Count > 2 ? Parts[2] : string.Empty;
+        Metadata.IsDraftCodeProvider = IsDraft;
+        Metadata.CodeProviderPattern = Parts.Count > PatternIndex ? Parts[PatternIndex] : "XXXXXX";
+        Metadata.CodeProviderName = Parts.Count > NameIndex ? Parts[NameIndex] : string.Empty;
     }
     /// <summary>
     /// Returns true if a line can be parsed as a field line.
@@ -2177,6 +2486,33 @@ static public class SchemaRegistrationBuilder
         return !string.IsNullOrWhiteSpace(Field.CodeProviderName) ? Field.CodeProviderName : Table.Name;
     }
     /// <summary>
+    /// Returns the draft code provider name.
+    /// </summary>
+    static string GetDraftCodeProviderName(string CodeProviderName) => "DRAFT-" + CodeProviderName;
+    /// <summary>
+    /// Returns the draft code provider pattern.
+    /// </summary>
+    static string GetDraftCodeProviderPattern(string Pattern) => "DRAFT-" + Pattern;
+    /// <summary>
+    /// Returns the code provider name assigned to a field.
+    /// </summary>
+    static string GetFieldCodeProviderName(SchemaTable Table, SchemaField Field)
+    {
+        string CodeProviderName = GetCodeProviderName(Table, Field);
+        return Field.IsDraftCodeProvider ? GetDraftCodeProviderName(CodeProviderName) : CodeProviderName;
+    }
+    /// <summary>
+    /// Returns all code provider names generated by a field.
+    /// </summary>
+    static List<string> GetCodeProviderNames(SchemaTable Table, SchemaField Field)
+    {
+        string CodeProviderName = GetCodeProviderName(Table, Field);
+        List<string> Result = [CodeProviderName];
+        if (Field.IsDraftCodeProvider)
+            Result.Add(GetDraftCodeProviderName(CodeProviderName));
+        return Result;
+    }
+    /// <summary>
     /// Finds the master field name of a detail table.
     /// </summary>
     static string FindMasterFieldName(SchemaTable DetailTable)
@@ -2311,12 +2647,14 @@ static public class SchemaRegistrationBuilder
             HashSet<string> Done = new(StringComparer.OrdinalIgnoreCase);
             int Order = 0;
 
-            foreach (SchemaTable Table in Tables)
+            List<SchemaTable> TablesToOrder = OutputTables;
+
+            foreach (SchemaTable Table in TablesToOrder)
                 Dependencies[Table.Name] = GetTableDependencies(Table);
 
-            while (Done.Count < Tables.Count)
+            while (Done.Count < TablesToOrder.Count)
             {
-                List<SchemaTable> ReadyTables = Tables
+                List<SchemaTable> ReadyTables = TablesToOrder
                     .Where(x => !Done.Contains(x.Name) && Dependencies[x.Name].All(Dependency => Done.Contains(Dependency)))
                     .ToList();
 
@@ -2344,13 +2682,15 @@ static public class SchemaRegistrationBuilder
             {
                 if (ForeignKey.ReferenceTable.IsSameText(Table.Name))
                     continue;
-                if (FindTable(ForeignKey.ReferenceTable) == null)
+                SchemaTable DependencyTable = FindTable(ForeignKey.ReferenceTable);
+                if (DependencyTable == null || DependencyTable.IsReference)
                     continue;
                 if (!Result.Any(x => x.IsSameText(ForeignKey.ReferenceTable)))
                     Result.Add(ForeignKey.ReferenceTable);
             }
 
-            if (!string.IsNullOrWhiteSpace(Table.MasterName) && !Table.MasterName.IsSameText(Table.Name) && FindTable(Table.MasterName) != null)
+            SchemaTable MasterTable = FindTable(Table.MasterName);
+            if (!string.IsNullOrWhiteSpace(Table.MasterName) && !Table.MasterName.IsSameText(Table.Name) && MasterTable != null && !MasterTable.IsReference)
             {
                 if (!Result.Any(x => x.IsSameText(Table.MasterName)))
                     Result.Add(Table.MasterName);
@@ -2364,6 +2704,33 @@ static public class SchemaRegistrationBuilder
         /// Parses a schema script.
         /// </summary>
         static public SchemaScript Parse(string SchemaSql)
+            => Parse(SchemaSql, []);
+        /// <summary>
+        /// Parses a schema script using reference schema scripts as metadata context.
+        /// </summary>
+        static public SchemaScript Parse(string SchemaSql, List<string> ReferenceSchemaSqls)
+        {
+            SchemaScript Result = ParseCore(SchemaSql, false);
+
+            foreach (string ReferenceSchemaSql in ReferenceSchemaSqls)
+            {
+                if (string.IsNullOrWhiteSpace(ReferenceSchemaSql))
+                    continue;
+
+                SchemaScript ReferenceScript = ParseCore(ReferenceSchemaSql, true);
+                Result.Tables.AddRange(ReferenceScript.Tables);
+            }
+
+            Result.ResolveReferences();
+            Result.ResolveLookupHeuristics();
+            Result.ResolveDetails();
+
+            return Result;
+        }
+        /// <summary>
+        /// Parses a schema script without resolving references.
+        /// </summary>
+        static SchemaScript ParseCore(string SchemaSql, bool IsReference)
         {
             SchemaScript Result = new();
             MatchCollection Matches = Regex.Matches(SchemaSql, @"CREATE\s+TABLE\s+\{TableName\}\s*\(", RegexOptions.IgnoreCase);
@@ -2379,6 +2746,7 @@ static public class SchemaRegistrationBuilder
                     string HeaderText = ExtractHeaderText(SchemaSql, Match.Index);
                     string CreateSqlText = ExtractCreateTableSql(SchemaSql, Match.Index);
                     SchemaTable Table = SchemaTable.Parse(HeaderText, CreateSqlText);
+                    Table.IsReference = IsReference;
                     Result.Tables.Add(Table);
                 }
                 catch (Exception ex)
@@ -2386,10 +2754,6 @@ static public class SchemaRegistrationBuilder
                     throw new TripousDataException("Schema table parse failed near header line " + HeaderLine + ", CREATE TABLE line " + CreateTableLine + ". " + ex.Message);
                 }
             }
-
-            Result.ResolveReferences();
-            Result.ResolveLookupHeuristics();
-            Result.ResolveDetails();
             
             return Result;
         }
@@ -2405,7 +2769,7 @@ static public class SchemaRegistrationBuilder
         public List<SchemaTable> GetDetailsOf(SchemaTable MasterTable)
         {
             return Tables
-                .Where(x => x.MasterName.IsSameText(MasterTable.Name))
+                .Where(x => !x.IsReference && x.MasterName.IsSameText(MasterTable.Name))
                 .OrderBy(x => x.CreationOrder)
                 .ToList();
         }
@@ -2582,9 +2946,13 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public List<SchemaTable> Tables { get => fTables; set => fTables = value; }
         /// <summary>
+        /// Tables that belong to the output schema.
+        /// </summary>
+        public List<SchemaTable> OutputTables => Tables.Where(x => !x.IsReference).ToList();
+        /// <summary>
         /// Top module tables.
         /// </summary>
-        public List<SchemaTable> TopTables => Tables.Where(x => x.IsTopTable).ToList();
+        public List<SchemaTable> TopTables => OutputTables.Where(x => x.IsTopTable).ToList();
     }
 
     /// <summary>
@@ -2876,6 +3244,10 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// True when the table belongs to a reference schema.
+        /// </summary>
+        public bool IsReference { get; set; }
+        /// <summary>
         /// Module name.
         /// </summary>
         public string ModuleName { get; set; }
@@ -3076,6 +3448,7 @@ static public class SchemaRegistrationBuilder
             Result.MetadataErrors = Metadata.Errors;
             Result.CodeProviderPattern = Metadata.CodeProviderPattern;
             Result.CodeProviderName = Metadata.CodeProviderName;
+            Result.IsDraftCodeProvider = Metadata.IsDraftCodeProvider;
             Result.IsPrimaryKey = SqlPart.ContainsText("primary key");
             Result.IsNullable = !SqlPart.ContainsText("@NOT_NULL") && !SqlPart.ContainsText("not null");
             Result.DefaultValue = ParseDefaultValue(SqlPart);
@@ -3130,6 +3503,10 @@ static public class SchemaRegistrationBuilder
         /// Code provider name.
         /// </summary>
         public string CodeProviderName { get; set; }
+        /// <summary>
+        /// True when the code provider is draft-enabled.
+        /// </summary>
+        public bool IsDraftCodeProvider { get; set; }
         /// <summary>
         /// Field data type.
         /// </summary>
@@ -3318,6 +3695,10 @@ static public class SchemaRegistrationBuilder
         /// Code provider name.
         /// </summary>
         public string CodeProviderName { get; set; }
+        /// <summary>
+        /// True when the code provider is draft-enabled.
+        /// </summary>
+        public bool IsDraftCodeProvider { get; set; }
         /// <summary>
         /// True when one-to-one.
         /// </summary>

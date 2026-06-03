@@ -415,18 +415,7 @@ static public class DataRegistry
     static public DataModule CreateModule(string Name, bool InitializeToo = true) => Modules.Get(Name).Create(InitializeToo);
 
     // ● miscs
-    static public ModuleDef[] GetDocumentModules()
-    {
-        return Modules
-            .Where(x => x.IsDocument && !x.IsDocumentSnapshot)
-            .ToArray();
-    }
-    static public ModuleDef[] GetDocumentSnapshotModules()
-    {
-        return Modules
-            .Where(x => x.IsDocumentSnapshot)
-            .ToArray();
-    }
+ 
 
     // ● properties
     /// <summary>

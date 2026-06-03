@@ -26,8 +26,8 @@ CREATE TABLE {TableName} (
 
     TradeTypeId int @NOT_NULL,                         -- Enum TradeType
 
-    NumberSeriesId @NVARCHAR(40) @NULL,                -- Lookup
-    HandlerClass @NVARCHAR(256) @NULL,                 -- IDocumentHandler full class name
+    NumberSeriesId @NVARCHAR(40) @NOT_NULL,            -- Lookup
+    ModuleName @NVARCHAR(96) @NOT_NULL,                -- Lookup ModuleName ClassName:DocumentModuleLookupSource -- Module Name 
 
     IsActive @BOOL default 1 @NOT_NULL,
     IsSystem @BOOL default 0 @NOT_NULL,                -- system defined and protected type
@@ -67,53 +67,53 @@ CREATE TABLE {TableName} (
 /*---------------------------------------------------
 Table: Trade
 
-Module: SalesOrder TradeDataModule
-Group: Sales Orders
-Form: SalesOrder TradeForm TradeItemPage
+Module: SalesOrder SalesOrderDataModule
+Group: Sales
+ItemPage: TradeItemPage
 
-Module: SalesDeliveryNote TradeDataModule
-Group: Sales Deliveries
-Form: SalesDeliveryNote TradeForm TradeItemPage
+Module: SalesDeliveryNote SalesDeliveryNoteDataModule
+Group: Sales
+ItemPage: TradeItemPage
 
-Module: SalesInvoice TradeDataModule
-Group: Sales Invoices
-Form: SalesInvoice TradeForm TradeItemPage
+Module: SalesInvoice SalesInvoiceDataModule
+Group: Sales
+ItemPage: TradeItemPage
 
-Module: SalesCreditNote TradeDataModule
-Group: Sales Credit Notes
-Form: SalesCreditNote TradeForm TradeItemPage
+Module: SalesCreditNote SalesCreditNoteDataModule
+Group: Sales
+ItemPage: TradeItemPage
 
-Module: SalesReturn TradeDataModule
-Group: Sales Returns
-Form: SalesReturn TradeForm TradeItemPage
+Module: SalesReturn SalesReturnDataModule
+Group: Sales
+ItemPage: TradeItemPage
 
-Module: SalesCancellation TradeDataModule
-Group: Sales Cancellations
-Form: SalesCancellation TradeForm TradeItemPage
+Module: SalesCancellation SalesCancellationDataModule
+Group: Sales
+ItemPage: TradeItemPage
 
-Module: PurchaseOrder TradeDataModule
-Group: Purchase Orders
-Form: PurchaseOrder TradeForm TradeItemPage
+Module: PurchaseOrder PurchaseOrderDataModule
+Group: Purchases
+ItemPage: TradeItemPage
 
-Module: PurchaseDeliveryNote TradeDataModule
-Group: Purchase Deliveries
-Form: PurchaseDeliveryNote TradeForm TradeItemPage
+Module: PurchaseDeliveryNote PurchaseDeliveryNoteDataModule
+Group: Purchases
+ItemPage: TradeItemPage
 
-Module: PurchaseInvoice TradeDataModule
-Group: Purchase Invoices
-Form: PurchaseInvoice TradeForm TradeItemPage
+Module: PurchaseInvoice PurchaseInvoiceDataModule
+Group: Purchases
+ItemPage: TradeItemPage
 
-Module: PurchaseCreditNote TradeDataModule
-Group: Purchase Credit Notes
-Form: PurchaseCreditNote TradeForm TradeItemPage
+Module: PurchaseCreditNote PurchaseCreditNoteDataModule
+Group: Purchases
+ItemPage: TradeItemPage
 
-Module: PurchaseReturn TradeDataModule
-Group: Purchase Returns
-Form: PurchaseReturn TradeForm TradeItemPage
+Module: PurchaseReturn PurchaseReturnDataModule
+Group: Purchases
+ItemPage: TradeItemPage
 
-Module: PurchaseCancellation TradeDataModule
-Group: Purchase Cancellations
-Form: PurchaseCancellation TradeForm TradeItemPage
+Module: PurchaseCancellation PurchaseCancellationDataModule
+Group: Purchases
+ItemPage: TradeItemPage
 
 FieldGroups: Dates, Party, Organization, Payment, Billing, Shipping, Relations, Amounts, Status, Audit, Notes
 -----------------------------------------------------
@@ -142,7 +142,7 @@ CREATE TABLE {TableName} (
                              Id @NVARCHAR(40) @NOT_NULL primary key,
 
     DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup
-    Code @NVARCHAR(40) @NOT_NULL,                       -- Code TR-DRAFT-YYYY-XXXXXX TRADE-DRAFT
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code DRAFT-TR-YYYY-XXXXXX DRAFT-TRADE
 
     TradeStatusId int default 0 @NOT_NULL,              -- Enum TradeStatus
     TaxTreatmentId int default 1 @NOT_NULL,             -- Enum TaxTreatment
@@ -369,7 +369,7 @@ CREATE TABLE {TableName} (
     WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup; Group Warehouses -- main/source warehouse
     ToWarehouseId @NVARCHAR(40) @NULL,                  -- Lookup; Group Warehouses -- destination warehouse, used only for transfers
 
-    Code @NVARCHAR(40) @NOT_NULL,                       -- Code STK-DRAFT-YYYY-XXXXXX STOCK_TRADE_DRAFT
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code Draft STK-YYYY-XXXXXX StockTrade
 
     DocumentDate @DATE @NOT_NULL,                       -- Group Dates
     PostingDate @DATE @NULL,                            -- Group Dates -- date used for generated stock movements
@@ -409,7 +409,6 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (PostedBy) REFERENCES AppUser(Id),
     FOREIGN KEY (CancelledBy) REFERENCES AppUser(Id)
     )
-
 
 
 
@@ -616,7 +615,8 @@ Used for:
 CREATE TABLE {TableName} (
                              Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    Code @NVARCHAR(40) @NOT_NULL,                     -- Code SC-YYYY-XXXXXX STOCK_COUNT
+    Code @NVARCHAR(40) @NOT_NULL,                     -- Code Draft SC-YYYY-XXXXXX StockCount
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,           -- Lookup -- controls numbering, posting behavior and movement direction
 
     WarehouseId @NVARCHAR(40) @NOT_NULL,              -- Lookup
 
@@ -634,6 +634,7 @@ CREATE TABLE {TableName} (
     ModifiedAt @DATE_TIME @NULL,                      -- Group Audit
     ModifiedBy @NVARCHAR(40) @NULL,                   -- Lookup AppUser; Group Audit
 
+    FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
     FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
     FOREIGN KEY (CancelledDocumentId) REFERENCES StockCount(Id),
     FOREIGN KEY (CancellationDocumentId) REFERENCES StockCount(Id),
@@ -963,7 +964,7 @@ editing or deleting posted records.
 CREATE TABLE {TableName} (
                              Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    Code @NVARCHAR(40) @NOT_NULL,                     -- Code JE-YYYY-XXXXXX JOURNAL_ENTRY
+    Code @NVARCHAR(40) @NOT_NULL,                     -- Code Draft JE-YYYY-XXXXXX JournalEntry
 
     EntryDate @DATE @NOT_NULL,
 
@@ -1110,7 +1111,7 @@ AcquisitionCost - AccumulatedDepreciation
 CREATE TABLE {TableName} (
                              Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    Code @NVARCHAR(40) @NOT_NULL,                  -- Code AST-XXXXXX ASSET
+    Code @NVARCHAR(40) @NOT_NULL,                  -- Code AST-XXXXXX Asset
     Name @NVARCHAR(96) @NOT_NULL,
 
     AssetCategoryId @NVARCHAR(40) @NOT_NULL,       -- Lookup; Group Classification

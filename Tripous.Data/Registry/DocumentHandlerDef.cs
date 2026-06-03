@@ -3,6 +3,8 @@ namespace Tripous.Data;
 
 /// <summary>
 /// A document handler definition.
+/// <para>NOTE: There is an one-to-one relationship between document handlers and document modules, based on their names.</para>
+/// <para>That is, if there is a document module name SalesOrders there must be a document handler with the same name.</para>
 /// </summary>
 public class DocumentHandlerDef: BaseDef
 {

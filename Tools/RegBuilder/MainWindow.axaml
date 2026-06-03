@@ -1,11 +1,17 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ae="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
-        x:Class="RegBuilder.MainWindow"
-        Width="1024" Height="768"
-        Padding="10"
-        WindowStartupLocation="CenterScreen"
-        Title="RegBuilder">
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ae="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+    mc:Ignorable="d"
+    Width="1100"
+    Height="750"
+    x:Class="RegBuilder.MainWindow"
+    Padding="10"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    Title="RegBuilder">
     
     <Window.Styles>
         <Style Selector="ae|TextEditor">
@@ -14,71 +20,81 @@
             <Setter Property="ShowLineNumbers" Value="True"/>
             <Setter Property="Margin" Value="2"/>
         </Style>
-    </Window.Styles>
-    
+    </Window.Styles>    
+
     <DockPanel LastChildFill="True">
-        <StackPanel DockPanel.Dock="Top" Spacing="10">
-            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Source FilePath:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Name="edtSourceFilePath" Margin="0,5"/>
+        
+        <Border DockPanel.Dock="Top" Margin="0,0,0,10">
+            <WrapPanel Orientation="Horizontal" ItemSpacing="8" LineSpacing="8">
+                <Button Name="btnAdd" Content="Add" Width="80" HorizontalContentAlignment="Center"/>
+                <Button Name="btnEdit" Content="Edit" Width="80" HorizontalContentAlignment="Center"/>
+                <Button Name="btnDelete" Content="Delete" Width="80" HorizontalContentAlignment="Center"/>
+                
+                <ComboBox Name="cboProjects" Width="200" PlaceholderText="Select Project..."/>
+                
+                <Button Name="btnExecute" Content="Execute" Width="100" HorizontalContentAlignment="Center"/>
+                <Button Name="btnOpenOutputFolder" Content="Open Output Folder" HorizontalContentAlignment="Center"/>
+            </WrapPanel>
+        </Border>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Schema Version:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Name="edtSchemaVersion" Margin="0,5"/>
-            </Grid>
-
-            <StackPanel Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
-                <TextBlock Text="Duplicate Checks:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                <CheckBox Name="chLookup" Content="Lookups" IsChecked="False"/>
-                <CheckBox Name="chEnum" Content="Enums" IsChecked="False"/>
-                <CheckBox Name="chForm" Content="Forms" IsChecked="False"/>
-                <CheckBox Name="chModule" Content="Modules" IsChecked="False"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">
-                <Button Name="btnExecute" Content="Execute" Width="120" HorizontalContentAlignment="Center"/>
-                <Button Name="btnOpenOutputFolder" Content="Open Output Folder" Width="180" HorizontalContentAlignment="Center"/>
-            </StackPanel>
-        </StackPanel>
-
-        <Grid RowDefinitions="*, 4, 150" Margin="0,10,0,0">
+        <Grid RowDefinitions="*, 4, 180">
+            
             <TabControl Grid.Row="0">
-                <TabItem Header="Tables">
-                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
-                        <ae:TextEditor Name="edtTables"/>
+                <TabItem Header="Project Log" Name="tabProjectLog">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
+                        <TextBox Name="edtProjectLog" AcceptsReturn="True" TextWrapping="Wrap" BorderThickness="0" Watermark="Project log details..."/>
                     </Border>
                 </TabItem>
-                <TabItem Header="Modules">
-                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                
+                <TabItem Header="Schema" Name="tabSchema">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
+                        <ae:TextEditor Name="edtSchema"/>
+                    </Border>
+                </TabItem>
+                
+                <TabItem Header="Modules" Name="tabModules">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
                         <ae:TextEditor Name="edtModules"/>
                     </Border>
                 </TabItem>
-                <TabItem Header="Forms">
-                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                
+                <TabItem Header="Forms" Name="tabForms">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
                         <ae:TextEditor Name="edtForms"/>
                     </Border>
                 </TabItem>
-                <TabItem Header="Schema">
-                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
-                        <ae:TextEditor Name="edtSchemaSql"/>
+                                
+                <TabItem Header="Lookups" Name="tabLookups">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
+                        <ae:TextEditor Name="edtLookups"/>
                     </Border>
                 </TabItem>
-                <TabItem Header="Schema by RDBMS">
-                    <DockPanel LastChildFill="True">
-                        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,5">
-                            <ComboBox Name="cboServer" HorizontalAlignment="Stretch" PlaceholderText="Select Server..."/>
-                        </StackPanel>
-                        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
-                            <ae:TextEditor Name="edtSchemaSqlServer"/>
-                        </Border>
-                    </DockPanel>
+                
+                <TabItem Header="Locators" Name="tabLocators">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
+                        <ae:TextEditor Name="edtLocators"/>
+                    </Border>
+                </TabItem>
+                
+                <TabItem Header="Code Providers" Name="tabCodeProviders">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
+                        <ae:TextEditor Name="edtCodeProviders"/>
+                    </Border>
+                </TabItem>
+                
+                <TabItem Header="SQL" Name="tabSql">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
+                        <ae:TextEditor Name="edtSql"/>
+                    </Border>
                 </TabItem>
             </TabControl>
 
             <GridSplitter Grid.Row="1" Background="Transparent" ResizeDirection="Rows"/>
 
-            <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
-                <TextBox Name="edtLog" AcceptsReturn="True" TextWrapping="Wrap" Watermark="System log..." IsReadOnly="True" BorderThickness="0"/>
+            <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
+                <TextBox Name="edtLog" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" BorderThickness="0" Watermark="System log..."/>
             </Border>
+            
         </Grid>
     </DockPanel>
 </Window>

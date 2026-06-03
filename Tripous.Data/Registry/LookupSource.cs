@@ -14,10 +14,10 @@ namespace Tripous.Data;
 [TypeStore]
 public class LookupSource
 {
-    List<LookupItem> List;
-    SqlStore fStore;
+    protected List<LookupItem> List;
+    protected SqlStore fStore;
 
-    SqlStore Store
+    protected SqlStore Store
     {
         get
         {
@@ -87,13 +87,13 @@ public class LookupSource
         if (!string.IsNullOrWhiteSpace(SqlText))
         {
             DataTable Table = Store.Select(SqlText);
-            LoadForm(Table);
+            LoadFrom(Table);
         }
     }
     /// <summary>
     /// Fills the list using a <see cref="DataTable"/>
     /// </summary>
-    public virtual void LoadForm(DataTable Table)
+    public virtual void LoadFrom(DataTable Table)
     {
         if (Table == null)
             throw new TripousDataException($"Lookup {LookupDef.Name}: Parameter {nameof(Table)} is null. ");

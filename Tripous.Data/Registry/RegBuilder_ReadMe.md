@@ -279,6 +279,7 @@ A metadata entry enclosed in square brackets is parsed as comma-separated `Field
 CurrencyId @NVARCHAR(40) @NOT_NULL, -- Lookup -- default currency
 ModuleName @NVARCHAR(96) @NOT_NULL, -- Lookup DocumentModule ClassName:DocumentModuleLookupSource
 Code @NVARCHAR(40) @NOT_NULL, -- Code CUS-XXXX; Group General; [ReadOnlyUI, ReadOnlyEdit] -- customer code
+Code @NVARCHAR(40) @NOT_NULL, -- Code Draft SO-YYYY-XXXXXX SALES_ORDER
 Notes @BLOB_TEXT, -- Memo; Group Notes -- short notes
 Remarks @BLOB_TEXT, -- LargeMemo; Group Notes -- long notes
 Photo @BLOB, -- [Image] -- product photo
@@ -292,7 +293,7 @@ Photo @BLOB, -- [Image] -- product photo
 | `Lookup`     | `Lookup [LOOKUP_NAME] [TableName:TABLE_NAME \| EnumName:ENUM_NAME \| ClassName:LOOKUP_SOURCE_CLASS_NAME]` | Small in-memory reference selector                  |
 | `Enum`       | `Enum [EnumName]`                                                                                         | Enum-backed selector                                |
 | `Locator`    | `Locator [LocatorName]`                                                                                   | Searchable large reference selector                 |
-| `Code`       | `Code [Pattern] [ProviderName]`                                                                           | Auto-generated code field                           |
+| `Code`       | `Code [Draft] [Pattern] [ProviderName]`                                                                   | Auto-generated code field                           |
 | `Memo`       | `Memo`                                                                                                    | Text field with Memo flag                           |
 | `LargeMemo`  | `LargeMemo`                                                                                               | Text blob with LargeMemo flag                       |
 | `Group`      | `Group GroupName`                                                                                         | Field UI group                                      |
@@ -378,6 +379,7 @@ In grids, raw FK fields are hidden; alias fields are shown instead.
 
 ```sql
 Code @NVARCHAR(40) @NOT_NULL, -- Code SO-YYYY-XXXXXX SALES_ORDER
+Code @NVARCHAR(40) @NOT_NULL, -- Code Draft SO-YYYY-XXXXXX SALES_ORDER
 ```
 
 Discovered providers are stored in `SchemaParserResult.CodeProviderPatterns`:
@@ -391,8 +393,23 @@ Same provider name with different patterns → **parsing error**.
 Generated output:
 ```csharp
 FieldDef.CodeProvider = "SALES_ORDER";
-DataRegistry.AddCodeProvider("SALES_ORDER");
+DataRegistry.AddOrGetCodeProvider("SALES_ORDER");
 ```
+
+Draft output:
+
+```csharp
+FieldDef.CodeProvider = "DRAFT-SALES_ORDER";
+DataRegistry.AddOrGetCodeProvider("DRAFT-SALES_ORDER");
+DataRegistry.AddOrGetCodeProvider("SALES_ORDER");
+```
+
+`Code Draft SO-YYYY-XXXXXX SALES_ORDER` generates two code provider patterns:
+- `DRAFT-SALES_ORDER` with pattern `DRAFT-SO-YYYY-XXXXXX`
+- `SALES_ORDER` with pattern `SO-YYYY-XXXXXX`
+
+Document modules should use `Code Draft PATTERN PROVIDER_NAME` because draft saves need draft codes and posting assigns the final code.
+Snapshot document modules should not declare `-- Code`; this is the schema author's responsibility, even when the table has a `DocumentTypeId` field.
 
 On startup, missing `SYS_NumberSeries` rows are created automatically. Existing rows are never overwritten.
 

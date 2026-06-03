@@ -14,7 +14,7 @@ namespace Tripous.Data;
 /// <list type="bullet">
 /// <item>a SELECT statement, given in the <see cref="SqlText"/> property</item>
 /// <item>a SELECT statement constructed using the <see cref="TableName"/></item>
-/// <item>a <see cref="DataTable"/> passed to <see cref="LookupSource.LoadForm"/>() method</item>
+/// <item>a <see cref="DataTable"/> passed to <see cref="LookupSource.LoadFrom(System.Data.DataTable)"/>() method</item>
 /// <item>an enum type, given in the <see cref="EnumTypeName"/> property</item>
 /// <item>a <see cref="LookupSource"/> derived class, given in the <see cref="ClassName"/> property</item>
 /// <item>as a last resort using the <see cref="BaseDef.Name"/> as a <see cref="TableName"/></item>
@@ -69,7 +69,7 @@ public class LookupDef : BaseDef
     /// <summary>
     /// The field used in getting the value.
     /// <para>Used only when <see cref="TableName"/> or <see cref="SqlText"/> is defined or the list is loaded
-    /// using <see cref="LookupSource.Select"/> or <see cref="LookupSource.LoadForm"/> a <see cref="DataTable"/></para>
+    /// using <see cref="LookupSource.Select"/> or <see cref="LookupSource.LoadFrom(System.Data.DataTable)"/> a <see cref="DataTable"/></para>
     /// </summary>
     public string ValueField
     {
@@ -86,7 +86,7 @@ public class LookupDef : BaseDef
     /// <summary>
     /// The field used in getting the display value.
     /// <para>Used only when <see cref="TableName"/> or <see cref="SqlText"/> is defined or the list is loaded
-    /// using <see cref="LookupSource.Select"/> or <see cref="LookupSource.LoadForm"/> a <see cref="DataTable"/></para>
+    /// using <see cref="LookupSource.Select"/> or <see cref="LookupSource.LoadFrom(System.Data.DataTable)"/> a <see cref="DataTable"/></para>
     /// </summary>
     public string DisplayField
     {

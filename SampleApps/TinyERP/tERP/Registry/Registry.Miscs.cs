@@ -14,12 +14,10 @@ static internal partial class Registry
     {
         // TODO: Register extra definitions
     }
-    
     static public void RegisterLocators()
     {
         // TODO: Register extra definitions
     }
-    
     static public void RegisterLookupSources()
     {
         // TODO: Register extra definitions
@@ -59,6 +57,7 @@ static internal partial class Registry
     /// </summary>
     static public void UpdateModules()
     {
+        /*
         DataRegistry.Modules.Get("SalesOrder").IsDocument = true;
         DataRegistry.Modules.Get("SalesDeliveryNote").IsDocument = true;
         DataRegistry.Modules.Get("SalesInvoice").IsDocument = true;
@@ -80,6 +79,7 @@ static internal partial class Registry
         
         DataRegistry.Modules.Get("StockMovement").IsDocumentSnapshot = true;
         DataRegistry.Modules.Get("FinanceMovement").IsDocumentSnapshot = true;
+        */
     }
 
  
