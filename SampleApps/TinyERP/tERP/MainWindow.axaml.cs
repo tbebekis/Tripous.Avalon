@@ -30,10 +30,8 @@ public partial class MainWindow : Window
             CreateToolBar();
             
             AppHost.InitializeUi(SideBarHandler, ContentHandler);  
-            //Sys.LogInfo("Hi there");
-
-            // a command for just calling the Test() method
-            Command cmdTest = AppRegistry.ToolBarCommands.Find("Test");
+            
+            Command cmdTest = AppRegistry.ToolBarCommands.Find("Test"); // a command for just calling the Test() method
             cmdTest.ExecuteCommand += (sender, args) => Test();
             
             Ui.Post(async () => await CheckForSampleData());
@@ -45,16 +43,24 @@ public partial class MainWindow : Window
 
     async Task CheckForSampleData()
     {
-        if (!Db.MainIni.ReadBool("AreSampleDataAdded", false))
+        SampleData[] NotAddedSampleData = SampleData.GetNotAdded();
+        if (NotAddedSampleData.Length > 0)
         {
-            bool Flag = await MessageBox.YesNo("Do you want to add sample data?", this);
+            StringBuilder SB = new();
+            SB.AppendLine("The following versions of sample data are not added to the database yet.");
+            SB.AppendLine();
+            foreach (SampleData SD in NotAddedSampleData)
+                SB.AppendLine($"{SD.VersionNumber}");
+            SB.AppendLine();
+            SB.AppendLine("Do you want to add that versions of sample data to the database?");
+            
+            bool Flag = await MessageBox.YesNo(SB.ToString(), this);
             if (Flag)
             {
                 LogBox.AppendLine("Adding sample data. Please wait...");
                 try
                 {
-                    await SampleData.AddSampleDataAsync();
-                    Db.MainIni.WriteBool("AreSampleDataAdded", true);
+                    await SampleData.AddSampleDataAsync(NotAddedSampleData);
                     LogBox.Append("DONE.");
                     await MessageBox.Info("DONE", this);
                 }
@@ -65,10 +71,9 @@ public partial class MainWindow : Window
                 }
             }
         }
-         
     }
     
-    void ToggleLog()
+    internal void ToggleLog()
     {
         if (edtLog.IsVisible)
         {
@@ -81,10 +86,7 @@ public partial class MainWindow : Window
             edtLog.IsVisible = true;
         }
     }
-    void ShowApplicationFolder()
-    {
-        Sys.OpenFileExplorer(SysConfig.AppFolderPath);
-    }
+ 
 
     void CreateMenu()
     {

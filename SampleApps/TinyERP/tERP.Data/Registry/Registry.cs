@@ -17,21 +17,19 @@ static public partial class Registry
     // ● construction
     static Registry()
     {
-        SchemaVersionList.AddRange([new SchemaVersion1()]);
+        SchemaVersionList.AddRange([
+            new SchemaVersion1(),
+            new SchemaVersion2()
+        ]);
         
-        RegistryVersionList.AddRange([new RegistryVersion1()]);
+        RegistryVersionList.AddRange([
+            new RegistryVersion1(),
+            new RegistryVersion2()
+        ]);
     }
     
     // ● public
-    static public Dictionary<string, string> GetCodeProviderPatterns()
-    {
-        Dictionary<string, string> Result = [];
-        
-        foreach (RegistryVersion Version in RegistryVersionList)
-            Version.AddCodeProviderPatterns(Result);
-        
-        return (Result);
-    }
+ 
     static public void RegisterSchemas()
     {
         foreach (SchemaVersionDef Version in SchemaVersionList)

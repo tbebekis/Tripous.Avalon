@@ -8,8 +8,9 @@
 
 namespace tERP.Data;
 
-public class SampleData
+public abstract class SampleData
 {
+    static List<SampleData> SampleDataList = [];
     static protected SqlStore Store = SqlStores.CreateDefaultSqlStore();
     static protected readonly Dictionary<string, MemTable> SampleTables = new(StringComparer.OrdinalIgnoreCase);
 
@@ -35,28 +36,43 @@ public class SampleData
         Table.Rows.Add(Row);
         return Row;
     }
-    
-    static protected void AddCodeProviderPatterns()
+
+    protected abstract void AddSampleDataInternal();
+
+    protected virtual bool GetIsAdded()
     {
-        string TableName = DbConfig.SysNumberSeriesTableName;
-        if (Store.TableExists(TableName) && Store.TableIsEmpty(TableName))
-        {
-            Dictionary<string, string> CodeProviderPatters = Registry.GetCodeProviderPatterns();
-            CodeProviderEntries.SeedPatterns(CodeProviderPatters);
-        }
+        string Key = $"SampleDataAdded.{VersionNumber}";
+        bool Result = Db.MainIni.ReadBool(Key, false);
+        return Result;
     }
 
-    protected virtual void AddSampleDataInternal()
+    protected virtual void SetIsAdded()
     {
+        string Key = $"SampleDataAdded.{VersionNumber}";
+        Db.MainIni.WriteBool(Key, true);
     }
-    
+
     // ● construction
+    static SampleData()
+    {
+        SampleDataList.AddRange([
+            new SampleData1(),
+            new SampleData2(),
+        ]);
+    }
+
     public SampleData()
     {
     }
 
     // ● public
-    static public async Task AddSampleDataAsync()
+    static public SampleData[] GetNotAdded()
+    {
+        SampleData[] Result = SampleDataList.Where(SD => !SD.IsAdded).ToArray();
+        return Result;
+    }
+
+    static public async Task AddSampleDataAsync(SampleData[] NotAddedSampleData)
     {
         bool Flag = Db.Settings.LogSqlStatements;
         Db.Settings.LogSqlStatements = false;
@@ -64,15 +80,7 @@ public class SampleData
         {
             await Task.Run(() =>
             {
-                AddCodeProviderPatterns();
-                
-                List<SampleData> SampleDataList = [];
-                SampleDataList.AddRange([
-                    new SampleData1(),
-                    new SampleData2(),
-                ]);
-                
-                foreach (SampleData SampleData in SampleDataList)
+                foreach (SampleData SampleData in NotAddedSampleData)
                     SampleData.AddSampleDataInternal();
             });
         }
@@ -81,4 +89,7 @@ public class SampleData
             Db.Settings.LogSqlStatements = Flag;
         }
     }
+
+    public bool IsAdded => GetIsAdded();
+    public abstract int VersionNumber { get; }
 }

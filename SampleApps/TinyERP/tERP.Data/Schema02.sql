@@ -70,50 +70,62 @@ Table: Trade
 Module: SalesOrder SalesOrderDataModule
 Group: Sales
 ItemPage: TradeItemPage
+Code: Draft SO-YYYY-XXXXXX
 
 Module: SalesDeliveryNote SalesDeliveryNoteDataModule
 Group: Sales
 ItemPage: TradeItemPage
+Code: Draft SDN-YYYY-XXXXXX
 
 Module: SalesInvoice SalesInvoiceDataModule
 Group: Sales
 ItemPage: TradeItemPage
+Code: Draft SINV-YYYY-XXXXXX
 
 Module: SalesCreditNote SalesCreditNoteDataModule
 Group: Sales
 ItemPage: TradeItemPage
+Code: Draft SCN-YYYY-XXXXXX
 
 Module: SalesReturn SalesReturnDataModule
 Group: Sales
 ItemPage: TradeItemPage
+Code: Draft SRET-YYYY-XXXXXX
 
 Module: SalesCancellation SalesCancellationDataModule
 Group: Sales
 ItemPage: TradeItemPage
+Code: Draft SCAN-YYYY-XXXXXX
 
 Module: PurchaseOrder PurchaseOrderDataModule
 Group: Purchases
 ItemPage: TradeItemPage
+Code: Draft PO-YYYY-XXXXXX
 
 Module: PurchaseDeliveryNote PurchaseDeliveryNoteDataModule
 Group: Purchases
 ItemPage: TradeItemPage
+Code: Draft PDN-YYYY-XXXXXX
 
 Module: PurchaseInvoice PurchaseInvoiceDataModule
 Group: Purchases
 ItemPage: TradeItemPage
+Code: Draft PINV-YYYY-XXXXXX
 
 Module: PurchaseCreditNote PurchaseCreditNoteDataModule
 Group: Purchases
 ItemPage: TradeItemPage
+Code: Draft PCN-YYYY-XXXXXX
 
 Module: PurchaseReturn PurchaseReturnDataModule
 Group: Purchases
 ItemPage: TradeItemPage
+Code: Draft PRET-YYYY-XXXXXX
 
 Module: PurchaseCancellation PurchaseCancellationDataModule
 Group: Purchases
 ItemPage: TradeItemPage
+Code: Draft PCAN-YYYY-XXXXXX
 
 FieldGroups: Dates, Party, Organization, Payment, Billing, Shipping, Relations, Amounts, Status, Audit, Notes
 -----------------------------------------------------

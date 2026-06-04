@@ -24,9 +24,7 @@ public class RegistryVersion
     public virtual void RegisterCodeProviders()
     {
     }
-    public virtual void AddCodeProviderPatterns(Dictionary<string, string> Patterns)
-    {
-    }
+ 
 
     public virtual int VersionNumber { get;  } = -1;
 }

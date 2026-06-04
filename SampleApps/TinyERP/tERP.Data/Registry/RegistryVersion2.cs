@@ -13,13 +13,13 @@
 
 namespace tERP.Data;
 
-public partial class RegistryVersion1: RegistryVersion
+public partial class RegistryVersion2: RegistryVersion
 {
     // ● construction
-    public RegistryVersion1()
+    public RegistryVersion2()
     {
     }
 
     // ● properties
-    public override int VersionNumber { get; } = 1;
+    public override int VersionNumber { get; } = 2;
 }

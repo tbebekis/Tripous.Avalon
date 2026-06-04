@@ -1723,10 +1723,14 @@ public partial class SampleData1: SampleData
         Add_ProductWarehouse();
         Add_WarehouseLocation();
         Add_BillOfMaterialLine();
+
+        SetIsAdded();
     }
 
     // ● construction
     public SampleData1()
     {
     }
+    
+    public override int VersionNumber => 1;
 }

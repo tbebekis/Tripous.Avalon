@@ -131,11 +131,13 @@ Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
 Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
+Code:   Code [Draft] [Pattern] [ProviderName]
 
 Module: MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
 Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
+Code:   Code [Draft] [Pattern] [ProviderName]
 FieldGroups: Address, Billing, Notes
 
 IsLookup | NotUiVisible | IsReadOnly
@@ -164,15 +166,18 @@ Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
 Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
+Code: Code [Draft] [Pattern] [ProviderName]
 ```
 
 - `Module` is required.
 - `Group` is required.
 - `Form` is optional.
 - `ItemPage` is optional.
+- `Code` is optional.
 - If `Form` is omitted, the form name defaults to the module name and the form class defaults to `DataForm`.
 - If `ItemPage` is omitted, the item page class defaults to `ItemPage`.
 - If class names are omitted, default `DataModule`, `DataForm`, and `ItemPage` types are used.
+- If `Code` is omitted, field `-- Code` metadata is used as fallback.
 
 ### Multiple module example
 
@@ -184,16 +189,19 @@ Module: SalesOrder SalesOrderDataModule
 Group: Sales Orders
 Form: SalesOrder TradeForm
 ItemPage: TradeItemPage
+Code: Draft SO-YYYY-XXXXXX
 
 Module: SalesInvoice SalesInvoiceDataModule
 Group: Sales Invoices
 Form: SalesInvoice TradeForm
 ItemPage: TradeItemPage
+Code: Draft SI-YYYY-XXXXXX
 
 Module: SalesCreditNote SalesCreditNoteDataModule
 Group: Sales Credit Notes
 Form: SalesCreditNote TradeForm
 ItemPage: TradeItemPage
+Code: Draft SCN-YYYY-XXXXXX
 
 FieldGroups: Dates, Party, Organization, Payment, Billing, Shipping, Relations, Amounts, Status, Audit, Notes
 
@@ -311,7 +319,8 @@ For `FieldFlags`, square brackets are part of the actual schema syntax.
 | `Lookup`        | FK referenced table          |
 | `Enum`          | field name minus `Id` suffix |
 | `Locator`       | FK referenced table          |
-| `Code` Provider | TableName                    |
+| field `Code` Provider | TableName              |
+| header `Code` Provider | ModuleName            |
 | `Code` Pattern  | `XXX-XXX`                    |
 
 ---
@@ -380,6 +389,11 @@ In grids, raw FK fields are hidden; alias fields are shown instead.
 ```sql
 Code @NVARCHAR(40) @NOT_NULL, -- Code SO-YYYY-XXXXXX SALES_ORDER
 Code @NVARCHAR(40) @NOT_NULL, -- Code Draft SO-YYYY-XXXXXX SALES_ORDER
+
+Module: SalesInvoice SalesInvoiceDataModule
+Group: Sales
+ItemPage: TradeItemPage
+Code: Draft SI-YYYY-XXXXXX
 ```
 
 Discovered providers are stored in `SchemaParserResult.CodeProviderPatterns`:
@@ -394,6 +408,7 @@ Generated output:
 ```csharp
 FieldDef.CodeProvider = "SALES_ORDER";
 DataRegistry.AddOrGetCodeProvider("SALES_ORDER");
+Version.AddStatementAfter("INSERT INTO SYS_NUMBER_SERIES ...");
 ```
 
 Draft output:
@@ -408,10 +423,15 @@ DataRegistry.AddOrGetCodeProvider("SALES_ORDER");
 - `DRAFT-SALES_ORDER` with pattern `DRAFT-SO-YYYY-XXXXXX`
 - `SALES_ORDER` with pattern `SO-YYYY-XXXXXX`
 
-Document modules should use `Code Draft PATTERN PROVIDER_NAME` because draft saves need draft codes and posting assigns the final code.
+Document modules with one module per table may use field `-- Code Draft PATTERN PROVIDER_NAME`.
+Document modules with multiple modules on the same table should use module header `Code: Draft PATTERN PROVIDER_NAME`.
+If `ProviderName` is omitted in a header `Code:`, the provider name defaults to the module name.
+If header `Code:` is omitted, field `-- Code` metadata is used as fallback for that module.
 Snapshot document modules should not declare `-- Code`; this is the schema author's responsibility, even when the table has a `DocumentTypeId` field.
 
-On startup, missing `SYS_NumberSeries` rows are created automatically. Existing rows are never overwritten.
+Generated `SchemaVersionN.cs` files add `INSERT INTO SYS_NUMBER_SERIES` statements through `SchemaVersion.AddStatementAfter()`.
+Each statement supplies all non-nullable fields, uses `MemTable.GenId()` for `Id`, and runs after the version's `CREATE TABLE` statements.
+Duplicate `Code` values are expected to fail through the table unique constraint.
 
 ---
 

@@ -9,11 +9,13 @@ Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
 Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
+Code:   Code [Draft] [Pattern] [ProviderName]
 
 Module: MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
 Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
+Code:   Code [Draft] [Pattern] [ProviderName]
 FieldGroups: Address, Billing, Notes
 
 IsLookup
@@ -39,10 +41,13 @@ NoGuidOids
 - Each `Module` line starts a new module block.
 - The following `Group`, optional `Form`, and optional `ItemPage` belong to that module block.
 - A module block is complete when the next `Module` line starts or when non-module header metadata begins.
-- Module block order is `Module`, `Group`, `Form`, `ItemPage`.
+- Module block order is `Module`, `Group`, `Form`, `ItemPage`, `Code`.
 - `Group` is required for each module block.
 - If `Form` is omitted, the form name defaults to the module name and the form class defaults to `DataForm`.
 - If `ItemPage` is omitted, the item page class defaults to `ItemPage`.
+- `Code` is optional and uses the same syntax as field `-- Code`.
+- If header `Code:` omits `ProviderName`, provider name defaults to `ModuleName`.
+- If header `Code:` is omitted, field `-- Code` metadata is used as fallback for that module.
 
 ## Form Syntax
 
@@ -118,17 +123,19 @@ Photo @BLOB, -- [Image] -- product photo
 - Square brackets in this specification mean optional arguments and are not part of the actual schema syntax.
 - For `FieldFlags`, square brackets are part of the actual schema syntax.
 - `Code Draft PATTERN PROVIDER_NAME` generates `DRAFT-PROVIDER_NAME` with `DRAFT-PATTERN` and also the normal provider.
-- Document modules should use `Code Draft`; snapshot document modules should not declare `-- Code`.
+- Multi-module document tables should use header `Code: Draft PATTERN PROVIDER_NAME`; snapshot document modules should not declare `-- Code`.
+- Code provider patterns generate `SchemaVersion.AddStatementAfter()` inserts into `SYS_NUMBER_SERIES`.
 
 ## Name Resolution
 
-| Keyword         | Default name                 |
-| --------------- | ---------------------------- |
-| `Lookup`        | FK referenced table          |
-| `Enum`          | field name minus `Id` suffix |
-| `Locator`       | FK referenced table          |
-| `Code` Provider | TableName                    |
-| `Code` Pattern  | `XXX-XXX`                    |
+| Keyword                | Default name                 |
+| ---------------------- | ---------------------------- |
+| `Lookup`               | FK referenced table          |
+| `Enum`                 | field name minus `Id` suffix |
+| `Locator`              | FK referenced table          |
+| field `Code` Provider  | TableName                    |
+| header `Code` Provider | ModuleName                   |
+| `Code` Pattern         | `XXX-XXX`                    |
 
 ## Lookup Syntax
 
