@@ -8,7 +8,7 @@
 
 namespace tERP.Data;
 
-public class AccountDataModule: DataModule
+public class AccountDataModule: AppDataModule
 {
     public AccountDataModule()
     {

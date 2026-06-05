@@ -19,7 +19,7 @@ Examples:
     SAL-CREDIT  Sales Credit Note
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL primary key,
+    Id @NVARCHAR(40) @NOT_NULL primary key,
 
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,
@@ -70,7 +70,7 @@ Table: Trade
 Module: SalesOrder SalesOrderDataModule
 Group: Sales
 ItemPage: TradeItemPage
-Code: Draft SO-YYYY-XXXXXX
+Code: Draft SO-YYYY-XXXXXX 
 
 Module: SalesDeliveryNote SalesDeliveryNoteDataModule
 Group: Sales
@@ -80,7 +80,7 @@ Code: Draft SDN-YYYY-XXXXXX
 Module: SalesInvoice SalesInvoiceDataModule
 Group: Sales
 ItemPage: TradeItemPage
-Code: Draft SINV-YYYY-XXXXXX
+Code: Draft SINV-YYYY-XXXXXX  
 
 Module: SalesCreditNote SalesCreditNoteDataModule
 Group: Sales
@@ -100,7 +100,7 @@ Code: Draft SCAN-YYYY-XXXXXX
 Module: PurchaseOrder PurchaseOrderDataModule
 Group: Purchases
 ItemPage: TradeItemPage
-Code: Draft PO-YYYY-XXXXXX
+Code: Draft PO-YYYY-XXXXXX  
 
 Module: PurchaseDeliveryNote PurchaseDeliveryNoteDataModule
 Group: Purchases
@@ -110,7 +110,7 @@ Code: Draft PDN-YYYY-XXXXXX
 Module: PurchaseInvoice PurchaseInvoiceDataModule
 Group: Purchases
 ItemPage: TradeItemPage
-Code: Draft PINV-YYYY-XXXXXX
+Code: Draft PINV-YYYY-XXXXXX 
 
 Module: PurchaseCreditNote PurchaseCreditNoteDataModule
 Group: Purchases
@@ -126,8 +126,9 @@ Module: PurchaseCancellation PurchaseCancellationDataModule
 Group: Purchases
 ItemPage: TradeItemPage
 Code: Draft PCAN-YYYY-XXXXXX
-
-FieldGroups: Dates, Party, Organization, Payment, Billing, Shipping, Relations, Amounts, Status, Audit, Notes
+  
+FieldGroups: Billing, Shipping, Amounts, Audit, Organization, Notes 
+ 
 -----------------------------------------------------
 Commercial document header.
 
@@ -151,34 +152,34 @@ its associated handler implementation.
 Line details are stored in TradeLine.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL primary key,
+    Id @NVARCHAR(40) @NOT_NULL primary key,             
 
-    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup
-    Code @NVARCHAR(40) @NOT_NULL,                       -- Code DRAFT-TR-YYYY-XXXXXX DRAFT-TRADE
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup; [Hidden]
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code; [ReadOnlyUI]
 
-    TradeStatusId int default 0 @NOT_NULL,              -- Enum TradeStatus
+    TradeStatusId int default 0 @NOT_NULL,              -- Enum TradeStatus; [ReadOnlyUI]
     TaxTreatmentId int default 1 @NOT_NULL,             -- Enum TaxTreatment
 
-    TradeDate @DATE @NOT_NULL,                          -- Group Dates
-    PostingDate @DATE @NULL,                            -- Group Dates
-    DeliveryDate @DATE @NULL,                           -- Group Dates
-    DueDate @DATE @NULL,                                -- Group Dates
+    TradeDate @DATE @NOT_NULL,                          -- 
+    PostingDate @DATE @NULL,                            -- [ReadOnlyUI]
+    DeliveryDate @DATE @NULL,                           -- 
+    DueDate @DATE @NULL,                                -- 
 
     ExternalRef @NVARCHAR(96) @NULL,                    -- e.g. "Related to Order 123", "Your ref: PO-456"
 
-    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person; Group Party -- Customer, Supplier, etc
-    WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup; Group Party
+    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person -- Customer, Supplier, etc
+    WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup
 
     SalesPersonId @NVARCHAR(40) @NULL,                  -- Lookup Person; Group Organization
     ProjectId @NVARCHAR(40) @NULL,                      -- Lookup; Group Organization
     CostCenterId @NVARCHAR(40) @NULL,                   -- Lookup; Group Organization
     BranchId @NVARCHAR(40) @NULL,                       -- Lookup; Group Organization
 
-    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup; Group Payment
-    ExchangeRate @DECIMAL default 1 @NOT_NULL,          -- Group Payment -- Exchange Rate for base currency
+    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup
+    ExchangeRate @DECIMAL default 1 @NOT_NULL,          -- Exchange Rate for base currency
 
-    PaymentMethodId @NVARCHAR(40) @NULL,                -- Lookup; Group Payment
-    PaymentTermId @NVARCHAR(40) @NULL,                  -- Lookup; Group Payment
+    PaymentMethodId @NVARCHAR(40) @NULL,                -- Lookup
+    PaymentTermId @NVARCHAR(40) @NULL,                  -- Lookup
 
     BillingName @NVARCHAR(96) @NULL,                    -- Group Billing
     BillingAddressLine1 @NVARCHAR(128) @NULL,           -- Group Billing
@@ -194,32 +195,32 @@ CREATE TABLE {TableName} (
     ShippingPostalCode @NVARCHAR(20) @NULL,             -- Group Shipping
     ShippingCountryId @NVARCHAR(40) @NULL,              -- Lookup; Group Shipping
 
-    SourceId @NVARCHAR(40) @NULL,                       -- Locator Trade; Group Relations
-    CancelsTradeId @NVARCHAR(40) @NULL,                 -- Locator Trade; Group Relations
-    CancelledByTradeId @NVARCHAR(40) @NULL,             -- Locator Trade; Group Relations
+    SourceId @NVARCHAR(40) @NULL,                       -- Locator Trade; [Hidden]
+    CancelsTradeId @NVARCHAR(40) @NULL,                 -- Locator Trade; [Hidden]
+    CancelledByTradeId @NVARCHAR(40) @NULL,             -- Locator Trade; [Hidden]
 
-    LinesAmount @DECIMAL default 0 @NOT_NULL,           -- Group Amounts -- sum of lines before header discounts/charges/taxes
+    LinesAmount @DECIMAL default 0 @NOT_NULL,           -- Group Amounts; [ReadOnlyUI] -- sum of lines before header discounts/charges/taxes
     DiscountPercent @DECIMAL default 0 @NOT_NULL,       -- Group Amounts -- Header Discount %
     DiscountAmount @DECIMAL default 0 @NOT_NULL,        -- Group Amounts
     DiscountReason @NVARCHAR(256) @NULL,                -- Group Amounts
 
     ChargesAmount @DECIMAL default 0 @NOT_NULL,         -- Group Amounts
 
-    NetAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts -- = LinesAmount - DiscountAmount + ChargesAmount
-    VatAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts
-    TotalAmount @DECIMAL default 0 @NOT_NULL,           -- Group Amounts
+    NetAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts; [ReadOnlyUI] -- = LinesAmount - DiscountAmount + ChargesAmount
+    VatAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts; [ReadOnlyUI]
+    TotalAmount @DECIMAL default 0 @NOT_NULL,           -- Group Amounts; [ReadOnlyUI]
 
-    IsLocked @BOOL default 0 @NOT_NULL,                 -- Group Status -- Lock document from editing
-    IsCancelled @BOOL default 0 @NOT_NULL,              -- Group Status
+    IsLocked @BOOL default 0 @NOT_NULL,                 -- [ReadOnlyUI] -- Lock document from editing
+    IsCancelled @BOOL default 0 @NOT_NULL,              -- [ReadOnlyUI]
 
-    CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser; Group Audit
-    ModifiedAt @DATE_TIME @NULL,                        -- Group Audit
-    ModifiedBy @NVARCHAR(40) @NULL,                     -- Lookup AppUser; Group Audit
-    PostedAt @DATE_TIME @NULL,                          -- Group Audit
-    PostedBy @NVARCHAR(40) @NULL,                       -- Lookup AppUser; Group Audit
-    CancelledAt @DATE_TIME @NULL,                       -- Group Audit
-    CancelledBy @NVARCHAR(40) @NULL,                    -- Lookup AppUser; Group Audit
+    CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit; [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser; Group Audit; [ReadOnlyUI]
+    ModifiedAt @DATE_TIME @NULL,                        -- Group Audit; [ReadOnlyUI]
+    ModifiedBy @NVARCHAR(40) @NULL,                     -- Lookup AppUser; Group Audit; [ReadOnlyUI]
+    PostedAt @DATE_TIME @NULL,                          -- Group Audit; [ReadOnlyUI]
+    PostedBy @NVARCHAR(40) @NULL,                       -- Lookup AppUser; Group Audit; [ReadOnlyUI]
+    CancelledAt @DATE_TIME @NULL,                       -- Group Audit; [ReadOnlyUI]
+    CancelledBy @NVARCHAR(40) @NULL,                    -- Lookup AppUser; Group Audit; [ReadOnlyUI]
 
     Remarks @NVARCHAR(512) @NULL,                       -- Memo; Group Notes -- internal
     Comments @NVARCHAR(512) @NULL,                      -- Memo; Group Notes -- customer visible

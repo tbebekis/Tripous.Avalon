@@ -324,6 +324,8 @@ static public class ControlBindingHelper
             FieldDef = FieldDef
         };
 
+        Box.IsEnabled = FieldDef == null || !FieldDef.Flags.HasFlag(FieldFlags.ReadOnlyUI);
+
         EventHandler<RoutedEventArgs> Handler = (s, e) =>
         {
             if (Result.IsRefreshing)

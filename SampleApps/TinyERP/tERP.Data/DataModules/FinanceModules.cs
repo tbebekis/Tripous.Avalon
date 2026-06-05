@@ -11,7 +11,7 @@ namespace tERP.Data;
 /// <summary>
 /// Snapshot module
 /// </summary>
-public class FinanceMovementDataModule: DataModule
+public class FinanceMovementDataModule: AppDataModule
 {
     public FinanceMovementDataModule()
     {
@@ -21,7 +21,7 @@ public class FinanceMovementDataModule: DataModule
 /// <summary>
 /// Non-document module
 /// </summary>
-public class FinanceBalanceDataModule: DataModule
+public class FinanceBalanceDataModule: AppDataModule
 {
     public FinanceBalanceDataModule()
     {

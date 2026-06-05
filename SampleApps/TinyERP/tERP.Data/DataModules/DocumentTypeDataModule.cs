@@ -8,8 +8,9 @@
 
 namespace tERP.Data;
 
-public class DocumentTypeDataModule: DataModule
+public class DocumentTypeDataModule: AppDataModule
 {
+    // ● construction
     public DocumentTypeDataModule()
     {
     }

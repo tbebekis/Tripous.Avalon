@@ -25,7 +25,7 @@ public class StockCountDataModule: DocumentDataModule
 /// <summary>
 /// Snapshot module
 /// </summary>
-public class StockMovementDataModule: DataModule
+public class StockMovementDataModule: AppDataModule
 {
     public StockMovementDataModule()
     {

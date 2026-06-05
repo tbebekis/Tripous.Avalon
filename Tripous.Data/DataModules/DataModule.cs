@@ -42,6 +42,10 @@ public class DataModule
     }
  
     // ● overridables - code provider
+    protected virtual CodeProviderDef GetCodeProviderDef() => CodeProviderDef;
+    /// <summary>
+    /// Assigns the <see cref="CodeProviderDef"/>
+    /// </summary>
     protected virtual void AssignCodeProviderDef()
     {
         FieldDef FieldDef = ModuleDef.Table.Fields.Find("Code");
@@ -56,14 +60,17 @@ public class DataModule
     /// </summary>
     public virtual string GetNextCodeLocked(DbTransaction Transaction)
     {
-        if (CodeProviderDef == null)
+        CodeProviderDef CPD = GetCodeProviderDef();
+        
+        if (CPD == null)
             throw new TripousDataException($"Cannot get next Code. {nameof(CodeProviderDef)} is null.");
+        
+        string CodeProviderName = CPD.Name;
+        
         if (Transaction == null)
             throw new TripousDataException($"Cannot get next Code. {nameof(DbTransaction)} is null.");
  
         int Number = 1;
-
-        string CodeProviderName = CodeProviderDef.Name;
  
         DataRow Row = Store.Provider.SelectForUpdate(
             Transaction,

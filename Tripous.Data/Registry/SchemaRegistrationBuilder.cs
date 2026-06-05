@@ -2696,8 +2696,6 @@ static public class SchemaRegistrationBuilder
                 Parts.Add(Text);
         }
 
-        if (IsIdField(Field))
-            AddPart(FieldFlags.Hidden);
         if (!Field.IsNullable)
             AddPart(FieldFlags.Required);
         if (Field.Name.IsSameText("Code"))
