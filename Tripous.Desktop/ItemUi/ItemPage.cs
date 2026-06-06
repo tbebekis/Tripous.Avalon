@@ -148,13 +148,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         {
             if (Sys.IsNull(Value))
             {
-                Context.Binding.Locator.Assign(null, Context.Binding.Table.CurrentRow);
-                Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = DBNull.Value;
+                Context.Binding.Locator.Assign(null, Context.Binding.Table.CurrentRow, Context.Binding.FieldName, Context.Binding.LocatorTargetFieldMap);
             }
             else if (Context.Binding.Locator.LocateByKey(Value))
             {
-                Context.Binding.Locator.Assign(Context.Binding.Locator.SelectedRow, Context.Binding.Table.CurrentRow);
-                Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Context.Binding.Locator.KeyValue;
+                Context.Binding.Locator.Assign(Context.Binding.Locator.SelectedRow, Context.Binding.Table.CurrentRow, Context.Binding.FieldName, Context.Binding.LocatorTargetFieldMap);
             }
             else
             {

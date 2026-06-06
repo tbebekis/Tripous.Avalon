@@ -16,6 +16,7 @@ namespace tERP.Data;
 /// </summary>
 public class DocumentDataModule: AppDataModule
 {
+    // ● protected
     protected override CodeProviderDef GetCodeProviderDef() => IsPosting? FinalCodeProviderDef: DraftCodeProviderDef;
     /// <summary>
     /// Returns the final code provider def, i.e. the one where its pattern does not start with "DRAFT-"
@@ -82,6 +83,24 @@ public class DocumentDataModule: AppDataModule
             throw new TripousDataException($"{nameof(DraftCodeProviderDef)} is null.");
         if (FinalCodeProviderDef == null)
             throw new TripousDataException($"{nameof(FinalCodeProviderDef)} is null.");
+    }
+    /// <summary>
+    /// Sets default values to the Row. It is called when a commit operation starts.
+    /// </summary>
+    protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    {
+        base.SetDefaultValues(Table, Row, TableDef);
+
+        if (Row.RowState == DataRowState.Deleted)
+            return;
+
+        if (Table == tblItem)
+        {
+            if (IsInserting)
+            {
+                Row["TradeTypeId"] = DocumentType.TradeTypeId;
+            }
+        }
     }
     
     // ● construction

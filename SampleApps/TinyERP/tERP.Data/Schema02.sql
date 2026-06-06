@@ -156,6 +156,7 @@ CREATE TABLE {TableName} (
 
     DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup; [Hidden]
     Code @NVARCHAR(40) @NOT_NULL,                       -- Code; [ReadOnlyUI]
+    TradeTypeId int default 0 @NOT_NULL,                -- [Hidden]
 
     TradeStatusId int default 0 @NOT_NULL,              -- Enum TradeStatus; [ReadOnlyUI]
     TaxTreatmentId int default 1 @NOT_NULL,             -- Enum TaxTreatment
@@ -266,7 +267,7 @@ Stores VAT summary lines per VAT rate for a Trade document.
 Generated and maintained by TradeDataModule.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL primary key,
+    Id @NVARCHAR(40) @NOT_NULL primary key,
 
     TradeId @NVARCHAR(40) @NOT_NULL,                    -- Master
     VatRateId @NVARCHAR(40) @NOT_NULL,                  -- Lookup
@@ -291,7 +292,7 @@ Table: TradeLine
 Commercial document line.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL primary key,
+    Id @NVARCHAR(40) @NOT_NULL primary key,
 
     TradeId @NVARCHAR(40) @NOT_NULL,                    -- Master
 
@@ -375,15 +376,15 @@ Posting this document generates StockMovement rows and updates
 inventory balances. It does not represent a commercial transaction.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup -- controls numbering, posting behavior and movement direction
-
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code Draft STK-YYYY-XXXXXX StockTrade
+    TradeTypeId int default 0 @NOT_NULL,                -- [Hidden]
+    
     WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup; Group Warehouses -- main/source warehouse
     ToWarehouseId @NVARCHAR(40) @NULL,                  -- Lookup; Group Warehouses -- destination warehouse, used only for transfers
-
-    Code @NVARCHAR(40) @NOT_NULL,                       -- Code Draft STK-YYYY-XXXXXX StockTrade
-
+ 
     DocumentDate @DATE @NOT_NULL,                       -- Group Dates
     PostingDate @DATE @NULL,                            -- Group Dates -- date used for generated stock movements
 
@@ -439,7 +440,7 @@ Examples:
 - one positive adjustment line produces one IN movement
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     StockTradeId @NVARCHAR(40) @NOT_NULL,               -- Master
     LineNo int @NOT_NULL,
@@ -514,8 +515,10 @@ Typical sources include:
 Current stock quantities are calculated from StockMovement, not from document tables.  
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
+    TradeTypeId int default 0 @NOT_NULL,                -- Enum; [ReadOnlyUI]
+    
     ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
     WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup
 
@@ -539,6 +542,7 @@ CREATE TABLE {TableName} (
     DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup -- source document type
     DocumentCode @NVARCHAR(40) @NOT_NULL,               -- source document code snapshot
     DocumentDate @DATE @NOT_NULL,                       -- source document date snapshot
+    
 
     CreatedAt @DATE_TIME @NOT_NULL,
     CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser
@@ -585,7 +589,7 @@ Used for:
 One row exists per Product/Warehouse combination.  
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
     WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup
@@ -626,11 +630,12 @@ Used for:
 - inventory reconciliation
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     Code @NVARCHAR(40) @NOT_NULL,                     -- Code Draft SC-YYYY-XXXXXX StockCount
     DocumentTypeId @NVARCHAR(40) @NOT_NULL,           -- Lookup -- controls numbering, posting behavior and movement direction
-
+    TradeTypeId int default 0 @NOT_NULL,              -- [Hidden]
+    
     WarehouseId @NVARCHAR(40) @NOT_NULL,              -- Lookup
 
     CountDate @DATE @NOT_NULL,
@@ -678,7 +683,7 @@ The SystemQuantity value is captured at count time and is not recalculated durin
 At posting time, the difference between the counted quantity and the recorded system quantity is converted into inventory adjustment StockMovement records.  
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     StockCountId @NVARCHAR(40) @NOT_NULL,             -- Master
 
@@ -732,7 +737,7 @@ Used for:
 - linking ordered quantities to later deliveries or invoices
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     ProductId @NVARCHAR(40) @NOT_NULL,                 -- Locator Product
     WarehouseId @NVARCHAR(40) @NOT_NULL,              -- Lookup
@@ -797,8 +802,10 @@ This rule ensures that every movement has a single financial destination and pre
 Transfers between cash and bank accounts are represented by separate movement rows, one for each affected account.  
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
+   
+    TradeTypeId int default 0 @NOT_NULL,              -- Enum; [ReadOnlyUI]
     MovementDate @DATE @NOT_NULL,
 
     CashAccountId @NVARCHAR(40) @NULL,                -- Lookup
@@ -865,7 +872,7 @@ A balance row belongs to exactly one financial account.
 A row may reference either a CashAccount or a CompanyBankAccount, but never both simultaneously.  
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     CashAccountId @NVARCHAR(40) @NULL,                -- Lookup
     CompanyBankAccountId @NVARCHAR(40) @NULL,         -- Lookup
@@ -921,7 +928,7 @@ Examples:
 - VAT Receivable
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,
@@ -975,7 +982,7 @@ Corrections are performed through reversal journal entries rather than
 editing or deleting posted records.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     Code @NVARCHAR(40) @NOT_NULL,                     -- Code Draft JE-YYYY-XXXXXX JournalEntry
 
@@ -993,6 +1000,7 @@ CREATE TABLE {TableName} (
     DocumentTypeId @NVARCHAR(40) @NULL,               -- Lookup; Group Document
     DocumentCode @NVARCHAR(40) @NULL,                 -- Group Document
     DocumentDate @DATE @NULL,                         -- Group Document
+    TradeTypeId int default 0 @NOT_NULL,              -- Enum; [Hidden]
 
     Remarks @NBLOB_TEXT @NULL,                        -- LargeMemo; Group Notes
 
@@ -1056,7 +1064,7 @@ A journal line should never contain both a debit amount and a credit amount simu
 A line with both amounts equal to zero is considered invalid.  
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     JournalEntryId @NVARCHAR(40) @NOT_NULL,          -- Master
 
@@ -1122,7 +1130,7 @@ Current BookValue is calculated as:
 AcquisitionCost - AccumulatedDepreciation
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     Code @NVARCHAR(40) @NOT_NULL,                  -- Code AST-XXXXXX Asset
     Name @NVARCHAR(96) @NOT_NULL,
@@ -1191,7 +1199,7 @@ Corrections are performed through reversal records and reversal journal entries 
 The parent Asset stores AccumulatedDepreciation and BookValue as cached current values, but the authoritative depreciation history is this table.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-                             Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+   Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     AssetId @NVARCHAR(40) @NOT_NULL,                  -- Master
 

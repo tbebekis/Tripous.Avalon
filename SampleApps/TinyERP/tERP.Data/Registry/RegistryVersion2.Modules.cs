@@ -50,7 +50,7 @@ select
 from
   Account
 ";
-        Module = DataRegistry.AddOrGetModule("Account", ClassName: "AccountDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("Account", ClassName: "AccountDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -129,7 +129,7 @@ from
     left join AppUser CreatedBy on CreatedBy.Id = Asset.CreatedBy
     left join AppUser ModifiedBy on ModifiedBy.Id = Asset.ModifiedBy
 ";
-        Module = DataRegistry.AddOrGetModule("Asset", ClassName: "AssetDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("Asset", ClassName: "AssetDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -248,7 +248,7 @@ from
   DocumentType
     left join SYS_NUMBER_SERIES NumberSeries on NumberSeries.Id = DocumentType.NumberSeriesId
 ";
-        Module = DataRegistry.AddOrGetModule("DocumentType", ClassName: "DocumentTypeDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("DocumentType", ClassName: "DocumentTypeDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -334,7 +334,7 @@ from
     left join CompanyBankAccount CompanyBankAccount on CompanyBankAccount.Id = FinanceBalance.CompanyBankAccountId
     left join FinanceMovement LastMovement on LastMovement.Id = FinanceBalance.LastMovementId
 ";
-        Module = DataRegistry.AddOrGetModule("FinanceBalance", ClassName: "FinanceBalanceDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("FinanceBalance", ClassName: "FinanceBalanceDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -371,6 +371,16 @@ from
         SqlText = @"
 select
    FinanceMovement.Id,
+   FinanceMovement.TradeTypeId,
+   case
+      when FinanceMovement.TradeTypeId = 0 then 'None'
+      when FinanceMovement.TradeTypeId = 1 then 'Sales'
+      when FinanceMovement.TradeTypeId = 2 then 'Purchases'
+      when FinanceMovement.TradeTypeId = 3 then 'Warehouse'
+      when FinanceMovement.TradeTypeId = 4 then 'Financial'
+      when FinanceMovement.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
    FinanceMovement.MovementDate,
    FinanceMovement.CashAccountId,
    FinanceMovement.CompanyBankAccountId,
@@ -403,7 +413,7 @@ from
     left join DocumentType DocumentType on DocumentType.Id = FinanceMovement.DocumentTypeId
     left join AppUser CreatedBy on CreatedBy.Id = FinanceMovement.CreatedBy
 ";
-        Module = DataRegistry.AddOrGetModule("FinanceMovement", ClassName: "FinanceMovementDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("FinanceMovement", ClassName: "FinanceMovementDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -411,6 +421,7 @@ from
         tblTop.KeyField = "Id";
         tblTop.IsUiVisible = false;
         tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDate("MovementDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CashAccountId", "CashAccount", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CompanyBankAccountId", "CompanyBankAccount", Flags: FieldFlags.None).SetNullable(true);
@@ -427,11 +438,13 @@ from
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required).SetNullable(false);
-        string[] FilterFields = ["Amount", "CashAccount__Code", "CashAccount__Name", "CompanyBankAccount__Code", "CompanyBankAccount__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "Direction", "DocumentCode", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "ExchangeRate", "MovementDate", "Remarks", "SourceModule", "SourceTable"];
+        string[] FilterFields = ["Amount", "CashAccount__Code", "CashAccount__Name", "CompanyBankAccount__Code", "CompanyBankAccount__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "Direction", "DocumentCode", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "ExchangeRate", "MovementDate", "Remarks", "SourceModule", "SourceTable", "TradeType"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
         SelectDef.ColumnTypes["MovementDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["CashAccountId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CompanyBankAccountId"] = DataColumnType.Text;
@@ -483,6 +496,16 @@ select
    JournalEntry.DocumentTypeId,
    JournalEntry.DocumentCode,
    JournalEntry.DocumentDate,
+   JournalEntry.TradeTypeId,
+   case
+      when JournalEntry.TradeTypeId = 0 then 'None'
+      when JournalEntry.TradeTypeId = 1 then 'Sales'
+      when JournalEntry.TradeTypeId = 2 then 'Purchases'
+      when JournalEntry.TradeTypeId = 3 then 'Warehouse'
+      when JournalEntry.TradeTypeId = 4 then 'Financial'
+      when JournalEntry.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
    JournalEntry.CancelledDocumentId,
    JournalEntry.CancellationDocumentId,
    JournalEntry.CreatedAt,
@@ -497,7 +520,7 @@ from
     left join AppUser CreatedBy on CreatedBy.Id = JournalEntry.CreatedBy
     left join AppUser ModifiedBy on ModifiedBy.Id = JournalEntry.ModifiedBy
 ";
-        Module = DataRegistry.AddOrGetModule("JournalEntry", ClassName: "JournalEntryDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("JournalEntry", ClassName: "JournalEntryDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -516,6 +539,7 @@ from
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.None).SetNullable(true).SetGroup("Document");
         tblTop.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Document");
         tblTop.AddDate("DocumentDate", Flags: FieldFlags.None).SetNullable(true).SetGroup("Document");
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo().SetGroup("Notes");
         tblTop.AddString("CancelledDocumentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
         tblTop.AddString("CancellationDocumentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
@@ -533,7 +557,7 @@ from
         tblCancellationDocument.AddId("Id").SetNullable(false);
         tblCancellationDocument.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-JournalEntry");
         tblCancellationDocument.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Document");
-        string[] FilterFields = ["Code", "CreatedAt", "CreatedBy", "DocumentCode", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "EntryDate", "ModifiedAt", "ModifiedBy", "SourceModule", "SourceTable", "TotalCredit", "TotalDebit", "TradeStatus"];
+        string[] FilterFields = ["Code", "CreatedAt", "CreatedBy", "DocumentCode", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "EntryDate", "ModifiedAt", "ModifiedBy", "SourceModule", "SourceTable", "TotalCredit", "TotalDebit", "TradeStatus", "TradeType"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -550,6 +574,8 @@ from
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CancelledDocumentId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CancellationDocumentId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
@@ -585,6 +611,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -696,16 +723,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("PurchaseCancellation", ClassName: "PurchaseCancellationDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("PurchaseCancellation", ClassName: "PurchaseCancellationDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseCancellation");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -796,6 +824,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -939,6 +968,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -1050,16 +1080,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("PurchaseCreditNote", ClassName: "PurchaseCreditNoteDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("PurchaseCreditNote", ClassName: "PurchaseCreditNoteDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseCreditNote");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -1150,6 +1181,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -1293,6 +1325,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -1404,16 +1437,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("PurchaseDeliveryNote", ClassName: "PurchaseDeliveryNoteDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("PurchaseDeliveryNote", ClassName: "PurchaseDeliveryNoteDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseDeliveryNote");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -1504,6 +1538,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -1647,6 +1682,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -1758,16 +1794,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("PurchaseInvoice", ClassName: "PurchaseInvoiceDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("PurchaseInvoice", ClassName: "PurchaseInvoiceDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseInvoice");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -1858,6 +1895,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -2001,6 +2039,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -2112,16 +2151,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("PurchaseOrder", ClassName: "PurchaseOrderDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("PurchaseOrder", ClassName: "PurchaseOrderDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseOrder");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -2212,6 +2252,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -2355,6 +2396,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -2466,16 +2508,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("PurchaseReturn", ClassName: "PurchaseReturnDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("PurchaseReturn", ClassName: "PurchaseReturnDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseReturn");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -2566,6 +2609,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -2709,6 +2753,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -2820,16 +2865,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("SalesCancellation", ClassName: "SalesCancellationDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("SalesCancellation", ClassName: "SalesCancellationDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesCancellation");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -2920,6 +2966,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -3063,6 +3110,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -3174,16 +3222,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("SalesCreditNote", ClassName: "SalesCreditNoteDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("SalesCreditNote", ClassName: "SalesCreditNoteDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesCreditNote");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -3274,6 +3323,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -3417,6 +3467,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -3528,16 +3579,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("SalesDeliveryNote", ClassName: "SalesDeliveryNoteDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("SalesDeliveryNote", ClassName: "SalesDeliveryNoteDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesDeliveryNote");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -3628,6 +3680,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -3771,6 +3824,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -3882,16 +3936,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("SalesInvoice", ClassName: "SalesInvoiceDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("SalesInvoice", ClassName: "SalesInvoiceDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesInvoice");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -3982,6 +4037,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -4125,6 +4181,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -4236,16 +4293,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("SalesOrder", ClassName: "SalesOrderDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("SalesOrder", ClassName: "SalesOrderDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesOrder");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -4336,6 +4394,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -4479,6 +4538,7 @@ select
    Trade.Id,
    Trade.DocumentTypeId,
    Trade.Code,
+   Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
       when Trade.TradeStatusId = 0 then 'Draft'
@@ -4590,16 +4650,17 @@ from
     left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("SalesReturn", ClassName: "SalesReturnDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("SalesReturn", ClassName: "SalesReturnDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
         tblTop.Name = "Trade";
         tblTop.KeyField = "Id";
-        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Notes"]);
+        tblTop.FieldGroups.AddRange(["Billing", "Shipping", "Amounts", "Audit", "Organization", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesReturn");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -4690,6 +4751,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
@@ -4848,7 +4910,7 @@ from
     left join Warehouse Warehouse on Warehouse.Id = StockBalance.WarehouseId
     left join StockMovement LastMovement on LastMovement.Id = StockBalance.LastMovementId
 ";
-        Module = DataRegistry.AddOrGetModule("StockBalance", ClassName: "StockBalanceDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("StockBalance", ClassName: "StockBalanceDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -4898,6 +4960,7 @@ select
    StockCount.Id,
    StockCount.Code,
    StockCount.DocumentTypeId,
+   StockCount.TradeTypeId,
    StockCount.WarehouseId,
    StockCount.CountDate,
    StockCount.StatusId,
@@ -4924,7 +4987,7 @@ from
     left join AppUser CreatedBy on CreatedBy.Id = StockCount.CreatedBy
     left join AppUser ModifiedBy on ModifiedBy.Id = StockCount.ModifiedBy
 ";
-        Module = DataRegistry.AddOrGetModule("StockCount", ClassName: "StockCountDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("StockCount", ClassName: "StockCountDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -4934,6 +4997,7 @@ from
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-StockCount");
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("CountDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -4959,6 +5023,7 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CountDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["StatusId"] = DataColumnType.Integer;
@@ -5005,6 +5070,16 @@ from
         SqlText = @"
 select
    StockMovement.Id,
+   StockMovement.TradeTypeId,
+   case
+      when StockMovement.TradeTypeId = 0 then 'None'
+      when StockMovement.TradeTypeId = 1 then 'Sales'
+      when StockMovement.TradeTypeId = 2 then 'Purchases'
+      when StockMovement.TradeTypeId = 3 then 'Warehouse'
+      when StockMovement.TradeTypeId = 4 then 'Financial'
+      when StockMovement.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
    StockMovement.ProductId,
    StockMovement.WarehouseId,
    StockMovement.MovementDate,
@@ -5040,7 +5115,7 @@ from
     left join DocumentType DocumentType on DocumentType.Id = StockMovement.DocumentTypeId
     left join AppUser CreatedBy on CreatedBy.Id = StockMovement.CreatedBy
 ";
-        Module = DataRegistry.AddOrGetModule("StockMovement", ClassName: "StockMovementDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("StockMovement", ClassName: "StockMovementDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -5048,6 +5123,7 @@ from
         tblTop.KeyField = "Id";
         tblTop.IsUiVisible = false;
         tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("MovementDate", Flags: FieldFlags.Required).SetNullable(false);
@@ -5074,11 +5150,13 @@ from
         tblProduct.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
         tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true);
         tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true);
-        string[] FilterFields = ["CostAmount", "CreatedAt", "CreatedBy", "Direction", "DocumentCode", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "MovementDate", "PrimaryQuantity", "Product__Code", "Product__Name", "Quantity", "SourceModule", "SourceTable", "UnitCost", "UnitOfMeasure__Code", "UnitOfMeasure__Name", "UnitOfMeasureName", "UnitRatio", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["CostAmount", "CreatedAt", "CreatedBy", "Direction", "DocumentCode", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "MovementDate", "PrimaryQuantity", "Product__Code", "Product__Name", "Quantity", "SourceModule", "SourceTable", "TradeType", "UnitCost", "UnitOfMeasure__Code", "UnitOfMeasure__Name", "UnitOfMeasureName", "UnitRatio", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ProductId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["MovementDate"] = DataColumnType.Date;
@@ -5134,7 +5212,7 @@ from
     left join Product Product on Product.Id = StockReservation.ProductId
     left join Warehouse Warehouse on Warehouse.Id = StockReservation.WarehouseId
 ";
-        Module = DataRegistry.AddOrGetModule("StockReservation", ClassName: "StockReservationDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("StockReservation", ClassName: "StockReservationDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -5187,9 +5265,10 @@ from
 select
    StockTrade.Id,
    StockTrade.DocumentTypeId,
+   StockTrade.Code,
+   StockTrade.TradeTypeId,
    StockTrade.WarehouseId,
    StockTrade.ToWarehouseId,
-   StockTrade.Code,
    StockTrade.DocumentDate,
    StockTrade.PostingDate,
    StockTrade.StatusId,
@@ -5229,7 +5308,7 @@ from
     left join AppUser PostedBy on PostedBy.Id = StockTrade.PostedBy
     left join AppUser CancelledBy on CancelledBy.Id = StockTrade.CancelledBy
 ";
-        Module = DataRegistry.AddOrGetModule("StockTrade", ClassName: "StockTradeDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("StockTrade", ClassName: "StockTradeDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -5238,9 +5317,10 @@ from
         tblTop.FieldGroups.AddRange(["Warehouses", "Dates", "Relations", "Status", "Audit", "Notes"]);
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-StockTrade");
+        tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Warehouses");
         tblTop.AddStringLookupId("ToWarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true).SetGroup("Warehouses");
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-StockTrade");
         tblTop.AddDate("DocumentDate", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Dates");
         tblTop.AddDate("PostingDate", Flags: FieldFlags.None).SetNullable(true).SetGroup("Dates");
         tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required).SetNullable(false);
@@ -5272,9 +5352,10 @@ from
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["WarehouseId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ToWarehouseId"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["StatusId"] = DataColumnType.Integer;

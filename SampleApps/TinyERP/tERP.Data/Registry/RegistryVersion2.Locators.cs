@@ -18,13 +18,13 @@ public partial class RegistryVersion2: RegistryVersion
     // ● public
     public override void RegisterLocators()
     {
-        DataRegistry.AddOrGetLocator("JournalEntry", "JournalEntry", "Id", FormName: "JournalEntry");
-        DataRegistry.AddOrGetLocator("Person", "Person", "Id", FormName: "Person");
-        DataRegistry.AddOrGetLocator("Product", "Product", "Id", FormName: "Product");
-        DataRegistry.AddOrGetLocator("StockCount", "StockCount", "Id", FormName: "StockCount");
-        DataRegistry.AddOrGetLocator("StockTrade", "StockTrade", "Id", FormName: "StockTrade");
-        DataRegistry.AddOrGetLocator("Supplier", "ProductSupplier", "Id");
-        DataRegistry.AddOrGetLocator("Trade", "Trade", "Id", FormName: "SalesOrder");
-        DataRegistry.AddOrGetLocator("TradeLine", "TradeLine", "Id");
+        DataRegistry.AddOrUpdateLocator("JournalEntry", "JournalEntry", "Id", FormName: "JournalEntry");
+        DataRegistry.AddOrUpdateLocator("Person", "Person", "Id", FormName: "Person");
+        DataRegistry.AddOrUpdateLocator("Product", "Product", "Id", FormName: "Product");
+        DataRegistry.AddOrUpdateLocator("StockCount", "StockCount", "Id", FormName: "StockCount");
+        DataRegistry.AddOrUpdateLocator("StockTrade", "StockTrade", "Id", FormName: "StockTrade");
+        DataRegistry.AddOrUpdateLocator("Supplier", "ProductSupplier", "Id");
+        DataRegistry.AddOrUpdateLocator("Trade", "Trade", "Id", FormName: "SalesOrder");
+        DataRegistry.AddOrUpdateLocator("TradeLine", "TradeLine", "Id");
     }
 }

@@ -55,6 +55,32 @@ static public class ControlBindingHelper
             LocatorDef.Fields.Add(LocatorField);
         }
     }
+    static Dictionary<string, string> CreateLocatorTargetFieldMap(LocatorDef LocatorDef, FieldDef FieldDef)
+    {
+        Dictionary<string, string> Result = new(StringComparer.OrdinalIgnoreCase);
+        if (LocatorDef == null || FieldDef?.TableDef == null)
+            return Result;
+
+        TableDef JoinTable = FieldDef.TableDef.Joins.FirstOrDefault(item => item.MasterField.IsSameText(FieldDef.Name));
+        if (JoinTable == null)
+            return Result;
+
+        foreach (LocatorFieldDef LocatorField in LocatorDef.Fields)
+        {
+            FieldDef JoinField = JoinTable.Fields.FirstOrDefault(item =>
+                item.Name.IsSameText(LocatorField.Name)
+                || item.Alias.IsSameText(LocatorField.Alias)
+                || (!string.IsNullOrWhiteSpace(LocatorField.TargetField) && item.Alias.IsSameText(LocatorField.TargetField)));
+
+            if (JoinField != null)
+            {
+                Result[LocatorField.Name] = JoinField.Alias;
+                Result[LocatorField.Alias] = JoinField.Alias;
+            }
+        }
+
+        return Result;
+    }
     static DataRow GetCurrentRow(IRowProvider RowProvider)
     {
         return RowProvider?.CurrentRow;
@@ -189,7 +215,7 @@ static public class ControlBindingHelper
         if (Row.Table.Columns.Contains(Binding.FieldDef.Name))
             Control.KeyValue = Row[Binding.FieldDef.Name];
 
-        Control.RefreshTargetBoxes(Row);
+        Control.RefreshTargetBoxes(Row, Binding.LocatorTargetFieldMap);
     }
 
     static void RefreshCheckBox(IRowProvider RowProvider, ControlBinding Binding)
@@ -354,6 +380,8 @@ static public class ControlBindingHelper
             FieldDef = FieldDef
         };
 
+        Box.IsEnabled = FieldDef == null || !FieldDef.Flags.HasFlag(FieldFlags.ReadOnlyUI);
+
         EventHandler<DatePickerSelectedValueChangedEventArgs> Handler = (s, e) =>
         {
             if (Result.IsRefreshing)
@@ -381,6 +409,8 @@ static public class ControlBindingHelper
             DataColumn = DataColumn,
             FieldDef = FieldDef
         };
+
+        Box.IsEnabled = FieldDef == null || !FieldDef.Flags.HasFlag(FieldFlags.ReadOnlyUI);
 
         void NormalizeOrRefresh(string Text = null)
         {
@@ -660,7 +690,8 @@ static public class ControlBindingHelper
             FieldName =  FieldDef.Name,
             FieldDef = FieldDef,
             LocatorDef = LocatorDef,
-            Locator = Locator
+            Locator = Locator,
+            LocatorTargetFieldMap = CreateLocatorTargetFieldMap(LocatorDef, FieldDef)
         };
 
         Box.RowSelected += (Sender, Args) =>
@@ -675,8 +706,7 @@ static public class ControlBindingHelper
             Binding.IsRefreshing = true;
             try
             {
-                Locator.Assign(Args.Row, Row);
-                SetLocatorBoxValue(RowProvider, Binding);
+                Locator.Assign(Args.Row, Row, Binding.FieldName, Binding.LocatorTargetFieldMap);
                 RefreshLocatorBox(RowProvider, Binding);
             }
             finally
@@ -690,26 +720,4 @@ static public class ControlBindingHelper
         return Binding;
     }
 
-    /// <summary>
-    /// Writes the locator box key value to the current row.
-    /// </summary>
-    static public void SetLocatorBoxValue(IRowProvider RowProvider, ControlBinding Binding)
-    {
-        if (Binding.Control is not LocatorBox Control)
-            return;
-
-        DataRow Row = RowProvider != null ? RowProvider.CurrentRow : null;
-        if (Row == null)
-            return;
-
-        DataColumn Column = Row.Table.FindColumn(Binding.FieldDef.Name);
-        if (Column == null || Column.ReadOnly)
-            return;
-
-        object OldValue = Row[Column];
-        object NewValue = Sys.IsNull(Control.KeyValue) ? DBNull.Value : Control.KeyValue;
-
-        if (!Equals(OldValue, NewValue))
-            Row[Column] = NewValue;
-    }
 }

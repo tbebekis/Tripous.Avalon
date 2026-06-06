@@ -32,6 +32,17 @@ static public class DataRegistry
         DataRegistry.Modules.Add(Result);
         return Result;
     }
+    static void UpdateModule(ModuleDef ModuleDef, string TitleKey, string ClassName, string ListSelectSql, bool? IsSingleSelect)
+    {
+        if (TitleKey != null)
+            ModuleDef.TitleKey = TitleKey;
+        if (ClassName != null)
+            ModuleDef.ClassName = ClassName;
+        if (ListSelectSql != null)
+            ModuleDef.SelectList[0].SqlText = ListSelectSql;
+        if (IsSingleSelect.HasValue)
+            ModuleDef.IsSingleSelect = IsSingleSelect.Value;
+    }
     static ModuleDef AddLookupListModuleInternal(string TableName, string Name, string TitleKey)
     {
         ModuleDef Result = AddModule(Name: Name, TitleKey: TitleKey, IsSingleSelect: true);
@@ -89,6 +100,42 @@ static public class DataRegistry
         DataRegistry.Lookups.Add(Result);
         return Result;
     }
+    static void UpdateLookup(LookupDef LookupDef, Type EnumType, string TableName, string SqlText, string ClassName, string FormName, bool? UseNullItem)
+    {
+        if (EnumType != null)
+        {
+            LookupDef.EnumTypeName = EnumType.FullName;
+            LookupDef.TableName = null;
+            LookupDef.SqlText = null;
+            LookupDef.ClassName = null;
+        }
+        else if (TableName != null)
+        {
+            LookupDef.EnumTypeName = null;
+            LookupDef.TableName = TableName;
+            LookupDef.SqlText = $"select * from {TableName}";
+            LookupDef.ClassName = null;
+        }
+        else if (SqlText != null)
+        {
+            LookupDef.EnumTypeName = null;
+            LookupDef.TableName = null;
+            LookupDef.SqlText = SqlText;
+            LookupDef.ClassName = null;
+        }
+        else if (ClassName != null)
+        {
+            LookupDef.EnumTypeName = null;
+            LookupDef.TableName = null;
+            LookupDef.SqlText = null;
+            LookupDef.ClassName = ClassName;
+        }
+
+        if (FormName != null)
+            LookupDef.Form = FormName;
+        if (UseNullItem.HasValue)
+            LookupDef.UseNullItem = UseNullItem.Value;
+    }
     static void CheckLookup(string Name)
     {
         if (string.IsNullOrWhiteSpace(Name))
@@ -130,16 +177,37 @@ static public class DataRegistry
         if (Locators.Contains(Name))
             throw new TripousException($"Cannot add a {nameof(LocatorDef)}. '{Name}' is already registered.");
     }
-    static LocatorDef AddLocatorInternal(string Name, string SourceTableName, string KeyField, string ClassName, string FormName)
+    static LocatorDef AddLocatorInternal(string Name, string SourceTableName, string SelectSql, string KeyField, string ClassName, string FormName)
     {
         LocatorDef Result = new();
         Result.Name = Name;
         Result.SourceTableName = SourceTableName;
+        Result.SelectSql = SelectSql;
         Result.KeyField = KeyField;
         Result.ClassName = ClassName;
         Result.Form = FormName;
         Locators.Add(Result);
         return Result;
+    }
+    static void UpdateLocator(LocatorDef LocatorDef, string SourceTableName, string SelectSql, string KeyField, string ClassName, string FormName)
+    {
+        if (SourceTableName != null)
+        {
+            LocatorDef.SourceTableName = SourceTableName;
+            LocatorDef.SelectSql = null;
+        }
+        else if (SelectSql != null)
+        {
+            LocatorDef.SourceTableName = null;
+            LocatorDef.SelectSql = SelectSql;
+        }
+
+        if (KeyField != null)
+            LocatorDef.KeyField = KeyField;
+        if (ClassName != null)
+            LocatorDef.ClassName = ClassName;
+        if (FormName != null)
+            LocatorDef.Form = FormName;
     }
     
     static void CheckCodeProvider(string Name)
@@ -169,14 +237,20 @@ static public class DataRegistry
         return Result;
     }
     /// <summary>
-    /// Adds a module definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates a module definition.
+    /// <para>Existing child definitions and collections are preserved.</para>
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public ModuleDef AddOrGetModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false)
+    static public ModuleDef AddOrUpdateModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool? IsSingleSelect = null)
     {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add or update a {nameof(ModuleDef)}. No '{nameof(Name)}' is provided.");
+
         ModuleDef Result = Modules.Find(Name);
         if (Result == null)
-            Result = AddModuleInternal(Name, TitleKey, ClassName, ListSelectSql, IsSingleSelect); 
+            Result = AddModuleInternal(Name, TitleKey, ClassName, ListSelectSql, IsSingleSelect ?? false);
+        else
+            UpdateModule(Result, TitleKey, ClassName, ListSelectSql, IsSingleSelect);
         return Result;
     }
  
@@ -205,14 +279,28 @@ static public class DataRegistry
         return Result;
     }
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates a lookup list module definition.
+    /// <para>Existing child definitions and collections are preserved.</para>
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public ModuleDef AddOrGetLookupListModule(string TableName, string Name, string TitleKey)
+    static public ModuleDef AddOrUpdateLookupListModule(string TableName, string Name, string TitleKey)
     {
+        if (string.IsNullOrWhiteSpace(TableName))
+            throw new TripousException($"Cannot add or update a {nameof(ModuleDef)}. No '{nameof(TableName)}' is provided.");
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add or update a {nameof(ModuleDef)}. No '{nameof(Name)}' is provided.");
+
         ModuleDef Result = Modules.Find(Name);
         if (Result == null)
-            Result = AddLookupListModuleInternal(TableName, Name, TitleKey); 
+            Result = AddLookupListModuleInternal(TableName, Name, TitleKey);
+        else
+        {
+            Result.Table.Name = TableName;
+            Result.IsSingleSelect = true;
+            Result.UseFilters = false;
+            if (TitleKey != null)
+                Result.TitleKey = TitleKey;
+        }
         return Result;
     }
     
@@ -234,20 +322,24 @@ static public class DataRegistry
         return Result;
     }
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates an enum lookup definition.
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public LookupDef AddOrGetLookupSource(Type EnumType, bool UseNullItem = false)
+    static public LookupDef AddOrUpdateLookupSource(Type EnumType, bool? UseNullItem = null)
     {
-        return AddOrGetLookup(EnumType.FullName, EnumType, TableName: "", SqlText: "", ClassName: "", FormName: "", UseNullItem);
+        if (EnumType == null)
+            throw new TripousException($"Cannot add or update a {nameof(LookupDef)}. No '{nameof(EnumType)}' is provided.");
+        return AddOrUpdateLookup(EnumType.FullName, EnumType, TableName: null, SqlText: null, ClassName: null, FormName: null, UseNullItem);
     }
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates an enum lookup definition.
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public LookupDef AddOrGetLookupSource(string Name, Type EnumType, bool UseNullItem = false)
+    static public LookupDef AddOrUpdateLookupSource(string Name, Type EnumType, bool? UseNullItem = null)
     {
-        return AddOrGetLookup(Name, EnumType, TableName: "", SqlText: "", ClassName: "", FormName: "", UseNullItem);
+        if (EnumType == null)
+            throw new TripousException($"Cannot add or update a {nameof(LookupDef)}. No '{nameof(EnumType)}' is provided.");
+        return AddOrUpdateLookup(Name, EnumType, TableName: null, SqlText: null, ClassName: null, FormName: null, UseNullItem);
     }
     
     // ● lookups - with table name
@@ -265,12 +357,14 @@ static public class DataRegistry
         return Result;
     }
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates a table lookup definition.
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public LookupDef AddOrGetLookupWithTableName(string Name, string TableName = null, string FormName = null, bool UseNullItem = false)
+    static public LookupDef AddOrUpdateLookupWithTableName(string Name, string TableName = null, string FormName = null, bool? UseNullItem = null)
     {
-        return AddOrGetLookup(Name, EnumType: null, TableName: TableName, SqlText: "", ClassName: "", FormName: FormName, UseNullItem);
+        if (string.IsNullOrWhiteSpace(TableName))
+            TableName = Name;
+        return AddOrUpdateLookup(Name, EnumType: null, TableName: TableName, SqlText: null, ClassName: null, FormName: FormName, UseNullItem);
     }
     
     // ● lookups - with SELECT Sql
@@ -288,12 +382,14 @@ static public class DataRegistry
         return Result;
     }
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates a SQL lookup definition.
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public LookupDef AddOrGetLookupWithSql(string Name, string SqlText = null, string FormName = null, bool UseNullItem = false)
+    static public LookupDef AddOrUpdateLookupWithSql(string Name, string SqlText = null, string FormName = null, bool? UseNullItem = null)
     {
-        return AddOrGetLookup(Name, EnumType: null, TableName: "", SqlText: SqlText, ClassName: "", FormName: FormName, UseNullItem);
+        if (string.IsNullOrWhiteSpace(SqlText))
+            SqlText = $"select * from {Name}";
+        return AddOrUpdateLookup(Name, EnumType: null, TableName: null, SqlText: SqlText, ClassName: null, FormName: FormName, UseNullItem);
     }
 
     // ● lookups - with class name
@@ -308,24 +404,35 @@ static public class DataRegistry
         return Result;
     }
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates a class lookup definition.
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public LookupDef AddOrGetLookupWithClassName(string Name, string ClassName, string FormName = null, bool UseNullItem = false)
+    static public LookupDef AddOrUpdateLookupWithClassName(string Name, string ClassName, string FormName = null, bool? UseNullItem = null)
     {
-        return AddOrGetLookup(Name, EnumType: null, TableName: "", SqlText: "", ClassName: ClassName, FormName: FormName, UseNullItem);
+        if (string.IsNullOrWhiteSpace(ClassName))
+            throw new TripousException($"Cannot add or update a {nameof(LookupDef)}. No '{nameof(ClassName)}' is provided.");
+        return AddOrUpdateLookup(Name, EnumType: null, TableName: null, SqlText: null, ClassName: ClassName, FormName: FormName, UseNullItem);
     }
     
-    // ● lookups - add or get
+    // ● lookups - add or update
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates a lookup definition.
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public LookupDef AddOrGetLookup(string Name, Type EnumType, string TableName, string SqlText, string ClassName, string FormName, bool UseNullItem)
+    static public LookupDef AddOrUpdateLookup(string Name, Type EnumType, string TableName, string SqlText, string ClassName, string FormName, bool? UseNullItem)
     {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add or update a {nameof(LookupDef)}. No '{nameof(Name)}' is provided.");
+        if (EnumType != null && !EnumType.IsEnum)
+            throw new TripousDataException($"Cannot add or update a {nameof(LookupDef)}. Type {EnumType.FullName} is not an enum type");
+        if (EnumType == null && string.IsNullOrWhiteSpace(TableName) && string.IsNullOrWhiteSpace(SqlText) && string.IsNullOrWhiteSpace(ClassName))
+            throw new TripousException($"Cannot add or update a {nameof(LookupDef)}. No source is provided.");
+
         LookupDef Result = Lookups.Find(Name);
         if (Result == null)
-            Result = AddLookupInternal(Name, EnumType, TableName, SqlText, ClassName, FormName: FormName, UseNullItem);
+            Result = AddLookupInternal(Name, EnumType, TableName, SqlText, ClassName, FormName, UseNullItem ?? false);
+        else
+            UpdateLookup(Result, EnumType, TableName, SqlText, ClassName, FormName, UseNullItem);
         return Result;
     }
     
@@ -337,18 +444,61 @@ static public class DataRegistry
     static public LocatorDef AddLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
     {
         CheckLocator(Name, KeyField);
-        LocatorDef Result = AddLocatorInternal(Name, SourceTableName, KeyField, ClassName, FormName);
+        string SelectSql = "";
+        LocatorDef Result = AddLocatorInternal(Name, SourceTableName, SelectSql, KeyField, ClassName, FormName);
         return Result;
     }
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates a table locator definition.
+    /// <para>Existing field definitions are preserved.</para>
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public LocatorDef AddOrGetLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
+    static public LocatorDef AddOrUpdateLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
     {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(Name)}' is provided.");
+        if (string.IsNullOrWhiteSpace(SourceTableName))
+            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(SourceTableName)}' is provided.");
+        if (string.IsNullOrWhiteSpace(KeyField))
+            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(KeyField)}' is provided.");
+
         LocatorDef Result = Locators.Find(Name);
         if (Result == null)
-            Result = AddLocatorInternal(Name, SourceTableName, KeyField, ClassName, FormName);
+            Result = AddLocatorInternal(Name, SourceTableName, null, KeyField, ClassName, FormName);
+        else
+            UpdateLocator(Result, SourceTableName, null, KeyField, ClassName, FormName);
+        return Result;
+    }
+    /// <summary>
+    /// Adds a locator definition.
+    /// <para>If the definition exists, an exception is thrown.</para>
+    /// </summary>
+    static public LocatorDef AddLocatorWithSql(string Name, string SelectSql, string KeyField, string ClassName = null, string FormName = null)
+    {
+        CheckLocator(Name, KeyField);
+        string SourceTableName = "";
+        LocatorDef Result = AddLocatorInternal(Name, SourceTableName, SelectSql, KeyField, ClassName, FormName);
+        return Result;
+    }
+    /// <summary>
+    /// Adds or updates a SQL locator definition.
+    /// <para>Existing field definitions are preserved.</para>
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
+    /// </summary>
+    static public LocatorDef AddOrUpdateLocatorWithSql(string Name, string SelectSql, string KeyField, string ClassName = null, string FormName = null)
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(Name)}' is provided.");
+        if (string.IsNullOrWhiteSpace(SelectSql))
+            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(SelectSql)}' is provided.");
+        if (string.IsNullOrWhiteSpace(KeyField))
+            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(KeyField)}' is provided.");
+
+        LocatorDef Result = Locators.Find(Name);
+        if (Result == null)
+            Result = AddLocatorInternal(Name, null, SelectSql, KeyField, ClassName, FormName);
+        else
+            UpdateLocator(Result, null, SelectSql, KeyField, ClassName, FormName);
         return Result;
     }
     /// <summary>
@@ -373,11 +523,14 @@ static public class DataRegistry
         return Result;
     }
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or returns a code provider definition.
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public CodeProviderDef AddOrGetCodeProvider(string Name)
+    static public CodeProviderDef AddOrUpdateCodeProvider(string Name)
     {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add or update a {nameof(CodeProviderDef)}. No '{nameof(Name)}' is provided.");
+
         CodeProviderDef Result = CodeProviders.Find(Name);
         if (Result == null)
             Result = AddCodeProvider(Name);
@@ -397,14 +550,21 @@ static public class DataRegistry
         return Result;
     }
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates a document handler definition.
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public DocumentHandlerDef AddOrGetDocumentHandler(string Name, string ClassName)
+    static public DocumentHandlerDef AddOrUpdateDocumentHandler(string Name, string ClassName)
     {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add or update a {nameof(DocumentHandlerDef)}. No '{nameof(Name)}' is provided.");
+        if (string.IsNullOrWhiteSpace(ClassName))
+            throw new TripousException($"Cannot add or update a {nameof(DocumentHandlerDef)}. No '{nameof(ClassName)}' is provided.");
+
         DocumentHandlerDef Result = DocumentHandlers.Find(Name);
         if (Result == null)
             Result = AddDocumentHandler(Name, ClassName);
+        else if (ClassName != null)
+            Result.ClassName = ClassName;
         return Result;
     }
 

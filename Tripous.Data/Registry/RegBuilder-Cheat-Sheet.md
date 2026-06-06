@@ -151,9 +151,9 @@ ModuleName @NVARCHAR(96) @NOT_NULL, -- Lookup DocumentModule ClassName:DocumentM
 - `LOOKUP_NAME` is the name of the `LookupDef` in `DataRegistry.Lookups`.
 - If `LOOKUP_NAME` is omitted, it is resolved from the FK referenced table or from the field name without `Id`.
 - If `TableName:`, `EnumName:`, or `ClassName:` is used, `LOOKUP_NAME` is required.
-- `TableName:` uses `DataRegistry.AddOrGetLookupWithTableName()`.
-- `EnumName:` uses `DataRegistry.AddOrGetLookupSource()`.
-- `ClassName:` uses `DataRegistry.AddOrGetLookupWithClassName()`.
+- `TableName:` uses `DataRegistry.AddOrUpdateLookupWithTableName()`.
+- `EnumName:` uses `DataRegistry.AddOrUpdateLookupSource()`.
+- `ClassName:` uses `DataRegistry.AddOrUpdateLookupWithClassName()`.
 
 ## SQL Type Tokens
 

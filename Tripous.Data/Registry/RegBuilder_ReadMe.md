@@ -340,9 +340,9 @@ ModuleName @NVARCHAR(96) @NOT_NULL, -- Lookup DocumentModule ClassName:DocumentM
 
 - If `LOOKUP_NAME` is omitted, it is resolved from the foreign key referenced table, or from the field name without the `Id` suffix.
 - If `TableName:`, `EnumName:`, or `ClassName:` is used, `LOOKUP_NAME` is required.
-- `TableName:` registers the lookup with `DataRegistry.AddOrGetLookupWithTableName()`.
-- `EnumName:` registers the lookup with `DataRegistry.AddOrGetLookupSource()`.
-- `ClassName:` registers the lookup with `DataRegistry.AddOrGetLookupWithClassName()`.
+- `TableName:` registers the lookup with `DataRegistry.AddOrUpdateLookupWithTableName()`.
+- `EnumName:` registers the lookup with `DataRegistry.AddOrUpdateLookupSource()`.
+- `ClassName:` registers the lookup with `DataRegistry.AddOrUpdateLookupWithClassName()`.
 
 A table is identified as **lookup** when:
 - header contains `IsLookup`, **or**
@@ -408,7 +408,7 @@ Same provider name with different patterns → **parsing error**.
 Generated output:
 ```csharp
 FieldDef.CodeProvider = "SALES_ORDER";
-DataRegistry.AddOrGetCodeProvider("SALES_ORDER");
+DataRegistry.AddOrUpdateCodeProvider("SALES_ORDER");
 Version.AddStatementAfter("INSERT INTO SYS_NUMBER_SERIES ...");
 ```
 
@@ -416,8 +416,8 @@ Draft output:
 
 ```csharp
 FieldDef.CodeProvider = "DRAFT-SALES_ORDER";
-DataRegistry.AddOrGetCodeProvider("DRAFT-SALES_ORDER");
-DataRegistry.AddOrGetCodeProvider("SALES_ORDER");
+DataRegistry.AddOrUpdateCodeProvider("DRAFT-SALES_ORDER");
+DataRegistry.AddOrUpdateCodeProvider("SALES_ORDER");
 ```
 
 `Code Draft SO-YYYY-XXXXXX SALES_ORDER` generates two code provider patterns:

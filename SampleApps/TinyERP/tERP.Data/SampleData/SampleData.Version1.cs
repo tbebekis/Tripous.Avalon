@@ -456,9 +456,11 @@ public partial class SampleData1: SampleData
 
         tblSource.CopyColumnsFrom(Module.tblItem);
 
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUS"), ("Name", "Customer"), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "UserRound"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP"), ("Name", "Supplier"), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "Truck"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CAR"), ("Name", "Carrier"), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "PackageCheck"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUS"), ("Name", "Customer"), ("Color", "#2563EB"), ("IconName", "UserRound"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP"), ("Name", "Supplier"), ("Color", "#16A34A"), ("IconName", "Truck"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CAR"), ("Name", "Carrier"), ("Color", "#F59E0B"), ("IconName", "PackageCheck"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP"), ("Name", "Employee"), ("Color", "#0EA5E9"), ("IconName", "UserRoundCheck"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "MGR"), ("Name", "Manager"), ("Color", "#7C3AED"), ("IconName", "UserRoundCog"), ("Remarks", DBNull.Value));
 
         Module.BatchInsert(tblSource);
     }
@@ -695,6 +697,11 @@ public partial class SampleData1: SampleData
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-NORTH"), ("Name", "Northwind Traders Ltd"), ("Title", "Wholesale Customer"), ("TaxNumber", "987654321"), ("TaxOfficeId", CentralTaxOfficeId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", EnglishId), ("AddressLine1", "25 Kifisias Avenue"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "11523"), ("Phone", "+30 210 1000002"), ("Mobile", DBNull.Value), ("Email", "orders@northwind.example"), ("Website", "https://northwind.example"), ("ContactPerson", "Alex Morgan"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "Store"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-HELIOS"), ("Name", "Helios Supplies OE"), ("Title", "Supplier"), ("TaxNumber", "456789123"), ("TaxOfficeId", CentralTaxOfficeId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", "8 Piraeus Street"), ("AddressLine2", DBNull.Value), ("City", "Piraeus"), ("PostalCode", "18531"), ("Phone", "+30 210 1000003"), ("Mobile", DBNull.Value), ("Email", "sales@helios.example"), ("Website", "https://helios.example"), ("ContactPerson", "Nikos Papadopoulos"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "Truck"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-BERLIN"), ("Name", "Berlin Components GmbH"), ("Title", "International Supplier"), ("TaxNumber", "DE123456789"), ("TaxOfficeId", DBNull.Value), ("CountryId", GermanyId), ("CurrencyId", EuroId), ("LanguageId", GermanId), ("AddressLine1", "42 Alexanderplatz"), ("AddressLine2", DBNull.Value), ("City", "Berlin"), ("PostalCode", "10178"), ("Phone", "+49 30 1000004"), ("Mobile", DBNull.Value), ("Email", "info@berlincomponents.example"), ("Website", "https://berlincomponents.example"), ("ContactPerson", "Hans Becker"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#9333EA"), ("IconName", "Factory"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-ELENA"), ("Name", "Elena Papadopoulou"), ("Title", "Sales Manager"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000001"), ("Email", "elena.papadopoulou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#0EA5E9"), ("IconName", "UserRound"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-DIMITRIS"), ("Name", "Dimitris Nikolaou"), ("Title", "Warehouse Manager"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Piraeus"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000002"), ("Email", "dimitris.nikolaou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#7C3AED"), ("IconName", "UserRound"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-SOFIA"), ("Name", "Sofia Georgiou"), ("Title", "Accountant"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000003"), ("Email", "sofia.georgiou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "UserRound"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-ANDREAS"), ("Name", "Andreas Ioannou"), ("Title", "Sales Representative"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000004"), ("Email", "andreas.ioannou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "UserRound"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-KATERINA"), ("Name", "Katerina Markou"), ("Title", "Support Specialist"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000005"), ("Email", "katerina.markou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#DC2626"), ("IconName", "UserRound"));
 
         Module.BatchInsert(tblSource);
     }
@@ -871,6 +878,8 @@ public partial class SampleData1: SampleData
         object CustomerRoleId = tblPersonRoleType.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CUS"))["Id"];
         object SupplierRoleId = tblPersonRoleType.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("SUP"))["Id"];
         object CarrierRoleId = tblPersonRoleType.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CAR"))["Id"];
+        object EmployeeRoleId = tblPersonRoleType.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EMP"))["Id"];
+        object ManagerRoleId = tblPersonRoleType.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("MGR"))["Id"];
 
         void AddRole(DataRow PersonRow, object RoleTypeId)
         {
@@ -880,8 +889,8 @@ public partial class SampleData1: SampleData
             Module.Edit(PersonId);
             tblPersonRole = Module.GetTable(TableName);
 
-            AddRow(tblPersonRole, ("Id", Id), ("PersonId", PersonId), ("RoleTypeId", RoleTypeId), ("IsActive", true), ("StartDate", DateTime.Today), ("EndDate", DBNull.Value), ("Remarks", DBNull.Value));
-            AddRow(tblSource, ("Id", Id), ("PersonId", PersonId), ("RoleTypeId", RoleTypeId), ("IsActive", true), ("StartDate", DateTime.Today), ("EndDate", DBNull.Value), ("Remarks", DBNull.Value));
+            AddRow(tblPersonRole, ("Id", Id), ("PersonId", PersonId), ("RoleTypeId", RoleTypeId), ("Remarks", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("PersonId", PersonId), ("RoleTypeId", RoleTypeId), ("Remarks", DBNull.Value));
 
             Module.Commit();
         }
@@ -891,6 +900,13 @@ public partial class SampleData1: SampleData
         AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Helios Supplies OE")), SupplierRoleId);
         AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Berlin Components GmbH")), SupplierRoleId);
         AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Berlin Components GmbH")), CarrierRoleId);
+        AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Elena Papadopoulou")), EmployeeRoleId);
+        AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Elena Papadopoulou")), ManagerRoleId);
+        AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Dimitris Nikolaou")), EmployeeRoleId);
+        AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Dimitris Nikolaou")), ManagerRoleId);
+        AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Sofia Georgiou")), EmployeeRoleId);
+        AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Andreas Ioannou")), EmployeeRoleId);
+        AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Katerina Markou")), EmployeeRoleId);
     }
     static void Add_CostCenter()
     {

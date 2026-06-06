@@ -13,23 +13,23 @@ static public partial class Registry
     // ● static public
     static public void RegisterDocumentHandlers()
     {
-        DataRegistry.AddOrGetDocumentHandler("SalesOrder", typeof(SalesOrderDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("SalesDeliveryNote", typeof(SalesDeliveryNoteDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("SalesInvoice", typeof(SalesInvoiceDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("SalesCreditNote", typeof(SalesCreditNoteDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("SalesReturn", typeof(SalesReturnDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("SalesCancellation", typeof(SalesCancellationDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("SalesOrder", typeof(SalesOrderDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("SalesDeliveryNote", typeof(SalesDeliveryNoteDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("SalesInvoice", typeof(SalesInvoiceDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("SalesCreditNote", typeof(SalesCreditNoteDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("SalesReturn", typeof(SalesReturnDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("SalesCancellation", typeof(SalesCancellationDocumentHandler).FullName);
         
-        DataRegistry.AddOrGetDocumentHandler("PurchaseOrder", typeof(PurchaseOrderDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("PurchaseDeliveryNote", typeof(PurchaseDeliveryNoteDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("PurchaseInvoice", typeof(PurchaseInvoiceDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("PurchaseCreditNote", typeof(PurchaseCreditNoteDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("PurchaseReturn", typeof(PurchaseReturnDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("PurchaseCancellation", typeof(PurchaseCancellationDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("PurchaseOrder", typeof(PurchaseOrderDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("PurchaseDeliveryNote", typeof(PurchaseDeliveryNoteDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("PurchaseInvoice", typeof(PurchaseInvoiceDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("PurchaseCreditNote", typeof(PurchaseCreditNoteDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("PurchaseReturn", typeof(PurchaseReturnDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("PurchaseCancellation", typeof(PurchaseCancellationDocumentHandler).FullName);
         
-        DataRegistry.AddOrGetDocumentHandler("StockTrade", typeof(StockTradeDocumentHandler).FullName);
-        DataRegistry.AddOrGetDocumentHandler("StockCount", typeof(StockCountDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("StockTrade", typeof(StockTradeDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("StockCount", typeof(StockCountDocumentHandler).FullName);
         
-        DataRegistry.AddOrGetDocumentHandler("JournalEntry", typeof(JournalEntryDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("JournalEntry", typeof(JournalEntryDocumentHandler).FullName);
     }
 }

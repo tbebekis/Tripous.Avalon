@@ -18,28 +18,28 @@ public partial class RegistryVersion2: RegistryVersion
     // ● public
     public override void RegisterForms()
     {
-        DesktopRegistry.AddOrGetForm("Account", TitleKey: "Account", Module: "Account", Group: "Accounting");
-        DesktopRegistry.AddOrGetForm("Asset", TitleKey: "Asset", Module: "Asset", Group: "Assets");
-        DesktopRegistry.AddOrGetForm("DocumentType", TitleKey: "DocumentType", Module: "DocumentType", Group: "Documents");
-        DesktopRegistry.AddOrGetForm("FinanceBalance", TitleKey: "FinanceBalance", Module: "FinanceBalance", Group: "Finance", IsReadOnly: true);
-        DesktopRegistry.AddOrGetForm("FinanceMovement", TitleKey: "FinanceMovement", Module: "FinanceMovement", Group: "Finance", IsReadOnly: true);
-        DesktopRegistry.AddOrGetForm("JournalEntry", TitleKey: "JournalEntry", Module: "JournalEntry", Group: "Accounting");
-        DesktopRegistry.AddOrGetForm("PurchaseCancellation", TitleKey: "PurchaseCancellation", Module: "PurchaseCancellation", Group: "Purchases", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("PurchaseCreditNote", TitleKey: "PurchaseCreditNote", Module: "PurchaseCreditNote", Group: "Purchases", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("PurchaseDeliveryNote", TitleKey: "PurchaseDeliveryNote", Module: "PurchaseDeliveryNote", Group: "Purchases", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("PurchaseInvoice", TitleKey: "PurchaseInvoice", Module: "PurchaseInvoice", Group: "Purchases", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("PurchaseOrder", TitleKey: "PurchaseOrder", Module: "PurchaseOrder", Group: "Purchases", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("PurchaseReturn", TitleKey: "PurchaseReturn", Module: "PurchaseReturn", Group: "Purchases", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("SalesCancellation", TitleKey: "SalesCancellation", Module: "SalesCancellation", Group: "Sales", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("SalesCreditNote", TitleKey: "SalesCreditNote", Module: "SalesCreditNote", Group: "Sales", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("SalesDeliveryNote", TitleKey: "SalesDeliveryNote", Module: "SalesDeliveryNote", Group: "Sales", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("SalesInvoice", TitleKey: "SalesInvoice", Module: "SalesInvoice", Group: "Sales", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("SalesOrder", TitleKey: "SalesOrder", Module: "SalesOrder", Group: "Sales", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("SalesReturn", TitleKey: "SalesReturn", Module: "SalesReturn", Group: "Sales", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrGetForm("StockBalance", TitleKey: "StockBalance", Module: "StockBalance", Group: "Inventory", IsReadOnly: true);
-        DesktopRegistry.AddOrGetForm("StockCount", TitleKey: "StockCount", Module: "StockCount", Group: "Inventory");
-        DesktopRegistry.AddOrGetForm("StockMovement", TitleKey: "StockMovement", Module: "StockMovement", Group: "Inventory", IsReadOnly: true);
-        DesktopRegistry.AddOrGetForm("StockReservation", TitleKey: "StockReservation", Module: "StockReservation", Group: "Inventory", IsReadOnly: true);
-        DesktopRegistry.AddOrGetForm("StockTrade", TitleKey: "StockTrade", Module: "StockTrade", Group: "Inventory");
+        DesktopRegistry.AddOrUpdateForm("Account", TitleKey: "Account", Module: "Account", Group: "Accounting");
+        DesktopRegistry.AddOrUpdateForm("Asset", TitleKey: "Asset", Module: "Asset", Group: "Assets");
+        DesktopRegistry.AddOrUpdateForm("DocumentType", TitleKey: "DocumentType", Module: "DocumentType", Group: "Documents");
+        DesktopRegistry.AddOrUpdateForm("FinanceBalance", TitleKey: "FinanceBalance", Module: "FinanceBalance", Group: "Finance", IsReadOnly: true);
+        DesktopRegistry.AddOrUpdateForm("FinanceMovement", TitleKey: "FinanceMovement", Module: "FinanceMovement", Group: "Finance", IsReadOnly: true);
+        DesktopRegistry.AddOrUpdateForm("JournalEntry", TitleKey: "JournalEntry", Module: "JournalEntry", Group: "Accounting");
+        DesktopRegistry.AddOrUpdateForm("PurchaseCancellation", TitleKey: "PurchaseCancellation", Module: "PurchaseCancellation", Group: "Purchases", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("PurchaseCreditNote", TitleKey: "PurchaseCreditNote", Module: "PurchaseCreditNote", Group: "Purchases", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("PurchaseDeliveryNote", TitleKey: "PurchaseDeliveryNote", Module: "PurchaseDeliveryNote", Group: "Purchases", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("PurchaseInvoice", TitleKey: "PurchaseInvoice", Module: "PurchaseInvoice", Group: "Purchases", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("PurchaseOrder", TitleKey: "PurchaseOrder", Module: "PurchaseOrder", Group: "Purchases", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("PurchaseReturn", TitleKey: "PurchaseReturn", Module: "PurchaseReturn", Group: "Purchases", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("SalesCancellation", TitleKey: "SalesCancellation", Module: "SalesCancellation", Group: "Sales", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("SalesCreditNote", TitleKey: "SalesCreditNote", Module: "SalesCreditNote", Group: "Sales", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("SalesDeliveryNote", TitleKey: "SalesDeliveryNote", Module: "SalesDeliveryNote", Group: "Sales", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("SalesInvoice", TitleKey: "SalesInvoice", Module: "SalesInvoice", Group: "Sales", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("SalesOrder", TitleKey: "SalesOrder", Module: "SalesOrder", Group: "Sales", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("SalesReturn", TitleKey: "SalesReturn", Module: "SalesReturn", Group: "Sales", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("StockBalance", TitleKey: "StockBalance", Module: "StockBalance", Group: "Inventory", IsReadOnly: true);
+        DesktopRegistry.AddOrUpdateForm("StockCount", TitleKey: "StockCount", Module: "StockCount", Group: "Inventory");
+        DesktopRegistry.AddOrUpdateForm("StockMovement", TitleKey: "StockMovement", Module: "StockMovement", Group: "Inventory", IsReadOnly: true);
+        DesktopRegistry.AddOrUpdateForm("StockReservation", TitleKey: "StockReservation", Module: "StockReservation", Group: "Inventory", IsReadOnly: true);
+        DesktopRegistry.AddOrUpdateForm("StockTrade", TitleKey: "StockTrade", Module: "StockTrade", Group: "Inventory");
     }
 }

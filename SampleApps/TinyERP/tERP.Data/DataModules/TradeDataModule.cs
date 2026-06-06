@@ -10,8 +10,11 @@ namespace tERP.Data;
 
 public class TradeDataModule: DocumentDataModule
 {
+    // ● protected
     protected virtual int GetDefaultTaxTreatmentId() => (int)TaxTreatment.Normal;
-    
+    /// <summary>
+    /// Sets default values to the Row. It is called when a commit operation starts.
+    /// </summary>
     protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
     {
         base.SetDefaultValues(Table, Row, TableDef);
@@ -32,7 +35,6 @@ public class TradeDataModule: DocumentDataModule
 
             if (Sys.IsNull(Row["ExchangeRate"]))
                 Row["ExchangeRate"] = 1;
-
         }
     }
     

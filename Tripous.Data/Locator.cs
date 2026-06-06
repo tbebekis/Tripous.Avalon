@@ -435,16 +435,12 @@ public class Locator
         return true;
     }
     /// <summary>
-    /// Assigns locator values from a source row to a target row.
-    /// <para>NOTE: When <see cref="SourceRow"/> is null, it just clears the appropriate fields in <see cref="TargetRow"/></para>
-    /// </summary>
-    public virtual void Assign(DataRow SourceRow, DataRow TargetRow)
-    {
-        Assign(SourceRow, TargetRow, KeyFieldName: null, TargetFieldMap: null, UseAliasFallback: false, ForceTargetReadOnly: false);
-    }
-    /// <summary>
-    /// Assigns locator key and values from a source row to a target row using a target field map.
-    /// <para>NOTE: When <see cref="SourceRow"/> is null, it just clears the appropriate fields in <see cref="TargetRow"/></para>
+    /// Assigns the locator key and field values from a source row to a target row.
+    /// <para><see cref="KeyFieldName"/> identifies the target field that receives the locator key.</para>
+    /// <para><see cref="TargetFieldMap"/> maps locator source field names or aliases to fields in the target row.</para>
+    /// <para>The mapping is supplied by the binding layer because only the binding knows the target table, join and aliases used in its current context. This allows the same locator definition to be reused safely by different controls, grids and modules.</para>
+    /// <para>The target field map takes precedence over <see cref="LocatorFieldDef.TargetField"/>.</para>
+    /// <para><b>NOTE:</b> When <see cref="SourceRow"/> is null, the key field and mapped target fields are cleared.</para>
     /// </summary>
     public virtual void Assign(DataRow SourceRow, DataRow TargetRow, string KeyFieldName, Dictionary<string, string> TargetFieldMap)
     {

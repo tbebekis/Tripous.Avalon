@@ -18,36 +18,36 @@ public partial class RegistryVersion2: RegistryVersion
     // ● public
     public override void RegisterCodeProviders()
     {
-        DataRegistry.AddOrGetCodeProvider("Asset");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-JournalEntry");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-PurchaseCancellation");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-PurchaseCreditNote");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-PurchaseDeliveryNote");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-PurchaseInvoice");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-PurchaseOrder");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-PurchaseReturn");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-SalesCancellation");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-SalesCreditNote");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-SalesDeliveryNote");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-SalesInvoice");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-SalesOrder");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-SalesReturn");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-StockCount");
-        DataRegistry.AddOrGetCodeProvider("DRAFT-StockTrade");
-        DataRegistry.AddOrGetCodeProvider("JournalEntry");
-        DataRegistry.AddOrGetCodeProvider("PurchaseCancellation");
-        DataRegistry.AddOrGetCodeProvider("PurchaseCreditNote");
-        DataRegistry.AddOrGetCodeProvider("PurchaseDeliveryNote");
-        DataRegistry.AddOrGetCodeProvider("PurchaseInvoice");
-        DataRegistry.AddOrGetCodeProvider("PurchaseOrder");
-        DataRegistry.AddOrGetCodeProvider("PurchaseReturn");
-        DataRegistry.AddOrGetCodeProvider("SalesCancellation");
-        DataRegistry.AddOrGetCodeProvider("SalesCreditNote");
-        DataRegistry.AddOrGetCodeProvider("SalesDeliveryNote");
-        DataRegistry.AddOrGetCodeProvider("SalesInvoice");
-        DataRegistry.AddOrGetCodeProvider("SalesOrder");
-        DataRegistry.AddOrGetCodeProvider("SalesReturn");
-        DataRegistry.AddOrGetCodeProvider("StockCount");
-        DataRegistry.AddOrGetCodeProvider("StockTrade");
+        DataRegistry.AddOrUpdateCodeProvider("Asset");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-JournalEntry");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-PurchaseCancellation");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-PurchaseCreditNote");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-PurchaseDeliveryNote");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-PurchaseInvoice");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-PurchaseOrder");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-PurchaseReturn");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-SalesCancellation");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-SalesCreditNote");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-SalesDeliveryNote");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-SalesInvoice");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-SalesOrder");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-SalesReturn");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-StockCount");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-StockTrade");
+        DataRegistry.AddOrUpdateCodeProvider("JournalEntry");
+        DataRegistry.AddOrUpdateCodeProvider("PurchaseCancellation");
+        DataRegistry.AddOrUpdateCodeProvider("PurchaseCreditNote");
+        DataRegistry.AddOrUpdateCodeProvider("PurchaseDeliveryNote");
+        DataRegistry.AddOrUpdateCodeProvider("PurchaseInvoice");
+        DataRegistry.AddOrUpdateCodeProvider("PurchaseOrder");
+        DataRegistry.AddOrUpdateCodeProvider("PurchaseReturn");
+        DataRegistry.AddOrUpdateCodeProvider("SalesCancellation");
+        DataRegistry.AddOrUpdateCodeProvider("SalesCreditNote");
+        DataRegistry.AddOrUpdateCodeProvider("SalesDeliveryNote");
+        DataRegistry.AddOrUpdateCodeProvider("SalesInvoice");
+        DataRegistry.AddOrUpdateCodeProvider("SalesOrder");
+        DataRegistry.AddOrUpdateCodeProvider("SalesReturn");
+        DataRegistry.AddOrUpdateCodeProvider("StockCount");
+        DataRegistry.AddOrUpdateCodeProvider("StockTrade");
     }
 }

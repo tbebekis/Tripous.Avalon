@@ -319,11 +319,11 @@ CREATE TABLE {TableName} (
 
     PriceListTypeId @NVARCHAR(40) @NOT_NULL,        -- Lookup
 
-    DiscountCategoryId @NVARCHAR(40) @NULL,        -- Lookup
-    CustomerId @NVARCHAR(40) @NULL,             -- Locator Customer
+    DiscountCategoryId @NVARCHAR(40) @NULL,         -- Lookup
+    CustomerId @NVARCHAR(40) @NULL,                 -- Locator Customer
 
-    ProductId @NVARCHAR(40) @NOT_NULL,          -- Locator Product
-    UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,    -- Lookup
+    ProductId @NVARCHAR(40) @NOT_NULL,              -- Locator Product
+    UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,        -- Lookup
 
     MinQuantity @DECIMAL_(18, 4) default 0 @NOT_NULL,
 
@@ -462,7 +462,7 @@ CREATE TABLE {TableName} (
     AddressLine2 @NVARCHAR(160) @NULL,
     City @NVARCHAR(96) @NULL,
     PostalCode @NVARCHAR(16) @NULL,
-    CountryId @NVARCHAR(40) @NOT_NULL,          -- Locator
+    CountryId @NVARCHAR(40) @NOT_NULL,          -- Lookup
     Phone @NVARCHAR(32) @NULL,
     Email @NVARCHAR(96) @NULL,
     IsPrimary int default 0 @NOT_NULL,
@@ -635,7 +635,7 @@ CREATE TABLE {TableName} (
     Phone @NVARCHAR(32) @NULL,                          -- Group Address
     Email @NVARCHAR(96) @NULL,                          -- Group Address
 
-    ResponsiblePersonId @NVARCHAR(40) @NULL,            -- Locator Person; Group Settings -- person responsible for warehouse
+    ResponsiblePersonId @NVARCHAR(40) @NULL,            -- Locator Employee; Group Settings -- person responsible for warehouse
 
     IsActive @BOOL default 1 @NOT_NULL,                 -- Group Settings
     IsVirtual @BOOL default 0 @NOT_NULL,                -- Group Settings -- logical/non-physical warehouse
@@ -771,8 +771,6 @@ CREATE TABLE {TableName} (
     Code @NVARCHAR(40) @NOT_NULL,
     Name @NVARCHAR(96) @NOT_NULL,
 
-    IsActive @BOOL default 1 @NOT_NULL,
-
     Color @NVARCHAR(32) @NULL,
     IconName @NVARCHAR(96) @NULL,
 
@@ -793,12 +791,7 @@ CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
     PersonId @NVARCHAR(40) @NOT_NULL,           -- Master
-    RoleTypeId @NVARCHAR(40) @NOT_NULL,         -- Lookup
-
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    StartDate @DATE @NULL,
-    EndDate @DATE @NULL,
+    RoleTypeId @NVARCHAR(40) @NOT_NULL,         -- Lookup 
 
     Remarks @NBLOB_TEXT @NULL,
 
@@ -827,7 +820,7 @@ CREATE TABLE {TableName} (
     Name @NVARCHAR(96) @NOT_NULL,                   -- display title
 
     ParentCostCenterId @NVARCHAR(40) @NULL,         -- Lookup   -- optional hierarchy parent
-    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator Person  -- responsible person
+    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator Manager  -- responsible person
 
     StartDate @DATE @NULL,                          -- activation date
     EndDate @DATE @NULL,                            -- deactivation date
@@ -871,7 +864,7 @@ CREATE TABLE {TableName} (
 
     CostCenterId @NVARCHAR(40) @NULL,
 
-    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator Person     -- responsible person
+    ManagerPersonId @NVARCHAR(40) @NULL,            -- Locator Manager     -- responsible person
 
     IsActive @BOOL default 1 @NOT_NULL,
 
@@ -1064,12 +1057,12 @@ Table: PersonAddress
 CREATE TABLE {TableName}
 (
     Id                  @NVARCHAR(40) @NOT_NULL primary key,
-    PersonId            @NVARCHAR(40) @NOT_NULL, -- Master
-    AddressTypeId       int @NOT_NULL,      -- Enum AddressType
-    Code                @NVARCHAR(40) @NULL,     -- Code ADR-XXXXXX
+    PersonId            @NVARCHAR(40) @NOT_NULL,                -- Master
+    AddressTypeId       int @NOT_NULL,                          -- Enum AddressType
+    Code                @NVARCHAR(40) @NULL,                    -- Code ADR-XXXXXX
 
     Name                @NVARCHAR(96) @NULL,
-    CountryId           @NVARCHAR(40) @NULL,     -- Lookup
+    CountryId           @NVARCHAR(40) @NULL,                    -- Lookup
     Region              @NVARCHAR(96) @NULL,
     City                @NVARCHAR(96) @NULL,
     PostalCode          @NVARCHAR(40) @NULL,
@@ -1078,7 +1071,7 @@ CREATE TABLE {TableName}
     AddressLine2        @NVARCHAR(96) @NULL,
 
     IsDefault           @BOOL default 0 @NOT_NULL,
-    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+    Notes               @NBLOB_TEXT @NULL,                      -- LargeMemo 
 
     FOREIGN KEY (PersonId) REFERENCES Person(Id),
     FOREIGN KEY (CountryId) REFERENCES Country(Id)
@@ -1119,8 +1112,8 @@ Examples:
 CREATE TABLE {TableName}
 (
     Id                  @NVARCHAR(40) @NOT_NULL primary key,
-    PersonId            @NVARCHAR(40) @NOT_NULL, -- Master
-    ContactTypeId       @NVARCHAR(40) @NOT_NULL, -- Lookup
+    PersonId            @NVARCHAR(40) @NOT_NULL,                -- Master
+    ContactTypeId       @NVARCHAR(40) @NOT_NULL,                -- Lookup
 
     Name                @NVARCHAR(96) @NOT_NULL,
     JobTitle            @NVARCHAR(96) @NULL,
@@ -1130,7 +1123,7 @@ CREATE TABLE {TableName}
     Email               @NVARCHAR(96) @NULL,
 
     IsDefault           @BOOL default 0 @NOT_NULL,
-    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+    Notes               @NBLOB_TEXT @NULL,                      -- LargeMemo
  
 
     FOREIGN KEY (PersonId) REFERENCES Person(Id),
@@ -1150,9 +1143,9 @@ Examples:
 CREATE TABLE {TableName}
 (
     Id                  @NVARCHAR(40) @NOT_NULL primary key,
-    PersonId            @NVARCHAR(40) @NOT_NULL, -- Master
+    PersonId            @NVARCHAR(40) @NOT_NULL,                -- Master
 
-    BankId              @NVARCHAR(40) @NOT_NULL, -- Lookup
+    BankId              @NVARCHAR(40) @NOT_NULL,                -- Lookup
     Name                @NVARCHAR(96) @NOT_NULL,
 
     Iban                @NVARCHAR(40) @NULL,
@@ -1160,7 +1153,7 @@ CREATE TABLE {TableName}
 
     IsDefault           @BOOL default 0 @NOT_NULL,
     IsActive            @BOOL default 1 @NOT_NULL,
-    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo 
+    Notes               @NBLOB_TEXT @NULL,                      -- LargeMemo 
 
     FOREIGN KEY (PersonId) REFERENCES Person(Id),
     FOREIGN KEY (BankId) REFERENCES Bank(Id)
@@ -1207,7 +1200,7 @@ CREATE TABLE {TableName}
     Id                  @NVARCHAR(40) @NOT_NULL primary key,
     ProductId           @NVARCHAR(40) @NOT_NULL, -- Master
 
-    SupplierId          @NVARCHAR(40) @NOT_NULL, -- Locator Person
+    SupplierId          @NVARCHAR(40) @NOT_NULL, -- Locator Supplier
     SupplierCode        @NVARCHAR(96) @NULL,
 
     LeadDays            int @NULL,
@@ -1488,14 +1481,14 @@ Examples:
 CREATE TABLE {TableName}
 (
     Id                  @NVARCHAR(40) @NOT_NULL primary key,
-    FixedAssetId        @NVARCHAR(40) @NOT_NULL, -- Master
+    FixedAssetId        @NVARCHAR(40) @NOT_NULL,                -- Master
 
-    PersonId            @NVARCHAR(40) @NULL,     -- Locator Person
+    PersonId            @NVARCHAR(40) @NULL,                    -- Locator Employee
 
     AssignmentDate      @DATE @NULL,
     ReturnDate          @DATE @NULL,
 
-    Notes               @NBLOB_TEXT @NULL,       -- LargeMemo
+    Notes               @NBLOB_TEXT @NULL,                      -- LargeMemo
  
 
     FOREIGN KEY (FixedAssetId) REFERENCES FixedAsset(Id),

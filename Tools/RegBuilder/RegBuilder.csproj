@@ -27,5 +27,12 @@
       <ProjectReference Include="..\..\Tripous\Tripous.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="AppSettings.json" />
+      <EmbeddedResource Include="AppSettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
  
 </Project>

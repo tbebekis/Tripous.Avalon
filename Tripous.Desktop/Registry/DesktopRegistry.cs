@@ -61,14 +61,32 @@ static public class DesktopRegistry
     /// </summary>
     static public FormDef AddForm(string Name, string Module, string ClassName, string TitleKey, string Group) => AddForm(Name: Name, Module: Module, ClassName: ClassName, TitleKey: TitleKey, Group: Group);
     /// <summary>
-    /// Adds a definition to the registry.
-    /// <para>If the definition exists, that definition is returned.</para>
+    /// Adds or updates a form definition.
+    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public FormDef AddOrGetForm(string Name, string TitleKey = null, string Module = null, string ClassName = null, string Group = null, string ItemClassName = null, bool IsReadOnly = false)
+    static public FormDef AddOrUpdateForm(string Name, string TitleKey = null, string Module = null, string ClassName = null, string Group = null, string ItemClassName = null, bool? IsReadOnly = null)
     {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add or update a {nameof(FormDef)}. No '{nameof(Name)}' is provided.");
+
         FormDef Result = Forms.Find(Name);
         if (Result == null)
-            Result = AddFormInternal(Name, TitleKey, Module, ClassName, Group, ItemClassName, IsReadOnly);
+            Result = AddFormInternal(Name, TitleKey, Module, ClassName, Group, ItemClassName, IsReadOnly ?? false);
+        else
+        {
+            if (TitleKey != null)
+                Result.TitleKey = TitleKey;
+            if (Module != null)
+                Result.Module = Module;
+            if (ClassName != null)
+                Result.ClassName = ClassName;
+            if (Group != null)
+                Result.Group = Group;
+            if (ItemClassName != null)
+                Result.ItemClassName = ItemClassName;
+            if (IsReadOnly.HasValue)
+                Result.IsReadOnly = IsReadOnly.Value;
+        }
         return Result;
     }
     
@@ -85,6 +103,3 @@ static public class DesktopRegistry
     static public DefList<FormDef> Forms { get; } = new();
     
 }
-
-
- 

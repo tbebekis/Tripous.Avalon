@@ -10,6 +10,10 @@ public partial class MainWindow : Window
     void WindowInitialize()
     {
         LogBox.Initialize(edtLog);
+
+        //string FilePath = "../../../../../SampleApps/TinyERP/tERP.Data/Schema01.sql";
+        //FilePath = Path.GetFullPath(FilePath);
+        //LogBox.AppendLine(FilePath);
         
         if (!Directory.Exists(OutputFolderPath))
             Directory.CreateDirectory(OutputFolderPath);

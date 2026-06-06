@@ -167,7 +167,7 @@ public class DataModule
         }
     }
     /// <summary>
-    /// Sets default values to the Table. It is called when an commit operation starts.
+    /// Sets default values to the Table. It is called when a commit operation starts.
     /// </summary>
     protected virtual void SetDefaultValues(DataTable Table, TableDef TableDef)
     {
@@ -178,7 +178,7 @@ public class DataModule
         }
     }
     /// <summary>
-    /// Sets default values to the Row. It is called when an commit operation starts.
+    /// Sets default values to the Row. It is called when a commit operation starts.
     /// </summary>
     protected virtual void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
     {

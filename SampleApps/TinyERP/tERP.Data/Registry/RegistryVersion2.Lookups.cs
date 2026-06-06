@@ -18,27 +18,27 @@ public partial class RegistryVersion2: RegistryVersion
     // ● public
     public override void RegisterLookups()
     {
-        DataRegistry.AddOrGetLookupWithTableName("Account", "Account", FormName: "Account");
-        DataRegistry.AddOrGetLookupWithTableName("AppUser", "AppUser", FormName: "AppUser");
-        DataRegistry.AddOrGetLookupWithTableName("AssetCategory", "AssetCategory", FormName: "AssetCategory");
-        DataRegistry.AddOrGetLookupWithTableName("AssetDepreciationMethod", "AssetDepreciationMethod", FormName: "AssetDepreciationMethod");
-        DataRegistry.AddOrGetLookupWithTableName("AssetLocation", "AssetLocation", FormName: "AssetLocation");
-        DataRegistry.AddOrGetLookupWithTableName("CashAccount", "CashAccount", FormName: "CashAccount");
-        DataRegistry.AddOrGetLookupWithTableName("CompanyBankAccount", "CompanyBankAccount");
-        DataRegistry.AddOrGetLookupWithTableName("CompanyBranch", "CompanyBranch");
-        DataRegistry.AddOrGetLookupWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
-        DataRegistry.AddOrGetLookupWithTableName("Country", "Country", FormName: "Country");
-        DataRegistry.AddOrGetLookupWithTableName("Currency", "Currency", FormName: "Currency");
-        DataRegistry.AddOrGetLookupWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
-        DataRegistry.AddOrGetLookupWithTableName("JournalEntry", "JournalEntry", FormName: "JournalEntry");
-        DataRegistry.AddOrGetLookupWithClassName("ModuleName", "DocumentModuleLookupSource");
-        DataRegistry.AddOrGetLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
-        DataRegistry.AddOrGetLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
-        DataRegistry.AddOrGetLookupWithTableName("Person", "Person", FormName: "Person");
-        DataRegistry.AddOrGetLookupWithTableName("Project", "Project", FormName: "Project");
-        DataRegistry.AddOrGetLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
-        DataRegistry.AddOrGetLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
-        DataRegistry.AddOrGetLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");
-        DataRegistry.AddOrGetLookupWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
+        DataRegistry.AddOrUpdateLookupWithTableName("Account", "Account", FormName: "Account");
+        DataRegistry.AddOrUpdateLookupWithTableName("AppUser", "AppUser", FormName: "AppUser");
+        DataRegistry.AddOrUpdateLookupWithTableName("AssetCategory", "AssetCategory", FormName: "AssetCategory");
+        DataRegistry.AddOrUpdateLookupWithTableName("AssetDepreciationMethod", "AssetDepreciationMethod", FormName: "AssetDepreciationMethod");
+        DataRegistry.AddOrUpdateLookupWithTableName("AssetLocation", "AssetLocation", FormName: "AssetLocation");
+        DataRegistry.AddOrUpdateLookupWithTableName("CashAccount", "CashAccount", FormName: "CashAccount");
+        DataRegistry.AddOrUpdateLookupWithTableName("CompanyBankAccount", "CompanyBankAccount");
+        DataRegistry.AddOrUpdateLookupWithTableName("CompanyBranch", "CompanyBranch");
+        DataRegistry.AddOrUpdateLookupWithTableName("CostCenter", "CostCenter", FormName: "CostCenter");
+        DataRegistry.AddOrUpdateLookupWithTableName("Country", "Country", FormName: "Country");
+        DataRegistry.AddOrUpdateLookupWithTableName("Currency", "Currency", FormName: "Currency");
+        DataRegistry.AddOrUpdateLookupWithTableName("DocumentType", "DocumentType", FormName: "DocumentType");
+        DataRegistry.AddOrUpdateLookupWithTableName("JournalEntry", "JournalEntry", FormName: "JournalEntry");
+        DataRegistry.AddOrUpdateLookupWithClassName("ModuleName", "DocumentModuleLookupSource");
+        DataRegistry.AddOrUpdateLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
+        DataRegistry.AddOrUpdateLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
+        DataRegistry.AddOrUpdateLookupWithTableName("Person", "Person", FormName: "Person");
+        DataRegistry.AddOrUpdateLookupWithTableName("Project", "Project", FormName: "Project");
+        DataRegistry.AddOrUpdateLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
+        DataRegistry.AddOrUpdateLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
+        DataRegistry.AddOrUpdateLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");
+        DataRegistry.AddOrUpdateLookupWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
     }
 }

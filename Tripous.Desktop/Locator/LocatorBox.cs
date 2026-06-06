@@ -83,7 +83,9 @@ public class LocatorBox: UserControl
             Content = fRoot;
             return;
         }
-        List<LocatorFieldDef> Fields = Locator.LocatorDef.Fields.Where(item => item.IsVisible).ToList();
+        List<LocatorFieldDef> Fields = Locator.LocatorDef.Fields
+            .Where(item => item.IsVisible && !item.Name.IsSameText(Locator.LocatorDef.KeyField))
+            .ToList();
         for (int Index = 0; Index < Fields.Count; Index++)
         {
             LocatorFieldDef FieldDef = Fields[Index];
@@ -110,6 +112,7 @@ public class LocatorBox: UserControl
     {
         TextBox Result = new();
         Result.Tag = FieldDef;
+        Result.Watermark = FieldDef.Title;
         Result.IsReadOnly = IsReadOnly || !FieldDef.IsSearchable;
         Result.KeyDown += TextBox_KeyDown;
         Result.TextChanged += TextBox_TextChanged;
@@ -170,7 +173,7 @@ public class LocatorBox: UserControl
         if (Locator == null || Locator.LocatorDef == null || Locator.SourceTable == null)
             return;
 
-        foreach (LocatorFieldDef FieldDef in Locator.LocatorDef.Fields.Where(item => item.IsVisible))
+        foreach (LocatorFieldDef FieldDef in Locator.LocatorDef.Fields.Where(item => item.IsVisible && !item.Name.IsSameText(Locator.LocatorDef.KeyField)))
         {
             DataColumn Column = Locator.SourceTable.FindColumn(FieldDef.Alias);
             if (Column != null)
@@ -390,7 +393,11 @@ public class LocatorBox: UserControl
     /// <summary>
     /// Refreshes all target textboxes from a row.
     /// </summary>
-    public virtual void RefreshTargetBoxes(DataRow Row)
+    public virtual void RefreshTargetBoxes(DataRow Row) => RefreshTargetBoxes(Row, null);
+    /// <summary>
+    /// Refreshes all target textboxes from a row using an optional target field map.
+    /// </summary>
+    public virtual void RefreshTargetBoxes(DataRow Row, Dictionary<string, string> TargetFieldMap)
     {
         if (Row == null || Locator == null || Locator.LocatorDef == null)
         {
@@ -399,12 +406,23 @@ public class LocatorBox: UserControl
         }
         foreach (LocatorFieldDef FieldDef in Locator.LocatorDef.Fields)
         {
-            if (FieldDef.IsVisible && !string.IsNullOrWhiteSpace(FieldDef.TargetField))
+            if (!FieldDef.IsVisible)
+                continue;
+
+            string TargetField = null;
+            if (TargetFieldMap != null)
             {
-                DataColumn Column = Row.Table.FindColumn(FieldDef.TargetField);
-                object Value = Column != null ? Row[Column] : DBNull.Value;
-                SetTargetBoxValue(FieldDef, Value);
+                if (!TargetFieldMap.TryGetValue(FieldDef.Name, out TargetField))
+                    TargetFieldMap.TryGetValue(FieldDef.Alias, out TargetField);
             }
+            if (string.IsNullOrWhiteSpace(TargetField))
+                TargetField = FieldDef.TargetField;
+            if (string.IsNullOrWhiteSpace(TargetField))
+                continue;
+
+            DataColumn Column = Row.Table.FindColumn(TargetField);
+            object Value = Column != null ? Row[Column] : DBNull.Value;
+            SetTargetBoxValue(FieldDef, Value);
         }
     }
 

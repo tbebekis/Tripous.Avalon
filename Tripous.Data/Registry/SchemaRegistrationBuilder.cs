@@ -1218,7 +1218,7 @@ static public class SchemaRegistrationBuilder
         if (TopTable.IsReadOnly)
             Args.Add("IsReadOnly: true");
 
-        return "DesktopRegistry.AddOrGetForm(" + string.Join(", ", Args) + ");";
+        return "DesktopRegistry.AddOrUpdateForm(" + string.Join(", ", Args) + ");";
     }
 
     // ● private - module source
@@ -1282,11 +1282,11 @@ static public class SchemaRegistrationBuilder
         foreach (LookupSourceInfo LookupSource in LookupSources.Values.OrderBy(x => x.Name))
         {
             if (!string.IsNullOrWhiteSpace(LookupSource.ClassName))
-                SB.AppendLine("        DataRegistry.AddOrGetLookupWithClassName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.ClassName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
+                SB.AppendLine("        DataRegistry.AddOrUpdateLookupWithClassName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.ClassName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
             else if (!string.IsNullOrWhiteSpace(LookupSource.EnumTypeName))
-                SB.AppendLine("        DataRegistry.AddOrGetLookupSource(\"" + EscapeString(LookupSource.Name) + "\", TypeStore.Get(\"" + EscapeString(LookupSource.EnumTypeName) + "\"));");
+                SB.AppendLine("        DataRegistry.AddOrUpdateLookupSource(\"" + EscapeString(LookupSource.Name) + "\", TypeStore.Get(\"" + EscapeString(LookupSource.EnumTypeName) + "\"));");
             else
-                SB.AppendLine("        DataRegistry.AddOrGetLookupWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
+                SB.AppendLine("        DataRegistry.AddOrUpdateLookupWithTableName(\"" + EscapeString(LookupSource.Name) + "\", \"" + EscapeString(LookupSource.TableName) + "\"" + BuildOptionalFormNameArgument(LookupSource.FormName) + ");");
         }
 
         SB.AppendLine("    }");
@@ -1308,7 +1308,7 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine("    {");
 
         foreach (string CodeProviderName in CodeProviderNames)
-            SB.AppendLine("        DataRegistry.AddOrGetCodeProvider(\"" + EscapeString(CodeProviderName) + "\");");
+            SB.AppendLine("        DataRegistry.AddOrUpdateCodeProvider(\"" + EscapeString(CodeProviderName) + "\");");
 
         SB.AppendLine("    }");
     }
@@ -1354,7 +1354,7 @@ static public class SchemaRegistrationBuilder
 
         foreach (LocatorInfo Locator in Locators.Values.OrderBy(x => x.Name))
         {
-            string Source = "DataRegistry.AddOrGetLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\"" + BuildOptionalClassNameArgument(Locator.ClassName) + BuildOptionalFormNameArgument(Locator.FormName) + ")";
+            string Source = "DataRegistry.AddOrUpdateLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\"" + BuildOptionalClassNameArgument(Locator.ClassName) + BuildOptionalFormNameArgument(Locator.FormName) + ")";
             SB.AppendLine("        " + Source + ";");
         }
 
@@ -1401,7 +1401,7 @@ static public class SchemaRegistrationBuilder
         if (TopTable.IsSingleSelect)
             Args.Add("IsSingleSelect: true");
 
-        return "Module = DataRegistry.AddOrGetModule(" + string.Join(", ", Args) + ");";
+        return "Module = DataRegistry.AddOrUpdateModule(" + string.Join(", ", Args) + ");";
     }
     /// <summary>
     /// Builds module option assignments.

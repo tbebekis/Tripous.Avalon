@@ -80,8 +80,9 @@ public class AppDataModule: DataModule
             throw new TripousDataException("Current user not found.");
         return Sys.Context.CurrentUser.Id;
     }
-    
-
+    /// <summary>
+    /// Sets default values to the Row. It is called when a commit operation starts.
+    /// </summary>
     protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
     {
         base.SetDefaultValues(Table, Row, TableDef);
