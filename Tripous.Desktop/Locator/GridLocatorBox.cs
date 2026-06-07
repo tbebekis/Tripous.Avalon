@@ -51,8 +51,7 @@ public class GridLocatorBox: UserControl
         fGrid.MinWidth = 300;
         fGrid.MaxHeight = 260;
         fGrid.DoubleTapped += Grid_DoubleTapped;
-        fGrid.KeyDown += Grid_KeyDown;
-        fGrid.AddHandler(KeyDownEvent, Grid_PreviewKeyDown, RoutingStrategies.Tunnel);
+        fGrid.AddHandler(KeyDownEvent, Grid_PreviewKeyDown, RoutingStrategies.Tunnel, handledEventsToo: true);
         fPopupBorder = new Border();
         fPopupBorder.Background = Brushes.White;
         fPopupBorder.BorderBrush = Brushes.Gray;
@@ -130,7 +129,6 @@ public class GridLocatorBox: UserControl
 
         RowView.BeginEdit();
         Locator.Assign(SourceRow, RowView.Row, KeyFieldName, TargetFieldMap);
-        RowView.EndEdit();
     }
     void UpdateLocatorDisplayCells(DataGrid Grid, DataRowView TargetRowView)
     {
@@ -256,20 +254,6 @@ public class GridLocatorBox: UserControl
             {
                 CancelCell();
             }
-            Args.Handled = true;
-        }
-    }
-    void Grid_KeyDown(object Sender, KeyEventArgs Args)
-    {
-        if (Args.Key == Key.Enter)
-        {
-            SelectCurrentRow();
-            Args.Handled = true;
-        }
-        else if (Args.Key == Key.Escape)
-        {
-            ClosePopup();
-            FocusEditor();
             Args.Handled = true;
         }
     }

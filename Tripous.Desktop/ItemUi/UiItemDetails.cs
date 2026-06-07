@@ -19,69 +19,162 @@ static public class UiItemDetails
     /// </summary>
     static public void CreateFirstLevelDetails(UiItemContext context, Control ParentControl)
     {
-        List<UiDetailTableInfo> Details = context.TopTableUiInfo.DetailList.Where(Detail => Detail.ParentTableDef == context.TopTableUiInfo.TableDef).ToList();
+        List<UiDetailTableInfo> Details = context.TopTableUiInfo.DetailList
+            .Where(Detail => Detail.ParentTableDef == context.TopTableUiInfo.TableDef)
+            .ToList();
+        Details = OrderDetails(context, context.TopTableUiInfo.TableDef, Details);
         if (Details.Count == 0)
             return;
         TabControl TabControl = UiFactory.CreateTabControl();
         foreach (UiDetailTableInfo Detail in Details)
-            TabControl.Items.Add(CreateDetailTabItem(context, Detail, 1));
+            TabControl.Items.Add(CreateDetailTabItem(context, Detail));
         UiFactory.AddChild(ParentControl, TabControl);
     }
     /// <summary>
-    /// Creates all detail tabs from level two and deeper.
+    /// Returns the immediate child details of a detail table.
     /// </summary>
-    static public void CreateChildLevelDetails(UiItemContext context, TabControl ParentTabControl)
+    static List<UiDetailTableInfo> GetChildDetails(UiItemContext context, UiDetailTableInfo DetailUiInfo)
     {
-        foreach (UiDetailTableInfo Detail in context.TopTableUiInfo.DetailList)
-        {
-            if (Detail.ParentTableDef == context.TopTableUiInfo.TableDef)
-                continue;
-            int Level = GetTableLevel(context, Detail.TableDef);
-            ParentTabControl.Items.Add(CreateDetailTabItem(context, Detail, Level));
-        }
+        List<UiDetailTableInfo> Result = context.TopTableUiInfo.DetailList
+            .Where(Detail => Detail.ParentTableDef == DetailUiInfo.TableDef)
+            .ToList();
+        return OrderDetails(context, DetailUiInfo.TableDef, Result);
     }
     /// <summary>
-    /// Returns the table level in the detail tree.
+    /// Orders sibling details according to the module detail order.
     /// </summary>
-    static public int GetTableLevel(UiItemContext context, TableDef TableDef)
+    static List<UiDetailTableInfo> OrderDetails(UiItemContext context, TableDef ParentTableDef, List<UiDetailTableInfo> Details)
     {
-        int Result = 0;
-        TableDef Table = TableDef;
-        while (Table != null && Table != context.ModuleDef.Table)
+        if (Details.Count < 2 || ParentTableDef == null || !context.ModuleDef.DetailOrder.TryGetValue(ParentTableDef.Name, out List<string> DetailOrder))
+            return Details;
+
+        Dictionary<string, int> Order = new(StringComparer.OrdinalIgnoreCase);
+        for (int Index = 0; Index < DetailOrder.Count; Index++)
         {
-            Result++;
-            Table = Table.Master;
+            string Name = DetailOrder[Index];
+            if (!string.IsNullOrWhiteSpace(Name) && !Order.ContainsKey(Name))
+                Order[Name] = Index;
         }
+
+        return Details
+            .Select((Detail, Index) => new
+            {
+                Detail,
+                Index,
+                Order = Order.TryGetValue(Detail.TableDef.Name, out int Value) ? Value : int.MaxValue
+            })
+            .OrderBy(Item => Item.Order)
+            .ThenBy(Item => Item.Index)
+            .Select(Item => Item.Detail)
+            .ToList();
+    }
+    /// <summary>
+    /// Creates a horizontal splitter between a parent detail and its child details.
+    /// </summary>
+    static GridSplitter CreateDetailSplitter()
+    {
+        return new GridSplitter
+        {
+            Height = 5,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            VerticalAlignment = VerticalAlignment.Center,
+            ResizeDirection = GridResizeDirection.Rows,
+            ResizeBehavior = GridResizeBehavior.PreviousAndNext,
+            Background = Brushes.LightGray
+        };
+    }
+    /// <summary>
+    /// Creates a panel for a single child detail.
+    /// </summary>
+    static Control CreateSingleChildDetail(UiItemContext context, UiDetailTableInfo DetailUiInfo)
+    {
+        Grid Result = new();
+        Result.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        Result.RowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
+        TextBlock Header = new()
+        {
+            Text = DetailUiInfo.TableDef.Title,
+            FontWeight = FontWeight.SemiBold,
+            Margin = new Thickness(0, 8, 0, 4)
+        };
+        Control Content = CreateDetailBranch(context, DetailUiInfo, ApplyMinimumHeight: false);
+        Avalonia.Controls.Grid.SetRow(Header, 0);
+        Avalonia.Controls.Grid.SetRow(Content, 1);
+        Result.Children.Add(Header);
+        Result.Children.Add(Content);
+        return Result;
+    }
+    /// <summary>
+    /// Creates tabs for multiple child details.
+    /// </summary>
+    static Control CreateChildDetailTabs(UiItemContext context, List<UiDetailTableInfo> Details)
+    {
+        TabControl Result = UiFactory.CreateTabControl();
+        foreach (UiDetailTableInfo Detail in Details)
+            Result.Items.Add(CreateDetailTabItem(context, Detail, ApplyMinimumHeight: false));
+        return Result;
+    }
+    /// <summary>
+    /// Creates a detail branch recursively.
+    /// </summary>
+    static Control CreateDetailBranch(UiItemContext context, UiDetailTableInfo DetailUiInfo, bool ApplyMinimumHeight = true)
+    {
+        Grid Result = new();
+        List<UiDetailTableInfo> Children = GetChildDetails(context, DetailUiInfo);
+        if (Children.Count == 0)
+        {
+            CreateDetail(context, Result, DetailUiInfo, ApplyMinimumHeight);
+            return Result;
+        }
+
+        if (ApplyMinimumHeight)
+            Result.MinHeight = (Ui.Settings.DetailGridMinHeight * 2) + 5;
+        Result.RowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
+        Result.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        Result.RowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
+        GridSplitter Splitter = CreateDetailSplitter();
+        Control ChildControl = Children.Count == 1
+            ? CreateSingleChildDetail(context, Children[0])
+            : CreateChildDetailTabs(context, Children);
+        Grid ParentControl = CreateDetail(context, Result, DetailUiInfo, ApplyMinimumHeight: false);
+        Avalonia.Controls.Grid.SetRow(ParentControl, 0);
+        Avalonia.Controls.Grid.SetRow(Splitter, 1);
+        Avalonia.Controls.Grid.SetRow(ChildControl, 2);
+        Result.Children.Add(Splitter);
+        Result.Children.Add(ChildControl);
         return Result;
     }
     /// <summary>
     /// Creates a tab item for a detail table.
     /// </summary>
-    static public TabItem CreateDetailTabItem(UiItemContext context, UiDetailTableInfo DetailUiInfo, int Level)
+    static public TabItem CreateDetailTabItem(UiItemContext context, UiDetailTableInfo DetailUiInfo, bool ApplyMinimumHeight = true)
     {
         TabItem Result = new()
         {
-            Header = DetailUiInfo.TableDef.Title
+            Header = DetailUiInfo.TableDef.Title,
+            Content = CreateDetailBranch(context, DetailUiInfo, ApplyMinimumHeight)
         };
-        StackPanel Panel = UiFactory.CreateStackPanel();
-        Result.Content = Panel;
-        CreateDetail(context, Panel, DetailUiInfo);
         return Result;
     }
     /// <summary>
     /// Creates the container UI for a multi-row detail table.
     /// </summary>
-    static public void CreateDetail(UiItemContext context, Control ParentControl, UiDetailTableInfo DetailUiInfo)
+    static public Grid CreateDetail(UiItemContext context, Control ParentControl, UiDetailTableInfo DetailUiInfo, bool ApplyMinimumHeight = true)
     {
-        DockPanel Panel = new();
+        Grid Panel = new();
+        Panel.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        Panel.RowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
         Border ToolBarBorder = CreateDetailToolBarBorder(DetailUiInfo);
-        DataGrid Grid = CreateDetailDataGrid(context, DetailUiInfo.TableDef);
+        DataGrid Grid = CreateDetailDataGrid(context, DetailUiInfo.TableDef, ApplyMinimumHeight);
         DetailUiInfo.Grid = Grid;
+        Avalonia.Controls.Grid.SetRow(ToolBarBorder, 0);
+        Avalonia.Controls.Grid.SetRow(Grid, 1);
         Panel.Children.Add(ToolBarBorder);
         Panel.Children.Add(Grid);
         CreateDetailGridToolBar(context, DetailUiInfo);
         CreateDetailGridReferenceMenus(context, DetailUiInfo);
         UiFactory.AddChild(ParentControl, Panel);
+        return Panel;
     }
     /// <summary>
     /// Creates the initially hidden toolbar area of a detail table.
@@ -89,7 +182,6 @@ static public class UiItemDetails
     static public Border CreateDetailToolBarBorder(UiDetailTableInfo DetailUiInfo)
     {
         Border Result = UiFactory.CreateToolBarBorder();
-        DockPanel.SetDock(Result, Dock.Top);
         StackPanel ToolBarPanel = UiFactory.CreateToolBarPanel();
         Result.Child = ToolBarPanel;
         DetailUiInfo.ToolBarPanel = ToolBarPanel;
@@ -236,14 +328,16 @@ static public class UiItemDetails
     /// <summary>
     /// Creates a detail data grid.
     /// </summary>
-    static public DataGrid CreateDetailDataGrid(UiItemContext context, TableDef TableDef)
+    static public DataGrid CreateDetailDataGrid(UiItemContext context, TableDef TableDef, bool ApplyMinimumHeight = true)
     {
         DataGrid Result = new()
         {
             AutoGenerateColumns = false,
             Focusable = true,
             HorizontalAlignment = HorizontalAlignment.Stretch,
+            VerticalAlignment = VerticalAlignment.Stretch,
             IsTabStop = true,
+            MinHeight = ApplyMinimumHeight ? Ui.Settings.DetailGridMinHeight : 0,
             Margin = new Thickness(0, 8, 0, 8)
         };
         CreateDetailGridColumns(Result, TableDef);
@@ -259,6 +353,8 @@ static public class UiItemDetails
         foreach (FieldDef Field in TableDef.GetBindableFields())
         {
             if (!UiItemPage.IsDetailGridField(Field))
+                continue;
+            if (TableDef.IsLocatorSnapshotField(Field))
                 continue;
             Grid.Columns.AddRange(CreateDetailGridColumns(Field));
         }
@@ -292,58 +388,25 @@ static public class UiItemDetails
 
         ControlBindingHelper.EnsureLocatorFields(LocatorDef, Field);
 
-        TableDef JoinTable = Field.TableDef.Joins.FirstOrDefault(item => item.MasterField.IsSameText(Field.Name));
+        TableDef JoinTable = Field.TableDef.FindJoinTableByMasterKeyField(Field.Name);
         if (JoinTable == null)
             return Result;
 
-        Dictionary<string, string> TargetFieldMap = CreateLocatorTargetFieldMap(LocatorDef, JoinTable);
+        Dictionary<string, string> TargetFieldMap = Field.TableDef.CreateLocatorTargetFieldMap(Field, LocatorDef);
         foreach (LocatorFieldDef LocatorField in LocatorDef.Fields.Where(item => item.IsVisible))
         {
             if (LocatorDef.KeyField.IsSameText(LocatorField.Name))
                 continue;
 
-            FieldDef JoinField = FindLocatorJoinField(JoinTable, LocatorField);
-            if (JoinField == null)
+            FieldDef TargetField = Field.TableDef.FindLocatorTargetField(Field, LocatorField);
+            if (TargetField == null)
                 continue;
 
             bool IsReadOnly = Field.IsReadOnly || LocatorDef.IsReadOnly || !LocatorField.IsSearchable;
-            Result.Add(DataGridBinder.CreateLocatorColumn(JoinField.Alias, JoinField.Title, Field, LocatorDef, LocatorField, TargetFieldMap, IsReadOnly: IsReadOnly));
+            Result.Add(DataGridBinder.CreateLocatorColumn(TargetField.Alias, TargetField.Title, Field, LocatorDef, LocatorField, TargetFieldMap, IsReadOnly: IsReadOnly));
         }
 
         return Result;
-    }
-    /// <summary>
-    /// Creates a locator field to target field map.
-    /// </summary>
-    static public Dictionary<string, string> CreateLocatorTargetFieldMap(LocatorDef LocatorDef, TableDef JoinTable)
-    {
-        Dictionary<string, string> Result = new(StringComparer.OrdinalIgnoreCase);
-        foreach (LocatorFieldDef LocatorField in LocatorDef.Fields)
-        {
-            FieldDef JoinField = FindLocatorJoinField(JoinTable, LocatorField);
-            if (JoinField == null)
-                continue;
-
-            Result[LocatorField.Name] = JoinField.Alias;
-            Result[LocatorField.Alias] = JoinField.Alias;
-        }
-        return Result;
-    }
-    /// <summary>
-    /// Finds the join field that matches a locator field.
-    /// </summary>
-    static public FieldDef FindLocatorJoinField(TableDef JoinTable, LocatorFieldDef LocatorField)
-    {
-        return JoinTable.Fields.FirstOrDefault(item =>
-        {
-            if (item.Name.IsSameText(LocatorField.Name))
-                return true;
-            if (item.Alias.IsSameText(LocatorField.Alias))
-                return true;
-            if (!string.IsNullOrWhiteSpace(LocatorField.TargetField) && item.Alias.IsSameText(LocatorField.TargetField))
-                return true;
-            return false;
-        });
     }
     /// <summary>
     /// Creates a column for a detail data grid.

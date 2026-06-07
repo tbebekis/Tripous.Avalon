@@ -388,6 +388,7 @@ public static class DataGridBinder
 
                     CurrentItem?.BeginEdit();
                     SetValue(CurrentItem, ColumnName, NewValue);
+                    Binding?.FieldDef?.TableDef?.AssignLookupSnapshots(CurrentItem?.Row, Binding.FieldDef, GetLookupSource(), SelectedItem);
 
                     DataGrid Grid = Result.FindAncestorOfType<DataGrid>();
                     object SelectedRow = Grid?.SelectedItem;
@@ -539,7 +540,27 @@ public static class DataGridBinder
         }, SupportsRecycling);
     }
 
-    static public string GetHeader(string ColumnName, string Header) => string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
+    static public string GetHeader(string Header)
+    {
+        if (!string.IsNullOrWhiteSpace(Header))
+        {
+            List<string> WordList = Header.SplitToWordList();
+            
+            if (WordList.Count == 1)
+            {
+                Header = WordList[0];
+            }
+            else
+            {
+                if ("Id".IsSameText(WordList[WordList.Count -1]))
+                    WordList.RemoveAt(WordList.Count - 1);
+                Header = string.Join(" ", WordList);
+            }
+        }
+        return Header;
+    }
+    static public string GetHeader(string ColumnName, string Header) => string.IsNullOrWhiteSpace(Header)? GetHeader(ColumnName) : GetHeader(Header);
+ 
     static public string FormatValue(object Value, string Format)
     {
         if (Value == null)
@@ -577,7 +598,7 @@ public static class DataGridBinder
 
         TextAlignment Align = Alignment ?? TextAlignment.Left;
 
-        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
+        Result.Header = GetHeader(ColumnName, Header);  
         Result.IsReadOnly = IsReadOnly;
         Result.CellTemplate = CreateTextDisplayTemplate(ColumnName, Align, Format, SupportsRecycling);
         Result.CellEditingTemplate = IsReadOnly ? null : CreateTextEditTemplate(ColumnName, Align, Format, SupportsRecycling);
@@ -588,7 +609,7 @@ public static class DataGridBinder
     {
         DataGridTemplateColumn Result = new();
 
-        Result.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
+        Result.Header = GetHeader(ColumnName, Header);
         Result.IsReadOnly = IsReadOnly;
         Result.CellTemplate = CreateBoolDisplayTemplate(ColumnName, SupportsRecycling);
         Result.CellEditingTemplate = IsReadOnly ? null : CreateBoolEditTemplate(ColumnName, SupportsRecycling);
@@ -597,7 +618,7 @@ public static class DataGridBinder
     }
     static void ConfigureLookupColumn(DataGridTemplateColumn Column, string ColumnName, LookupSource LookupSource, GridColumnBinding Binding, string Header = "", bool IsReadOnly = false, bool SupportsRecycling = false)
     {
-        Column.Header = string.IsNullOrWhiteSpace(Header) ? ColumnName.SplitToWords() : Header;
+        Column.Header = GetHeader(ColumnName, Header); 
         Column.IsReadOnly = IsReadOnly;
         Column.CellTemplate = CreateLookupDisplayTemplate(ColumnName, LookupSource, Binding, SupportsRecycling);
         Column.CellEditingTemplate = IsReadOnly ? null : CreateLookupEditTemplate(ColumnName, LookupSource, Binding, SupportsRecycling);
@@ -713,18 +734,16 @@ public static class DataGridBinder
             Align = Alignment.Value;
         else
             Align = IsBoolean ? TextAlignment.Center : Column.DataType.GetTextAlignment();
-        
+
+        string Caption = Texts.L(Column.Caption);
+        Caption = GetHeader(Column.ColumnName, Caption);
         
         DataGridColumn Result = null;
         if (IsBoolean)
-            Result = CreateBoolColumn(Column.ColumnName, Header: Texts.L(Column.Caption), IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
+            Result = CreateBoolColumn(Column.ColumnName, Header: Caption, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
         else
-            Result = CreateTextColumn(Column.ColumnName, Header: Texts.L(Column.Caption), Format: Format, Alignment: Align, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
-
-        string Caption = Texts.L(Column.Caption);
-        Result.Header = Caption.SplitToWords();
-        Result.IsReadOnly = IsReadOnly;
-        
+            Result = CreateTextColumn(Column.ColumnName, Header: Caption, Format: Format, Alignment: Align, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
+ 
         GridColumnBinding CI = new GridColumnBinding(Result, Column);
         Result.Tag = CI;
 
@@ -732,20 +751,19 @@ public static class DataGridBinder
     }
     static public DataGridColumn CreateGridColumn(string ColumnName, string Header, DataFieldType DataType, string Format = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
-        Header = GetHeader(ColumnName, Header);
+  
         bool IsBoolean = DataType == DataFieldType.Boolean;
         TextAlignment Align = IsBoolean ? TextAlignment.Center : DataType.GetTextAlignment();
         Type NetType = DataType.GetNetType();
+        
+        string Caption =  GetHeader(ColumnName, Header);
 
         DataGridColumn Result = null;
         if (IsBoolean)
-            Result = CreateBoolColumn(ColumnName, Header: Header, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
+            Result = CreateBoolColumn(ColumnName, Header: Caption, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
         else
-            Result = CreateTextColumn(ColumnName, Header: Header, Format: GetDateAwareFormat(ColumnName, NetType, Format), Alignment: Align, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
-
-        Result.Header = Header.SplitToWords();
-        Result.IsReadOnly = IsReadOnly;
-
+            Result = CreateTextColumn(ColumnName, Header: Caption, Format: GetDateAwareFormat(ColumnName, NetType, Format), Alignment: Align, IsReadOnly: IsReadOnly, SupportsRecycling: SupportsRecycling);
+ 
         GridColumnBinding CI = new GridColumnBinding(Result, ColumnName, NetType);
         Result.Tag = CI;
 
@@ -753,11 +771,10 @@ public static class DataGridBinder
     }
     static public DataGridColumn CreateLocatorColumn(string ColumnName, string Header, FieldDef FieldDef, LocatorDef LocatorDef, LocatorFieldDef LocatorFieldDef, Dictionary<string, string> TargetFieldMap, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
-        Header = GetHeader(ColumnName, Header);
         TextAlignment Align = LocatorFieldDef.DataType.GetTextAlignment();
 
         DataGridTemplateColumn Result = new();
-        Result.Header = Header.SplitToWords();
+        Result.Header = GetHeader(ColumnName, Header);
         Result.IsReadOnly = IsReadOnly;
         Result.CellTemplate = CreateTextDisplayTemplate(ColumnName, Align, null, SupportsRecycling);
         Result.CellEditingTemplate = IsReadOnly ? null : CreateLocatorEditTemplate(ColumnName, FieldDef, LocatorDef, LocatorFieldDef, TargetFieldMap, SupportsRecycling);
@@ -777,15 +794,14 @@ public static class DataGridBinder
         bool IsBoolean = FieldDef.IsBoolean;
         TextAlignment Align = IsBoolean ? TextAlignment.Center : FieldDef.DataType.GetTextAlignment();
  
+        string Caption = GetHeader(FieldDef.Name, FieldDef.Title); 
         DataGridColumn Result = null;
+        
         if (IsBoolean)
             Result = CreateBoolColumn(FieldDef.Name, Header: FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
         else
             Result = CreateTextColumn(FieldDef.Name, Header: FieldDef.Title, Format: GetDateAwareFormat(FieldDef), Alignment: Align, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
-
-        Result.Header = FieldDef.Title.SplitToWords();
-        Result.IsReadOnly = FieldDef.IsReadOnly;
-        
+ 
         GridColumnBinding CI = new GridColumnBinding(Result, FieldDef);
         Result.Tag = CI;
 

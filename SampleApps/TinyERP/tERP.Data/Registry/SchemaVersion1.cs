@@ -1333,7 +1333,7 @@ CREATE TABLE {TableName}
     ProductId           @NVARCHAR(40) @NOT_NULL, -- Master
 
     SupplierId          @NVARCHAR(40) @NOT_NULL, -- Locator Supplier
-    SupplierCode        @NVARCHAR(96) @NULL,
+    SupplierCode        @NVARCHAR(96) @NULL,     -- TitleKey Supplier Product Code
 
     LeadDays            int @NULL,
     LastCost            @DECIMAL_(18, 4) @NULL,

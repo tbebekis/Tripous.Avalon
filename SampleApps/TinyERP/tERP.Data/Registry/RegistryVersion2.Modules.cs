@@ -160,7 +160,7 @@ from
         TableDef tblSupplier = tblTop.AddJoin("SupplierId", "ProductSupplier", "Supplier", "Id");
         tblTop.Fields.Get("SupplierId").Locator = "Supplier";
         tblSupplier.AddId("Id").SetNullable(false);
-        tblSupplier.AddString("SupplierCode", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true);
+        tblSupplier.AddString("SupplierCode", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetTitleKey("Supplier Product Code");
         string[] FilterFields = ["Name", "AccumulatedDepreciation", "AcquisitionCost", "AcquisitionDate", "AssetCategory__Name", "AssetLocation__Name", "AssetStatus", "BookValue", "Code", "CreatedAt", "CreatedBy", "DepreciationMethod__Name", "InServiceDate", "ModifiedAt", "ModifiedBy", "SalvageValue", "SerialNumber", "UsefulLifeMonths"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -910,7 +910,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -921,19 +921,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -953,9 +953,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_PurchaseCreditNote()
     {
@@ -1267,7 +1267,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -1278,19 +1278,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -1310,9 +1310,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_PurchaseDeliveryNote()
     {
@@ -1624,7 +1624,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -1635,19 +1635,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -1667,9 +1667,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_PurchaseInvoice()
     {
@@ -1981,7 +1981,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -1992,19 +1992,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -2024,9 +2024,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_PurchaseOrder()
     {
@@ -2338,7 +2338,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -2349,19 +2349,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -2381,9 +2381,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_PurchaseReturn()
     {
@@ -2695,7 +2695,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -2706,19 +2706,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -2738,9 +2738,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_SalesCancellation()
     {
@@ -3052,7 +3052,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -3063,19 +3063,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -3095,9 +3095,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_SalesCreditNote()
     {
@@ -3409,7 +3409,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -3420,19 +3420,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -3452,9 +3452,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_SalesDeliveryNote()
     {
@@ -3766,7 +3766,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -3777,19 +3777,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -3809,9 +3809,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_SalesInvoice()
     {
@@ -4123,7 +4123,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -4134,19 +4134,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -4166,9 +4166,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_SalesOrder()
     {
@@ -4294,6 +4294,7 @@ from
     left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("SalesOrder", ClassName: "SalesOrderDataModule", ListSelectSql: SqlText);
+        Module.DetailOrder["Trade"] = ["TradeLine", "TradeTax"];
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -4480,7 +4481,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -4491,19 +4492,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -4523,9 +4524,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_SalesReturn()
     {
@@ -4837,7 +4838,7 @@ from
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -4848,19 +4849,19 @@ from
         tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         tblTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -4880,9 +4881,9 @@ from
         TableDef tblSourceTradeLine = tblTradeLine.AddJoin("SourceTradeLineId", "TradeLine", "SourceTradeLine", "Id");
         tblTradeLine.Fields.Get("SourceTradeLineId").Locator = "TradeLine";
         tblSourceTradeLine.AddId("Id").SetNullable(false);
-        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true);
-        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
+        tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
     }
     static void RegisterModule_StockBalance()
     {
@@ -5044,8 +5045,8 @@ from
         tblStockCountLine.AddString("StockCountId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblStockCountLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblStockCountLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblStockCountLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblStockCountLine.AddString("ProductName", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
+        tblStockCountLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("Product.Code");
+        tblStockCountLine.AddString("ProductName", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("Product.Name");
         tblStockCountLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Required).SetNullable(false);
         tblStockCountLine.AddDecimal("SystemQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblStockCountLine.AddDecimal("CountedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -5131,7 +5132,7 @@ from
         tblTop.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDecimal("PrimaryQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Required).SetNullable(false);
-        tblTop.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("UnitOfMeasure.Name");
         tblTop.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDecimal("UnitCost", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDecimal("CostAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -5386,11 +5387,11 @@ from
         tblStockTradeLine.AddString("StockTradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblStockTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
         tblStockTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblStockTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblStockTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Required).SetNullable(false);
+        tblStockTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("Product.Code");
+        tblStockTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("Product.Name");
         tblStockTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblStockTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Required).SetNullable(false);
-        tblStockTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblStockTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("UnitOfMeasure.Name");
         tblStockTradeLine.AddDecimal("UnitRatio", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblStockTradeLine.AddDecimal("Quantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblStockTradeLine.AddDecimal("PrimaryQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");

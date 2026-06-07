@@ -384,6 +384,8 @@ static public class SchemaRegistrationBuilder
         ValidateCircularReferences(Result, Script);
         ValidateSuspiciousUniqueConstraints(Result, Script);
         ValidateFieldMetadata(Result, Script);
+        ValidateSnapshotFields(Result, Script);
+        ValidateDetailOrder(Result, Script);
         ValidateLookupFields(Result, Script);
         ValidateEnumFields(Result, Script);
         ValidateLocatorFields(Result, Script);
@@ -401,6 +403,81 @@ static public class SchemaRegistrationBuilder
                     AddError(Result, "FIELD_METADATA_INVALID", Table.Name + "." + Field.Name + ": " + Error);
             }
         }
+    }
+    /// <summary>
+    /// Validates snapshot fields.
+    /// </summary>
+    static void ValidateSnapshotFields(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable Table in Script.OutputTables)
+        {
+            foreach (SchemaField Field in Table.Fields.Where(item => !string.IsNullOrWhiteSpace(item.SnapshotOf)))
+            {
+                string[] Parts = Field.SnapshotOf.Split('.', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                if (Parts.Length != 2)
+                {
+                    AddError(Result, "SNAPSHOT_SOURCE_INVALID", "Snapshot source must use Table.Field format: " + Table.Name + "." + Field.Name + " -> " + Field.SnapshotOf);
+                    continue;
+                }
+
+                SchemaTable SourceTable = Script.FindTable(Parts[0]);
+                if (SourceTable == null)
+                {
+                    AddError(Result, "SNAPSHOT_TABLE_NOT_FOUND", "Snapshot source table not found: " + Table.Name + "." + Field.Name + " -> " + Field.SnapshotOf);
+                    continue;
+                }
+                if (SourceTable.FindField(Parts[1]) == null)
+                    AddError(Result, "SNAPSHOT_FIELD_NOT_FOUND", "Snapshot source field not found: " + Table.Name + "." + Field.Name + " -> " + Field.SnapshotOf);
+            }
+        }
+    }
+    /// <summary>
+    /// Validates module detail order entries.
+    /// </summary>
+    static void ValidateDetailOrder(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable TopTable in Script.TopTables)
+        {
+            foreach (SchemaModuleBlock ModuleBlock in TopTable.ModuleBlocks)
+            {
+                foreach (KeyValuePair<string, List<string>> Pair in ModuleBlock.DetailOrder)
+                {
+                    SchemaTable ParentTable = Script.FindTable(Pair.Key);
+                    if (ParentTable == null || (!ParentTable.Name.IsSameText(TopTable.Name) && !IsDetailOf(ParentTable, TopTable, Script)))
+                    {
+                        AddError(Result, "DETAIL_ORDER_PARENT_NOT_FOUND", "DetailOrder parent table not found in module: " + ModuleBlock.ModuleName + " -> " + Pair.Key);
+                        continue;
+                    }
+
+                    HashSet<string> DirectChildren = Script.OutputTables
+                        .Where(Table => !Table.IsOneToOne && Table.MasterName.IsSameText(ParentTable.Name))
+                        .Select(Table => Table.Name)
+                        .ToHashSet(StringComparer.OrdinalIgnoreCase);
+                    HashSet<string> Names = new(StringComparer.OrdinalIgnoreCase);
+                    foreach (string DetailName in Pair.Value)
+                    {
+                        if (!Names.Add(DetailName))
+                            AddError(Result, "DETAIL_ORDER_DUPLICATE", "Duplicate DetailOrder child: " + ModuleBlock.ModuleName + " -> " + Pair.Key + "=" + DetailName);
+                        else if (!DirectChildren.Contains(DetailName))
+                            AddError(Result, "DETAIL_ORDER_CHILD_NOT_FOUND", "Direct child detail table not found: " + ModuleBlock.ModuleName + " -> " + Pair.Key + "=" + DetailName);
+                    }
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// Returns true when a table is a descendant detail of a top table.
+    /// </summary>
+    static bool IsDetailOf(SchemaTable Table, SchemaTable TopTable, SchemaScript Script)
+    {
+        SchemaTable Current = Table;
+        while (Current != null && !string.IsNullOrWhiteSpace(Current.MasterName))
+        {
+            if (Current.MasterName.IsSameText(TopTable.Name))
+                return true;
+            Current = Script.FindTable(Current.MasterName);
+        }
+        return false;
     }
     /// <summary>
     /// Collects discovered code provider patterns and validates duplicate definitions.
@@ -1434,6 +1511,11 @@ static public class SchemaRegistrationBuilder
         SB.AppendLine(EscapeVerbatim(SelectResult.SqlText));
         SB.AppendLine("\";");
         SB.AppendLine("        " + BuildAddModuleSource(TopTable, ModuleBlock));
+        foreach (KeyValuePair<string, List<string>> Pair in ModuleBlock.DetailOrder)
+        {
+            string DetailOrder = string.Join(", ", Pair.Value.Select(Name => "\"" + EscapeString(Name) + "\""));
+            SB.AppendLine("        Module.DetailOrder[\"" + EscapeString(Pair.Key) + "\"] = [" + DetailOrder + "];");
+        }
         SB.AppendLine("        if (Module.Table.Fields.Count > 0)");
         SB.AppendLine("            return;");
         BuildModuleOptionAssignments(SB, TopTable);
@@ -1562,10 +1644,12 @@ static public class SchemaRegistrationBuilder
         string NullSuffix = ".SetNullable(" + BoolLiteral(Field.IsNullable) + ")";
         string DefaultSuffix = !string.IsNullOrWhiteSpace(Field.DefaultValue) ? ".SetDefaultValue(\"" + EscapeString(Field.DefaultValue) + "\")" : "";
         string CodeProviderSuffix = Field.MetadataKind == FieldMetadataKind.Code ? ".SetCodeProviderName(\"" + EscapeString(GetFieldCodeProviderName(Table, Field, ModuleBlock)) + "\")" : "";
+        string TitleKeySuffix = !string.IsNullOrWhiteSpace(Field.TitleKey) ? ".SetTitleKey(\"" + EscapeString(Field.TitleKey) + "\")" : "";
+        string SnapshotSuffix = !string.IsNullOrWhiteSpace(Field.SnapshotOf) ? ".SetSnapshotOf(\"" + EscapeString(Field.SnapshotOf) + "\")" : "";
         string MemoSuffix = Field.IsMemo ? ".SetMemo()" : "";
         string LargeMemoSuffix = Field.IsLargeMemo ? ".SetLargeMemo()" : "";
         string GroupSuffix = !string.IsNullOrWhiteSpace(Field.GroupName) ? ".SetGroup(\"" + EscapeString(Field.GroupName) + "\")" : "";
-        string MetadataSuffix = NullSuffix + DefaultSuffix + CodeProviderSuffix + MemoSuffix + LargeMemoSuffix + GroupSuffix;
+        string MetadataSuffix = NullSuffix + DefaultSuffix + CodeProviderSuffix + TitleKeySuffix + SnapshotSuffix + MemoSuffix + LargeMemoSuffix + GroupSuffix;
         string Flags = BuildFlags(Field);
 
         if (Field.IsPrimaryKey)
@@ -1953,6 +2037,20 @@ static public class SchemaRegistrationBuilder
         CommentPart = Line.Substring(Index + 2).Trim();
     }
     /// <summary>
+    /// Returns true when text is a valid identifier.
+    /// </summary>
+    static bool IsIdentifier(string Text)
+    {
+        if (string.IsNullOrWhiteSpace(Text) || (!char.IsLetter(Text[0]) && Text[0] != '_'))
+            return false;
+        for (int Index = 1; Index < Text.Length; Index++)
+        {
+            if (!char.IsLetterOrDigit(Text[Index]) && Text[Index] != '_')
+                return false;
+        }
+        return true;
+    }
+    /// <summary>
     /// Parses field metadata from an inline comment.
     /// </summary>
     static FieldMetadata ParseFieldMetadata(string CommentPart)
@@ -2054,9 +2152,48 @@ static public class SchemaRegistrationBuilder
             ParseGroupMetadata(Metadata, Entry);
             return;
         }
+        if (Entry.StartsWith("Snapshot ", StringComparison.OrdinalIgnoreCase))
+        {
+            ParseSnapshotMetadata(Metadata, Entry);
+            return;
+        }
+        if (Entry.IsSameText("TitleKey") || Entry.StartsWith("TitleKey ", StringComparison.OrdinalIgnoreCase))
+        {
+            ParseTitleKeyMetadata(Metadata, Entry);
+            return;
+        }
 
         if (Strict)
             AddFieldMetadataError(Metadata, "Unknown field metadata: " + Entry);
+    }
+    /// <summary>
+    /// Parses field title key metadata.
+    /// </summary>
+    static void ParseTitleKeyMetadata(FieldMetadata Metadata, string MetadataText)
+    {
+        string Value = MetadataText.Substring("TitleKey".Length).Trim();
+        if (string.IsNullOrWhiteSpace(Value))
+        {
+            AddFieldMetadataError(Metadata, "Invalid TitleKey metadata syntax: " + MetadataText);
+            return;
+        }
+        Metadata.TitleKey = Value;
+    }
+    /// <summary>
+    /// Parses snapshot metadata.
+    /// </summary>
+    static void ParseSnapshotMetadata(FieldMetadata Metadata, string MetadataText)
+    {
+        string Value = MetadataText.Substring("Snapshot".Length).Trim();
+        string[] Parts = Value.Split('.', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (Parts.Length != 2 || !IsIdentifier(Parts[0]) || !IsIdentifier(Parts[1]))
+        {
+            if (MetadataText.StartsWith("Snapshot of ", StringComparison.OrdinalIgnoreCase))
+                return;
+            AddFieldMetadataError(Metadata, "Invalid Snapshot metadata syntax: " + MetadataText);
+            return;
+        }
+        Metadata.SnapshotOf = Parts[0] + "." + Parts[1];
     }
     /// <summary>
     /// Parses FieldFlags metadata.
@@ -3200,6 +3337,24 @@ static public class SchemaRegistrationBuilder
             ModuleBlock.ItemPageClassName = Parts[0];
         }
         /// <summary>
+        /// Parses a detail order header.
+        /// </summary>
+        void ParseDetailOrderHeader(SchemaModuleBlock ModuleBlock, string Text)
+        {
+            int SeparatorIndex = Text.IndexOf('=');
+            if (SeparatorIndex <= 0 || SeparatorIndex == Text.Length - 1)
+                throw new TripousDataException("Invalid DetailOrder header syntax: \"" + Text + "\". Expected: DetailOrder: PARENT_TABLE=CHILD_TABLE, CHILD_TABLE");
+
+            string ParentName = Text.Substring(0, SeparatorIndex).Trim();
+            List<string> DetailNames = SplitHeaderList(Text.Substring(SeparatorIndex + 1));
+            if (!IsIdentifier(ParentName) || DetailNames.Count == 0 || DetailNames.Any(Name => !IsIdentifier(Name)))
+                throw new TripousDataException("Invalid DetailOrder header syntax: \"" + Text + "\". Expected: DetailOrder: PARENT_TABLE=CHILD_TABLE, CHILD_TABLE");
+            if (ModuleBlock.DetailOrder.ContainsKey(ParentName))
+                throw new TripousDataException("Module block contains duplicate DetailOrder parent: " + ModuleBlock.ModuleName + " -> " + ParentName);
+
+            ModuleBlock.DetailOrder[ParentName] = DetailNames;
+        }
+        /// <summary>
         /// Parses module blocks.
         /// </summary>
         void ParseModuleBlocks(string HeaderText)
@@ -3251,6 +3406,8 @@ static public class SchemaRegistrationBuilder
                         throw new TripousDataException("Invalid Form header order. Module block contains duplicate Form: " + Current.ModuleName);
                     if (!string.IsNullOrWhiteSpace(Current.ItemPageClassName))
                         throw new TripousDataException("Invalid Form header order. Form must appear before ItemPage: " + Current.ModuleName);
+                    if (Current.DetailOrder.Count > 0)
+                        throw new TripousDataException("Invalid Form header order. Form must appear before DetailOrder: " + Current.ModuleName);
                     ParseFormHeader(Current, Entry.Value);
                     continue;
                 }
@@ -3263,7 +3420,21 @@ static public class SchemaRegistrationBuilder
                         throw new TripousDataException("Invalid ItemPage header order. ItemPage must follow Group: " + Current.ModuleName);
                     if (!string.IsNullOrWhiteSpace(Current.ItemPageClassName))
                         throw new TripousDataException("Invalid ItemPage header order. Module block contains duplicate ItemPage: " + Current.ModuleName);
+                    if (Current.DetailOrder.Count > 0)
+                        throw new TripousDataException("Invalid ItemPage header order. ItemPage must appear before DetailOrder: " + Current.ModuleName);
                     ParseItemPageHeader(Current, Entry.Value);
+                    continue;
+                }
+
+                if (Entry.Name.IsSameText("DetailOrder"))
+                {
+                    if (Current == null)
+                        throw new TripousDataException("Invalid DetailOrder header order. DetailOrder must follow a Module line.");
+                    if (string.IsNullOrWhiteSpace(Current.GroupName))
+                        throw new TripousDataException("Invalid DetailOrder header order. DetailOrder must follow Group: " + Current.ModuleName);
+                    if (Current.CodeProvider != null)
+                        throw new TripousDataException("Invalid DetailOrder header order. DetailOrder must appear before Code: " + Current.ModuleName);
+                    ParseDetailOrderHeader(Current, Entry.Value);
                     continue;
                 }
 
@@ -3540,6 +3711,10 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public bool IsFormSpecified { get; set; }
         /// <summary>
+        /// Preferred direct child detail display order, keyed by parent table name.
+        /// </summary>
+        public Dictionary<string, List<string>> DetailOrder { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+        /// <summary>
         /// Code provider metadata.
         /// </summary>
         public CodeProviderMetadata CodeProvider { get; set; }
@@ -3618,6 +3793,8 @@ static public class SchemaRegistrationBuilder
             Result.CodeProviderPattern = Metadata.CodeProviderPattern;
             Result.CodeProviderName = Metadata.CodeProviderName;
             Result.IsDraftCodeProvider = Metadata.IsDraftCodeProvider;
+            Result.TitleKey = Metadata.TitleKey;
+            Result.SnapshotOf = Metadata.SnapshotOf;
             Result.IsPrimaryKey = SqlPart.ContainsText("primary key");
             Result.IsNullable = !SqlPart.ContainsText("@NOT_NULL") && !SqlPart.ContainsText("not null");
             Result.DefaultValue = ParseDefaultValue(SqlPart);
@@ -3676,6 +3853,14 @@ static public class SchemaRegistrationBuilder
         /// True when the code provider is draft-enabled.
         /// </summary>
         public bool IsDraftCodeProvider { get; set; }
+        /// <summary>
+        /// Field title resource key.
+        /// </summary>
+        public string TitleKey { get; set; }
+        /// <summary>
+        /// Source field stored as a snapshot.
+        /// </summary>
+        public string SnapshotOf { get; set; }
         /// <summary>
         /// Field data type.
         /// </summary>
@@ -3868,6 +4053,14 @@ static public class SchemaRegistrationBuilder
         /// True when the code provider is draft-enabled.
         /// </summary>
         public bool IsDraftCodeProvider { get; set; }
+        /// <summary>
+        /// Field title resource key.
+        /// </summary>
+        public string TitleKey { get; set; }
+        /// <summary>
+        /// Source field stored as a snapshot.
+        /// </summary>
+        public string SnapshotOf { get; set; }
         /// <summary>
         /// True when one-to-one.
         /// </summary>

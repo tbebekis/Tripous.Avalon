@@ -157,7 +157,7 @@ IsSingleSelect | NoFilters | NoCascadeDeletes | NoGuidOids
 - Free text comments may follow after the metadata section separator.
 
 ### Module block
-Each `Module` line starts a new module block. The following `Group`, optional `Form`, and optional `ItemPage` belong to that module block. A module block is complete when the next `Module` line starts or when non-module header metadata begins.
+Each `Module` line starts a new module block. The following `Group`, optional `Form`, optional `ItemPage`, optional `DetailOrder`, and optional `Code` belong to that module block. A module block is complete when the next `Module` line starts or when non-module header metadata begins.
 
 A module block has the following entries, in this order:
 
@@ -166,6 +166,7 @@ Module: Default | MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
 Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
+DetailOrder: PARENT_TABLE_NAME=DETAIL_TABLE_NAME, DETAIL_TABLE_NAME
 Code: Code [Draft] [Pattern] [ProviderName]
 ```
 
@@ -173,9 +174,12 @@ Code: Code [Draft] [Pattern] [ProviderName]
 - `Group` is required.
 - `Form` is optional.
 - `ItemPage` is optional.
+- `DetailOrder` is optional.
 - `Code` is optional.
 - If `Form` is omitted, the form name defaults to the module name and the form class defaults to `DataForm`.
 - If `ItemPage` is omitted, the item page class defaults to `ItemPage`.
+- `DetailOrder` defines the preferred order of a parent's direct child detail tabs. It may appear multiple times for different parent tables. Details not listed remain at the end in declaration order.
+- Example: `DetailOrder: Trade=TradeLine, TradeTax` and `DetailOrder: BillOfMaterial=BillOfMaterialLine, BillOfMaterialCost`.
 - If class names are omitted, default `DataModule`, `DataForm`, and `ItemPage` types are used.
 - If `Code` is omitted, field `-- Code` metadata is used as fallback.
 
@@ -189,6 +193,7 @@ Module: SalesOrder SalesOrderDataModule
 Group: Sales Orders
 Form: SalesOrder TradeForm
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
 Code: Draft SO-YYYY-XXXXXX
 
 Module: SalesInvoice SalesInvoiceDataModule
@@ -289,6 +294,8 @@ ModuleName @NVARCHAR(96) @NOT_NULL, -- Lookup DocumentModule ClassName:DocumentM
 Code @NVARCHAR(40) @NOT_NULL, -- Code CUS-XXXX; Group General; [ReadOnlyUI, ReadOnlyEdit] -- customer code
 Code @NVARCHAR(40) @NOT_NULL, -- Code Draft SO-YYYY-XXXXXX SALES_ORDER
 TradeStatusId int default 0 @NOT_NULL, -- Enum TradeStatus; [ReadOnlyUI]
+ProductCode @NVARCHAR(40) @NULL, -- Snapshot Product.Code
+SupplierCode @NVARCHAR(96) @NULL, -- TitleKey Supplier Product Code
 Notes @BLOB_TEXT, -- Memo; Group Notes -- short notes
 Remarks @BLOB_TEXT, -- LargeMemo; Group Notes -- long notes
 Photo @BLOB, -- [Image] -- product photo
@@ -306,12 +313,16 @@ Photo @BLOB, -- [Image] -- product photo
 | `Memo`       | `Memo`                                                                                                    | Text field with Memo flag                           |
 | `LargeMemo`  | `LargeMemo`                                                                                               | Text blob with LargeMemo flag                       |
 | `Group`      | `Group GroupName`                                                                                         | Field UI group                                      |
+| `Snapshot`   | `Snapshot TableName.FieldName`                                                                            | Persisted copy of a related source field            |
+| `TitleKey`   | `TitleKey KeyOrText`                                                                                      | Field title resource key or fallback text           |
 | `FieldFlags` | `[Flag1, Flag2]`                                                                                          | Adds `FieldFlags` values to the field               |
 
 `Memo` and `LargeMemo` are mutually exclusive.
 `FieldFlags` names are parsed from the `FieldFlags` enum. Common values are `Hidden`, `ReadOnly`, `ReadOnlyUI`, `ReadOnlyEdit`, `Required`, `Boolean`, `Memo`, `LargeMemo`, `Image`, `ImagePath`, `NoInsertUpdate`, `ForeignKey`, `Extra`, and `Searchable`.
 Square brackets in this specification mean optional arguments and are not part of the actual schema syntax.
 For `FieldFlags`, square brackets are part of the actual schema syntax.
+`Snapshot` requires an existing source table and field. The generated `FieldDef` receives `SnapshotOf`.
+`TitleKey` applies the remaining metadata text up to the next `;` through `FieldDef.SetTitleKey()`.
 
 **Name resolution when omitted:**
 

@@ -26,6 +26,7 @@ public class ModuleDef: BaseDef
     bool fCascadeDeletes = true;
     string fItemCaptionField;
     bool fUseFilters = true;
+    Dictionary<string, List<string>> fDetailOrder;
 
     string GetItemCaptionField()
    {
@@ -188,6 +189,14 @@ public class ModuleDef: BaseDef
     {
         get => !string.IsNullOrWhiteSpace(fItemCaptionField)? fItemCaptionField: GetItemCaptionField();
         set { if (fItemCaptionField != value) { fItemCaptionField = value; NotifyPropertyChanged(nameof(ItemCaptionField)); } }
+    }
+    /// <summary>
+    /// The preferred display order of direct child detail tables, keyed by parent table name.
+    /// </summary>
+    public Dictionary<string, List<string>> DetailOrder
+    {
+        get => fDetailOrder ??= new(StringComparer.OrdinalIgnoreCase);
+        set { if (fDetailOrder != value) { fDetailOrder = value; NotifyPropertyChanged(nameof(DetailOrder)); } }
     }
 
 

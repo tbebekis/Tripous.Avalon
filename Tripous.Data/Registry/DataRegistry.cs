@@ -225,6 +225,30 @@ static public class DataRegistry
             throw new TripousException($"Cannot add a {nameof(DocumentHandlerDef)}. '{Name}' is already registered.");
     }
     
+    static void CheckConfigProperty(string Name)
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add a {nameof(ConfigPropertyDef)}. No '{nameof(Name)}' is provided.");
+        if (ConfigProperties.Contains(Name))
+            throw new TripousException($"Cannot add a {nameof(ConfigPropertyDef)}. '{Name}' is already registered.");
+    }
+    static void UpdateConfigProperty(ConfigPropertyDef Def, string TitleKey, string GroupName, UserLevel? SecurityLevel, ConfigValueKind? Kind, string DefaultValue, string TypeName)
+    {
+        if (TitleKey != null)
+            Def.TitleKey = TitleKey;
+        if (GroupName != null)
+            Def.GroupName = GroupName;
+        if (SecurityLevel.HasValue)
+            Def.SecurityLevel = SecurityLevel.Value;
+        if (Kind.HasValue)
+            Def.Kind = Kind.Value;
+        if (DefaultValue != null)
+            Def.DefaultValue = DefaultValue;
+        if (TypeName != null)
+            Def.TypeName = TypeName;
+    }
+    
+    
     // ● modules
     /// <summary>
     /// Adds a definition to the registry.
@@ -567,15 +591,47 @@ static public class DataRegistry
             Result.ClassName = ClassName;
         return Result;
     }
+    
+    // ● config properties
+    /// <summary>
+    /// Adds a configuration property definition.
+    /// If the definition exists, an exception is thrown.
+    /// </summary>
+    static public ConfigPropertyDef AddConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel SecurityLevel = UserLevel.Admin, ConfigValueKind Kind = ConfigValueKind.String, string DefaultValue = null, string TypeName = null)
+    {
+        CheckConfigProperty(Name);
+        ConfigPropertyDef Result = new();
+        Result.Name = Name;
+        Result.TitleKey = TitleKey;
+        Result.GroupName = GroupName;
+        Result.SecurityLevel = SecurityLevel;
+        Result.Kind = Kind;
+        Result.DefaultValue = DefaultValue;
+        Result.TypeName = TypeName;
+        ConfigProperties.Add(Result);
+        return Result;
+    }
+    /// <summary>
+    /// Adds or updates a configuration property definition.
+    /// NOTE: When the definition already exists, non-null parameters and nullable enum parameters with a value update its scalar properties.
+    /// </summary>
+    static public ConfigPropertyDef AddOrUpdateConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel? SecurityLevel = null, ConfigValueKind? Kind = null, string DefaultValue = null, string TypeName = null)
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new TripousException($"Cannot add or update a {nameof(ConfigPropertyDef)}. No '{nameof(Name)}' is provided.");
+        ConfigPropertyDef Result = ConfigProperties.Find(Name);
+        if (Result == null)
+            Result = AddConfigProperty(Name, TitleKey, GroupName, SecurityLevel ?? UserLevel.Admin, Kind ?? ConfigValueKind.String, DefaultValue, TypeName);
+        else
+            UpdateConfigProperty(Result, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, TypeName);
+        return Result;
+    }
 
     // ● create
     /// <summary>
     /// Creates and returns a <see cref="DataModule"/> based on its registered name.
     /// </summary>
     static public DataModule CreateModule(string Name, bool InitializeToo = true) => Modules.Get(Name).Create(InitializeToo);
-
-    // ● miscs
- 
 
     // ● properties
     /// <summary>
@@ -598,4 +654,8 @@ static public class DataRegistry
     /// The list of document handlers
     /// </summary>
     static public DefList<DocumentHandlerDef> DocumentHandlers { get; } = new();
+    /// <summary>
+    /// The list of configuration property definitions.
+    /// </summary>
+    static public DefList<ConfigPropertyDef> ConfigProperties { get; } = new();
 }

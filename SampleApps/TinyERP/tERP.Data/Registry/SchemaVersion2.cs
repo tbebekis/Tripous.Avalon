@@ -73,8 +73,8 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    ProductId @NVARCHAR(40) @NOT_NULL,                 -- Locator Product
-    WarehouseId @NVARCHAR(40) @NOT_NULL,              -- Lookup
+    ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
+    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup
 
     ReservedQuantity @DECIMAL DEFAULT 0 @NOT_NULL,
     ExecutedQuantity @DECIMAL DEFAULT 0 @NOT_NULL,
@@ -357,8 +357,8 @@ CREATE TABLE {TableName} (
     PrimaryQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- quantity in product primary unit
 
     UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,            -- Lookup
-    UnitOfMeasureName @NVARCHAR(40) @NOT_NULL,          -- unit of measure snapshot
-    UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- converts Quantity to PrimaryQuantity
+    UnitOfMeasureName @NVARCHAR(40) @NOT_NULL,          -- Snapshot UnitOfMeasure.Name
+    UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- ratio to primary unit, ProductUnitOfMeasure.Ratio, converts line quantity to primary/base quantity
 
     UnitCost @DECIMAL DEFAULT 0 @NOT_NULL,              -- internal stock cost per primary unit at movement time
     CostAmount @DECIMAL DEFAULT 0 @NOT_NULL,            -- PrimaryQuantity * UnitCost
@@ -369,8 +369,7 @@ CREATE TABLE {TableName} (
 
     DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup -- source document type
     DocumentCode @NVARCHAR(40) @NOT_NULL,               -- source document code snapshot
-    DocumentDate @DATE @NOT_NULL,                       -- source document date snapshot
-    
+    DocumentDate @DATE @NOT_NULL,                       -- source document date snapshot    
 
     CreatedAt @DATE_TIME @NOT_NULL,
     CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser
@@ -527,8 +526,7 @@ CREATE TABLE {TableName} (
 
     TradeId @NVARCHAR(40) @NOT_NULL,                    -- Master
     VatRateId @NVARCHAR(40) @NOT_NULL,                  -- Lookup
-
-    VatRatePercent @DECIMAL default 0 @NOT_NULL,        -- Snapshot of the percent at production time
+    VatRatePercent @DECIMAL default 0 @NOT_NULL,        -- Snapshot VatRate.Percent -- the percent at production time
 
     NetAmount @DECIMAL default 0 @NOT_NULL,
     VatAmount @DECIMAL default 0 @NOT_NULL,
@@ -556,18 +554,16 @@ CREATE TABLE {TableName} (
     LineTypeId int default 1 @NOT_NULL,                 -- Enum TradeLineType
 
     ProductId @NVARCHAR(40) @NULL,                      -- Locator Product
+    ProductCode @NVARCHAR(40) @NULL,                    -- Snapshot Product.Code
+    ProductName @NVARCHAR(128) @NULL,                   -- Snapshot Product.Name
 
-    ProductCode @NVARCHAR(40) @NULL,                    -- Snapshot
-    ProductName @NVARCHAR(128) @NULL,                   -- Snapshot
-
-    Description @NVARCHAR(256) @NULL,                   -- Snapshot
+    Description @NVARCHAR(256) @NULL,
 
     WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup (line override)
 
     UnitOfMeasureId @NVARCHAR(40) @NULL,                -- Lookup
-    UnitOfMeasureName @NVARCHAR(40) @NULL,              -- Snapshot
-
-    UnitRatio @DECIMAL default 1 @NOT_NULL,             -- Snapshot ratio to primary unit
+    UnitOfMeasureName @NVARCHAR(40) @NULL,              -- Snapshot UnitOfMeasure.Name
+    UnitRatio @DECIMAL default 1 @NOT_NULL,             -- ratio to primary unit, ProductUnitOfMeasure.Ratio
 
     Quantity @DECIMAL default 0 @NOT_NULL,
     PrimaryUnitQuantity @DECIMAL default 0 @NOT_NULL,
@@ -576,7 +572,7 @@ CREATE TABLE {TableName} (
     ExecutedQuantity @DECIMAL default 0 @NOT_NULL,
 
     VatRateId @NVARCHAR(40) @NULL,                      -- Lookup
-    VatRatePercent @DECIMAL default 0 @NOT_NULL,        -- Snapshot
+    VatRatePercent @DECIMAL_(5,2) default 0 @NOT_NULL,  -- Snapshot VatRate.Percent
 
     UnitPrice @DECIMAL default 0 @NOT_NULL,
 
@@ -642,14 +638,13 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    StockCountId @NVARCHAR(40) @NOT_NULL,             -- Master
+    StockCountId @NVARCHAR(40) @NOT_NULL,               -- Master
 
     LineNo int @NOT_NULL,
 
-    ProductId @NVARCHAR(40) @NOT_NULL,                -- Locator Product
-
-    ProductCode @NVARCHAR(40) @NOT_NULL,
-    ProductName @NVARCHAR(96) @NOT_NULL,
+    ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
+    ProductCode @NVARCHAR(40) @NOT_NULL,                -- Snapshot Product.Code 
+    ProductName @NVARCHAR(96) @NOT_NULL,                -- Snapshot Product.Name
 
     UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,          -- Lookup
 
@@ -771,14 +766,14 @@ CREATE TABLE {TableName} (
     LineNo int @NOT_NULL,
 
     ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
-    ProductCode @NVARCHAR(40) @NOT_NULL,                -- product code snapshot
-    ProductName @NVARCHAR(128) @NOT_NULL,               -- product name snapshot
+    ProductCode @NVARCHAR(40) @NOT_NULL,                -- Snapshot Product.Code  
+    ProductName @NVARCHAR(128) @NOT_NULL,               -- Snapshot Product.Name  
 
     WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup -- optional source warehouse override
 
     UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,            -- Lookup
-    UnitOfMeasureName @NVARCHAR(40) @NOT_NULL,          -- unit of measure snapshot
-    UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- converts line quantity to primary/base quantity
+    UnitOfMeasureName @NVARCHAR(40) @NOT_NULL,          -- Snapshot UnitOfMeasure.Name
+    UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- ratio to primary unit, ProductUnitOfMeasure.Ratio, converts line quantity to primary/base quantity
 
     Quantity @DECIMAL DEFAULT 0 @NOT_NULL,              -- always positive, direction is determined by DocumentType
     PrimaryQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- Quantity * UnitRatio

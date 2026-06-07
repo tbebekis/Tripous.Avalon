@@ -239,7 +239,6 @@ static public class UiItemPage
         TabControl RootTabControl = UiFactory.CreateTabControl();
         TabItem TopTab = CreateTopTableTabItem(context);
         RootTabControl.Items.Add(TopTab);
-        UiItemDetails.CreateChildLevelDetails(context, RootTabControl);
         UiFactory.AddChild(context.ParentControl, RootTabControl);
     }
 }

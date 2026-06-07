@@ -17,6 +17,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     int fFormImageHeight;
     int fFormMaxControlsPerColumn;
     bool fShowIdColumnsInGrid;
+    double fDetailGridMinHeight;
 
     
     // ● private  
@@ -119,7 +120,14 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
         get => fShowIdColumnsInGrid;
         set { if (fShowIdColumnsInGrid != value) { fShowIdColumnsInGrid = value; NotifyPropertyChanged(nameof(ShowIdColumnsInGrids)); } }
     }
- 
+    /// <summary>
+    /// The default minimum height of a detail grid in an <see cref="ItemPage"/> hosted by a <see cref="DataForm"/>.
+    /// </summary>
+    public double DetailGridMinHeight
+    {
+        get => fDetailGridMinHeight >= 180 && fDetailGridMinHeight <= 350 ? fDetailGridMinHeight : 240;
+        set { if (fDetailGridMinHeight != value) { fDetailGridMinHeight = value; NotifyPropertyChanged(nameof(DetailGridMinHeight)); } }
+    }
 
     // ● events
     public event PropertyChangedEventHandler PropertyChanged;

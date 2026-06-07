@@ -55,32 +55,6 @@ static public class ControlBindingHelper
             LocatorDef.Fields.Add(LocatorField);
         }
     }
-    static Dictionary<string, string> CreateLocatorTargetFieldMap(LocatorDef LocatorDef, FieldDef FieldDef)
-    {
-        Dictionary<string, string> Result = new(StringComparer.OrdinalIgnoreCase);
-        if (LocatorDef == null || FieldDef?.TableDef == null)
-            return Result;
-
-        TableDef JoinTable = FieldDef.TableDef.Joins.FirstOrDefault(item => item.MasterField.IsSameText(FieldDef.Name));
-        if (JoinTable == null)
-            return Result;
-
-        foreach (LocatorFieldDef LocatorField in LocatorDef.Fields)
-        {
-            FieldDef JoinField = JoinTable.Fields.FirstOrDefault(item =>
-                item.Name.IsSameText(LocatorField.Name)
-                || item.Alias.IsSameText(LocatorField.Alias)
-                || (!string.IsNullOrWhiteSpace(LocatorField.TargetField) && item.Alias.IsSameText(LocatorField.TargetField)));
-
-            if (JoinField != null)
-            {
-                Result[LocatorField.Name] = JoinField.Alias;
-                Result[LocatorField.Alias] = JoinField.Alias;
-            }
-        }
-
-        return Result;
-    }
     static DataRow GetCurrentRow(IRowProvider RowProvider)
     {
         return RowProvider?.CurrentRow;
@@ -624,9 +598,15 @@ static public class ControlBindingHelper
                 return;
 
             if (Box.SelectedItem is LookupItem Item)
+            {
                 SetValue(RowProvider, FieldName, Item.Value);
+                FieldDef?.TableDef?.AssignLookupSnapshots(RowProvider.CurrentRow, FieldDef, Result.LookupSource, Item);
+            }
             else
+            {
                 SetValue(RowProvider, FieldName, null);
+                FieldDef?.TableDef?.AssignLookupSnapshots(RowProvider.CurrentRow, FieldDef, Result.LookupSource, null);
+            }
         };
 
         Box.SelectionChanged += SelectionChangedHandler;
@@ -691,7 +671,7 @@ static public class ControlBindingHelper
             FieldDef = FieldDef,
             LocatorDef = LocatorDef,
             Locator = Locator,
-            LocatorTargetFieldMap = CreateLocatorTargetFieldMap(LocatorDef, FieldDef)
+            LocatorTargetFieldMap = FieldDef.TableDef.CreateLocatorTargetFieldMap(FieldDef, LocatorDef)
         };
 
         Box.RowSelected += (Sender, Args) =>

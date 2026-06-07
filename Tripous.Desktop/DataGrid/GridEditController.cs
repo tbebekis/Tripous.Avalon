@@ -127,16 +127,21 @@ public class GridEditController
         FocusCurrentCell();
         return true;
     }
-    void EnsureCurrentColumn()
+    bool EnsureCurrentColumn()
     {
+        if (fGrid.SelectedItem == null)
+            return false;
         if (fGrid.CurrentColumn != null)
-            return;
+            return true;
 
         fGrid.CurrentColumn = GetVisibleColumns().FirstOrDefault();
+        return fGrid.CurrentColumn != null;
     }
     void FocusCurrentCell()
     {
-        EnsureCurrentColumn();
+        if (!EnsureCurrentColumn())
+            return;
+
         fGrid.ScrollIntoView(fGrid.SelectedItem, fGrid.CurrentColumn);
         fGrid.Focus(NavigationMethod.Tab, KeyModifiers.None);
         Dispatcher.UIThread.Post(() =>

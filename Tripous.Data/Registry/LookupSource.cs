@@ -118,7 +118,7 @@ public class LookupSource
         {
             object Value = Row[LookupDef.ValueField];
             string Display = Row[LookupDef.DisplayField]?.ToString();
-            LI = new LookupItem(Value, Display);
+            LI = new LookupItem(Value, Display, Row: Row);
             List.Add(LI);
         }
     }

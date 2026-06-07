@@ -259,8 +259,128 @@ public class TableDef: BaseDef
         FieldDef Field = Pair != null ? Pair.Item2 : null;
         return (Field == null) ? NameOrAlias : Field.Title;
     }
+    /// <summary>
+    /// Finds the join field that matches a locator field.
+    /// </summary>
+    public FieldDef FindLocatorJoinField(FieldDef ReferenceField, LocatorFieldDef LocatorField)
+    {
+        if (ReferenceField == null || LocatorField == null)
+            return null;
+
+        TableDef JoinTable = FindJoinTableByMasterKeyField(ReferenceField.Name);
+        return JoinTable?.Fields.FirstOrDefault(item =>
+            item.Name.IsSameText(LocatorField.Name)
+            || item.Alias.IsSameText(LocatorField.Alias)
+            || (!string.IsNullOrWhiteSpace(LocatorField.TargetField) && item.Alias.IsSameText(LocatorField.TargetField)));
+    }
+    /// <summary>
+    /// Finds the target field for a locator field.
+    /// </summary>
+    public FieldDef FindLocatorTargetField(FieldDef ReferenceField, LocatorFieldDef LocatorField)
+    {
+        FieldDef JoinField = FindLocatorJoinField(ReferenceField, LocatorField);
+        if (JoinField == null)
+            return null;
+
+        TableDef JoinTable = FindJoinTableByMasterKeyField(ReferenceField.Name);
+        return FindSnapshotField(JoinTable, JoinField) ?? JoinField;
+    }
+    /// <summary>
+    /// Creates a locator field to target field map.
+    /// </summary>
+    public Dictionary<string, string> CreateLocatorTargetFieldMap(FieldDef ReferenceField, LocatorDef LocatorDef)
+    {
+        Dictionary<string, string> Result = new(StringComparer.OrdinalIgnoreCase);
+        if (ReferenceField == null || LocatorDef == null)
+            return Result;
+
+        foreach (LocatorFieldDef LocatorField in LocatorDef.Fields)
+        {
+            FieldDef TargetField = FindLocatorTargetField(ReferenceField, LocatorField);
+            if (TargetField == null)
+                continue;
+
+            Result[LocatorField.Name] = TargetField.Alias;
+            Result[LocatorField.Alias] = TargetField.Alias;
+        }
+        return Result;
+    }
+    /// <summary>
+    /// Returns true when a field is a snapshot target of a locator field.
+    /// </summary>
+    public bool IsLocatorSnapshotField(FieldDef Field)
+    {
+        if (Field == null || string.IsNullOrWhiteSpace(Field.SnapshotOf))
+            return false;
+
+        string[] Parts = Field.SnapshotOf.Split('.', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (Parts.Length != 2)
+            return false;
+
+        return Fields.Any(item => item.IsLocator && FindJoinTableByMasterKeyField(item.Name)?.Alias.IsSameText(Parts[0]) == true);
+    }
+    /// <summary>
+    /// Assigns lookup snapshot values to a target row.
+    /// </summary>
+    public void AssignLookupSnapshots(DataRow TargetRow, FieldDef LookupField, LookupSource LookupSource, LookupItem LookupItem)
+    {
+        if (TargetRow == null || LookupField == null || LookupSource?.LookupDef == null)
+            return;
+
+        TableDef JoinTable = FindJoinTableByMasterKeyField(LookupField.Name);
+        string SourceName = JoinTable != null ? JoinTable.Alias : LookupSource.LookupDef.TableName;
+        if (string.IsNullOrWhiteSpace(SourceName))
+            SourceName = LookupSource.LookupDef.Name;
+
+        foreach (FieldDef Field in Fields)
+        {
+            if (string.IsNullOrWhiteSpace(Field.SnapshotOf))
+                continue;
+
+            string[] Parts = Field.SnapshotOf.Split('.', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (Parts.Length != 2 || !Parts[0].IsSameText(SourceName))
+                continue;
+
+            DataColumn TargetColumn = TargetRow.Table.FindColumn(Field.Name);
+            if (TargetColumn == null || TargetColumn.ReadOnly)
+                continue;
+
+            object Value = DBNull.Value;
+            if (LookupItem?.Row != null)
+            {
+                DataColumn SourceColumn = LookupItem.Row.Table.FindColumn(Parts[1]);
+                if (SourceColumn != null)
+                    Value = LookupItem.Row[SourceColumn];
+            }
+            if (Sys.IsNull(Value) && !TargetColumn.AllowDBNull)
+                Value = !Sys.IsNull(TargetColumn.DefaultValue) ? TargetColumn.DefaultValue : Activator.CreateInstance(TargetColumn.DataType);
+            TargetRow[TargetColumn] = Value;
+        }
+    }
 
     // ● sql generation  
+    FieldDef FindSnapshotField(TableDef JoinTable, FieldDef JoinField)
+    {
+        if (JoinTable == null || JoinField == null)
+            return null;
+
+        foreach (FieldDef Field in Fields)
+        {
+            if (string.IsNullOrWhiteSpace(Field.SnapshotOf))
+                continue;
+
+            string[] Parts = Field.SnapshotOf.Split('.', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (Parts.Length == 2 && Parts[0].IsSameText(JoinTable.Alias) && Parts[1].IsSameText(JoinField.Name))
+                return Field;
+        }
+        return null;
+    }
+    bool IsJoinRequired(TableDef JoinTable)
+    {
+        if (JoinTable.Fields.Any(Field => !Field.Name.IsSameText(JoinTable.KeyField) && FindSnapshotField(JoinTable, Field) == null))
+            return true;
+        return JoinTable.Joins.Any(IsJoinRequired);
+    }
     public TableSqls BuildSql(BuildSqlFlags Flags)
     {
         TableSqls Statements = new TableSqls();
@@ -388,6 +508,9 @@ where
     }
     void BuildSqlAddJoin(List<string> JoinTableNamesList, SelectSql SelectSql, string MasterAlias, TableDef JoinTableDes)
     {
+        if (!IsJoinRequired(JoinTableDes))
+            return;
+
         string JoinTableName = SqlHelper.FormatTableNameAlias(JoinTableDes.Name, JoinTableDes.Alias);
 
         if (JoinTableNamesList.IndexOf(JoinTableName) == -1)
@@ -400,7 +523,7 @@ where
         List<string> FieldList = new List<string>();
         foreach (var JoinFieldDes in JoinTableDes.Fields)
         {
-            if (!Sys.IsSameText(JoinFieldDes.Name, JoinTableDes.KeyField))
+            if (!Sys.IsSameText(JoinFieldDes.Name, JoinTableDes.KeyField) && FindSnapshotField(JoinTableDes, JoinFieldDes) == null)
             {
                 string FieldName = $"  {JoinTableDes.Alias}.{JoinFieldDes.Name}".PadRight(SqlHelper.StatementDefaultSpaces, ' '); 
                 FieldName = $"{FieldName} as {JoinFieldDes.Alias}";
@@ -409,9 +532,12 @@ where
         }
 
         // add it to SELECT
-        string sFieldList = SqlHelper.TransformToFieldList(FieldList);
-        SelectSql.Select = SelectSql.Select.TrimEnd() + ", " + Environment.NewLine;
-        SelectSql.Select += sFieldList;
+        if (FieldList.Count > 0)
+        {
+            string sFieldList = SqlHelper.TransformToFieldList(FieldList);
+            SelectSql.Select = SelectSql.Select.TrimEnd() + ", " + Environment.NewLine;
+            SelectSql.Select += sFieldList;
+        }
 
         // joined tables to this join table
         foreach (var JoinTableDescriptor in JoinTableDes.Joins)
@@ -561,7 +687,7 @@ where
         DataColumn Column;
         foreach (var JoinFieldDes in JoinTable.Fields)
         {
-            if (!Sys.IsSameText(JoinTable.KeyField, JoinFieldDes.Name))
+            if (!Sys.IsSameText(JoinTable.KeyField, JoinFieldDes.Name) && FindSnapshotField(JoinTable, JoinFieldDes) == null)
             {
                 Column = new DataColumn(JoinFieldDes.Alias);
                 Column.ExtendedProperties["Descriptor"] = JoinFieldDes;
@@ -570,12 +696,12 @@ where
                 Column.Caption = JoinFieldDes.Title;
 
                 Table.Columns.Add(Column);
-
-                // joined table to JoinTable on this JoinFieldDes
-                var JoinTableDes2 = JoinTable.FindAnyJoinTableByMasterKeyField(JoinFieldDes.Name);
-                if (JoinTableDes2 != null)
-                    CreateDescriptorTables_AddJoinTableFields(JoinTableDes2, Table);
             }
+
+            // joined table to JoinTable on this JoinFieldDes
+            var JoinTableDes2 = JoinTable.FindJoinTableByMasterKeyField(JoinFieldDes.Name);
+            if (JoinTableDes2 != null)
+                CreateDescriptorTables_AddJoinTableFields(JoinTableDes2, Table);
         }
     }
  

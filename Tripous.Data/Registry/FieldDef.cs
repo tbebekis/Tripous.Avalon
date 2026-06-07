@@ -29,6 +29,7 @@ public class FieldDef: BaseDef
     string fCodeProvider;
     bool fIsNullable = true;
     string fToolTip;
+    string fSnapshotOf;
 
     protected override string GetTitleKey()
     {
@@ -138,6 +139,14 @@ public class FieldDef: BaseDef
         return this;
     }
     /// <summary>
+    /// Sets the <see cref="SnapshotOf"/> and returns this instance.
+    /// </summary>
+    public FieldDef SetSnapshotOf(string Value)
+    {
+        this.SnapshotOf = Value;
+        return this;
+    }
+    /// <summary>
     /// Sets the <see cref="DefaultValue"/> and returns this instance.
     /// </summary>
     public FieldDef SetDefaultValue(string Value)
@@ -217,6 +226,15 @@ public class FieldDef: BaseDef
     {
         get => !string.IsNullOrWhiteSpace(fGroup)? fGroup: Sys.GENERAL;
         set { if (fGroup != value) { fGroup = value; NotifyPropertyChanged(nameof(Group)); } }
+    }
+    /// <summary>
+    /// Gets or sets the source field whose value is stored as a snapshot in this field.
+    /// <para>Expected format: <c>TableName.FieldName</c>, for example <c>Product.Code</c>.</para>
+    /// </summary>
+    public string SnapshotOf
+    {
+        get => fSnapshotOf;
+        set { if (fSnapshotOf != value) { fSnapshotOf = value; NotifyPropertyChanged(nameof(SnapshotOf)); } }
     }
     public int MaxLength
     {

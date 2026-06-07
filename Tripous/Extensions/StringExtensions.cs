@@ -151,6 +151,46 @@ namespace Tripous
         }
         /// <summary>
         /// Splits a string into words at each uppercase letter. 
+        /// </summary>
+        static public List<string> SplitToWordList(this string Text)
+        {
+            List<string> Result = new();
+
+            if (string.IsNullOrWhiteSpace(Text))
+            {
+                return Result;
+            }
+
+            StringBuilder CurrentWord = new();
+
+            for (int i = 0; i < Text.Length; i++)
+            {
+                char C = Text[i];
+ 
+                if (char.IsUpper(C) && i > 0)
+                {
+                    if (char.IsLower(Text[i - 1]) || (i + 1 < Text.Length && char.IsLower(Text[i + 1])))
+                    {
+                        if (CurrentWord.Length > 0)
+                        {
+                            Result.Add(CurrentWord.ToString());
+                            CurrentWord.Clear();
+                        }
+                    }
+                }
+
+                CurrentWord.Append(C);
+            }
+
+            if (CurrentWord.Length > 0)
+            {
+                Result.Add(CurrentWord.ToString());
+            }
+
+            return Result;
+        }
+        /// <summary>
+        /// Splits a string into words at each uppercase letter. 
         /// Existing spaces are preserved.
         /// </summary>
         static public string SplitToWords(this string Text)

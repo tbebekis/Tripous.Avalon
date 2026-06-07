@@ -39,12 +39,14 @@ NoGuidOids
 - `Table` must be the first metadata entry.
 - A top table may declare one or more module blocks.
 - Each `Module` line starts a new module block.
-- The following `Group`, optional `Form`, and optional `ItemPage` belong to that module block.
+- The following `Group`, optional `Form`, optional `ItemPage`, optional `DetailOrder`, and optional `Code` belong to that module block.
 - A module block is complete when the next `Module` line starts or when non-module header metadata begins.
-- Module block order is `Module`, `Group`, `Form`, `ItemPage`, `Code`.
+- Module block order is `Module`, `Group`, `Form`, `ItemPage`, `DetailOrder`, `Code`.
 - `Group` is required for each module block.
 - If `Form` is omitted, the form name defaults to the module name and the form class defaults to `DataForm`.
 - If `ItemPage` is omitted, the item page class defaults to `ItemPage`.
+- `DetailOrder: Trade=TradeLine, TradeTax` orders the direct child detail tabs of `Trade`. Multiple declarations are allowed for different parent tables. Unlisted details remain at the end.
+- Example nested order: `DetailOrder: BillOfMaterial=BillOfMaterialLine, BillOfMaterialCost`.
 - `Code` is optional and uses the same syntax as field `-- Code`.
 - If header `Code:` omits `ProviderName`, provider name defaults to `ModuleName`.
 - If header `Code:` is omitted, field `-- Code` metadata is used as fallback for that module.
@@ -99,6 +101,8 @@ ModuleName @NVARCHAR(96) @NOT_NULL, -- Lookup DocumentModule ClassName:DocumentM
 Code @NVARCHAR(40) @NOT_NULL, -- Code CUS-XXXX; Group General; [ReadOnlyUI, ReadOnlyEdit] -- customer code
 Code @NVARCHAR(40) @NOT_NULL, -- Code Draft SO-YYYY-XXXXXX SALES_ORDER
 TradeStatusId int default 0 @NOT_NULL, -- Enum TradeStatus; [ReadOnlyUI]
+ProductCode @NVARCHAR(40) @NULL, -- Snapshot Product.Code
+SupplierCode @NVARCHAR(96) @NULL, -- TitleKey Supplier Product Code
 Notes @BLOB_TEXT, -- Memo; Group Notes -- short notes
 Remarks @BLOB_TEXT, -- LargeMemo; Group Notes -- long notes
 Photo @BLOB, -- [Image] -- product photo
@@ -116,6 +120,8 @@ Photo @BLOB, -- [Image] -- product photo
 | `Memo`       | `Memo`                                                                                                    | Text field with Memo flag                           |
 | `LargeMemo`  | `LargeMemo`                                                                                               | Text blob with LargeMemo flag                       |
 | `Group`      | `Group GroupName`                                                                                         | Field UI group                                      |
+| `Snapshot`   | `Snapshot TableName.FieldName`                                                                            | Persisted copy of a related source field            |
+| `TitleKey`   | `TitleKey KeyOrText`                                                                                      | Field title resource key or fallback text           |
 | `FieldFlags` | `[Flag1, Flag2]`                                                                                          | Adds `FieldFlags` values to the field               |
 
 - `Memo` and `LargeMemo` are mutually exclusive.
@@ -123,6 +129,8 @@ Photo @BLOB, -- [Image] -- product photo
 - Common `FieldFlags`: `Hidden`, `ReadOnly`, `ReadOnlyUI`, `ReadOnlyEdit`, `Required`, `Boolean`, `Memo`, `LargeMemo`, `Image`, `ImagePath`, `NoInsertUpdate`, `ForeignKey`, `Extra`, `Searchable`.
 - Square brackets in this specification mean optional arguments and are not part of the actual schema syntax.
 - For `FieldFlags`, square brackets are part of the actual schema syntax.
+- `Snapshot` requires an existing source table and field and generates `SetSnapshotOf()`.
+- `TitleKey` uses the remaining text up to the next `;` and generates `SetTitleKey()`.
 - `Code Draft PATTERN PROVIDER_NAME` generates `DRAFT-PROVIDER_NAME` with `DRAFT-PATTERN` and also the normal provider.
 - Multi-module document tables should use header `Code: Draft PATTERN PROVIDER_NAME`; snapshot document modules should not declare `-- Code`.
 - Code provider patterns generate `SchemaVersion.AddStatementAfter()` inserts into `SYS_NUMBER_SERIES`.

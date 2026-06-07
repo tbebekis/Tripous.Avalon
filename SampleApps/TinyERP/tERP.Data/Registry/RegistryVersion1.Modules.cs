@@ -1601,7 +1601,7 @@ from
         tblProductSupplier.AddId("Id").SetNullable(false);
         tblProductSupplier.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblProductSupplier.AddString("SupplierId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblProductSupplier.AddString("SupplierCode", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true);
+        tblProductSupplier.AddString("SupplierCode", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetTitleKey("Supplier Product Code");
         tblProductSupplier.AddInteger("LeadDays", Flags: FieldFlags.None).SetNullable(true);
         tblProductSupplier.AddDecimal("LastCost", Decimals: 4, Flags: FieldFlags.None).SetNullable(true);
         tblProductSupplier.AddBoolean("IsDefault", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
