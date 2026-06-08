@@ -216,13 +216,13 @@ CREATE TABLE {TableName} (
     IsCancelled @BOOL default 0 @NOT_NULL,              -- [ReadOnlyUI]
 
     CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit; [ReadOnlyUI]
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser; Group Audit; [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
     ModifiedAt @DATE_TIME @NULL,                        -- Group Audit; [ReadOnlyUI]
-    ModifiedBy @NVARCHAR(40) @NULL,                     -- Lookup AppUser; Group Audit; [ReadOnlyUI]
+    ModifiedBy @NVARCHAR(40) @NULL,                     --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
     PostedAt @DATE_TIME @NULL,                          -- Group Audit; [ReadOnlyUI]
-    PostedBy @NVARCHAR(40) @NULL,                       -- Lookup AppUser; Group Audit; [ReadOnlyUI]
+    PostedBy @NVARCHAR(40) @NULL,                       --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
     CancelledAt @DATE_TIME @NULL,                       -- Group Audit; [ReadOnlyUI]
-    CancelledBy @NVARCHAR(40) @NULL,                    -- Lookup AppUser; Group Audit; [ReadOnlyUI]
+    CancelledBy @NVARCHAR(40) @NULL,                    --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
 
     Remarks @NVARCHAR(512) @NULL,                       -- Memo; Group Notes -- internal
     Comments @NVARCHAR(512) @NULL,                      -- Memo; Group Notes -- customer visible
@@ -251,10 +251,10 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (CancelsTradeId) REFERENCES Trade(Id),
     FOREIGN KEY (CancelledByTradeId) REFERENCES Trade(Id),
 
-    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id),
-    FOREIGN KEY (ModifiedBy) REFERENCES AppUser(Id),
-    FOREIGN KEY (PostedBy) REFERENCES AppUser(Id),
-    FOREIGN KEY (CancelledBy) REFERENCES AppUser(Id)
+    FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (PostedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (CancelledBy) REFERENCES  SYS_APP_USER(Id)
     )
 
 
@@ -399,13 +399,13 @@ CREATE TABLE {TableName} (
     CancelledByStockTradeId @NVARCHAR(40) @NULL,        -- Locator StockTrade; Group Relations -- reverse/cancellation document
 
     CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser; Group Audit
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; Group Audit
     ModifiedAt @DATE_TIME @NULL,                        -- Group Audit
-    ModifiedBy @NVARCHAR(40) @NULL,                     -- Lookup AppUser; Group Audit
+    ModifiedBy @NVARCHAR(40) @NULL,                     --  Lookup SYS_APP_USER; Group Audit
     PostedAt @DATE_TIME @NULL,                          -- Group Audit
-    PostedBy @NVARCHAR(40) @NULL,                       -- Lookup AppUser; Group Audit
+    PostedBy @NVARCHAR(40) @NULL,                       --  Lookup SYS_APP_USER; Group Audit
     CancelledAt @DATE_TIME @NULL,                       -- Group Audit
-    CancelledBy @NVARCHAR(40) @NULL,                    -- Lookup AppUser; Group Audit
+    CancelledBy @NVARCHAR(40) @NULL,                    --  Lookup SYS_APP_USER; Group Audit
 
     CONSTRAINT UQ_{TableName}_DocumentType_Code UNIQUE (DocumentTypeId, Code),
 
@@ -416,10 +416,10 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (CancelsStockTradeId) REFERENCES StockTrade(Id),
     FOREIGN KEY (CancelledByStockTradeId) REFERENCES StockTrade(Id),
 
-    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id),
-    FOREIGN KEY (ModifiedBy) REFERENCES AppUser(Id),
-    FOREIGN KEY (PostedBy) REFERENCES AppUser(Id),
-    FOREIGN KEY (CancelledBy) REFERENCES AppUser(Id)
+    FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (PostedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (CancelledBy) REFERENCES  SYS_APP_USER(Id)
     )
 
 
@@ -542,7 +542,7 @@ CREATE TABLE {TableName} (
     DocumentDate @DATE @NOT_NULL,                       -- source document date snapshot    
 
     CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                  -- Lookup AppUser
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER
 
     CONSTRAINT CHK_{TableName}_Direction CHECK (Direction IN (1, -1)),
     CONSTRAINT CHK_{TableName}_Quantity CHECK (Quantity >= 0),
@@ -552,7 +552,7 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
     FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id),
     FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
-    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id)
+    FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id)
     )
 
 /*---------------------------------------------------
@@ -645,16 +645,16 @@ CREATE TABLE {TableName} (
     CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator StockCount; Group Relations
 
     CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                -- Lookup AppUser; Group Audit
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; Group Audit
     ModifiedAt @DATE_TIME @NULL,                      -- Group Audit
-    ModifiedBy @NVARCHAR(40) @NULL,                   -- Lookup AppUser; Group Audit
+    ModifiedBy @NVARCHAR(40) @NULL,                   --  Lookup SYS_APP_USER; Group Audit
 
     FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
     FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
     FOREIGN KEY (CancelledDocumentId) REFERENCES StockCount(Id),
     FOREIGN KEY (CancellationDocumentId) REFERENCES StockCount(Id),
-    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id),
-    FOREIGN KEY (ModifiedBy) REFERENCES AppUser(Id)
+    FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id)
     )
 
 
@@ -825,7 +825,7 @@ CREATE TABLE {TableName} (
     Remarks @NVARCHAR(512) @NULL,
 
     CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,               -- Lookup AppUser
+    CreatedBy @NVARCHAR(40) @NOT_NULL,               --  Lookup SYS_APP_USER
 
     CONSTRAINT CHK_{TableName}_Direction CHECK (Direction IN (1, -1)),
     CONSTRAINT CHK_{TableName}_Amount CHECK (Amount >= 0),
@@ -834,7 +834,7 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (CompanyBankAccountId) REFERENCES CompanyBankAccount(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
     FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
-    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id)
+    FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id)
     )
 
 /*---------------------------------------------------
@@ -1004,9 +1004,9 @@ CREATE TABLE {TableName} (
     CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator JournalEntry; Group Relations
 
     CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                -- Lookup AppUser; Group Audit
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; Group Audit
     ModifiedAt @DATE_TIME @NULL,                      -- Group Audit
-    ModifiedBy @NVARCHAR(40) @NULL,                   -- Lookup AppUser; Group Audit
+    ModifiedBy @NVARCHAR(40) @NULL,                   --  Lookup SYS_APP_USER; Group Audit
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
     CONSTRAINT CHK_{TableName}_Totals CHECK (TotalDebit = TotalCredit),
@@ -1014,8 +1014,8 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
     FOREIGN KEY (CancelledDocumentId) REFERENCES JournalEntry(Id),
     FOREIGN KEY (CancellationDocumentId) REFERENCES JournalEntry(Id),
-    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id),
-    FOREIGN KEY (ModifiedBy) REFERENCES AppUser(Id)
+    FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id)
     )
 
 /*---------------------------------------------------
@@ -1155,9 +1155,9 @@ CREATE TABLE {TableName} (
     Remarks @NBLOB_TEXT @NULL,                     -- LargeMemo; Group Notes
 
     CreatedAt @DATE_TIME @NOT_NULL,                -- Group Audit
-    CreatedBy @NVARCHAR(40) @NOT_NULL,             -- Lookup AppUser; Group Audit
+    CreatedBy @NVARCHAR(40) @NOT_NULL,             --  Lookup SYS_APP_USER; Group Audit
     ModifiedAt @DATE_TIME @NULL,                   -- Group Audit
-    ModifiedBy @NVARCHAR(40) @NULL,                -- Lookup AppUser; Group Audit
+    ModifiedBy @NVARCHAR(40) @NULL,                --  Lookup SYS_APP_USER; Group Audit
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
 
@@ -1165,8 +1165,8 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (AssetLocationId) REFERENCES AssetLocation(Id),
     FOREIGN KEY (DepreciationMethodId) REFERENCES AssetDepreciationMethod(Id),
     FOREIGN KEY (SupplierId) REFERENCES ProductSupplier(Id),
-    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id),
-    FOREIGN KEY (ModifiedBy) REFERENCES AppUser(Id)
+    FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id)
     )
 
 
@@ -1210,9 +1210,9 @@ CREATE TABLE {TableName} (
     Remarks @NVARCHAR(512) @NULL,
 
     CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                -- Lookup AppUser
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER
 
     FOREIGN KEY (AssetId) REFERENCES Asset(Id),
     FOREIGN KEY (JournalEntryId) REFERENCES JournalEntry(Id),
-    FOREIGN KEY (CreatedBy) REFERENCES AppUser(Id)
+    FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id)
     )

@@ -94,12 +94,9 @@ public class DocumentDataModule: AppDataModule
         if (Row.RowState == DataRowState.Deleted)
             return;
 
-        if (Table == tblItem)
+        if (Table == tblItem && IsInserting)
         {
-            if (IsInserting)
-            {
-                Row["TradeTypeId"] = DocumentType.TradeTypeId;
-            }
+            Row.SetValue("TradeTypeId", DocumentType.TradeTypeId);
         }
     }
     

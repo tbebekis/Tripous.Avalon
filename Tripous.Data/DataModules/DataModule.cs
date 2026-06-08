@@ -144,7 +144,14 @@ public class DataModule
             }
         }
     }
- 
+
+    /// <summary>
+    /// Loads the default values, such as the default values for fields like CompanyId, CurrencyId, etc.
+    /// </summary>
+    protected virtual void LoadDefaultValues()
+    {
+    }
+    
     /// <summary>
     /// Sets default values for all Tables.
     /// <para>It is called by the DoInsertAfter() and DoCommitBefore() </para>
@@ -184,6 +191,9 @@ public class DataModule
     {
         if (Row.RowState == DataRowState.Deleted)
             return;
+        
+        if (Table == tblItem)
+            SetAuditDefaultValues(Table, Row, TableDef);
 
         Tuple<TableDef, FieldDef> Pair;
         FieldDef FieldDes;
@@ -235,7 +245,29 @@ public class DataModule
         }
 
     }
- 
+    /// <summary>
+    /// Sets default values to the Row. It is called when a commit operation starts.
+    /// <para>NOTE: This method is called only for the <see cref="tblItem"/> table.</para>
+    /// <para>NOTE: This method sets the <c>CreatedBy, CreatedAt, ModifiedBy, ModifiedAt</c> field values, if they exist in the <see cref="tblItem"/>.</para>
+    /// </summary>
+    protected virtual void SetAuditDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    {
+        if (Row.RowState == DataRowState.Deleted)
+            return;
+
+        if (Table == tblItem)
+        {
+            if (IsInserting)
+            {
+                Row.SetValue("CreatedBy", Sys.GetCurrentAppUserId());
+                Row.SetValue("CreatedAt", DateTime.UtcNow);
+            }
+            
+            Row.SetValue("ModifiedBy", Sys.GetCurrentAppUserId());
+            Row.SetValue("ModifiedAt", DateTime.UtcNow);
+        }
+    }
+    
     /// <summary>
     /// Called from inside <see cref="Commit"/>.
     /// <para>NOTE: It looks like, in some cases, we have to call EndEdit() for the DataRow(s) to post the changes.</para>
@@ -300,7 +332,6 @@ public class DataModule
     {
     }
     protected virtual bool MustReselectAfterCommit() => CodeProviderDef != null;
- 
     
 
     // ● construction
@@ -453,6 +484,9 @@ public class DataModule
 
             TableSet.TransactionStageCommit += new EventHandler<TransactionEventArgs>(TableSet_TransactionStageCommit);
             TableSet.TransactionStageDelete += new EventHandler<TransactionEventArgs>(TableSet_TransactionStageDelete);
+
+            // ● default values
+            LoadDefaultValues();
         }
         
     }

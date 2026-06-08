@@ -21,8 +21,8 @@ static internal partial class AppHost
     {
         SysConfig.ApplicationMode = ApplicationMode.Desktop;
         SysConfig.MainAssembly = typeof(AppHost).Assembly;
-
-        Db.Settings.LogSqlStatements = true;
+        
+        //Db.Settings.LogSqlStatements = true;
     }
  
     /// <summary>
@@ -94,7 +94,7 @@ static internal partial class AppHost
 
     static async Task<bool> EnsureAdminUser()
     {
-        bool Result = Store.TableExists("AppUser") && !Store.TableIsEmpty("AppUser");
+        bool Result = Store.TableExists(DbConfig.SysAppUserTableName) && !Store.TableIsEmpty(DbConfig.SysAppUserTableName);
         if (!Result)
         {
             FirstRunBoxData BoxData = await FirstRunDialog.ShowModal(Ui.MainWindow);
@@ -194,6 +194,7 @@ static internal partial class AppHost
     /// </summary>
     static public async Task Start(IClassicDesktopStyleApplicationLifetime AvaloniaDesktop)
     {
+        Db.Settings.LogSqlStatements = false;
         bool Flag = true;
         
         AppHost.AvaloniaDesktop = AvaloniaDesktop;

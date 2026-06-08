@@ -330,6 +330,19 @@ static public class DataRowExtensions
         return AsDateTime(row, ColumnIndex, DateTime.MinValue);
     }
 
+    /// <summary>
+    /// Sets a value to the specified field of the specified row in a safe manner, i.e. only if the field exists.
+    /// </summary>
+    static public bool SetValue(this DataRow Row, string FieldName, object Value)
+    {
+        if (Row != null && Row.RowState != DataRowState.Deleted && Row.Table.Columns.Contains(FieldName))
+        {
+            Row[FieldName] = Value;
+            return true;
+        }
+
+        return false;
+    }
 
     /* copy-append */
     /// <summary>

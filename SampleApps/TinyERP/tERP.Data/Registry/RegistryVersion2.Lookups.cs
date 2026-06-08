@@ -19,7 +19,6 @@ public partial class RegistryVersion2: RegistryVersion
     public override void RegisterLookups()
     {
         DataRegistry.AddOrUpdateLookupWithTableName("Account", "Account", FormName: "Account");
-        DataRegistry.AddOrUpdateLookupWithTableName("AppUser", "AppUser", FormName: "AppUser");
         DataRegistry.AddOrUpdateLookupWithTableName("AssetCategory", "AssetCategory", FormName: "AssetCategory");
         DataRegistry.AddOrUpdateLookupWithTableName("AssetDepreciationMethod", "AssetDepreciationMethod", FormName: "AssetDepreciationMethod");
         DataRegistry.AddOrUpdateLookupWithTableName("AssetLocation", "AssetLocation", FormName: "AssetLocation");
@@ -36,6 +35,7 @@ public partial class RegistryVersion2: RegistryVersion
         DataRegistry.AddOrUpdateLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
         DataRegistry.AddOrUpdateLookupWithTableName("Person", "Person", FormName: "Person");
         DataRegistry.AddOrUpdateLookupWithTableName("Project", "Project", FormName: "Project");
+        DataRegistry.AddOrUpdateLookupWithTableName("SYS_APP_USER", "SYS_APP_USER", FormName: "AppUser");
         DataRegistry.AddOrUpdateLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
         DataRegistry.AddOrUpdateLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
         DataRegistry.AddOrUpdateLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");

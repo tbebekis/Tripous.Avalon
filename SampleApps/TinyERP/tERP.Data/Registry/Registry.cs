@@ -29,7 +29,6 @@ static public partial class Registry
     }
     
     // ● public
- 
     static public void RegisterSchemas()
     {
         foreach (SchemaVersionDef Version in SchemaVersionList)
@@ -57,8 +56,8 @@ static public partial class Registry
         UpdateLocators();
         UpdateForms();
         UpdateModules();
-        
- 
+
+        RegisterSycConfigProperties();
     }
     
 }

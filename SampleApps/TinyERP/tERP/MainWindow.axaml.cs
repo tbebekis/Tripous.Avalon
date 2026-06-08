@@ -39,8 +39,8 @@ public partial class MainWindow : Window
             UpdateStatusBar();
         });
 
+        Config.SetUserValue(Ui.SShowDataFormLog, true.ToString());
     }
-
     async Task CheckForSampleData()
     {
         SampleData[] NotAddedSampleData = SampleData.GetNotAdded();
@@ -72,7 +72,6 @@ public partial class MainWindow : Window
             }
         }
     }
-    
     internal void ToggleLog()
     {
         if (edtLog.IsVisible)
@@ -86,7 +85,14 @@ public partial class MainWindow : Window
             edtLog.IsVisible = true;
         }
     }
- 
+    internal void ToggleLogSqlStatements()
+    {
+        bool Flag = !Db.Settings.LogSqlStatements;
+        string Text = Flag ? "ON" : "OFF";
+        string Message = $"SQL Statements Logging is now: {Text}.";
+        LogBox.AppendLine(Message);
+        Db.Settings.LogSqlStatements = Flag;
+    }
 
     void CreateMenu()
     {

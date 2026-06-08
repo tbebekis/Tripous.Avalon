@@ -247,14 +247,27 @@ public class ToolBar
 
     public Button Add(Command Cmd)
     {
-        Button Result = new Button();
+        Button Result = Cmd.IsToggle? new ToggleButton(): new Button();
         Result.Tag = Cmd;
+        Cmd.Tag = Result;
 
         SetupButton(Result, Cmd.ImageFileName, Cmd.Title);
-        if (Cmd.IsAsync)
-            Result.Click += async (Sender, Args) => await Cmd.ExecuteAsync();
+
+        if (Result is ToggleButton TB)
+        {
+            if (Cmd.IsAsync)
+                TB.IsCheckedChanged += async (Sender, Args) => await Cmd.ExecuteAsync();
+            else
+                TB.IsCheckedChanged += (Sender, Args) => Cmd.Execute();
+        }
         else
-            Result.Click +=  (Sender, Args) => Cmd.Execute();
+        {
+            if (Cmd.IsAsync)
+                Result.Click += async (Sender, Args) => await Cmd.ExecuteAsync();
+            else
+                Result.Click +=  (Sender, Args) => Cmd.Execute();
+        }
+
  
         Panel.Children.Add(Result);
 

@@ -55,6 +55,7 @@ public partial class RegistryVersion1: RegistryVersion
         DesktopRegistry.AddOrUpdateForm("SalesPerson", TitleKey: "SalesPerson", Module: "SalesPerson", Group: "Sales");
         DesktopRegistry.AddOrUpdateForm("StockReason", TitleKey: "StockReason", Module: "StockReason", Group: "Inventory");
         DesktopRegistry.AddOrUpdateForm("SupplierCategory", TitleKey: "SupplierCategory", Module: "SupplierCategory", Group: "Purchases");
+        DesktopRegistry.AddOrUpdateForm("SysConfig", TitleKey: "SysConfig", Module: "SysConfig", Group: "Setup");
         DesktopRegistry.AddOrUpdateForm("TaxCategory", TitleKey: "TaxCategory", Module: "TaxCategory", Group: "Accounting");
         DesktopRegistry.AddOrUpdateForm("TaxOffice", TitleKey: "TaxOffice", Module: "TaxOffice", Group: "Setup");
         DesktopRegistry.AddOrUpdateForm("UnitOfMeasure", TitleKey: "UnitOfMeasure", Module: "UnitOfMeasure", Group: "Inventory");

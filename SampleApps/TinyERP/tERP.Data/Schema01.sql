@@ -19,6 +19,8 @@ CREATE TABLE {TableName} (
     ,Message @NBLOB_TEXT @NOT_NULL          -- LargeMemo 
     )
 
+
+
 /*---------------------------------------------------
 Table: SYS_NUMBER_SERIES
 Module: NumberSeries CodeProviderModule
@@ -57,7 +59,7 @@ CREATE TABLE {TableName} (
     )
 
 /*---------------------------------------------------
-Table: AppUser
+Table: SYS_APP_USER
 Module: AppUser AppUserDataModule
 Group: Setup
 -----------------------------------------------------
@@ -86,6 +88,44 @@ CREATE TABLE {TableName} (
     Remarks @NBLOB_TEXT @NULL,
 
     CONSTRAINT UQ_{TableName}_UserName UNIQUE (UserName)
+    )
+
+/*---------------------------------------------------
+Table: SYS_CONFIG
+Module: SysConfig   SysConfigModule
+Group: Setup
+-----------------------------------------------------
+Stores configuration values.
+
+Configuration definitions are registered in code.
+This table stores only configuration values.
+
+Values may exist at different scopes:
+- System
+- Company
+- User
+
+The effective value is resolved by the application
+using the following order:
+
+User -> Company -> System -> DefaultValue
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    ScopeId int @NOT_NULL,                 -- Enum ConfigScope -- System, Company, User
+    OwnerKey @NVARCHAR(96) @NULL,          -- CompanyId, UserName, or empty string for System 
+
+    Name @NVARCHAR(128) @NOT_NULL,         -- ConfigPropertyDef.Name
+
+    Value @NVARCHAR(512) @NULL,            -- scalar values
+    TextValue @NBLOB_TEXT @NULL,           -- Memo/Object values
+
+    ModifiedAt @DATE_TIME @NULL,           -- [ReadOnlyUI]
+    ModifiedBy @NVARCHAR(40) @NULL,        -- Lookup SYS_APP_USER; [ReadOnlyUI]
+
+    CONSTRAINT UQ_{TableName}_Scope_Owner_Name UNIQUE (ScopeId, OwnerKey, Name),
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id)
     )
 
 /*---------------------------------------------------

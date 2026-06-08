@@ -134,6 +134,11 @@ public class Command: BaseDef
     public bool IsAsync => ExecuteAsyncFunc != null;
 
     /// <summary>
+    /// True if this is a toggle command, a command that toggles a boolean value.
+    /// </summary>
+    public bool IsToggle { get; set; }
+
+    /// <summary>
     /// A callback. It is called just before command execution. Returning false, cancels the execution.
     /// </summary>
     public Func<Command, bool> CanExecuteFunc { get; set; }

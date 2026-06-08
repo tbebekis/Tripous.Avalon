@@ -11,7 +11,7 @@ namespace tERP.Data;
 public class TradeDataModule: DocumentDataModule
 {
     // ● protected
-    protected virtual int GetDefaultTaxTreatmentId() => (int)TaxTreatment.Normal;
+ 
     /// <summary>
     /// Sets default values to the Row. It is called when a commit operation starts.
     /// </summary>
@@ -22,19 +22,13 @@ public class TradeDataModule: DocumentDataModule
         if (Row.RowState == DataRowState.Deleted)
             return;
 
-        if (Table.TableName.IsSameText("Trade"))
+        if (Table == tblItem && IsInserting)
         {
-            if (Sys.IsNull(Row["DocumentTypeId"]))
-                Row["DocumentTypeId"] = DocumentType.Id;
-            if (Sys.IsNull(Row["TradeStatusId"]))
-                Row["TradeStatusId"] = (int)TradeStatus.Draft;
-            if (Sys.IsNull(Row["TaxTreatmentId"]))
-                Row["TaxTreatmentId"] = GetDefaultTaxTreatmentId();
-            if (Sys.IsNull(Row["TradeDate"]))
-                Row["TradeDate"] = DateTime.Today;
-
-            if (Sys.IsNull(Row["ExchangeRate"]))
-                Row["ExchangeRate"] = 1;
+            Row.SetValue("DocumentTypeId", DocumentType.Id);
+            Row.SetValue("TradeStatusId", (int)TradeStatus.Draft);
+            Row.SetValue("TaxTreatmentId", (int)TaxTreatment.Normal);
+            Row.SetValue("ExchangeRate", 1);
+            Row.SetValue("TradeDate", DateTime.UtcNow.Date);
         }
     }
     

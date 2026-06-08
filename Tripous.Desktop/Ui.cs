@@ -11,7 +11,7 @@ namespace Tripous.Desktop;
 /// <summary>
 /// Helper for the Ui
 /// </summary>
-static public class Ui
+static public partial class Ui
 {
     // ● construction
     /// <summary>

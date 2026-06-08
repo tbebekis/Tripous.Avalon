@@ -91,6 +91,8 @@ static public class DbConfig
     static public string SysDbIniTableName { get; set; } = "SYS_INI";
     static public string SysLogTableName { get; set; } = "SYS_LOG";
     static public string SysNumberSeriesTableName { get; set; } = "SYS_NUMBER_SERIES";
+    static public string SysConfigTableName { get; set; } = "SYS_CONFIG";
+    static public string SysAppUserTableName { get; set; } = "SYS_APP_USER";
 
     static public string SysDbIniEntryField { get; set; }  = "EntryKey";
     static public string SysDbIniValueField { get; set; }  = "EntryValue";

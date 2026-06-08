@@ -458,6 +458,7 @@ public partial class DataForm : AppForm
 {SqlText}
 ";
                 UiLog(Message);
+                
                 GoToListOID(LastOID);
             });
         }
@@ -789,7 +790,13 @@ public partial class DataForm : AppForm
         return base.ProcessEscapeKey();
     }
 
-    protected virtual void UiLog(string Message) =>  LogBox.AppendLine($"[{TitleText}] - {Message}");
+    protected virtual void UiLog(string Message)  
+    {
+        if (Ui.Settings.ShowDataFormLog)
+        {
+            LogBox.AppendLine($"[{TitleText}] - {Message}");
+        }
+    }
  
         
     // ● construction

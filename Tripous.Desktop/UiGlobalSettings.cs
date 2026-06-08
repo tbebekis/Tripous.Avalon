@@ -18,6 +18,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     int fFormMaxControlsPerColumn;
     bool fShowIdColumnsInGrid;
     double fDetailGridMinHeight;
+    bool fShowDataFormLog;
 
     
     // ● private  
@@ -127,6 +128,14 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     {
         get => fDetailGridMinHeight >= 180 && fDetailGridMinHeight <= 350 ? fDetailGridMinHeight : 240;
         set { if (fDetailGridMinHeight != value) { fDetailGridMinHeight = value; NotifyPropertyChanged(nameof(DetailGridMinHeight)); } }
+    }
+    /// <summary>
+    /// When true then the <see cref="DataForm"/> log is shown.
+    /// </summary>
+    public bool ShowDataFormLog
+    {
+        get => fShowDataFormLog;
+        set { if (fShowDataFormLog != value) { fShowDataFormLog = value; NotifyPropertyChanged(nameof(ShowDataFormLog)); } }
     }
 
     // ● events

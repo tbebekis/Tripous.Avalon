@@ -73,9 +73,9 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_AppUser()
+    void RegisterTable_SYS_APP_USER()
     {
-        string TableName = "AppUser";
+        string TableName = "SYS_APP_USER";
         string SqlText = $@"
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
@@ -529,6 +529,30 @@ CREATE TABLE {TableName} (
     IsActive @BOOL default 1 @NOT_NULL,
 
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_SYS_CONFIG()
+    {
+        string TableName = "SYS_CONFIG";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    ScopeId int @NOT_NULL,                 -- Enum ConfigScope
+    OwnerKey @NVARCHAR(96) @NULL,          -- CompanyId, UserName, etc.
+
+    Name @NVARCHAR(128) @NOT_NULL,         -- ConfigPropertyDef.Name
+
+    Value @NVARCHAR(512) @NULL,            -- scalar values
+    TextValue @NBLOB_TEXT @NULL,           -- Memo/Object values
+
+    ModifiedAt @DATE_TIME @NULL,           -- [ReadOnlyUI]
+    ModifiedBy @NVARCHAR(40) @NULL,        -- Lookup SYS_APP_USER; [ReadOnlyUI]
+
+    CONSTRAINT UQ_{TableName}_Scope_Owner_Name UNIQUE (ScopeId, OwnerKey, Name),
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -1605,7 +1629,7 @@ VALUES
         RegisterTable_SYS_LOG();
         RegisterTable_SYS_NUMBER_SERIES();
         RegisterTable_SYS_STR_RES();
-        RegisterTable_AppUser();
+        RegisterTable_SYS_APP_USER();
         RegisterTable_CustomerCategory();
         RegisterTable_SupplierCategory();
         RegisterTable_ProductBrand();
@@ -1632,6 +1656,7 @@ VALUES
         RegisterTable_AssetDepreciationMethod();
         RegisterTable_ProductDimension();
         RegisterTable_ProductAttributeGroup();
+        RegisterTable_SYS_CONFIG();
         RegisterTable_PriceListType();
         RegisterTable_Company();
         RegisterTable_TaxCategory();

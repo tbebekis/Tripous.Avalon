@@ -598,6 +598,20 @@ static public class Sys
     /// </summary>
     static public string HostName { get; } = Environment.MachineName;
     
+    static public string GetCurrentAppUserId()
+    {
+        if (Context != null && Context.CurrentUser != null && !string.IsNullOrWhiteSpace(Context.CurrentUser.Id))
+            return Context.CurrentUser.Id;
+        return string.Empty;
+ 
+    }
+    static public string GetCurrentAppUserName()
+    {
+        if (Context != null && Context.CurrentUser != null && !string.IsNullOrWhiteSpace(Context.CurrentUser.UserName))
+            return Context.CurrentUser.UserName;
+        return string.Empty;
+    }
+    
     /// <summary>
     /// System global settings
     /// </summary>

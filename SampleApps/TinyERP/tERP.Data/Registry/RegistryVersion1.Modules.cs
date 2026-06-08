@@ -24,36 +24,36 @@ public partial class RegistryVersion1: RegistryVersion
         string SqlText;
         SqlText = @"
 select
-   AppUser.Id,
-   AppUser.UserName,
-   AppUser.Password,
-   AppUser.Salt,
-   AppUser.FullName,
-   AppUser.UserLevelId,
+   SYS_APP_USER.Id,
+   SYS_APP_USER.UserName,
+   SYS_APP_USER.Password,
+   SYS_APP_USER.Salt,
+   SYS_APP_USER.FullName,
+   SYS_APP_USER.UserLevelId,
    case
-      when AppUser.UserLevelId = 0 then 'None'
-      when AppUser.UserLevelId = 1 then 'Guest'
-      when AppUser.UserLevelId = 2 then 'User'
-      when AppUser.UserLevelId = 4 then 'Admin'
-      when AppUser.UserLevelId = 8 then 'ClientApp'
-      when AppUser.UserLevelId = 256 then 'Service'
-      when AppUser.UserLevelId = 4096 then 'God'
+      when SYS_APP_USER.UserLevelId = 0 then 'None'
+      when SYS_APP_USER.UserLevelId = 1 then 'Guest'
+      when SYS_APP_USER.UserLevelId = 2 then 'User'
+      when SYS_APP_USER.UserLevelId = 4 then 'Admin'
+      when SYS_APP_USER.UserLevelId = 8 then 'ClientApp'
+      when SYS_APP_USER.UserLevelId = 256 then 'Service'
+      when SYS_APP_USER.UserLevelId = 4096 then 'God'
       else ''
    end as UserLevel,
-   AppUser.CultureCode,
-   AppUser.Email,
-   AppUser.Phone,
-   AppUser.LastLoginAt,
-   AppUser.PasswordChangedAt,
-   AppUser.IsActive
+   SYS_APP_USER.CultureCode,
+   SYS_APP_USER.Email,
+   SYS_APP_USER.Phone,
+   SYS_APP_USER.LastLoginAt,
+   SYS_APP_USER.PasswordChangedAt,
+   SYS_APP_USER.IsActive
 from
-  AppUser
+  SYS_APP_USER
 ";
         Module = DataRegistry.AddOrUpdateModule("AppUser", ClassName: "AppUserDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
-        tblTop.Name = "AppUser";
+        tblTop.Name = "SYS_APP_USER";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("UserName", MaxLength: 64, Flags: FieldFlags.Required).SetNullable(false);
@@ -2065,6 +2065,58 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
+    static void RegisterModule_SysConfig()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   SYS_CONFIG.Id,
+   SYS_CONFIG.ScopeId,
+   case
+      when SYS_CONFIG.ScopeId = 0 then 'System'
+      when SYS_CONFIG.ScopeId = 1 then 'Company'
+      when SYS_CONFIG.ScopeId = 2 then 'User'
+      else ''
+   end as ConfigScope,
+   SYS_CONFIG.OwnerKey,
+   SYS_CONFIG.Name,
+   SYS_CONFIG.Value,
+   SYS_CONFIG.ModifiedAt,
+   SYS_CONFIG.ModifiedBy
+from
+  SYS_CONFIG
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = SYS_CONFIG.ModifiedBy
+";
+        Module = DataRegistry.AddOrUpdateModule("SysConfig", ClassName: "SysConfigModule", ListSelectSql: SqlText);
+        if (Module.Table.Fields.Count > 0)
+            return;
+        tblTop = Module.Table;
+        tblTop.Name = "SYS_CONFIG";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddEnumLookupId("ScopeId", "ConfigScope", TypeStore.Get("ConfigScope"), Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("OwnerKey", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddString("Name", MaxLength: 128, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Value", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddTextBlob("TextValue", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
+        string[] FilterFields = ["Name", "ConfigScope", "ModifiedAt", "ModifiedBy", "OwnerKey", "Value"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ScopeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["ConfigScope"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OwnerKey"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Value"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+    }
     static void RegisterModule_TaxCategory()
     {
         ModuleDef Module;
@@ -2414,6 +2466,7 @@ from
         RegisterModule_SalesPerson();
         RegisterModule_StockReason();
         RegisterModule_SupplierCategory();
+        RegisterModule_SysConfig();
         RegisterModule_TaxCategory();
         RegisterModule_TaxOffice();
         RegisterModule_UnitOfMeasure();

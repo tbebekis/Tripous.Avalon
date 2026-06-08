@@ -44,6 +44,7 @@ public partial class RegistryVersion1: RegistryVersion
         DataRegistry.AddOrUpdateLookupWithTableName("ProductGroup", "ProductGroup", FormName: "ProductGroup");
         DataRegistry.AddOrUpdateLookupWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
         DataRegistry.AddOrUpdateLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
+        DataRegistry.AddOrUpdateLookupWithTableName("SYS_APP_USER", "SYS_APP_USER", FormName: "AppUser");
         DataRegistry.AddOrUpdateLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
         DataRegistry.AddOrUpdateLookupWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
         DataRegistry.AddOrUpdateLookupWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");

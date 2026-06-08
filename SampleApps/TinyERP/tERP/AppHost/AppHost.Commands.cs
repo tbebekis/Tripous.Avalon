@@ -26,6 +26,8 @@ static internal partial class AppHost
         Command cmdConnectionInfo = Command.CreateAsync("ConnectionInfo", "database_edit.png", async (c) => {  await DbConnectionEditDialog.ShowModal(Db.GetDefaultConnectionInfo()); return 0; });
         Command cmdClearLog = Command.Create("Clear Log", "bin.png", (c) => { LogBox.Clear(); return 0; });
         Command cmdToggleLog = Command.Create("Toggle Log", "error_log.png", (c) => { AppHost.MainWindow.ToggleLog(); return 0; });
+        Command cmdToggleLogSqlStatements = Command.Create("Log Sql", "file_extension_log.png", (c) => { AppHost.MainWindow.ToggleLogSqlStatements(); return 0; });
+        cmdToggleLogSqlStatements.IsToggle = true;
         Command cmdTest = Command.Create("Test", "lightning.png");
         
         // ● General commands  
@@ -49,7 +51,7 @@ static internal partial class AppHost
         AppRegistry.MenuCommands.Insert(0, cmdGeneral);
         
         // ● split commands to toolbar and menu commands
-        AppRegistry.ToolBarCommands.AddRange([cmdAppFolder, cmdConnectionInfo, cmdToggleLog, cmdClearLog, cmdTest, cmdExit]);
+        AppRegistry.ToolBarCommands.AddRange([cmdAppFolder, cmdConnectionInfo, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdTest, cmdExit]);
         //AppRegistry.MenuCommands.AddRange(MasterCommandGroups);
     }
 }

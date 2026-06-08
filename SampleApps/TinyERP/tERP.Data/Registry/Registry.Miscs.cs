@@ -16,7 +16,7 @@ static public partial class Registry
     /// </summary>
     static public void UpdateLookups()
     {
-        LookupDef LookupDef = DataRegistry.Lookups.Find("AppUser");
+        LookupDef LookupDef = DataRegistry.Lookups.Find(DbConfig.SysAppUserTableName);
         if (LookupDef != null)
             LookupDef.DisplayField = "FullName";
     }
@@ -149,5 +149,32 @@ where
 
         SetTradeModulePersonLocator("Customer", SalesDocumentModules);
         SetTradeModulePersonLocator("Supplier", PurchaseDocumentModules);
+    }
+
+    static public void RegisterSycConfigProperties()
+    {
+        // ●  Application Defaults
+        string Name = DataLib.SAppDefaultProperties;
+        string TitleKey = "Application Defaults";
+        string GroupName = "Application";
+        UserLevel SecurityLevel = UserLevel.Admin;
+        ConfigValueKind Kind = ConfigValueKind.Object;
+        string DefaultValue = Json.Serialize(new AppDefaultProperties());
+        string TypeName = typeof(AppDefaultProperties).FullName;
+        
+        ConfigPropertyDef ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, TypeName);
+        
+        // ●  Show DataForm Log
+        Name = Ui.SShowDataFormLog;
+        TitleKey = "Show DataForm Log";
+        SecurityLevel = UserLevel.User;
+        Kind = ConfigValueKind.Boolean;
+        DefaultValue = "false";
+        ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue);
+        ConfigPropertyDef.ApplyValueFunc = (Def, S) =>
+        {
+            bool Value = Convert.ToBoolean(S);
+            Ui.Settings.ShowDataFormLog = Value;
+        };
     }
 }

@@ -1,5 +1,6 @@
 namespace Tripous.Data;
 
+[TypeStore]
 public enum ConfigScope
 {
     System = 0,
@@ -7,6 +8,7 @@ public enum ConfigScope
     User = 2
 }
 
+[TypeStore]
 public enum ConfigValueKind
 {
     String = 0,
@@ -76,6 +78,10 @@ public class ConfigPropertyDef: BaseDef
     /// Ignored for simple scalar value kinds.
     /// </summary>
     public string TypeName { get; set; }
+    /// <summary>
+    /// A callback that is invoked when a value is applied to this property.
+    /// </summary>
+    public Action<ConfigPropertyDef, string> ApplyValueFunc { get; set; }
 }
 
 /// <summary>
@@ -99,9 +105,20 @@ public class ConfigPropertyDef: BaseDef
 static public class Config
 {
     static SqlStore fStore;
- 
+    static SysConfigModule fModule;
 
     // ● private
+    static T JsonToObject<T>(ConfigPropertyDef Def, string JsonText) where T: class
+    {
+        if (string.IsNullOrWhiteSpace(JsonText))
+            return null;
+
+        string ClassName = string.IsNullOrWhiteSpace(Def.TypeName) ? typeof(T).FullName : Def.TypeName;
+        T Result = TypeStore.CreateInstance<T>(ClassName);
+        Json.PopulateObject(Result, JsonText);
+        return Result;
+    }
+    
     static string NormalizeOwnerKey(ConfigScope Scope, string OwnerKey)
     {
         return Scope == ConfigScope.System ? "" : OwnerKey;
@@ -112,27 +129,68 @@ static public class Config
     }
     static string SelectStoredValue(ConfigPropertyDef Def, ConfigScope Scope, string OwnerKey)
     {
-        throw new NotImplementedException();
+        string FieldName = Def.Kind == ConfigValueKind.Memo || Def.Kind == ConfigValueKind.Object ? "TextValue" : "Value";
+        string SqlText = $"""
+                          select {FieldName}
+                          from SYS_CONFIG
+                          where ScopeId = :ScopeId
+                            and OwnerKey = :OwnerKey
+                            and Name = :Name
+                          """;
+
+        object Result = Module.Store.SelectResult(SqlText, null, new Dictionary<string, object>()
+        {
+            ["ScopeId"] = (int)Scope,
+            ["OwnerKey"] = OwnerKey,
+            ["Name"] = Def.Name,
+        });
+
+        return Result == null || Result == DBNull.Value ? null : Result.ToString();
     }
     static void InsertOrUpdateStoredValue(ConfigPropertyDef Def, string Value, ConfigScope Scope, string OwnerKey)
     {
-        throw new NotImplementedException();
-    }
-    static string GetCurrentAppUserName()
-    {
-        if (Sys.Context.CurrentUser == null || string.IsNullOrWhiteSpace(Sys.Context.CurrentUser.Id))
-            throw new TripousDataException("Current user not found.");
-        return Sys.Context.CurrentUser.UserName;
+        bool IsTextValue = Def.Kind == ConfigValueKind.Memo || Def.Kind == ConfigValueKind.Object;
+        string SqlText = """
+                         select Id
+                         from SYS_CONFIG
+                         where ScopeId = :ScopeId
+                           and OwnerKey = :OwnerKey
+                           and Name = :Name
+                         """;
+
+        object Id = Module.Store.SelectResult(SqlText, null, new Dictionary<string, object>()
+        {
+            ["ScopeId"] = (int)Scope,
+            ["OwnerKey"] = OwnerKey,
+            ["Name"] = Def.Name,
+        });
+
+        if (Sys.IsNull(Id))
+            Module.Insert();
+        else
+            Module.Edit(Id);
+
+        DataRow Row = Module.CurrentRow;
+        Row["ScopeId"] = (int)Scope;
+        Row["OwnerKey"] = OwnerKey;
+        Row["Name"] = Def.Name;
+        Row["Value"] = IsTextValue ? DBNull.Value : Value;
+        Row["TextValue"] = IsTextValue ? Value : DBNull.Value;
+        Row["ModifiedAt"] = Module.Store.GetServerDateTime();
+        Row["ModifiedBy"] = Sys.GetCurrentAppUserId();
+
+        Module.Commit();
     }
     
     // ● public
     /// <summary>
     /// Returns the effective value of a configuration property.
     /// Resolution order: User, Company, System, DefaultValue.
+    /// <para>This method returns the value associated with the current Company and current User.</para>
     /// </summary>
     static public string GetValue(string Name)
     {
-        return GetValue(Name, DbConfig.CompanyId.ToString(), GetCurrentAppUserName());
+        return GetValue(Name, DbConfig.CompanyId.ToString(), Sys.GetCurrentAppUserName());
     }
     /// <summary>
     /// Returns the effective value of a configuration property using the specified company and user context.
@@ -168,6 +226,37 @@ static public class Config
         OwnerKey = NormalizeOwnerKey(Scope, OwnerKey);
         return SelectStoredValue(Def, Scope, OwnerKey);
     }
+    
+    /// <summary>
+    /// Returns the effective object value of a configuration property.
+    /// Resolution order: User, Company, System, DefaultValue.
+    /// </summary>
+    static public T GetObjectValue<T>(string Name) where T: class
+    {
+        return GetObjectValue<T>(Name, DbConfig.CompanyId.ToString(), Sys.GetCurrentAppUserName());
+    }
+    /// <summary>
+    /// Returns the effective object value of a configuration property using the specified company and user context.
+    /// Resolution order: User, Company, System, DefaultValue.
+    /// </summary>
+    static public T GetObjectValue<T>(string Name, string CompanyId, string UserName) where T: class
+    {
+        ConfigPropertyDef Def = GetDef(Name);
+        string JsonText = GetValue(Name, CompanyId, UserName);
+        return JsonToObject<T>(Def, JsonText);
+    }
+    /// <summary>
+    /// Returns the object value stored at the specified scope.
+    /// No effective value resolution takes place.
+    /// </summary>
+    static public T GetObjectValue<T>(string Name, ConfigScope Scope, string OwnerKey) where T: class
+    {
+        ConfigPropertyDef Def = GetDef(Name);
+        OwnerKey = NormalizeOwnerKey(Scope, OwnerKey);
+        string JsonText = SelectStoredValue(Def, Scope, OwnerKey);
+        return JsonToObject<T>(Def, JsonText);
+    }
+    
     /// <summary>
     /// Stores a value at the specified scope.
     /// Creates or updates the corresponding configuration entry.
@@ -177,6 +266,18 @@ static public class Config
         ConfigPropertyDef Def = GetDef(Name);
         OwnerKey = NormalizeOwnerKey(Scope, OwnerKey);
         InsertOrUpdateStoredValue(Def, Value, Scope, OwnerKey);
+        
+        Def.ApplyValueFunc?.Invoke(Def, Value);
+    }
+    /// <summary>
+    /// Stores a value associated with the current User.
+    /// Creates or updates the corresponding configuration entry.
+    /// </summary>
+    static public void SetUserValue(string Name, string Value)
+    {
+        ConfigScope Scope = ConfigScope.User;
+        string OwnerKey = Sys.GetCurrentAppUserName();
+        SetValue(Name, Value, Scope, OwnerKey);
     }
 
     // ● properties
@@ -184,4 +285,5 @@ static public class Config
     /// Gets the SQL store used by the Config system.
     /// </summary>
     static public SqlStore Store => fStore ??= SqlStores.CreateDefaultSqlStore();
+    static public SysConfigModule Module => fModule ??= DataRegistry.CreateModule("SysConfig") as SysConfigModule;
 }

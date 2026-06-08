@@ -126,8 +126,8 @@ from
     left join AssetLocation AssetLocation on AssetLocation.Id = Asset.AssetLocationId
     left join AssetDepreciationMethod DepreciationMethod on DepreciationMethod.Id = Asset.DepreciationMethodId
     left join ProductSupplier Supplier on Supplier.Id = Asset.SupplierId
-    left join AppUser CreatedBy on CreatedBy.Id = Asset.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Asset.ModifiedBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Asset.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Asset.ModifiedBy
 ";
         Module = DataRegistry.AddOrUpdateModule("Asset", ClassName: "AssetDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -154,9 +154,9 @@ from
         tblTop.AddString("SupplierId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Supplier");
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo().SetGroup("Notes");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
         TableDef tblSupplier = tblTop.AddJoin("SupplierId", "ProductSupplier", "Supplier", "Id");
         tblTop.Fields.Get("SupplierId").Locator = "Supplier";
         tblSupplier.AddId("Id").SetNullable(false);
@@ -200,7 +200,7 @@ from
         tblAssetDepreciationLine.AddStringLookupId("JournalEntryId", "JournalEntry", Flags: FieldFlags.None).SetNullable(true);
         tblAssetDepreciationLine.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
         tblAssetDepreciationLine.AddDateTime("CreatedAt", Flags: FieldFlags.Required).SetNullable(false);
-        tblAssetDepreciationLine.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required).SetNullable(false);
+        tblAssetDepreciationLine.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required).SetNullable(false);
     }
     static void RegisterModule_DocumentType()
     {
@@ -411,7 +411,7 @@ from
     left join CompanyBankAccount CompanyBankAccount on CompanyBankAccount.Id = FinanceMovement.CompanyBankAccountId
     left join Currency Currency on Currency.Id = FinanceMovement.CurrencyId
     left join DocumentType DocumentType on DocumentType.Id = FinanceMovement.DocumentTypeId
-    left join AppUser CreatedBy on CreatedBy.Id = FinanceMovement.CreatedBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = FinanceMovement.CreatedBy
 ";
         Module = DataRegistry.AddOrUpdateModule("FinanceMovement", ClassName: "FinanceMovementDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -437,7 +437,7 @@ from
         tblTop.AddDate("DocumentDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required).SetNullable(false);
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required).SetNullable(false);
         string[] FilterFields = ["Amount", "CashAccount__Code", "CashAccount__Name", "CompanyBankAccount__Code", "CompanyBankAccount__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "Direction", "DocumentCode", "DocumentDate", "DocumentType__Code", "DocumentType__Name", "ExchangeRate", "MovementDate", "Remarks", "SourceModule", "SourceTable", "TradeType"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
@@ -517,8 +517,8 @@ select
 from
   JournalEntry
     left join DocumentType DocumentType on DocumentType.Id = JournalEntry.DocumentTypeId
-    left join AppUser CreatedBy on CreatedBy.Id = JournalEntry.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = JournalEntry.ModifiedBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = JournalEntry.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = JournalEntry.ModifiedBy
 ";
         Module = DataRegistry.AddOrUpdateModule("JournalEntry", ClassName: "JournalEntryDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -544,9 +544,9 @@ from
         tblTop.AddString("CancelledDocumentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
         tblTop.AddString("CancellationDocumentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
         TableDef tblCancelledDocument = tblTop.AddJoin("CancelledDocumentId", "JournalEntry", "CancelledDocument", "Id");
         tblTop.Fields.Get("CancelledDocumentId").Locator = "JournalEntry";
         tblCancelledDocument.AddId("Id").SetNullable(false);
@@ -718,10 +718,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("PurchaseCancellation", ClassName: "PurchaseCancellationDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -777,13 +777,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -1075,10 +1075,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("PurchaseCreditNote", ClassName: "PurchaseCreditNoteDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -1134,13 +1134,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -1432,10 +1432,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("PurchaseDeliveryNote", ClassName: "PurchaseDeliveryNoteDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -1491,13 +1491,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -1789,10 +1789,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("PurchaseInvoice", ClassName: "PurchaseInvoiceDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -1848,13 +1848,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -2146,10 +2146,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("PurchaseOrder", ClassName: "PurchaseOrderDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -2205,13 +2205,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -2503,10 +2503,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("PurchaseReturn", ClassName: "PurchaseReturnDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -2562,13 +2562,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -2860,10 +2860,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("SalesCancellation", ClassName: "SalesCancellationDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -2919,13 +2919,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -3217,10 +3217,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("SalesCreditNote", ClassName: "SalesCreditNoteDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -3276,13 +3276,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -3574,10 +3574,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("SalesDeliveryNote", ClassName: "SalesDeliveryNoteDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -3633,13 +3633,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -3931,10 +3931,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("SalesInvoice", ClassName: "SalesInvoiceDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -3990,13 +3990,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -4288,10 +4288,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("SalesOrder", ClassName: "SalesOrderDataModule", ListSelectSql: SqlText);
         Module.DetailOrder["Trade"] = ["TradeLine", "TradeTax"];
@@ -4348,13 +4348,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -4646,10 +4646,10 @@ from
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
     left join Country BillingCountry on BillingCountry.Id = Trade.BillingCountryId
     left join Country ShippingCountry on ShippingCountry.Id = Trade.ShippingCountryId
-    left join AppUser CreatedBy on CreatedBy.Id = Trade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = Trade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = Trade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Trade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Trade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Trade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Trade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("SalesReturn", ClassName: "SalesReturnDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -4705,13 +4705,13 @@ from
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddString("Comments", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
@@ -4985,8 +4985,8 @@ from
   StockCount
     left join DocumentType DocumentType on DocumentType.Id = StockCount.DocumentTypeId
     left join Warehouse Warehouse on Warehouse.Id = StockCount.WarehouseId
-    left join AppUser CreatedBy on CreatedBy.Id = StockCount.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = StockCount.ModifiedBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = StockCount.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = StockCount.ModifiedBy
 ";
         Module = DataRegistry.AddOrUpdateModule("StockCount", ClassName: "StockCountDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -5006,9 +5006,9 @@ from
         tblTop.AddString("CancelledDocumentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
         tblTop.AddString("CancellationDocumentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
         TableDef tblCancelledDocument = tblTop.AddJoin("CancelledDocumentId", "StockCount", "CancelledDocument", "Id");
         tblTop.Fields.Get("CancelledDocumentId").Locator = "StockCount";
         tblCancelledDocument.AddId("Id").SetNullable(false);
@@ -5114,7 +5114,7 @@ from
     left join Warehouse Warehouse on Warehouse.Id = StockMovement.WarehouseId
     left join UnitOfMeasure UnitOfMeasure on UnitOfMeasure.Id = StockMovement.UnitOfMeasureId
     left join DocumentType DocumentType on DocumentType.Id = StockMovement.DocumentTypeId
-    left join AppUser CreatedBy on CreatedBy.Id = StockMovement.CreatedBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = StockMovement.CreatedBy
 ";
         Module = DataRegistry.AddOrUpdateModule("StockMovement", ClassName: "StockMovementDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -5143,7 +5143,7 @@ from
         tblTop.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("DocumentDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required).SetNullable(false);
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required).SetNullable(false);
         TableDef tblProduct = tblTop.AddJoin("ProductId", "Product", "Product", "Id");
         tblTop.Fields.Get("ProductId").Locator = "Product";
         tblProduct.AddId("Id").SetNullable(false);
@@ -5304,10 +5304,10 @@ from
     left join DocumentType DocumentType on DocumentType.Id = StockTrade.DocumentTypeId
     left join Warehouse Warehouse on Warehouse.Id = StockTrade.WarehouseId
     left join Warehouse ToWarehouse on ToWarehouse.Id = StockTrade.ToWarehouseId
-    left join AppUser CreatedBy on CreatedBy.Id = StockTrade.CreatedBy
-    left join AppUser ModifiedBy on ModifiedBy.Id = StockTrade.ModifiedBy
-    left join AppUser PostedBy on PostedBy.Id = StockTrade.PostedBy
-    left join AppUser CancelledBy on CancelledBy.Id = StockTrade.CancelledBy
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = StockTrade.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = StockTrade.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = StockTrade.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = StockTrade.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("StockTrade", ClassName: "StockTradeDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -5332,13 +5332,13 @@ from
         tblTop.AddString("CancelsStockTradeId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
         tblTop.AddString("CancelledByStockTradeId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
-        tblTop.AddStringLookupId("CreatedBy", "AppUser", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("ModifiedBy", "AppUser", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("PostedAt", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("PostedBy", "AppUser", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
         tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
-        tblTop.AddStringLookupId("CancelledBy", "AppUser", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.None).SetNullable(true).SetGroup("Audit");
         TableDef tblCancelsStockTrade = tblTop.AddJoin("CancelsStockTradeId", "StockTrade", "CancelsStockTrade", "Id");
         tblTop.Fields.Get("CancelsStockTradeId").Locator = "StockTrade";
         tblCancelsStockTrade.AddId("Id").SetNullable(false);
