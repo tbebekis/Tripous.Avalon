@@ -588,7 +588,7 @@ from
         tblJournalEntryLine.KeyField = "Id";
         tblJournalEntryLine.AddId("Id").SetNullable(false);
         tblJournalEntryLine.AddString("JournalEntryId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblJournalEntryLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblJournalEntryLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblJournalEntryLine.AddStringLookupId("AccountId", "Account", Flags: FieldFlags.Required).SetNullable(false);
         tblJournalEntryLine.AddDecimal("DebitAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblJournalEntryLine.AddDecimal("CreditAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -918,7 +918,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -1275,7 +1275,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -1632,7 +1632,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -1989,7 +1989,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -2346,7 +2346,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -2703,7 +2703,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -3060,7 +3060,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -3417,7 +3417,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -3774,7 +3774,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -4131,7 +4131,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -4489,7 +4489,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -4846,7 +4846,7 @@ from
         tblTradeLine.KeyField = "Id";
         tblTradeLine.AddId("Id").SetNullable(false);
         tblTradeLine.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLine.AddEnumLookupId("LineTypeId", "TradeLineType", TypeStore.Get("TradeLineType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
@@ -5043,7 +5043,7 @@ from
         tblStockCountLine.KeyField = "Id";
         tblStockCountLine.AddId("Id").SetNullable(false);
         tblStockCountLine.AddString("StockCountId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblStockCountLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblStockCountLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblStockCountLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblStockCountLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("Product.Code");
         tblStockCountLine.AddString("ProductName", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("Product.Name");
@@ -5385,7 +5385,7 @@ from
         tblStockTradeLine.KeyField = "Id";
         tblStockTradeLine.AddId("Id").SetNullable(false);
         tblStockTradeLine.AddString("StockTradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblStockTradeLine.AddInteger("LineNo", Flags: FieldFlags.Required).SetNullable(false);
+        tblStockTradeLine.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false);
         tblStockTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblStockTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("Product.Code");
         tblStockTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("Product.Name");

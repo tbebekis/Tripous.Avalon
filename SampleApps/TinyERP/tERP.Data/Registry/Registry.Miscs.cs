@@ -32,7 +32,7 @@ static public partial class Registry
                 LocatorDef.Add(FieldName);
         }
         
-        // Country
+        // ● Country
         LocatorDef LocatorDef = DataRegistry.AddOrUpdateLocator("Country", "Country", "Id", FormName: "Country");
         AddFields(LocatorDef, ["Id", "Code", "Name"]);
 
@@ -45,7 +45,7 @@ from Person P
 where
         P.IsActive = 1
 ";
-        // Person
+        // ● Person
         LocatorDef = DataRegistry.AddOrUpdateLocatorWithSql("Person", SqlText,  "Id", FormName: "Person");
         AddFields(LocatorDef, ["Id", "Code", "Name"]);
         
@@ -61,33 +61,32 @@ where
         P.IsActive = 1
 ";        
         
-        // Customer
+        // ● Customer
         string WhereSql = @"  and PRT.Code = 'CUS' ";
         LocatorDef = DataRegistry.AddOrUpdateLocatorWithSql("Customer", SqlText + WhereSql,  "Id", FormName: "Person");
         AddFields(LocatorDef, ["Id", "Code", "Name"]);
         
-        // Supplier
+        // ● Supplier
         WhereSql = @"  and PRT.Code = 'SUP' ";
         LocatorDef = DataRegistry.AddOrUpdateLocatorWithSql("Supplier", SqlText + WhereSql,  "Id", FormName: "Person");
         AddFields(LocatorDef, ["Id", "Code", "Name"]);
         
-        // Employee
+        // ● Employee
         WhereSql = @"  and PRT.Code = 'EMP' ";
         LocatorDef = DataRegistry.AddOrUpdateLocatorWithSql("Employee", SqlText + WhereSql,  "Id", FormName: "Person");
         AddFields(LocatorDef, ["Id", "Code", "Name"]);
         
-        // Manager
+        // ● Manager
         WhereSql = @"  and PRT.Code = 'MGR' ";
         LocatorDef = DataRegistry.AddOrUpdateLocatorWithSql("Manager", SqlText + WhereSql,  "Id", FormName: "Person");
         AddFields(LocatorDef, ["Id", "Code", "Name"]);
         
-        // Carrier
+        // ● Carrier
         WhereSql = @"  and PRT.Code = 'CAR' ";
         LocatorDef = DataRegistry.AddOrUpdateLocatorWithSql("Carrier", SqlText + WhereSql,  "Id", FormName: "Person");
         AddFields(LocatorDef, ["Id", "Code", "Name"]);
         
-        
-        // PersonId
+ 
     }
     /// <summary>
     /// Definitions added by the registration builder may be incomplete.

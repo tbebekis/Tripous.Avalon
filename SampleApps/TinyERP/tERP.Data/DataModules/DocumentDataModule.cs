@@ -16,6 +16,8 @@ namespace tERP.Data;
 /// </summary>
 public class DocumentDataModule: AppDataModule
 {
+    protected int fIsTransforming;
+    
     // ● protected
     protected override CodeProviderDef GetCodeProviderDef() => IsPosting? FinalCodeProviderDef: DraftCodeProviderDef;
     /// <summary>
@@ -99,7 +101,24 @@ public class DocumentDataModule: AppDataModule
             Row.SetValue("TradeTypeId", DocumentType.TradeTypeId);
         }
     }
-    
+
+    protected override void NewRowAdded(MemTable Table, DataTableNewRowEventArgs ea)
+    {
+        base.NewRowAdded(Table, ea);
+
+        if (Table == tblItem || IsTransforming || !Table.ContainsColumn("DisplayOrder"))
+            return;
+
+        int DisplayOrder = Table.Rows
+            .Cast<DataRow>()
+            .Where(Row => Row != ea.Row && Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached)
+            .Select(Row => Row.AsInteger("DisplayOrder"))
+            .DefaultIfEmpty(0)
+            .Max();
+
+        ea.Row.SetValue("DisplayOrder", DisplayOrder + 10);
+    }
+
     // ● construction
     /// <summary>
     /// Constructor
@@ -107,7 +126,22 @@ public class DocumentDataModule: AppDataModule
     public DocumentDataModule()
     {
     }
+
     
+    // ● public
+    public override void Initialize(ModuleDef ModuleDef)
+    {
+        base.Initialize(ModuleDef);
+
+        foreach (MemTable Table in ItemTables)
+        {
+            if (Table.ContainsColumn("DisplayOrder"))
+            {
+                Table.DataView.Sort = "DisplayOrder ASC, Id ASC";
+            }
+        }
+    }
+
     // ● properties
     /// <summary>
     /// The draft code provider, the one where its pattern starts with "DRAFT-"
@@ -122,4 +156,21 @@ public class DocumentDataModule: AppDataModule
     /// </summary>
     public bool IsPosting { get; protected set; }
     public DocumentType DocumentType { get; protected set; }
+    /// <summary>
+    /// True while transforming from one type of a document to an other.
+    /// </summary>
+    public bool IsTransforming
+    {
+        get => fIsTransforming > 0;
+        protected set
+        {
+            if (value)
+                fIsTransforming++;
+            else
+                fIsTransforming--;
+
+            if (fIsTransforming < 0)
+                fIsTransforming = 0;
+        }
+    }
 }

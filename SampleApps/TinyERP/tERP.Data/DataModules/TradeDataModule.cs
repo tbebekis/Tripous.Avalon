@@ -10,8 +10,9 @@ namespace tERP.Data;
 
 public class TradeDataModule: DocumentDataModule
 {
+    protected bool IsCopyingPersonAddresses = false;
+    
     // ● protected
- 
     /// <summary>
     /// Sets default values to the Row. It is called when a commit operation starts.
     /// </summary>
@@ -31,6 +32,7 @@ public class TradeDataModule: DocumentDataModule
             Row.SetValue("TradeDate", DateTime.UtcNow.Date);
         }
     }
+    
     
     // ● construction
     public TradeDataModule()

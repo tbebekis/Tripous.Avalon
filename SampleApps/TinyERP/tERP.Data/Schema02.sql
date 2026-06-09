@@ -296,7 +296,7 @@ CREATE TABLE {TableName} (
 
     TradeId @NVARCHAR(40) @NOT_NULL,                    -- Master
 
-    LineNo int @NOT_NULL,
+    DisplayOrder int @NOT_NULL,                         
 
     LineTypeId int default 1 @NOT_NULL,                 -- Enum TradeLineType
 
@@ -335,8 +335,6 @@ CREATE TABLE {TableName} (
     TotalAmount @DECIMAL default 0 @NOT_NULL,
 
     SourceTradeLineId @NVARCHAR(40) @NULL,              -- Locator TradeLine
-
-    CONSTRAINT UQ_{TableName}_Trade_LineNo UNIQUE (TradeId, LineNo),
 
     FOREIGN KEY (TradeId) REFERENCES Trade(Id),
 
@@ -441,7 +439,7 @@ CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     StockTradeId @NVARCHAR(40) @NOT_NULL,               -- Master
-    LineNo int @NOT_NULL,
+    DisplayOrder int @NOT_NULL,
 
     ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
     ProductCode @NVARCHAR(40) @NOT_NULL,                -- Snapshot Product.Code  
@@ -463,8 +461,6 @@ CREATE TABLE {TableName} (
     SourceStockTradeLineId @NVARCHAR(40) @NULL,         -- optional source stock line, e.g. reversal/copy/adjustment flow
 
     Remarks @NVARCHAR(512) @NULL,                       -- internal line notes
-
-    CONSTRAINT UQ_{TableName}_StockTrade_LineNo UNIQUE (StockTradeId, LineNo),
 
     FOREIGN KEY (StockTradeId) REFERENCES StockTrade(Id),
     FOREIGN KEY (ProductId) REFERENCES Product(Id),
@@ -684,7 +680,7 @@ CREATE TABLE {TableName} (
 
     StockCountId @NVARCHAR(40) @NOT_NULL,               -- Master
 
-    LineNo int @NOT_NULL,
+    DisplayOrder int @NOT_NULL,
 
     ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
     ProductCode @NVARCHAR(40) @NOT_NULL,                -- Snapshot Product.Code 
@@ -703,9 +699,7 @@ CREATE TABLE {TableName} (
 
     FOREIGN KEY (StockCountId) REFERENCES StockCount(Id),
     FOREIGN KEY (ProductId) REFERENCES Product(Id),
-    FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id),
-
-    CONSTRAINT UQ_{TableName}_LineNo UNIQUE (StockCountId, LineNo)
+    FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id) 
     )
 
 /*---------------------------------------------------
@@ -1064,7 +1058,7 @@ CREATE TABLE {TableName} (
 
     JournalEntryId @NVARCHAR(40) @NOT_NULL,          -- Master
 
-    LineNo int @NOT_NULL,
+    DisplayOrder int @NOT_NULL,
 
     AccountId @NVARCHAR(40) @NOT_NULL,               -- Lookup
 
@@ -1079,9 +1073,7 @@ CREATE TABLE {TableName} (
 
     SourceModule @NVARCHAR(64) @NULL,
     SourceTable @NVARCHAR(64) @NULL,
-    SourceId @NVARCHAR(40) @NULL,
-
-    CONSTRAINT UQ_{TableName}_LineNo UNIQUE (JournalEntryId, LineNo),
+    SourceId @NVARCHAR(40) @NULL, 
 
     CONSTRAINT CHK_{TableName}_DebitAmount CHECK (DebitAmount >= 0),
     CONSTRAINT CHK_{TableName}_CreditAmount CHECK (CreditAmount >= 0),

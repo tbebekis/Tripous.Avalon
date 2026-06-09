@@ -332,7 +332,23 @@ public class DataModule
     {
     }
     protected virtual bool MustReselectAfterCommit() => CodeProviderDef != null;
-    
+
+    protected virtual void ColumnChanging(MemTable Table, DataColumnChangeEventArgs ea)
+    {
+    }
+    protected virtual void ColumnChanged(MemTable Table, DataColumnChangeEventArgs ea)
+    {
+    }
+    /// <summary>
+    /// WARNING: the new row is not in rows yet
+    /// </summary>
+    protected virtual void NewRowAdding(MemTable Table, DataTableNewRowEventArgs ea)
+    {
+    }
+    protected virtual void NewRowAdded(MemTable Table, DataTableNewRowEventArgs ea)
+    {
+    }
+
 
     // ● construction
     /// <summary>
@@ -412,10 +428,17 @@ public class DataModule
             {
                 Table = TableDef.CreateDescriptorTable(Store);  // TableDef.CreateDescriptorTable(Store, table => DataSet.Tables.Add(table));
                 DataSet.Tables.Add(Table);
+                ItemTables.Add(Table);
                 
                 Sqls = TableDef.BuildSql(SqlFlags);
                 Table.Sqls.AssignFrom(Sqls);
                 Table.AutoGenerateGuidKeys = ModuleDef.GuidOids;
+
+                Table.ColumnChanging += (Sender, Args) => ColumnChanging(Sender as MemTable, Args);
+                Table.ColumnChanged += (Sender, Args) => ColumnChanged(Sender as MemTable, Args);
+                
+                Table.NewRowAdding += (Sender, Args) => NewRowAdding(Sender as MemTable, Args);
+                Table.NewRowAdded += (Sender, Args) => NewRowAdded(Sender as MemTable, Args);
             }
             
             tblItem = FindTable(ModuleDef.Table.Name);
@@ -550,13 +573,6 @@ public class DataModule
         {
             Editing(RowId);
             TableSet.Load(RowId);
-
-            /*
-            var Table = this.tblItem;
-            var Flag = this.tblItem.DetailsActive;
-            var S = this.tblItem.DetailRowFilter;
-            */
-            
             LastEditedId = RowId;
             Edited(RowId);
         }
@@ -767,6 +783,7 @@ public class DataModule
     public MemTable tblList { get; protected set; }
     public MemTable tblItem { get; protected set; }
     public IEnumerable<MemTable> Tables => DataSet.Tables.Cast<MemTable>();
+    public List<MemTable> ItemTables = new();
     public List<MemTable> Stocks => new();
     public string Name => ModuleDef.Name;
     public bool DetailsActive

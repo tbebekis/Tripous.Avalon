@@ -540,8 +540,8 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    ScopeId int @NOT_NULL,                 -- Enum ConfigScope
-    OwnerKey @NVARCHAR(96) @NULL,          -- CompanyId, UserName, etc.
+    ScopeId int @NOT_NULL,                 -- Enum ConfigScope -- System, Company, User
+    OwnerKey @NVARCHAR(96) @NULL,          -- CompanyId, UserName, or empty string for System 
 
     Name @NVARCHAR(128) @NOT_NULL,         -- ConfigPropertyDef.Name
 

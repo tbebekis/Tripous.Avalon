@@ -91,21 +91,7 @@ static public class TripousAvalonExtensions
             }
         }
     }
-
-    // ● miscs
  
-    /// <summary>
-    /// Returns true if a value exists inside a flags enum mask.
-    /// </summary>
-    static public bool In<T>(this T Value, T Mask) where T : struct, Enum
-    {
-        long v = Convert.ToInt64(Value);
-        long m = Convert.ToInt64(Mask);
-        return (v & m) == v;
-    }
-
-
-
 }
 
  

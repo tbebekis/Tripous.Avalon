@@ -154,6 +154,8 @@ static public class DataFieldTypeHelper
     
     static public string GetDefaultFormat(this DataFieldType Value)
     {
+        if (Value == DataFieldType.Integer)
+            return "0";
         if (Value.IsNumeric())
             return Sys.Settings.NumericFormat;
         if (Value.IsDateStrict())

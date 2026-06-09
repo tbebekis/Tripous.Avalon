@@ -319,6 +319,8 @@ namespace Tripous
         {
             if (T != null)
             {
+                if (T.IsInteger())
+                    return "0";
                 if (T.IsNumeric())
                     return Sys.Settings.NumericFormat;
                 if (T.IsDateTime())

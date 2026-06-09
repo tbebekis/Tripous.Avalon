@@ -1455,8 +1455,10 @@ static public class SchemaRegistrationBuilder
                 if (Locator == null)
                     continue;
 
-                if (!Result.ContainsKey(Locator.Name))
+                if (!Result.TryGetValue(Locator.Name, out LocatorInfo Existing))
                     Result[Locator.Name] = Locator;
+                else if (string.IsNullOrWhiteSpace(Existing.ClassName) && !string.IsNullOrWhiteSpace(Locator.ClassName))
+                    Existing.ClassName = Locator.ClassName;
             }
         }
 
@@ -2114,6 +2116,8 @@ static public class SchemaRegistrationBuilder
 
             if (Kind == FieldMetadataKind.Lookup)
                 ParseLookupMetadata(Metadata, Entry);
+            else if (Kind == FieldMetadataKind.Locator || Kind == FieldMetadataKind.CorrelationLocator)
+                ParseLocatorMetadata(Metadata, Entry);
             else
                 Metadata.MetadataName = ParseMetadataName(Entry, Kind);
 
@@ -2338,6 +2342,60 @@ static public class SchemaRegistrationBuilder
             Metadata.LookupEnumTypeName = SourceValue;
         else if (SourceKey.IsSameText("ClassName"))
             Metadata.LookupClassName = SourceValue;
+    }
+    /// <summary>
+    /// Parses locator metadata.
+    /// </summary>
+    static void ParseLocatorMetadata(FieldMetadata Metadata, string MetadataText)
+    {
+        int OpenIndex = MetadataText.IndexOf('(');
+        if (OpenIndex >= 0)
+            MetadataText = MetadataText.Substring(0, OpenIndex).Trim();
+
+        string Prefix = Metadata.Kind == FieldMetadataKind.CorrelationLocator ? "Correlation Locator" : "Locator";
+        string Text = MetadataText.StartsWith(Prefix, StringComparison.OrdinalIgnoreCase)
+            ? MetadataText.Substring(Prefix.Length).Trim()
+            : string.Empty;
+
+        List<string> Parts = SplitHeaderTokens(Text);
+        if (Parts.Count == 0)
+            return;
+
+        if (Parts[0].StartsWith("ClassName:", StringComparison.OrdinalIgnoreCase) || Parts[0].IsSameText("ClassName:"))
+        {
+            AddFieldMetadataError(Metadata, "Locator name is required when ClassName is specified: " + MetadataText);
+            return;
+        }
+
+        Metadata.MetadataName = Parts[0];
+
+        if (Parts.Count == 1)
+            return;
+
+        string Part = Parts[1];
+        int Index = Part.IndexOf(':');
+        string Key = Index >= 0 ? Part.Substring(0, Index).Trim() : Part.EndsWith(":") ? Part.Substring(0, Part.Length - 1).Trim() : string.Empty;
+        if (!Key.IsSameText("ClassName"))
+        {
+            AddFieldMetadataError(Metadata, "Invalid Locator metadata syntax: " + MetadataText);
+            return;
+        }
+
+        string ClassName = Index >= 0 ? Part.Substring(Index + 1).Trim() : string.Empty;
+        int LastExpectedIndex = 1;
+        if (string.IsNullOrWhiteSpace(ClassName) && Parts.Count > 2)
+        {
+            ClassName = Parts[2];
+            LastExpectedIndex = 2;
+        }
+
+        if (string.IsNullOrWhiteSpace(ClassName) || Parts.Count - 1 > LastExpectedIndex)
+        {
+            AddFieldMetadataError(Metadata, "Invalid Locator metadata syntax: " + MetadataText);
+            return;
+        }
+
+        Metadata.LocatorClassName = ClassName;
     }
     /// <summary>
     /// Parses group metadata.
@@ -2570,6 +2628,7 @@ static public class SchemaRegistrationBuilder
         Result.TableName = ReferenceTableName;
         Result.Alias = RemoveIdSuffix(Field.Name);
         Result.KeyField = !string.IsNullOrWhiteSpace(Field.ForeignKey.ReferenceField) ? Field.ForeignKey.ReferenceField : "Id";
+        Result.ClassName = Field.LocatorClassName;
         Result.FormName = ReferenceTable.FormName;
         Result.ReturnFields.Add(Result.KeyField);
 
@@ -3783,6 +3842,7 @@ static public class SchemaRegistrationBuilder
             Result.LookupTableName = Metadata.LookupTableName;
             Result.LookupEnumTypeName = Metadata.LookupEnumTypeName;
             Result.LookupClassName = Metadata.LookupClassName;
+            Result.LocatorClassName = Metadata.LocatorClassName;
             Result.CommentText = Metadata.CommentText;
             Result.IsOneToOne = Metadata.IsOneToOne;
             Result.IsMemo = Metadata.IsMemo;
@@ -3841,6 +3901,10 @@ static public class SchemaRegistrationBuilder
         /// Lookup source class name.
         /// </summary>
         public string LookupClassName { get; set; }
+        /// <summary>
+        /// Locator class name.
+        /// </summary>
+        public string LocatorClassName { get; set; }
         /// <summary>
         /// Code provider pattern.
         /// </summary>
@@ -4041,6 +4105,10 @@ static public class SchemaRegistrationBuilder
         /// Lookup source class name.
         /// </summary>
         public string LookupClassName { get; set; }
+        /// <summary>
+        /// Locator class name.
+        /// </summary>
+        public string LocatorClassName { get; set; }
         /// <summary>
         /// Code provider pattern.
         /// </summary>

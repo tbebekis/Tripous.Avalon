@@ -308,7 +308,7 @@ Photo @BLOB, -- [Image] -- product photo
 | `Master`     | `Master` / `Master OneToOne`                                                                              | FK to parent table. `OneToOne` = single-row detail. |
 | `Lookup`     | `Lookup [LOOKUP_NAME] [TableName:TABLE_NAME \| EnumName:ENUM_NAME \| ClassName:LOOKUP_SOURCE_CLASS_NAME]` | Small in-memory reference selector                  |
 | `Enum`       | `Enum [EnumName]`                                                                                         | Enum-backed selector                                |
-| `Locator`    | `Locator [LocatorName]`                                                                                   | Searchable large reference selector                 |
+| `Locator`    | `Locator [LOCATOR_NAME] [ClassName:LOCATOR_CLASS_NAME]`                                                   | Searchable large reference selector                 |
 | `Code`       | `Code [Draft] [Pattern] [ProviderName]`                                                                   | Auto-generated code field                           |
 | `Memo`       | `Memo`                                                                                                    | Text field with Memo flag                           |
 | `LargeMemo`  | `LargeMemo`                                                                                               | Text blob with LargeMemo flag                       |
@@ -377,6 +377,29 @@ A **LookupSource** registration is generated when any of the following is true:
 ## Locator
 
 Locator fields use a searchable control (not a simple dropdown).
+
+```sql
+ProductId @NVARCHAR(40) @NOT_NULL, -- Locator
+ProductId @NVARCHAR(40) @NOT_NULL, -- Locator Product
+ProductId @NVARCHAR(40) @NOT_NULL, -- Locator Product ClassName:ProductLocator
+```
+
+- `LOCATOR_NAME` is the name of the `LocatorDef` registered in `DataRegistry.Locators`.
+- If `LOCATOR_NAME` is omitted, it is resolved from the foreign key referenced table.
+- If `ClassName:` is used, `LOCATOR_NAME` is required.
+- `ClassName:` is passed to `DataRegistry.AddOrUpdateLocator()`.
+
+The following declaration:
+
+```sql
+ProductId @NVARCHAR(40) @NOT_NULL, -- Locator Product ClassName:ProductLocator
+```
+
+generates:
+
+```csharp
+DataRegistry.AddOrUpdateLocator("Product", "Product", "Id", ClassName: "ProductLocator");
+```
 
 The builder generates **base registration only**. The developer is expected to further configure:
 - `LocatorFieldDefs`

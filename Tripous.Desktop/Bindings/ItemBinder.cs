@@ -18,6 +18,23 @@ public class ItemBinder
     DataRow fCurrentRow;
 
     void RowProvider_CurrentRowChanged(object sender, EventArgs ea) => this.CurrentRow = RowProvider.CurrentRow;
+    void RowProvider_ColumnChanged(object Sender, DataColumnChangeEventArgs Ea)
+    {
+        DataRow Row = Ea.Row;
+        string FieldName = Ea.Column.ColumnName;
+
+        if (Row != RowProvider.CurrentRow)
+            return;
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (Row != RowProvider.CurrentRow)
+                return;
+
+            foreach (ControlBinding Binding in Bindings.Where(x => FieldName.IsSameText(x.FieldName)))
+                ControlBindingHelper.Refresh(RowProvider, Binding);
+        }, DispatcherPriority.Background);
+    }
  
     // ● construction
     /// <summary>
@@ -172,9 +189,15 @@ public class ItemBinder
         {
             if (fRowProvider != null)
                 fRowProvider.CurrentRowChanged -= RowProvider_CurrentRowChanged;
+            if (fRowProvider is MemTable OldTable)
+                OldTable.ColumnChanged -= RowProvider_ColumnChanged;
+
             fRowProvider = value;
+
             if (fRowProvider != null)
                 fRowProvider.CurrentRowChanged += RowProvider_CurrentRowChanged;
+            if (fRowProvider is MemTable NewTable)
+                NewTable.ColumnChanged += RowProvider_ColumnChanged;
         }
     }
     /// <summary>

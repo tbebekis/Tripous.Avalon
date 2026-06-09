@@ -110,7 +110,6 @@ order by
         }
         return "";
     }
-
     static public string GetDefaultPaymentTermId()  
     {
         string SqlText = @$"select Id, Code from PaymentTerm order by Code";
@@ -125,6 +124,41 @@ order by
         return "";    
     }
  
+    // ● miscs
+    static public List<PersonAddress> LoadPersonAddressList(string PersonId)
+    {
+        List<PersonAddress> Result = new();
+
+        string SqlText = $@"
+select 
+	t.Id, 
+	t.PersonId, 
+	t.AddressTypeId, 
+	t.Code, 
+	t.Name, 
+	t.CountryId, 
+	c.Code 			CountryCode,
+	c.Name 			Country,
+	t.Region, 
+	t.City, 
+	t.PostalCode, 
+	t.AddressLine1, 
+	t.AddressLine2, 
+	t.IsDefault, 
+	t.Notes
+from 
+	PersonAddress t
+		left join Country c on t.CountryId = c.Id
+where
+    t.PersonId = '{PersonId}'
+";
+
+        DataTable Table = Db.DefaultStore.Select(SqlText);
+        foreach (DataRow Row in Table.Rows)
+            Result.Add(new PersonAddress(Row));
+
+        return Result;
+    }
     
     // ● properties
 #if DEBUG

@@ -61,8 +61,13 @@ public partial class MainWindow : Window
                 try
                 {
                     await SampleData.AddSampleDataAsync(NotAddedSampleData);
-                    LogBox.Append("DONE.");
-                    await MessageBox.Info("DONE", this);
+                    
+                    string Message = @"DONE.
+
+Please restart the application.
+";
+                    LogBox.Append(Message);
+                    await MessageBox.Info(Message, this);
                 }
                 catch (Exception e)
                 {
