@@ -123,7 +123,20 @@ order by
         }
         return "";    
     }
- 
+    static public string GetDefaultPriceListTypeId()
+    {
+        string SqlText = @$"select Id, Code from PriceListType order by Code";
+        MemTable Table = Db.DefaultStore.Select(SqlText);
+        if (Table.Rows.Count > 0)
+        {
+            DataRow Row = Table.Locate("Code", "WHOLESALE", LocateOptions.CaseInsensitive);    // WHOLESALE
+            if (Row != null)
+                return Row.AsString("Id");
+            return Table.Rows[0].AsString("Id");
+        }
+        return "";  
+    }
+    
     // ● miscs
     static public List<PersonAddress> LoadPersonAddressList(string PersonId)
     {

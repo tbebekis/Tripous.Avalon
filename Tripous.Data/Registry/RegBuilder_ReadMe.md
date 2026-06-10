@@ -417,6 +417,91 @@ Product__Name   → display/runtime (non-persistent)
 
 In grids, raw FK fields are hidden; alias fields are shown instead.
 
+### Join Field Aliases and Locator Fields
+
+Unless the developer provides a custom alias, a field added to a join table receives an alias using this convention:
+
+```text
+JOIN_ALIAS__FIELD_NAME
+```
+
+For example:
+
+```csharp
+TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+tblProduct.AddId("Id");
+tblProduct.AddString("Code");
+tblProduct.AddString("Name");
+```
+
+The join alias is `Product`, so the generated field aliases are:
+
+```text
+Id    → Product__Id
+Code  → Product__Code
+Name  → Product__Name
+```
+
+The important rule is that `LocatorFieldDef.Name` normally identifies the original field name in the joined source table, not the alias of a snapshot field in the owning table.
+
+For the `Product` join, locator fields should normally be declared as:
+
+```csharp
+LocatorDef.Add("Id");
+LocatorDef.Add("Code");
+LocatorDef.Add("Name");
+```
+
+A custom locator SELECT should expose compatible columns:
+
+```sql
+select
+     P.Id as Id
+    ,P.Code as Code
+    ,P.Name as Name
+from Product P
+```
+
+The UI resolves each locator field in two steps:
+
+- It matches locator field `Code` to join field `Product.Code`.
+- It uses the join field alias `Product__Code` for display, or finds a snapshot field such as `ProductCode` declared with `SnapshotOf("Product.Code")`.
+
+For example:
+
+```csharp
+tblTradeLine.AddString("ProductCode").SetSnapshotOf("Product.Code");
+tblTradeLine.AddString("ProductName").SetSnapshotOf("Product.Name");
+```
+
+The resulting mappings are:
+
+```text
+Locator Code → Product.Code → ProductCode
+Locator Name → Product.Name → ProductName
+```
+
+Do not declare `ProductCode` and `ProductName` as locator field names merely because those are the target snapshot field names. They do not identify fields in the `Product` join and the UI cannot resolve the locator columns through the default matching rules.
+
+When the custom SELECT must use different column names, keep the locator source name and set an explicit alias:
+
+```csharp
+LocatorDef.Add("Code", DataFieldType.String, TargetField: null, Alias: "ProductCode", TitleKey: null, IsVisible: true, IsSearchable: true);
+LocatorDef.Add("Name", DataFieldType.String, TargetField: null, Alias: "ProductName", TitleKey: null, IsVisible: true, IsSearchable: true);
+```
+
+Then the SELECT may return:
+
+```sql
+select
+     P.Id as Id
+    ,P.Code as ProductCode
+    ,P.Name as ProductName
+from Product P
+```
+
+Using the original source names `Code` and `Name` in both the locator definition and the SELECT is the preferred and simplest form.
+
 ---
 
 ## Code Provider

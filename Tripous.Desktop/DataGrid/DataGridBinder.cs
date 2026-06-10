@@ -798,9 +798,9 @@ public static class DataGridBinder
         DataGridColumn Result = null;
         
         if (IsBoolean)
-            Result = CreateBoolColumn(FieldDef.Name, Header: FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
+            Result = CreateBoolColumn(FieldDef.Name, Header: FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly || FieldDef.IsReadOnlyUI, SupportsRecycling: SupportsRecycling);
         else
-            Result = CreateTextColumn(FieldDef.Name, Header: FieldDef.Title, Format: GetDateAwareFormat(FieldDef), Alignment: Align, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
+            Result = CreateTextColumn(FieldDef.Name, Header: FieldDef.Title, Format: GetDateAwareFormat(FieldDef), Alignment: Align, IsReadOnly: FieldDef.IsReadOnly || FieldDef.IsReadOnlyUI, SupportsRecycling: SupportsRecycling);
  
         GridColumnBinding CI = new GridColumnBinding(Result, FieldDef);
         Result.Tag = CI;
@@ -826,7 +826,7 @@ public static class DataGridBinder
         
         DataGridTemplateColumn Result = new();
         GridColumnBinding CI = new GridColumnBinding(Result, FieldDef);
-        ConfigureLookupColumn(Result, FieldDef.Name, LookupSource, CI, FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly, SupportsRecycling: SupportsRecycling);
+        ConfigureLookupColumn(Result, FieldDef.Name, LookupSource, CI, FieldDef.Title, IsReadOnly: FieldDef.IsReadOnly || FieldDef.IsReadOnlyUI, SupportsRecycling: SupportsRecycling);
         CI.LookupSource = LookupSource;
         Result.Tag = CI;    
         return Result;

@@ -294,7 +294,7 @@ Commercial document line.
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    TradeId @NVARCHAR(40) @NOT_NULL,                    -- Master
+    TradeId @NVARCHAR(40) @NOT_NULL,                    -- Master; [ReadOnlyUI]
 
     DisplayOrder int @NOT_NULL,                         
 
@@ -309,42 +309,38 @@ CREATE TABLE {TableName} (
     WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup (line override)
 
     UnitOfMeasureId @NVARCHAR(40) @NULL,                -- Lookup
-    UnitOfMeasureName @NVARCHAR(40) @NULL,              -- Snapshot UnitOfMeasure.Name
-    UnitRatio @DECIMAL default 1 @NOT_NULL,             -- ratio to primary unit, ProductUnitOfMeasure.Ratio
+    UnitOfMeasureName @NVARCHAR(40) @NULL,              -- Snapshot UnitOfMeasure.Name; [ReadOnlyUI]
+    UnitRatio @DECIMAL default 1 @NOT_NULL,             -- [ReadOnlyUI] -- ratio to primary unit, ProductUnitOfMeasure.Ratio
 
     Quantity @DECIMAL default 0 @NOT_NULL,
-    PrimaryUnitQuantity @DECIMAL default 0 @NOT_NULL,
+    PrimaryUnitQuantity @DECIMAL default 0 @NOT_NULL,   -- [ReadOnlyUI]
 
-    ReservedQuantity @DECIMAL default 0 @NOT_NULL,
-    ExecutedQuantity @DECIMAL default 0 @NOT_NULL,
+    ReservedQuantity @DECIMAL default 0 @NOT_NULL,      -- [ReadOnlyUI]
+    ExecutedQuantity @DECIMAL default 0 @NOT_NULL,      -- [ReadOnlyUI]
 
-    VatRateId @NVARCHAR(40) @NULL,                      -- Lookup
-    VatRatePercent @DECIMAL_(5,2) default 0 @NOT_NULL,  -- Snapshot VatRate.Percent
+    VatRateId @NVARCHAR(40) @NULL,                      -- Lookup; -- [ReadOnlyUI]
+    VatRatePercent @DECIMAL_(5,2) default 0 @NOT_NULL,  -- Snapshot VatRate.Percent; [ReadOnlyUI]
 
     UnitPrice @DECIMAL default 0 @NOT_NULL,
 
-    GrossAmount @DECIMAL default 0 @NOT_NULL,           -- Quantity * UnitPrice
+    GrossAmount @DECIMAL default 0 @NOT_NULL,           -- [ReadOnlyUI]   -- Quantity * UnitPrice
 
     DiscountPercent @DECIMAL default 0 @NOT_NULL,
     DiscountAmount @DECIMAL default 0 @NOT_NULL,
 
-    NetUnitPrice @DECIMAL default 0 @NOT_NULL,          -- Display/convenience value
+    NetUnitPrice @DECIMAL default 0 @NOT_NULL,          -- [ReadOnlyUI]     -- Display/convenience value
 
-    NetAmount @DECIMAL default 0 @NOT_NULL,             -- GrossAmount - DiscountAmount
-    VatAmount @DECIMAL default 0 @NOT_NULL,
-    TotalAmount @DECIMAL default 0 @NOT_NULL,
+    NetAmount @DECIMAL default 0 @NOT_NULL,             -- [ReadOnlyUI]     -- GrossAmount - DiscountAmount
+    VatAmount @DECIMAL default 0 @NOT_NULL,             -- [ReadOnlyUI]
+    TotalAmount @DECIMAL default 0 @NOT_NULL,           -- [ReadOnlyUI]
 
-    SourceTradeLineId @NVARCHAR(40) @NULL,              -- Locator TradeLine
+    SourceTradeLineId @NVARCHAR(40) @NULL,              -- Locator TradeLine; [ReadOnlyUI]
 
     FOREIGN KEY (TradeId) REFERENCES Trade(Id),
-
     FOREIGN KEY (ProductId) REFERENCES Product(Id),
     FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
-
     FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id),
-
     FOREIGN KEY (VatRateId) REFERENCES VatRate(Id),
-
     FOREIGN KEY (SourceTradeLineId) REFERENCES TradeLine(Id)
     )
 

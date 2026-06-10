@@ -28,8 +28,18 @@ static public partial class Registry
     {
         void AddFields(LocatorDef LocatorDef, string[] FieldNames)
         {
+            LocatorDef.Fields.Clear();
+
             foreach (string FieldName in FieldNames)
-                LocatorDef.Add(FieldName);
+            {
+                LocatorFieldDef FieldDef = LocatorDef.Add(FieldName);
+                if (FieldName.IsSameText("Id"))
+                {
+                    FieldDef.IsVisible = false;
+                    FieldDef.IsSearchable = false;
+                }
+            }
+                
         }
         
         // ● Country
@@ -85,6 +95,52 @@ where
         WhereSql = @"  and PRT.Code = 'CAR' ";
         LocatorDef = DataRegistry.AddOrUpdateLocatorWithSql("Carrier", SqlText + WhereSql,  "Id", FormName: "Person");
         AddFields(LocatorDef, ["Id", "Code", "Name"]);
+        
+        //*
+        // ● Product
+        SqlText = @"
+select
+     P.Id as Id
+    ,P.Code as Code
+    ,P.Name as Name
+    ,coalesce(PUM.UnitId, P.PrimaryUnitOfMeasureId) as UnitOfMeasureId
+    ,UOM.Name as UnitOfMeasureName
+    ,coalesce(PUM.Ratio, 1) as UnitRatio
+    ,P.VatRateId
+    ,coalesce(VR.Percent, 0) as VatRatePercent
+    ,cast(0 as decimal(18, 4)) as UnitPrice
+from Product P
+left join ProductUnitOfMeasure PUM
+    on PUM.ProductId = P.Id
+    and PUM.IsActive = 1
+    and PUM.IsSalesDefault = 1
+    and not exists
+    (
+        select 1
+        from ProductUnitOfMeasure PUM2
+        where PUM2.ProductId = PUM.ProductId
+          and PUM2.IsActive = 1
+          and PUM2.IsSalesDefault = 1
+          and PUM2.Id < PUM.Id
+    )
+left join UnitOfMeasure UOM on UOM.Id = coalesce(PUM.UnitId, P.PrimaryUnitOfMeasureId)
+left join VatRate VR on VR.Id = P.VatRateId
+where P.IsActive = 1
+";       
+        
+        LocatorDef = DataRegistry.AddOrUpdateLocatorWithSql("Product", SqlText,  "Id", FormName: "Product");
+        AddFields(LocatorDef, [
+            "Id", 
+            "Code", 
+            "Name", 
+            "UnitOfMeasureId", 
+            "UnitOfMeasureName",
+            "UnitRatio",
+            "VatRateId",
+            "VatRatePercent",
+            "UnitPrice" 
+        ]);
+        //*/
         
  
     }

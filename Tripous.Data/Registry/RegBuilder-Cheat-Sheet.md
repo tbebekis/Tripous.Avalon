@@ -182,6 +182,65 @@ Example generated registration:
 DataRegistry.AddOrUpdateLocator("Product", "Product", "Id", ClassName: "ProductLocator");
 ```
 
+## Join Aliases and Locator Fields
+
+Default join field alias:
+
+```text
+JOIN_ALIAS__FIELD_NAME
+```
+
+Example:
+
+```csharp
+TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
+tblProduct.AddId("Id");
+tblProduct.AddString("Code");
+tblProduct.AddString("Name");
+```
+
+Generated aliases:
+
+```text
+Id    → Product__Id
+Code  → Product__Code
+Name  → Product__Name
+```
+
+Declare locator fields using the original joined-table field names:
+
+```csharp
+LocatorDef.Add("Id");
+LocatorDef.Add("Code");
+LocatorDef.Add("Name");
+```
+
+Preferred custom SELECT:
+
+```sql
+select
+     P.Id as Id
+    ,P.Code as Code
+    ,P.Name as Name
+from Product P
+```
+
+The UI matches:
+
+```text
+Locator Code → Product.Code → Product__Code
+Locator Name → Product.Name → Product__Name
+```
+
+When snapshot fields exist:
+
+```text
+Locator Code → Product.Code → ProductCode
+Locator Name → Product.Name → ProductName
+```
+
+Do not use `ProductCode` or `ProductName` as `LocatorFieldDef.Name` unless those are actual join field names. If the SELECT returns those column names, declare locator fields with `Name = "Code"` / `Name = "Name"` and explicit aliases `ProductCode` / `ProductName`.
+
 ## SQL Type Tokens
 
 RDBMS-neutral tokens replaced at `CREATE TABLE` time:

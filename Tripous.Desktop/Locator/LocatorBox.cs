@@ -54,19 +54,7 @@ public class LocatorBox: UserControl
         if (IsLast)
             return new GridLength(1, GridUnitType.Star);
 
-        if (FieldDef.DisplayWidth > 0)
-            return new GridLength(FieldDef.DisplayWidth);
-
-        if (FieldDef.Name.IsSameText("Code"))
-            return new GridLength(120);
-
-        if (FieldDef.Name.EndsWithText("Code"))
-            return new GridLength(140);
-
-        if (FieldDef.Name.IsSameText("Name") || FieldDef.Name.EndsWithText("Name"))
-            return new GridLength(220);
-
-        return FieldDef.DataType == DataFieldType.String ? new GridLength(180) : new GridLength(120);
+        return new GridLength(LocatorControlHelper.GetFieldWidth(FieldDef));
     }
     /// <summary>
     /// Builds the control UI.
@@ -177,7 +165,11 @@ public class LocatorBox: UserControl
         {
             DataColumn Column = Locator.SourceTable.FindColumn(FieldDef.Alias);
             if (Column != null)
-                fGrid.Columns.Add(DataGridBinder.CreateGridColumn(Column, IsReadOnly: true));
+            {
+                DataGridColumn GridColumn = DataGridBinder.CreateGridColumn(Column, IsReadOnly: true);
+                GridColumn.Width = new DataGridLength(LocatorControlHelper.GetFieldWidth(FieldDef));
+                fGrid.Columns.Add(GridColumn);
+            }
         }
     }
     /// <summary>
@@ -189,8 +181,11 @@ public class LocatorBox: UserControl
         {
             fPopupItemsSource?.Dispose();
             fPopupItemsSource = new DataViewItemsSource(Locator.SourceTable.DataView);
-            double Width = Bounds.Width > 0 ? Bounds.Width : 300;
-            fGrid.Width = Math.Max(Width, 300);
+            List<LocatorFieldDef> Fields = Locator.LocatorDef.Fields
+                .Where(item => item.IsVisible && !item.Name.IsSameText(Locator.LocatorDef.KeyField))
+                .ToList();
+            double MinimumWidth = Bounds.Width > 0 ? Math.Clamp(Bounds.Width, 300, 800) : 300;
+            fGrid.Width = LocatorControlHelper.GetPopupWidth(Fields, MinimumWidth);
             CreatePopupColumns();
             fGrid.ItemsSource = fPopupItemsSource;
             fGrid.SelectedIndex = fPopupItemsSource.Count > 0 ? 0 : -1;

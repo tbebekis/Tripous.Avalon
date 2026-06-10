@@ -23,4 +23,25 @@ public class SalesDefaults
     public string CurrencyId { get; set; } = DataLib.GetDefaultCurrencyId();
     public string PaymentMethodId { get; set; } = DataLib.GetDefaultPaymentMethodId();
     public string PaymentTermId { get; set; } = DataLib.GetDefaultPaymentTermId();
+    public string PriceListTypeId { get; set; } = DataLib.GetDefaultPriceListTypeId();
+    public decimal DefaultQuantity { get; set; } = 1;
+    public List<string> TradeLineGridFields { get; set; } = [
+        "DisplayOrder",
+        "LineTypeId",
+        "ProductCode",
+        "ProductName",
+        "UnitOfMeasureId",
+        "Quantity",
+        "UnitPrice",
+        "GrossAmount",
+        "DiscountPercent",
+        "DiscountAmount",
+        "NetAmount",
+        "VatRatePercent",
+        "VatAmount",
+        "TotalAmount",    
+    ];
 }
+
+
+ 

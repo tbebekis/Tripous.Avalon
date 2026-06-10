@@ -88,7 +88,10 @@ public class GridEditController
     }
     List<DataGridColumn> GetVisibleColumns()
     {
-        return fGrid.Columns.Where(Column => Column.IsVisible).ToList();
+        return fGrid.Columns
+            .Where(Column => Column.IsVisible)
+            .OrderBy(Column => Column.DisplayIndex)
+            .ToList();
     }
     int GetCurrentColumnIndex(List<DataGridColumn> Columns)
     {

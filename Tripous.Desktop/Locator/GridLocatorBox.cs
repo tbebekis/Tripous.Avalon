@@ -74,7 +74,11 @@ public class GridLocatorBox: UserControl
         {
             DataColumn Column = Locator.SourceTable.FindColumn(FieldDef.Alias);
             if (Column != null)
-                fGrid.Columns.Add(DataGridBinder.CreateGridColumn(Column, IsReadOnly: true));
+            {
+                DataGridColumn GridColumn = DataGridBinder.CreateGridColumn(Column, IsReadOnly: true);
+                GridColumn.Width = new DataGridLength(LocatorControlHelper.GetFieldWidth(FieldDef));
+                fGrid.Columns.Add(GridColumn);
+            }
         }
     }
     void OpenPopup()
@@ -84,8 +88,9 @@ public class GridLocatorBox: UserControl
 
         fPopupItemsSource?.Dispose();
         fPopupItemsSource = new DataViewItemsSource(Locator.SourceTable.DataView);
-        double Width = Bounds.Width > 0 ? Bounds.Width : 300;
-        fGrid.Width = Math.Max(Width, 300);
+        List<LocatorFieldDef> Fields = Locator.LocatorDef.Fields.Where(item => item.IsVisible).ToList();
+        double MinimumWidth = Bounds.Width > 0 ? Math.Clamp(Bounds.Width, 300, 800) : 300;
+        fGrid.Width = LocatorControlHelper.GetPopupWidth(Fields, MinimumWidth);
         CreatePopupColumns();
         fGrid.ItemsSource = fPopupItemsSource;
         fGrid.SelectedIndex = fPopupItemsSource.Count > 0 ? 0 : -1;
