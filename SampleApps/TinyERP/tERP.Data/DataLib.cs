@@ -34,6 +34,18 @@ static public partial class DataLib
     }
     
     // ● defaults
+    static string GetDefaultId(string SqlText, string CodeValue)
+    {
+        MemTable Table = Db.DefaultStore.Select(SqlText);
+        if (Table.Rows.Count > 0)
+        {
+            DataRow Row = Table.Locate("Code", CodeValue, LocateOptions.CaseInsensitive);    
+            if (Row != null)
+                return Row.AsString("Id");
+            return Table.Rows[0].AsString("Id");
+        }
+        return ""; 
+    }
     static public string GetDefaultWarehouseId()
     {
         string SqlText = @"
@@ -49,20 +61,6 @@ order by
  
         DataRow Row = Db.DefaultStore.SelectResults(SqlText);
         return Row != null ? Row.AsString("Id") : "";
-    }
-    static public string GetDefaultSalesCostCenterId()
-    {
-        string SqlText = @$"select Id, Code from CostCenter where IsActive = 1 order by Code";
-        MemTable Table = Db.DefaultStore.Select(SqlText);
-        if (Table.Rows.Count > 0)
-        {
-            DataRow Row = Table.Locate("Code", "SALES", LocateOptions.CaseInsensitive);
-            if (Row != null)
-                return Row.AsString("Id");
-            return Table.Rows[0].AsString("Id");
-        }
-
-        return "";
     }
     static public string GetDefaultBranchId()
     {
@@ -82,60 +80,49 @@ order by
         DataRow Row = Db.DefaultStore.SelectResults(SqlText);
         return Row != null ? Row.AsString("Id") : "";
     }
+    static public string GetDefaultSalesCostCenterId()
+    {
+        string SqlText = @$"select * from CostCenter where IsActive = 1 order by Code";
+        string CodeValue = "SALES";
+        return GetDefaultId(SqlText, CodeValue);
+    }
     static public string GetDefaultCurrencyId()
     {
-        string SqlText = @$"select Id, Code from Currency order by Code";
- 
-        MemTable Table = Db.DefaultStore.Select(SqlText);
-        if (Table.Rows.Count > 0)
-        {
-            DataRow Row = Table.Locate("Code", "EUR", LocateOptions.CaseInsensitive);
-            if (Row != null)
-                return Row.AsString("Id");
-            return Table.Rows[0].AsString("Id");
-        }
-
-        return "";
+        string SqlText = @$"select * from Currency order by Code";
+        string CodeValue = "EUR";
+        return GetDefaultId(SqlText, CodeValue);
     }
     static public string GetDefaultPaymentMethodId()
     {
-        string SqlText = @$"select Id, Code from PaymentMethod order by Code";
-        MemTable Table = Db.DefaultStore.Select(SqlText);
-        if (Table.Rows.Count > 0)
-        {
-            DataRow Row = Table.Locate("Code", "42", LocateOptions.CaseInsensitive);    // Payment To Bank Account
-            if (Row != null)
-                return Row.AsString("Id");
-            return Table.Rows[0].AsString("Id");
-        }
-        return "";
+        string SqlText = @$"select * from PaymentMethod where IsActive = 1 order by Code";
+        string CodeValue = "42"; // Payment To Bank Account
+        return GetDefaultId(SqlText, CodeValue);
     }
     static public string GetDefaultPaymentTermId()  
     {
-        string SqlText = @$"select Id, Code from PaymentTerm order by Code";
-        MemTable Table = Db.DefaultStore.Select(SqlText);
-        if (Table.Rows.Count > 0)
-        {
-            DataRow Row = Table.Locate("Code", "NET30", LocateOptions.CaseInsensitive);    // 30 Days
-            if (Row != null)
-                return Row.AsString("Id");
-            return Table.Rows[0].AsString("Id");
-        }
-        return "";    
+        string SqlText = @$"select * from PaymentTerm where IsActive = 1 order by Code";
+        string CodeValue = "NET30"; // 30 Days
+        return GetDefaultId(SqlText, CodeValue);
     }
     static public string GetDefaultPriceListTypeId()
     {
-        string SqlText = @$"select Id, Code from PriceListType order by Code";
-        MemTable Table = Db.DefaultStore.Select(SqlText);
-        if (Table.Rows.Count > 0)
-        {
-            DataRow Row = Table.Locate("Code", "WHOLESALE", LocateOptions.CaseInsensitive);    // WHOLESALE
-            if (Row != null)
-                return Row.AsString("Id");
-            return Table.Rows[0].AsString("Id");
-        }
-        return "";  
+        string SqlText = @$"select * from PriceListType where IsActive = 1 order by Code";
+        string CodeValue = "WHOLESALE";
+        return GetDefaultId(SqlText, CodeValue);
     }
+    static public string GetDefaultTaxBusinessGroupId()
+    {
+        string SqlText = @$"select * from TaxBusinessGroup  where IsActive = 1 order by Code";
+        string CodeValue = "REGISTERED";
+        return GetDefaultId(SqlText, CodeValue);
+    }
+    static public string GetDefaultTaxJurisdictionId()
+    {
+        string SqlText = @$"select * from TaxJurisdiction where IsActive = 1 order by Code";
+        string CodeValue = "EU";
+        return GetDefaultId(SqlText, CodeValue);
+    }
+    // 
     
     // ● miscs
     static public List<PersonAddress> LoadPersonAddressList(string PersonId)

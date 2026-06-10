@@ -24,7 +24,12 @@ public class SalesDefaults
     public string PaymentMethodId { get; set; } = DataLib.GetDefaultPaymentMethodId();
     public string PaymentTermId { get; set; } = DataLib.GetDefaultPaymentTermId();
     public string PriceListTypeId { get; set; } = DataLib.GetDefaultPriceListTypeId();
+    public string TaxBusinessGroupId { get; set; } = DataLib.GetDefaultTaxBusinessGroupId();
+    public string OriginTaxJurisdictionId { get; set; } = DataLib.GetDefaultTaxJurisdictionId();
+    public string DestinationTaxJurisdictionId { get; set; } = DataLib.GetDefaultTaxJurisdictionId();
     public decimal DefaultQuantity { get; set; } = 1;
+    public string PriceResolverClassName { get; set; } = typeof(PriceResolver).FullName;
+    public string TaxResolverClassName { get; set; } = typeof(TaxResolver).FullName;
     public List<string> TradeLineGridFields { get; set; } = [
         "DisplayOrder",
         "LineTypeId",
@@ -37,11 +42,8 @@ public class SalesDefaults
         "DiscountPercent",
         "DiscountAmount",
         "NetAmount",
-        "VatRatePercent",
-        "VatAmount",
-        "TotalAmount",    
+        "TaxPercent",
+        "TaxAmount",
+        "TotalAmount",
     ];
 }
-
-
- 

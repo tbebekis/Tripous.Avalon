@@ -6,7 +6,7 @@
  * See License.txt for details.
  */
 
-namespace tERP.Data;
+namespace tERP.Common;
 
 /// <summary>
 /// Represents a person address.

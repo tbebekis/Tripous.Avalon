@@ -90,6 +90,64 @@ public enum TradeStatus
     Cancelled = 2,
 }
 
+/// <summary>
+/// Defines the geographic level represented by a tax jurisdiction.
+/// </summary>
+[TypeStore]
+public enum TaxJurisdictionType
+{
+    /// <summary>No jurisdiction type is specified.</summary>
+    None = 0,
+    /// <summary>A sovereign country.</summary>
+    Country = 1,
+    /// <summary>A state, province, or equivalent administrative region.</summary>
+    State = 2,
+    /// <summary>A county or equivalent subdivision of a state.</summary>
+    County = 3,
+    /// <summary>A city or municipality.</summary>
+    City = 4,
+    /// <summary>A special local tax authority or district.</summary>
+    Special = 5,
+    /// <summary>A tax territory containing multiple countries, such as the European Union.</summary>
+    TaxZone = 6,
+}
+
+/// <summary>
+/// Defines the family of indirect tax represented by a tax rate.
+/// </summary>
+[TypeStore]
+public enum TaxType
+{
+    /// <summary>No indirect tax family is specified.</summary>
+    None = 0,
+    /// <summary>Value Added Tax, commonly used in Europe and many other countries.</summary>
+    Vat = 1,
+    /// <summary>Sales tax, commonly imposed by United States state and local authorities.</summary>
+    SalesTax = 2,
+    /// <summary>Goods and Services Tax, used in countries such as Canada and Australia.</summary>
+    Gst = 3,
+    /// <summary>Another indirect tax family not represented by the standard values.</summary>
+    Other = 4,
+}
+
+/// <summary>
+/// Defines how a tax rule calculates its monetary tax component.
+/// </summary>
+[TypeStore]
+public enum TaxCalculationType
+{
+    /// <summary>No tax calculation method is specified.</summary>
+    None = 0,
+    /// <summary>Calculates tax as a percentage of the taxable amount.</summary>
+    Percentage = 1,
+    /// <summary>Calculates tax on the taxable amount including previously calculated tax components.</summary>
+    TaxOnTax = 2,
+}
+
+/// <summary>
+/// Legacy document tax treatment retained until the generated modules
+/// and TradeDataModule are migrated to the tax rule model.
+/// </summary>
 [TypeStore]
 public enum TaxTreatment
 {

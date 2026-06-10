@@ -46,10 +46,13 @@ public partial class RegistryVersion1: RegistryVersion
         DataRegistry.AddOrUpdateLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
         DataRegistry.AddOrUpdateLookupWithTableName("SYS_APP_USER", "SYS_APP_USER", FormName: "AppUser");
         DataRegistry.AddOrUpdateLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
-        DataRegistry.AddOrUpdateLookupWithTableName("TaxCategory", "TaxCategory", FormName: "TaxCategory");
+        DataRegistry.AddOrUpdateLookupWithTableName("TaxBusinessGroup", "TaxBusinessGroup", FormName: "TaxBusinessGroup");
+        DataRegistry.AddOrUpdateLookupWithTableName("TaxClause", "TaxClause", FormName: "TaxClause");
+        DataRegistry.AddOrUpdateLookupWithTableName("TaxJurisdiction", "TaxJurisdiction", FormName: "TaxJurisdiction");
         DataRegistry.AddOrUpdateLookupWithTableName("TaxOffice", "TaxOffice", FormName: "TaxOffice");
+        DataRegistry.AddOrUpdateLookupWithTableName("TaxProductGroup", "TaxProductGroup", FormName: "TaxProductGroup");
+        DataRegistry.AddOrUpdateLookupWithTableName("TaxRate", "TaxRate", FormName: "TaxRate");
         DataRegistry.AddOrUpdateLookupWithTableName("UnitOfMeasure", "UnitOfMeasure", FormName: "UnitOfMeasure");
-        DataRegistry.AddOrUpdateLookupWithTableName("VatRate", "VatRate", FormName: "VatRate");
         DataRegistry.AddOrUpdateLookupWithTableName("Warehouse", "Warehouse", FormName: "Warehouse");
     }
 }

@@ -71,6 +71,7 @@ Module: SalesOrder SalesOrderDataModule
 Group: Sales
 ItemPage: TradeItemPage
 DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax
 Code: Draft SO-YYYY-XXXXXX 
 
 Module: SalesDeliveryNote SalesDeliveryNoteDataModule
@@ -160,7 +161,9 @@ CREATE TABLE {TableName} (
     TradeTypeId int default 0 @NOT_NULL,                -- [Hidden]
 
     TradeStatusId int default 0 @NOT_NULL,              -- Enum TradeStatus; [ReadOnlyUI]
-    TaxTreatmentId int default 1 @NOT_NULL,             -- Enum TaxTreatment
+    TaxBusinessGroupId @NVARCHAR(40) @NULL,             -- Lookup -- Tax classification copied from Person and stored as a document snapshot
+    OriginTaxJurisdictionId @NVARCHAR(40) @NULL,        -- Lookup -- Jurisdiction resolved from the company or branch address
+    DestinationTaxJurisdictionId @NVARCHAR(40) @NULL,   -- Lookup -- Jurisdiction resolved from the transaction address or selected as an override
 
     TradeDate @DATE @NOT_NULL,                          -- 
     PostingDate @DATE @NULL,                            -- [ReadOnlyUI]
@@ -187,6 +190,7 @@ CREATE TABLE {TableName} (
     BillingAddressLine1 @NVARCHAR(128) @NULL,           -- Group Billing
     BillingAddressLine2 @NVARCHAR(128) @NULL,           -- Group Billing
     BillingCity @NVARCHAR(64) @NULL,                    -- Group Billing
+    BillingRegion @NVARCHAR(64) @NULL,                  -- Group Billing -- State, province, or administrative region
     BillingPostalCode @NVARCHAR(20) @NULL,              -- Group Billing
     BillingCountryId @NVARCHAR(40) @NULL,               -- Lookup; Group Billing
 
@@ -194,6 +198,7 @@ CREATE TABLE {TableName} (
     ShippingAddressLine1 @NVARCHAR(128) @NULL,          -- Group Shipping
     ShippingAddressLine2 @NVARCHAR(128) @NULL,          -- Group Shipping
     ShippingCity @NVARCHAR(64) @NULL,                   -- Group Shipping
+    ShippingRegion @NVARCHAR(64) @NULL,                 -- Group Shipping -- State, province, or administrative region
     ShippingPostalCode @NVARCHAR(20) @NULL,             -- Group Shipping
     ShippingCountryId @NVARCHAR(40) @NULL,              -- Lookup; Group Shipping
 
@@ -209,7 +214,7 @@ CREATE TABLE {TableName} (
     ChargesAmount @DECIMAL default 0 @NOT_NULL,         -- Group Amounts
 
     NetAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts; [ReadOnlyUI] -- = LinesAmount - DiscountAmount + ChargesAmount
-    VatAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts; [ReadOnlyUI]
+    TaxAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts; [ReadOnlyUI] -- Total tax amount from all line tax components
     TotalAmount @DECIMAL default 0 @NOT_NULL,           -- Group Amounts; [ReadOnlyUI]
 
     IsLocked @BOOL default 0 @NOT_NULL,                 -- [ReadOnlyUI] -- Lock document from editing
@@ -232,6 +237,9 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
 
     FOREIGN KEY (PersonId) REFERENCES Person(Id),
+    FOREIGN KEY (TaxBusinessGroupId) REFERENCES TaxBusinessGroup(Id),
+    FOREIGN KEY (OriginTaxJurisdictionId) REFERENCES TaxJurisdiction(Id),
+    FOREIGN KEY (DestinationTaxJurisdictionId) REFERENCES TaxJurisdiction(Id),
     FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
 
     FOREIGN KEY (SalesPersonId) REFERENCES Person(Id),
@@ -264,24 +272,29 @@ Table: TradeTax
 -----------------------------------------------------
 Hidden detail table.
 
-Stores VAT summary lines per VAT rate for a Trade document.
-Generated and maintained by TradeDataModule.
+Stores tax summary rows per applied tax rule for a Trade document.
+
+The table is generated from TradeLineTax and maintained by
+TradeDataModule. It supports both a single European VAT component
+and multiple United States sales tax components.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
 
-    TradeId @NVARCHAR(40) @NOT_NULL,                    -- Master
-    VatRateId @NVARCHAR(40) @NOT_NULL,                  -- Lookup
-    VatRatePercent @DECIMAL default 0 @NOT_NULL,        -- Snapshot VatRate.Percent -- the percent at production time
+    TradeId @NVARCHAR(40) @NOT_NULL,                     -- Master -- Owning commercial document
+    TaxRuleId @NVARCHAR(40) @NOT_NULL,                   -- Lookup -- Applied tax rule
+    TaxRateId @NVARCHAR(40) @NOT_NULL,                   -- Lookup -- Applied tax rate
+    TaxRatePercent @DECIMAL_(9,4) default 0 @NOT_NULL,   -- Snapshot TaxRate.Percent -- Percentage at calculation time
 
-    NetAmount @DECIMAL default 0 @NOT_NULL,
-    VatAmount @DECIMAL default 0 @NOT_NULL,
-    TotalAmount @DECIMAL default 0 @NOT_NULL,
+    TaxableAmount @DECIMAL default 0 @NOT_NULL,          -- -- Sum of taxable amounts for this rule
+    TaxAmount @DECIMAL default 0 @NOT_NULL,              -- -- Sum of tax amounts for this rule
+    TotalAmount @DECIMAL default 0 @NOT_NULL,            -- -- TaxableAmount plus TaxAmount
 
-    CONSTRAINT UQ_{TableName}_Trade_VatRate UNIQUE (TradeId, VatRateId),
+    CONSTRAINT UQ_{TableName}_Trade_TaxRule UNIQUE (TradeId, TaxRuleId),
 
     FOREIGN KEY (TradeId) REFERENCES Trade(Id),
-    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id)
+    FOREIGN KEY (TaxRuleId) REFERENCES TaxRule(Id),
+    FOREIGN KEY (TaxRateId) REFERENCES TaxRate(Id)
     )
 
 
@@ -290,58 +303,105 @@ CREATE TABLE {TableName} (
 Table: TradeLine
 -----------------------------------------------------
 Commercial document line.
+
+Stores commercial values and the final aggregate tax result.
+Individual tax components are stored in TradeLineTax so a line may
+contain one VAT component or multiple sales tax components.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
 
-    TradeId @NVARCHAR(40) @NOT_NULL,                    -- Master; [ReadOnlyUI]
+    TradeId @NVARCHAR(40) @NOT_NULL,                     -- Master; [ReadOnlyUI] -- Owning commercial document
 
-    DisplayOrder int @NOT_NULL,                         
+    DisplayOrder int @NOT_NULL,                          -- -- User-visible line order
 
-    LineTypeId int default 1 @NOT_NULL,                 -- Enum TradeLineType
+    LineTypeId int default 1 @NOT_NULL,                  -- Enum TradeLineType -- Item or Service
 
-    ProductId @NVARCHAR(40) @NULL,                      -- Locator Product
-    ProductCode @NVARCHAR(40) @NULL,                    -- Snapshot Product.Code
-    ProductName @NVARCHAR(128) @NULL,                   -- Snapshot Product.Name
+    ProductId @NVARCHAR(40) @NULL,                       -- Locator Product
+    ProductCode @NVARCHAR(40) @NULL,                     -- Snapshot Product.Code
+    ProductName @NVARCHAR(128) @NULL,                    -- Snapshot Product.Name
+    TaxProductGroupId @NVARCHAR(40) @NULL,               -- Lookup -- Tax classification copied from Product and stored as a line snapshot
 
-    Description @NVARCHAR(256) @NULL,
+    Description @NVARCHAR(256) @NULL,                    -- -- Commercial line description
 
-    WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup (line override)
+    WarehouseId @NVARCHAR(40) @NULL,                     -- Lookup -- Optional line-level warehouse override
 
-    UnitOfMeasureId @NVARCHAR(40) @NULL,                -- Lookup
-    UnitOfMeasureName @NVARCHAR(40) @NULL,              -- Snapshot UnitOfMeasure.Name; [ReadOnlyUI]
-    UnitRatio @DECIMAL default 1 @NOT_NULL,             -- [ReadOnlyUI] -- ratio to primary unit, ProductUnitOfMeasure.Ratio
+    UnitOfMeasureId @NVARCHAR(40) @NULL,                 -- Lookup -- Transaction unit of measure
+    UnitOfMeasureName @NVARCHAR(40) @NULL,               -- Snapshot UnitOfMeasure.Name; [ReadOnlyUI]
+    UnitRatio @DECIMAL default 1 @NOT_NULL,              -- [ReadOnlyUI] -- Ratio to the product primary unit
 
-    Quantity @DECIMAL default 0 @NOT_NULL,
-    PrimaryUnitQuantity @DECIMAL default 0 @NOT_NULL,   -- [ReadOnlyUI]
+    Quantity @DECIMAL default 0 @NOT_NULL,               -- -- Quantity expressed in UnitOfMeasureId
+    PrimaryUnitQuantity @DECIMAL default 0 @NOT_NULL,    -- [ReadOnlyUI] -- Quantity converted to the product primary unit
 
-    ReservedQuantity @DECIMAL default 0 @NOT_NULL,      -- [ReadOnlyUI]
-    ExecutedQuantity @DECIMAL default 0 @NOT_NULL,      -- [ReadOnlyUI]
+    ReservedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity reserved by warehouse processes
+    ExecutedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity already executed or fulfilled
 
-    VatRateId @NVARCHAR(40) @NULL,                      -- Lookup; -- [ReadOnlyUI]
-    VatRatePercent @DECIMAL_(5,2) default 0 @NOT_NULL,  -- Snapshot VatRate.Percent; [ReadOnlyUI]
+    TaxPercent @DECIMAL_(9,4) default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Aggregate effective percentage of all tax components
+    IsTaxExempt @BOOL default 0 @NOT_NULL,               -- [ReadOnlyUI] -- Indicates that the resolved tax treatment is exempt
+    IsReverseCharge @BOOL default 0 @NOT_NULL,           -- [ReadOnlyUI] -- Indicates that tax liability shifts to the recipient
 
-    UnitPrice @DECIMAL default 0 @NOT_NULL,
+    UnitPrice @DECIMAL default 0 @NOT_NULL,              -- -- Price per selected unit before discounts and taxes
 
-    GrossAmount @DECIMAL default 0 @NOT_NULL,           -- [ReadOnlyUI]   -- Quantity * UnitPrice
+    GrossAmount @DECIMAL default 0 @NOT_NULL,            -- [ReadOnlyUI] -- Quantity multiplied by UnitPrice
 
-    DiscountPercent @DECIMAL default 0 @NOT_NULL,
-    DiscountAmount @DECIMAL default 0 @NOT_NULL,
+    DiscountPercent @DECIMAL default 0 @NOT_NULL,        -- -- Line discount percentage
+    DiscountAmount @DECIMAL default 0 @NOT_NULL,         -- -- Line discount monetary value
 
-    NetUnitPrice @DECIMAL default 0 @NOT_NULL,          -- [ReadOnlyUI]     -- Display/convenience value
+    NetUnitPrice @DECIMAL default 0 @NOT_NULL,           -- [ReadOnlyUI] -- Unit price after line discount
 
-    NetAmount @DECIMAL default 0 @NOT_NULL,             -- [ReadOnlyUI]     -- GrossAmount - DiscountAmount
-    VatAmount @DECIMAL default 0 @NOT_NULL,             -- [ReadOnlyUI]
-    TotalAmount @DECIMAL default 0 @NOT_NULL,           -- [ReadOnlyUI]
+    NetAmount @DECIMAL default 0 @NOT_NULL,              -- [ReadOnlyUI] -- GrossAmount minus DiscountAmount
+    TaxAmount @DECIMAL default 0 @NOT_NULL,              -- [ReadOnlyUI] -- Sum of all TradeLineTax components
+    TotalAmount @DECIMAL default 0 @NOT_NULL,            -- [ReadOnlyUI] -- NetAmount plus TaxAmount
 
-    SourceTradeLineId @NVARCHAR(40) @NULL,              -- Locator TradeLine; [ReadOnlyUI]
+    SourceTradeLineId @NVARCHAR(40) @NULL,               -- Locator TradeLine; [ReadOnlyUI] -- Source line for copied or corrective documents
 
     FOREIGN KEY (TradeId) REFERENCES Trade(Id),
     FOREIGN KEY (ProductId) REFERENCES Product(Id),
+    FOREIGN KEY (TaxProductGroupId) REFERENCES TaxProductGroup(Id),
     FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
     FOREIGN KEY (UnitOfMeasureId) REFERENCES UnitOfMeasure(Id),
-    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id),
     FOREIGN KEY (SourceTradeLineId) REFERENCES TradeLine(Id)
+    )
+
+
+
+/*---------------------------------------------------
+Table: TradeLineTax
+-----------------------------------------------------
+Hidden subdetail table containing the individual tax components of a
+commercial document line.
+
+European VAT normally produces one row. United States sales tax may
+produce multiple rows for state, county, city, or special district
+taxes. Values are stored as snapshots so posted documents remain
+unchanged when setup records are later edited.
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    TradeLineId @NVARCHAR(40) @NOT_NULL,                 -- Master -- Owning commercial document line
+    TaxRuleId @NVARCHAR(40) @NOT_NULL,                   -- Lookup -- Rule that produced this component
+    TaxRateId @NVARCHAR(40) @NOT_NULL,                   -- Lookup -- Rate selected by the rule
+    TaxJurisdictionId @NVARCHAR(40) @NOT_NULL,           -- Lookup -- Geographic authority that imposed this component
+    TaxClauseId @NVARCHAR(40) @NULL,                     -- Lookup -- Legal explanation for exemption or special treatment
+
+    SequenceNo int default 0 @NOT_NULL,                  -- -- Calculation order for compound tax components
+    TaxCalculationTypeId int default 1 @NOT_NULL,        -- Enum TaxCalculationType -- Snapshot of the calculation method
+    TaxRatePercent @DECIMAL_(9,4) default 0 @NOT_NULL,   -- Snapshot TaxRate.Percent -- Percentage at calculation time
+    TaxableAmount @DECIMAL default 0 @NOT_NULL,          -- -- Amount on which this tax component was calculated
+    TaxAmount @DECIMAL default 0 @NOT_NULL,              -- -- Calculated monetary value of this tax component
+
+    IsExempt @BOOL default 0 @NOT_NULL,                  -- -- Snapshot indicating an exempt component
+    IsReverseCharge @BOOL default 0 @NOT_NULL,           -- -- Snapshot indicating recipient tax liability
+    TaxClauseText @NVARCHAR(512) @NULL,                  -- -- Snapshot of the printed legal explanation
+
+    CONSTRAINT UQ_{TableName}_TradeLine_TaxRule UNIQUE (TradeLineId, TaxRuleId),
+
+    FOREIGN KEY (TradeLineId) REFERENCES TradeLine(Id),
+    FOREIGN KEY (TaxRuleId) REFERENCES TaxRule(Id),
+    FOREIGN KEY (TaxRateId) REFERENCES TaxRate(Id),
+    FOREIGN KEY (TaxJurisdictionId) REFERENCES TaxJurisdiction(Id),
+    FOREIGN KEY (TaxClauseId) REFERENCES TaxClause(Id)
     )
 
 

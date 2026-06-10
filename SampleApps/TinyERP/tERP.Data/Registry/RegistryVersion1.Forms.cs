@@ -56,10 +56,14 @@ public partial class RegistryVersion1: RegistryVersion
         DesktopRegistry.AddOrUpdateForm("StockReason", TitleKey: "StockReason", Module: "StockReason", Group: "Inventory");
         DesktopRegistry.AddOrUpdateForm("SupplierCategory", TitleKey: "SupplierCategory", Module: "SupplierCategory", Group: "Purchases");
         DesktopRegistry.AddOrUpdateForm("SysConfig", TitleKey: "SysConfig", Module: "SysConfig", Group: "Setup");
-        DesktopRegistry.AddOrUpdateForm("TaxCategory", TitleKey: "TaxCategory", Module: "TaxCategory", Group: "Accounting");
+        DesktopRegistry.AddOrUpdateForm("TaxBusinessGroup", TitleKey: "TaxBusinessGroup", Module: "TaxBusinessGroup", Group: "Accounting");
+        DesktopRegistry.AddOrUpdateForm("TaxClause", TitleKey: "TaxClause", Module: "TaxClause", Group: "Accounting");
+        DesktopRegistry.AddOrUpdateForm("TaxJurisdiction", TitleKey: "TaxJurisdiction", Module: "TaxJurisdiction", Group: "Accounting");
         DesktopRegistry.AddOrUpdateForm("TaxOffice", TitleKey: "TaxOffice", Module: "TaxOffice", Group: "Setup");
+        DesktopRegistry.AddOrUpdateForm("TaxProductGroup", TitleKey: "TaxProductGroup", Module: "TaxProductGroup", Group: "Accounting");
+        DesktopRegistry.AddOrUpdateForm("TaxRate", TitleKey: "TaxRate", Module: "TaxRate", Group: "Setup");
+        DesktopRegistry.AddOrUpdateForm("TaxRule", TitleKey: "TaxRule", Module: "TaxRule", Group: "Accounting");
         DesktopRegistry.AddOrUpdateForm("UnitOfMeasure", TitleKey: "UnitOfMeasure", Module: "UnitOfMeasure", Group: "Inventory");
-        DesktopRegistry.AddOrUpdateForm("VatRate", TitleKey: "VatRate", Module: "VatRate", Group: "Setup");
         DesktopRegistry.AddOrUpdateForm("Warehouse", TitleKey: "Warehouse", Module: "Warehouse", Group: "Inventory");
     }
 }

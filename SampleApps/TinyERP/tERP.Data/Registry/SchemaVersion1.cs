@@ -285,16 +285,22 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_VatRate()
+    void RegisterTable_TaxRate()
     {
-        string TableName = "VatRate";
+        string TableName = "TaxRate";
         string SqlText = $@"
 CREATE TABLE {TableName} (
-    Id  @NVARCHAR(40)  @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,
-    Name @NVARCHAR(96) @NOT_NULL,
-    Percent @DECIMAL_(5,2) @NOT_NULL,
-    IsActive @BOOL default 1 @NOT_NULL,
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+    TaxTypeId int default 1 @NOT_NULL,                   -- Enum TaxType -- VAT, SalesTax, GST, or another indirect tax family
+    Percent @DECIMAL_(9,4) @NOT_NULL,                    -- -- Tax percentage applied to the taxable amount
+
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the rate may be used by new rules
+
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
+
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
     )
@@ -340,6 +346,67 @@ CREATE TABLE {TableName} (
     IconName @NVARCHAR(96) @NULL,  -- ui icon
 
     Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_TaxBusinessGroup()
+    {
+        string TableName = "TaxBusinessGroup";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the group may be assigned
+
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_TaxProductGroup()
+    {
+        string TableName = "TaxProductGroup";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the group may be assigned
+
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_TaxClause()
+    {
+        string TableName = "TaxClause";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+    ClauseText @NVARCHAR(512) @NOT_NULL,                 -- -- Legal or printed explanation
+
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the clause may be used by new rules
+
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
@@ -618,38 +685,30 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_TaxCategory()
+    void RegisterTable_TaxJurisdiction()
     {
-        string TableName = "TaxCategory";
+        string TableName = "TaxJurisdiction";
         string SqlText = $@"
 CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
 
-    Code @NVARCHAR(40) @NOT_NULL,               -- business code
-    Name @NVARCHAR(96) @NOT_NULL,               -- display title
+    ParentId @NVARCHAR(40) @NULL,                        -- Lookup -- Parent jurisdiction in the geographic hierarchy
+    CountryId @NVARCHAR(40) @NULL,                       -- Lookup -- Country represented by this jurisdiction; null for a multi-country tax zone
 
-    VatRateId @NVARCHAR(40) @NULL,              -- Lookup   -- default vat rate
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+    JurisdictionTypeId int default 1 @NOT_NULL,          -- Enum TaxJurisdictionType -- Country, State, County, City, Special, TaxZone
+    RegionCode @NVARCHAR(40) @NULL,                      -- -- State, province, or region code used for address matching
+    PostalCodePattern @NVARCHAR(40) @NULL,               -- -- Optional postal code pattern used for detailed matching
 
-    IsDomestic @BOOL default 0 @NOT_NULL,
-    IsEuropeanUnion @BOOL default 0 @NOT_NULL,
-    IsThirdCountry @BOOL default 0 @NOT_NULL,
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the jurisdiction participates in tax resolution
 
-    IsTaxExempt @BOOL default 0 @NOT_NULL,
-    IsReverseCharge @BOOL default 0 @NOT_NULL,
-    IsIntrastat @BOOL default 0 @NOT_NULL,
-    IsVies @BOOL default 0 @NOT_NULL,
-
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    Color @NVARCHAR(32) @NULL,       -- ui display color
-    IconName @NVARCHAR(96) @NULL,    -- ui icon
-
-    Remarks @NBLOB_TEXT @NULL,
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
 
-    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id)
+    FOREIGN KEY (ParentId) REFERENCES TaxJurisdiction(Id),
+    FOREIGN KEY (CountryId) REFERENCES Country(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -696,6 +755,7 @@ CREATE TABLE {TableName} (
 
     TaxNumber @NVARCHAR(32) @NULL,                  -- Group Tax
     TaxOfficeId @NVARCHAR(40) @NULL,                -- Lookup; Group Tax
+    TaxBusinessGroupId @NVARCHAR(40) @NULL,         -- Lookup; Group Tax -- Default business party classification used by tax determination
 
     CountryId @NVARCHAR(40) @NULL,                  -- Lookup; Group Preferences
     CurrencyId @NVARCHAR(40) @NULL,                 -- Lookup; Group Preferences
@@ -725,6 +785,7 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
 
     FOREIGN KEY (TaxOfficeId) REFERENCES TaxOffice(Id),
+    FOREIGN KEY (TaxBusinessGroupId) REFERENCES TaxBusinessGroup(Id),
     FOREIGN KEY (CountryId) REFERENCES Country(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
     FOREIGN KEY (LanguageId) REFERENCES Language(Id)
@@ -748,7 +809,7 @@ CREATE TABLE {TableName} (
 
     SortNo integer default 0 @NOT_NULL,             -- display order
 
-    VatRateId @NVARCHAR(40) @NULL,                  -- Lookup       -- default vat rate
+    TaxProductGroupId @NVARCHAR(40) @NULL,          -- Lookup -- Default tax classification inherited by products in this category
     RevenueAccount @NVARCHAR(40) @NULL,             -- optional accounting account
     ExpenseAccount @NVARCHAR(40) @NULL,             -- optional accounting account
 
@@ -764,7 +825,7 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
 
     FOREIGN KEY (ParentId) REFERENCES Category(Id),
-    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id)
+    FOREIGN KEY (TaxProductGroupId) REFERENCES TaxProductGroup(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -876,6 +937,49 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
+    void RegisterTable_TaxRule()
+    {
+        string TableName = "TaxRule";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+
+    TaxBusinessGroupId @NVARCHAR(40) @NOT_NULL,          -- Lookup -- Business party tax classification
+    TaxProductGroupId @NVARCHAR(40) @NOT_NULL,           -- Lookup -- Product or service tax classification
+    OriginTaxJurisdictionId @NVARCHAR(40) @NULL,         -- Lookup -- Origin jurisdiction; null means any origin
+    DestinationTaxJurisdictionId @NVARCHAR(40) @NULL,   -- Lookup -- Destination jurisdiction; null means any destination
+    TaxRateId @NVARCHAR(40) @NOT_NULL,                   -- Lookup -- Percentage applied by the rule
+    TaxClauseId @NVARCHAR(40) @NULL,                     -- Lookup -- Legal explanation for special tax treatment
+
+    TradeTypeId int default 0 @NOT_NULL,                 -- Enum TradeType -- None means both Sales and Purchases
+    TaxCalculationTypeId int default 1 @NOT_NULL,        -- Enum TaxCalculationType -- Percentage, TaxOnTax
+    Priority int default 0 @NOT_NULL,                    -- -- Evaluation order when multiple rules match
+
+    IsExempt @BOOL default 0 @NOT_NULL,                  -- -- Indicates that the matched transaction is tax exempt
+    IsReverseCharge @BOOL default 0 @NOT_NULL,           -- -- Indicates that the tax liability shifts to the recipient
+
+    ValidFrom @DATE @NULL,                               -- -- First transaction date on which the rule is valid
+    ValidTo @DATE @NULL,                                 -- -- Last transaction date on which the rule is valid
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the rule participates in tax resolution
+
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
+
+    FOREIGN KEY (TaxBusinessGroupId) REFERENCES TaxBusinessGroup(Id),
+    FOREIGN KEY (TaxProductGroupId) REFERENCES TaxProductGroup(Id),
+    FOREIGN KEY (OriginTaxJurisdictionId) REFERENCES TaxJurisdiction(Id),
+    FOREIGN KEY (DestinationTaxJurisdictionId) REFERENCES TaxJurisdiction(Id),
+    FOREIGN KEY (TaxRateId) REFERENCES TaxRate(Id),
+    FOREIGN KEY (TaxClauseId) REFERENCES TaxClause(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
     void RegisterTable_PersonRole()
     {
         string TableName = "PersonRole";
@@ -941,7 +1045,7 @@ CREATE TABLE {TableName} (
     ProductTypeId integer @NOT_NULL,                        -- Enum         -- Goods, Service, RawMaterial
 
     CategoryId @NVARCHAR(40) @NULL,                         -- Lookup
-    VatRateId @NVARCHAR(40) @NULL,                          -- Lookup
+    TaxProductGroupId @NVARCHAR(40) @NULL,                  -- Lookup -- Product tax classification used by tax determination
 
     PrimaryUnitOfMeasureId @NVARCHAR(40) @NOT_NULL,         -- Lookup       -- inventory/base unit
 
@@ -961,7 +1065,7 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
 
     FOREIGN KEY (CategoryId) REFERENCES Category(Id),
-    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id),
+    FOREIGN KEY (TaxProductGroupId) REFERENCES TaxProductGroup(Id),
     FOREIGN KEY (PrimaryUnitOfMeasureId) REFERENCES UnitOfMeasure(Id)
     )
 ";
@@ -1643,9 +1747,12 @@ VALUES
         RegisterTable_Carrier();
         RegisterTable_Country();
         RegisterTable_Currency();
-        RegisterTable_VatRate();
+        RegisterTable_TaxRate();
         RegisterTable_PaymentTerm();
         RegisterTable_ProductGroup();
+        RegisterTable_TaxBusinessGroup();
+        RegisterTable_TaxProductGroup();
+        RegisterTable_TaxClause();
         RegisterTable_FiscalYear();
         RegisterTable_Language();
         RegisterTable_PersonRoleType();
@@ -1659,7 +1766,7 @@ VALUES
         RegisterTable_SYS_CONFIG();
         RegisterTable_PriceListType();
         RegisterTable_Company();
-        RegisterTable_TaxCategory();
+        RegisterTable_TaxJurisdiction();
         RegisterTable_FiscalPeriod();
         RegisterTable_Person();
         RegisterTable_Category();
@@ -1667,6 +1774,7 @@ VALUES
         RegisterTable_ProductDimensionValue();
         RegisterTable_CompanyBranch();
         RegisterTable_CompanyBankAccount();
+        RegisterTable_TaxRule();
         RegisterTable_PersonRole();
         RegisterTable_CostCenter();
         RegisterTable_Product();

@@ -106,9 +106,7 @@ select
     ,coalesce(PUM.UnitId, P.PrimaryUnitOfMeasureId) as UnitOfMeasureId
     ,UOM.Name as UnitOfMeasureName
     ,coalesce(PUM.Ratio, 1) as UnitRatio
-    ,P.VatRateId
-    ,coalesce(VR.Percent, 0) as VatRatePercent
-    ,cast(0 as decimal(18, 4)) as UnitPrice
+    ,P.TaxProductGroupId
 from Product P
 left join ProductUnitOfMeasure PUM
     on PUM.ProductId = P.Id
@@ -124,7 +122,6 @@ left join ProductUnitOfMeasure PUM
           and PUM2.Id < PUM.Id
     )
 left join UnitOfMeasure UOM on UOM.Id = coalesce(PUM.UnitId, P.PrimaryUnitOfMeasureId)
-left join VatRate VR on VR.Id = P.VatRateId
 where P.IsActive = 1
 ";       
         
@@ -136,9 +133,7 @@ where P.IsActive = 1
             "UnitOfMeasureId", 
             "UnitOfMeasureName",
             "UnitRatio",
-            "VatRateId",
-            "VatRatePercent",
-            "UnitPrice" 
+            "TaxProductGroupId"
         ]);
         //*/
         

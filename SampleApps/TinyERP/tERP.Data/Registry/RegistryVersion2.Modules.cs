@@ -619,15 +619,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -647,12 +641,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -664,7 +660,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -683,6 +679,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -708,6 +710,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -735,7 +740,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseCancellation");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -755,12 +762,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -772,7 +781,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -817,7 +826,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -827,8 +836,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -848,12 +858,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -865,7 +877,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -884,6 +896,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -909,10 +927,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -923,6 +942,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -932,15 +952,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -956,6 +977,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_PurchaseCreditNote()
     {
@@ -976,15 +1013,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -1004,12 +1035,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -1021,7 +1054,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -1040,6 +1073,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -1065,6 +1104,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -1092,7 +1134,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseCreditNote");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -1112,12 +1156,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -1129,7 +1175,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -1174,7 +1220,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1184,8 +1230,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -1205,12 +1252,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -1222,7 +1271,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -1241,6 +1290,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -1266,10 +1321,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -1280,6 +1336,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -1289,15 +1346,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -1313,6 +1371,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_PurchaseDeliveryNote()
     {
@@ -1333,15 +1407,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -1361,12 +1429,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -1378,7 +1448,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -1397,6 +1467,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -1422,6 +1498,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -1449,7 +1528,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseDeliveryNote");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -1469,12 +1550,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -1486,7 +1569,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -1531,7 +1614,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1541,8 +1624,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -1562,12 +1646,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -1579,7 +1665,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -1598,6 +1684,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -1623,10 +1715,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -1637,6 +1730,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -1646,15 +1740,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -1670,6 +1765,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_PurchaseInvoice()
     {
@@ -1690,15 +1801,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -1718,12 +1823,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -1735,7 +1842,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -1754,6 +1861,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -1779,6 +1892,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -1806,7 +1922,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseInvoice");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -1826,12 +1944,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -1843,7 +1963,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -1888,7 +2008,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1898,8 +2018,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -1919,12 +2040,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -1936,7 +2059,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -1955,6 +2078,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -1980,10 +2109,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -1994,6 +2124,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -2003,15 +2134,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -2027,6 +2159,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_PurchaseOrder()
     {
@@ -2047,15 +2195,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -2075,12 +2217,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -2092,7 +2236,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -2111,6 +2255,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -2136,6 +2286,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -2163,7 +2316,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseOrder");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -2183,12 +2338,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -2200,7 +2357,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -2245,7 +2402,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -2255,8 +2412,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -2276,12 +2434,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -2293,7 +2453,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -2312,6 +2472,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -2337,10 +2503,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -2351,6 +2518,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -2360,15 +2528,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -2384,6 +2553,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_PurchaseReturn()
     {
@@ -2404,15 +2589,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -2432,12 +2611,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -2449,7 +2630,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -2468,6 +2649,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -2493,6 +2680,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -2520,7 +2710,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseReturn");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -2540,12 +2732,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -2557,7 +2751,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -2602,7 +2796,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -2612,8 +2806,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -2633,12 +2828,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -2650,7 +2847,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -2669,6 +2866,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -2694,10 +2897,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -2708,6 +2912,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -2717,15 +2922,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -2741,6 +2947,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_SalesCancellation()
     {
@@ -2761,15 +2983,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -2789,12 +3005,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -2806,7 +3024,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -2825,6 +3043,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -2850,6 +3074,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -2877,7 +3104,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesCancellation");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -2897,12 +3126,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -2914,7 +3145,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -2959,7 +3190,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -2969,8 +3200,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -2990,12 +3222,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -3007,7 +3241,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -3026,6 +3260,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -3051,10 +3291,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -3065,6 +3306,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -3074,15 +3316,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -3098,6 +3341,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_SalesCreditNote()
     {
@@ -3118,15 +3377,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -3146,12 +3399,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -3163,7 +3418,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -3182,6 +3437,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -3207,6 +3468,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -3234,7 +3498,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesCreditNote");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -3254,12 +3520,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -3271,7 +3539,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -3316,7 +3584,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -3326,8 +3594,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -3347,12 +3616,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -3364,7 +3635,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -3383,6 +3654,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -3408,10 +3685,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -3422,6 +3700,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -3431,15 +3710,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -3455,6 +3735,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_SalesDeliveryNote()
     {
@@ -3475,15 +3771,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -3503,12 +3793,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -3520,7 +3812,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -3539,6 +3831,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -3564,6 +3862,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -3591,7 +3892,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesDeliveryNote");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -3611,12 +3914,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -3628,7 +3933,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -3673,7 +3978,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -3683,8 +3988,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -3704,12 +4010,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -3721,7 +4029,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -3740,6 +4048,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -3765,10 +4079,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -3779,6 +4094,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -3788,15 +4104,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -3812,6 +4129,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_SalesInvoice()
     {
@@ -3832,15 +4165,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -3860,12 +4187,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -3877,7 +4206,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -3896,6 +4225,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -3921,6 +4256,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -3948,7 +4286,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesInvoice");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -3968,12 +4308,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -3985,7 +4327,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -4030,7 +4372,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -4040,8 +4382,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -4061,12 +4404,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -4078,7 +4423,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -4097,6 +4442,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -4122,10 +4473,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -4136,6 +4488,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -4145,15 +4498,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -4169,6 +4523,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_SalesOrder()
     {
@@ -4189,15 +4559,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -4217,12 +4581,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -4234,7 +4600,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -4253,6 +4619,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -4278,6 +4650,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -4295,6 +4670,7 @@ from
 ";
         Module = DataRegistry.AddOrUpdateModule("SalesOrder", ClassName: "SalesOrderDataModule", ListSelectSql: SqlText);
         Module.DetailOrder["Trade"] = ["TradeLine", "TradeTax"];
+        Module.DetailOrder["TradeLine"] = ["TradeLineTax"];
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -4306,7 +4682,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesOrder");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -4326,12 +4704,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -4343,7 +4723,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -4388,7 +4768,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -4398,8 +4778,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -4419,12 +4800,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -4436,7 +4819,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -4455,6 +4838,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -4480,10 +4869,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -4494,6 +4884,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -4503,15 +4894,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -4527,6 +4919,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_SalesReturn()
     {
@@ -4547,15 +4955,9 @@ select
       when Trade.TradeStatusId = 2 then 'Cancelled'
       else ''
    end as TradeStatus,
-   Trade.TaxTreatmentId,
-   case
-      when Trade.TaxTreatmentId = 0 then 'None'
-      when Trade.TaxTreatmentId = 1 then 'Normal'
-      when Trade.TaxTreatmentId = 2 then 'Exempt'
-      when Trade.TaxTreatmentId = 3 then 'ThirdCountry'
-      when Trade.TaxTreatmentId = 4 then 'IntraCommunity'
-      else ''
-   end as TaxTreatment,
+   Trade.TaxBusinessGroupId,
+   Trade.OriginTaxJurisdictionId,
+   Trade.DestinationTaxJurisdictionId,
    Trade.TradeDate,
    Trade.PostingDate,
    Trade.DeliveryDate,
@@ -4575,12 +4977,14 @@ select
    Trade.BillingAddressLine1,
    Trade.BillingAddressLine2,
    Trade.BillingCity,
+   Trade.BillingRegion,
    Trade.BillingPostalCode,
    Trade.BillingCountryId,
    Trade.ShippingName,
    Trade.ShippingAddressLine1,
    Trade.ShippingAddressLine2,
    Trade.ShippingCity,
+   Trade.ShippingRegion,
    Trade.ShippingPostalCode,
    Trade.ShippingCountryId,
    Trade.SourceId,
@@ -4592,7 +4996,7 @@ select
    Trade.DiscountReason,
    Trade.ChargesAmount,
    Trade.NetAmount,
-   Trade.VatAmount,
+   Trade.TaxAmount,
    Trade.TotalAmount,
    Trade.IsLocked,
    Trade.IsCancelled,
@@ -4611,6 +5015,12 @@ select
    COALESCE(Person.Code, '') as Person__Code,
    COALESCE(Person.Name, '') as Person__Name,
    COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
    COALESCE(Warehouse.Code, '') as Warehouse__Code,
    COALESCE(Warehouse.Name, '') as Warehouse__Name,
    COALESCE(SalesPerson.Code, '') as SalesPerson__Code,
@@ -4636,6 +5046,9 @@ from
   Trade
     left join DocumentType DocumentType on DocumentType.Id = Trade.DocumentTypeId
     left join Person Person on Person.Id = Trade.PersonId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Trade.TaxBusinessGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = Trade.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = Trade.DestinationTaxJurisdictionId
     left join Warehouse Warehouse on Warehouse.Id = Trade.WarehouseId
     left join Person SalesPerson on SalesPerson.Id = Trade.SalesPersonId
     left join Project Project on Project.Id = Trade.ProjectId
@@ -4663,7 +5076,9 @@ from
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesReturn");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TaxTreatmentId", "TaxTreatment", TypeStore.Get("TaxTreatment"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDate("TradeDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         tblTop.AddDate("DeliveryDate", Flags: FieldFlags.None).SetNullable(true);
@@ -4683,12 +5098,14 @@ from
         tblTop.AddString("BillingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
+        tblTop.AddString("BillingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddStringLookupId("BillingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblTop.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine1", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingAddressLine2", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingCity", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
+        tblTop.AddString("ShippingRegion", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddStringLookupId("ShippingCountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Hidden).SetNullable(true);
@@ -4700,7 +5117,7 @@ from
         tblTop.AddString("DiscountReason", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true).SetGroup("Amounts");
         tblTop.AddDecimal("ChargesAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
-        tblTop.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
+        tblTop.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Amounts");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -4745,7 +5162,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "TaxTreatment", "TotalAmount", "TradeDate", "TradeStatus", "VatAmount", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -4755,8 +5172,9 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatusId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["TaxTreatmentId"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["TaxTreatment"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TradeDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["DeliveryDate"] = DataColumnType.Date;
@@ -4776,12 +5194,14 @@ from
         SelectDef.ColumnTypes["BillingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["BillingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BillingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine1"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingAddressLine2"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCity"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ShippingRegion"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingPostalCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ShippingCountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
@@ -4793,7 +5213,7 @@ from
         SelectDef.ColumnTypes["DiscountReason"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ChargesAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["NetAmount"] = DataColumnType.Currency;
-        SelectDef.ColumnTypes["VatAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["TaxAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["TotalAmount"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
@@ -4812,6 +5232,12 @@ from
         SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Warehouse__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SalesPerson__Code"] = DataColumnType.Text;
@@ -4837,10 +5263,11 @@ from
         tblTradeTax.KeyField = "Id";
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTradeTax.AddDecimal("VatRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
-        tblTradeTax.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTradeTax.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeTax.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         TableDef tblTradeLine = tblTop.AddDetail("TradeLine", "Id", "TradeId");
         tblTradeLine.KeyField = "Id";
@@ -4851,6 +5278,7 @@ from
         tblTradeLine.AddString("ProductId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
+        tblTradeLine.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddString("Description", MaxLength: 256, Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true);
         tblTradeLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.None).SetNullable(true);
@@ -4860,15 +5288,16 @@ from
         tblTradeLine.AddDecimal("PrimaryUnitQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTradeLine.AddDecimal("VatRatePercent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("VatRate.Percent");
+        tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("UnitPrice", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("GrossAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountPercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
-        tblTradeLine.AddDecimal("VatAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
         TableDef tblProduct = tblTradeLine.AddJoin("ProductId", "Product", "Product", "Id");
@@ -4884,6 +5313,22 @@ from
         tblSourceTradeLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Code");
         tblSourceTradeLine.AddString("ProductName", MaxLength: 128, Flags: FieldFlags.None).SetNullable(true).SetSnapshotOf("Product.Name");
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
+        TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
+        tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.AddId("Id").SetNullable(false);
+        tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.Required).SetNullable(false);
+        tblTradeLineTax.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTradeLineTax.AddInteger("SequenceNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTradeLineTax.AddDecimal("TaxRatePercent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetSnapshotOf("TaxRate.Percent");
+        tblTradeLineTax.AddDecimal("TaxableAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTradeLineTax.AddString("TaxClauseText", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
     }
     static void RegisterModule_StockBalance()
     {

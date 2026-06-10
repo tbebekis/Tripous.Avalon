@@ -356,9 +356,9 @@ public partial class SampleData1: SampleData
 
         Module.BatchInsert(tblSource);
     }
-    static void Add_VatRate()
+    static void Add_TaxRate()
     {
-        string ModuleName = "VatRate";
+        string ModuleName = "TaxRate";
         if (!CanAdd(ModuleName, out DataModule Module))
             return;
 
@@ -367,11 +367,12 @@ public partial class SampleData1: SampleData
 
         tblSource.CopyColumnsFrom(Module.tblItem);
 
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "VAT00"), ("Name", "Zero VAT"), ("Percent", 0.00m), ("IsActive", true));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "VAT06"), ("Name", "Reduced VAT 6%"), ("Percent", 6.00m), ("IsActive", true));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "VAT13"), ("Name", "Reduced VAT 13%"), ("Percent", 13.00m), ("IsActive", true));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "VAT17"), ("Name", "Reduced VAT 17%"), ("Percent", 17.00m), ("IsActive", true));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "VAT24"), ("Name", "Standard VAT 24%"), ("Percent", 24.00m), ("IsActive", true));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "VAT00"), ("Name", "Zero VAT"), ("TaxTypeId", (int)TaxType.Vat), ("Percent", 0.00m), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "VAT06"), ("Name", "Reduced VAT 6%"), ("TaxTypeId", (int)TaxType.Vat), ("Percent", 6.00m), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "VAT13"), ("Name", "Reduced VAT 13%"), ("TaxTypeId", (int)TaxType.Vat), ("Percent", 13.00m), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "VAT17"), ("Name", "Reduced VAT 17%"), ("TaxTypeId", (int)TaxType.Vat), ("Percent", 17.00m), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "VAT24"), ("Name", "Standard VAT 24%"), ("TaxTypeId", (int)TaxType.Vat), ("Percent", 24.00m), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "US-CA-0725"), ("Name", "California Sales Tax 7.25%"), ("TaxTypeId", (int)TaxType.SalesTax), ("Percent", 7.25m), ("IsActive", true), ("Remarks", DBNull.Value));
 
         Module.BatchInsert(tblSource);
     }
@@ -610,9 +611,9 @@ public partial class SampleData1: SampleData
 
         Module.BatchInsert(tblSource);
     }
-    static void Add_TaxCategory()
+    static void Add_TaxBusinessGroup()
     {
-        string ModuleName = "TaxCategory";
+        string ModuleName = "TaxBusinessGroup";
         if (!CanAdd(ModuleName, out DataModule Module))
             return;
 
@@ -621,14 +622,110 @@ public partial class SampleData1: SampleData
 
         tblSource.CopyColumnsFrom(Module.tblItem);
 
-        MemTable tblVatRate = SampleTables["VatRate"];
-        object Vat24Id = tblVatRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("VAT24"))["Id"];
-        object Vat00Id = tblVatRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("VAT00"))["Id"];
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CONSUMER"), ("Name", "Consumer"), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "REGISTERED"), ("Name", "Tax Registered Business"), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EXEMPT"), ("Name", "Tax Exempt Organization"), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "RESELLER"), ("Name", "Reseller"), ("IsActive", true), ("Remarks", DBNull.Value));
 
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "DOMESTIC"), ("Name", "Domestic Transactions"), ("VatRateId", Vat24Id), ("IsDomestic", true), ("IsEuropeanUnion", false), ("IsThirdCountry", false), ("IsTaxExempt", false), ("IsReverseCharge", false), ("IsIntrastat", false), ("IsVies", false), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "Landmark"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EU"), ("Name", "European Union"), ("VatRateId", Vat24Id), ("IsDomestic", false), ("IsEuropeanUnion", true), ("IsThirdCountry", false), ("IsTaxExempt", false), ("IsReverseCharge", true), ("IsIntrastat", true), ("IsVies", true), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "CircleFlag"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "THIRD"), ("Name", "Third Countries"), ("VatRateId", Vat00Id), ("IsDomestic", false), ("IsEuropeanUnion", false), ("IsThirdCountry", true), ("IsTaxExempt", false), ("IsReverseCharge", false), ("IsIntrastat", false), ("IsVies", false), ("IsActive", true), ("Color", "#9333EA"), ("IconName", "Globe"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EXEMPT"), ("Name", "Tax Exempt"), ("VatRateId", Vat00Id), ("IsDomestic", false), ("IsEuropeanUnion", false), ("IsThirdCountry", false), ("IsTaxExempt", true), ("IsReverseCharge", false), ("IsIntrastat", false), ("IsVies", false), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "BadgePercent"), ("Remarks", DBNull.Value));
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_TaxProductGroup()
+    {
+        string ModuleName = "TaxProductGroup";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "STANDARD"), ("Name", "Standard Taxable Goods"), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "REDUCED"), ("Name", "Reduced Rate Goods"), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "ZERO"), ("Name", "Zero-Rated Goods"), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EXEMPT"), ("Name", "Tax Exempt Goods or Services"), ("IsActive", true), ("Remarks", DBNull.Value));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_TaxJurisdiction()
+    {
+        string ModuleName = "TaxJurisdiction";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        MemTable tblCountry = SampleTables["Country"];
+        object GreeceId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("GR"))["Id"];
+        object GermanyId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("DE"))["Id"];
+        object UnitedStatesId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("US"))["Id"];
+        object EuropeanUnionId = Sys.GenId();
+        object UnitedStatesJurisdictionId = Sys.GenId();
+
+        AddRow(tblSource, ("Id", EuropeanUnionId), ("ParentId", DBNull.Value), ("CountryId", DBNull.Value), ("Code", "EU"), ("Name", "European Union"), ("JurisdictionTypeId", (int)TaxJurisdictionType.TaxZone), ("RegionCode", DBNull.Value), ("PostalCodePattern", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", EuropeanUnionId), ("CountryId", GreeceId), ("Code", "GR"), ("Name", "Greece"), ("JurisdictionTypeId", (int)TaxJurisdictionType.Country), ("RegionCode", DBNull.Value), ("PostalCodePattern", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", EuropeanUnionId), ("CountryId", GermanyId), ("Code", "DE"), ("Name", "Germany"), ("JurisdictionTypeId", (int)TaxJurisdictionType.Country), ("RegionCode", DBNull.Value), ("PostalCodePattern", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", UnitedStatesJurisdictionId), ("ParentId", DBNull.Value), ("CountryId", UnitedStatesId), ("Code", "US"), ("Name", "United States"), ("JurisdictionTypeId", (int)TaxJurisdictionType.Country), ("RegionCode", DBNull.Value), ("PostalCodePattern", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", UnitedStatesJurisdictionId), ("CountryId", UnitedStatesId), ("Code", "US-CA"), ("Name", "California"), ("JurisdictionTypeId", (int)TaxJurisdictionType.State), ("RegionCode", "CA"), ("PostalCodePattern", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_TaxClause()
+    {
+        string ModuleName = "TaxClause";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EU-REVERSE"), ("Name", "Intra-Community Reverse Charge"), ("ClauseText", "Intra-Community supply subject to reverse charge."), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EXPORT"), ("Name", "Export Outside Tax Territory"), ("ClauseText", "Export transaction taxed at zero rate."), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EXEMPT"), ("Name", "Tax Exemption"), ("ClauseText", "Transaction exempt from indirect tax."), ("IsActive", true), ("Remarks", DBNull.Value));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_TaxRule()
+    {
+        string ModuleName = "TaxRule";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        MemTable tblBusinessGroup = SampleTables["TaxBusinessGroup"];
+        MemTable tblProductGroup = SampleTables["TaxProductGroup"];
+        MemTable tblJurisdiction = SampleTables["TaxJurisdiction"];
+        MemTable tblTaxRate = SampleTables["TaxRate"];
+        MemTable tblTaxClause = SampleTables["TaxClause"];
+        object RegisteredId = tblBusinessGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("REGISTERED"))["Id"];
+        object ConsumerId = tblBusinessGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CONSUMER"))["Id"];
+        object StandardId = tblProductGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("STANDARD"))["Id"];
+        object ReducedId = tblProductGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("REDUCED"))["Id"];
+        object GreeceId = tblJurisdiction.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("GR"))["Id"];
+        object EuropeanUnionId = tblJurisdiction.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EU"))["Id"];
+        object UnitedStatesId = tblJurisdiction.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("US"))["Id"];
+        object CaliforniaId = tblJurisdiction.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("US-CA"))["Id"];
+        object Vat24Id = tblTaxRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("VAT24"))["Id"];
+        object Vat13Id = tblTaxRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("VAT13"))["Id"];
+        object Vat00Id = tblTaxRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("VAT00"))["Id"];
+        object CaliforniaRateId = tblTaxRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("US-CA-0725"))["Id"];
+        object ReverseChargeId = tblTaxClause.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EU-REVERSE"))["Id"];
+        object ExportId = tblTaxClause.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EXPORT"))["Id"];
+
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-REGISTERED-STANDARD"), ("Name", "Greece Registered Standard VAT"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat24Id), ("TaxClauseId", DBNull.Value), ("TradeTypeId", (int)TradeType.None), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-REGISTERED-REDUCED"), ("Name", "Greece Registered Reduced VAT"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", ReducedId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat13Id), ("TaxClauseId", DBNull.Value), ("TradeTypeId", (int)TradeType.None), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EU-REGISTERED-STANDARD"), ("Name", "EU Registered Reverse Charge"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", EuropeanUnionId), ("TaxRateId", Vat00Id), ("TaxClauseId", ReverseChargeId), ("TradeTypeId", (int)TradeType.Sales), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 80), ("IsExempt", false), ("IsReverseCharge", true), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-US-EXPORT"), ("Name", "Greece Export to United States"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", UnitedStatesId), ("TaxRateId", Vat00Id), ("TaxClauseId", ExportId), ("TradeTypeId", (int)TradeType.Sales), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 80), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "US-CA-CONSUMER-STANDARD"), ("Name", "California Consumer Standard Sales Tax"), ("TaxBusinessGroupId", ConsumerId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", CaliforniaId), ("DestinationTaxJurisdictionId", CaliforniaId), ("TaxRateId", CaliforniaRateId), ("TaxClauseId", DBNull.Value), ("TradeTypeId", (int)TradeType.Sales), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
 
         Module.BatchInsert(tblSource);
     }
@@ -684,6 +781,7 @@ public partial class SampleData1: SampleData
         MemTable tblCountry = SampleTables["Country"];
         MemTable tblCurrency = SampleTables["Currency"];
         MemTable tblLanguage = SampleTables["Language"];
+        MemTable tblTaxBusinessGroup = SampleTables["TaxBusinessGroup"];
 
         object CentralTaxOfficeId = tblTaxOffice.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("TAX-001"))["Id"];
         object GreeceId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("GR"))["Id"];
@@ -692,11 +790,12 @@ public partial class SampleData1: SampleData
         object EnglishId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EN"))["Id"];
         object GreekId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EL"))["Id"];
         object GermanId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("DE"))["Id"];
+        object RegisteredId = tblTaxBusinessGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("REGISTERED"))["Id"];
 
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-ACME"), ("Name", "Acme Retail SA"), ("Title", "Retail Customer"), ("TaxNumber", "123456789"), ("TaxOfficeId", CentralTaxOfficeId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", "10 Ermou Street"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "10563"), ("Phone", "+30 210 1000001"), ("Mobile", DBNull.Value), ("Email", "info@acmeretail.example"), ("Website", "https://acmeretail.example"), ("ContactPerson", "Maria Antoniou"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "Building2"));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-NORTH"), ("Name", "Northwind Traders Ltd"), ("Title", "Wholesale Customer"), ("TaxNumber", "987654321"), ("TaxOfficeId", CentralTaxOfficeId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", EnglishId), ("AddressLine1", "25 Kifisias Avenue"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "11523"), ("Phone", "+30 210 1000002"), ("Mobile", DBNull.Value), ("Email", "orders@northwind.example"), ("Website", "https://northwind.example"), ("ContactPerson", "Alex Morgan"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "Store"));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-HELIOS"), ("Name", "Helios Supplies OE"), ("Title", "Supplier"), ("TaxNumber", "456789123"), ("TaxOfficeId", CentralTaxOfficeId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", "8 Piraeus Street"), ("AddressLine2", DBNull.Value), ("City", "Piraeus"), ("PostalCode", "18531"), ("Phone", "+30 210 1000003"), ("Mobile", DBNull.Value), ("Email", "sales@helios.example"), ("Website", "https://helios.example"), ("ContactPerson", "Nikos Papadopoulos"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "Truck"));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-BERLIN"), ("Name", "Berlin Components GmbH"), ("Title", "International Supplier"), ("TaxNumber", "DE123456789"), ("TaxOfficeId", DBNull.Value), ("CountryId", GermanyId), ("CurrencyId", EuroId), ("LanguageId", GermanId), ("AddressLine1", "42 Alexanderplatz"), ("AddressLine2", DBNull.Value), ("City", "Berlin"), ("PostalCode", "10178"), ("Phone", "+49 30 1000004"), ("Mobile", DBNull.Value), ("Email", "info@berlincomponents.example"), ("Website", "https://berlincomponents.example"), ("ContactPerson", "Hans Becker"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#9333EA"), ("IconName", "Factory"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-ACME"), ("Name", "Acme Retail SA"), ("Title", "Retail Customer"), ("TaxNumber", "123456789"), ("TaxOfficeId", CentralTaxOfficeId), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", "10 Ermou Street"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "10563"), ("Phone", "+30 210 1000001"), ("Mobile", DBNull.Value), ("Email", "info@acmeretail.example"), ("Website", "https://acmeretail.example"), ("ContactPerson", "Maria Antoniou"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "Building2"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-NORTH"), ("Name", "Northwind Traders Ltd"), ("Title", "Wholesale Customer"), ("TaxNumber", "987654321"), ("TaxOfficeId", CentralTaxOfficeId), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", EnglishId), ("AddressLine1", "25 Kifisias Avenue"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "11523"), ("Phone", "+30 210 1000002"), ("Mobile", DBNull.Value), ("Email", "orders@northwind.example"), ("Website", "https://northwind.example"), ("ContactPerson", "Alex Morgan"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "Store"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-HELIOS"), ("Name", "Helios Supplies OE"), ("Title", "Supplier"), ("TaxNumber", "456789123"), ("TaxOfficeId", CentralTaxOfficeId), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", "8 Piraeus Street"), ("AddressLine2", DBNull.Value), ("City", "Piraeus"), ("PostalCode", "18531"), ("Phone", "+30 210 1000003"), ("Mobile", DBNull.Value), ("Email", "sales@helios.example"), ("Website", "https://helios.example"), ("ContactPerson", "Nikos Papadopoulos"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "Truck"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-BERLIN"), ("Name", "Berlin Components GmbH"), ("Title", "International Supplier"), ("TaxNumber", "DE123456789"), ("TaxOfficeId", DBNull.Value), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GermanyId), ("CurrencyId", EuroId), ("LanguageId", GermanId), ("AddressLine1", "42 Alexanderplatz"), ("AddressLine2", DBNull.Value), ("City", "Berlin"), ("PostalCode", "10178"), ("Phone", "+49 30 1000004"), ("Mobile", DBNull.Value), ("Email", "info@berlincomponents.example"), ("Website", "https://berlincomponents.example"), ("ContactPerson", "Hans Becker"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#9333EA"), ("IconName", "Factory"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-ELENA"), ("Name", "Elena Papadopoulou"), ("Title", "Sales Manager"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000001"), ("Email", "elena.papadopoulou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#0EA5E9"), ("IconName", "UserRound"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-DIMITRIS"), ("Name", "Dimitris Nikolaou"), ("Title", "Warehouse Manager"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Piraeus"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000002"), ("Email", "dimitris.nikolaou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#7C3AED"), ("IconName", "UserRound"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-SOFIA"), ("Name", "Sofia Georgiou"), ("Title", "Accountant"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000003"), ("Email", "sofia.georgiou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "UserRound"));
@@ -716,19 +815,19 @@ public partial class SampleData1: SampleData
 
         tblSource.CopyColumnsFrom(Module.tblItem);
 
-        MemTable tblVatRate = SampleTables["VatRate"];
-        object Vat24Id = tblVatRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("VAT24"))["Id"];
-        object Vat13Id = tblVatRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("VAT13"))["Id"];
+        MemTable tblTaxProductGroup = SampleTables["TaxProductGroup"];
+        object StandardId = tblTaxProductGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("STANDARD"))["Id"];
+        object ReducedId = tblTaxProductGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("REDUCED"))["Id"];
 
         object ElectronicsId = Sys.GenId();
         object FoodId = Sys.GenId();
 
-        AddRow(tblSource, ("Id", ElectronicsId), ("ParentId", DBNull.Value), ("Code", "ELEC"), ("Name", "Electronics"), ("LevelNo", 0), ("SortNo", 10), ("VatRateId", Vat24Id), ("RevenueAccount", "70-1000"), ("ExpenseAccount", "20-1000"), ("IsSystem", false), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "MonitorSmartphone"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", ElectronicsId), ("Code", "ELEC-LAP"), ("Name", "Laptops"), ("LevelNo", 1), ("SortNo", 10), ("VatRateId", Vat24Id), ("RevenueAccount", "70-1100"), ("ExpenseAccount", "20-1100"), ("IsSystem", false), ("IsActive", true), ("Color", "#3B82F6"), ("IconName", "Laptop"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", ElectronicsId), ("Code", "ELEC-MON"), ("Name", "Monitors"), ("LevelNo", 1), ("SortNo", 20), ("VatRateId", Vat24Id), ("RevenueAccount", "70-1200"), ("ExpenseAccount", "20-1200"), ("IsSystem", false), ("IsActive", true), ("Color", "#0EA5E9"), ("IconName", "Monitor"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", FoodId), ("ParentId", DBNull.Value), ("Code", "FOOD"), ("Name", "Food"), ("LevelNo", 0), ("SortNo", 20), ("VatRateId", Vat13Id), ("RevenueAccount", "70-2000"), ("ExpenseAccount", "20-2000"), ("IsSystem", false), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "ShoppingBasket"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", FoodId), ("Code", "FOOD-COF"), ("Name", "Coffee"), ("LevelNo", 1), ("SortNo", 10), ("VatRateId", Vat13Id), ("RevenueAccount", "70-2100"), ("ExpenseAccount", "20-2100"), ("IsSystem", false), ("IsActive", true), ("Color", "#92400E"), ("IconName", "Coffee"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", FoodId), ("Code", "FOOD-DRK"), ("Name", "Drinks"), ("LevelNo", 1), ("SortNo", 20), ("VatRateId", Vat13Id), ("RevenueAccount", "70-2200"), ("ExpenseAccount", "20-2200"), ("IsSystem", false), ("IsActive", true), ("Color", "#06B6D4"), ("IconName", "CupSoda"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", ElectronicsId), ("ParentId", DBNull.Value), ("Code", "ELEC"), ("Name", "Electronics"), ("LevelNo", 0), ("SortNo", 10), ("TaxProductGroupId", StandardId), ("RevenueAccount", "70-1000"), ("ExpenseAccount", "20-1000"), ("IsSystem", false), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "MonitorSmartphone"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", ElectronicsId), ("Code", "ELEC-LAP"), ("Name", "Laptops"), ("LevelNo", 1), ("SortNo", 10), ("TaxProductGroupId", StandardId), ("RevenueAccount", "70-1100"), ("ExpenseAccount", "20-1100"), ("IsSystem", false), ("IsActive", true), ("Color", "#3B82F6"), ("IconName", "Laptop"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", ElectronicsId), ("Code", "ELEC-MON"), ("Name", "Monitors"), ("LevelNo", 1), ("SortNo", 20), ("TaxProductGroupId", StandardId), ("RevenueAccount", "70-1200"), ("ExpenseAccount", "20-1200"), ("IsSystem", false), ("IsActive", true), ("Color", "#0EA5E9"), ("IconName", "Monitor"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", FoodId), ("ParentId", DBNull.Value), ("Code", "FOOD"), ("Name", "Food"), ("LevelNo", 0), ("SortNo", 20), ("TaxProductGroupId", ReducedId), ("RevenueAccount", "70-2000"), ("ExpenseAccount", "20-2000"), ("IsSystem", false), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "ShoppingBasket"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", FoodId), ("Code", "FOOD-COF"), ("Name", "Coffee"), ("LevelNo", 1), ("SortNo", 10), ("TaxProductGroupId", ReducedId), ("RevenueAccount", "70-2100"), ("ExpenseAccount", "20-2100"), ("IsSystem", false), ("IsActive", true), ("Color", "#92400E"), ("IconName", "Coffee"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("ParentId", FoodId), ("Code", "FOOD-DRK"), ("Name", "Drinks"), ("LevelNo", 1), ("SortNo", 20), ("TaxProductGroupId", ReducedId), ("RevenueAccount", "70-2200"), ("ExpenseAccount", "20-2200"), ("IsSystem", false), ("IsActive", true), ("Color", "#06B6D4"), ("IconName", "CupSoda"), ("Remarks", DBNull.Value));
 
         Module.BatchInsert(tblSource);
     }
@@ -945,18 +1044,18 @@ public partial class SampleData1: SampleData
         tblSource.CopyColumnsFrom(Module.tblItem);
 
         MemTable tblCategory = SampleTables["Category"];
-        MemTable tblVatRate = SampleTables["VatRate"];
+        MemTable tblTaxProductGroup = SampleTables["TaxProductGroup"];
         MemTable tblUnitOfMeasure = SampleTables["UnitOfMeasure"];
 
         object CoffeeCategoryId = tblCategory.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("FOOD-COF"))["Id"];
         object DrinksCategoryId = tblCategory.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("FOOD-DRK"))["Id"];
-        object Vat24Id = tblVatRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("VAT24"))["Id"];
-        object Vat13Id = tblVatRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("VAT13"))["Id"];
+        object StandardId = tblTaxProductGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("STANDARD"))["Id"];
+        object ReducedId = tblTaxProductGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("REDUCED"))["Id"];
         object PieceId = tblUnitOfMeasure.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("H87"))["Id"];
         object KilogramId = tblUnitOfMeasure.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("KGM"))["Id"];
 
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Coffee Machine"), ("ProductTypeId", (int)ProductType.Goods), ("CategoryId", DrinksCategoryId), ("VatRateId", Vat24Id), ("PrimaryUnitOfMeasureId", PieceId), ("Barcode", "5200000000011"), ("Weight", 6.500m), ("Volume", 0.045m), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "Coffee"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Espresso Beans"), ("ProductTypeId", (int)ProductType.Goods), ("CategoryId", CoffeeCategoryId), ("VatRateId", Vat13Id), ("PrimaryUnitOfMeasureId", KilogramId), ("Barcode", "5200000000028"), ("Weight", 1.000m), ("Volume", 0.004m), ("IsActive", true), ("Color", "#92400E"), ("IconName", "Bean"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Coffee Machine"), ("ProductTypeId", (int)ProductType.Goods), ("CategoryId", DrinksCategoryId), ("TaxProductGroupId", StandardId), ("PrimaryUnitOfMeasureId", PieceId), ("Barcode", "5200000000011"), ("Weight", 6.500m), ("Volume", 0.045m), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "Coffee"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Espresso Beans"), ("ProductTypeId", (int)ProductType.Goods), ("CategoryId", CoffeeCategoryId), ("TaxProductGroupId", ReducedId), ("PrimaryUnitOfMeasureId", KilogramId), ("Barcode", "5200000000028"), ("Weight", 1.000m), ("Volume", 0.004m), ("IsActive", true), ("Color", "#92400E"), ("IconName", "Bean"), ("Remarks", DBNull.Value));
 
         Module.BatchInsert(tblSource);
     }
@@ -1692,7 +1791,12 @@ public partial class SampleData1: SampleData
         Add_Carrier();
         Add_Country();
         Add_Currency();
-        Add_VatRate();
+        Add_TaxRate();
+        Add_TaxBusinessGroup();
+        Add_TaxProductGroup();
+        Add_TaxJurisdiction();
+        Add_TaxClause();
+        Add_TaxRule();
         Add_PaymentTerm();
         Add_ProductGroup();
         Add_FiscalYear();
@@ -1706,7 +1810,6 @@ public partial class SampleData1: SampleData
         Add_ProductDimension();
         Add_ProductAttributeGroup();
         Add_PriceListType();
-        Add_TaxCategory();
         Add_FiscalPeriod();
         Add_Person();
         Add_Category();

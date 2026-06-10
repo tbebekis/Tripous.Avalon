@@ -298,17 +298,36 @@ CREATE TABLE {TableName} (
     )
 
 /*---------------------------------------------------
-Table: VatRate
-Module: VatRate  
+Table: TaxRate
+Module: TaxRate
 Group: Setup
-IsLookup: true   
+IsLookup: true
+-----------------------------------------------------
+Defines a reusable tax percentage.
+
+Tax rates are referenced by tax rules and remain independent from
+customers, products, and jurisdictions. Historical documents store
+the applied percentage as a snapshot, so later rate changes do not
+alter posted transactions.
+
+Examples:
+    VAT24       VAT 24%
+    VAT13       VAT 13%
+    ZERO        Zero Rate
+    US725       Sales Tax 7.25%
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-    Id  @NVARCHAR(40)  @NOT_NULL primary key,
-    Code @NVARCHAR(40) @NOT_NULL,
-    Name @NVARCHAR(96) @NOT_NULL,
-    Percent @DECIMAL_(5,2) @NOT_NULL,
-    IsActive @BOOL default 1 @NOT_NULL,
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+    TaxTypeId int default 1 @NOT_NULL,                   -- Enum TaxType -- VAT, SalesTax, GST, or another indirect tax family
+    Percent @DECIMAL_(9,4) @NOT_NULL,                    -- -- Tax percentage applied to the taxable amount
+
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the rate may be used by new rules
+
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
+
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code)
     )
@@ -538,44 +557,194 @@ CREATE TABLE {TableName} (
     )
 
 /*---------------------------------------------------
-Table: TaxCategory
-Module: TaxCategory  
+Table: TaxBusinessGroup
+Module: TaxBusinessGroup
 Group: Accounting
-IsLookup: true  
------------------------------------------------------  
-    DOMESTIC     Domestic Transactions
-    EU           European Union
-    THIRD        Third Countries
-    EXEMPT       Tax Exempt
+IsLookup: true
+-----------------------------------------------------
+Classifies a customer, supplier, or other business party for tax
+determination.
+
+The group does not contain a percentage or geographic behavior.
+TaxRule combines this group with the product group and jurisdiction
+to determine the applicable tax treatment.
+
+Examples:
+    REGULAR         Regular Taxpayer
+    REGISTERED      Tax Registered Business
+    EXEMPT          Tax Exempt Organization
+    RESELLER        Reseller
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
 
-    Code @NVARCHAR(40) @NOT_NULL,               -- business code
-    Name @NVARCHAR(96) @NOT_NULL,               -- display title
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
 
-    VatRateId @NVARCHAR(40) @NULL,              -- Lookup   -- default vat rate
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the group may be assigned
 
-    IsDomestic @BOOL default 0 @NOT_NULL,
-    IsEuropeanUnion @BOOL default 0 @NOT_NULL,
-    IsThirdCountry @BOOL default 0 @NOT_NULL,
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
 
-    IsTaxExempt @BOOL default 0 @NOT_NULL,
-    IsReverseCharge @BOOL default 0 @NOT_NULL,
-    IsIntrastat @BOOL default 0 @NOT_NULL,
-    IsVies @BOOL default 0 @NOT_NULL,
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
 
-    IsActive @BOOL default 1 @NOT_NULL,
+/*---------------------------------------------------
+Table: TaxProductGroup
+Module: TaxProductGroup
+Group: Accounting
+IsLookup: true
+-----------------------------------------------------
+Classifies a product or service for tax determination.
 
-    Color @NVARCHAR(32) @NULL,       -- ui display color
-    IconName @NVARCHAR(96) @NULL,    -- ui icon
+The group describes the taxable nature of an item without embedding
+a percentage. The actual percentage is selected by TaxRule according
+to the business party and tax jurisdiction.
 
-    Remarks @NBLOB_TEXT @NULL,
+Examples:
+    STANDARD        Standard Taxable Goods
+    REDUCED         Reduced Rate Goods
+    ZERO            Zero-Rated Goods
+    EXEMPT          Tax Exempt Goods or Services
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the group may be assigned
+
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+
+/*---------------------------------------------------
+Table: TaxJurisdiction
+Module: TaxJurisdiction
+Group: Accounting
+IsLookup: true
+-----------------------------------------------------
+Defines a geographic authority that imposes or controls taxation.
+
+Jurisdictions may form a hierarchy such as Tax Zone, Country, State,
+County, and City. CountryId and RegionCode provide address mapping
+when applicable. A jurisdiction without CountryId may represent a
+tax zone such as the European Union. ParentId allows both tax zones
+and detailed United States sales tax structures.
+
+Examples:
+    GR              Greece
+    US-CA           California
+    US-CA-LA        Los Angeles County
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    ParentId @NVARCHAR(40) @NULL,                        -- Lookup -- Parent jurisdiction in the geographic hierarchy
+    CountryId @NVARCHAR(40) @NULL,                       -- Lookup -- Country represented by this jurisdiction; null for a multi-country tax zone
+
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+    JurisdictionTypeId int default 1 @NOT_NULL,          -- Enum TaxJurisdictionType -- Country, State, County, City, Special, TaxZone
+    RegionCode @NVARCHAR(40) @NULL,                      -- -- State, province, or region code used for address matching
+    PostalCodePattern @NVARCHAR(40) @NULL,               -- -- Optional postal code pattern used for detailed matching
+
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the jurisdiction participates in tax resolution
+
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+
+    FOREIGN KEY (ParentId) REFERENCES TaxJurisdiction(Id),
+    FOREIGN KEY (CountryId) REFERENCES Country(Id)
+    )
+
+/*---------------------------------------------------
+Table: TaxClause
+Module: TaxClause
+Group: Accounting
+IsLookup: true
+-----------------------------------------------------
+Defines the legal or reporting explanation attached to a tax result.
+
+Clauses are used for exemptions, zero-rated transactions, reverse
+charge, exports, and other cases where the document must explain why
+normal taxation was not applied.
+
+Examples:
+    EU_REVERSE      Intra-Community Reverse Charge
+    EXPORT          Export Outside Tax Territory
+    EXEMPT          Tax Exemption
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+    ClauseText @NVARCHAR(512) @NOT_NULL,                 -- -- Legal or printed explanation
+
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the clause may be used by new rules
+
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+
+/*---------------------------------------------------
+Table: TaxRule
+Module: TaxRule
+Group: Accounting
+-----------------------------------------------------
+Defines tax determination behavior.
+
+A rule combines the business party group, product group, origin and
+destination jurisdictions, transaction direction, and effective
+date. More than one rule may apply to a line, which supports compound
+United States state, county, and city taxes. Priority controls
+evaluation order.
+
+The tax resolver evaluates active matching rules and stores their
+results as immutable snapshots in TradeLineTax.
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+
+    Code @NVARCHAR(40) @NOT_NULL,                        -- -- Stable business code
+    Name @NVARCHAR(96) @NOT_NULL,                        -- -- Display title
+
+    TaxBusinessGroupId @NVARCHAR(40) @NOT_NULL,          -- Lookup -- Business party tax classification
+    TaxProductGroupId @NVARCHAR(40) @NOT_NULL,           -- Lookup -- Product or service tax classification
+    OriginTaxJurisdictionId @NVARCHAR(40) @NULL,         -- Lookup -- Origin jurisdiction; null means any origin
+    DestinationTaxJurisdictionId @NVARCHAR(40) @NULL,   -- Lookup -- Destination jurisdiction; null means any destination
+    TaxRateId @NVARCHAR(40) @NOT_NULL,                   -- Lookup -- Percentage applied by the rule
+    TaxClauseId @NVARCHAR(40) @NULL,                     -- Lookup -- Legal explanation for special tax treatment
+
+    TradeTypeId int default 0 @NOT_NULL,                 -- Enum TradeType -- None means both Sales and Purchases
+    TaxCalculationTypeId int default 1 @NOT_NULL,        -- Enum TaxCalculationType -- Percentage, TaxOnTax
+    Priority int default 0 @NOT_NULL,                    -- -- Evaluation order when multiple rules match
+
+    IsExempt @BOOL default 0 @NOT_NULL,                  -- -- Indicates that the matched transaction is tax exempt
+    IsReverseCharge @BOOL default 0 @NOT_NULL,           -- -- Indicates that the tax liability shifts to the recipient
+
+    ValidFrom @DATE @NULL,                               -- -- First transaction date on which the rule is valid
+    ValidTo @DATE @NULL,                                 -- -- Last transaction date on which the rule is valid
+    IsActive @BOOL default 1 @NOT_NULL,                  -- -- Indicates whether the rule participates in tax resolution
+
+    Remarks @NBLOB_TEXT @NULL,                           -- LargeMemo; -- Internal notes
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
 
-    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id)
+    FOREIGN KEY (TaxBusinessGroupId) REFERENCES TaxBusinessGroup(Id),
+    FOREIGN KEY (TaxProductGroupId) REFERENCES TaxProductGroup(Id),
+    FOREIGN KEY (OriginTaxJurisdictionId) REFERENCES TaxJurisdiction(Id),
+    FOREIGN KEY (DestinationTaxJurisdictionId) REFERENCES TaxJurisdiction(Id),
+    FOREIGN KEY (TaxRateId) REFERENCES TaxRate(Id),
+    FOREIGN KEY (TaxClauseId) REFERENCES TaxClause(Id)
     )
 
 /*---------------------------------------------------
@@ -758,6 +927,7 @@ CREATE TABLE {TableName} (
 
     TaxNumber @NVARCHAR(32) @NULL,                  -- Group Tax
     TaxOfficeId @NVARCHAR(40) @NULL,                -- Lookup; Group Tax
+    TaxBusinessGroupId @NVARCHAR(40) @NULL,         -- Lookup; Group Tax -- Default business party classification used by tax determination
 
     CountryId @NVARCHAR(40) @NULL,                  -- Lookup; Group Preferences
     CurrencyId @NVARCHAR(40) @NULL,                 -- Lookup; Group Preferences
@@ -787,6 +957,7 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
 
     FOREIGN KEY (TaxOfficeId) REFERENCES TaxOffice(Id),
+    FOREIGN KEY (TaxBusinessGroupId) REFERENCES TaxBusinessGroup(Id),
     FOREIGN KEY (CountryId) REFERENCES Country(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
     FOREIGN KEY (LanguageId) REFERENCES Language(Id)
@@ -980,7 +1151,7 @@ CREATE TABLE {TableName} (
 
     SortNo integer default 0 @NOT_NULL,             -- display order
 
-    VatRateId @NVARCHAR(40) @NULL,                  -- Lookup       -- default vat rate
+    TaxProductGroupId @NVARCHAR(40) @NULL,          -- Lookup -- Default tax classification inherited by products in this category
     RevenueAccount @NVARCHAR(40) @NULL,             -- optional accounting account
     ExpenseAccount @NVARCHAR(40) @NULL,             -- optional accounting account
 
@@ -996,7 +1167,7 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
 
     FOREIGN KEY (ParentId) REFERENCES Category(Id),
-    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id)
+    FOREIGN KEY (TaxProductGroupId) REFERENCES TaxProductGroup(Id)
     )
 
 
@@ -1017,7 +1188,7 @@ CREATE TABLE {TableName} (
     ProductTypeId integer @NOT_NULL,                        -- Enum         -- Goods, Service, RawMaterial
 
     CategoryId @NVARCHAR(40) @NULL,                         -- Lookup
-    VatRateId @NVARCHAR(40) @NULL,                          -- Lookup
+    TaxProductGroupId @NVARCHAR(40) @NULL,                  -- Lookup -- Product tax classification used by tax determination
 
     PrimaryUnitOfMeasureId @NVARCHAR(40) @NOT_NULL,         -- Lookup       -- inventory/base unit
 
@@ -1037,7 +1208,7 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name),
 
     FOREIGN KEY (CategoryId) REFERENCES Category(Id),
-    FOREIGN KEY (VatRateId) REFERENCES VatRate(Id),
+    FOREIGN KEY (TaxProductGroupId) REFERENCES TaxProductGroup(Id),
     FOREIGN KEY (PrimaryUnitOfMeasureId) REFERENCES UnitOfMeasure(Id)
     )
 

@@ -312,18 +312,18 @@ select
    Category.Name,
    Category.LevelNo,
    Category.SortNo,
-   Category.VatRateId,
+   Category.TaxProductGroupId,
    Category.RevenueAccount,
    Category.ExpenseAccount,
    Category.IsSystem,
    Category.IsActive,
    Category.Color,
    Category.IconName,
-   COALESCE(VatRate.Code, '') as VatRate__Code,
-   COALESCE(VatRate.Name, '') as VatRate__Name
+   COALESCE(TaxProductGroup.Code, '') as TaxProductGroup__Code,
+   COALESCE(TaxProductGroup.Name, '') as TaxProductGroup__Name
 from
   Category
-    left join VatRate VatRate on VatRate.Id = Category.VatRateId
+    left join TaxProductGroup TaxProductGroup on TaxProductGroup.Id = Category.TaxProductGroupId
 ";
         Module = DataRegistry.AddOrUpdateModule("Category", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -337,7 +337,7 @@ from
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddInteger("LevelNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddInteger("SortNo", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddString("RevenueAccount", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddString("ExpenseAccount", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddBoolean("IsSystem", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -345,7 +345,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true);
-        string[] FilterFields = ["Name", "Code", "Color", "ExpenseAccount", "IconName", "IsActive", "IsSystem", "LevelNo", "RevenueAccount", "SortNo", "VatRate__Code", "VatRate__Name"];
+        string[] FilterFields = ["Name", "Code", "Color", "ExpenseAccount", "IconName", "IsActive", "IsSystem", "LevelNo", "RevenueAccount", "SortNo", "TaxProductGroup__Code", "TaxProductGroup__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -355,15 +355,15 @@ from
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["LevelNo"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["SortNo"] = DataColumnType.Integer;
-        SelectDef.ColumnTypes["VatRateId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxProductGroupId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["RevenueAccount"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExpenseAccount"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsSystem"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["VatRate__Code"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["VatRate__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxProductGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxProductGroup__Name"] = DataColumnType.Text;
     }
     static void RegisterModule_Company()
     {
@@ -1152,6 +1152,7 @@ select
    Person.Title,
    Person.TaxNumber,
    Person.TaxOfficeId,
+   Person.TaxBusinessGroupId,
    Person.CountryId,
    Person.CurrencyId,
    Person.LanguageId,
@@ -1170,6 +1171,8 @@ select
    Person.IconName,
    COALESCE(TaxOffice.Code, '') as TaxOffice__Code,
    COALESCE(TaxOffice.Name, '') as TaxOffice__Name,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
    COALESCE(Country.Code, '') as Country__Code,
    COALESCE(Country.Name, '') as Country__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
@@ -1179,6 +1182,7 @@ select
 from
   Person
     left join TaxOffice TaxOffice on TaxOffice.Id = Person.TaxOfficeId
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Person.TaxBusinessGroupId
     left join Country Country on Country.Id = Person.CountryId
     left join Currency Currency on Currency.Id = Person.CurrencyId
     left join Language Language on Language.Id = Person.LanguageId
@@ -1196,6 +1200,7 @@ from
         tblTop.AddString("Title", MaxLength: 160, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddString("TaxNumber", MaxLength: 32, Flags: FieldFlags.None).SetNullable(true).SetGroup("Tax");
         tblTop.AddStringLookupId("TaxOfficeId", "TaxOffice", Flags: FieldFlags.None).SetNullable(true).SetGroup("Tax");
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true).SetGroup("Tax");
         tblTop.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Preferences");
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.None).SetNullable(true).SetGroup("Preferences");
         tblTop.AddStringLookupId("LanguageId", "Language", Flags: FieldFlags.None).SetNullable(true).SetGroup("Preferences");
@@ -1213,7 +1218,7 @@ from
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.None).SetNullable(true).SetGroup("Appearance");
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Appearance");
-        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "City", "Code", "Color", "ContactPerson", "Country__Code", "Country__Name", "Currency__Code", "Currency__Name", "Email", "IconName", "IsActive", "IsCompany", "Language__Code", "Language__Name", "Mobile", "Phone", "PostalCode", "TaxNumber", "TaxOffice__Code", "TaxOffice__Name", "Title", "Website"];
+        string[] FilterFields = ["Name", "AddressLine1", "AddressLine2", "City", "Code", "Color", "ContactPerson", "Country__Code", "Country__Name", "Currency__Code", "Currency__Name", "Email", "IconName", "IsActive", "IsCompany", "Language__Code", "Language__Name", "Mobile", "Phone", "PostalCode", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TaxNumber", "TaxOffice__Code", "TaxOffice__Name", "Title", "Website"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1223,6 +1228,7 @@ from
         SelectDef.ColumnTypes["Title"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxNumber"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxOfficeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CountryId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["LanguageId"] = DataColumnType.Text;
@@ -1241,6 +1247,8 @@ from
         SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxOffice__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["TaxOffice__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Country__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Country__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
@@ -1500,7 +1508,7 @@ select
       else ''
    end as ProductType,
    Product.CategoryId,
-   Product.VatRateId,
+   Product.TaxProductGroupId,
    Product.PrimaryUnitOfMeasureId,
    Product.Barcode,
    Product.Weight,
@@ -1510,14 +1518,14 @@ select
    Product.IconName,
    COALESCE(Category.Code, '') as Category__Code,
    COALESCE(Category.Name, '') as Category__Name,
-   COALESCE(VatRate.Code, '') as VatRate__Code,
-   COALESCE(VatRate.Name, '') as VatRate__Name,
+   COALESCE(TaxProductGroup.Code, '') as TaxProductGroup__Code,
+   COALESCE(TaxProductGroup.Name, '') as TaxProductGroup__Name,
    COALESCE(PrimaryUnitOfMeasure.Code, '') as PrimaryUnitOfMeasure__Code,
    COALESCE(PrimaryUnitOfMeasure.Name, '') as PrimaryUnitOfMeasure__Name
 from
   Product
     left join Category Category on Category.Id = Product.CategoryId
-    left join VatRate VatRate on VatRate.Id = Product.VatRateId
+    left join TaxProductGroup TaxProductGroup on TaxProductGroup.Id = Product.TaxProductGroupId
     left join UnitOfMeasure PrimaryUnitOfMeasure on PrimaryUnitOfMeasure.Id = Product.PrimaryUnitOfMeasureId
 ";
         Module = DataRegistry.AddOrUpdateModule("Product", ListSelectSql: SqlText);
@@ -1531,7 +1539,7 @@ from
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddEnumLookupId("ProductTypeId", "ProductType", TypeStore.Get("ProductType"), Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddStringLookupId("CategoryId", "Category", Flags: FieldFlags.None).SetNullable(true);
-        tblTop.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("PrimaryUnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDecimal("Weight", Decimals: 4, Flags: FieldFlags.None).SetNullable(true);
@@ -1540,7 +1548,7 @@ from
         tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true);
-        string[] FilterFields = ["Name", "Barcode", "Category__Code", "Category__Name", "Code", "Color", "IconName", "IsActive", "PrimaryUnitOfMeasure__Code", "PrimaryUnitOfMeasure__Name", "ProductType", "VatRate__Code", "VatRate__Name", "Volume", "Weight"];
+        string[] FilterFields = ["Name", "Barcode", "Category__Code", "Category__Name", "Code", "Color", "IconName", "IsActive", "PrimaryUnitOfMeasure__Code", "PrimaryUnitOfMeasure__Name", "ProductType", "TaxProductGroup__Code", "TaxProductGroup__Name", "Volume", "Weight"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1550,7 +1558,7 @@ from
         SelectDef.ColumnTypes["ProductTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["ProductType"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CategoryId"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["VatRateId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxProductGroupId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PrimaryUnitOfMeasureId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Barcode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Weight"] = DataColumnType.Decimal;
@@ -1560,8 +1568,8 @@ from
         SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Category__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Category__Name"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["VatRate__Code"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["VatRate__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxProductGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxProductGroup__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PrimaryUnitOfMeasure__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PrimaryUnitOfMeasure__Name"] = DataColumnType.Text;
         TableDef tblProductGroups = tblTop.AddDetail("ProductGroups", "Id", "ProductId");
@@ -2117,7 +2125,7 @@ from
         SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
         SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
     }
-    static void RegisterModule_TaxCategory()
+    static void RegisterModule_TaxBusinessGroup()
     {
         ModuleDef Module;
         TableDef tblTop;
@@ -2125,67 +2133,136 @@ from
         string SqlText;
         SqlText = @"
 select
-   TaxCategory.Id,
-   TaxCategory.Code,
-   TaxCategory.Name,
-   TaxCategory.VatRateId,
-   TaxCategory.IsDomestic,
-   TaxCategory.IsEuropeanUnion,
-   TaxCategory.IsThirdCountry,
-   TaxCategory.IsTaxExempt,
-   TaxCategory.IsReverseCharge,
-   TaxCategory.IsIntrastat,
-   TaxCategory.IsVies,
-   TaxCategory.IsActive,
-   TaxCategory.Color,
-   TaxCategory.IconName,
-   COALESCE(VatRate.Code, '') as VatRate__Code,
-   COALESCE(VatRate.Name, '') as VatRate__Name
+   TaxBusinessGroup.Id,
+   TaxBusinessGroup.Code,
+   TaxBusinessGroup.Name,
+   TaxBusinessGroup.IsActive
 from
-  TaxCategory
-    left join VatRate VatRate on VatRate.Id = TaxCategory.VatRateId
+  TaxBusinessGroup
 ";
-        Module = DataRegistry.AddOrUpdateModule("TaxCategory", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("TaxBusinessGroup", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
-        tblTop.Name = "TaxCategory";
+        tblTop.Name = "TaxBusinessGroup";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
         tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
-        tblTop.AddStringLookupId("VatRateId", "VatRate", Flags: FieldFlags.None).SetNullable(true);
-        tblTop.AddBoolean("IsDomestic", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("IsEuropeanUnion", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("IsThirdCountry", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("IsIntrastat", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddBoolean("IsVies", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        tblTop.AddString("Color", MaxLength: 32, Flags: FieldFlags.None).SetNullable(true);
-        tblTop.AddString("IconName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true);
-        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true);
-        string[] FilterFields = ["Name", "Code", "Color", "IconName", "IsActive", "IsDomestic", "IsEuropeanUnion", "IsIntrastat", "IsReverseCharge", "IsTaxExempt", "IsThirdCountry", "IsVies", "VatRate__Code", "VatRate__Name"];
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo();
+        string[] FilterFields = ["Name", "Code", "IsActive"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["VatRateId"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["IsDomestic"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["IsEuropeanUnion"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["IsThirdCountry"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["IsTaxExempt"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["IsReverseCharge"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["IsIntrastat"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["IsVies"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
-        SelectDef.ColumnTypes["Color"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["IconName"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["VatRate__Code"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["VatRate__Name"] = DataColumnType.Text;
+    }
+    static void RegisterModule_TaxClause()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   TaxClause.Id,
+   TaxClause.Code,
+   TaxClause.Name,
+   TaxClause.ClauseText,
+   TaxClause.IsActive
+from
+  TaxClause
+";
+        Module = DataRegistry.AddOrUpdateModule("TaxClause", ListSelectSql: SqlText);
+        if (Module.Table.Fields.Count > 0)
+            return;
+        tblTop = Module.Table;
+        tblTop.Name = "TaxClause";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("ClauseText", MaxLength: 512, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo();
+        string[] FilterFields = ["Name", "ClauseText", "Code", "IsActive"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ClauseText"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+    }
+    static void RegisterModule_TaxJurisdiction()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   TaxJurisdiction.Id,
+   TaxJurisdiction.ParentId,
+   TaxJurisdiction.CountryId,
+   TaxJurisdiction.Code,
+   TaxJurisdiction.Name,
+   TaxJurisdiction.JurisdictionTypeId,
+   case
+      when TaxJurisdiction.JurisdictionTypeId = 0 then 'None'
+      when TaxJurisdiction.JurisdictionTypeId = 1 then 'Country'
+      when TaxJurisdiction.JurisdictionTypeId = 2 then 'State'
+      when TaxJurisdiction.JurisdictionTypeId = 3 then 'County'
+      when TaxJurisdiction.JurisdictionTypeId = 4 then 'City'
+      when TaxJurisdiction.JurisdictionTypeId = 5 then 'Special'
+      when TaxJurisdiction.JurisdictionTypeId = 6 then 'TaxZone'
+      else ''
+   end as TaxJurisdictionType,
+   TaxJurisdiction.RegionCode,
+   TaxJurisdiction.PostalCodePattern,
+   TaxJurisdiction.IsActive,
+   COALESCE(Country.Code, '') as Country__Code,
+   COALESCE(Country.Name, '') as Country__Name
+from
+  TaxJurisdiction
+    left join Country Country on Country.Id = TaxJurisdiction.CountryId
+";
+        Module = DataRegistry.AddOrUpdateModule("TaxJurisdiction", ListSelectSql: SqlText);
+        if (Module.Table.Fields.Count > 0)
+            return;
+        tblTop = Module.Table;
+        tblTop.Name = "TaxJurisdiction";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("ParentId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("JurisdictionTypeId", "TaxJurisdictionType", TypeStore.Get("TaxJurisdictionType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddString("RegionCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddString("PostalCodePattern", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo();
+        string[] FilterFields = ["Name", "Code", "Country__Code", "Country__Name", "IsActive", "PostalCodePattern", "RegionCode", "TaxJurisdictionType"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ParentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CountryId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["JurisdictionTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxJurisdictionType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["RegionCode"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostalCodePattern"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["Country__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Country__Name"] = DataColumnType.Text;
     }
     static void RegisterModule_TaxOffice()
     {
@@ -2218,6 +2295,212 @@ from
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
     }
+    static void RegisterModule_TaxProductGroup()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   TaxProductGroup.Id,
+   TaxProductGroup.Code,
+   TaxProductGroup.Name,
+   TaxProductGroup.IsActive
+from
+  TaxProductGroup
+";
+        Module = DataRegistry.AddOrUpdateModule("TaxProductGroup", ListSelectSql: SqlText);
+        if (Module.Table.Fields.Count > 0)
+            return;
+        tblTop = Module.Table;
+        tblTop.Name = "TaxProductGroup";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo();
+        string[] FilterFields = ["Name", "Code", "IsActive"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+    }
+    static void RegisterModule_TaxRate()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   TaxRate.Id,
+   TaxRate.Code,
+   TaxRate.Name,
+   TaxRate.TaxTypeId,
+   case
+      when TaxRate.TaxTypeId = 0 then 'None'
+      when TaxRate.TaxTypeId = 1 then 'Vat'
+      when TaxRate.TaxTypeId = 2 then 'SalesTax'
+      when TaxRate.TaxTypeId = 3 then 'Gst'
+      when TaxRate.TaxTypeId = 4 then 'Other'
+      else ''
+   end as TaxType,
+   TaxRate.Percent,
+   TaxRate.IsActive
+from
+  TaxRate
+";
+        Module = DataRegistry.AddOrUpdateModule("TaxRate", ListSelectSql: SqlText);
+        if (Module.Table.Fields.Count > 0)
+            return;
+        tblTop = Module.Table;
+        tblTop.Name = "TaxRate";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("TaxTypeId", "TaxType", TypeStore.Get("TaxType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddDecimal("Percent", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo();
+        string[] FilterFields = ["Name", "Code", "IsActive", "Percent", "TaxType"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Percent"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+    }
+    static void RegisterModule_TaxRule()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   TaxRule.Id,
+   TaxRule.Code,
+   TaxRule.Name,
+   TaxRule.TaxBusinessGroupId,
+   TaxRule.TaxProductGroupId,
+   TaxRule.OriginTaxJurisdictionId,
+   TaxRule.DestinationTaxJurisdictionId,
+   TaxRule.TaxRateId,
+   TaxRule.TaxClauseId,
+   TaxRule.TradeTypeId,
+   case
+      when TaxRule.TradeTypeId = 0 then 'None'
+      when TaxRule.TradeTypeId = 1 then 'Sales'
+      when TaxRule.TradeTypeId = 2 then 'Purchases'
+      when TaxRule.TradeTypeId = 3 then 'Warehouse'
+      when TaxRule.TradeTypeId = 4 then 'Financial'
+      when TaxRule.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
+   TaxRule.TaxCalculationTypeId,
+   case
+      when TaxRule.TaxCalculationTypeId = 0 then 'None'
+      when TaxRule.TaxCalculationTypeId = 1 then 'Percentage'
+      when TaxRule.TaxCalculationTypeId = 2 then 'TaxOnTax'
+      else ''
+   end as TaxCalculationType,
+   TaxRule.Priority,
+   TaxRule.IsExempt,
+   TaxRule.IsReverseCharge,
+   TaxRule.ValidFrom,
+   TaxRule.ValidTo,
+   TaxRule.IsActive,
+   COALESCE(TaxBusinessGroup.Code, '') as TaxBusinessGroup__Code,
+   COALESCE(TaxBusinessGroup.Name, '') as TaxBusinessGroup__Name,
+   COALESCE(TaxProductGroup.Code, '') as TaxProductGroup__Code,
+   COALESCE(TaxProductGroup.Name, '') as TaxProductGroup__Name,
+   COALESCE(OriginTaxJurisdiction.Code, '') as OriginTaxJurisdiction__Code,
+   COALESCE(OriginTaxJurisdiction.Name, '') as OriginTaxJurisdiction__Name,
+   COALESCE(DestinationTaxJurisdiction.Code, '') as DestinationTaxJurisdiction__Code,
+   COALESCE(DestinationTaxJurisdiction.Name, '') as DestinationTaxJurisdiction__Name,
+   COALESCE(TaxRate.Code, '') as TaxRate__Code,
+   COALESCE(TaxRate.Name, '') as TaxRate__Name,
+   COALESCE(TaxClause.Code, '') as TaxClause__Code,
+   COALESCE(TaxClause.Name, '') as TaxClause__Name
+from
+  TaxRule
+    left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = TaxRule.TaxBusinessGroupId
+    left join TaxProductGroup TaxProductGroup on TaxProductGroup.Id = TaxRule.TaxProductGroupId
+    left join TaxJurisdiction OriginTaxJurisdiction on OriginTaxJurisdiction.Id = TaxRule.OriginTaxJurisdictionId
+    left join TaxJurisdiction DestinationTaxJurisdiction on DestinationTaxJurisdiction.Id = TaxRule.DestinationTaxJurisdictionId
+    left join TaxRate TaxRate on TaxRate.Id = TaxRule.TaxRateId
+    left join TaxClause TaxClause on TaxClause.Id = TaxRule.TaxClauseId
+";
+        Module = DataRegistry.AddOrUpdateModule("TaxRule", ListSelectSql: SqlText);
+        if (Module.Table.Fields.Count > 0)
+            return;
+        tblTop = Module.Table;
+        tblTop.Name = "TaxRule";
+        tblTop.KeyField = "Id";
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("TaxProductGroupId", "TaxProductGroup", Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddStringLookupId("TaxRateId", "TaxRate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("TaxClauseId", "TaxClause", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TaxCalculationTypeId", "TaxCalculationType", TypeStore.Get("TaxCalculationType"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddInteger("Priority", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("IsExempt", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("IsReverseCharge", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDate("ValidFrom", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddDate("ValidTo", Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo();
+        string[] FilterFields = ["Name", "Code", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "IsActive", "IsExempt", "IsReverseCharge", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "Priority", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TaxCalculationType", "TaxClause__Code", "TaxClause__Name", "TaxProductGroup__Code", "TaxProductGroup__Name", "TaxRate__Code", "TaxRate__Name", "TradeType", "ValidFrom", "ValidTo"];
+        SelectDef = Module.SelectList[0];
+        foreach (string FieldName in FilterFields)
+            SelectDef.AddFilter(FieldName, FieldName: FieldName);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxProductGroupId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdictionId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxRateId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxClauseId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxCalculationTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TaxCalculationType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Priority"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["IsExempt"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsReverseCharge"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["ValidFrom"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["ValidTo"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxBusinessGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxProductGroup__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxProductGroup__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["OriginTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DestinationTaxJurisdiction__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxRate__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxRate__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxClause__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TaxClause__Name"] = DataColumnType.Text;
+    }
     static void RegisterModule_UnitOfMeasure()
     {
         ModuleDef Module;
@@ -2248,43 +2531,6 @@ from
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
-    }
-    static void RegisterModule_VatRate()
-    {
-        ModuleDef Module;
-        TableDef tblTop;
-        SelectDef SelectDef;
-        string SqlText;
-        SqlText = @"
-select
-   VatRate.Id,
-   VatRate.Code,
-   VatRate.Name,
-   VatRate.Percent,
-   VatRate.IsActive
-from
-  VatRate
-";
-        Module = DataRegistry.AddOrUpdateModule("VatRate", ListSelectSql: SqlText);
-        if (Module.Table.Fields.Count > 0)
-            return;
-        tblTop = Module.Table;
-        tblTop.Name = "VatRate";
-        tblTop.KeyField = "Id";
-        tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
-        tblTop.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
-        tblTop.AddDecimal("Percent", Decimals: 2, Flags: FieldFlags.Required).SetNullable(false);
-        tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
-        string[] FilterFields = ["Name", "Code", "IsActive", "Percent"];
-        SelectDef = Module.SelectList[0];
-        foreach (string FieldName in FilterFields)
-            SelectDef.AddFilter(FieldName, FieldName: FieldName);
-        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Percent"] = DataColumnType.Decimal;
-        SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
     }
     static void RegisterModule_Warehouse()
     {
@@ -2467,10 +2713,14 @@ from
         RegisterModule_StockReason();
         RegisterModule_SupplierCategory();
         RegisterModule_SysConfig();
-        RegisterModule_TaxCategory();
+        RegisterModule_TaxBusinessGroup();
+        RegisterModule_TaxClause();
+        RegisterModule_TaxJurisdiction();
         RegisterModule_TaxOffice();
+        RegisterModule_TaxProductGroup();
+        RegisterModule_TaxRate();
+        RegisterModule_TaxRule();
         RegisterModule_UnitOfMeasure();
-        RegisterModule_VatRate();
         RegisterModule_Warehouse();
     }
 }

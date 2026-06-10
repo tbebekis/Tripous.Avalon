@@ -10,6 +10,11 @@ namespace tERP.Data;
  
 public class SalesDataModule: TradeDataModule
 {
+    // ● protected
+    /// <summary>
+    /// Returns the configured identifier or resolves the current application default.
+    /// </summary>
+    protected virtual string GetDefaultId(string ConfigValue, Func<string> DefaultProvider) => !string.IsNullOrWhiteSpace(ConfigValue) ? ConfigValue : DefaultProvider();
     /// <summary>
     /// Sets default values to the Row. It is called when a commit operation starts.
     /// </summary>
@@ -22,13 +27,27 @@ public class SalesDataModule: TradeDataModule
 
         if (Table == tblItem && IsInserting)
         {
-            Row.SetValue("WarehouseId", AppDefaultProperties.Sales.WarehouseId);
-            Row.SetValue("CostCenterId", AppDefaultProperties.Sales.CostCenterId);
-            Row.SetValue("BranchId", AppDefaultProperties.Sales.BranchId);
-            Row.SetValue("CurrencyId", AppDefaultProperties.Sales.CurrencyId);
-            Row.SetValue("PaymentMethodId", AppDefaultProperties.Sales.PaymentMethodId);
-            Row.SetValue("PaymentTermId", AppDefaultProperties.Sales.PaymentTermId);
+            Row.SetValue("WarehouseId", GetDefaultId(AppDefaultProperties.Sales.WarehouseId, DataLib.GetDefaultWarehouseId));
+            Row.SetValue("CostCenterId", GetDefaultId(AppDefaultProperties.Sales.CostCenterId, DataLib.GetDefaultSalesCostCenterId));
+            Row.SetValue("BranchId", GetDefaultId(AppDefaultProperties.Sales.BranchId, DataLib.GetDefaultBranchId));
+            Row.SetValue("CurrencyId", GetDefaultId(AppDefaultProperties.Sales.CurrencyId, DataLib.GetDefaultCurrencyId));
+            Row.SetValue("PaymentMethodId", GetDefaultId(AppDefaultProperties.Sales.PaymentMethodId, DataLib.GetDefaultPaymentMethodId));
+            Row.SetValue("PaymentTermId", GetDefaultId(AppDefaultProperties.Sales.PaymentTermId, DataLib.GetDefaultPaymentTermId));
+
+            Row.SetValue("TaxBusinessGroupId", GetDefaultId(AppDefaultProperties.Sales.TaxBusinessGroupId, DataLib.GetDefaultTaxBusinessGroupId));
+            Row.SetValue("OriginTaxJurisdictionId", GetDefaultId(AppDefaultProperties.Sales.OriginTaxJurisdictionId, DataLib.GetDefaultTaxJurisdictionId));
+            Row.SetValue("DestinationTaxJurisdictionId", GetDefaultId(AppDefaultProperties.Sales.DestinationTaxJurisdictionId, DataLib.GetDefaultTaxJurisdictionId));
         }
+    }
+    /// <summary>
+    /// Sets sales defaults on a newly added commercial document line.
+    /// </summary>
+    protected override void NewRowAdded(MemTable Table, DataTableNewRowEventArgs ea)
+    {
+        base.NewRowAdded(Table, ea);
+
+        if (!IsTransforming && IsTradeLineTable(Table))
+            ea.Row.SetValue("Quantity", AppDefaultProperties.Sales.DefaultQuantity);
     }
 
     protected override void ColumnChanged(MemTable Table, DataColumnChangeEventArgs ea)
@@ -68,6 +87,7 @@ public class SalesDataModule: TradeDataModule
             Row.SetValue("BillingAddressLine1", BillingAddress != null ? BillingAddress.AddressLine1 : DBNull.Value);
             Row.SetValue("BillingAddressLine2", BillingAddress != null ? BillingAddress.AddressLine2 : DBNull.Value);
             Row.SetValue("BillingCity", BillingAddress != null ? BillingAddress.City : DBNull.Value);
+            Row.SetValue("BillingRegion", BillingAddress != null ? BillingAddress.Region : DBNull.Value);
             Row.SetValue("BillingPostalCode", BillingAddress != null ? BillingAddress.PostalCode : DBNull.Value);
             Row.SetValue("BillingCountryId", BillingAddress != null ? BillingAddress.CountryId : DBNull.Value);
 
@@ -75,6 +95,7 @@ public class SalesDataModule: TradeDataModule
             Row.SetValue("ShippingAddressLine1", ShippingAddress != null ? ShippingAddress.AddressLine1 : DBNull.Value);
             Row.SetValue("ShippingAddressLine2", ShippingAddress != null ? ShippingAddress.AddressLine2 : DBNull.Value);
             Row.SetValue("ShippingCity", ShippingAddress != null ? ShippingAddress.City : DBNull.Value);
+            Row.SetValue("ShippingRegion", ShippingAddress != null ? ShippingAddress.Region : DBNull.Value);
             Row.SetValue("ShippingPostalCode", ShippingAddress != null ? ShippingAddress.PostalCode : DBNull.Value);
             Row.SetValue("ShippingCountryId", ShippingAddress != null ? ShippingAddress.CountryId : DBNull.Value);
         }
@@ -82,6 +103,9 @@ public class SalesDataModule: TradeDataModule
         {
             IsCopyingPersonAddresses = false;
         }
+
+        ResolvePrices();
+        Calculate();
     }
 
     // ● construction
