@@ -16,10 +16,92 @@ namespace tERP.Data;
 /// </summary>
 public class DocumentDataModule: AppDataModule
 {
+    // ● protected fields
     protected int fIsTransforming;
     
     // ● protected
     protected override CodeProviderDef GetCodeProviderDef() => IsPosting? FinalCodeProviderDef: DraftCodeProviderDef;
+    /// <summary>
+    /// Creates the document handler registered for the current module.
+    /// </summary>
+    protected virtual DocumentHandler CreateDocumentHandler()
+    {
+        DocumentHandlerDef HandlerDef = DataRegistry.DocumentHandlers.Find(ModuleDef.Name);
+        if (HandlerDef == null)
+            throw new TripousDataException($"No document handler is registered for module '{ModuleDef.Name}'.");
+
+        DocumentHandler Result = TypeStore.CreateInstance<DocumentHandler>(HandlerDef.ClassName);
+        if (Result == null)
+            throw new TripousDataException($"Cannot create document handler '{HandlerDef.ClassName}'.");
+
+        Result.HandlerDef = HandlerDef;
+        return Result;
+    }
+    /// <summary>
+    /// Creates the context passed to the document handler.
+    /// </summary>
+    protected virtual DocumentContext CreateDocumentContext()
+    {
+        if (CurrentRow == null)
+            throw new TripousBusinessException("No document is selected.");
+
+        return new DocumentContext()
+        {
+            DataModule = this,
+            Row = CurrentRow,
+            DocumentTypeId = CurrentRow.AsString("DocumentTypeId"),
+            DocumentId = CurrentRow.AsString("Id"),
+            IsPosting = IsPosting,
+            IsCancellation = DocumentType.IsCancellation,
+        };
+    }
+    /// <summary>
+    /// Creates a snapshot of values changed by the posting operation.
+    /// </summary>
+    protected virtual Dictionary<string, object> CreatePostingSnapshot(DataRow Row)
+    {
+        Dictionary<string, object> Result = new();
+        string[] FieldNames = ["Code", "TradeStatusId", "PostingDate", "PostedAt", "PostedBy", "IsLocked"];
+
+        foreach (string FieldName in FieldNames)
+        {
+            if (Row.Table.Columns.Contains(FieldName))
+                Result[FieldName] = Row[FieldName];
+        }
+
+        return Result;
+    }
+    /// <summary>
+    /// Restores values changed by a failed posting operation.
+    /// </summary>
+    protected virtual void RestorePostingSnapshot(DataRow Row, Dictionary<string, object> Snapshot)
+    {
+        if (Row == null || Row.RowState == DataRowState.Deleted || Row.RowState == DataRowState.Detached)
+            return;
+
+        foreach (KeyValuePair<string, object> Entry in Snapshot)
+            Row.SetValue(Entry.Key, Entry.Value);
+    }
+    /// <summary>
+    /// Assigns the final document code while posting.
+    /// </summary>
+    protected override void AssignCodeValue(DbTransaction Transaction)
+    {
+        if (!IsPosting)
+        {
+            base.AssignCodeValue(Transaction);
+            return;
+        }
+
+        if (FinalCodeProviderDef == null || tblItem == null || !tblItem.ContainsColumn("Code"))
+            return;
+
+        foreach (DataRow Row in tblItem.Rows)
+        {
+            if (Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached)
+                Row.SetValue("Code", GetNextCodeLocked(Transaction));
+        }
+    }
     /// <summary>
     /// Returns the final code provider def, i.e. the one where its pattern does not start with "DRAFT-"
     /// </summary>
@@ -129,9 +211,18 @@ public class DocumentDataModule: AppDataModule
 
     
     // ● public
+    public override void CheckCanCommit(bool Reselect)
+    {
+        base.CheckCanCommit(Reselect);
+
+        if (!IsPosting && CurrentRow != null && CurrentRow.AsBoolean("IsLocked"))
+            throw new TripousBusinessException("A locked document cannot be saved.");
+    }
     public override void Initialize(ModuleDef ModuleDef)
     {
         base.Initialize(ModuleDef);
+
+        Handler = CreateDocumentHandler();
 
         foreach (MemTable Table in ItemTables)
         {
@@ -139,6 +230,33 @@ public class DocumentDataModule: AppDataModule
             {
                 Table.DataView.Sort = "DisplayOrder ASC, Id ASC";
             }
+        }
+    }
+    /// <summary>
+    /// Validates, posts and commits the current document.
+    /// </summary>
+    public virtual object Post(bool Reselect = true)
+    {
+        DocumentContext Context = CreateDocumentContext();
+        Dictionary<string, object> Snapshot = CreatePostingSnapshot(Context.Row);
+
+        IsPosting = true;
+        Context.IsPosting = true;
+        try
+        {
+            Handler.Validate(Context);
+            Handler.Post(Context);
+            return Commit(Reselect);
+        }
+        catch
+        {
+            RestorePostingSnapshot(Context.Row, Snapshot);
+            throw;
+        }
+        finally
+        {
+            Context.IsPosting = false;
+            IsPosting = false;
         }
     }
 
@@ -155,6 +273,10 @@ public class DocumentDataModule: AppDataModule
     /// True while posting a document.
     /// </summary>
     public bool IsPosting { get; protected set; }
+    /// <summary>
+    /// The handler registered for this document module.
+    /// </summary>
+    public DocumentHandler Handler { get; protected set; }
     public DocumentType DocumentType { get; protected set; }
     /// <summary>
     /// True while transforming from one type of a document to an other.

@@ -51,7 +51,58 @@ The concrete sales and purchase data modules currently act as document-type entr
 
 `GetFinalCodeProviderDefFromDocumentType()` resolves the final number series configured for the current document type.
 
-The posting workflow has not been implemented yet.
+`AssignCodeValue()` replaces the draft code with the next final code while posting. The final number is assigned inside the same database transaction that saves the document.
+
+## Document Handlers
+
+`DocumentDataModule.Initialize()` creates the handler registered for the current module.
+
+`CreateDocumentContext()` creates the `DocumentContext` passed to the handler.
+
+The handler hierarchy for trade documents is:
+
+```text
+DocumentHandler
+    TradeDocumentHandler
+        SalesDocumentHandler
+            SalesOrderDocumentHandler
+            SalesDeliveryNoteDocumentHandler
+            SalesInvoiceDocumentHandler
+            SalesCreditNoteDocumentHandler
+            SalesReturnDocumentHandler
+            SalesCancellationDocumentHandler
+        PurchaseDocumentHandler
+            PurchaseOrderDocumentHandler
+            PurchaseDeliveryNoteDocumentHandler
+            PurchaseInvoiceDocumentHandler
+            PurchaseCreditNoteDocumentHandler
+            PurchaseReturnDocumentHandler
+            PurchaseCancellationDocumentHandler
+```
+
+The base handlers contain shared behavior. Concrete handlers are extension points for document-specific posting logic.
+
+## Posting
+
+`DocumentDataModule.Post()`:
+
+- Creates the document context.
+- Enables `IsPosting`.
+- Calls `DocumentHandler.Validate()`.
+- Calls `DocumentHandler.Post()`.
+- Calls `Commit()`.
+- Restores the previous posting values if posting fails.
+- Disables `IsPosting` in a `finally` block.
+
+`TradeDocumentHandler.Validate()` permits posting only for an unlocked, non-cancelled draft document.
+
+`TradeDocumentHandler.Post()` assigns:
+
+- `TradeStatusId = Posted`
+- `PostingDate`
+- `PostedAt`
+- `PostedBy`
+- `IsLocked = true`
 
 ## Document Defaults
 
@@ -131,7 +182,7 @@ New sales documents receive the value from `SalesDefaults.PriceListTypeId`.
 
 `ResolveLinePriceResult()` calls the resolver.
 
-`ResolveLinePrice()` assigns the resolved `UnitPrice`. If no price is found, it assigns zero and validation prevents saving the document.
+`ResolveLinePrice()` assigns the resolved `UnitPrice`. If no price is found, it preserves the current manual value.
 
 `GetTaxExclusiveUnitPrice()` converts a tax-inclusive list price to a tax-exclusive line price.
 
@@ -151,7 +202,7 @@ New sales documents receive the value from `SalesDefaults.PriceListTypeId`.
 - Unit of measure
 - Quantity
 
-A manual `UnitPrice` remains editable, but a later change to one of the pricing fields replaces it with the currently resolved price.
+A manual `UnitPrice` remains editable. A later pricing-field change replaces it only when an applicable price is resolved.
 
 Automatic currency conversion is not implemented. The price list and the document must currently use the same currency.
 
@@ -353,7 +404,6 @@ The parameterless `Calculate()` uses monetary discount amounts as authoritative 
 
 `SalesDataModule.ValidateLine()` additionally checks:
 
-- An applicable price exists.
 - `UnitPrice` is not zero when `SalesDefaults.AllowZeroUnitPrice` is false.
 
 `TripousBusinessException` is displayed as an expected business message by `DesktopExceptionHandler`, without the generic unexpected-error text or technical details.

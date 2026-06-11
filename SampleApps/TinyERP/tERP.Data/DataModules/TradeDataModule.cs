@@ -124,9 +124,11 @@ public class TradeDataModule: DocumentDataModule
     protected virtual void ResolveLinePrice(DataRow Row)
     {
         PriceResult Result = ResolveLinePriceResult(Row);
-        decimal UnitPrice = Result.IsFound ? Result.UnitPrice : 0;
+        if (!Result.IsFound)
+            return;
 
-        if (Result.IsFound && Result.IsTaxIncluded)
+        decimal UnitPrice = Result.UnitPrice;
+        if (Result.IsTaxIncluded)
             UnitPrice = GetTaxExclusiveUnitPrice(Row, UnitPrice);
 
         Row.SetValue("UnitPrice", UnitPrice);

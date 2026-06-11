@@ -933,6 +933,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -988,6 +989,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -1336,6 +1338,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -1391,6 +1394,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -1739,6 +1743,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -1794,6 +1799,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -2142,6 +2148,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -2197,6 +2204,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -2545,6 +2553,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -2600,6 +2609,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -2948,6 +2958,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -3003,6 +3014,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -3351,6 +3363,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -3406,6 +3419,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -3754,6 +3768,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -3809,6 +3824,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -4157,6 +4173,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -4212,6 +4229,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -4560,6 +4578,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -4615,6 +4634,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -4965,6 +4985,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -5020,6 +5041,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -5368,6 +5390,7 @@ from
         SelectDef.ColumnTypes["ShippingCountry__Name"] = DataColumnType.Text;
         TableDef tblTradeTax = tblTop.AddDetail("TradeTax", "Id", "TradeId");
         tblTradeTax.KeyField = "Id";
+        tblTradeTax.IsUiVisible = false;
         tblTradeTax.AddId("Id").SetNullable(false);
         tblTradeTax.AddString("TradeId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);
@@ -5423,6 +5446,7 @@ from
         tblSourceTradeLine.AddString("UnitOfMeasureName", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetSnapshotOf("UnitOfMeasure.Name");
         TableDef tblTradeLineTax = tblTradeLine.AddDetail("TradeLineTax", "Id", "TradeLineId");
         tblTradeLineTax.KeyField = "Id";
+        tblTradeLineTax.IsUiVisible = false;
         tblTradeLineTax.AddId("Id").SetNullable(false);
         tblTradeLineTax.AddString("TradeLineId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTradeLineTax.AddStringLookupId("TaxRuleId", "TaxRule", Flags: FieldFlags.Required).SetNullable(false);

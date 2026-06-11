@@ -34,7 +34,7 @@ public partial class RegistryVersion2: RegistryVersion
         DesktopRegistry.AddOrUpdateForm("SalesCreditNote", TitleKey: "SalesCreditNote", Module: "SalesCreditNote", Group: "Sales", ItemClassName: "TradeItemPage");
         DesktopRegistry.AddOrUpdateForm("SalesDeliveryNote", TitleKey: "SalesDeliveryNote", Module: "SalesDeliveryNote", Group: "Sales", ItemClassName: "TradeItemPage");
         DesktopRegistry.AddOrUpdateForm("SalesInvoice", TitleKey: "SalesInvoice", Module: "SalesInvoice", Group: "Sales", ItemClassName: "TradeItemPage");
-        DesktopRegistry.AddOrUpdateForm("SalesOrder", TitleKey: "SalesOrder", Module: "SalesOrder", Group: "Sales", ItemClassName: "TradeItemPage");
+        DesktopRegistry.AddOrUpdateForm("SalesOrder", TitleKey: "SalesOrder", Module: "SalesOrder", ClassName: "SalesOrderForm", Group: "Sales", ItemClassName: "TradeItemPage");
         DesktopRegistry.AddOrUpdateForm("SalesReturn", TitleKey: "SalesReturn", Module: "SalesReturn", Group: "Sales", ItemClassName: "TradeItemPage");
         DesktopRegistry.AddOrUpdateForm("StockBalance", TitleKey: "StockBalance", Module: "StockBalance", Group: "Inventory", IsReadOnly: true);
         DesktopRegistry.AddOrUpdateForm("StockCount", TitleKey: "StockCount", Module: "StockCount", Group: "Inventory");

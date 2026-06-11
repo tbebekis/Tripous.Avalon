@@ -23,11 +23,7 @@ public class SalesDataModule: TradeDataModule
         base.ValidateLine(Row, Errors);
 
         string LineLabel = GetLineLabel(Row);
-        PriceResult PriceResult = ResolveLinePriceResult(Row);
-
-        if (!PriceResult.IsFound)
-            Errors.Add($"{LineLabel}: No applicable price was found.");
-        else if (!AppDefaultProperties.Sales.AllowZeroUnitPrice && Row.AsDecimal("UnitPrice") == 0)
+        if (!AppDefaultProperties.Sales.AllowZeroUnitPrice && Row.AsDecimal("UnitPrice") == 0)
             Errors.Add($"{LineLabel}: Unit price must be greater than zero.");
     }
     /// <summary>

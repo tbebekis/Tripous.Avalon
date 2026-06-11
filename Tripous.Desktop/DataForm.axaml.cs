@@ -287,6 +287,12 @@ public partial class DataForm : AppForm
     }
     protected virtual bool Executing(DataFormAction Value) => false;
     protected virtual void Executed(DataFormAction Value) =>  LastAction = Value;
+    
+    protected virtual async Task ExecuteCustom(object Value)
+    {
+        UpdateUi();
+        await Task.CompletedTask;
+    }
 
     protected virtual void ExecuteHome() => FormState = DataFormState.List;
     protected virtual void ExecuteFind() => FiltersSideBarVisible = !FiltersSideBarVisible;
@@ -535,7 +541,7 @@ public partial class DataForm : AppForm
     }
 
     // ● UI
-    protected virtual void CreateToolBar()
+    protected virtual bool CreateToolBar()
     {
         if (ToolBar == null)
         {
@@ -563,8 +569,12 @@ public partial class DataForm : AppForm
             btnOK = ToolBar.AddButton("accept.png", "OK (Ctrl+Enter)", async () => await Execute(DataFormAction.Ok));
             sepCancelOK = ToolBar.AddSeparator(); // sepCancelOK
             
-            btnClose = ToolBar.AddButton("door_out.png", "Close", async () => await Execute(DataFormAction.Close));  
+            btnClose = ToolBar.AddButton("door_out.png", "Close", async () => await Execute(DataFormAction.Close));
+
+            return true;
         }
+
+        return false;
     }
     protected virtual void CreateSelectListToolBar()
     {

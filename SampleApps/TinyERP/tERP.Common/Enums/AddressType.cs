@@ -240,3 +240,10 @@ public enum AssetStatus
     Sold = 4,
     Scrapped = 5,
 }
+
+[TypeStore]
+public enum DocumentAction
+{
+    None,
+    Post
+}

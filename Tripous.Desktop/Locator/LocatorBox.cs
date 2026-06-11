@@ -45,6 +45,11 @@ public class LocatorBox: UserControl
     protected Dictionary<LocatorFieldDef, TextBox> fTextBoxMap = [];
 
     // ● protected methods
+    protected virtual void ApplyReadOnly()
+    {
+        foreach (KeyValuePair<LocatorFieldDef, TextBox> Entry in fTextBoxMap)
+            Entry.Value.IsReadOnly = IsReadOnly || !Entry.Key.IsSearchable;
+    }
     /// <summary>
     /// Returns the column width of a locator field.
     /// </summary>
@@ -468,6 +473,6 @@ public class LocatorBox: UserControl
     static LocatorBox()
     {
         LocatorProperty.Changed.AddClassHandler<LocatorBox>((Sender, Args) => Sender.Rebuild());
-        IsReadOnlyProperty.Changed.AddClassHandler<LocatorBox>((Sender, Args) => Sender.Rebuild());
+        IsReadOnlyProperty.Changed.AddClassHandler<LocatorBox>((Sender, Args) => Sender.ApplyReadOnly());
     }
 }

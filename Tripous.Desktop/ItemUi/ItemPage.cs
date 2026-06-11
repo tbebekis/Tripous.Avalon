@@ -14,10 +14,95 @@ namespace Tripous.Desktop;
 [TypeStore]
 public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
 {
-    // ● protected  
+    // ● protected fields
     protected UiItemContext Context;
     protected DataForm fDataForm;
+    protected bool fIsReadOnly;
+    protected Dictionary<DataGrid, bool> fGridReadOnlyStates = new();
+    protected Dictionary<DataGridColumn, bool> fGridColumnReadOnlyStates = new();
  
+    // ● protected methods
+    protected virtual bool IsBindingReadOnly(TripousBinding Binding)
+    {
+        if (!DataForm.IsEditableForm)
+            return true;
+        if (Binding == null)
+            return false;
+        if (Binding.DataColumn != null && Binding.DataColumn.ReadOnly)
+            return true;
+
+        FieldDef Field = Binding.FieldDef;
+        if (Field == null)
+            return false;
+
+        return Field.IsReadOnly
+               || Field.IsReadOnlyUI
+               || (Field.IsReadOnlyEdit && DataForm.FormState != DataFormState.Insert)
+               || (Binding.LocatorDef != null && Binding.LocatorDef.IsReadOnly);
+    }
+    protected virtual void SetControlReadOnly(ControlBinding Binding, bool Value)
+    {
+        if (Binding == null || Binding.Control == null)
+            return;
+
+        bool IsReadOnly = Value || IsBindingReadOnly(Binding);
+        switch (Binding.Control)
+        {
+            case LocatorBox Box:
+                Box.IsReadOnly = IsReadOnly;
+                break;
+            case TextBox Box:
+                Box.IsReadOnly = IsReadOnly;
+                break;
+            case Image:
+                break;
+            default:
+                Binding.Control.IsEnabled = !IsReadOnly;
+                break;
+        }
+    }
+    protected virtual void SetGridReadOnly(UiDetailTableInfo DetailInfo, bool Value)
+    {
+        if (DetailInfo == null || DetailInfo.Grid == null)
+            return;
+
+        if (!fGridReadOnlyStates.ContainsKey(DetailInfo.Grid))
+            fGridReadOnlyStates[DetailInfo.Grid] = DetailInfo.Grid.IsReadOnly;
+        DetailInfo.Grid.IsReadOnly = Value || !DataForm.IsEditableForm || fGridReadOnlyStates[DetailInfo.Grid];
+        foreach (GridColumnBinding Binding in DetailInfo.Grid.GetInfoList())
+        {
+            if (!fGridColumnReadOnlyStates.ContainsKey(Binding.GridColumn))
+                fGridColumnReadOnlyStates[Binding.GridColumn] = Binding.GridColumn.IsReadOnly;
+
+            bool IsReadOnly = Value
+                              || !DataForm.IsEditableForm
+                              || fGridColumnReadOnlyStates[Binding.GridColumn]
+                              || (Binding.FieldDef != null
+                                  && Binding.FieldDef.IsReadOnlyEdit
+                                  && DataForm.FormState != DataFormState.Insert);
+            Binding.GridColumn.IsReadOnly = IsReadOnly;
+        }
+
+        if (DetailInfo.ToolBarPanel == null)
+            return;
+
+        foreach (Button Button in DetailInfo.ToolBarPanel.Children.OfType<Button>())
+        {
+            if (Button.Tag is not GridCommand Command)
+                continue;
+
+            DetailGridCommandContext CommandContext = new()
+            {
+                Command = Command,
+                Grid = DetailInfo.Grid,
+                Table = DetailInfo.Table,
+                DetailInfo = DetailInfo,
+                ItemContext = Context
+            };
+            Button.IsEnabled = Command.IsEnabled && CanExecute(CommandContext);
+        }
+    }
+
     /// <summary>
     /// Creates a field editor.
     /// </summary>
@@ -274,6 +359,22 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             }
         }
     }
+    /// <summary>
+    /// Sets the data-bound controls and detail grids to read-only or restores their field-defined state.
+    /// </summary>
+    public virtual void SetReadOnly(bool Value)
+    {
+        fIsReadOnly = Value;
+
+        foreach (ItemBinder Binder in Binders)
+        {
+            foreach (ControlBinding Binding in Binder.Bindings)
+                SetControlReadOnly(Binding, Value);
+        }
+
+        foreach (UiDetailTableInfo DetailInfo in Context.TopTableUiInfo.DetailList)
+            SetGridReadOnly(DetailInfo, Value);
+    }
 
     // ● constructors
     /// <summary>
@@ -322,12 +423,15 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     // ● IReferenceContextMenuHost implementation
     public virtual bool CanOpenRefContextMenu(ReferenceContextMenu RefContextMenu)
     {
+        if (IsReadOnly)
+            return false;
+
         bool Result = RefContextMenu.Binding.FieldDef.IsReadOnlyEdit? DataForm.FormState == DataFormState.Insert : true;
         return Result;
     }
     public virtual bool CanExecute(ReferenceMenuCommandContext Context)
     {
-        if (Context == null || Context.Binding == null)
+        if (IsReadOnly || Context == null || Context.Binding == null)
             return false;
 
         switch (Context.ActionType)
@@ -465,6 +569,10 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// True when the binding is completed
     /// </summary>
     public bool IsBindingDone { get; protected set;  }
+    /// <summary>
+    /// True when data-bound controls and detail grids are read-only.
+    /// </summary>
+    public bool IsReadOnly => fIsReadOnly;
 
     // ● events
     /// <summary>
@@ -518,7 +626,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         if (Context == null || Context.Command == null || Context.Grid == null || Context.Table == null)
             return false;
 
-        if (!DataForm.IsEditableForm)
+        if (IsReadOnly || !DataForm.IsEditableForm)
             return false;
 
         if (!DataForm.FormState.In(DataFormState.Insert | DataFormState.Edit))
@@ -537,7 +645,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
 
     public virtual object Execute(GridCommandContext Context)
     {
-        if (Context == null || Context.Command == null)
+        if (!CanExecute(Context))
             return null;
 
         switch (Context.Command.ActionType)

@@ -69,6 +69,7 @@ Table: Trade
 
 Module: SalesOrder SalesOrderDataModule
 Group: Sales
+Form: SalesOrder SalesOrderForm
 ItemPage: TradeItemPage
 DetailOrder: Trade=TradeLine, TradeTax
 DetailOrder: TradeLine=TradeLineTax
@@ -271,6 +272,8 @@ CREATE TABLE {TableName} (
 
 /*---------------------------------------------------
 Table: TradeTax
+  
+NotUiVisible  
 -----------------------------------------------------
 Hidden detail table.
 
@@ -370,6 +373,8 @@ CREATE TABLE {TableName} (
 
 /*---------------------------------------------------
 Table: TradeLineTax
+  
+NotUiVisible  
 -----------------------------------------------------
 Hidden subdetail table containing the individual tax components of a
 commercial document line.

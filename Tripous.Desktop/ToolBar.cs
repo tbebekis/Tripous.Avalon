@@ -278,6 +278,51 @@ public class ToolBar
         foreach (Command Cmd in Commands)
             Add(Cmd);
     }
+    
+    // ● repositioning
+    // Pivot and item controls must already be added to this toolbar.
+    public void PlaceControlAfter(Control PivotItem, Control Item)
+    {
+        if (PivotItem == null)
+            throw new ArgumentNullException(nameof(PivotItem));
+        if (Item == null)
+            throw new ArgumentNullException(nameof(Item));
+        if (PivotItem == Item)
+            throw new ArgumentException($"{nameof(PivotItem)} and {nameof(Item)} cannot be the same control.");
+        if (!Panel.Children.Contains(PivotItem))
+            throw new ArgumentException($"{nameof(PivotItem)} does not belong to this toolbar.", nameof(PivotItem));
+        if (!Panel.Children.Contains(Item))
+            throw new ArgumentException($"{nameof(Item)} does not belong to this toolbar.", nameof(Item));
+
+        Panel.Children.Remove(Item);
+        int PivotIndex = Panel.Children.IndexOf(PivotItem);
+        Panel.Children.Insert(PivotIndex + 1, Item);
+    }
+    public void PlaceControlBefore(Control PivotItem, Control Item)
+    {
+        if (PivotItem == null)
+            throw new ArgumentNullException(nameof(PivotItem));
+        if (Item == null)
+            throw new ArgumentNullException(nameof(Item));
+        if (PivotItem == Item)
+            throw new ArgumentException($"{nameof(PivotItem)} and {nameof(Item)} cannot be the same control.");
+        if (!Panel.Children.Contains(PivotItem))
+            throw new ArgumentException($"{nameof(PivotItem)} does not belong to this toolbar.", nameof(PivotItem));
+        if (!Panel.Children.Contains(Item))
+            throw new ArgumentException($"{nameof(Item)} does not belong to this toolbar.", nameof(Item));
+
+        Panel.Children.Remove(Item);
+        int PivotIndex = Panel.Children.IndexOf(PivotItem);
+        Panel.Children.Insert(PivotIndex, Item);
+    }
+    public void PlaceSeparatorAfter(Control PivotItem, Border Separator)
+    {
+        PlaceControlAfter(PivotItem, Separator);
+    }
+    public void PlaceSeparatorBefore(Control PivotItem, Border Separator)
+    {
+        PlaceControlBefore(PivotItem, Separator);
+    }
 
     public Button[] GetButtons() => Panel.Children.OfType<Button>().ToArray();
     public Control[] GetControls()=> Panel.Children.ToArray();
