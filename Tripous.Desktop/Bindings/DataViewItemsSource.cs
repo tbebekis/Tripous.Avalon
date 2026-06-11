@@ -13,22 +13,71 @@ namespace Tripous.Desktop;
 /// </summary>
 public class DataViewItemsSource: ObservableCollection<DataRowView>, IDisposable
 {
+    // ● private fields
     private bool fDisposed;
+    private bool fReloading;
+    private bool fReloadPending;
 
     // ● private
     private void DataView_ListChanged(object sender, ListChangedEventArgs e)
     {
-        Reload();
+        if (fReloading)
+        {
+            fReloadPending = true;
+            return;
+        }
+
+        switch (e.ListChangedType)
+        {
+            case ListChangedType.ItemAdded:
+                if (e.NewIndex >= 0 && e.NewIndex <= Count && e.NewIndex < DataView.Count)
+                    Insert(e.NewIndex, DataView[e.NewIndex]);
+                else
+                    Reload();
+                break;
+            case ListChangedType.ItemDeleted:
+                if (e.NewIndex >= 0 && e.NewIndex < Count)
+                    RemoveAt(e.NewIndex);
+                else
+                    Reload();
+                break;
+            case ListChangedType.ItemMoved:
+                if (e.OldIndex >= 0 && e.OldIndex < Count && e.NewIndex >= 0 && e.NewIndex < Count)
+                    Move(e.OldIndex, e.NewIndex);
+                else
+                    Reload();
+                break;
+            case ListChangedType.ItemChanged:
+                break;
+            default:
+                Reload();
+                break;
+        }
     }
     private void Reload()
     {
         if (fDisposed)
             return;
 
-        Clear();
+        List<DataRowView> Items = DataView.Cast<DataRowView>().ToList();
+        fReloading = true;
+        try
+        {
+            Clear();
 
-        foreach (DataRowView RowView in DataView)
-            Add(RowView);
+            foreach (DataRowView RowView in Items)
+                Add(RowView);
+        }
+        finally
+        {
+            fReloading = false;
+        }
+
+        if (fReloadPending)
+        {
+            fReloadPending = false;
+            Ui.Post(Reload);
+        }
     }
 
     // ● constructor

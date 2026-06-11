@@ -16,6 +16,21 @@ public class SalesDataModule: TradeDataModule
     /// </summary>
     protected virtual string GetDefaultId(string ConfigValue, Func<string> DefaultProvider) => !string.IsNullOrWhiteSpace(ConfigValue) ? ConfigValue : DefaultProvider();
     /// <summary>
+    /// Validates sales pricing before commit.
+    /// </summary>
+    protected override void ValidateLine(DataRow Row, List<string> Errors)
+    {
+        base.ValidateLine(Row, Errors);
+
+        string LineLabel = GetLineLabel(Row);
+        PriceResult PriceResult = ResolveLinePriceResult(Row);
+
+        if (!PriceResult.IsFound)
+            Errors.Add($"{LineLabel}: No applicable price was found.");
+        else if (!AppDefaultProperties.Sales.AllowZeroUnitPrice && Row.AsDecimal("UnitPrice") == 0)
+            Errors.Add($"{LineLabel}: Unit price must be greater than zero.");
+    }
+    /// <summary>
     /// Sets default values to the Row. It is called when a commit operation starts.
     /// </summary>
     protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
@@ -30,6 +45,7 @@ public class SalesDataModule: TradeDataModule
             Row.SetValue("WarehouseId", GetDefaultId(AppDefaultProperties.Sales.WarehouseId, DataLib.GetDefaultWarehouseId));
             Row.SetValue("CostCenterId", GetDefaultId(AppDefaultProperties.Sales.CostCenterId, DataLib.GetDefaultSalesCostCenterId));
             Row.SetValue("BranchId", GetDefaultId(AppDefaultProperties.Sales.BranchId, DataLib.GetDefaultBranchId));
+            Row.SetValue("PriceListTypeId", GetPriceListTypeId());
             Row.SetValue("CurrencyId", GetDefaultId(AppDefaultProperties.Sales.CurrencyId, DataLib.GetDefaultCurrencyId));
             Row.SetValue("PaymentMethodId", GetDefaultId(AppDefaultProperties.Sales.PaymentMethodId, DataLib.GetDefaultPaymentMethodId));
             Row.SetValue("PaymentTermId", GetDefaultId(AppDefaultProperties.Sales.PaymentTermId, DataLib.GetDefaultPaymentTermId));

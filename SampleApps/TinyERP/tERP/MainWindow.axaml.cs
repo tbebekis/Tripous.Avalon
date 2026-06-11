@@ -64,10 +64,13 @@ public partial class MainWindow : Window
                     
                     string Message = @"DONE.
 
+The application will now terminate.
 Please restart the application.
 ";
                     LogBox.Append(Message);
                     await MessageBox.Info(Message, this);
+                    
+                    this.Close();
                 }
                 catch (Exception e)
                 {

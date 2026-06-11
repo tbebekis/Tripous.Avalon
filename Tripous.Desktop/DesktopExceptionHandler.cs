@@ -38,22 +38,31 @@ static public class DesktopExceptionHandler
         {
             try
             {
+                string Message;
+                if (Ex is TripousBusinessException)
+                {
+                    Message = Ex.Message;
+                    await MessageBox.Error(Message);
+                }
+                else
+                {
 #if DEBUG
-                string Message = $@"An unexpected error occurred.
+                    Message = $@"An unexpected error occurred.
 Exception: {Ex.GetType().FullName}
 Source: {ErrorSource}
 Message: {Ex.Message}
 
 ";
-                await MessageBox.Error(Message);
-                Message += $@"Stack:
+                    await MessageBox.Error(Message);
+                    Message += $@"Stack:
 {Ex.StackTrace}
 ";
                  
 #else
-                string Message = $"An unexpected error occurred: {Ex.Message}";
-                await MessageBox.Error(Message);
-#endif                
+                    Message = $"An unexpected error occurred: {Ex.Message}";
+                    await MessageBox.Error(Message);
+#endif
+                }
                 
                 if (LogBox.IsInitialized)
                     LogBox.AppendLine(Message);

@@ -34,6 +34,7 @@ public partial class RegistryVersion2: RegistryVersion
         DataRegistry.AddOrUpdateLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
         DataRegistry.AddOrUpdateLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
         DataRegistry.AddOrUpdateLookupWithTableName("Person", "Person", FormName: "Person");
+        DataRegistry.AddOrUpdateLookupWithTableName("PriceListType", "PriceListType", FormName: "PriceListType");
         DataRegistry.AddOrUpdateLookupWithTableName("Project", "Project", FormName: "Project");
         DataRegistry.AddOrUpdateLookupWithTableName("SYS_APP_USER", "SYS_APP_USER", FormName: "AppUser");
         DataRegistry.AddOrUpdateLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");

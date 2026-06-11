@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{05849928-A
 		SampleApps\TinyERP\Docs\Notes.txt = SampleApps\TinyERP\Docs\Notes.txt
 		SampleApps\TinyERP\Docs\ReadMe.md = SampleApps\TinyERP\Docs\ReadMe.md
 		SampleApps\TinyERP\Docs\Temp.txt = SampleApps\TinyERP\Docs\Temp.txt
+		SampleApps\TinyERP\Docs\ToDo.md = SampleApps\TinyERP\Docs\ToDo.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Logging", "Tripous.Logging\Tripous.Logging.csproj", "{EDD766E7-870B-4EBA-8DC7-B36ED1A86E47}"

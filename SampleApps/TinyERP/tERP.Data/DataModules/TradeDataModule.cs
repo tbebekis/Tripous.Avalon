@@ -89,7 +89,7 @@ public class TradeDataModule: DocumentDataModule
         return new PriceResolveArgs
         {
             TradeType = (TradeType)CurrentRow.AsInteger("TradeTypeId"),
-            PriceListTypeId = GetPriceListTypeId(),
+            PriceListTypeId = CurrentRow.AsString("PriceListTypeId"),
             PersonId = CurrentRow.AsString("PersonId"),
             ProductId = Row.AsString("ProductId"),
             UnitOfMeasureId = Row.AsString("UnitOfMeasureId"),
@@ -115,11 +115,15 @@ public class TradeDataModule: DocumentDataModule
             : UnitPrice;
     }
     /// <summary>
+    /// Resolves the applicable price result of a commercial document line.
+    /// </summary>
+    protected virtual PriceResult ResolveLinePriceResult(DataRow Row) => fPriceResolver.Resolve(CreatePriceResolveArgs(Row));
+    /// <summary>
     /// Resolves and assigns the unit price of a commercial document line.
     /// </summary>
     protected virtual void ResolveLinePrice(DataRow Row)
     {
-        PriceResult Result = fPriceResolver.Resolve(CreatePriceResolveArgs(Row));
+        PriceResult Result = ResolveLinePriceResult(Row);
         decimal UnitPrice = Result.IsFound ? Result.UnitPrice : 0;
 
         if (Result.IsFound && Result.IsTaxIncluded)
@@ -136,6 +140,62 @@ public class TradeDataModule: DocumentDataModule
             foreach (DataRow Row in Table.Rows)
                 if (Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached)
                     ResolveLinePrice(Row);
+    }
+    /// <summary>
+    /// Returns a display label for a commercial document line.
+    /// </summary>
+    protected virtual string GetLineLabel(DataRow Row)
+    {
+        string ProductCode = Row.AsString("ProductCode");
+        string ProductName = Row.AsString("ProductName");
+        string ProductText = !string.IsNullOrWhiteSpace(ProductCode) ? ProductCode : ProductName;
+        int DisplayOrder = Row.AsInteger("DisplayOrder");
+
+        return !string.IsNullOrWhiteSpace(ProductText)
+            ? $"Line {DisplayOrder}: {ProductText}"
+            : $"Line {DisplayOrder}";
+    }
+    /// <summary>
+    /// Validates a commercial document line before commit.
+    /// </summary>
+    protected virtual void ValidateLine(DataRow Row, List<string> Errors)
+    {
+        string LineLabel = GetLineLabel(Row);
+
+        bool HasTaxBusinessGroup = !string.IsNullOrWhiteSpace(CurrentRow.AsString("TaxBusinessGroupId"));
+        bool HasTaxProductGroup = !string.IsNullOrWhiteSpace(Row.AsString("TaxProductGroupId"));
+        if (!HasTaxProductGroup)
+            Errors.Add($"{LineLabel}: Tax product group is required.");
+        if (!HasTaxBusinessGroup
+            || !HasTaxProductGroup
+            || Row.AsDecimal("NetAmount") - Row.AsDecimal("DocumentDiscountAmount") == 0)
+            return;
+
+        TaxResult TaxResult = fTaxResolver.Resolve(CreateTaxResolveArgs(Row));
+        if (string.IsNullOrWhiteSpace(TaxResult.OriginTaxJurisdictionId))
+            Errors.Add($"{LineLabel}: Origin tax jurisdiction could not be resolved.");
+        if (string.IsNullOrWhiteSpace(TaxResult.DestinationTaxJurisdictionId))
+            Errors.Add($"{LineLabel}: Destination tax jurisdiction could not be resolved.");
+        if (TaxResult.Components.Count == 0)
+            Errors.Add($"{LineLabel}: No applicable tax rule was found.");
+    }
+    /// <summary>
+    /// Validates the commercial document before commit.
+    /// </summary>
+    protected virtual void Validate()
+    {
+        List<string> Errors = [];
+
+        if (string.IsNullOrWhiteSpace(CurrentRow.AsString("TaxBusinessGroupId")))
+            Errors.Add("Tax business group is required.");
+
+        foreach (MemTable Table in ItemTables.Where(IsTradeLineTable))
+            foreach (DataRow Row in Table.Rows)
+                if (Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached)
+                    ValidateLine(Row, Errors);
+
+        if (Errors.Count > 0)
+            throw new TripousBusinessException(string.Join(Environment.NewLine, Errors));
     }
     /// <summary>
     /// Loads the tax business group assigned to a person.
@@ -245,7 +305,7 @@ where
             DestinationTaxJurisdictionId = CurrentRow.AsString("DestinationTaxJurisdictionId"),
             OriginAddress = LoadOriginAddress(CurrentRow.AsString("BranchId")),
             DestinationAddress = GetDestinationAddress(),
-            TaxableAmount = Row.AsDecimal("NetAmount"),
+            TaxableAmount = RoundAmount(Row.AsDecimal("NetAmount") - Row.AsDecimal("DocumentDiscountAmount")),
         };
     }
     /// <summary>
@@ -309,7 +369,7 @@ where
         Row.SetValue("IsTaxExempt", Result.IsExempt);
         Row.SetValue("IsReverseCharge", Result.IsReverseCharge);
         Row.SetValue("TaxAmount", Result.TaxAmount);
-        Row.SetValue("TotalAmount", RoundAmount(Row.AsDecimal("NetAmount") + Result.TaxAmount));
+        Row.SetValue("TotalAmount", RoundAmount(Row.AsDecimal("NetAmount") - Row.AsDecimal("DocumentDiscountAmount") + Result.TaxAmount));
 
         ReplaceLineTaxRows(Row, Result);
     }
@@ -396,22 +456,16 @@ where
         Row.SetValue("DiscountAmount", DiscountAmount);
         Row.SetValue("NetUnitPrice", NetUnitPrice);
         Row.SetValue("NetAmount", NetAmount);
-        CalculateLineTax(Row);
     }
     /// <summary>
-    /// Calculates commercial document totals.
+    /// Allocates the document discount proportionally to the commercial document lines.
     /// </summary>
-    protected virtual void CalculateTotals(string ChangedFieldName)
+    protected virtual void CalculateDocumentDiscount(List<DataRow> Rows, string ChangedFieldName)
     {
         if (CurrentRow == null)
             return;
 
-        MemTable TradeLineTable = ItemTables.FirstOrDefault(IsTradeLineTable);
-        decimal LinesAmount = TradeLineTable != null
-            ? TradeLineTable.Rows.Cast<DataRow>()
-                .Where(Row => Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached)
-                .Sum(Row => Row.AsDecimal("NetAmount"))
-            : 0;
+        decimal LinesAmount = RoundAmount(Rows.Sum(Row => Row.AsDecimal("NetAmount")));
         decimal DiscountPercent = CurrentRow.AsDecimal("DiscountPercent");
         decimal DiscountAmount = CurrentRow.AsDecimal("DiscountAmount");
 
@@ -426,19 +480,67 @@ where
             DiscountAmount = RoundAmount(LinesAmount * DiscountPercent / 100);
         }
 
-        decimal TaxAmount = TradeLineTable != null
-            ? TradeLineTable.Rows.Cast<DataRow>()
-                .Where(Row => Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached)
-                .Sum(Row => Row.AsDecimal("TaxAmount"))
-            : 0;
-        decimal NetAmount = RoundAmount(LinesAmount - DiscountAmount + CurrentRow.AsDecimal("ChargesAmount"));
-
-        CurrentRow.SetValue("LinesAmount", RoundAmount(LinesAmount));
+        CurrentRow.SetValue("LinesAmount", LinesAmount);
         CurrentRow.SetValue("DiscountPercent", DiscountPercent);
         CurrentRow.SetValue("DiscountAmount", DiscountAmount);
+
+        foreach (DataRow Row in Rows)
+            Row.SetValue("DocumentDiscountAmount", 0);
+
+        List<DataRow> EligibleRows = Rows.Where(Row => Row.AsDecimal("NetAmount") > 0).ToList();
+        decimal EligibleAmount = EligibleRows.Sum(Row => Row.AsDecimal("NetAmount"));
+        decimal AllocatedAmount = 0;
+
+        for (int Index = 0; Index < EligibleRows.Count; Index++)
+        {
+            DataRow Row = EligibleRows[Index];
+            decimal LineDiscountAmount = Index == EligibleRows.Count - 1
+                ? RoundAmount(DiscountAmount - AllocatedAmount)
+                : RoundAmount(DiscountAmount * Row.AsDecimal("NetAmount") / EligibleAmount);
+
+            Row.SetValue("DocumentDiscountAmount", LineDiscountAmount);
+            AllocatedAmount += LineDiscountAmount;
+        }
+    }
+    /// <summary>
+    /// Calculates commercial document totals.
+    /// </summary>
+    protected virtual void CalculateTotals(List<DataRow> Rows)
+    {
+        if (CurrentRow == null)
+            return;
+
+        decimal LinesAmount = RoundAmount(Rows.Sum(Row => Row.AsDecimal("NetAmount")));
+        decimal DiscountAmount = CurrentRow.AsDecimal("DiscountAmount");
+        decimal TaxAmount = RoundAmount(Rows.Sum(Row => Row.AsDecimal("TaxAmount")));
+        decimal NetAmount = RoundAmount(LinesAmount - DiscountAmount + CurrentRow.AsDecimal("ChargesAmount"));
+
+        CurrentRow.SetValue("LinesAmount", LinesAmount);
         CurrentRow.SetValue("NetAmount", NetAmount);
-        CurrentRow.SetValue("TaxAmount", RoundAmount(TaxAmount));
+        CurrentRow.SetValue("TaxAmount", TaxAmount);
         CurrentRow.SetValue("TotalAmount", RoundAmount(NetAmount + TaxAmount));
+    }
+    /// <summary>
+    /// Recalculates commercial document lines, discount allocation, taxes, and totals.
+    /// </summary>
+    protected virtual void Calculate(DataRow ChangedRow, string ChangedLineFieldName, string ChangedHeaderFieldName)
+    {
+        List<DataRow> Rows = ItemTables
+            .Where(IsTradeLineTable)
+            .SelectMany(Table => Table.Rows.Cast<DataRow>())
+            .Where(Row => Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached)
+            .ToList();
+
+        foreach (DataRow Row in Rows)
+            CalculateLine(Row, Row == ChangedRow ? ChangedLineFieldName : "DiscountPercent");
+
+        CalculateDocumentDiscount(Rows, ChangedHeaderFieldName);
+
+        foreach (DataRow Row in Rows)
+            CalculateLineTax(Row);
+
+        CalculateTaxSummary();
+        CalculateTotals(Rows);
     }
     /// <summary>
     /// Recalculates all commercial document lines, taxes, and totals.
@@ -451,17 +553,7 @@ where
         fCalculationLevel++;
         try
         {
-            foreach (MemTable Table in ItemTables.Where(IsTradeLineTable))
-            {
-                foreach (DataRow Row in Table.Rows)
-                {
-                    if (Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached)
-                        CalculateLine(Row, "DiscountPercent");
-                }
-            }
-
-            CalculateTaxSummary();
-            CalculateTotals("DiscountPercent");
+            Calculate(null, "DiscountAmount", "DiscountAmount");
         }
         finally
         {
@@ -538,6 +630,7 @@ where
         bool IsPriceHeaderField = FieldName.IsSameText("PersonId")
                                   || FieldName.IsSameText("TradeDate")
                                   || FieldName.IsSameText("TradeTypeId")
+                                  || FieldName.IsSameText("PriceListTypeId")
                                   || FieldName.IsSameText("CurrencyId");
 
         fCalculationLevel++;
@@ -555,26 +648,18 @@ where
             {
                 if (IsPriceLineField)
                     ResolveLinePrice(ea.Row);
-                CalculateLine(ea.Row, FieldName);
-                CalculateTaxSummary();
-                CalculateTotals("DiscountPercent");
+                Calculate(ea.Row, FieldName, "DiscountPercent");
             }
             else if (Table == tblItem && IsHeaderField)
             {
-                CalculateTotals(FieldName);
+                Calculate(null, "DiscountPercent", FieldName);
             }
             else if (Table == tblItem && (IsTaxHeaderField || IsPriceHeaderField))
             {
                 if (IsPriceHeaderField)
                     ResolvePrices();
 
-                foreach (MemTable TradeLineTable in ItemTables.Where(IsTradeLineTable))
-                    foreach (DataRow Row in TradeLineTable.Rows)
-                        if (Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached)
-                            CalculateLine(Row, "DiscountPercent");
-
-                CalculateTaxSummary();
-                CalculateTotals("DiscountPercent");
+                Calculate(null, "DiscountPercent", "DiscountPercent");
             }
         }
         finally
@@ -582,18 +667,18 @@ where
             fCalculationLevel--;
         }
     }
-    protected override void Commiting(bool Reselect)
-    {
-        Calculate();
-        base.Commiting(Reselect);
-    }
-    
     // ● construction
     public TradeDataModule()
     {
     }
 
     // ● public
+    public override void CheckCanCommit(bool Reselect)
+    {
+        base.CheckCanCommit(Reselect);
+        Calculate();
+        Validate();
+    }
     public override void Initialize(ModuleDef ModuleDef)
     {
         bool IsInitialized = this.ModuleDef != null;

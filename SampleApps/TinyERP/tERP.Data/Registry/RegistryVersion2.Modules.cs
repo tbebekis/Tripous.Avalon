@@ -633,6 +633,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -696,6 +697,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -718,6 +721,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -754,6 +758,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -826,7 +831,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -850,6 +855,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -913,6 +919,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -961,6 +969,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -1027,6 +1036,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -1090,6 +1100,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -1112,6 +1124,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -1148,6 +1161,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -1220,7 +1234,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1244,6 +1258,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -1307,6 +1322,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -1355,6 +1372,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -1421,6 +1439,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -1484,6 +1503,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -1506,6 +1527,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -1542,6 +1564,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -1614,7 +1637,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -1638,6 +1661,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -1701,6 +1725,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -1749,6 +1775,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -1815,6 +1842,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -1878,6 +1906,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -1900,6 +1930,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -1936,6 +1967,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -2008,7 +2040,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -2032,6 +2064,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -2095,6 +2128,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -2143,6 +2178,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -2209,6 +2245,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -2272,6 +2309,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -2294,6 +2333,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -2330,6 +2370,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -2402,7 +2443,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -2426,6 +2467,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -2489,6 +2531,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -2537,6 +2581,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -2603,6 +2648,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -2666,6 +2712,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -2688,6 +2736,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -2724,6 +2773,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -2796,7 +2846,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -2820,6 +2870,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -2883,6 +2934,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -2931,6 +2984,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -2997,6 +3051,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -3060,6 +3115,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -3082,6 +3139,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -3118,6 +3176,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -3190,7 +3249,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -3214,6 +3273,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -3277,6 +3337,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -3325,6 +3387,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -3391,6 +3454,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -3454,6 +3518,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -3476,6 +3542,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -3512,6 +3579,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -3584,7 +3652,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -3608,6 +3676,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -3671,6 +3740,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -3719,6 +3790,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -3785,6 +3857,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -3848,6 +3921,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -3870,6 +3945,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -3906,6 +3982,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -3978,7 +4055,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -4002,6 +4079,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -4065,6 +4143,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -4113,6 +4193,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -4179,6 +4260,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -4242,6 +4324,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -4264,6 +4348,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -4300,6 +4385,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -4372,7 +4458,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -4396,6 +4482,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -4459,6 +4546,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -4507,6 +4596,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -4573,6 +4663,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -4636,6 +4727,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -4658,6 +4751,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -4696,6 +4790,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -4768,7 +4863,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -4792,6 +4887,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -4855,6 +4951,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -4903,6 +5001,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);
@@ -4969,6 +5068,7 @@ select
    Trade.ProjectId,
    Trade.CostCenterId,
    Trade.BranchId,
+   Trade.PriceListTypeId,
    Trade.CurrencyId,
    Trade.ExchangeRate,
    Trade.PaymentMethodId,
@@ -5032,6 +5132,8 @@ select
    COALESCE(CostCenter.Name, '') as CostCenter__Name,
    COALESCE(Branch.Code, '') as Branch__Code,
    COALESCE(Branch.Name, '') as Branch__Name,
+   COALESCE(PriceListType.Code, '') as PriceListType__Code,
+   COALESCE(PriceListType.Name, '') as PriceListType__Name,
    COALESCE(Currency.Code, '') as Currency__Code,
    COALESCE(Currency.Name, '') as Currency__Name,
    COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
@@ -5054,6 +5156,7 @@ from
     left join Project Project on Project.Id = Trade.ProjectId
     left join CostCenter CostCenter on CostCenter.Id = Trade.CostCenterId
     left join CompanyBranch Branch on Branch.Id = Trade.BranchId
+    left join PriceListType PriceListType on PriceListType.Id = Trade.PriceListTypeId
     left join Currency Currency on Currency.Id = Trade.CurrencyId
     left join PaymentMethod PaymentMethod on PaymentMethod.Id = Trade.PaymentMethodId
     left join PaymentTerm PaymentTerm on PaymentTerm.Id = Trade.PaymentTermId
@@ -5090,6 +5193,7 @@ from
         tblTop.AddStringLookupId("ProjectId", "Project", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("CostCenterId", "CostCenter", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
         tblTop.AddStringLookupId("BranchId", "CompanyBranch", Flags: FieldFlags.None).SetNullable(true).SetGroup("Organization");
+        tblTop.AddStringLookupId("PriceListTypeId", "PriceListType", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true);
@@ -5162,7 +5266,7 @@ from
         tblCancelledByTrade.AddString("BillingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Billing");
         tblCancelledByTrade.AddString("ShippingName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
         tblCancelledByTrade.AddString("ShippingPostalCode", MaxLength: 20, Flags: FieldFlags.None).SetNullable(true).SetGroup("Shipping");
-        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
+        string[] FilterFields = ["BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingCountry__Code", "BillingCountry__Name", "BillingName", "BillingPostalCode", "BillingRegion", "Branch__Code", "Branch__Name", "CancelledAt", "CancelledBy", "ChargesAmount", "Code", "Comments", "CostCenter__Code", "CostCenter__Name", "CreatedAt", "CreatedBy", "Currency__Code", "Currency__Name", "DeliveryDate", "DestinationTaxJurisdiction__Code", "DestinationTaxJurisdiction__Name", "DiscountAmount", "DiscountPercent", "DiscountReason", "DocumentType__Code", "DocumentType__Name", "DueDate", "ExchangeRate", "ExternalRef", "IsCancelled", "IsLocked", "LinesAmount", "ModifiedAt", "ModifiedBy", "NetAmount", "OriginTaxJurisdiction__Code", "OriginTaxJurisdiction__Name", "PaymentMethod__Code", "PaymentMethod__Name", "PaymentTerm__Code", "PaymentTerm__Name", "Person__Code", "Person__Name", "Person__Title", "PostedAt", "PostedBy", "PostingDate", "PriceListType__Code", "PriceListType__Name", "Project__Code", "Project__Name", "Remarks", "SalesPerson__Code", "SalesPerson__Name", "SalesPerson__Title", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingCountry__Code", "ShippingCountry__Name", "ShippingName", "ShippingPostalCode", "ShippingRegion", "TaxAmount", "TaxBusinessGroup__Code", "TaxBusinessGroup__Name", "TotalAmount", "TradeDate", "TradeStatus", "Warehouse__Code", "Warehouse__Name"];
         SelectDef = Module.SelectList[0];
         foreach (string FieldName in FilterFields)
             SelectDef.AddFilter(FieldName, FieldName: FieldName);
@@ -5186,6 +5290,7 @@ from
         SelectDef.ColumnTypes["ProjectId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CostCenterId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["BranchId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
         SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
@@ -5249,6 +5354,8 @@ from
         SelectDef.ColumnTypes["CostCenter__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Branch__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PriceListType__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
@@ -5297,6 +5404,7 @@ from
         tblTradeLine.AddDecimal("DiscountAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetUnitPrice", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("NetAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("DocumentDiscountAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TotalAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddString("SourceTradeLineId", MaxLength: 40, Flags: FieldFlags.ReadOnlyUI).SetNullable(true);

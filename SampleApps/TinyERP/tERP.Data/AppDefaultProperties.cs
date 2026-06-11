@@ -28,6 +28,7 @@ public class SalesDefaults
     public string OriginTaxJurisdictionId { get; set; } = DataLib.GetDefaultTaxJurisdictionId();
     public string DestinationTaxJurisdictionId { get; set; } = DataLib.GetDefaultTaxJurisdictionId();
     public decimal DefaultQuantity { get; set; } = 1;
+    public bool AllowZeroUnitPrice { get; set; } = false;
     public string PriceResolverClassName { get; set; } = typeof(PriceResolver).FullName;
     public string TaxResolverClassName { get; set; } = typeof(TaxResolver).FullName;
     public List<string> TradeLineGridFields { get; set; } = [
@@ -41,6 +42,7 @@ public class SalesDefaults
         "GrossAmount",
         "DiscountPercent",
         "DiscountAmount",
+        "DocumentDiscountAmount",
         "NetAmount",
         "TaxPercent",
         "TaxAmount",

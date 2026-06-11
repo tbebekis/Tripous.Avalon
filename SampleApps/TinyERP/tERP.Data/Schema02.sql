@@ -180,6 +180,7 @@ CREATE TABLE {TableName} (
     CostCenterId @NVARCHAR(40) @NULL,                   -- Lookup; Group Organization
     BranchId @NVARCHAR(40) @NULL,                       -- Lookup; Group Organization
 
+    PriceListTypeId @NVARCHAR(40) @NULL,                -- Lookup -- Price list type stored as a document snapshot
     CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup
     ExchangeRate @DECIMAL default 1 @NOT_NULL,          -- Exchange Rate for base currency
 
@@ -247,6 +248,7 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (CostCenterId) REFERENCES CostCenter(Id),
     FOREIGN KEY (BranchId) REFERENCES CompanyBranch(Id),
 
+    FOREIGN KEY (PriceListTypeId) REFERENCES PriceListType(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
 
     FOREIGN KEY (PaymentMethodId) REFERENCES PaymentMethod(Id),
@@ -309,11 +311,11 @@ Individual tax components are stored in TradeLineTax so a line may
 contain one VAT component or multiple sales tax components.
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,              -- -- Primary identifier
+    Id @NVARCHAR(40) @NOT_NULL primary key,              -- Primary identifier
 
     TradeId @NVARCHAR(40) @NOT_NULL,                     -- Master; [ReadOnlyUI] -- Owning commercial document
 
-    DisplayOrder int @NOT_NULL,                          -- -- User-visible line order
+    DisplayOrder int @NOT_NULL,                          -- User-visible line order
 
     LineTypeId int default 1 @NOT_NULL,                  -- Enum TradeLineType -- Item or Service
 
@@ -322,7 +324,7 @@ CREATE TABLE {TableName} (
     ProductName @NVARCHAR(128) @NULL,                    -- Snapshot Product.Name
     TaxProductGroupId @NVARCHAR(40) @NULL,               -- Lookup -- Tax classification copied from Product and stored as a line snapshot
 
-    Description @NVARCHAR(256) @NULL,                    -- -- Commercial line description
+    Description @NVARCHAR(256) @NULL,                    -- Commercial line description
 
     WarehouseId @NVARCHAR(40) @NULL,                     -- Lookup -- Optional line-level warehouse override
 
@@ -330,7 +332,7 @@ CREATE TABLE {TableName} (
     UnitOfMeasureName @NVARCHAR(40) @NULL,               -- Snapshot UnitOfMeasure.Name; [ReadOnlyUI]
     UnitRatio @DECIMAL default 1 @NOT_NULL,              -- [ReadOnlyUI] -- Ratio to the product primary unit
 
-    Quantity @DECIMAL default 0 @NOT_NULL,               -- -- Quantity expressed in UnitOfMeasureId
+    Quantity @DECIMAL default 0 @NOT_NULL,               -- Quantity expressed in UnitOfMeasureId
     PrimaryUnitQuantity @DECIMAL default 0 @NOT_NULL,    -- [ReadOnlyUI] -- Quantity converted to the product primary unit
 
     ReservedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity reserved by warehouse processes
@@ -340,18 +342,19 @@ CREATE TABLE {TableName} (
     IsTaxExempt @BOOL default 0 @NOT_NULL,               -- [ReadOnlyUI] -- Indicates that the resolved tax treatment is exempt
     IsReverseCharge @BOOL default 0 @NOT_NULL,           -- [ReadOnlyUI] -- Indicates that tax liability shifts to the recipient
 
-    UnitPrice @DECIMAL default 0 @NOT_NULL,              -- -- Price per selected unit before discounts and taxes
+    UnitPrice @DECIMAL default 0 @NOT_NULL,              -- Price per selected unit before discounts and taxes
 
     GrossAmount @DECIMAL default 0 @NOT_NULL,            -- [ReadOnlyUI] -- Quantity multiplied by UnitPrice
 
-    DiscountPercent @DECIMAL default 0 @NOT_NULL,        -- -- Line discount percentage
-    DiscountAmount @DECIMAL default 0 @NOT_NULL,         -- -- Line discount monetary value
+    DiscountPercent @DECIMAL default 0 @NOT_NULL,        -- Line discount percentage
+    DiscountAmount @DECIMAL default 0 @NOT_NULL,         -- Line discount monetary value
 
     NetUnitPrice @DECIMAL default 0 @NOT_NULL,           -- [ReadOnlyUI] -- Unit price after line discount
 
     NetAmount @DECIMAL default 0 @NOT_NULL,              -- [ReadOnlyUI] -- GrossAmount minus DiscountAmount
+    DocumentDiscountAmount @DECIMAL default 0 @NOT_NULL, -- [ReadOnlyUI] -- Allocated share of the document discount
     TaxAmount @DECIMAL default 0 @NOT_NULL,              -- [ReadOnlyUI] -- Sum of all TradeLineTax components
-    TotalAmount @DECIMAL default 0 @NOT_NULL,            -- [ReadOnlyUI] -- NetAmount plus TaxAmount
+    TotalAmount @DECIMAL default 0 @NOT_NULL,            -- [ReadOnlyUI] -- NetAmount minus DocumentDiscountAmount plus TaxAmount
 
     SourceTradeLineId @NVARCHAR(40) @NULL,               -- Locator TradeLine; [ReadOnlyUI] -- Source line for copied or corrective documents
 

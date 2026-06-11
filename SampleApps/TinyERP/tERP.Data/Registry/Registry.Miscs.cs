@@ -135,6 +135,9 @@ where P.IsActive = 1
             "UnitRatio",
             "TaxProductGroupId"
         ]);
+        
+        LocatorDef.Fields.Find("UnitOfMeasureId").IsVisible = false;
+        
         //*/
         
  

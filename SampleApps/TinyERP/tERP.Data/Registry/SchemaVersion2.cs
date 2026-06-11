@@ -203,6 +203,7 @@ CREATE TABLE {TableName} (
     CostCenterId @NVARCHAR(40) @NULL,                   -- Lookup; Group Organization
     BranchId @NVARCHAR(40) @NULL,                       -- Lookup; Group Organization
 
+    PriceListTypeId @NVARCHAR(40) @NULL,                -- Lookup -- Price list type stored as a document snapshot
     CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup
     ExchangeRate @DECIMAL default 1 @NOT_NULL,          -- Exchange Rate for base currency
 
@@ -270,6 +271,7 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (CostCenterId) REFERENCES CostCenter(Id),
     FOREIGN KEY (BranchId) REFERENCES CompanyBranch(Id),
 
+    FOREIGN KEY (PriceListTypeId) REFERENCES PriceListType(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
 
     FOREIGN KEY (PaymentMethodId) REFERENCES PaymentMethod(Id),
@@ -595,8 +597,9 @@ CREATE TABLE {TableName} (
     NetUnitPrice @DECIMAL default 0 @NOT_NULL,           -- [ReadOnlyUI] -- Unit price after line discount
 
     NetAmount @DECIMAL default 0 @NOT_NULL,              -- [ReadOnlyUI] -- GrossAmount minus DiscountAmount
+    DocumentDiscountAmount @DECIMAL default 0 @NOT_NULL, -- [ReadOnlyUI] -- Allocated share of the document discount
     TaxAmount @DECIMAL default 0 @NOT_NULL,              -- [ReadOnlyUI] -- Sum of all TradeLineTax components
-    TotalAmount @DECIMAL default 0 @NOT_NULL,            -- [ReadOnlyUI] -- NetAmount plus TaxAmount
+    TotalAmount @DECIMAL default 0 @NOT_NULL,            -- [ReadOnlyUI] -- NetAmount minus DocumentDiscountAmount plus TaxAmount
 
     SourceTradeLineId @NVARCHAR(40) @NULL,               -- Locator TradeLine; [ReadOnlyUI] -- Source line for copied or corrective documents
 
