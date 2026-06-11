@@ -43,7 +43,10 @@ public class DocumentDataForm : AppDataForm
 
         string Code = CurrentRow.AsString("Code");
         string DocumentText = string.IsNullOrWhiteSpace(Code) ? "document" : $"document: {Code}";
-        string Message = $"Post {DocumentText}? After posting, the document can no longer be edited.";
+        string Message = $@"Post {DocumentText}? 
+
+After posting, the document can no longer be edited.
+";
         if (!await MessageBox.YesNo(Message, this))
             return;
 
@@ -104,8 +107,149 @@ public class DocumentDataForm : AppDataForm
 
 public class SalesOrderForm : DocumentDataForm
 {
+    // ● protected fields
+    protected Button btnCreateDeliveryNote;
+
+    // ● protected
+    protected virtual bool CanCreateDeliveryNote()
+    {
+        return Module is SalesOrderDataModule
+               && FormState == DataFormState.Edit
+               && CurrentRow != null
+               && !HasChanges()
+               && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
+               && !CurrentRow.AsBoolean("IsCancelled");
+    }
+    protected virtual async Task ExecuteCreateDeliveryNote()
+    {
+        if (!CanCreateDeliveryNote())
+            return;
+
+        string Code = CurrentRow.AsString("Code");
+        string OrderText = string.IsNullOrWhiteSpace(Code) ? "Sales Order" : $"Sales Order: {Code}";
+        if (!await MessageBox.YesNo($"Create a Sales Delivery Note from {OrderText}?", this))
+            return;
+
+        SalesOrderDataModule SalesOrderModule = (SalesOrderDataModule)Module;
+        SalesDeliveryNoteDataModule DeliveryNoteModule = SalesOrderModule.CreateDeliveryNote();
+        DataFormContext Context = DataFormContext.Create("SalesDeliveryNote", DeliveryNoteModule, this);
+        Context.StartAction = DataFormAction.Insert;
+        await AppFormDialog.ShowModalDataForm(Context);
+    }
+    protected override async Task ExecuteCustom(object Value)
+    {
+        if (Value is DocumentAction Action && Action == DocumentAction.CreateDeliveryNote)
+            await ExecuteCreateDeliveryNote();
+
+        await base.ExecuteCustom(Value);
+    }
+    protected override void EnableCommands()
+    {
+        base.EnableCommands();
+
+        btnCreateDeliveryNote.IsVisible = true;
+        btnCreateDeliveryNote.IsEnabled = CanCreateDeliveryNote();
+    }
+    protected override bool CreateToolBar()
+    {
+        if (!base.CreateToolBar())
+            return false;
+
+        btnCreateDeliveryNote = ToolBar.AddButton("document_export.png", "Create Sales Delivery Note", async () => await ExecuteCustom(DocumentAction.CreateDeliveryNote));
+        ToolBar.PlaceControlAfter(btnPost, btnCreateDeliveryNote);
+        return true;
+    }
+
     // ● construction
     public SalesOrderForm()
     {
     } 
+}
+
+public class SalesDeliveryNoteForm : DocumentDataForm
+{
+    // ● construction
+    public SalesDeliveryNoteForm()
+    {
+    }
+}
+
+public class SalesInvoiceForm : DocumentDataForm
+{
+    // ● construction
+    public SalesInvoiceForm()
+    {
+    }
+}
+
+public class SalesCreditNoteForm : DocumentDataForm
+{
+    // ● construction
+    public SalesCreditNoteForm()
+    {
+    }
+}
+
+public class SalesReturnForm : DocumentDataForm
+{
+    // ● construction
+    public SalesReturnForm()
+    {
+    }
+}
+
+public class SalesCancellationForm : DocumentDataForm
+{
+    // ● construction
+    public SalesCancellationForm()
+    {
+    }
+}
+
+public class PurchaseOrderForm : DocumentDataForm
+{
+    // ● construction
+    public PurchaseOrderForm()
+    {
+    }
+}
+
+public class PurchaseDeliveryNoteForm : DocumentDataForm
+{
+    // ● construction
+    public PurchaseDeliveryNoteForm()
+    {
+    }
+}
+
+public class PurchaseInvoiceForm : DocumentDataForm
+{
+    // ● construction
+    public PurchaseInvoiceForm()
+    {
+    }
+}
+
+public class PurchaseCreditNoteForm : DocumentDataForm
+{
+    // ● construction
+    public PurchaseCreditNoteForm()
+    {
+    }
+}
+
+public class PurchaseReturnForm : DocumentDataForm
+{
+    // ● construction
+    public PurchaseReturnForm()
+    {
+    }
+}
+
+public class PurchaseCancellationForm : DocumentDataForm
+{
+    // ● construction
+    public PurchaseCancellationForm()
+    {
+    }
 }

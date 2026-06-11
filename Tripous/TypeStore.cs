@@ -114,7 +114,9 @@ static public class TypeStore
             Register(Type);
         }
     }
-    
+    /// <summary>
+    /// Loads and registers all discoverable types of all assemblies in the specified folders.
+    /// </summary>
     static public void LoadAndRegisterAssemblies(params string[] FolderPaths)
     {
         foreach (string FolderPath in FolderPaths)

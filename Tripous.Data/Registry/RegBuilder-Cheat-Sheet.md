@@ -10,12 +10,14 @@ Group:  GROUP_NAME
 Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 Code:   Code [Draft] [Pattern] [ProviderName]
+ListWhere: SQL_CONDITION
 
 Module: MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
 Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 Code:   Code [Draft] [Pattern] [ProviderName]
+ListWhere: SQL_CONDITION
 FieldGroups: Address, Billing, Notes
 
 IsLookup
@@ -39,14 +41,16 @@ NoGuidOids
 - `Table` must be the first metadata entry.
 - A top table may declare one or more module blocks.
 - Each `Module` line starts a new module block.
-- The following `Group`, optional `Form`, optional `ItemPage`, optional `DetailOrder`, and optional `Code` belong to that module block.
+- The following `Group`, optional `Form`, optional `ItemPage`, optional `DetailOrder`, optional `ListWhere`, and optional `Code` belong to that module block.
 - A module block is complete when the next `Module` line starts or when non-module header metadata begins.
-- Module block order is `Module`, `Group`, `Form`, `ItemPage`, `DetailOrder`, `Code`.
+- Module block order is `Module`, `Group`, `Form`, `ItemPage`, `DetailOrder`, `Code`, `ListWhere`.
 - `Group` is required for each module block.
 - If `Form` is omitted, the form name defaults to the module name and the form class defaults to `DataForm`.
 - If `ItemPage` is omitted, the item page class defaults to `ItemPage`.
 - `DetailOrder: Trade=TradeLine, TradeTax` orders the direct child detail tabs of `Trade`. Multiple declarations are allowed for different parent tables. Unlisted details remain at the end.
 - Example nested order: `DetailOrder: BillOfMaterial=BillOfMaterialLine, BillOfMaterialCost`.
+- `ListWhere` adds a module-specific condition to the generated list SELECT. Write only the condition, without `WHERE`.
+- `ListWhere` may reference the top table and generated join aliases.
 - `Code` is optional and uses the same syntax as field `-- Code`.
 - If header `Code:` omits `ProviderName`, provider name defaults to `ModuleName`.
 - If header `Code:` is omitted, field `-- Code` metadata is used as fallback for that module.
@@ -70,6 +74,18 @@ ItemPage: CustomerItemPage
 ```
 
 - `ItemPage` has no name, only class name.
+
+## ListWhere Syntax
+
+```sql
+ListWhere: DocumentType.ModuleName = 'SalesOrder'
+ListWhere: Trade.IsActive = 1
+```
+
+- `ListWhere` is optional and belongs to the current module block.
+- The RegBuilder appends it as a `where` clause after the generated joins.
+- Do not include the `WHERE` keyword.
+- Only one `ListWhere` is allowed per module block.
 
 ## Boolean Flags
 

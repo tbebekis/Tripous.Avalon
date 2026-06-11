@@ -1,7 +1,13 @@
 namespace Tripous;
 
+/// <summary>
+/// Static class for generating and validating passwords.
+/// </summary>
 static public class Passwords
 {
+    /// <summary>
+    /// Special characters.
+    /// </summary>
     static public readonly string SpecialChars = "!@#$%^*()-_=+[]{}|?";  // exclude & and < 
     static readonly string UpperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     static readonly string LowerChars = "abcdefghijklmnopqrstuvwxyz";

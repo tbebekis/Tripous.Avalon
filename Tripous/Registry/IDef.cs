@@ -38,10 +38,22 @@ public interface IDef
     void UpdateReferences();
     
     // ● properties
+    /// <summary>
+    /// The descriptor name.
+    /// </summary>
     string Name { get; set; }
+    /// <summary>
+    /// The descriptor resource title key, e.g. "Module"
+    /// </summary>
     string TitleKey { get; set; }
+    /// <summary>
+    /// The descriptor title.
+    /// </summary>
     [JsonIgnore] 
     public string Title { get; }
+    /// <summary>
+    /// A user-defined value associated with this descriptor.
+    /// </summary>
     [JsonIgnore] 
     public object Tag { get; }
 }

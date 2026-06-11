@@ -46,6 +46,9 @@ static public class Json
         SetupJsonOptions(Result, CameCase, Formatted, CaseInsensitiveProperties, Decimals, ExcludeProperties);
         return Result;
     }
+    /// <summary>
+    /// Sets up the specified <see cref="JsonSerializerOptions"/> instance.
+    /// </summary>
     static public void SetupJsonOptions(
         JsonSerializerOptions JsonOptions,
         bool CameCase = false,
@@ -383,8 +386,14 @@ static public class Json
     static public int DefaultDecimals { get; set; } = 2;
 }
 
+/// <summary>
+/// A class implements this interface to be notified when the JSON text is loaded.
+/// </summary>
 public interface IJsonLoadable
 {
+    /// <summary>
+    /// Called when the JSON text is loaded.
+    /// </summary>
     void JsonLoaded();
 }
 
@@ -856,6 +865,9 @@ internal static class JsonPopulator
 /// </summary>
 public class JsonNamingPolicyAsIs : JsonNamingPolicy
 {
+    /// <summary>
+    /// Returns the property name unchanged.
+    /// </summary>
     public override string ConvertName(string name)
     {
         return name;

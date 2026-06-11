@@ -8,6 +8,10 @@
 
 namespace Tripous;
 
+
+/// <summary>
+/// System-related utilities.
+/// </summary>
 static public class Sys
 {
     // ●  constants  
@@ -39,21 +43,65 @@ static public class Sys
     };
     #endregion
     
-   
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string None = "[none]";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string NULL = "___null___"; 
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string DEFAULT = "Default";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string SYSTEM = "System";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string APPLICATION = "Application";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string MASTER_KEY_FIELD_NAME = "MASTER_KEY_FIELD_NAME";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string NamePathSep = ".";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string FieldAliasSep = "__"; 
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string FromField = "_FROM";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string ToField = "_TO";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string StandardCompanyGuid = "74772779-BF08-4B22-8F87-196FB87EC7C2";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string InvalidId = "27C15428-7892-4F7D-B28F-9BA059C94BA4";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string EnId = "D4997C35-6E89-499A-87BF-D5750D0D3F06";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string GrId = "92A158E7-25CA-4367-BA57-FB79C40D775C";
+    /// <summary>
+    /// Constant
+    /// </summary>
     public const string GENERAL = "General";
 
     static HostContext fContext;
@@ -420,12 +468,17 @@ static public class Sys
     
     
     // ● Log
+    /// <summary>
+    /// Displays a message in the UI log box.
+    /// </summary>
     static public void UiLog(string Text)
     {
         if (UiLogProc != null && !string.IsNullOrWhiteSpace(Text))
             UiLogProc(Text);
     }
-    
+    /// <summary>
+    /// Displays an error message in the UI log box.
+    /// </summary>
     static public void LogError(Exception e)
     {
         if (UiLogProc != null)
@@ -437,6 +490,9 @@ static public class Sys
         if (LogExceptionProc != null)
             LogExceptionProc(e);
     }
+    /// <summary>
+    /// Displays an error message in the UI log box.
+    /// </summary>
     static public void LogErrorText(string Text)
     {
         if (!string.IsNullOrWhiteSpace(Text))
@@ -448,6 +504,9 @@ static public class Sys
                 LogErrorProc(Text);
         }
     }
+    /// <summary>
+    /// Displays a warning message in the UI log box.
+    /// </summary>
     static public void LogWarn(string Text)
     {
         if (!string.IsNullOrWhiteSpace(Text))
@@ -459,6 +518,9 @@ static public class Sys
                 LogWarnProc(Text);
         }
     }
+    /// <summary>
+    /// Displays an info message in the UI log box.
+    /// </summary>
     static public void LogInfo(string Text)
     {
         if (!string.IsNullOrWhiteSpace(Text))
@@ -472,6 +534,9 @@ static public class Sys
     }
     
     // ● Debug
+    /// <summary>
+    /// Displays a message in the debug box.
+    /// </summary>
     static public void Debug(string Text)
     {
         if (DebugMode)
@@ -482,6 +547,9 @@ static public class Sys
                 System.Diagnostics.Debug.WriteLine(Text);
         }
     }
+    /// <summary>
+    /// Displays an error message in the debug box.
+    /// </summary>
     static public void Debug(Exception e)
     {
         if (DebugMode)
@@ -577,16 +645,34 @@ static public class Sys
         // Compare() returns true if 1. both are null, 2. both are empty string or 3. they are the same string
         return string.Compare(A, B, StringComparison.InvariantCultureIgnoreCase) == 0;
     }
+    /// <summary>
+    /// True when this application is in debug mode.
+    /// </summary>
     static public bool DebugMode { get; set; }
     /// <summary>
     /// An action that displays debug strings to lob box. It is passed by the Ui static class.
     /// </summary>
     static public Action<string> DebugProc { get; set; }
+    /// <summary>
+    /// An action that displays UI log strings to lob box. It is passed by the Ui static class.
+    /// </summary>
     static public Action<string> UiLogProc { get; set; }
     
+    /// <summary>
+    /// An action that displays exception strings to log box.
+    /// </summary>
     static public Action<Exception> LogExceptionProc { get; set; }
+    /// <summary>
+    /// An action that displays error strings to log box.
+    /// </summary>
     static public Action<string> LogErrorProc { get; set; }
+    /// <summary>
+    /// An action that displays warning strings to log box.
+    /// </summary>
     static public Action<string> LogWarnProc { get; set; }
+    /// <summary>
+    /// An action that displays info strings to log box.
+    /// </summary>
     static public Action<string> LogInfoProc { get; set; }
     
     /// <summary>
@@ -598,6 +684,9 @@ static public class Sys
     /// </summary>
     static public string HostName { get; } = Environment.MachineName;
     
+    /// <summary>
+    /// The id of the current application user. Used when an application supports users.
+    /// </summary>
     static public string GetCurrentAppUserId()
     {
         if (Context != null && Context.CurrentUser != null && !string.IsNullOrWhiteSpace(Context.CurrentUser.Id))
@@ -605,6 +694,9 @@ static public class Sys
         return string.Empty;
  
     }
+    /// <summary>
+    /// The name of the current application user. Used when an application supports users.
+    /// </summary>
     static public string GetCurrentAppUserName()
     {
         if (Context != null && Context.CurrentUser != null && !string.IsNullOrWhiteSpace(Context.CurrentUser.UserName))

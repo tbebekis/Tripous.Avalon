@@ -148,6 +148,7 @@ where P.IsActive = 1
     /// </summary>
     static public void UpdateForms()
     {
+        DesktopRegistry.Forms.Get("SalesDeliveryNote").ClassName = "SalesDeliveryNoteForm";
     }
     /// <summary>
     /// Definitions added by the registration builder may be incomplete.

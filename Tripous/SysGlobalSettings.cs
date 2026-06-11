@@ -8,6 +8,10 @@
 
 namespace Tripous;
 
+
+/// <summary>
+/// Represents the global system settings.
+/// </summary>
 public class SysGlobalSettings: SettingsBase, INotifyPropertyChanged
 {
 
@@ -22,6 +26,9 @@ public class SysGlobalSettings: SettingsBase, INotifyPropertyChanged
     }
     
     // ● construction  
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     internal SysGlobalSettings()
     {
     }
@@ -53,5 +60,8 @@ public class SysGlobalSettings: SettingsBase, INotifyPropertyChanged
     }
     
     // ● events
+    /// <summary>
+    /// Occurs when a property value changes.
+    /// </summary>
     public event PropertyChangedEventHandler PropertyChanged;
 }

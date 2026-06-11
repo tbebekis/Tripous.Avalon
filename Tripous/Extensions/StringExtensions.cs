@@ -12,6 +12,9 @@ namespace Tripous
     using System.Globalization;
     using System.Text.RegularExpressions;
 
+    /// <summary>
+    /// Extensions
+    /// </summary>
     static public class StringExtensions
     {
         /// <summary>
@@ -52,6 +55,9 @@ namespace Tripous
         
 
         // ● private methods
+        /// <summary>
+        /// Returns true if C is a vowel.
+        /// </summary>
         static public bool IsVowel(char C)
         {
             char lower = char.ToLower(C);
@@ -109,6 +115,9 @@ namespace Tripous
             return Path;
         }
         
+        /// <summary>
+        /// Tries to convert S to an int.
+        /// </summary>
         static public int ToIntOrDefault(this string S, int DefaultValue = 0) => int.TryParse(S, out int Result) ? Result : DefaultValue;
  
         /// <summary>
@@ -214,6 +223,9 @@ namespace Tripous
 
             return Result.ToString();
         }
+        /// <summary>
+        /// Converts a word to its plural form.
+        /// </summary>
         static public string ToPlural(this string Word)
         {
             if (string.IsNullOrWhiteSpace(Word) || Word.Length < 2)

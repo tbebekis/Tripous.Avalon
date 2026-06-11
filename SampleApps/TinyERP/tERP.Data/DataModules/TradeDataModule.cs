@@ -601,7 +601,7 @@ where
     {
         base.ColumnChanged(Table, ea);
 
-        if (fCalculationLevel > 0 || IsCopyingPersonAddresses || !State.In(DataMode.Insert | DataMode.Edit))
+        if (fCalculationLevel > 0 || IsTransforming || IsCopyingPersonAddresses || !State.In(DataMode.Insert | DataMode.Edit))
             return;
 
         string FieldName = ea.Column.ColumnName;

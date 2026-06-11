@@ -189,7 +189,7 @@ public struct ID
         return Id1.IsEmpty();
     }
     /// <summary>
-    /// Returns true if a specified object Id is null, empty string or equals to a value, such as the <see cref="Lib.EmptyValue"/>, i.e. <c>-</c>
+    /// Returns true if a specified object Id is null, empty string, or equals to a value, such as the  <c>-</c>
     /// </summary>
     static public bool IsEmptyOrValue(object Id, object Value)
     {
@@ -219,15 +219,39 @@ public struct ID
     }
 
     // ● operators
+    /// <summary>
+    /// Operator ==
+    /// </summary>
     public static bool operator ==(ID left, ID right) => left.Equals(right);
+    /// <summary>
+    /// Operator !=
+    /// </summary>
     public static bool operator !=(ID left, ID right) => !(left == right);
 
+    /// <summary>
+    /// Implicit conversion from string, short and int to ID.
+    /// </summary>
     static public implicit operator ID(string Source) => new ID(Source);
+    /// <summary>
+    /// Implicit conversion from short and int to ID.
+    /// </summary>
     static public implicit operator ID(short Source) => new ID(Source);
+    /// <summary>
+    /// Implicit conversion from short and int to ID.
+    /// </summary>
     static public implicit operator ID(int Source) => new ID(Source);
 
+    /// <summary>
+    /// Implicit conversion from ID to string, short and int.
+    /// </summary>
     static public implicit operator string(ID Source) => Source.value != null ? Source.value.ToString() : string.Empty;
+    /// <summary>
+    /// Implicit conversion from ID to short and int.
+    /// </summary>
     static public implicit operator short(ID Source) => (Source.value != null && Source.value.GetType() == typeof(short)) ? Convert.ToInt16(Source.value) : (short)0;
+    /// <summary>
+    /// Implicit conversion from ID to short and int.
+    /// </summary>
     static public implicit operator int(ID Source) => Source.value != null && Source.value.GetType() == typeof(int) ? Convert.ToInt32(Source.value) : (int)0;
 }
 
@@ -236,6 +260,9 @@ public struct ID
 /// </summary>
 public class IDJsonConverter : JsonConverter<ID>
 {
+    /// <summary>
+    /// Overrides the default behavior of reading a value.
+    /// </summary>
     public override ID Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         string S = reader.GetString();
@@ -247,7 +274,9 @@ public class IDJsonConverter : JsonConverter<ID>
         }
         return new ID(S);
     }
-
+    /// <summary>
+    /// Overrides the default behavior of writing a value.
+    /// </summary>
     public override void Write(Utf8JsonWriter writer, ID value, JsonSerializerOptions options)
     {
         writer.WriteStringValue(value.AsString());

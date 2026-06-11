@@ -104,6 +104,31 @@ The base handlers contain shared behavior. Concrete handlers are extension point
 - `PostedBy`
 - `IsLocked = true`
 
+The final document code is assigned by `DocumentDataModule.AssignCodeValue()` inside the commit transaction.
+
+`DocumentDataForm` asks for confirmation and calls `DocumentDataModule.Post()`.
+
+After posting:
+
+- The document cannot be edited.
+- The Save and Post commands are disabled.
+- Bound controls and detail grids are read-only.
+- Detail Add/Delete commands and their keyboard shortcuts are disabled.
+
+`DocumentDataModule.CheckCanCommit()` also rejects changes to locked documents, independently of the UI.
+
+## Sales Order Lifecycle
+
+tERP currently uses a simplified Sales Order lifecycle.
+
+- There is no separate `Released` status.
+- A posted Sales Order represents an approved or released order.
+- Only posted Sales Orders can be transformed into Sales Delivery Notes.
+- Posting a Sales Order does not create stock movements.
+- Stock movements are created when the related Sales Delivery Note is posted.
+
+This is a deliberate simplification for the sample application. A future version may introduce a separate release and approval workflow.
+
 ## Document Defaults
 
 `DocumentDataModule.SetDefaultValues()` assigns `TradeTypeId` from the current `DocumentType`.
@@ -356,6 +381,8 @@ Each row stores the applied rule, rate, jurisdiction, taxable amount, tax amount
 
 The tax tables are calculation snapshots. Reopening a saved document does not depend on reconstructing historical tax results from current setup data.
 
+`TradeTax` and `TradeLineTax` are hidden detail tables and are not displayed as editable grids.
+
 ## Document Totals
 
 `CalculateTotals()` calculates:
@@ -431,30 +458,32 @@ The grid supports:
 - Rounding remainder allocation.
 - Deleting the last line.
 - Recalculation after deletion.
-- Missing-price validation.
+- Manual unit price when no price-list entry exists.
 - Save and reopen without monetary rounding drift.
+- Posting with final number assignment and audit fields.
+- Reopening a posted document as read-only.
 
 ## Current Limitations
 
 - `ExchangeRate` is entered manually.
 - Automatic currency-rate retrieval is not implemented.
 - Currency conversion between price-list and document currencies is not implemented.
-- Related pricing-field changes replace a manually entered unit price.
+- A pricing-field change replaces a manual unit price only when an applicable price is found.
 - Purchase-specific defaults, pricing, and validation are not implemented.
-- Posting, cancellation, and document transformation workflows are not implemented.
+- Posting currently updates document state and numbering but does not create stock, financial, or accounting records.
+- Cancellation and document transformation workflows are not implemented.
 
-## Planned Posting Workflow
+## Sales Order Transformation
 
-The intended posting workflow will use `DocumentDataModule.IsPosting` and the final number-series provider.
+The first implementation supports full delivery:
 
-Posting is expected to:
+- Only a posted Sales Order can be transformed.
+- The new Sales Delivery Note remains unsaved and opens in insert mode.
+- `Trade.SourceId` references the Sales Order.
+- `TradeLine.SourceTradeLineId` references the source order line.
+- Delivery quantity is `Quantity - ExecutedQuantity`.
+- Header and line business snapshots are copied.
+- IDs, codes, statuses, audit fields, calculated amounts, and tax snapshots are regenerated.
+- Only one active Sales Delivery Note is currently allowed per Sales Order.
 
-- Validate the document.
-- Perform the final calculation.
-- Assign the final document code.
-- Set posting date, user, status, and audit values.
-- Commit the document.
-- Create the required stock, financial, or accounting records.
-- Prevent later editing where appropriate.
-
-The exact posting responsibilities will be documented here when implemented.
+Partial delivery, stock movements, and `Warehouse.AllowNegativeStock` validation remain to be implemented.

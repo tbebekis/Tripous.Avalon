@@ -8,28 +8,48 @@
 
 namespace Tripous;
 
+/// <summary>
+/// Base class for application settings stored in JSON files.
+/// </summary>
 public abstract class SettingsBase
 {
+    // ● protected
+    /// <summary>
+    /// Gets the settings file name.
+    /// </summary>
     protected virtual string FileName => $"{this.GetType().Name}.json";
-
+    /// <summary>
+    /// Called before loading settings from disk.
+    /// </summary>
     protected virtual void LoadBefore()
     {
     }
+    /// <summary>
+    /// Called after settings have been loaded from disk.
+    /// </summary>
     protected virtual void LoadAfter()
     {
     }
+    /// <summary>
+    /// Called before saving settings to disk.
+    /// </summary>
     protected virtual void SaveBefore()
     {
     }
+    /// <summary>
+    /// Called after settings have been saved to disk.
+    /// </summary>
     protected virtual void SaveAfter()
     {
     }
-    
+    /// <summary>
+    /// Returns the full path of the settings file.
+    /// </summary>
     protected virtual string GetFilePath() => Path.Combine(SysConfig.AppFolderPath, FileName);
     
     // ● construction
     /// <summary>
-    /// Constructor
+    /// Constructor.
     /// </summary>
     public SettingsBase()
     {
@@ -37,7 +57,7 @@ public abstract class SettingsBase
     
     // ● public
     /// <summary>
-    /// Loads the security settings from disk.
+    /// Loads settings from disk.
     /// </summary>
     public virtual void Load()
     {
@@ -49,11 +69,11 @@ public abstract class SettingsBase
         string JsonText = File.ReadAllText(SettingsFilePath);
         Json.PopulateObject(this, JsonText);
             
-        IsLoaded  = true;
+        IsLoaded = true;
         LoadAfter();
     }
     /// <summary>
-    /// Saves the security settings to disk.
+    /// Saves settings to disk.
     /// </summary>
     public virtual void Save()
     {
@@ -72,10 +92,13 @@ public abstract class SettingsBase
     
     // ● properties
     /// <summary>
-    /// The full path where this instance is saved.
+    /// Gets the full path of the settings file.
     /// </summary>
     [JsonIgnore]
     public string SettingsFilePath => GetFilePath();
-    [JsonIgnore] 
+    /// <summary>
+    /// Gets a value indicating whether the settings have been loaded.
+    /// </summary>
+    [JsonIgnore]
     public virtual bool IsLoaded { get; protected set; }
-}    
+}

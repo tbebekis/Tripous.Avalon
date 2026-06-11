@@ -13,37 +13,48 @@ namespace Tripous.Desktop;
 /// </summary>
 public class DataFormContext: FormContext
 {
-    static public DataFormContext Create(string FormRegistryName, Control Caller = null)
-    {
-        return DataFormContext.Create(FormRegistryName, FormRegistryName, Caller);
-    }
-    static public DataFormContext Create(string FormId, string FormRegistryName, Control Caller = null)
+    // ● private
+    static DataFormContext CreateCore(string FormId, string FormRegistryName, DataModule Module, Control Caller)
     {
         if (string.IsNullOrWhiteSpace(FormRegistryName))
             throw new TripousArgumentNullException(nameof(FormRegistryName));
 
         FormDef FormDef = DesktopRegistry.Forms.Get(FormRegistryName);
-
         if (string.IsNullOrWhiteSpace(FormDef.Module))
             throw new TripousDesktopException($"Form '{FormRegistryName}' has no Module.");
 
         ModuleDef ModuleDef = DataRegistry.Modules.Get(FormDef.Module);
+        if (Module != null && !ModuleDef.Name.IsSameText(Module.ModuleDef.Name))
+            throw new TripousDesktopException($"Form '{FormRegistryName}' cannot use module '{Module.ModuleDef.Name}'.");
 
-        DataFormContext Result = new DataFormContext
+        return new DataFormContext
         {
             FormId = FormId,
             ClassName = FormDef.ClassName,
-            Caller = Caller?? Ui.MainWindow,
-            
+            Caller = Caller ?? Ui.MainWindow,
             RegistryName = FormRegistryName,
-   
             FormDef = FormDef,
             ModuleDef = ModuleDef,
-            Module = ModuleDef.Create(),
+            Module = Module ?? ModuleDef.Create(),
             Title = FormDef.Title,
         };
- 
-        return Result;
+    }
+
+    // ● static public
+    static public DataFormContext Create(string FormRegistryName, Control Caller = null)
+    {
+        return CreateCore(FormRegistryName, FormRegistryName, null, Caller);
+    }
+    static public DataFormContext Create(string FormRegistryName, DataModule Module, Control Caller = null)
+    {
+        if (Module == null)
+            throw new TripousArgumentNullException(nameof(Module));
+
+        return CreateCore(FormRegistryName, FormRegistryName, Module, Caller);
+    }
+    static public DataFormContext Create(string FormId, string FormRegistryName, Control Caller = null)
+    {
+        return CreateCore(FormId, FormRegistryName, null, Caller);
     }
  
     public override AppForm CreateForm()

@@ -8,6 +8,9 @@
 
 namespace Tripous;
 
+/// <summary>
+/// Extension helper
+/// </summary>
 static public class ExceptionExtensions
 {
     /// <summary>

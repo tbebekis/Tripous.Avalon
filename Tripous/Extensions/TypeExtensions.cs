@@ -289,6 +289,7 @@ namespace Tripous
             return (T != null) && (T == typeof(double)) || (T == typeof(Nullable<double>));
         }
 
+        
         static HashSet<Type> IntegerTypeSet = new HashSet<Type>
         {
             typeof(Byte),
@@ -310,11 +311,27 @@ namespace Tripous
         /// Returns true if a specified type is an integer type, i.e. Byte, SByte, Int16, Int32, Int64, UInt16, UInt32, UInt64
         /// </summary>
         static public bool IsInteger(this Type DataType) => IntegerTypeSet.Contains(DataType) || IntegerTypeSet.Contains(Nullable.GetUnderlyingType(DataType));
+        /// <summary>
+        /// Returns true if a specified type is float, double or decimal
+        /// </summary>
         static public bool IsFloat(this Type DataType) => FloatTypeSet.Contains(DataType) || FloatTypeSet.Contains(Nullable.GetUnderlyingType(DataType));
+        /// <summary>
+        /// Returns true if a specified type is an integer or float type
+        /// </summary>
         static public bool IsNumeric(this Type DataType) => IsInteger(DataType) || IsFloat(DataType);
+        /// <summary>
+        /// Returns true if a specified type is a DateTime type
+        /// </summary>
         static public bool IsDateTime(this Type DataType) => DataType == typeof(DateTime);
+        /// <summary>
+        /// Returns true if a specified type is a string type
+        /// </summary>
         static public bool IsString(this Type DataType) => DataType == typeof(string);
         
+        
+        /// <summary>
+        /// Returns the default format string for the specified type.
+        /// </summary>
         static public string GetDefaultFormat(this Type T)
         {
             if (T != null)

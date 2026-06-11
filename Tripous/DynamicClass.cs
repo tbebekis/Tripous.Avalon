@@ -7,123 +7,190 @@
  */
 namespace Tripous;
 
+/// <summary>
+/// Represents a dynamic object whose properties are stored in a dictionary.
+///
+/// Supports dynamic member access, property change notifications,
+/// custom type descriptors and JSON serialization.
+/// </summary>
 public class DynamicClass: DynamicObject, INotifyPropertyChanged, ICustomTypeDescriptor
 {
-    /* private */
-    void OnPropertyChanged(string propertyName)
+    // ● private
+    /// <summary>
+    /// Raises the PropertyChanged event.
+    /// </summary>
+    void OnPropertyChanged(string PropertyName)
     {
         if (PropertyChanged == null)
-        {
             return;
-        }
 
-        var eventArgs = new PropertyChangedEventArgs(propertyName);
-        PropertyChanged(this, eventArgs);
+        var EventArgs = new PropertyChangedEventArgs(PropertyName);
+        PropertyChanged(this, EventArgs);
     }
+    /// <summary>
+    /// Notifies listeners that all properties should be refreshed.
+    /// </summary>
     void NotifyToRefreshAllProperties()
     {
         OnPropertyChanged(string.Empty);
     }
 
-    /* construction */
+    // ● construction
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public DynamicClass()
     {
     }
+    /// <summary>
+    /// Constructs an instance from a JSON string.
+    /// </summary>
     public DynamicClass(string JsonText)
     {
         FromJson(JsonText);
     }
 
-    /* overrides */
-    public override bool TryGetMember(GetMemberBinder binder, out object result)
+    // ● overrides
+    /// <summary>
+    /// Gets a dynamic member value.
+    /// </summary>
+    public override bool TryGetMember(GetMemberBinder Binder, out object Result)
     {
-        return Properties.TryGetValue(binder.Name, out result);
+        return Properties.TryGetValue(Binder.Name, out Result);
     }
-    public override bool TrySetMember(SetMemberBinder binder, object value)
+    /// <summary>
+    /// Sets a dynamic member value.
+    /// </summary>
+    public override bool TrySetMember(SetMemberBinder Binder, object Value)
     {
-        Properties[binder.Name] = value;
+        Properties[Binder.Name] = Value;
         NotifyToRefreshAllProperties();
         return true;
     }
 
-    /* ICustomTypeDescriptor implementation */
+    // ● ICustomTypeDescriptor
+    /// <summary>
+    /// Returns the attributes of this instance.
+    /// </summary>
     public AttributeCollection GetAttributes()
     {
         return TypeDescriptor.GetAttributes(this, true);
     }
+    /// <summary>
+    /// Returns the class name.
+    /// </summary>
     public string GetClassName()
     {
         return GetType().Name;
     }
+    /// <summary>
+    /// Returns the component name.
+    /// </summary>
     public string GetComponentName()
     {
         return TypeDescriptor.GetComponentName(this, true);
     }
+    /// <summary>
+    /// Returns the type converter.
+    /// </summary>
     public TypeConverter GetConverter()
     {
         return TypeDescriptor.GetConverter(this, true);
     }
+    /// <summary>
+    /// Returns the default event.
+    /// </summary>
     public EventDescriptor GetDefaultEvent()
     {
         return TypeDescriptor.GetDefaultEvent(this, true);
     }
+    /// <summary>
+    /// Returns the default property.
+    /// </summary>
     public PropertyDescriptor GetDefaultProperty()
     {
         return null;
     }
-    public object GetEditor(Type editorBaseType)
+    /// <summary>
+    /// Returns an editor of the specified base type.
+    /// </summary>
+    public object GetEditor(Type EditorBaseType)
     {
-        return TypeDescriptor.GetEditor(this, editorBaseType, true);
+        return TypeDescriptor.GetEditor(this, EditorBaseType, true);
     }
+    /// <summary>
+    /// Returns the events of this instance.
+    /// </summary>
     public EventDescriptorCollection GetEvents()
     {
         return TypeDescriptor.GetEvents(this, true);
     }
-    public EventDescriptorCollection GetEvents(Attribute[] attributes)
+    /// <summary>
+    /// Returns the events of this instance matching the specified attributes.
+    /// </summary>
+    public EventDescriptorCollection GetEvents(Attribute[] Attributes)
     {
-        return TypeDescriptor.GetEvents(this, attributes, true);
+        return TypeDescriptor.GetEvents(this, Attributes, true);
     }
+    /// <summary>
+    /// Returns the dynamic properties of this instance.
+    /// </summary>
     public PropertyDescriptorCollection GetProperties()
     {
         return GetProperties(new Attribute[0]);
     }
-    public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
+    /// <summary>
+    /// Returns the dynamic properties of this instance matching the specified attributes.
+    /// </summary>
+    public PropertyDescriptorCollection GetProperties(Attribute[] Attributes)
     {
         DynamicPropertyDescriptor[] PropList = Properties
-            .Select(Entry => new DynamicPropertyDescriptor(this, Entry.Key, Entry.Value?.GetType() ?? typeof(object), attributes))
+            .Select(Entry => new DynamicPropertyDescriptor(this, Entry.Key, Entry.Value?.GetType() ?? typeof(object), Attributes))
             .ToArray();
 
         return new PropertyDescriptorCollection(PropList);
     }
-    public object GetPropertyOwner(PropertyDescriptor pd)
+    /// <summary>
+    /// Returns the owner of the specified property descriptor.
+    /// </summary>
+    public object GetPropertyOwner(PropertyDescriptor Pd)
     {
-        return this; // return Properties;
+        return this;
     }
 
+    // ● public
+    /// <summary>
+    /// Serializes this instance to JSON.
+    /// </summary>
     public string ToJson()
     {
         return Json.Serialize(this);
     }
+    /// <summary>
+    /// Loads this instance from a JSON string.
+    /// </summary>
     public void FromJson(string JsonText)
     {
         dynamic Dyn = Json.Deserialize<DynamicClass>(JsonText);
         DynamicClass Instance = Dyn as DynamicClass;
         this.Properties = Instance.Properties;
     }
-
+    /// <summary>
+    /// Removes all dynamic properties.
+    /// </summary>
     public void RemoveAllProperties()
     {
         this.Properties.Clear();
     }
 
-    /* properties */
+    // ● properties
+    /// <summary>
+    /// Gets or sets a dynamic property value by property name.
+    /// </summary>
     [JsonIgnore]
     public object this[string PropName]
     {
-        get
-        {
-            return Properties[PropName];
-        }
+        get { return Properties[PropName]; }
         set
         {
             object OldValue = null;
@@ -137,23 +204,36 @@ public class DynamicClass: DynamicObject, INotifyPropertyChanged, ICustomTypeDes
                 OnPropertyChanged(PropName);
         }
     }
+    /// <summary>
+    /// Gets or sets the dictionary that stores dynamic properties.
+    /// </summary>
     public Dictionary<string, object> Properties { get; set; } = new Dictionary<string, object>();
+    /// <summary>
+    /// Gets the number of dynamic properties.
+    /// </summary>
     [JsonIgnore]
     public int PropertyCount { get { return Properties.Keys.Count; } }
 
-    /* events - INotifyPropertyChanged implementation */
+    // ● events
+    /// <summary>
+    /// Occurs when a dynamic property value changes.
+    /// </summary>
     public event PropertyChangedEventHandler PropertyChanged;
 }
 
-
-
-
+/// <summary>
+/// Provides property descriptor support for a dynamic property
+/// of a DynamicClass instance.
+/// </summary>
 public class DynamicPropertyDescriptor : PropertyDescriptor
 {
     DynamicClass Instance;
     Type PropType;
 
-    /* constructor */
+    // ● construction
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public DynamicPropertyDescriptor(DynamicClass Instance, string PropName, Type PropType, Attribute[] PropAttributes)
         : base(PropName, PropAttributes)
     {
@@ -161,29 +241,53 @@ public class DynamicPropertyDescriptor : PropertyDescriptor
         this.PropType = PropType;
     }
 
-    /* overrides */
-    public override object GetValue(object component)
+    // ● overrides
+    /// <summary>
+    /// Gets the property value.
+    /// </summary>
+    public override object GetValue(object Component)
     {
         return Instance[Name];
     }
-    public override void SetValue(object component, object value)
+    /// <summary>
+    /// Sets the property value.
+    /// </summary>
+    public override void SetValue(object Component, object Value)
     {
-        Instance[Name] = value;
+        Instance[Name] = Value;
     }
-    public override bool CanResetValue(object component)
+    /// <summary>
+    /// Returns true when the property value can be reset.
+    /// </summary>
+    public override bool CanResetValue(object Component)
     {
         return true;
     }
-    public override void ResetValue(object component)
+    /// <summary>
+    /// Resets the property value.
+    /// </summary>
+    public override void ResetValue(object Component)
     {
     }
-    public override bool ShouldSerializeValue(object component)
+    /// <summary>
+    /// Returns true when the property value should be serialized.
+    /// </summary>
+    public override bool ShouldSerializeValue(object Component)
     {
         return false;
     }
 
-    /* properties */
-    public override Type ComponentType  { get { return Instance.GetType(); } }
-    public override bool IsReadOnly  { get { return false; } }
+    // ● properties
+    /// <summary>
+    /// Gets the component type.
+    /// </summary>
+    public override Type ComponentType { get { return Instance.GetType(); } }
+    /// <summary>
+    /// Gets a value indicating whether this property is read-only.
+    /// </summary>
+    public override bool IsReadOnly { get { return false; } }
+    /// <summary>
+    /// Gets the property type.
+    /// </summary>
     public override Type PropertyType { get { return PropType; } }
 }

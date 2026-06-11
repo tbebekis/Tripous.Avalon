@@ -16,6 +16,9 @@ public class DefList<T> : TripousList<T>, IJsonLoadable where T : IDef
     bool fAllowDuplicateNames;
     
     // ● protected  
+    /// <summary>
+    /// Overrides the base method to check for duplicate names.
+    /// </summary>
     protected override void CheckAdding(T Def)
     {
         base.CheckAdding(Def);

@@ -73,62 +73,105 @@ Form: SalesOrder SalesOrderForm
 ItemPage: TradeItemPage
 DetailOrder: Trade=TradeLine, TradeTax
 DetailOrder: TradeLine=TradeLineTax
-Code: Draft SO-YYYY-XXXXXX 
+Code: Draft SO-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'SalesOrder'  
 
 Module: SalesDeliveryNote SalesDeliveryNoteDataModule
 Group: Sales
+Form: SalesDeliveryNote SalesDeliveryNoteForm  
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax  
 Code: Draft SDN-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'SalesDeliveryNote'  
 
 Module: SalesInvoice SalesInvoiceDataModule
 Group: Sales
+Form: SalesInvoice SalesInvoiceForm 
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax 
 Code: Draft SINV-YYYY-XXXXXX  
+ListWhere: DocumentType.ModuleName = 'SalesInvoice'  
 
 Module: SalesCreditNote SalesCreditNoteDataModule
 Group: Sales
+Form: SalesCreditNote SalesCreditNoteForm   
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax 
 Code: Draft SCN-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'SalesCreditNote'  
 
 Module: SalesReturn SalesReturnDataModule
 Group: Sales
+Form: SalesReturn SalesReturnForm   
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax 
 Code: Draft SRET-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'SalesReturn'  
 
 Module: SalesCancellation SalesCancellationDataModule
 Group: Sales
+Form: SalesCancellation SalesCancellationForm   
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax 
 Code: Draft SCAN-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'SalesCancellation'  
 
 Module: PurchaseOrder PurchaseOrderDataModule
 Group: Purchases
+Form: PurchaseOrder PurchaseOrderForm     
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax 
 Code: Draft PO-YYYY-XXXXXX  
+ListWhere: DocumentType.ModuleName = 'PurchaseOrder'  
 
 Module: PurchaseDeliveryNote PurchaseDeliveryNoteDataModule
 Group: Purchases
+Form: PurchaseDeliveryNote PurchaseDeliveryNoteForm  
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax 
 Code: Draft PDN-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'PurchaseDeliveryNote'  
 
 Module: PurchaseInvoice PurchaseInvoiceDataModule
 Group: Purchases
+Form: PurchaseInvoice PurchaseInvoiceForm  
 ItemPage: TradeItemPage
 Code: Draft PINV-YYYY-XXXXXX 
+ListWhere: DocumentType.ModuleName = 'PurchaseInvoice'  
 
 Module: PurchaseCreditNote PurchaseCreditNoteDataModule
 Group: Purchases
+Form: PurchaseCreditNote PurchaseCreditNoteForm   
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax 
 Code: Draft PCN-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'PurchaseCreditNote'  
 
 Module: PurchaseReturn PurchaseReturnDataModule
 Group: Purchases
+Form: PurchaseReturn PurchaseReturnForm   
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax 
 Code: Draft PRET-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'PurchaseReturn'  
 
 Module: PurchaseCancellation PurchaseCancellationDataModule
 Group: Purchases
+Form: PurchaseCancellation PurchaseCancellationForm   
 ItemPage: TradeItemPage
+DetailOrder: Trade=TradeLine, TradeTax
+DetailOrder: TradeLine=TradeLineTax 
 Code: Draft PCAN-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'PurchaseCancellation'  
   
 FieldGroups: Billing, Shipping, Amounts, Audit, Organization, Notes 
  

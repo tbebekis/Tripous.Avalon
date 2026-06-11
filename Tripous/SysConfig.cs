@@ -8,6 +8,10 @@
 
 namespace Tripous;
 
+
+/// <summary>
+/// Provides system configuration information.
+/// </summary>
 static public class SysConfig
 {
     static string fAppName;

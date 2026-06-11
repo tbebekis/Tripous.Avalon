@@ -8,10 +8,11 @@
 
 namespace Tripous;
 
-
 /// <summary>
-/// A command is actually a named callback function.
-/// <para>It can be used in menus, toolbars and treeviews.</para>
+/// Represents a named application command.
+/// 
+/// A command may execute a synchronous or asynchronous callback,
+/// open a form, or act as a container for child commands.
 /// </summary>
 public class Command: BaseDef
 {
@@ -20,62 +21,77 @@ public class Command: BaseDef
     DefList<Command> fCommands;
     
     // ● construction
+    /// <summary>
+    /// Creates a command with a name, image file name and optional title key.
+    /// </summary>
     static public Command Create(string Name, string ImageFileName, string TitleKey = null)
     {
         Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName };
         return Result;
     }
-    
+    /// <summary>
+    /// Creates a synchronous command with a name, image file name,
+    /// callback and optional title key.
+    /// </summary>
     static public Command Create(string Name, string ImageFileName, Func<Command, object> ExecuteFunc, string TitleKey = null)
     {
         Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName, ExecuteFunc = ExecuteFunc };
         return Result;
     }
+    /// <summary>
+    /// Creates an asynchronous command with a name, image file name,
+    /// callback and optional title key.
+    /// </summary>
     static public Command CreateAsync(string Name, string ImageFileName, Func<Command, Task<object>> ExecuteAsyncFunc, string TitleKey = null)
     {
         Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName, ExecuteAsyncFunc = ExecuteAsyncFunc };
         return Result;
     }
-    
+    /// <summary>
+    /// Creates a synchronous command with optional form, title key and image file name.
+    /// </summary>
     static public Command Create(string Name, Func<Command, object> ExecuteFunc, string Form = null, string TitleKey = null, string ImageFileName = null)
     {
         Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName, Form =  Form, ExecuteFunc = ExecuteFunc };
         return Result;
     }
+    /// <summary>
+    /// Creates an asynchronous command with optional form, title key and image file name.
+    /// </summary>
     static public Command CreateAsync(string Name, Func<Command, Task<object>> ExecuteAsyncFunc, string Form = null, string TitleKey = null, string ImageFileName = null)
     {
         Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName, Form =  Form, ExecuteAsyncFunc = ExecuteAsyncFunc };
         return Result;
     }
+    /// <summary>
+    /// Creates a command that opens a form.
+    /// </summary>
     static public Command CreateForm(string Name, string Form, string TitleKey = null, string ImageFileName = null)
     {
         Command Result = new() { Name = Name, TitleKey =  TitleKey, ImageFileName = ImageFileName, Form =  Form };
         return Result;
     }
-    
     /// <summary>
-    /// Constructor
+    /// Constructor.
     /// </summary>
     public Command()
     {
     }
     /// <summary>
-    /// Constructor
+    /// Constructs a command with the specified name.
     /// </summary>
     public Command(string Name)
     {
         this.Name = Name;
     }
  
-    
     // ● public
     /// <summary>
-    /// True if this is an executable command.
+    /// Returns true when this command can execute.
     /// </summary>
     public bool CanExecute() => CanExecuteFunc != null ? CanExecuteFunc(this) : true;
-
     /// <summary>
-    /// Executes this command.
+    /// Executes this command synchronously.
     /// </summary>
     public object Execute()
     {
@@ -83,9 +99,8 @@ public class Command: BaseDef
        object Result = ExecuteFunc != null && CanExecute() ? ExecuteFunc(this) : null;
        return Result;
     }
-
     /// <summary>
-    /// Executes this command.
+    /// Executes this command asynchronously.
     /// </summary>
     public async Task<object> ExecuteAsync()
     {
@@ -96,7 +111,8 @@ public class Command: BaseDef
 
     // ● properties
     /// <summary>
-    /// The file name of an image. Used when a command is displayed in toolbars or treeviews.
+    /// Gets the file name of the image used when this command
+    /// is displayed in menus, toolbars or tree views.
     /// </summary>
     public string ImageFileName
     {
@@ -104,7 +120,7 @@ public class Command: BaseDef
         init { if (fImageFileName != value) { fImageFileName = value; NotifyPropertyChanged(nameof(ImageFileName)); } }
     }
     /// <summary>
-    /// The form to show when the command is executed.
+    /// Gets the form name opened by this command.
     /// </summary>
     public string Form
     {
@@ -112,52 +128,49 @@ public class Command: BaseDef
         init { if (fForm != value) { fForm = value; NotifyPropertyChanged(nameof(Form)); } }
     }
     /// <summary>
-    /// A list of child commands. Could be empty.
+    /// Gets the child commands of this command.
     /// </summary>
     public DefList<Command> Commands
     {
         get => fCommands ??= [];
         init { if (fCommands != value) { fCommands = value; NotifyPropertyChanged(nameof(Commands)); } }
     }
-
     /// <summary>
-    /// Returns true if this a sync command.
-    /// <para>A command has no idea of what to execute.</para>
-    /// <para>The caller code should assign a callback function to <see cref="ExecuteFunc"/>.</para>
+    /// Gets a value indicating whether this command has a synchronous callback.
     /// </summary>
     public bool IsSync => ExecuteFunc != null;
     /// <summary>
-    /// Returns true if this an async command.
-    /// <para>A command has no idea of what to execute.</para>
-    /// <para>The caller code should assign a callback function  to <see cref="ExecuteAsyncFunc"/>.</para>
+    /// Gets a value indicating whether this command has an asynchronous callback.
     /// </summary>
     public bool IsAsync => ExecuteAsyncFunc != null;
-
     /// <summary>
-    /// True if this is a toggle command, a command that toggles a boolean value.
+    /// Gets or sets a value indicating whether this command toggles a Boolean value.
     /// </summary>
     public bool IsToggle { get; set; }
-
     /// <summary>
-    /// A callback. It is called just before command execution. Returning false, cancels the execution.
+    /// Gets or sets the callback that determines whether this command can execute.
     /// </summary>
     public Func<Command, bool> CanExecuteFunc { get; set; }
     /// <summary>
-    /// A callback that executes the command.
+    /// Gets or sets the synchronous callback that executes this command.
     /// </summary>
     public Func<Command, object> ExecuteFunc { get; set; }
     /// <summary>
-    /// A callback that executes the command.
+    /// Gets or sets the asynchronous callback that executes this command.
     /// </summary>
     public Func<Command, Task<object>> ExecuteAsyncFunc { get; set; }
-
     /// <summary>
-    /// True when this is a container command.
+    /// Gets a value indicating whether this command contains child commands.
     /// </summary>
     public bool HasChildren => fCommands != null && fCommands.Count > 0;
+    /// <summary>
+    /// Gets a value indicating whether this command should be serialized.
+    /// </summary>
     [JsonIgnore] public override bool IsSerializable => false;
     
     // ● events
+    /// <summary>
+    /// Occurs when this command is executed.
+    /// </summary>
     public event EventHandler ExecuteCommand;
-
 }

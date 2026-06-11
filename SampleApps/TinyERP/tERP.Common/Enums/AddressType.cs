@@ -245,5 +245,6 @@ public enum AssetStatus
 public enum DocumentAction
 {
     None,
-    Post
+    Post,
+    CreateDeliveryNote
 }

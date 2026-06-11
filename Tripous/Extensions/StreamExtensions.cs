@@ -9,6 +9,10 @@ namespace Tripous
 {
     using System.Text;
     
+    
+    /// <summary>
+    /// Extensions
+    /// </summary>
     static public class StreamExtensions
     {
         /* ●  copy-move content from one stream to another. NOTE: CopyTo() is added to Stream class in .Net 4 */

@@ -132,12 +132,14 @@ Group:  GROUP_NAME
 Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 Code:   Code [Draft] [Pattern] [ProviderName]
+ListWhere: SQL_CONDITION
 
 Module: MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
 Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 Code:   Code [Draft] [Pattern] [ProviderName]
+ListWhere: SQL_CONDITION
 FieldGroups: Address, Billing, Notes
 
 IsLookup | NotUiVisible | IsReadOnly
@@ -157,7 +159,7 @@ IsSingleSelect | NoFilters | NoCascadeDeletes | NoGuidOids
 - Free text comments may follow after the metadata section separator.
 
 ### Module block
-Each `Module` line starts a new module block. The following `Group`, optional `Form`, optional `ItemPage`, optional `DetailOrder`, and optional `Code` belong to that module block. A module block is complete when the next `Module` line starts or when non-module header metadata begins.
+Each `Module` line starts a new module block. The following `Group`, optional `Form`, optional `ItemPage`, optional `DetailOrder`, optional `ListWhere`, and optional `Code` belong to that module block. A module block is complete when the next `Module` line starts or when non-module header metadata begins.
 
 A module block has the following entries, in this order:
 
@@ -168,6 +170,7 @@ Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 DetailOrder: PARENT_TABLE_NAME=DETAIL_TABLE_NAME, DETAIL_TABLE_NAME
 Code: Code [Draft] [Pattern] [ProviderName]
+ListWhere: SQL_CONDITION
 ```
 
 - `Module` is required.
@@ -175,11 +178,14 @@ Code: Code [Draft] [Pattern] [ProviderName]
 - `Form` is optional.
 - `ItemPage` is optional.
 - `DetailOrder` is optional.
+- `ListWhere` is optional.
 - `Code` is optional.
 - If `Form` is omitted, the form name defaults to the module name and the form class defaults to `DataForm`.
 - If `ItemPage` is omitted, the item page class defaults to `ItemPage`.
 - `DetailOrder` defines the preferred order of a parent's direct child detail tabs. It may appear multiple times for different parent tables. Details not listed remain at the end in declaration order.
 - Example: `DetailOrder: Trade=TradeLine, TradeTax` and `DetailOrder: BillOfMaterial=BillOfMaterialLine, BillOfMaterialCost`.
+- `ListWhere` adds a module-specific condition to the generated list SELECT. Write only the condition, without the `WHERE` keyword.
+- `ListWhere` may reference the top table and generated join aliases.
 - If class names are omitted, default `DataModule`, `DataForm`, and `ItemPage` types are used.
 - If `Code` is omitted, field `-- Code` metadata is used as fallback.
 
@@ -195,18 +201,21 @@ Form: SalesOrder TradeForm
 ItemPage: TradeItemPage
 DetailOrder: Trade=TradeLine, TradeTax
 Code: Draft SO-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'SalesOrder'
 
 Module: SalesInvoice SalesInvoiceDataModule
 Group: Sales Invoices
 Form: SalesInvoice TradeForm
 ItemPage: TradeItemPage
 Code: Draft SI-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'SalesInvoice'
 
 Module: SalesCreditNote SalesCreditNoteDataModule
 Group: Sales Credit Notes
 Form: SalesCreditNote TradeForm
 ItemPage: TradeItemPage
 Code: Draft SCN-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'SalesCreditNote'
 
 FieldGroups: Dates, Party, Organization, Payment, Billing, Shipping, Relations, Amounts, Status, Audit, Notes
 
@@ -252,6 +261,15 @@ ItemPage: ItemPage                     → ItemPageClassName = ItemPage
 ItemPage: CustomerItemPage
 ```
 If `ItemPage` is omitted → `ItemPageClassName = ItemPage`.
+
+### ListWhere syntax
+
+```sql
+ListWhere: DocumentType.ModuleName = 'SalesOrder'
+ListWhere: Trade.IsActive = 1
+```
+
+The RegBuilder appends the condition as a `where` clause after the generated joins. Do not include the `WHERE` keyword. Only one `ListWhere` is allowed per module block.
 
 ### FieldGroups syntax
 Field grouping is defined at table level through an optional header entry:

@@ -216,7 +216,10 @@ public partial class DataForm : AppForm
         {
             Ui.Post(() =>
             {
-                ExecuteInsert();
+                if (Module.State != DataMode.Insert)
+                    ExecuteInsert();
+                else
+                    FormState = DataFormState.Insert;
                 UpdateUi();
             });
 

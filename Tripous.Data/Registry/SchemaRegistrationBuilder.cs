@@ -1500,7 +1500,7 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void BuildRegisterModuleMethod(StringBuilder SB, SchemaScript Script, SchemaTable TopTable, SchemaModuleBlock ModuleBlock)
     {
-        SelectBuildResult SelectResult = BuildListSelectSql(Script, TopTable);
+        SelectBuildResult SelectResult = BuildListSelectSql(Script, TopTable, ModuleBlock);
 
         SB.AppendLine("    static void RegisterModule_" + SafeIdentifier(ModuleBlock.ModuleName) + "()");
         SB.AppendLine("    {");
@@ -1627,10 +1627,9 @@ static public class SchemaRegistrationBuilder
             .ThenBy(x => x.Alias)
             .ToList();
 
-        SB.AppendLine("        string[] FilterFields = [" + string.Join(", ", FilterFields.Select(x => "\"" + EscapeString(x.Alias) + "\"")) + "];");
         SB.AppendLine("        SelectDef = Module.SelectList[0];");
-        SB.AppendLine("        foreach (string FieldName in FilterFields)");
-        SB.AppendLine("            SelectDef.AddFilter(FieldName, FieldName: FieldName);");
+        foreach (SelectField Field in FilterFields)
+            SB.AppendLine("        SelectDef.AddFilter(\"" + EscapeString(Field.Alias) + "\", FieldName: \"" + EscapeString(Field.Alias) + "\", FilterDataType: DataFieldType." + Field.DataType + ");");
     }
 
     static void BuildSelectColumnTypesSource(StringBuilder SB, SelectBuildResult SelectResult)
@@ -1704,7 +1703,7 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds list select SQL and filter field information.
     /// </summary>
-    static SelectBuildResult BuildListSelectSql(SchemaScript Script, SchemaTable TopTable)
+    static SelectBuildResult BuildListSelectSql(SchemaScript Script, SchemaTable TopTable, SchemaModuleBlock ModuleBlock)
     {
         SelectBuildResult Result = new();
         List<string> SelectLines = [];
@@ -1778,6 +1777,9 @@ static public class SchemaRegistrationBuilder
 
         foreach (string JoinLine in JoinLines)
             SB.AppendLine(JoinLine);
+
+        if (!string.IsNullOrWhiteSpace(ModuleBlock.ListWhere))
+            SB.AppendLine("where " + ModuleBlock.ListWhere);
 
         Result.SqlText = SB.ToString().TrimEnd();
 
@@ -2862,7 +2864,7 @@ static public class SchemaRegistrationBuilder
             return false;
         if (Field.DataType.IsBlob())
             return false;
-        return Field.DataType == DataFieldType.String || Field.DataType.IsNumeric() || Field.DataType.IsDateTime() || Field.DataType == DataFieldType.Boolean;
+        return Field.DataType.IsValidFilterType();
     }
     /// <summary>
     /// Returns an unique alias.
@@ -3497,6 +3499,20 @@ static public class SchemaRegistrationBuilder
                     continue;
                 }
 
+                if (Entry.Name.IsSameText("ListWhere"))
+                {
+                    if (Current == null)
+                        throw new TripousDataException("Invalid ListWhere header order. ListWhere must follow a Module line.");
+                    if (string.IsNullOrWhiteSpace(Current.GroupName))
+                        throw new TripousDataException("Invalid ListWhere header order. ListWhere must follow Group: " + Current.ModuleName);
+                    if (!string.IsNullOrWhiteSpace(Current.ListWhere))
+                        throw new TripousDataException("Invalid ListWhere header order. Module block contains duplicate ListWhere: " + Current.ModuleName);
+                    if (string.IsNullOrWhiteSpace(Entry.Value))
+                        throw new TripousDataException("Invalid ListWhere header syntax. Expected: ListWhere: SQL_CONDITION");
+                    Current.ListWhere = Entry.Value;
+                    continue;
+                }
+
                 if (Entry.Name.IsSameText("Code"))
                 {
                     if (Current == null)
@@ -3773,6 +3789,10 @@ static public class SchemaRegistrationBuilder
         /// Preferred direct child detail display order, keyed by parent table name.
         /// </summary>
         public Dictionary<string, List<string>> DetailOrder { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+        /// <summary>
+        /// Optional SQL condition appended to the generated list SELECT.
+        /// </summary>
+        public string ListWhere { get; set; }
         /// <summary>
         /// Code provider metadata.
         /// </summary>
