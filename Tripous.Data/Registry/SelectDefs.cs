@@ -15,10 +15,16 @@ namespace Tripous.Data;
 public class SelectDefs : DefList<SelectDef>
 {
     // ● construction
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public SelectDefs()
     {
     }
 
+    /// <summary>
+    /// Adds a new SELECT statement.
+    /// </summary>
     public SelectDef Add(string Name, string SqlText, string TitleKey = null)
     {
         SelectDef Result = new();

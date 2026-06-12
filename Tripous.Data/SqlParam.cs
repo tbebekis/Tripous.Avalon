@@ -8,20 +8,30 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// Represents a parameter for a SQL statement.
+/// </summary>
 public class SqlParam
 {
-    // ● private
-    string fName;
-    object fValue;
+ 
 
     // ● constructor
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public SqlParam(string Name, object Value)
     {
-        fName = Name;
-        fValue = Value;
+        this.Name = Name;
+        this.Value = Value;
     }
 
     // ● public
-    public string Name { get { return fName; } }
-    public object Value { get { return fValue; } }
+    /// <summary>
+    /// The parameter name
+    /// </summary>
+    public string Name { get; private set; }
+    /// <summary>
+    /// The parameter value
+    /// </summary>
+    public object Value { get; private set; }
 }

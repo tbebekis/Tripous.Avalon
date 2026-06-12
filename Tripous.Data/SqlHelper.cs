@@ -7,6 +7,9 @@
  */
 namespace Tripous.Data;
 
+/// <summary>
+/// A collection of static methods for manipulating Sql statements.
+/// </summary>
 public class SqlHelper
 {
     /// <summary>
@@ -66,6 +69,9 @@ public class SqlHelper
     /// seperator is the point.
     /// </summary>
     static public string FloatSQL(double Value) => FloatSql(Value.ToString());
+    /// <summary>
+    /// Converts the string Value to a float string, valid for S, i.e. ensures that the decimal
+    /// </summary>
     static public string FloatSql(string Value) => !string.IsNullOrWhiteSpace(Value) ? Value.Replace(',', '.') : "0";
     /// <summary>
     /// Normalizes Value for use in a LIKE clause. It returns a string as <code>LIKE 'VALUE%'</code>

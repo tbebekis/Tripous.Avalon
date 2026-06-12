@@ -7,19 +7,32 @@
  */
 namespace Tripous.Data;
 
+
+/// <summary>
+/// SqlProvider for Oracle databases.
+/// </summary>
 public class SqlProviderOracle : SqlProvider
 {
     // ● constructor
+    /// <summary>
+    /// Constructor
+    /// </summary>
     internal SqlProviderOracle()
         : base(DbServerType.Oracle)
     {
     }
 
     // ● miscs
+    /// <summary>
+    /// Creates a connection string
+    /// </summary>
     public override string CreateConnectionString(string Server, string Database, string UserName, string Password)
     {
         return string.Format(ConnectionStringTemplate, Server, UserName, Password);
     }
+    /// <summary>
+    /// Applies a row limit to the SqlText
+    /// </summary>
     public override string ApplyRowLimit(string SqlText, int RowLimit)
     {
         RowLimit = NormalizeRowLimit(RowLimit);
@@ -189,39 +202,130 @@ public class SqlProviderOracle : SqlProvider
  
     
     // ● properties
+    /// <summary>
+    /// The Oracle prefix for native parameters.
+    /// </summary>
     public override string NativePrefix => ":";
+    /// <summary>
+    /// The Oracle delimiter for object names.
+    /// </summary>
     public override string ObjectStartDelimiter => "\"";
+    /// <summary>
+    /// The Oracle delimiter for object names.
+    /// </summary>
     public override string ObjectEndDelimiter => "\"";
+    /// <summary>
+    /// The description of this sql provider
+    /// </summary>
     public override string Description => "Oracle";
 
+    /// <summary>
+    /// The Oracle super user name.
+    /// </summary>
     public override string SuperUser => "sysdba";
+    /// <summary>
+    /// The Oracle super user password.
+    /// </summary>
     public override string SuperUserPassword => "oracle";
     
+    /// <summary>
+    /// True if this provider can create databases.
+    /// </summary>
     public override bool CanCreateDatabases => false;
+    /// <summary>
+    /// True if this provider supports generators.
+    /// </summary>
     public override bool SupportsGenerators => true;
+    /// <summary>
+    /// True if this provider supports auto-increment fields.
+    /// </summary>
     public override bool SupportsAutoIncFields => false;
     
+    /// <summary>
+    /// The OID mode this provider supports.
+    /// </summary>
     public override OidMode OidMode => OidMode.Generator;
     
+    /// <summary>
+    /// A list of strings used as server name key in connection strings.
+    /// </summary>
     public override string[] ServerKeys => new[] { "Data Source" };
+    /// <summary>
+    /// A list of strings used as database name key in connection strings.
+    /// </summary>
     public override string[] DatabaseKeys => Array.Empty<string>();
+    /// <summary>
+    /// A list of strings used as user name key in connection strings.
+    /// </summary>
     public override string[] UserNameKeys => new[] { "User Id" };
+    /// <summary>
+    /// A list of strings used as password key in connection strings.
+    /// </summary>
     public override string[] PasswordKeys => new[] { "Password" };
     
+    /// <summary>
+    /// The keyword that can be used to return the current datetime in an SQL statement.
+    /// </summary>
     public override string ServerDateTimeSql => "SYSDATE";
+    /// <summary>
+    /// The keyword that can be used to return the last inserted id in an SQL statement.
+    /// </summary>
     public override string LastIdSql => string.Empty;
+    
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string PrimaryKeySql => "integer not null primary key";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string AutoIncSql => throw new NotSupportedException("Auto-increment fields are not supported by Oracle. Use sequence instead.");
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string VarcharSql => "varchar2";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string NVarcharSql => "nvarchar2";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string FloatSql => "float";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string DecimalSql => "decimal(18, 4)";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string DateSql => "date";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string DateTimeSql => "timestamp";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string BoolSql => "integer";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string BlobSql => "blob";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string BlobTextSql => "clob";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string NBlobTextSql => "nclob";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string NotNullSql => "not null";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string NullSql => " ";
 }

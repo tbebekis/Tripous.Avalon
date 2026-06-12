@@ -24,6 +24,9 @@ public class LocatorFieldDef: BaseDef
     bool fIsSearchable;
     bool fIsVisible;
 
+    /// <summary>
+    /// Overrides <see cref="BaseDef.GetTitleKey"/>
+    /// </summary>
     protected override string GetTitleKey() => !string.IsNullOrWhiteSpace(fTitleKey) ? fTitleKey : Alias;
  
 

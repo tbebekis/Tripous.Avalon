@@ -8,9 +8,15 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// SqlProvider for Microsoft SQL Server databases.
+/// </summary>
 public class SqlProviderMsSql : SqlProvider
 {
     // ● constructor
+    /// <summary>
+    /// Constructor
+    /// </summary>
     internal SqlProviderMsSql()
         : base(DbServerType.MsSql)
     {
@@ -27,6 +33,9 @@ public class SqlProviderMsSql : SqlProvider
     }
     
     // ● miscs
+    /// <summary>
+    /// Creates a database.
+    /// </summary>
     public override bool CreateDatabase(string ConnectionString)
     {
         if (CanConnect(ConnectionString))
@@ -60,6 +69,9 @@ public class SqlProviderMsSql : SqlProvider
 
         return true;
     }
+    /// <summary>
+    /// Applies a row limit to the SqlText SELECT statement.
+    /// </summary>
     public override string ApplyRowLimit(string SqlText, int RowLimit)
     {
         RowLimit = NormalizeRowLimit(RowLimit);
@@ -178,34 +190,116 @@ exec('ALTER TABLE {TableName} DROP CONSTRAINT ' +  @ConstraintName)
     }
 
     // ● properties
+    /// <summary>
+    /// The prefix used for native parameters.
+    /// </summary>
     public override string NativePrefix => "@";
+    /// <summary>
+    /// The delimiter used to quote object names.
+    /// </summary>
     public override string ObjectStartDelimiter => "[";
+    /// <summary>
+    /// The delimiter used to quote object names.
+    /// </summary>
     public override string ObjectEndDelimiter => "]";
 
+    /// <summary>
+    /// True if this provider can create databases.
+    /// </summary>
     public override bool CanCreateDatabases => true;
+    /// <summary>
+    /// True if this provider supports generators.
+    /// </summary>
     public override bool SupportsGenerators  => false;
+    /// <summary>
+    /// True if this provider supports auto-increment fields.
+    /// </summary>
     public override bool SupportsAutoIncFields  => true;
+    /// <summary>
+    /// The super user name.
+    /// </summary>
     public override string SuperUser => "sa";
+    /// <summary>
+    /// The super user password.
+    /// </summary>
     public override string SuperUserPassword => string.Empty;
+    /// <summary>
+    /// The OidMode.
+    /// </summary>
     public override OidMode OidMode => OidMode.AutoInc;
     
+    /// <summary>
+    /// A list of strings used as server name key in connection strings.
+    /// </summary>
     public override string[] ServerKeys => new[] { "Data Source", "Server" };
+    /// <summary>
+    /// A list of strings used as database name key in connection strings.
+    /// </summary>
     public override string[] DatabaseKeys => new[] { "Initial Catalog", "Database" };
+    /// <summary>
+    /// A list of strings used as user name key in connection strings.
+    /// </summary>
     public override string[] UserNameKeys => new[] { "User ID", "User Id", "Uid" };
+    /// <summary>
+    /// A list of strings used as password key in connection strings.
+    /// </summary>
     public override string[] PasswordKeys => new[] { "Password", "Pwd" };
 
+    /// <summary>
+    /// A description of this provider.
+    /// </summary>
     public override string Description => "Microsoft SQL Server";
+    /// <summary>
+    /// The keyword that can be used to return the current datetime in an SQL statement.
+    /// </summary>
     public override string ServerDateTimeSql => "CURRENT_TIMESTAMP";
+    /// <summary>
+    /// The keyword that can be used to return the last inserted id in an SQL statement.
+    /// </summary>
     public override string LastIdSql => "select scope_identity()";
+    
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string AutoIncSql => "int identity(1,1)";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string VarcharSql => "varchar";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string NVarcharSql => "nvarchar";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string FloatSql => "float";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string DecimalSql => "decimal(18, 4)";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string DateSql => "date";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string DateTimeSql => "datetime";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string BoolSql => "int";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string BlobSql => "varbinary(max)";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string BlobTextSql => "varchar(max)";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string NBlobTextSql => "nvarchar(max)";
 }

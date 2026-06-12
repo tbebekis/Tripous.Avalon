@@ -8,6 +8,9 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// Represents a set of tables that are related to each other.
+/// </summary>
 public class TableSet
 {
     MemTable ListTable;
@@ -265,6 +268,9 @@ public class TableSet
     // ● public
     
     // ● list database operations  
+    /// <summary>
+    /// Executes the SELECT SqlText and puts the returned data rows to the ListTable.
+    /// </summary>
     public int ListSelect(string SqlText) => ListSelect(ListTable, SqlText);
     /// <summary>
     /// Executes the SELECT SqlText and puts the returned data rows to the Table.
@@ -299,14 +305,26 @@ public class TableSet
 
     }
     
+    /// <summary>
+    /// Saves the ListTable to the database.
+    /// </summary>
     public void ListSave() => ListSave(ListTable);
+    /// <summary>
+    /// Saves the Table to the database.
+    /// </summary>
     public void ListSave(MemTable Table)
     {
         DbOpContext Context = CreateDbOpContext(ListTable);
         DbOps.PostChanges(Context);
     }
     
+    /// <summary>
+    /// Cancel any pending edit operation in the ListTable.
+    /// </summary>
     public void ListCancel() => ListCancel(ListTable);
+    /// <summary>
+    /// Cancel any pending edit operation in the Table.
+    /// </summary>
     public void ListCancel(MemTable Table) => Table.RejectChanges();
     
     // ● item database operations  
@@ -469,7 +487,13 @@ public class TableSet
         return LastCommitedId;
     }
  
+    /// <summary>
+    /// Cancels any pending edit operation in the whole table tree.
+    /// </summary>
     public void AcceptChanges() => ItemTable.AcceptChangesAll();
+    /// <summary>
+    /// Rejects any pending edit operation in the whole table tree.
+    /// </summary>
     public void RejectChanges() => ItemTable.RejectChangesAll();
     /// <summary>
     /// Returns true if ItemTable table, or any of its details, in any depth, has changes.

@@ -42,7 +42,10 @@ public class TableSqls
 
         fDisplayLabels = null;
     }
-
+    /// <summary>
+    /// Copies all statements from the specified source
+    /// </summary>
+    /// <param name="Source"></param>
     public void AssignFrom(TableSqls Source)
     {
         Clear();
@@ -51,7 +54,7 @@ public class TableSqls
     
  
     /// <summary>
-    /// Loads <see cref="FieldTitleKeys"/> from a specified text.
+    /// Loads field title keys from a specified text.
     /// <para>NOTE: The specified text must contain string lines separated by <see cref="Environment.NewLine"/> 
     /// where ecah line contains an equal sign character, e.g. FIELD_NAME=TitleKey.</para>
     /// </summary>
@@ -123,5 +126,8 @@ public class TableSqls
         set => fDisplayLabels = value;
     }
     
+    /// <summary>
+    /// True if <see cref="DisplayLabels"/> is not empty
+    /// </summary>
     [JsonIgnore] public bool HasDisplayLabels => fDisplayLabels != null && fDisplayLabels.Count > 0;
 }

@@ -5,21 +5,20 @@
  * Licensed under the Tripous License.
  * See License.txt for details.
  */
+
 namespace Tripous.Data;
 
-
+// ● public
 /// <summary>
 /// Describes a filter applied to a Field.
 /// <para>The field could be a <see cref="DataColumn"/> in a <see cref="DataView"/> or a field in a <c>SELECT</c> statement text.</para>
 /// <para>It can be used to construct the <see cref="DataView.RowFilter"/> or to construct the <c>WHERE</c> clause of a <c>SELECT</c> statement. </para>
 /// </summary>
-public class SqlFilterDef: BaseDef
+public class SqlFilterDef : BaseDef
 {
-    // NOTE: get the RowFilterItemDialog from Tripous.Avalon.OLD solution, it creates the controls for a single filter.
-    
+    // ● private fields
     BoolOp fBoolOp;
     ConditionOp fConditionOp;
-    
     string fFieldName;
     DataFieldType fFilterDataType = DataFieldType.String;
     bool fCorrectingSerialization;
@@ -30,7 +29,10 @@ public class SqlFilterDef: BaseDef
     object fValue;
     object fValue2;
 
-    // ● overrides
+    // ● private methods
+    /// <summary>
+    /// Synchronizes runtime object values and serialized text representations bi-directionally.
+    /// </summary>
     void CorrectSerialization()
     {
         if (fCorrectingSerialization)
@@ -54,7 +56,7 @@ public class SqlFilterDef: BaseDef
                         if (FirstNonNull != null)
                             ItemType = FirstNonNull.GetType();
 
-                        fValueType = ItemType.FullName; //ItemType.AssemblyQualifiedName;
+                        fValueType = ItemType.FullName;
                         fValueText = string.Join("\u001F", Items.Select(ConvertToText));
 
                         fValue2 = null;
@@ -68,12 +70,12 @@ public class SqlFilterDef: BaseDef
                 }
                 else
                 {
-                    fValueType = fValue.GetType().FullName; //fValue.GetType().AssemblyQualifiedName;
+                    fValueType = fValue.GetType().FullName;
                     fValueText = ConvertToText(fValue);
 
                     if (fValue2 != null)
                     {
-                        fValue2Type = fValue2.GetType().FullName; //fValue2.GetType().AssemblyQualifiedName;
+                        fValue2Type = fValue2.GetType().FullName;
                         fValue2Text = ConvertToText(fValue2);
                     }
                     else
@@ -121,7 +123,9 @@ public class SqlFilterDef: BaseDef
             fCorrectingSerialization = false;
         }
     }
-    
+    /// <summary>
+    /// Formats a primitive typed value into a culture-invariant text token string.
+    /// </summary>
     static string ConvertToText(object Value)
     {
         if (Value == null)
@@ -152,6 +156,9 @@ public class SqlFilterDef: BaseDef
 
         return Convert.ToString(Value, CultureInfo.InvariantCulture);
     }
+    /// <summary>
+    /// Parses a culture-invariant text token string into an instance object of the target definition type.
+    /// </summary>
     static object ConvertFromText(string Text, Type T)
     {
         if (Text == null)
@@ -199,12 +206,18 @@ public class SqlFilterDef: BaseDef
         return Convert.ChangeType(Text, T, CultureInfo.InvariantCulture);
     }
 
-    // ● construction
+    // ● constructors
+    /// <summary>
+    /// Initializes a new instance of the SqlFilterDef class.
+    /// </summary>
     public SqlFilterDef()
     {
     }
 
-    // ● public
+    // ● public methods
+    /// <summary>
+    /// Validates core structural configuration properties of this operational descriptor block.
+    /// </summary>
     public override void CheckDescriptor()
     {
         base.CheckDescriptor();
@@ -221,6 +234,9 @@ public class SqlFilterDef: BaseDef
         if (string.IsNullOrWhiteSpace(FieldName))
             throw new ApplicationException("A WHERE item must have a field name");
     }
+    /// <summary>
+    /// Validates core properties structural attributes along with runtime value presence states matching operation tokens.
+    /// </summary>
     public void CheckDescriptorWithValues()
     {
         CheckDescriptor();
@@ -250,26 +266,33 @@ public class SqlFilterDef: BaseDef
     }
 
     // ● properties
+    /// <summary>
+    /// Gets or sets the logical boolean operator linking this expression component to adjacent conditions.
+    /// </summary>
     public BoolOp BoolOp
     {
         get => fBoolOp != BoolOp.None ? fBoolOp : BoolOp.Or;
         set { if (fBoolOp != value) { fBoolOp = value; NotifyPropertyChanged(nameof(BoolOp)); } }
     }
+    /// <summary>
+    /// Gets or sets the query conditional evaluation comparison operator indicator token.
+    /// </summary>
     public ConditionOp ConditionOp 
     {
         get => fConditionOp != ConditionOp.None ? fConditionOp : ConditionOp.Equal;
         set { if (fConditionOp != value) { fConditionOp = value; NotifyPropertyChanged(nameof(ConditionOp)); } }
     }
     /// <summary>
-    /// Except of the <see cref="BaseDef.Name"/> we need the FieldName too, because in some cases, e.g. SQL WHERE filters,
-    /// we may need the same name twice when constructing something like
-    /// <para><c> MyDate &gt;= Value1 and MyDate &lt;= Value2</c></para>
+    /// Gets or sets the literal target data column database identifier property field title string name.
     /// </summary>
     public string FieldName
     {
         get => !string.IsNullOrWhiteSpace(fFieldName) ? fFieldName : Name;
         set { if (fFieldName != value) { fFieldName = value; NotifyPropertyChanged(nameof(FieldName)); } }
     }
+    /// <summary>
+    /// Gets or sets the structural evaluation data classification rules defined for filter calculations.
+    /// </summary>
     public DataFieldType FilterDataType
     {
         get => fFilterDataType;
@@ -284,7 +307,13 @@ public class SqlFilterDef: BaseDef
             } 
         }
     }
+    /// <summary>
+    /// Gets the CLR type representation mapped directly from internal classification flags rules.
+    /// </summary>
     [JsonIgnore] public Type DataType => FilterDataType.GetNetType();
+    /// <summary>
+    /// Gets or sets the primary raw condition argument data token instance applied to queries.
+    /// </summary>
     [JsonIgnore]
     public object Value
     {
@@ -295,6 +324,9 @@ public class SqlFilterDef: BaseDef
             CorrectSerialization();
         }
     }
+    /// <summary>
+    /// Gets or sets the secondary boundary condition argument data token instance applied to range queries.
+    /// </summary>
     [JsonIgnore]
     public object Value2
     {
@@ -305,6 +337,9 @@ public class SqlFilterDef: BaseDef
             CorrectSerialization();
         }
     }
+    /// <summary>
+    /// Gets or sets the culture-invariant serialized text token mapping for the primary filtering argument value.
+    /// </summary>
     public string ValueText
     {
         get => fValueText;
@@ -314,6 +349,9 @@ public class SqlFilterDef: BaseDef
             CorrectSerialization();
         }
     }
+    /// <summary>
+    /// Gets or sets the culture-invariant serialized text token mapping for the secondary boundary argument value.
+    /// </summary>
     public string Value2Text
     {
         get => fValue2Text;
@@ -323,6 +361,9 @@ public class SqlFilterDef: BaseDef
             CorrectSerialization();
         }
     }
+    /// <summary>
+    /// Gets or sets the target assembly-qualified runtime CLR object identifier class name string for primary value parsing rules.
+    /// </summary>
     public string ValueType
     {
         get => fValueType;
@@ -332,6 +373,9 @@ public class SqlFilterDef: BaseDef
             CorrectSerialization();
         }
     }
+    /// <summary>
+    /// Gets or sets the target assembly-qualified runtime CLR object identifier class name string for secondary boundary parsing rules.
+    /// </summary>
     public string Value2Type
     {
         get => fValue2Type;
@@ -342,5 +386,3 @@ public class SqlFilterDef: BaseDef
         }
     }
 }
-
-

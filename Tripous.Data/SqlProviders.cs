@@ -8,6 +8,9 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// A collection of SqlProvider instances.
+/// </summary>
 static public class SqlProviders
 {
     static readonly Lazy<SqlProviderMsSql> fMsSql = new(() => new SqlProviderMsSql());
@@ -17,6 +20,9 @@ static public class SqlProviders
     static readonly Lazy<SqlProviderPostgreSql> fPostgreSql = new(() => new SqlProviderPostgreSql());
     static readonly Lazy<SqlProviderOracle> fOracle = new(() => new SqlProviderOracle());
 
+    /// <summary>
+    /// Gets the SqlProvider instance for the specified DbServerType.
+    /// </summary>
     static public SqlProvider GetSqlProvider(DbServerType DbServerType)
     {
         switch (DbServerType)
@@ -32,10 +38,28 @@ static public class SqlProviders
         throw new Exception($"Unsupported DbServerType: {DbServerType}");
     }
 
+    /// <summary>
+    /// Gets a SqlProvider instance  
+    /// </summary>
     static public SqlProviderMsSql MsSql => fMsSql.Value;
+    /// <summary>
+    /// Gets a SqlProvider instance  
+    /// </summary>
     static public SqlProviderMySql MySql => fMySql.Value;
+    /// <summary>
+    /// Gets a SqlProvider instance  
+    /// </summary>
     static public SqlProviderFirebird Firebird => fFirebird.Value;
+    /// <summary>
+    /// Gets a SqlProvider instance  
+    /// </summary>
     static public SqlProviderSqlite Sqlite => fSqlite.Value;
+    /// <summary>
+    /// Gets a SqlProvider instance  
+    /// </summary>
     static public SqlProviderPostgreSql PostgreSql => fPostgreSql.Value;
+    /// <summary>
+    /// Gets a SqlProvider instance  
+    /// </summary>
     static public SqlProviderOracle Oracle => fOracle.Value;
 }

@@ -31,6 +31,9 @@ public class FieldDef: BaseDef
     string fToolTip;
     string fSnapshotOf;
 
+    /// <summary>
+    /// Overrides <see cref="BaseDef.GetTitleKey"/> to return the Alias of this field if this is a field of a join table.
+    /// </summary>
     protected override string GetTitleKey()
     {
         if (string.IsNullOrWhiteSpace(fTitleKey) && TableDef != null && TableDef.IsJoin)
@@ -167,17 +170,26 @@ public class FieldDef: BaseDef
         this.fIsNullable = Value;
         return this;
     }
+    /// <summary>
+    /// Sets the <see cref="Group"/> and returns this instance.
+    /// </summary>
     public FieldDef SetGroup(string Value)
     {
         this.Group = Value;
         return this;
     }
+    /// <summary>
+    /// Sets the Memo <see cref="FieldFlags"/> flag and returns this instance."
+    /// </summary>
     public FieldDef SetMemo()
     {
         Flags &= ~FieldFlags.LargeMemo;
         this.Flags |= FieldFlags.Memo;
         return this;
     }
+    /// <summary>
+    /// Sets the LargeMemo <see cref="FieldFlags"/> flag and returns this instance."
+    /// </summary>
     public FieldDef SetLargeMemo()
     {
         Flags &= ~FieldFlags.Memo;
@@ -211,6 +223,9 @@ public class FieldDef: BaseDef
         }
         set { if (fAlias != value) { fAlias = value; NotifyPropertyChanged(nameof(Alias)); } }
     }
+    /// <summary>
+    /// The data type of this field.
+    /// </summary>
     public DataFieldType DataType
     {
         get => fDataType;
@@ -233,51 +248,81 @@ public class FieldDef: BaseDef
         get => fSnapshotOf;
         set { if (fSnapshotOf != value) { fSnapshotOf = value; NotifyPropertyChanged(nameof(SnapshotOf)); } }
     }
+    /// <summary>
+    /// Gets or sets the maximum length of the field. -1 means is not set.
+    /// </summary>
     public int MaxLength
     {
         get => fSize > 0 ? fSize : -1;
         set { if (fSize != value) { fSize = value; NotifyPropertyChanged(nameof(MaxLength)); } }
     }
+    /// <summary>
+    /// Gets or sets a value indicating whether this field is nullable.
+    /// </summary>
     public bool IsNullable
     {
         get => fIsNullable;
         set { if (fIsNullable != value) { fIsNullable = value; NotifyPropertyChanged(nameof(IsNullable)); } }
     }
+    /// <summary>
+    /// Gets or sets the field flags.
+    /// </summary>
     public FieldFlags Flags
     {
         get => fFlags;
         set { if (fFlags != value) { fFlags = value; NotifyPropertyChanged(nameof(Flags)); } }
     }
+    /// <summary>
+    /// Gets or sets the default value of the field.
+    /// </summary>
     public string DefaultValue
     {
         get => string.IsNullOrEmpty(fDefaultValue) ? Sys.NULL : fDefaultValue;
         set { if (fDefaultValue != value) { fDefaultValue = value; NotifyPropertyChanged(nameof(DefaultValue)); } }
     }
+    /// <summary>
+    /// Gets or sets the expression of the field.
+    /// </summary>
     public string Expression
     {
         get => string.IsNullOrEmpty(fExpression) ? string.Empty : fExpression;
         set { if (fExpression != value) { fExpression = value; NotifyPropertyChanged(nameof(Expression)); } }
     }
+    /// <summary>
+    /// Gets or sets the format string to be used for displaying the field value.
+    /// </summary>
     public string DisplayFormat
     {
         get => !string.IsNullOrWhiteSpace(fDisplayFormat) ? fDisplayFormat : DataType.GetDefaultFormat();
         set { if (fDisplayFormat != value) { fDisplayFormat = value; NotifyPropertyChanged(nameof(DisplayFormat)); } }
     }
+    /// <summary>
+    /// Gets or sets the format string to be used for editing the field value.
+    /// </summary>
     public string EditFormat
     {
         get => !string.IsNullOrWhiteSpace(fEditFormat) ? fEditFormat : DataType.GetDefaultFormat();
         set { if (fEditFormat != value) { fEditFormat = value; NotifyPropertyChanged(nameof(EditFormat)); } }
     }
+    /// <summary>
+    /// Gets or sets the width of the field in pixels. 0 means is not set.
+    /// </summary>
     public int DisplayWidth
     {
         get => fDisplayWidth >= 0 ? fDisplayWidth : 0;
         set { if (fDisplayWidth != value) { fDisplayWidth = value; NotifyPropertyChanged(nameof(DisplayWidth)); } }
     }
+    /// <summary>
+    /// Gets or sets the name of the lookup source descriptor associated to this field.
+    /// </summary>
     public string LookupSource
     {
         get => fLookupSource;
         set { if (fLookupSource != value) { fLookupSource = value; NotifyPropertyChanged(nameof(LookupSource)); } }
     }
+    /// <summary>
+    /// Gets or sets the name of the locator descriptor associated to this field.
+    /// </summary>
     public string Locator
     {
         get => fLocator;
@@ -299,6 +344,9 @@ public class FieldDef: BaseDef
         get => fCodeProvider;
         set { if (fCodeProvider != value) { fCodeProvider = value; NotifyPropertyChanged(nameof(CodeProvider)); } }
     }
+    /// <summary>
+    /// Gets or sets the ToolTip text of the field.
+    /// </summary>
     public string ToolTip 
     {
         get => !string.IsNullOrWhiteSpace(fToolTip)? fToolTip: Name;
@@ -329,9 +377,21 @@ public class FieldDef: BaseDef
     /// Returns true when the ReadOnlyEdit flag is set in Flags.
     /// </summary>
     [JsonIgnore] public bool IsReadOnlyEdit => (FieldFlags.ReadOnlyEdit & Flags) == FieldFlags.ReadOnlyEdit;
+    /// <summary>
+    /// Returns true when the data type is a numeric type.
+    /// </summary>
     [JsonIgnore] public bool IsNumeric => DataType.IsNumeric();
+    /// <summary>
+    /// Returns true when the data type is an integer type.
+    /// </summary>
     [JsonIgnore] public bool IsInteger => DataType == DataFieldType.Integer;
+    /// <summary>
+    /// Returns true when the data type is a float type.
+    /// </summary>
     [JsonIgnore] public bool IsFloat => DataType.IsFloat();
+    /// <summary>
+    /// Returns true when the data type is a date type.
+    /// </summary>
     [JsonIgnore] public bool IsDateTime => DataType.IsDateTime();
     /// <summary>
     /// Returns true when the Boolean flag is set in Flags.
@@ -341,7 +401,13 @@ public class FieldDef: BaseDef
     /// Returns true when the Memo flag is set in Flags.
     /// </summary>
     [JsonIgnore] public bool IsMemo => (FieldFlags.Memo & Flags) == FieldFlags.Memo;
+    /// <summary>
+    /// Returns true when the LargeMemo flag is set in Flags.
+    /// </summary>
     [JsonIgnore] public bool IsLargeMemo => FieldFlags.LargeMemo.In(Flags);
+    /// <summary>
+    /// Returns true when the data type is a blob type.
+    /// </summary>
     [JsonIgnore] public bool IsBlob => DataType.IsBlob();
     /// <summary>
     /// Returns true when the Image flag is set in Flags.
@@ -372,7 +438,16 @@ public class FieldDef: BaseDef
     /// </summary>
     [JsonIgnore] public bool IsNoInsertOrUpdate => (FieldFlags.NoInsertUpdate & Flags) == FieldFlags.NoInsertUpdate;
     
+    /// <summary>
+    /// Returns true when this field is a bindable one, i.e. is visible and is not a blob
+    /// </summary>
     [JsonIgnore] public bool IsBindable => IsVisible && !DataType.In(DataFieldType.None | DataFieldType.Blob);
+    /// <summary>
+    /// Returns true when this field is a lookup field.
+    /// </summary>
     [JsonIgnore] public bool IsLookup => !string.IsNullOrWhiteSpace(LookupSource);
+    /// <summary>
+    /// Returns true when this field is a locator field.
+    /// </summary>
     [JsonIgnore] public bool IsLocator => !string.IsNullOrWhiteSpace(Locator);
 }

@@ -8,6 +8,9 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// Represents a SQL SELECT statement.
+/// </summary>
 public class SelectSql : BaseDef
 {
     // ● private

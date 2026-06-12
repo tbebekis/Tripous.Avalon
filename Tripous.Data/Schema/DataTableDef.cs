@@ -497,7 +497,7 @@ public class DataTableDef
     }
     /// <summary>
     ///  Creates, adds and returns a primary key field.
-    ///  <para>NOTE: This version adds a data-type according to <see cref="SysConfig.GuidOids"/> flag.</para>
+    ///  <para>NOTE: This version adds a data-type according to <see cref="DbConfig.GuidOids"/> flag.</para>
     /// </summary>
     public DataFieldDef AddId(string FieldName = "Id",  int Length = 40, string TitleKey = null)
     {

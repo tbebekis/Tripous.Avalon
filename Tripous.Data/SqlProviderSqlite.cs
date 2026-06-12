@@ -7,9 +7,15 @@
  */
 namespace Tripous.Data;
 
+/// <summary>
+/// SqlProvider for SQLite3 databases.
+/// </summary>
 public class SqlProviderSqlite : SqlProvider
 {
     // ● constructor
+    /// <summary>
+    /// Constructor
+    /// </summary>
     internal SqlProviderSqlite()
         : base(DbServerType.Sqlite)
     {
@@ -35,6 +41,9 @@ public class SqlProviderSqlite : SqlProvider
         FilePath = ConnectionStringBuilder.ReplacePathPlaceholders(FilePath);
         return !string.IsNullOrWhiteSpace(FilePath) && File.Exists(FilePath);
     }
+    /// <summary>
+    /// Creates the database represented by the specified connection string.
+    /// </summary>
     public override bool CreateDatabase(string ConnectionString)
     {
         /*
@@ -67,6 +76,9 @@ public class SqlProviderSqlite : SqlProvider
 
         return true;
     }
+    /// <summary>
+    /// Applies a row limit to the specified SQL text.
+    /// </summary>
     public override string ApplyRowLimit(string SqlText, int RowLimit)
     {
         RowLimit = NormalizeRowLimit(RowLimit);
@@ -75,12 +87,20 @@ public class SqlProviderSqlite : SqlProvider
 
         return $"{SqlText.TrimEnd()} limit {RowLimit}";
     }
+    /// <summary>
+    /// Returns a concatenation of the specified parts.
+    /// </summary>
     public override string Concat(params string[] Parts) => string.Join(" || ", Parts);
+    /// <summary>
+    /// Creates a connection string based on the specified server, database, user name and password.
+    /// </summary>
     public override string CreateConnectionString(string Server, string Database, string UserName, string Password)
     {
         return string.Format(ConnectionStringTemplate, Database);
     }
-
+    /// <summary>
+    /// Normalizes the specified connection string.
+    /// </summary>
     public override string NormalizeConnectionString(string ConnectionString)
     {
         List<DbConProp> PropList = ConnectionStringAdapter.Parse(ConnectionString);
@@ -165,35 +185,119 @@ public class SqlProviderSqlite : SqlProvider
     }
  
     // ● properties
+    /// <summary>
+    /// The prefix used in parameter names.
+    /// </summary>
     public override string NativePrefix => ":";
+    /// <summary>
+    /// The delimiter used to quote object names.
+    /// </summary>
     public override string ObjectStartDelimiter => "\"";
+    /// <summary>
+    /// The delimiter used to quote object names.
+    /// </summary>
     public override string ObjectEndDelimiter => "\"";
+    /// <summary>
+    /// The description of this sql provider
+    /// </summary>
     public override string Description => "SQLite3";
  
+    /// <summary>
+    /// The keyword that can be used to return the current datetime in an SQL statement.
+    /// </summary>
     public override string ServerDateTimeSql => "CURRENT_TIMESTAMP";
+    /// <summary>
+    /// The keyword that can be used to return the last inserted id in an SQL statement.
+    /// </summary>
     public override string LastIdSql => "select last_insert_rowid()";
+    /// <summary>
+    /// True if the provider can create databases.
+    /// </summary>
     public override bool CanCreateDatabases => true;
+    /// <summary>
+    /// True if the provider supports generators.
+    /// </summary>
     public override bool SupportsGenerators => false;
+    /// <summary>
+    /// True if the provider supports auto-increment fields.
+    /// </summary>
     public override bool SupportsAutoIncFields => true;
+    /// <summary>
+    /// The OID mode this provider supports.
+    /// </summary>
     public override OidMode OidMode => OidMode.AutoInc;
     
+    /// <summary>
+    /// A list of strings used as server name key in connection strings.
+    /// </summary>
     public override string[] ServerKeys => Array.Empty<string>();
+    /// <summary>
+    /// A list of strings used as database name key in connection strings.
+    /// </summary>
     public override string[] DatabaseKeys => new[] { "Data Source" };
+    /// <summary>
+    /// A list of strings used as user name key in connection strings.
+    /// </summary>
     public override string[] UserNameKeys => Array.Empty<string>();
+    /// <summary>
+    /// A list of strings used as password key in connection strings.
+    /// </summary>
     public override string[] PasswordKeys => Array.Empty<string>();
     
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string PrimaryKeySql => "integer not null primary key autoincrement";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string AutoIncSql => "integer autoincrement";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string VarcharSql => "varchar";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string NVarcharSql => "nvarchar";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string FloatSql => "real";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string DecimalSql => "real";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string DateSql => "datetime";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string DateTimeSql => "datetime";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string BoolSql => "integer";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string BlobSql => "blob";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string BlobTextSql => "text";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string NBlobTextSql => "text";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string NotNullSql => "not null";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public override string NullSql => " ";
 }

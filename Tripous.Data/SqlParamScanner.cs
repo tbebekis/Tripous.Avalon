@@ -8,6 +8,9 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// Scans a SQL text for parameter references.
+/// </summary>
 static public class SqlParamScanner
 {
     // ● private
@@ -34,6 +37,9 @@ static public class SqlParamScanner
     }
 
     // ● static public
+    /// <summary>
+    /// Scans a SQL text for parameter references.
+    /// </summary>
     static public List<SqlParamRef> Scan(string SqlText)
     {
         List<SqlParamRef> Result = new List<SqlParamRef>();

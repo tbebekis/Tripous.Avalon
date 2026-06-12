@@ -10,17 +10,29 @@ using K4os.Compression.LZ4.Internal;
 
 namespace Tripous.Data;
 
+/// <summary>
+/// Base class for all SQL providers.
+/// </summary>
 public abstract class SqlProvider
 {
     // ● protected fields
+    /// <summary>
+    /// Field
+    /// </summary>
     public const string GlobalPrefix = ":";
  
     // ● protected
+    /// <summary>
+    /// Replaces the decimal placeholder whih the decimal with the specified number of decimal places.
+    /// </summary>
     protected virtual string ReplaceDecimalPlaceholders(string SqlText)
     {
         string Pattern = Regex.Escape(SqlTypeTokens.CDECIMAL_) + @"\s*\(([^)]*)\)";
         return Regex.Replace(SqlText, Pattern, M => DecimalWithArgsSql(M.Groups[1].Value), RegexOptions.IgnoreCase);
     }
+    /// <summary>
+    /// Creates a dictionary of SqlParam objects by name.
+    /// </summary>
     protected virtual Dictionary<string, SqlParam> CreateParamMap(SqlParams Params)
     {
         Dictionary<string, SqlParam> Result = new Dictionary<string, SqlParam>(StringComparer.OrdinalIgnoreCase);
@@ -28,20 +40,32 @@ public abstract class SqlProvider
             Result[Param.Name] = Param;
         return Result;
     }
+    /// <summary>
+    /// Finds a SqlParam object by name.
+    /// </summary>
     protected virtual SqlParam FindParam(Dictionary<string, SqlParam> Map, string Name, string SqlText)
     {
         if (Map.TryGetValue(Name, out SqlParam Result))
             return Result;
         throw new Exception($"Sql parameter not found: {Name}");
     }     
+    /// <summary>
+    /// Gets the native parameter name for the specified parameter name, e.g. NativePrefix + Name
+    /// </summary>
     protected virtual string GetNativeParameterName(string Name)
     {
         return NativePrefix + Name;
     }
+    /// <summary>
+    /// Gets the SQL parameter token for the specified parameter name, e.g. "?" for positional paramer  or NativePrefix + Name.
+    /// </summary>
     protected virtual string GetSqlParameterToken(string Name)
     {
         return PositionalParameters ? "?" : GetNativeParameterName(Name);
     }
+    /// <summary>
+    /// Creates a DbParameter object for the specified SqlParam object.
+    /// </summary>
     protected virtual DbParameter CreateDbParameter(DbCommand Command, SqlParam Param)
     {
         DbParameter Result = Command.CreateParameter();
@@ -49,6 +73,9 @@ public abstract class SqlProvider
         Result.Value = Param.Value == null ? DBNull.Value : Param.Value;
         return Result;
     }
+    /// <summary>
+    /// Prepares a DbCommand object for the specified SQL text and parameters.
+    /// </summary>
     protected virtual void PrepareCommand(DbCommand Command, string SqlText, SqlParams Params)
     {
         SqlText = ReplaceDataTypePlaceholders(SqlText);
@@ -81,11 +108,14 @@ public abstract class SqlProvider
         SB.Append(SqlText, Pos, SqlText.Length - Pos);
         Command.CommandText = SB.ToString();
     }
-    protected virtual string DecimalWithArgsSql(string Args)
-    {
-        return $"decimal({Args})";
-    }
+    /// <summary>
+    /// Returns a string as <c> "decimal({Args})";</c>
+    /// </summary>
+    protected virtual string DecimalWithArgsSql(string Args) =>  $"decimal({Args})";
  
+    /// <summary>
+    /// Logs an exception.
+    /// </summary>
     protected virtual void Log(Exception e, string SqlText, object[] Params, MemTable Table = null)
     {
         SqlParams SqlParams = CreateSqlParams(SqlText, Params);
@@ -148,6 +178,9 @@ public abstract class SqlProvider
       
         Sys.LogError(e);
     }
+    /// <summary>
+    /// Formats a SQL parameter value for logging.
+    /// </summary>
     protected virtual string FormatSqlLogValue(object Value)
     {
         if (Value == null || Value == DBNull.Value)
@@ -160,6 +193,9 @@ public abstract class SqlProvider
             return Flag ? "true" : "false";
         return Convert.ToString(Value, CultureInfo.InvariantCulture);
     }
+    /// <summary>
+    /// Formats SQL parameters for logging.
+    /// </summary>
     protected virtual string FormatSqlParameters(DbParameterCollection Parameters)
     {
         StringBuilder SB = new();
@@ -176,6 +212,9 @@ public abstract class SqlProvider
 
         return SB.ToString();
     }
+    /// <summary>
+    /// Returns true if SQL logging is enabled.
+    /// </summary>
     protected virtual bool CanLogSql(string SqlText)
     {
         if (string.IsNullOrWhiteSpace(SqlText))
@@ -184,6 +223,9 @@ public abstract class SqlProvider
         return !SqlText.Contains(DbConfig.SysDbIniTableName, StringComparison.OrdinalIgnoreCase)
             && !SqlText.Contains(DbConfig.SysLogTableName, StringComparison.OrdinalIgnoreCase);
     }
+    /// <summary>
+    /// Logs a SQL statement.
+    /// </summary>
     protected virtual void LogSql(DbCommand Command)
     {
         if (!Db.Settings.LogSqlStatements || Command == null)
@@ -206,6 +248,9 @@ public abstract class SqlProvider
     }
     
     // ● constructor
+    /// <summary>
+    /// Constructor
+    /// </summary>
     internal SqlProvider(DbServerType ServerType)
     {
         this.ServerType = ServerType;
@@ -213,6 +258,9 @@ public abstract class SqlProvider
     }
 
     // ● public
+    /// <summary>
+    /// Creates a list of SQL Params based on a specified SQL statement.
+    /// </summary>
     public virtual SqlParams CreateSqlParams(string SqlText, params object[] Params)
     {
         SqlParams Result = new SqlParams();
@@ -255,6 +303,9 @@ public abstract class SqlProvider
 
         return Result;
     }
+    /// <summary>
+    /// Waits until the database is ready.
+    /// </summary>
     public virtual bool WaitUntilDatabaseReady(string ConnectionString, int RetryCount = 10, int DelayMilliseconds = 1000)
     {
         for (int i = 0; i < RetryCount; i++)
@@ -267,7 +318,9 @@ public abstract class SqlProvider
 
         return false;
     }
- 
+    /// <summary>
+    /// Replaces data type placeholders in a SQL statement with the appropriate SQL data type.
+    /// </summary>
     public virtual string ReplaceDataTypePlaceholders(string SqlText)
     {
         string Result = ReplaceDecimalPlaceholders(SqlText);
@@ -287,11 +340,16 @@ public abstract class SqlProvider
         Result = Result.Replace(SqlTypeTokens.CNULL, NullSql);
         return Result;
     }
- 
+    /// <summary>
+    /// Creates a connection string builder based on a specified connection string.
+    /// </summary>
     public virtual ConnectionStringBuilder CreateConnectionStringBuilder(string ConnectionString)
     {
         return new ConnectionStringBuilder(ConnectionString);
     }
+    /// <summary>
+    /// Gets the database name from a connection string.
+    /// </summary>
     public virtual string GetDatabaseName(string ConnectionString)
     {
         ConnectionStringBuilder Builder = CreateConnectionStringBuilder(ConnectionString);
@@ -299,6 +357,9 @@ public abstract class SqlProvider
     }
     
     // ● connection
+    /// <summary>
+    /// Creates a DbConnection object.
+    /// </summary>
     public DbConnection CreateConnection(string ConnectionString)
     {
         DbConnection Result = Factory.CreateConnection();
@@ -306,11 +367,17 @@ public abstract class SqlProvider
         Result.ConnectionString = ConnectionString;
         return Result;
     }
+    /// <summary>
+    /// Creates a DbCommand object.
+    /// </summary>
     public DbCommand CreateCommand(DbConnection Connection, string SqlText, params object[] Params)
     {
         SqlParams SqlParams = CreateSqlParams(SqlText, Params);
         return CreateCommand(Connection, SqlText, SqlParams);
     }
+    /// <summary>
+    /// Creates a DbCommand object.
+    /// </summary>
     public DbCommand CreateCommand(DbConnection Connection, string SqlText, SqlParams Params)
     {
         DbCommand Result = Connection.CreateCommand();
@@ -373,11 +440,20 @@ public abstract class SqlProvider
         return Con.BeginTransaction();
     }
 
+    /// <summary>
+    /// Normalizes a connection string.
+    /// </summary>
     public virtual string NormalizeConnectionString(string ConnectionString) => ConnectionString;
+    /// <summary>
+    /// Creates a connection string based on the specified server, database, user name and password.
+    /// </summary>
     public virtual string CreateConnectionString(string ServerName, string DatabaseName, string UserName, string Password)
     {
         return string.Format(ConnectionStringTemplate, ServerName, DatabaseName, UserName, Password);
     }
+    /// <summary>
+    /// Creates a database
+    /// </summary>
     public virtual bool CreateDatabase(string ConnectionString)
     {
         return false;
@@ -502,7 +578,6 @@ public abstract class SqlProvider
         }
 
     }
-
 
     
     /// <summary>
@@ -926,9 +1001,11 @@ public abstract class SqlProvider
         return Result;
     }
  
- 
     
     // ● miscs
+    /// <summary>
+    /// Applies a row limit to a SELECT statement.
+    /// </summary>
     public virtual string ApplyRowLimit(string SqlText, int RowLimit)
     {
         return SqlText;
@@ -942,6 +1019,9 @@ public abstract class SqlProvider
             RowLimit = Db.Settings.DefaultRowLimit;
         return RowLimit;
     }
+    /// <summary>
+    /// Quote a string for use in a SQL statement.
+    /// </summary>
     public virtual string QuoteName(string Name) => ObjectStartDelimiter + Name + ObjectEndDelimiter;
     /// <summary>
     /// Concatenates two or more strings.
@@ -1123,52 +1203,165 @@ public abstract class SqlProvider
     }
 
     // ● properties
+    /// <summary>
+    /// Returns the name of this sql provider
+    /// </summary>
     public string Name => ServerType.ToString();
+    /// <summary>
+    /// Returns the <see cref="DbProviderFactory"/>
+    /// </summary>
     public DbProviderFactory Factory => ServerType.GetFactory();
+    /// <summary>
+    /// Returns the <see cref="DbServerType"/>
+    /// </summary>
     public DbServerType ServerType { get; }
+    /// <summary>
+    /// Returns the <see cref="DbConAdapter"/>
+    /// </summary>
     public DbConAdapter ConnectionStringAdapter { get; }
+    /// <summary>
+    /// Returns the native prefix of SQL parameters.
+    /// </summary>
     public abstract string NativePrefix { get; }
+    /// <summary>
+    /// Returns true if the SQL parameters of this SQL provider is positional.
+    /// </summary>
     public virtual bool PositionalParameters => false;
+    /// <summary>
+    /// The object start delimiter
+    /// </summary>
     public virtual string ObjectStartDelimiter => "\"";
+    /// <summary>
+    /// The 
+    /// </summary>
     public virtual string ObjectEndDelimiter => "\"";
+    /// <summary>
+    /// The description of this sql provider
+    /// </summary>
     public virtual string Description => Name;
+    /// <summary>
+    /// The connection string template
+    /// </summary>
     public virtual string ConnectionStringTemplate => ServerType.GetTemplateConnectionString();
     
     // ● properties
+    /// <summary>
+    /// True when this provider supports transactions
+    /// </summary>
     public virtual bool SupportsTransactions => true;
+    /// <summary>
+    /// True when this provider can create a database out of a connection string
+    /// </summary>
     public virtual bool CanCreateDatabases => false;
+    /// <summary>
+    /// True when this provider supports generators/sequencers, such as Oracle or FirebirdSql
+    /// </summary>
     public virtual bool SupportsGenerators => false;
+    /// <summary>
+    /// True when this provider supports auto-increment fields, such as MsSql and MySql
+    /// </summary>
     public virtual bool SupportsAutoIncFields => true;
     /// <summary>
     /// Returns a set (bit-field) of the supported <see cref="AlterTableType"/>s.
     /// </summary>
     public virtual AlterTableType SupportedAlterTableTypes =>  AlterTableType.All;
     
-    
+    /// <summary>
+    /// The default super user name
+    /// </summary>
     public virtual string SuperUser => string.Empty;
+    /// <summary>
+    /// The default super user password
+    /// </summary>
     public virtual string SuperUserPassword => string.Empty;
+    /// <summary>
+    /// The OID mode this provider supports.
+    /// </summary>
     public virtual OidMode OidMode => OidMode.None;
+    /// <summary>
+    /// A list of strings used as server name key in connection strings.
+    /// </summary>
     public virtual string[] ServerKeys => Array.Empty<string>();
+    /// <summary>
+    /// A list of strings used as database name key in connection strings.
+    /// </summary>
     public virtual string[] DatabaseKeys => Array.Empty<string>();
+    /// <summary>
+    /// A list of strings used as user name key in connection strings.
+    /// </summary>
     public virtual string[] UserNameKeys => Array.Empty<string>();
+    /// <summary>
+    /// A list of strings used as password key in connection strings.
+    /// </summary>
     public virtual string[] PasswordKeys => Array.Empty<string>();
 
+    /// <summary>
+    /// The keyword that can be used to return the current datetime in an SQL statement.
+    /// </summary>
     public virtual string ServerDateTimeSql => "CURRENT_TIMESTAMP";
+    /// <summary>
+    /// The SQL statement used in getting the last auto-increment ID used by the database.
+    /// </summary>
     public virtual string LastIdSql => string.Empty;
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string PrimaryKeySql => "primary key";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string AutoIncSql => "integer generated by default as identity";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string VarcharSql => "varchar";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string NVarcharSql => "nvarchar";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string FloatSql => "float";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string DecimalSql => "decimal(18, 4)";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string DateSql => "date";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string DateTimeSql => "timestamp";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string BoolSql => "integer";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string BlobSql => "blob";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string BlobTextSql => "text";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string NBlobTextSql => "text";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string NotNullSql => "not null";
+    /// <summary>
+    /// Keyword, used in replacing a placeholder
+    /// </summary>
     public virtual string NullSql => "null";
 
+    /// <summary>
+    /// The default command timeout seconds
+    /// </summary>
     static public int DefaultCommandTimeoutSeconds => Db.Settings.DefaultCommandTimeoutSeconds;
 }

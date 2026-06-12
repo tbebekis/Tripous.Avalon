@@ -25,6 +25,9 @@ namespace Tripous.Data;
 public class SqlStore
 {
     // ● constructor
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public SqlStore(DbConnectionInfo ConnectionInfo)
     {
         this.Provider = ConnectionInfo.GetSqlProvider();
@@ -186,6 +189,9 @@ public class SqlStore
     /// </summary>
     public int IntegerResult(DbTransaction Transaction, string SqlText, int Default, params object[] Params)=> Provider.IntegerResult(Transaction, SqlText, ConnectionInfo.CommandTimeoutSeconds, Default, Params);
  
+    /// <summary>
+    /// Gets the datetime value from the server.
+    /// </summary>
     public DateTime GetServerDateTime() => Provider.GetServerDateTime(ConnectionInfo);
     
     // ● id generation - Non Transactioned  
@@ -320,6 +326,9 @@ public class SqlStore
             return Con.GetSchema(collectionName, restrictionValues);
     }
 
+    /// <summary>
+    /// Gets the native schema of the TableName table.
+    /// </summary>
     public DataTable GetNativeSchemaFromTableName(string StatementName, string TableName)
     {
         if (string.IsNullOrWhiteSpace(TableName))
@@ -327,6 +336,9 @@ public class SqlStore
         string SqlText = $"select * from {TableName}";
         return GetNativeSchemaFromSelect(StatementName, SqlText);
     }
+    /// <summary>
+    /// Gets the native schema of the SqlText SELECT statement..
+    /// </summary>
     public DataTable GetNativeSchemaFromSelect(string StatementName, string SqlText)
     {
         if (SqlCache.Contains(this.ConnectionInfo.Name, StatementName))
@@ -496,6 +508,12 @@ public class SqlStore
     }
     
     // ● properties
+    /// <summary>
+    /// The SqlProvider used by this instance.
+    /// </summary>
     public SqlProvider Provider { get; }
+    /// <summary>
+    /// The connection info used by this instance.
+    /// </summary>
     public DbConnectionInfo ConnectionInfo { get; }
 }

@@ -14,9 +14,17 @@ namespace Tripous.Data;
 [TypeStore]
 public class LookupSource
 {
+    /// <summary>
+    /// Field
+    /// </summary>
     protected List<LookupItem> List;
+    /// <summary>
+    /// Field
+    /// </summary>
     protected SqlStore fStore;
-
+    /// <summary>
+    /// Field
+    /// </summary>
     protected SqlStore Store
     {
         get

@@ -8,18 +8,41 @@
 
 namespace Tripous.Data;
 
+
+/// <summary>
+/// A collection of SqlParam objects
+/// </summary>
 public class SqlParams
 {
-    // ● private
-    readonly List<SqlParam> fItems = new List<SqlParam>();
+    // ● construction
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public SqlParams()
+    {
+    }
 
     // ● public
+    /// <summary>
+    /// Adds a new SqlParam object to this collection.
+    /// </summary>
     public SqlParams Add(string Name, object Value)
     {
-        fItems.Add(new SqlParam(Name, Value));
+        Items.Add(new SqlParam(Name, Value));
         return this;
     }
-    public int Count { get { return fItems.Count; } }
-    public SqlParam this[int Index] { get { return fItems[Index]; } }
-    public List<SqlParam> Items { get { return fItems; } }
+    
+    // ● properties
+    /// <summary>
+    /// The number of items in this collection.
+    /// </summary>
+    public int Count => Items.Count;
+    /// <summary>
+    /// Returns the SqlParam at the specified index.
+    /// </summary>
+    public SqlParam this[int Index] => Items[Index];
+    /// <summary>
+    /// The collection of SqlParam objects.
+    /// </summary>
+    public List<SqlParam> Items { get; private set; } = [];
 }

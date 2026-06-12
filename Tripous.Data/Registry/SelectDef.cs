@@ -8,25 +8,30 @@
 
 namespace Tripous.Data;
 
+// ● public
 /// <summary>
 /// Describes a SELECT statement along with its possible WHERE filters.
 /// </summary>
-public class SelectDef: BaseDef
+public class SelectDef : BaseDef
 {
+    // ● private fields
     string fSqlText;
     Dictionary<string, string> fDisplayLabels;
     Dictionary<string, DataColumnType> fColumnTypes;
     SqlFilterDefs fFilterDefs;
     bool fUseFilters = true;
 
-    // ● construction
+    // ● constructors
+    /// <summary>
+    /// Initializes a new instance of the SelectDef class.
+    /// </summary>
     public SelectDef()
     {
     }
 
-    // ● public
+    // ● public methods
     /// <summary>
-    /// Throws an exception if this descriptor is not fully defined
+    /// Throws an exception if this descriptor is not fully defined.
     /// </summary>
     public override void CheckDescriptor()
     {
@@ -36,16 +41,18 @@ public class SelectDef: BaseDef
             Sys.Throw(Texts.GS($"E_{typeof(SelectDef)}_NoSql", $"{typeof(SelectDef)} must have an SQL statement"));
     }
     /// <summary>
-    /// Adds a filter definition
+    /// Adds a filter definition to the internal collection using explicit criteria options.
     /// </summary>
     public SqlFilterDef AddFilter(string Name, string FieldName = null, DataFieldType FilterDataType = DataFieldType.String, BoolOp BoolOp = BoolOp.And, ConditionOp ConditionOp = ConditionOp.Equal, string TitleKey = null)
         => FilterDefs.Add(Name, FieldName, FilterDataType, BoolOp, ConditionOp, TitleKey);
+    /// <summary>
+    /// Adds a filter definition inferred directly from a field definition object metadata layout.
+    /// </summary>
     public SqlFilterDef AddFilter(FieldDef FieldDef)
         => FilterDefs.Add(FieldDef.Name, FieldName: FieldDef.Name, FilterDataType: FieldDef.DataType, TitleKey: FieldDef.TitleKey);
-
     /// <summary>
     /// Creates filter entries in the <see cref="FilterDefs"/> when no filters exist.
-    /// <para><b>WARNING:</b> The <see cref="ModuleName"/> and a TableName are used in constructing a unique StatementName.</para>
+    /// <para><b>WARNING:</b> The module name and a table name are used in constructing a unique StatementName.</para>
     /// <para>The StatementName is used with the <see cref="SqlStore.GetNativeSchemaFromTableName"/>
     /// so the <c>ModuleName.TableName</c> must construct a unique name because schema DataTables are stored in the <see cref="SqlCache"/> under that unique name. </para>
     /// </summary>
@@ -68,14 +75,12 @@ public class SelectDef: BaseDef
                     DataFieldType FilterDataType = Column.DataType.GetDataFieldType();
                     if (FilterDataType.IsValidFilterType())
                     {
-                        //Result.Add(FieldName, FieldName: FieldName, FilterDataType: FilterDataType, TitleKey: Column.Caption);
                         Columns.Add(Column);
                     }
                 }
             }
         }
 
-        // sort
         Columns = Columns.OrderBy(x => x.Caption).ToList();
  
         Columns.Sort((A, B) => 
@@ -88,7 +93,6 @@ public class SelectDef: BaseDef
             return 0;
         });
         
-        // create filters
         SqlFilterDefs Result = new();
         foreach (DataColumn Column in Columns)
             Result.Add(Column.ColumnName, FieldName: Column.ColumnName, FilterDataType: Column.DataType.GetDataFieldType(), TitleKey: Column.Caption);
@@ -97,6 +101,9 @@ public class SelectDef: BaseDef
     }
     
     // ● properties
+    /// <summary>
+    /// Gets or sets the raw SQL query statement text template configuration block.
+    /// </summary>
     public string SqlText
     {
         get => fSqlText;
@@ -109,16 +116,25 @@ public class SelectDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets the translation mapping table used for custom localized display titles.
+    /// </summary>
     public Dictionary<string, string> DisplayLabels
     {
         get => fDisplayLabels ??= new(); 
         set { if (fDisplayLabels != value) { fDisplayLabels = value; NotifyPropertyChanged(nameof(DisplayLabels)); } }
     }
+    /// <summary>
+    /// Gets or sets the explicit structural data column database field type classification rules.
+    /// </summary>
     public Dictionary<string, DataColumnType> ColumnTypes 
     {
         get => fColumnTypes ??= new(); 
         set { if (fColumnTypes != value) { fColumnTypes = value; NotifyPropertyChanged(nameof(ColumnTypes)); } }
     }
+    /// <summary>
+    /// Gets or sets the complete filter specification models collection belonging to this data query execution path.
+    /// </summary>
     public SqlFilterDefs FilterDefs
     {
         get => fFilterDefs ??= new();
@@ -132,7 +148,7 @@ public class SelectDef: BaseDef
         }
     }
     /// <summary>
-    /// Enables/Disables the use of the specified filters.
+    /// Gets or sets a value indicating whether runtime filter processing operations are active.
     /// </summary>
     public bool UseFilters
     {
@@ -146,6 +162,9 @@ public class SelectDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets the optional metadata context owner or master view model reference binding layer.
+    /// </summary>
     [JsonIgnore]
     public object Owner { get; set; }
 }

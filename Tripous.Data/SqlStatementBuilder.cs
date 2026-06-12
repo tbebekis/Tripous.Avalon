@@ -17,7 +17,7 @@ public static class SqlStatementBuilder
     /// <summary>
     /// Generates Sql statements for the Table.
     /// <para></para>
-    /// <para><b>WARNING:</b> The <see cref="ModuleName"/> and the <see cref="TableName"/> are used in constructing a unique StatementName.</para>
+    /// <para><b>WARNING:</b> The module name and the table name are used in constructing a unique StatementName.</para>
     /// <para>The StatementName is used with the <see cref="SqlStore.GetNativeSchemaFromTableName"/>
     /// so the <c>ModuleName.TableName</c> must construct a unique name because schema DataTables are stored in the <see cref="SqlCache"/> under that unique name. </para>
     /// </summary>
@@ -101,7 +101,7 @@ public static class SqlStatementBuilder
     /// <summary>
     /// Generates Sql statements for the Table.
     /// <para></para>
-    /// <para><b>WARNING:</b> The <see cref="ModuleName"/> and the <see cref="TableName"/> are used in constructing a unique StatementName.</para>
+    /// <para><b>WARNING:</b> The module name and the table name are used in constructing a unique StatementName.</para>
     /// <para>The StatementName is used with the <see cref="SqlStore.GetNativeSchemaFromTableName"/>
     /// so the <c>ModuleName.TableName</c> must construct a unique name because schema DataTables are stored in the <see cref="SqlCache"/> under that unique name. </para> 
     /// </summary>
@@ -113,7 +113,7 @@ public static class SqlStatementBuilder
     /// Generates Sql statements for the Table.     
     /// <para>WARNING: Assumes that Table primary key field is named Id.</para>
     /// <para></para>
-    /// <para><b>WARNING:</b> The <see cref="ModuleName"/> and the <see cref="TableName"/> are used in constructing a unique StatementName.</para>
+    /// <para><b>WARNING:</b> The module name and the table name are used in constructing a unique StatementName.</para>
     /// <para>The StatementName is used with the <see cref="SqlStore.GetNativeSchemaFromTableName"/>
     /// so the <c>ModuleName.TableName</c> must construct a unique name because schema DataTables are stored in the <see cref="SqlCache"/> under that unique name. </para>
     /// </summary>

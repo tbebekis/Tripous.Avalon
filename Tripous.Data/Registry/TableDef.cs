@@ -72,6 +72,9 @@ public class TableDef: BaseDef
         if (this.Fields == null || this.Fields.Count == 0)
             Sys.Throw(Texts.GS($"E_{typeof(TableDef)}_NoFieldsDefined", $"{typeof(TableDef)} Fields not defined."));
     }
+    /// <summary>
+    /// Returns the errors of the top table.
+    /// </summary>
     public string GetTopTableErrors()
     {
         StringBuilder SB = new();
@@ -115,6 +118,9 @@ public class TableDef: BaseDef
             
         return SB.ToString();
     }
+    /// <summary>
+    /// Checks the top table for errors and throws an exception if any.
+    /// </summary>
     public void CheckTopTableErrors()
     {
         string ErrorText = GetTopTableErrors();
@@ -381,6 +387,9 @@ public class TableDef: BaseDef
             return true;
         return JoinTable.Joins.Any(IsJoinRequired);
     }
+    /// <summary>
+    /// Builds SQL statements for this table descriptor.
+    /// </summary>
     public TableSqls BuildSql(BuildSqlFlags Flags)
     {
         TableSqls Statements = new TableSqls();
@@ -731,6 +740,9 @@ where
     }
  
     // ● fields 
+    /// <summary>
+    /// Returns true if the specified field name exists in this descriptor.
+    /// </summary>
     public bool FieldExists(string FieldName) => FindField(FieldName) != null;
     /// <summary>
     /// Finds a field by name, if any, else null.
@@ -934,7 +946,7 @@ where
     /// <para><c>left join COUNTRY on COUNTRY.ID = CUSTOMER.COUNTRY_ID</c></para>
     /// </summary>
     /// <param name="OwnKeyField">A field that belongs to this table. Is used in the join SQL statement</param>
-    /// <param name="Locator">The locator name to be used in the <see cref="OwnKeyField"/>.</param>
+    /// <param name="Locator">The locator name to be used in the owner key field.</param>
     /// <param name="ForeignTable">The name of the table to join, e.g. COUNTRY to CUSTOMER</param>
     /// <param name="ForeignAlias">The alias of the table to join, e.g. <c>co</c></param>
     /// <param name="ForeignPrimaryKey">The primary key field name of the table to join, e.g. <c>Id</c></param>
@@ -954,8 +966,14 @@ where
         return Result;
     }
     
+    /// <summary>
+    /// Returns the list of bindable fields.
+    /// </summary>
     public List<FieldDef> GetBindableFields() => Fields.Where(f => f.IsBindable).ToList();
-
+    /// <summary>
+    /// Returns the list of field groups that are not bindable.
+    /// </summary>
+    /// <returns></returns>
     public Dictionary<string, List<FieldDef>> GetBindableGroups()
     {
         List<FieldDef> BindableFields = GetBindableFields();
@@ -1066,6 +1084,9 @@ where
         set { if (fIsUiVisible != value) { fIsUiVisible = value; NotifyPropertyChanged(nameof(IsUiVisible)); } }
     }
 
+    /// <summary>
+    /// The SQL statements associated with this table.
+    /// </summary>
     public TableSqls Sqls { get; set; } = new();
     /// <summary>
     /// Preferred field group display order.
@@ -1119,8 +1140,20 @@ where
         set { if (fDetails != value) { fDetails = value; NotifyPropertyChanged(nameof(Details)); } }
     }
 
+    /// <summary>
+    /// True when this table has details
+    /// </summary>
     [JsonIgnore] public bool HasDetails => fDetails != null && fDetails.Count > 0;
+    /// <summary>
+    /// True when this table has joins
+    /// </summary>
     [JsonIgnore] public bool HasJoins => fJoins != null && fJoins.Count > 0;
+    /// <summary>
+    /// True when this table has stocks
+    /// </summary>
     [JsonIgnore] public bool HasStocks => fStocks != null && fStocks.Count > 0;
+    /// <summary>
+    /// True when this is a table joined to another table.
+    /// </summary>
     [JsonIgnore] public bool IsJoin => Owner != null;
 }

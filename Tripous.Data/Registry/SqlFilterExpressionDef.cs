@@ -17,12 +17,12 @@ public class SqlFilterExpressionDef
 {
     // NOTE: get the SelectFilterPanelHandler from Tripous.Avalon.OLD solution
     
-    private string fRawTag;
-    private string fStatement;
-    private readonly StringBuilder sbErrors = new();
+    string fRawTag;
+    string fStatement;
+    readonly StringBuilder sbErrors = new();
 
     // ● private
-    private void Parse()
+    void Parse()
     {
  
         try
@@ -90,7 +90,7 @@ public class SqlFilterExpressionDef
  
 
     }
-    private void SetDefaults()
+    void SetDefaults()
     {
         ExpressionType = SqlFilterExpressionType.String;
         IsNumeric = false;
@@ -100,7 +100,7 @@ public class SqlFilterExpressionDef
         Label = string.Empty;
         Value = string.Empty;
     }
-    private string[] Tokenize(string rawTag)
+    string[] Tokenize(string rawTag)
     {
         string s = rawTag.Trim();
 
@@ -123,7 +123,7 @@ public class SqlFilterExpressionDef
             .Select(x => x.Trim())
             .ToArray();
     }
-    private void ParseSimple(string[] parts)
+    void ParseSimple(string[] parts)
     {
         // Supported:
         // [[Label]]            // default, is string
@@ -147,7 +147,7 @@ public class SqlFilterExpressionDef
 
         IsNumeric = ExpressionType == SqlFilterExpressionType.Integer || ExpressionType == SqlFilterExpressionType.Decimal;
     }
-    private void ParseDate(string[] parts)
+    void ParseDate(string[] parts)
     {
         // Supported:
         // Manual entry:  Date >= [[date:Custom:From Date]]
@@ -199,7 +199,7 @@ public class SqlFilterExpressionDef
 
          
     }
-    private void ParseLookup(string[] parts)
+    void ParseLookup(string[] parts)
     {
         // Expected:
         // [[lookup:datatype:Label]]
@@ -251,7 +251,7 @@ public class SqlFilterExpressionDef
         if (string.IsNullOrWhiteSpace(Text) && string.IsNullOrWhiteSpace(Statement))
             AddError($"{ExpressionType} filter requires a SELECT statement either inline or not.");
     }
-    private void ParseEnum(string[] parts)
+    void ParseEnum(string[] parts)
     {
         // Expected:
         // [[enum:datatype:Label]]
@@ -304,7 +304,7 @@ public class SqlFilterExpressionDef
             AddError($"{ExpressionType} filter requires a list of constant values either inline or not.");
             
     }
-    private bool TryParseFilterType(string token, out SqlFilterExpressionType filterType)
+    bool TryParseFilterType(string token, out SqlFilterExpressionType filterType)
     {
         filterType = SqlFilterExpressionType.String;
 
@@ -346,7 +346,7 @@ public class SqlFilterExpressionDef
 
         return false;
     }
-    private bool TryParseDataType(string token, out bool isNumeric)
+    bool TryParseDataType(string token, out bool isNumeric)
     {
         isNumeric = false;
 
@@ -370,25 +370,36 @@ public class SqlFilterExpressionDef
 
         return false;
     }
-    private bool TryParseDateRange(string token, out DateRange range)
+    bool TryParseDateRange(string token, out DateRange range)
     {
         return Enum.TryParse(token, true, out range);
     }
-    private bool IsMultiToken(string token)
+    bool IsMultiToken(string token)
     {
         return EqualsIgnoreCase(token, "multi");
     }
-    private bool EqualsIgnoreCase(string a, string b)
+    bool EqualsIgnoreCase(string a, string b)
     {
         return string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
     }
-    private void AddError(string message)
+    void AddError(string message)
     {
         if (!string.IsNullOrWhiteSpace(message))
             sbErrors.AppendLine($"{message} - {RawTag}");
     }
 
+    // ● construction
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public SqlFilterExpressionDef()
+    {
+    }
+    
     // ● public
+    /// <summary>
+    /// Returns a string representation of this instance.
+    /// </summary>
     public override string ToString()
     {
         return $"{Label} - {RawTag}";
@@ -436,6 +447,9 @@ public class SqlFilterExpressionDef
             Parse(); 
         }
     }
+    /// <summary>
+    /// Lookup SELECT statement.
+    /// </summary>
     [JsonIgnore]
     public string LookUpSelectSqlText
     {
@@ -494,10 +508,19 @@ public class SqlFilterExpressionDef
     /// </summary>
     [JsonIgnore]
     public string Value { get; set; }
+    /// <summary>
+    /// True when there are errors in the filter definition.
+    /// </summary>
     [JsonIgnore]
     public bool HasErrors => sbErrors.Length > 0;
+    /// <summary>
+    /// The list of errors in the filter definition.
+    /// </summary>
     [JsonIgnore]
     public string Errors => sbErrors.ToString();
+    /// <summary>
+    /// A user defined object.
+    /// </summary>
     [JsonIgnore]
     public object Tag { get; set; }
 }

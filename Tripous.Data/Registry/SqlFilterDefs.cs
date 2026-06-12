@@ -16,11 +16,17 @@ namespace Tripous.Data;
 public class SqlFilterDefs : DefList<SqlFilterDef>
 {
     // ● construction
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public SqlFilterDefs()
     {
     }
     
     // ● public
+    /// <summary>
+    /// Adds a new filter definition.
+    /// </summary>
     public SqlFilterDef Add(string Name, string FieldName = null, DataFieldType FilterDataType = DataFieldType.String, BoolOp BoolOp = BoolOp.And, ConditionOp ConditionOp = ConditionOp.Equal, string TitleKey = null)
     {
         SqlFilterDef Result = new();
@@ -34,6 +40,9 @@ public class SqlFilterDefs : DefList<SqlFilterDef>
         return Result;
     }
 
+    /// <summary>
+    /// Checks all descriptors with values.
+    /// </summary>
     public void CheckDescriptorsWithValues()
     {
         foreach (SqlFilterDef Def in Items)
@@ -50,9 +59,7 @@ public class SqlFilterDefs : DefList<SqlFilterDef>
     public string GetSqlWhereFilterTextInline() => SqlWhereFilterFormatter.FormatInline(this);
     /// <summary>
     /// Formats SQL WHERE filter definitions as parameterized SQL text.
-    /// <para>NOTE: The <see cref="Params"/> should be an empty dictionary. The formatter adds Parameter Names and Values to it.</para>
+    /// <para>NOTE: The Params should be an empty dictionary. The formatter adds Parameter Names and Values to it.</para>
     /// </summary>
     public string GetSqlWhereFilterTextParameterized(IDictionary<string, object> Params) => SqlWhereFilterFormatter.FormatParameterized(this, Params);
-
- 
 }

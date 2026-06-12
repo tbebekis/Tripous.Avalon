@@ -8,23 +8,36 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// Represents a reference to a SqlParam
+/// </summary>
 public class SqlParamRef
 {
-    // ● private
-    readonly string fName;
-    readonly int fIndex;
+ 
 
     // ● constructor
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public SqlParamRef(string Name, int Index)
     {
-        fName = Name;
-        fIndex = Index;
+        this.Name = Name;
+        this.Index = Index;
     }
 
+    /// <summary>
+    /// Returns a string representation of this instance.
+    /// </summary>
     public override string ToString() => Name;
  
 
     // ● properties
-    public string Name { get { return fName; } }
-    public int Index { get { return fIndex; } }
+    /// <summary>
+    /// The name of the parameter
+    /// </summary>
+    public string Name { get; private set; }
+    /// <summary>
+    /// The index of the parameter
+    /// </summary>
+    public int Index { get; private set; }
 }

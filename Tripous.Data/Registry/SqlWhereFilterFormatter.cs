@@ -8,6 +8,9 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// A formatter for SQL WHERE filter definitions.
+/// </summary>
 static public class SqlWhereFilterFormatter
 {
     // ● private
@@ -149,7 +152,7 @@ static public class SqlWhereFilterFormatter
     
     /// <summary>
     /// Formats a SQL WHERE filter definition as parameterized SQL text.
-    /// <para>NOTE: The <see cref="Params"/> should be an empty dictionary. The formatter adds Parameter Names and Values to it.</para>
+    /// <para>NOTE: The Params should be an empty dictionary. The formatter adds Parameter Names and Values to it.</para>
     /// </summary>
     static public string FormatParameterized(SqlFilterDef Def, IDictionary<string, object> Params)
     {
@@ -200,7 +203,7 @@ static public class SqlWhereFilterFormatter
     }
     /// <summary>
     /// Formats SQL WHERE filter definitions as parameterized SQL text.
-    /// <para>NOTE: The <see cref="Params"/> should be an empty dictionary. The formatter adds Parameter Names and Values to it.</para>
+    /// <para>NOTE: TheParams should be an empty dictionary. The formatter adds Parameter Names and Values to it.</para>
     /// </summary>
     static public string FormatParameterized(SqlFilterDefs Defs, IDictionary<string, object> Params)
     {

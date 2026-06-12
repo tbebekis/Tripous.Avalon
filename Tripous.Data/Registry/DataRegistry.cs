@@ -331,7 +331,7 @@ static public class DataRegistry
     // ● lookups - enum types
     /// <summary>
     /// Adds a lookup source.
-    /// <para>The <see cref="EnumType"/> is used as the source.</para>
+    /// <para>The enum type is used as the source.</para>
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
     static public LookupDef AddLookupSource(Type EnumType, bool UseNullItem = false) => AddLookupSource(EnumType.FullName, EnumType, UseNullItem);

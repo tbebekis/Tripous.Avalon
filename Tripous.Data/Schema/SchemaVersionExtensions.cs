@@ -8,9 +8,15 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// Extension methods for <see cref="SchemaVersion"/>
+/// </summary>
 static public class SchemaVersionExtensions
 {
     // ● lookups
+    /// <summary>
+    /// Adds a CREATE TABLE for a lookup table, with Id and Name columns.
+    /// </summary>
     static public void AddLookup(this SchemaVersion SV, string TableName)
     {
         string SqlText = @$"
@@ -22,6 +28,9 @@ CREATE TABLE {TableName} (
 ";        
         SV.AddTable(SqlText);
     }
+    /// <summary>
+    /// Adds a CREATE TABLE for a lookup table, with Id, Name and Code columns.
+    /// </summary>
     static public void AddLookupWithCode(this SchemaVersion SV, string TableName)
     {
         string SqlText = @$"
@@ -35,6 +44,9 @@ CREATE TABLE {TableName} (
 ";        
         SV.AddTable(SqlText);
     }
+    /// <summary>
+    /// Adds a CREATE TABLE for a lookup table, with Id, Name, Code and IsActive columns.
+    /// </summary>
     static public void AddLookupWithCodeAndIsActive(this SchemaVersion SV, string TableName)
     {
         string SqlText = @$"

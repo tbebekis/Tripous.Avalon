@@ -7,10 +7,14 @@
  */
 namespace Tripous.Data;
 
+
+/// <summary>
+/// An extended <see cref="DataTable"/>
+/// </summary>
 public class MemTable : DataTable, IRowProvider, IRowProviderHost
 {
     static int TableNameCounter = 0;
-    protected int EventsDisableCounter = 0;
+    int EventsDisableCounter = 0;
     bool hasExpressionsChecked;
 
     bool hasExpressions;
@@ -387,11 +391,17 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     static public DataRowView GetDataRowView(DataRow Row, DataView DataView) => DataView.Cast<DataRowView>().FirstOrDefault(drv => drv.Row == Row);
  
     // ● public 
+    /// <summary>
+    /// Updates the current row.
+    /// </summary>
     public void UpdateCurrentRow()
     {
         DataRow Row = DataView.Count > 0 ? DataView[0].Row : null;
         SetCurrentRow(Row, Force: true);
     }
+    /// <summary>
+    /// Returns a list of columns.
+    /// </summary>
     public DataColumn[] GetColumns(string[] ColumnNames)
     {
         if (ColumnNames == null || ColumnNames.Length == 0)
@@ -425,6 +435,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     }
  
     // ● public - master-detail
+    /// <summary>
+    /// Adds a detail table to this table.
+    /// </summary>
     public void AddDetail(MemTable tblDetail)
     {
         if (this.DataSet == null)
@@ -435,6 +448,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
 
         this.Details.Add(tblDetail);
     }
+    /// <summary>
+    /// Removes a detail table from this table.
+    /// </summary>
     public void RemoveDetail(MemTable tblDetail)
     {
         if (tblDetail == null)
@@ -448,6 +464,10 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
 
         Details.Remove(tblDetail);
     }
+    /// <summary>
+    /// Returns a list of all detail tables.
+    /// </summary>
+    /// <returns></returns>
     public MemTable[] GetDetails() => Details.ToArray();
     /// <summary>
     /// Returns the child rows (belonging to this table) of a specified master row, belonging to the master table.
@@ -471,6 +491,10 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
 
         return Select(Filter);
     }
+    /// <summary>
+    /// Validates the relation schema.
+    /// <para>Used when this is a detail table to check the validity of the relation to its master table.</para>
+    /// </summary>
     public void ValidateRelationSchema()
     {
         if (Master == null)
@@ -506,6 +530,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
                     $"Table '{Master.TableName}' -> '{TableName}': Field type mismatch between '{ParentColumns[i].ColumnName}' and '{ChildColumns[i].ColumnName}'.");
         }
     }
+    /// <summary>
+    /// Notification
+    /// </summary>
     public void MasterRowChanged()
     {
         if (IsDetail)
@@ -532,7 +559,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             DetailRowFilter = Filter; // DataView.RowFilter = Filter;
         }
     }
-
+    /// <summary>
+    /// Notification. Updates the current row and notifies all detail tables about the change.
+    /// </summary>
     public void RefreshDetails()
     {
         UpdateCurrentRow();
@@ -562,7 +591,13 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     }
     
     // ● IRowProviderHost 
+    /// <summary>
+    /// Returns true if a <see cref="IRowProvider"/> with the specified <paramref name="TableName"/> exists.
+    /// </summary>
     public bool RowProviderExists(string TableName) => FindRowProvider(TableName) != null;
+    /// <summary>
+    /// Returns the <see cref="IRowProvider"/> with the specified <paramref name="TableName"/>, if found, else null.
+    /// </summary>
     public IRowProvider FindRowProvider(string TableName)
     {
         if (TableName.IsSameText(this.TableName))
@@ -570,6 +605,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
         
         return RowProviders.FirstOrDefault(x => TableName.IsSameText(x.TableName));
     }
+    /// <summary>
+    /// Returns the <see cref="IRowProvider"/> with the specified <paramref name="TableName"/>, if found, else throws an exception.
+    /// </summary>
     public IRowProvider GetRowProvider(string TableName)
     {
         IRowProvider Result = FindRowProvider(TableName);
@@ -590,6 +628,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
         CurrentRow = Row;
         return Row;
     }
+    /// <summary>
+    /// Copies data from a source table.
+    /// </summary>
     public void CopyFrom(MemTable Source, bool IncludeDetails = true)
     {
         this.EventsDisabled = true;
@@ -626,7 +667,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             this.EventsDisabled = false;
         }
     }
-
+    /// <summary>
+    /// Sets the current row to null.
+    /// </summary>
     public void SetCurrentRowToNull() => SetCurrentRow(null, Force: true);
     
     // ● all (this table and its details)
@@ -693,6 +736,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     }
     
     // ● public - errors
+    /// <summary>
+    /// When this is a top table in a table tree, this method returns possible errors.
+    /// </summary>
     public string GetTopTableErrors()
     {
         StringBuilder SB = new();
@@ -736,6 +782,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             
         return SB.ToString();
     }
+    /// <summary>
+    /// Throws an exception if this is a top table in a table tree, and possible errors exist.
+    /// </summary>
     public void CheckTopTableErrors()
     {
         string ErrorText = GetTopTableErrors();
@@ -761,6 +810,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
         set => fDetailFields = value;
     }
 
+    /// <summary>
+    /// Primary key field
+    /// </summary>
     public string KeyField
     {
         get => KeyFields != null && KeyFields.Length > 0? KeyFields[0] : string.Empty;
@@ -769,6 +821,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             if (KeyFields != null && KeyFields.Length > 0) KeyFields[0] = value;
         }
     }
+    /// <summary>
+    /// When this is a detail table, this is the field from its master
+    /// </summary>
     public string MasterField
     {
         get => MasterFields != null && MasterFields.Length > 0? MasterFields[0] : string.Empty;
@@ -777,6 +832,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             if (MasterFields != null && MasterFields.Length > 0) MasterFields[0] = value;
         }
     }
+    /// <summary>
+    /// When this is a detail table, this is the field from this table which is mapped to the master field.
+    /// </summary>
     public string DetailField
     {
         get => DetailFields != null && DetailFields.Length > 0? DetailFields[0] : string.Empty;
@@ -786,8 +844,14 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
         }
     }
     
+    /// <summary>
+    /// This is the view which is used in binding to simple controls and grids.
+    /// </summary>
     public DataView DataView  => fDataView ??= new(this);  
  
+    /// <summary>
+    /// RowFilter for the master-detail relations
+    /// </summary>
     public string DetailRowFilter
     {
         get => fDetailRowFilter;
@@ -800,6 +864,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             }
         }
     }
+    /// <summary>
+    /// Filter set by user
+    /// </summary>
     public string UserRowFilter
     {
         get => fUserRowFilter;
@@ -830,6 +897,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
             }
         }
     }
+    /// <summary>
+    /// The list of detail <see cref="MemTable"/> tables.
+    /// </summary>
     public DetailList Details  => fDetails ??= new(this);
     /// <summary>
     /// The Sql statements for the table
@@ -865,6 +935,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
         }
     }
 
+    /// <summary>
+    /// True when this table has no rows at all.
+    /// </summary>
     public bool IsEmpty => Rows.Count == 0;
  
     /// <summary>
@@ -893,6 +966,9 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     /// </summary>
     public bool AutoGenerateGuidKeys { get; set; }
   
+    /// <summary>
+    /// The current row
+    /// </summary>
     public DataRow CurrentRow
     {
         get  
@@ -904,23 +980,40 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
         }
         set => SetCurrentRow(value, Force: false);
     }
+    /// <summary>
+    /// The current row view
+    /// </summary>
     public DataRowView CurrentRowView
     {
         get => CurrentRow == null? null: GetDataRowView(CurrentRow, DataView);
         set => CurrentRow = value == null ? null : value.Row;
     }
+    /// <summary>
+    /// The details as a list of <see cref="IRowProvider"/>
+    /// </summary>
     public ReadOnlyCollection<IRowProvider> RowProviders => fDetails.Cast<IRowProvider>().ToList().AsReadOnly();
     
     // ● events 
+    /// <summary>
+    /// Occurs when the current row is changed.
+    /// </summary>
     public event EventHandler CurrentRowChanged;
  
+    /// <summary>
+    /// Occurs when the master is about to change
+    /// </summary>
     public event EventHandler MasterChanging;
+    /// <summary>
+    /// Occurs when the master is changed.
+    /// </summary>
     public event EventHandler MasterChanged;
+    /// <summary>
+    /// Occurs when a new row is about to be added.
+    /// </summary>
     public event EventHandler<DataTableNewRowEventArgs> NewRowAdding;
+    /// <summary>
+    /// Occurs when a new row is added.
+    /// </summary>
     public event EventHandler<DataTableNewRowEventArgs> NewRowAdded;
-
-
-
-
     
 }
