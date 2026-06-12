@@ -357,6 +357,8 @@ public enum DocumentAction
     None = 0,
     /// <summary>Finalizes, posts, and locks the current document.</summary>
     Post = 1,
-    /// <summary>Creates a Sales Delivery Note from the current Sales Order.</summary>
+    /// <summary>Creates a Delivery Note from the current Order.</summary>
     CreateDeliveryNote = 2,
+    /// <summary>Creates a Sales Return from the current Sales Delivery Note.</summary>
+    CreateReturn = 3,
 }

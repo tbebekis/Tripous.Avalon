@@ -359,6 +359,8 @@ The taxable amount of a line is:
 - Tax amount
 - Line total
 
+Resolved origin and destination jurisdictions replace the document values. An empty tax result does not clear an explicitly selected jurisdiction.
+
 The line total is:
 
 `NetAmount - DocumentDiscountAmount + TaxAmount`
@@ -511,3 +513,50 @@ The Stock Count document supports initial stock and later inventory adjustments:
 - Multi-line adjustments are atomic and roll back together when any line fails.
 - Stock movement, stock balance, and Stock Count posting share the same transaction.
 - The Stock Count desktop form exposes the standard document Post action.
+
+## Purchase Stock Posting
+
+- New purchase documents receive configured defaults for warehouse, cost center, branch, price list, currency, payment, and tax fields.
+- New purchase lines receive the configured default quantity.
+- Purchase pricing, tax resolvers, zero-price validation, and trade-line grid fields use `PurchaseDefaults`.
+- A posted Purchase Order can be transformed into a draft Purchase Delivery Note.
+- The Purchase Order desktop form provides a `Create Purchase Delivery Note` toolbar button.
+- The button asks for confirmation, creates the draft document, and opens it in a modal form.
+- Transformation copies only each line's remaining quantity.
+- Posting a transformed Purchase Delivery Note updates source line `ExecutedQuantity`.
+- The Purchase Order remains posted while quantities remain and becomes completed after full receipt.
+- Receipt quantities cannot exceed the remaining source quantities.
+- Posting changes the document status to posted, assigns the final code, records posting metadata, and locks the document.
+- Purchase Delivery Note posting creates incoming `StockMovement` rows.
+- Stock quantity is converted to primary units using `Quantity × UnitRatio`.
+- Incoming unit cost is the net line cost after line and document discounts, divided by primary quantity.
+- Movement cost remains equal to the net line cost and is not recalculated from the rounded unit cost.
+- Incoming posting increases `StockBalance` quantity and total cost.
+- `AverageUnitCost` is recalculated using moving-average costing.
+- Purchase Return posting creates outgoing movements using the current moving-average unit cost.
+- A posted Purchase Delivery Note can create a draft Purchase Return for its remaining returnable quantities.
+- The Purchase Delivery Note desktop form provides a `Create Purchase Return` toolbar button.
+- The button asks for confirmation, creates the draft return, and opens it in a modal form.
+- Posting a transformed Purchase Return increases `ExecutedQuantity` on each source delivery line.
+- A return quantity cannot exceed the remaining received quantity.
+- The source Purchase Delivery Note remains posted after partial or complete returns.
+- Purchase Return posting rejects negative stock unless the warehouse allows it.
+- When outgoing posting reduces stock to zero, total cost and average unit cost are set to zero.
+- Stock movement, stock balance, and purchase document posting share the same transaction.
+- A failure on any line rolls back all stock movements, balance updates, and document posting changes.
+- A posted purchase stock document cannot be posted again, preventing duplicate stock movements.
+
+## Sales Return Stock Posting
+
+- Sales Return posting creates incoming stock movements.
+- Returned stock uses the warehouse's current moving-average unit cost.
+- Posting increases stock quantity and total cost while preserving the moving-average cost.
+- A posted Sales Delivery Note can create a draft Sales Return for its remaining quantities.
+- The Sales Delivery Note desktop form provides a `Create Sales Return` toolbar button.
+- The button asks for confirmation, creates the draft return, and opens it in a modal form.
+- Sales Return lines reference their source Sales Delivery Note lines through `SourceTradeLineId`.
+- Posting a transformed Sales Return increases `ExecutedQuantity` on each source delivery line.
+- A return quantity cannot exceed the remaining delivered quantity.
+- The source Sales Delivery Note remains posted after partial or complete returns.
+- Stock movements, balance updates, and document posting share the same transaction.
+- A failure on any line rolls back all movements, balances, and posting changes.

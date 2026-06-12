@@ -13,7 +13,7 @@ namespace Tripous.Data;
 /// </summary>
 public class DbConnectionInfo
 {
-    private int fCommandTimeoutSeconds;
+    int fCommandTimeoutSeconds;
     
     /// <summary>
     /// Constructor
@@ -24,6 +24,9 @@ public class DbConnectionInfo
     }
 
     // ● public
+    /// <summary>
+    /// Returns the Name if not empty, otherwise the base.ToString()
+    /// </summary>
     public override string ToString()
     {
         return !string.IsNullOrWhiteSpace(Name)? Name: base.ToString();

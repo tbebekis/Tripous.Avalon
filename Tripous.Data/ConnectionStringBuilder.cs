@@ -9,7 +9,7 @@
 namespace Tripous.Data;
 
 /// <summary>
-/// A connection string builder.
+/// Provides helper methods and strongly typed accessors for manipulating database connection strings.
 /// </summary>
 public class ConnectionStringBuilder : DbConnectionStringBuilder
 {
@@ -20,17 +20,29 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
     }
 
     // ● constructor
+    /// <summary>
+    /// Initializes a new instance.
+    /// </summary>
     public ConnectionStringBuilder()
     {
     }
+    /// <summary>
+    /// Initializes a new instance using the specified connection string.
+    /// </summary>
     public ConnectionStringBuilder(string ConnectionString)
     {
         this.ConnectionString = ConnectionString;
     }
+    /// <summary>
+    /// Initializes a new instance using the specified ODBC parsing rules.
+    /// </summary>
     public ConnectionStringBuilder(bool UseOdbcRules)
         : base(UseOdbcRules)
     {
     }
+    /// <summary>
+    /// Initializes a new instance using the specified ODBC parsing rules and connection string.
+    /// </summary>
     public ConnectionStringBuilder(bool UseOdbcRules, string ConnectionString)
         : base(UseOdbcRules)
     {
@@ -38,12 +50,21 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
     }
 
     // ● static public
+    /// <summary>
+    /// The connection string key used to store an alias.
+    /// </summary>
     public const string AliasKey = "Alias";
 
+    /// <summary>
+    /// Removes the alias entry and expands any path placeholders.
+    /// </summary>
     static public string NormalizeConnectionString(string ConnectionString)
     {
         return ReplacePathPlaceholders(RemoveAliasEntry(ConnectionString));
     }
+    /// <summary>
+    /// Replaces all supported path placeholders with physical paths.
+    /// </summary>
     static public string ReplacePathPlaceholders(string ConnectionString)
     {
         string Result = ConnectionString;
@@ -58,6 +79,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
         
         return Result;
     }
+    /// <summary>
+    /// Extracts the alias and the remaining connection string.
+    /// </summary>
     static public void ExtractAlias(string Input, ref string Alias, ref string ConnectionString)
     {
         Alias = string.Empty;
@@ -76,6 +100,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
 
         ConnectionString = Builder.ConnectionString;
     }
+    /// <summary>
+    /// Returns the alias stored in a connection string.
+    /// </summary>
     static public string GetAlias(string ConnectionString)
     {
         string Alias = string.Empty;
@@ -83,6 +110,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
         ExtractAlias(ConnectionString, ref Alias, ref Cs);
         return Alias;
     }
+    /// <summary>
+    /// Removes the alias entry from a connection string.
+    /// </summary>
     static public string RemoveAliasEntry(string ConnectionString)
     {
         string Alias = string.Empty;
@@ -92,6 +122,10 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
     }
 
     // ● public
+    /// <summary>
+    /// Creates a new connection string builder initialized from the specified connection string.
+    /// If no alias is present, the current alias is copied to the new builder.
+    /// </summary>
     public virtual ConnectionStringBuilder CreateConnectionStringBuilder(string ConnectionString)
     {
         ConnectionStringBuilder Result = new ConnectionStringBuilder(ConnectionString);
@@ -99,10 +133,16 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
             Result.Alias = Alias;
         return Result;
     }
+    /// <summary>
+    /// Sets the connection string.
+    /// </summary>
     public void SetConnectionString(string ConnectionString)
     {
         this.ConnectionString = ConnectionString;
     }
+    /// <summary>
+    /// Tries to retrieve a value associated with the specified key.
+    /// </summary>
     public bool TryGetValue(string Key, out string Value)
     {
         Value = string.Empty;
@@ -115,6 +155,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
 
         return false;
     }
+    /// <summary>
+    /// Returns the first non-empty value found among the specified keys.
+    /// </summary>
     public string GetFirst(string[] Keys)
     {
         foreach (string Key in Keys)
@@ -125,6 +168,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
 
         return string.Empty;
     }
+    /// <summary>
+    /// Removes all specified keys from the connection string.
+    /// </summary>
     public void RemoveKeys(string[] Keys)
     {
         foreach (string Key in Keys)
@@ -133,6 +179,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
                 Remove(Key);
         }
     }
+    /// <summary>
+    /// Converts the connection string entries to a new data table.
+    /// </summary>
     public DataTable ToDataTable()
     {
         DataTable Result = new DataTable();
@@ -142,6 +191,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
         ToDataTable(Result);
         return Result;
     }
+    /// <summary>
+    /// Populates the specified data table with the connection string entries.
+    /// </summary>
     public void ToDataTable(DataTable Table)
     {
         if (Table.Columns.Count == 0)
@@ -156,6 +208,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
         foreach (string Key in Keys)
             Table.Rows.Add(Key, this[Key].ToString());
     }
+    /// <summary>
+    /// Loads connection string entries from a data table.
+    /// </summary>
     public void FromDataTable(DataTable Table)
     {
         Clear();
@@ -165,16 +220,27 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
     }
 
     // ● properties
+    /// <summary>
+    /// Gets or sets a value associated with the specified key.
+    /// Returns an empty string when the key does not exist.
+    /// </summary>
     public override object this[string Key]
     {
         get => ContainsKey(Key) ? base[Key] : string.Empty;
         set => base[Key] = value;
     }
+    /// <summary>
+    /// Gets or sets the connection alias.
+    /// </summary>
     public string Alias
     {
         get { TryGetValue(AliasKey, out string S); return S; }
         set => this[AliasKey] = value;
     }
+    /// <summary>
+    /// Gets the user name from the connection string.
+    /// Supports common key variations such as User, UserId, User ID and UID.
+    /// </summary>
     public string User
     {
         get
@@ -186,6 +252,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
             return string.Empty;
         }
     }
+    /// <summary>
+    /// Gets the password from the connection string.
+    /// </summary>
     public string Password
     {
         get
@@ -195,6 +264,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
             return string.Empty;
         }
     }
+    /// <summary>
+    /// Gets the database name or database file path, depending on the provider.
+    /// </summary>
     public string Database
     {
         get
@@ -208,6 +280,9 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
             return string.Empty;
         }
     }
+    /// <summary>
+    /// Gets the database server name or address.
+    /// </summary>
     public string Server
     {
         get
@@ -232,17 +307,21 @@ public class ConnectionStringBuilder : DbConnectionStringBuilder
             return string.Empty;
         }
     }
+    /// <summary>
+    /// Gets or sets the OLE DB provider name.
+    /// </summary>
     public string OleDbProvider
     {
         get { TryGetValue("Provider", out string S); return S; }
         set => this["Provider"] = value;
     }
+    /// <summary>
+    /// Gets or sets the OLE DB extended properties value.
+    /// </summary>
     public string ExtendedProperties
     {
         get { TryGetValue("Extended Properties", out string S); return S; }
         set => this["Extended Properties"] = value;
     }
-    
-   
  
 }

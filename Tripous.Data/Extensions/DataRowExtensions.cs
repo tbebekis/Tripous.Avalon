@@ -14,8 +14,7 @@ namespace Tripous.Data;
 static public class DataRowExtensions
 {
 
-
-    /* get column value by ColumnName */
+    // ●  get column value by ColumnName  
     /// <summary>
     /// Returns the value of the field by ColumnName of row, if any, else Default.
     /// </summary>
@@ -111,9 +110,7 @@ static public class DataRowExtensions
         return AsDateTime(row, ColumnName, DateTime.MinValue);
     }
 
-
-
-    /* get column value by ColumnIndex */
+    // ●  get column value by ColumnIndex  
     /// <summary>
     /// Returns the value of the field by ColumnIndex of row, if any, else Default.
     /// </summary>
@@ -344,7 +341,7 @@ static public class DataRowExtensions
         return false;
     }
 
-    /* copy-append */
+    // ●  copy-append  
     /// <summary>
     /// Copies Source to Dest.  
     /// <para>WARNING: Assumes that Source and Dest are identical in schema.</para>
@@ -377,8 +374,7 @@ static public class DataRowExtensions
         return Result;
     }
 
-
-    /* blobs */
+    // ●  blobs  
     /// <summary>
     /// Loads FielName field of Row, if field is of type byte[] or object using the content of Stream
     /// </summary>
@@ -501,8 +497,7 @@ static public class DataRowExtensions
         }
     }
 
-
-    /* miscs */
+    // ●  miscs  
     /// <summary>
     /// Returns the value of a column specified by name and true on success.
     /// </summary>
@@ -519,7 +514,9 @@ static public class DataRowExtensions
 
         return false;
     }
-    
+    /// <summary>
+    /// Returns the DataRowView of the specified DataRow. 
+    /// </summary>
     static public DataRowView GetDataRowView(this DataRow Row, DataView DataView)
     {
         return DataView.Cast<DataRowView>().FirstOrDefault(drv => drv.Row == Row);

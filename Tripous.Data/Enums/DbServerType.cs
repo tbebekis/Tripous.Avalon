@@ -8,18 +8,45 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// Indicates the type of the database server.
+/// </summary>
 public enum DbServerType
 {
+    /// <summary>
+    /// Microsoft SQL Server.
+    /// </summary>
     MsSql,
+    /// <summary>
+    /// MySQL.
+    /// </summary>
     MySql,
+    /// <summary>
+    /// PostgreSQL.
+    /// </summary>
     PostgreSql,
+    /// <summary>
+    /// Firebird.
+    /// </summary>
     Firebird,
+    /// <summary>
+    /// Oracle.
+    /// </summary>
     Oracle,
+    /// <summary>
+    /// SQLite.
+    /// </summary>
     Sqlite, 
 }
 
+/// <summary>
+/// Extension methods.
+/// </summary>
 static public class DbServerTypeHelper
 {
+    /// <summary>
+    /// Returns a template connection string for the specified <paramref name="DbServerType"/>, with placeholders to be filled in by the caller.
+    /// </summary>
     static public string GetTemplateConnectionString(this DbServerType DbServerType)
     {
         string Template = "";
@@ -39,22 +66,9 @@ static public class DbServerTypeHelper
     /// Returns the provider invariant name.
     /// </summary>
     static public string GetProviderInvariantName(this DbServerType DbServerType) => DbServerType.GetFactory().GetType().Namespace;
-    /*
-    {
-        return DbServerType.GetFactory().GetType().Namespace;
-        switch (DbServerType)
-        {
-            case DbServerType.MsSql: return typeof(Microsoft.Data.SqlClient.SqlClientFactory).Namespace;  
-            case DbServerType.MySql: return typeof(MySql.Data.MySqlClient.MySqlClientFactory).Namespace;
-            case DbServerType.PostgreSql: return typeof(Npgsql.NpgsqlFactory).Namespace;
-            case DbServerType.Firebird: return typeof(FirebirdSql.Data.FirebirdClient.FirebirdClientFactory).Namespace;
-            case DbServerType.Oracle: return typeof(Oracle.ManagedDataAccess.Client.OracleClientFactory).Namespace;  
-            case DbServerType.Sqlite: return typeof(System.Data.SQLite.SQLiteFactory).Namespace;
-            default: throw new Exception($"Unsupported DbType: {DbServerType}");
-        }
-    }
-    */
-
+    /// <summary>
+    /// Returns the <see cref="DbProviderFactory"/> associated with the specified <paramref name="DbServerType"/>.
+    /// </summary>
     static public DbProviderFactory GetFactory(this DbServerType DbServerType)
     {
         switch (DbServerType)

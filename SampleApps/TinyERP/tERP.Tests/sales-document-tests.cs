@@ -102,9 +102,12 @@ public class SalesDocumentTests
     }
     void SetStockBalance(string ProductName, decimal PrimaryQuantity, decimal AverageUnitCost, string WarehouseName)
     {
+        SetStockBalance(ProductName, PrimaryQuantity, PrimaryQuantity * AverageUnitCost, AverageUnitCost, WarehouseName);
+    }
+    void SetStockBalance(string ProductName, decimal PrimaryQuantity, decimal TotalCostAmount, decimal AverageUnitCost, string WarehouseName)
+    {
         string ProductId = GetProduct(ProductName).AsString("Id");
         string WarehouseId = GetWarehouseId(WarehouseName);
-        decimal TotalCostAmount = PrimaryQuantity * AverageUnitCost;
         string SqlText = """
                          update StockBalance
                          set PrimaryQuantity = :PrimaryQuantity,
@@ -232,6 +235,29 @@ public class SalesDocumentTests
         Result.Insert();
         ConfigureDocument(Result, WarehouseName);
         AddLine(Result, ProductName, Quantity, WarehouseName);
+        Result.Commit();
+        return Result;
+    }
+    SalesReturnDataModule CreateSalesReturn(params (string ProductName, decimal Quantity, decimal UnitPrice)[] Lines)
+    {
+        SalesReturnDataModule Result = DataRegistry.CreateModule("SalesReturn") as SalesReturnDataModule;
+        if (Result == null)
+            throw new TripousDataException("Cannot create the Sales Return module.");
+
+        Result.Insert();
+        ConfigureDocument(Result, "Main Warehouse");
+        foreach ((string ProductName, decimal Quantity, decimal UnitPrice) Line in Lines)
+        {
+            DataRow Row = AddLine(Result, Line.ProductName, Line.Quantity, "Main Warehouse");
+            Row.SetValue("UnitPrice", Line.UnitPrice);
+        }
+        Result.Commit();
+        return Result;
+    }
+    SalesReturnDataModule CreateSalesReturn(SalesDeliveryNoteDataModule DeliveryModule, decimal Quantity)
+    {
+        SalesReturnDataModule Result = DeliveryModule.CreateReturn();
+        Result.GetTable("TradeLine").Rows[0].SetValue("Quantity", Quantity);
         Result.Commit();
         return Result;
     }
@@ -458,6 +484,19 @@ public class SalesDocumentTests
         Assert.Equal(Movement.AsString("Id"), Balance.AsString("LastMovementId"));
     }
     [Fact]
+    public void PostingDeliveryNoteClearsCostWhenStockBecomesZero()
+    {
+        SalesDeliveryNoteDataModule Module = CreateStandaloneDeliveryNote("Laptop Computer 14", 3m, "Main Warehouse");
+        SetStockBalance("Laptop Computer 14", 3m, 100m, 33.3333m, "Main Warehouse");
+
+        Module.Post();
+
+        DataRow Balance = GetStockBalance("Laptop Computer 14", "Main Warehouse");
+        Assert.Equal(0m, Balance.AsDecimal("PrimaryQuantity"));
+        Assert.Equal(0m, Balance.AsDecimal("TotalCostAmount"));
+        Assert.Equal(0m, Balance.AsDecimal("AverageUnitCost"));
+    }
+    [Fact]
     public void PostingDeliveryNoteRejectsNegativeStock()
     {
         SalesDeliveryNoteDataModule Module = CreateStandaloneDeliveryNote("Laptop Computer 14", 6m, "Main Warehouse");
@@ -489,5 +528,102 @@ public class SalesDocumentTests
         Assert.Equal(-6m, Balance.AsDecimal("PrimaryQuantity"));
         Assert.Equal(0m, Balance.AsDecimal("TotalCostAmount"));
         Assert.Equal(0m, Balance.AsDecimal("AverageUnitCost"));
+    }
+    [Fact]
+    public void PostingSalesReturnCreatesIncomingStockAtAverageCost()
+    {
+        SetStockBalance("Laptop Computer 14", 10m, 12m, "Main Warehouse");
+        SalesReturnDataModule Module = CreateSalesReturn(("Laptop Computer 14", 4m, 20m));
+        string LineId = Module.GetTable("TradeLine").Rows[0].AsString("Id");
+
+        Module.Post();
+
+        DataRow Movement = GetStockMovement(LineId);
+        DataRow Balance = GetStockBalance("Laptop Computer 14", "Main Warehouse");
+        Assert.Equal(1, Movement.AsInteger("Direction"));
+        Assert.Equal(4m, Movement.AsDecimal("PrimaryQuantity"));
+        Assert.Equal(12m, Movement.AsDecimal("UnitCost"));
+        Assert.Equal(48m, Movement.AsDecimal("CostAmount"));
+        Assert.Equal("SalesReturn", Movement.AsString("SourceModule"));
+        Assert.Equal(14m, Balance.AsDecimal("PrimaryQuantity"));
+        Assert.Equal(168m, Balance.AsDecimal("TotalCostAmount"));
+        Assert.Equal(12m, Balance.AsDecimal("AverageUnitCost"));
+    }
+    [Fact]
+    public void PartialSalesReturnsUpdateSourceDeliveryQuantity()
+    {
+        SalesDeliveryNoteDataModule DeliveryModule = CreateStandaloneDeliveryNote("Laptop Computer 14", 10m, "Main Warehouse");
+        string DeliveryId = DeliveryModule.CurrentRow.AsString("Id");
+        string DeliveryLineId = DeliveryModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        SetStockBalance("Laptop Computer 14", 20m, 12m, "Main Warehouse");
+        DeliveryModule.Post();
+
+        SalesReturnDataModule FirstReturn = CreateSalesReturn(DeliveryModule, 4m);
+        FirstReturn.Post();
+
+        Assert.Equal(4m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Equal((int)TradeStatus.Posted, GetTrade(DeliveryId).AsInteger("TradeStatusId"));
+        Assert.Equal(14m, GetStockBalance("Laptop Computer 14", "Main Warehouse").AsDecimal("PrimaryQuantity"));
+
+        DeliveryModule.Edit(DeliveryId);
+        SalesReturnDataModule SecondReturn = CreateSalesReturn(DeliveryModule, 6m);
+        SecondReturn.Post();
+
+        Assert.Equal(10m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Equal((int)TradeStatus.Posted, GetTrade(DeliveryId).AsInteger("TradeStatusId"));
+        Assert.Equal(20m, GetStockBalance("Laptop Computer 14", "Main Warehouse").AsDecimal("PrimaryQuantity"));
+
+        DeliveryModule.Edit(DeliveryId);
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => DeliveryModule.CreateReturn());
+        Assert.Contains("no remaining quantity", Error.Message.ToLowerInvariant());
+    }
+    [Fact]
+    public void SalesReturnQuantityCannotExceedRemainingDeliveryQuantity()
+    {
+        SalesDeliveryNoteDataModule DeliveryModule = CreateStandaloneDeliveryNote("Laptop Computer 14", 10m, "Main Warehouse");
+        string DeliveryLineId = DeliveryModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        SetStockBalance("Laptop Computer 14", 20m, 12m, "Main Warehouse");
+        DeliveryModule.Post();
+
+        SalesReturnDataModule ReturnModule = CreateSalesReturn(DeliveryModule, 11m);
+        string ReturnId = ReturnModule.CurrentRow.AsString("Id");
+        string ReturnLineId = ReturnModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => ReturnModule.Post());
+
+        Assert.Contains("exceeds remaining quantity 10", Error.Message.ToLowerInvariant());
+        Assert.Equal(0m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Equal((int)TradeStatus.Draft, GetTrade(ReturnId).AsInteger("TradeStatusId"));
+        Assert.Null(GetStockMovement(ReturnLineId));
+        Assert.Equal(10m, GetStockBalance("Laptop Computer 14", "Main Warehouse").AsDecimal("PrimaryQuantity"));
+    }
+    [Fact]
+    public void FailedMultiLineSalesReturnRollsBackAllStockChanges()
+    {
+        DataRow[] Products =
+        [
+            GetProduct("Laptop Computer 14"),
+            GetProduct("Orange Juice"),
+        ];
+        Products = Products.OrderBy(Product => Product.AsString("Id")).ToArray();
+        SetStockBalance(Products[0].AsString("Name"), 10m, 12m, "Main Warehouse");
+        SetStockBalance(Products[1].AsString("Name"), 20m, 8m, "Main Warehouse");
+        SalesReturnDataModule Module = CreateSalesReturn(
+            (Products[0].AsString("Name"), 4m, 20m),
+            (Products[1].AsString("Name"), 0m, 10m));
+        string ReturnId = Module.CurrentRow.AsString("Id");
+        DataRow FirstLine = Module.GetTable("TradeLine").Rows.Cast<DataRow>()
+            .Single(Row => Row.AsString("ProductId").IsSameText(Products[0].AsString("Id")));
+        DataRow SecondLine = Module.GetTable("TradeLine").Rows.Cast<DataRow>()
+            .Single(Row => Row.AsString("ProductId").IsSameText(Products[1].AsString("Id")));
+
+        Assert.Throws<TripousBusinessException>(() => Module.Post());
+
+        Assert.Equal((int)TradeStatus.Draft, GetTrade(ReturnId).AsInteger("TradeStatusId"));
+        Assert.Null(GetStockMovement(FirstLine.AsString("Id")));
+        Assert.Null(GetStockMovement(SecondLine.AsString("Id")));
+        Assert.Equal(10m, GetStockBalance(Products[0].AsString("Name"), "Main Warehouse").AsDecimal("PrimaryQuantity"));
+        Assert.Equal(120m, GetStockBalance(Products[0].AsString("Name"), "Main Warehouse").AsDecimal("TotalCostAmount"));
+        Assert.Equal(20m, GetStockBalance(Products[1].AsString("Name"), "Main Warehouse").AsDecimal("PrimaryQuantity"));
+        Assert.Equal(160m, GetStockBalance(Products[1].AsString("Name"), "Main Warehouse").AsDecimal("TotalCostAmount"));
     }
 }

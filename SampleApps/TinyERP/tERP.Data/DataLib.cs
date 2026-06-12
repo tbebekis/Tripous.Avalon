@@ -86,6 +86,12 @@ order by
         string CodeValue = "SALES";
         return GetDefaultId(SqlText, CodeValue);
     }
+    static public string GetDefaultPurchaseCostCenterId()
+    {
+        string SqlText = @$"select * from CostCenter where IsActive = 1 order by Code";
+        string CodeValue = "PURCHASES";
+        return GetDefaultId(SqlText, CodeValue);
+    }
     static public string GetDefaultCurrencyId()
     {
         string SqlText = @$"select * from Currency order by Code";

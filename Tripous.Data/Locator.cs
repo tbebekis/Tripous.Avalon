@@ -15,9 +15,21 @@ namespace Tripous.Data;
 public class Locator
 {
     // ●  fields
+    /// <summary>
+    /// Field
+    /// </summary>
     protected SqlStore fStore;
+    /// <summary>
+    /// Field
+    /// </summary>
     protected bool fActive = true;
+    /// <summary>
+    /// Field
+    /// </summary>
     protected LocatorDef fLocatorDef;
+    /// <summary>
+    /// Field
+    /// </summary>
     protected DataTable ftblSchema;
 
     // ● protected
@@ -43,6 +55,9 @@ public class Locator
             return ftblSchema;  
         }
     }
+    /// <summary>
+    /// The character that triggers a locator search.
+    /// </summary>
     protected Char TriggerChar = '?';
     
     // ● engine helpers
@@ -436,12 +451,13 @@ public class Locator
     }
     /// <summary>
     /// Assigns the locator key and field values from a source row to a target row.
-    /// <para><see cref="KeyFieldName"/> identifies the target field that receives the locator key.</para>
-    /// <para><see cref="TargetFieldMap"/> maps locator source field names or aliases to fields in the target row.</para>
-    /// <para>The mapping is supplied by the binding layer because only the binding knows the target table, join and aliases used in its current context. This allows the same locator definition to be reused safely by different controls, grids and modules.</para>
-    /// <para>The target field map takes precedence over <see cref="LocatorFieldDef.TargetField"/>.</para>
-    /// <para><b>NOTE:</b> When <see cref="SourceRow"/> is null, the key field and mapped target fields are cleared.</para>
     /// </summary>
+    /// <param name="SourceRow">The row to get values from. When is null, then the key field and mapped target fields are cleared. </param>
+    /// <param name="TargetRow">The row to set values to.</param>
+    /// <param name="KeyFieldName">Identifies the target field that receives the locator key.</param>
+    /// <param name="TargetFieldMap">maps locator source field names or aliases to fields in the target row.
+    /// <para>The mapping is supplied by the binding layer because only the binding knows the target table, join and aliases used in its current context. This allows the same locator definition to be reused safely by different controls, grids and modules.</para>
+    /// <para>The target field map takes precedence over <see cref="LocatorFieldDef.TargetField"/>.</para></param>
     public virtual void Assign(DataRow SourceRow, DataRow TargetRow, string KeyFieldName, Dictionary<string, string> TargetFieldMap)
     {
         Assign(SourceRow, TargetRow, KeyFieldName, TargetFieldMap, UseAliasFallback: true, ForceTargetReadOnly: true);
@@ -540,6 +556,9 @@ public class Locator
     /// <para>This value comes from an Id field of the source table and goes the target table.</para>
     /// </summary>
     public virtual object KeyValue { get; protected set; } = DBNull.Value;
+    /// <summary>
+    /// Gets or sets the selected row.
+    /// </summary>
     public virtual DataRow SelectedRow { get; protected set; }
     
     /// <summary>

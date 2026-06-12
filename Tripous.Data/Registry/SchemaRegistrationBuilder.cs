@@ -1389,6 +1389,7 @@ static public class SchemaRegistrationBuilder
 
         SB.AppendLine("    }");
     }
+    /// <summary>
     /// Collects code provider names.
     /// </summary>
     static List<string> CollectCodeProviderNames(SchemaScript Script)
@@ -3696,6 +3697,7 @@ static public class SchemaRegistrationBuilder
         /// Creation order.
         /// </summary>
         public int CreationOrder { get; set; }
+        /// <summary>
         /// Header text.
         /// </summary>
         public string HeaderText { get; set; }

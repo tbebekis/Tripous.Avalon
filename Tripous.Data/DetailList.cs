@@ -16,10 +16,19 @@ namespace Tripous.Data;
 public class DetailList : Collection<MemTable>
 {
     // ● private
-    private MemTable OwnerTable = null; // the owner table, which becomes the master of any other table added
-    private int ActiveCount = 0;
+    /// <summary>
+    /// The owner table, which becomes the master of any other table added.
+    /// </summary>
+    MemTable OwnerTable = null; // the owner table, which becomes the master of any other table added
+    /// <summary>
+    /// The activation reference count for the <see cref="Active"/> property.
+    /// </summary>
+    int ActiveCount = 0;
     
-    private static void ClearMasterRecursive(MemTable table)
+    /// <summary>
+    /// Recursively clears the <see cref="MemTable.Master"/> reference of <paramref name="table"/> and all of its descendant tables.
+    /// </summary>
+    static void ClearMasterRecursive(MemTable table)
     {
         MemTable[] children = table.GetDetails().ToArray();
 
@@ -28,7 +37,10 @@ public class DetailList : Collection<MemTable>
 
         table.Master = null;
     }
-    private void OwnerTable_CurrentRowChanged(object sender, EventArgs e)
+    /// <summary>
+    /// Handles the <see cref="MemTable.CurrentRowChanged"/> event of the <see cref="OwnerTable"/>, notifying all detail tables that their master row has changed.
+    /// </summary>
+    void OwnerTable_CurrentRowChanged(object sender, EventArgs e)
     {
         if (!Active)
             return;
@@ -36,7 +48,10 @@ public class DetailList : Collection<MemTable>
         foreach (MemTable DetailTable in this)
             DetailTable.MasterRowChanged();
     }
-    private void ValidateRelationSchema(MemTable master, MemTable detail)
+    /// <summary>
+    /// Validates that the master-detail relation schema between <paramref name="master"/> and <paramref name="detail"/> is properly defined.
+    /// </summary>
+    void ValidateRelationSchema(MemTable master, MemTable detail)
     {
         if (detail.MasterFields == null || detail.MasterFields.Length == 0)
             throw new TripousDataException(
@@ -57,12 +72,15 @@ public class DetailList : Collection<MemTable>
     /// Throws an exception if the master and the detail MemTable instances
     /// in the list do not belong to the same DataSet.
     /// </summary>
-    private void CheckDatasets()
+    void CheckDatasets()
     {
         foreach (MemTable DetailTable in this)
             CheckDatasets(DetailTable);
     }
-    private void CheckDatasets(MemTable DetailTable)
+    /// <summary>
+    /// Throws an exception if <paramref name="DetailTable"/> is null or does not belong to the same DataSet as the <see cref="OwnerTable"/>.
+    /// </summary>
+    void CheckDatasets(MemTable DetailTable)
     {
         if (DetailTable == null)
             throw new TripousArgumentNullException(nameof(DetailTable));
@@ -83,7 +101,7 @@ public class DetailList : Collection<MemTable>
     /// <summary>
     /// Activates the direct master-detail relationship between OwnerTable and DetailTable.
     /// </summary>
-    private void ActivateDetail(MemTable DetailTable)
+    void ActivateDetail(MemTable DetailTable)
     {
         if (DetailTable == null)
             throw new TripousArgumentNullException(nameof(DetailTable));
@@ -99,7 +117,7 @@ public class DetailList : Collection<MemTable>
     /// <summary>
     /// Deactivates the direct master-detail relationship between OwnerTable and DetailTable.
     /// </summary>
-    private void DeactivateDetail(MemTable DetailTable)
+    void DeactivateDetail(MemTable DetailTable)
     {
         if (DetailTable == null)
             return;
@@ -110,6 +128,9 @@ public class DetailList : Collection<MemTable>
         DetailTable.DataView.RowFilter = string.Empty;
     }
 
+    /// <summary>
+    /// Inserts <paramref name="DetailTable"/> at the specified <paramref name="index"/>, setting its <see cref="MemTable.Master"/> to the <see cref="OwnerTable"/> and activating the relationship if the list is active.
+    /// </summary>
     protected override void InsertItem(int index, MemTable DetailTable)
     {
         if (DetailTable == null)
@@ -127,6 +148,9 @@ public class DetailList : Collection<MemTable>
         if (this.Active)
             ActivateDetail(DetailTable);
     }
+    /// <summary>
+    /// Removes the table at the specified <paramref name="index"/>, deactivating its master-detail relationship and clearing master references recursively.
+    /// </summary>
     protected override void RemoveItem(int index)
     {
         MemTable DetailTable = this[index];
@@ -141,6 +165,9 @@ public class DetailList : Collection<MemTable>
 
         ClearMasterRecursive(DetailTable);
     }
+    /// <summary>
+    /// Removes all tables from the list, deactivating their master-detail relationships.
+    /// </summary>
     protected override void ClearItems()
     {
         while (this.Count > 0)
@@ -158,8 +185,17 @@ public class DetailList : Collection<MemTable>
     }
 
     // ● public
+    /// <summary>
+    /// Returns true if a table with the specified <paramref name="TableName"/> exists in the list.
+    /// </summary>
     public bool Contains(string TableName) => this.FirstOrDefault(x => Sys.IsSameText(TableName, x.TableName)) != null;
+    /// <summary>
+    /// Returns the table with the specified <paramref name="TableName"/>, if found, else null.
+    /// </summary>
     public MemTable Find(string TableName) => this.FirstOrDefault(x => Sys.IsSameText(TableName, x.TableName));
+    /// <summary>
+    /// Returns the table with the specified <paramref name="TableName"/>, if found, else throws an exception.
+    /// </summary>
     public MemTable Get(string TableName)
     {
         MemTable Result = this.FirstOrDefault(x => Sys.IsSameText(TableName, x.TableName));

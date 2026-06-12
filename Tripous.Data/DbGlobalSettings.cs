@@ -88,5 +88,8 @@ public class DbGlobalSettings: SettingsBase, INotifyPropertyChanged
     }
     
     // ● events
+    /// <summary>
+    /// Occurs when a property value changes.
+    /// </summary>
     public event PropertyChangedEventHandler PropertyChanged;
 }

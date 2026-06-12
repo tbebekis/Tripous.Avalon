@@ -28,10 +28,15 @@ static public class Db
         DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
         //*/
     }
-    static DbIni fMainIni;
-    static SqlStore fDefaultStore;
 
- 
+    /// <summary>
+    /// Field backing the <see cref="MainIni"/> property.
+    /// </summary>
+    static DbIni fMainIni;
+    /// <summary>
+    /// Field backing the <see cref="DefaultStore"/> property.
+    /// </summary>
+    static SqlStore fDefaultStore;
     
     // ● construction
     /// <summary>
@@ -51,9 +56,12 @@ static public class Db
         
     // ● db connections
     /// <summary>
-    /// Loads connections from a .json file, using the <see cref="DbConnections.SettingsFilePath"/> setting.
+    /// Loads connections from a .json file, using the <see cref="SettingsBase.SettingsFilePath"/> setting.
     /// </summary>
     static public void LoadConnections() => Connections.Load();
+    /// <summary>
+    /// Returns the <see cref="DbConnectionInfo"/> with the specified <paramref name="Name"/>, if any, else throws an exception.
+    /// </summary>
     static public DbConnectionInfo GetConnectionInfo(string Name) => Connections.Get(Name);
     /// <summary>
     /// Returns the default connection string, if any, else throws an exception.
@@ -133,19 +141,25 @@ static public class Db
     }    
  
     // ● properties
+    /// <summary>
+    /// Returns the default <see cref="SqlStore"/>, creating it on first access via <see cref="SqlStores.CreateDefaultSqlStore"/>.
+    /// </summary>
     static public SqlStore DefaultStore => fDefaultStore ??= SqlStores.CreateDefaultSqlStore();
+    /// <summary>
+    /// The registered database connections.
+    /// </summary>
     static public DbConnections Connections = new DbConnections();
+    /// <summary>
+    /// Returns the main <see cref="DbIni"/> instance, creating it on first access using the default connection info.
+    /// </summary>
     static public DbIni MainIni => fMainIni ??= new DbIni(GetDefaultConnectionInfo());
+    /// <summary>
+    /// A semi-colon delimited list of the standard default value names.
+    /// </summary>
     static public readonly string StandardDefaultValues = "CompanyId;EmptyString;AppDate;SysDate;SysTime;DbServerTime;AppUserName;AppUserId;NetUserName;Guid";
-    
  
-    
     /// <summary>
     /// Db global settings
     /// </summary>
     static public DbGlobalSettings Settings { get; } = new();
-
- 
-
-
 }

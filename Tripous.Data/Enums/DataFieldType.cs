@@ -111,7 +111,13 @@ static public class DataFieldTypeHelper
         return DataFieldType.None;
     }
 
+    /// <summary>
+    /// True if Value is Numeric
+    /// </summary>
     static public bool IsNumeric(this DataFieldType Value) => Value == DataFieldType.Integer || IsFloat(Value);
+    /// <summary>
+    /// True if Value is Float
+    /// </summary>
     static public bool IsFloat(this DataFieldType Value) => Value.In(DataFieldType.Double | DataFieldType.Decimal | DataFieldType.Decimal_);
     /// <summary>
     /// True if Value is DateTime or Date or Time
@@ -151,7 +157,9 @@ static public class DataFieldTypeHelper
         return null; 
 
     }
-    
+    /// <summary>
+    /// Gets the default format string for the specified DataFieldType.
+    /// </summary>
     static public string GetDefaultFormat(this DataFieldType Value)
     {
         if (Value == DataFieldType.Integer)
@@ -164,7 +172,9 @@ static public class DataFieldTypeHelper
             return  Sys.Settings.DateTimeFormat;
         return string.Empty;
     }
-
+    /// <summary>
+    /// True if Value is a valid filter type.
+    /// </summary>
     static public bool IsValidFilterType(this DataFieldType Value) => Value == DataFieldType.String || Value.IsNumeric() || Value.IsDateTime();
 
 

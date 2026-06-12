@@ -52,7 +52,9 @@ public enum AlterTableType
     /// <para>NOTE: All databases support foreign key constraint in the CREATE TABLE statement.</para>
     /// </summary>
     TableForeignKeyConstraint = 0x40,
-    
+    /// <summary>
+    /// All
+    /// </summary>
     All = 0xFFFFFFF,
 }
 

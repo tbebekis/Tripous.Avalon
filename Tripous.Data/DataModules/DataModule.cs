@@ -8,16 +8,38 @@
 
 namespace Tripous.Data;
 
+/// <summary>
+/// Base class for all data modules.
+/// <para>A data module represents a table tree, such as SalesOrder along with a list SELECT table.</para>
+/// </summary>
 [TypeStore]
 public class DataModule
 {
     // ● operation flags 
+    /// <summary>
+    /// Field
+    /// </summary>
     protected int fIsInserting;
+    /// <summary>
+    /// Field
+    /// </summary>
     protected int fIsEditing;
+    /// <summary>
+    /// Field
+    /// </summary>
     protected int fIsDeleting;
+    /// <summary>
+    /// Field
+    /// </summary>
     protected int fIsCommiting;
 
+    /// <summary>
+    /// Field
+    /// </summary>
     protected Dictionary<string, object> fVariables;
+    /// <summary>
+    /// Field
+    /// </summary>
     protected TableSet TableSet;
     
     // ● tableset event handlers  
@@ -42,6 +64,9 @@ public class DataModule
     }
  
     // ● overridables - code provider
+    /// <summary>
+    /// Returns the <see cref="CodeProviderDef"/>
+    /// </summary>
     protected virtual CodeProviderDef GetCodeProviderDef() => CodeProviderDef;
     /// <summary>
     /// Assigns the <see cref="CodeProviderDef"/>
@@ -307,44 +332,81 @@ public class DataModule
         UpdateSchema(ModuleDef.Table);
     }
 
+    /// <summary>
+    /// Notification method
+    /// </summary>
     protected virtual void Inserting()
     {
     }
+    /// <summary>
+    /// Notification method
+    /// </summary>
     protected virtual void Inserted()
     {
     }
+    /// <summary>
+    /// Notification method
+    /// </summary>
     protected virtual void Editing(object RowId)
     {
     }
+    /// <summary>
+    /// Notification method
+    /// </summary>
     protected virtual void Edited(object RowId)
     {
     }
+    /// <summary>
+    /// Notification method
+    /// </summary>
     protected virtual void Deleting(object RowId)
     {
     }
+    /// <summary>
+    /// Notification method
+    /// </summary>
     protected virtual void Deleted(object RowId)
     {
     }
+    /// <summary>
+    /// Notification method
+    /// </summary>
     protected virtual void Commiting(bool Reselect)
     {
     }
+    /// <summary>
+    /// Notification method
+    /// </summary>
     protected virtual void Commited(bool Reselect, object RowId)
     {
     }
+    /// <summary>
+    /// Notification method
+    /// </summary>
     protected virtual bool MustReselectAfterCommit() => CodeProviderDef != null;
 
+    /// <summary>
+    /// Event handler
+    /// </summary>
     protected virtual void ColumnChanging(MemTable Table, DataColumnChangeEventArgs ea)
     {
     }
+    /// <summary>
+    /// Event handler
+    /// </summary>
     protected virtual void ColumnChanged(MemTable Table, DataColumnChangeEventArgs ea)
     {
     }
     /// <summary>
+    /// Event handler
     /// WARNING: the new row is not in rows yet
     /// </summary>
     protected virtual void NewRowAdding(MemTable Table, DataTableNewRowEventArgs ea)
     {
     }
+    /// <summary>
+    /// Event handler
+    /// </summary>
     protected virtual void NewRowAdded(MemTable Table, DataTableNewRowEventArgs ea)
     {
     }
@@ -774,23 +836,66 @@ public class DataModule
     }
     
     // ● properties
+    /// <summary>
+    /// True if the module is initialized.
+    /// </summary>
     public bool IsInitialized => ModuleDef != null;
+    /// <summary>
+    /// The module definition.
+    /// </summary>
     public ModuleDef ModuleDef { get; protected set; }
+    /// <summary>
+    /// The code provider definition.
+    /// </summary>
     public CodeProviderDef CodeProviderDef { get; protected set; }
+    /// <summary>
+    /// The <see cref="SqlStore"/> instance."/>
+    /// </summary>
     public SqlStore Store { get; protected set; }
+    /// <summary>
+    /// An indexer with all tables
+    /// </summary>
+    /// <param name="TableName"></param>
     public MemTable this[string TableName] => GetTable(TableName);
+    /// <summary>
+    /// The DataSet of the module.
+    /// </summary>
     public DataSet DataSet { get; protected set; }
+    /// <summary>
+    /// The list table, the one that has the list SELECT data
+    /// </summary>
     public MemTable tblList { get; protected set; }
+    /// <summary>
+    /// The top table of the table tree. Is always a single-row table.
+    /// </summary>
     public MemTable tblItem { get; protected set; }
+    /// <summary>
+    /// All tables, <see cref="tblList"/> included.
+    /// </summary>
     public IEnumerable<MemTable> Tables => DataSet.Tables.Cast<MemTable>();
+    /// <summary>
+    /// The item tables only. <see cref="tblList"/> is not included."
+    /// </summary>
     public List<MemTable> ItemTables = new();
+    /// <summary>
+    /// The stock tables.
+    /// </summary>
     public List<MemTable> Stocks => new();
+    /// <summary>
+    /// The name of this module
+    /// </summary>
     public string Name => ModuleDef.Name;
+    /// <summary>
+    /// When true then detail relationships are active.
+    /// </summary>
     public bool DetailsActive
     {
         get => tblItem.DetailsActive;
         set => tblItem.DetailsActive = value;
     }
+    /// <summary>
+    /// The row provider host of this module. Typically the <see cref="tblItem"/>
+    /// </summary>
     public IRowProviderHost RowProviderHost => tblItem;
     
     

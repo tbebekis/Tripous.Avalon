@@ -8,9 +8,16 @@
 
 namespace Tripous.Data;
 
+// ● public
+/// <summary>
+/// Provides static data discovery methods to populate a <see cref="DbSchema"/> container using embedded SQL resources.
+/// </summary>
 static public class DbSchemaLoader
 {
-    // ● private
+    // ● private methods
+    /// <summary>
+    /// Determines the embedded resource namespace base folder path corresponding to the given database server provider.
+    /// </summary>
     static string GetSqlResourceBasePath(DbServerType DbServerType)
     {
         string folder = DbServerType switch
@@ -27,8 +34,11 @@ static public class DbSchemaLoader
 
         string ResourceBasePath = $"Tripous.Data.Metadata.Resources.Sql.{folder}";
 
-        return ResourceBasePath; // $"{typeof(DbSchema).Namespace}.Resources.Sql.{folder}";
+        return ResourceBasePath;
     }
+    /// <summary>
+    /// Clears all existing operational metadata lists from the specified schema model.
+    /// </summary>
     static void Clear(DbSchema Schema)
     {
         Schema.Tables.Clear();
@@ -36,6 +46,9 @@ static public class DbSchemaLoader
         Schema.Sequences.Clear();
         Schema.Procedures.Clear();
     }
+    /// <summary>
+    /// Extracts the raw SQL statement script content from the embedded assembly manifest stream resource.
+    /// </summary>
     static string ReadEmbeddedSql(string baseResourcePath, string fileName)
     {
         Assembly assembly = typeof(DbSchema).Assembly;
@@ -79,7 +92,9 @@ static public class DbSchemaLoader
 
         return SqlText;
     }
-
+    /// <summary>
+    /// Performs target database provider specific adjustments and literal dynamic tokens updates on schema queries.
+    /// </summary>
     static string ProcessReplacementsInMetadataSql(DbConnectionInfo ConInfo, string SqlText)
     {
         ConnectionStringBuilder CSB = new ConnectionStringBuilder(ConInfo.ConnectionString);
@@ -96,6 +111,9 @@ static public class DbSchemaLoader
         }        
         return SqlText;       
     }
+    /// <summary>
+    /// Fetches the processed embedded DDL command query statement text and returns the executed table results matrix.
+    /// </summary>
     static DataTable ExecuteResourceSql(DbConnectionInfo ConInfo, string baseResourcePath, string fileName)
     {
         string SqlText = ReadEmbeddedSql(baseResourcePath, fileName);
@@ -107,8 +125,9 @@ static public class DbSchemaLoader
         SqlProvider Provider = ConInfo.GetSqlProvider();
         return Provider.Select(ConInfo, SqlText);
     }
-
-    // ● Load
+    /// <summary>
+    /// Locates an existing schema table definition row layout entry match, or spawns and appends a new model configuration.
+    /// </summary>
     static DbMetaTable FindOrAddTable(DbSchema Schema, string SchemaName, string TableName)
     {
         DbMetaTable MetaTable = Schema.Tables.FirstOrDefault(x =>
@@ -122,6 +141,9 @@ static public class DbSchemaLoader
 
         return MetaTable;
     }
+    /// <summary>
+    /// Locates an existing structural metadata view context layer, or inserts a new instance record context.
+    /// </summary>
     static DbMetaView FindOrAddView(DbSchema Schema, string SchemaName, string ViewName)
     {
         DbMetaView MetaView = Schema.Views.FirstOrDefault(x =>
@@ -135,20 +157,9 @@ static public class DbSchemaLoader
 
         return MetaView;
     }
-    static public void LoadField(DataRow Row, DbMetaColumn MetaField)
-    {
-        MetaField.DataType        = Row.AsString("DataType");
-        MetaField.DataSubType     = Row.AsString("DataSubType");
-        MetaField.IsNullable      = Row.AsInteger("IsNullable") == 1;
-        MetaField.SizeInChars     = Row.AsInteger("SizeInChars");
-        MetaField.SizeInBytes     = Row.AsInteger("SizeInBytes");
-        MetaField.Precision       = Row.AsInteger("DecimalPrecision");
-        MetaField.Scale           = Row.AsInteger("DecimalScale");
-        MetaField.DefaultValue    = Row.AsString("DefaultValue");
-        MetaField.Expression      = Row.AsString("Expression");
-        MetaField.OrdinalPosition = Row.AsInteger("OrdinalPosition");
-    }
-    
+    /// <summary>
+    /// Populates table definitions inside the root schema context from data table rows.
+    /// </summary>
     static void LoadTables(DbSchema Schema, DataTable tblSql)
     {
         string SchemaName;
@@ -162,6 +173,9 @@ static public class DbSchemaLoader
             FindOrAddTable(Schema, SchemaName, TableName);
         }
     }
+    /// <summary>
+    /// Extracts column specifications schema attributes matrix into target structural table components container.
+    /// </summary>
     static void LoadTableFields(DbSchema Schema, DataTable tblSql)
     {
         DbMetaTable MetaTable;
@@ -183,8 +197,10 @@ static public class DbSchemaLoader
 
             LoadField(Row, Column);
         }
- 
     }
+    /// <summary>
+    /// Processes view description statement definition blocks and updates global relational view collections layout.
+    /// </summary>
     static void LoadViews(DbSchema Schema, DataTable tblSql)
     {
         if (tblSql == null)
@@ -203,6 +219,9 @@ static public class DbSchemaLoader
             MetaView.SourceCode  = Row.AsString("Definition");
         }
     }
+    /// <summary>
+    /// Synchronizes structural projection column expressions details mapping to respective relational view layouts.
+    /// </summary>
     static void LoadViewFields(DbSchema Schema, DataTable tblSql)
     {
         if (tblSql == null)
@@ -228,6 +247,9 @@ static public class DbSchemaLoader
             LoadField(Row, Column);
         }
     }
+    /// <summary>
+    /// Collects index key constraints optimization definitions and assigns key groups to underlying table targets.
+    /// </summary>
     static void LoadIndexes(DbSchema Schema, DataTable tblSql)
     {
         if (tblSql == null)
@@ -257,16 +279,18 @@ static public class DbSchemaLoader
             {
                 MetaIndex = new DbMetaIndex() { SchemaName = SchemaName, Name = IndexName, Columns = FieldName };
                 MetaTable.Indexes.Add(MetaIndex);
-                MetaIndex.IndexType = Row.AsString("IndexType");   //  := tblSql.FieldByName('IndexType').AsString.Trim();
-                MetaIndex.IsUnique = Row.AsBoolean("IsUnique"); //  := tblSql.FieldByName('IsUnique').AsBoolean;  
+                MetaIndex.IndexType = Row.AsString("IndexType");
+                MetaIndex.IsUnique = Row.AsBoolean("IsUnique");
             }
             else
             {
                 MetaIndex.Columns += $";{FieldName}";
             }
         }
-        
     }
+    /// <summary>
+    /// Processes integrity check constraint layouts and handles multi-column reference key groups formatting.
+    /// </summary>
     static void LoadConstraints(DbSchema Schema, DataTable tblSql)
     {
         if (tblSql == null)
@@ -289,8 +313,6 @@ static public class DbSchemaLoader
             TableName = Row.AsString("TableName").Trim();
 
             MetaTable = FindOrAddTable(Schema, SchemaName, TableName);
-            //MetaTable = Schema.Tables.FirstOrDefault(x =>
-            //    SchemaName.IsSameText(x.SchemaName) && TableName.IsSameText(x.Name));
             
             ConstraintName  = Row.AsString("ConstraintName");
             ConstraintType = (ConstraintType)Row.AsInteger("ConstraintType");
@@ -299,7 +321,6 @@ static public class DbSchemaLoader
 
             if (ConstraintType == ConstraintType.PrimaryKey)
             {
-                // MetaConstraint = MetaTable.PrimaryKey;
                 MetaConstraint = MetaTable.Constraints.FirstOrDefault(x => SchemaName.IsSameText(x.SchemaName) && ConstraintName.IsSameText(x.Name));
             }    
             else if (ConstraintType == ConstraintType.ForeignKey)
@@ -307,13 +328,11 @@ static public class DbSchemaLoader
             else
                 MetaConstraint = MetaTable.Constraints.FirstOrDefault(x => SchemaName.IsSameText(x.SchemaName) && ConstraintName.IsSameText(x.Name));
 
-
             if (MetaConstraint == null)
             {
                 if (ConstraintType == ConstraintType.PrimaryKey)
                 {
                     MetaConstraint = new DbMetaConstraint() { Name = ConstraintName, SchemaName = SchemaName };
-                    //MetaTable.PrimaryKey = MetaConstraint;
                     MetaTable.Constraints.Add(MetaConstraint);
                 }
                 else if (ConstraintType == ConstraintType.ForeignKey)
@@ -352,14 +371,15 @@ static public class DbSchemaLoader
                             : MetaForeignKey.ForeignFields + $";{ForeignField}";
                 }
             }
-        
         }
         
         List<DbMetaConstraint> List = MetaTable.Constraints.OrderBy(x => x.ConstraintType == ConstraintType.PrimaryKey).ToList();
         MetaTable.Constraints.Clear();
         MetaTable.Constraints.AddRange(List);
- 
     }
+    /// <summary>
+    /// Parses tracking context rows to construct and assign intercept automation trigger actions to entities.
+    /// </summary>
     static void LoadTriggers(DbSchema Schema, DataTable tblSql)
     {
         if (tblSql == null)
@@ -388,6 +408,9 @@ static public class DbSchemaLoader
             }
         }
     }
+    /// <summary>
+    /// Loads procedural action modules logic specifications rows directly into target storage execution routines.
+    /// </summary>
     static void LoadProcedures(DbSchema Schema, DataTable tblSql)
     {
         if (tblSql == null)
@@ -407,8 +430,10 @@ static public class DbSchemaLoader
             MetaProcedure.ProcedureType = Row.AsString("ProcedureType");
             MetaProcedure.SourceCode = Row.AsString("Definition");
         }
-       
     }
+    /// <summary>
+    /// Populates numeric system sequence identity generation fields structure entries inside root context.
+    /// </summary>
     static void LoadSequences(DbSchema Schema, DataTable tblSql)
     {
         if (tblSql == null)
@@ -430,8 +455,27 @@ static public class DbSchemaLoader
             MetaSequence.IncrementBy = Row.AsInteger("IncrementBy");
         }
     }
-    
-    // ● public
+
+    // ● static public methods
+    /// <summary>
+    /// Maps dynamic relational data record column types into core typed property descriptors.
+    /// </summary>
+    static public void LoadField(DataRow Row, DbMetaColumn MetaField)
+    {
+        MetaField.DataType        = Row.AsString("DataType");
+        MetaField.DataSubType     = Row.AsString("DataSubType");
+        MetaField.IsNullable      = Row.AsInteger("IsNullable") == 1;
+        MetaField.SizeInChars     = Row.AsInteger("SizeInChars");
+        MetaField.SizeInBytes     = Row.AsInteger("SizeInBytes");
+        MetaField.Precision       = Row.AsInteger("DecimalPrecision");
+        MetaField.Scale           = Row.AsInteger("DecimalScale");
+        MetaField.DefaultValue    = Row.AsString("DefaultValue");
+        MetaField.Expression      = Row.AsString("Expression");
+        MetaField.OrdinalPosition = Row.AsInteger("OrdinalPosition");
+    }
+    /// <summary>
+    /// Triggers discovery parsing queries pipeline steps sequentially to hydrate entire target database tracking context schema elements.
+    /// </summary>
     static public void Load(DbSchema Schema)
     {
         Clear(Schema);
@@ -456,13 +500,17 @@ static public class DbSchemaLoader
         LoadTriggers(Schema, tblTriggers);
         LoadProcedures(Schema, tblProcedures);
         LoadSequences(Schema, tblSequences);
-        
     }
-
+    /// <summary>
+    /// Performs teardown operations to release resources associated with schema state loading tracking definitions.
+    /// </summary>
     static public void UnLoad(DbSchema Schema)
     {
  
     }
+    /// <summary>
+    /// Forces complete clear cycles and re-runs internal discovery loader sequences to refresh relational structure maps.
+    /// </summary>
     static public void ReLoad(DbSchema Schema)
     {
         UnLoad(Schema);

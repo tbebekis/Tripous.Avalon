@@ -14,11 +14,23 @@ namespace Tripous.Data;
 /// </summary>
 public interface IRowProvider
 {
+    /// <summary>
+    /// The name of the table this provider refers to.
+    /// </summary>
     string TableName { get; }
+    /// <summary>
+    /// The current row, if any, else null.
+    /// </summary>
     DataRow CurrentRow { get; }
 
+    /// <summary>
+    /// Occurs when the <see cref="CurrentRow"/> changes.
+    /// </summary>
     event EventHandler CurrentRowChanged;
 
+    /// <summary>
+    /// Updates the <see cref="CurrentRow"/>.
+    /// </summary>
     void UpdateCurrentRow();
 }
 
@@ -28,9 +40,21 @@ public interface IRowProvider
 /// </summary>
 public interface IRowProviderHost
 {
+    /// <summary>
+    /// Returns true if a <see cref="IRowProvider"/> with the specified <paramref name="TableName"/> exists.
+    /// </summary>
     bool RowProviderExists(string TableName);
+    /// <summary>
+    /// Returns the <see cref="IRowProvider"/> with the specified <paramref name="TableName"/>, if found, else null.
+    /// </summary>
     IRowProvider FindRowProvider(string TableName);
+    /// <summary>
+    /// Returns the <see cref="IRowProvider"/> with the specified <paramref name="TableName"/>, if found, else throws an exception.
+    /// </summary>
     IRowProvider GetRowProvider(string TableName);
 
+    /// <summary>
+    /// The list of <see cref="IRowProvider"/> instances hosted by this instance.
+    /// </summary>
     ReadOnlyCollection<IRowProvider> RowProviders { get; }
 }

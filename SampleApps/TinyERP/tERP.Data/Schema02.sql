@@ -634,7 +634,7 @@ CREATE TABLE {TableName} (
     UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- ratio to primary unit, ProductUnitOfMeasure.Ratio, converts line quantity to primary/base quantity
 
     UnitCost @DECIMAL DEFAULT 0 @NOT_NULL,              -- internal stock cost per primary unit at movement time
-    CostAmount @DECIMAL DEFAULT 0 @NOT_NULL,            -- PrimaryQuantity * UnitCost
+    CostAmount @DECIMAL DEFAULT 0 @NOT_NULL,            -- total stock cost posted by the movement
 
     SourceModule @NVARCHAR(64) @NOT_NULL,               -- source module name, e.g. Trade or StockTrade
     SourceTable @NVARCHAR(64) @NOT_NULL,                -- source line table, e.g. TradeLine or StockTradeLine

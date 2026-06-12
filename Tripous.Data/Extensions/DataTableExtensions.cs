@@ -185,12 +185,18 @@ static public class DataTableExtensions
         SafeCopyTo(Source, Dest, false);
     }
     
+    /// <summary>
+    /// Clears all rows, constraints and columns from Target, leaving it with no schema and no data.
+    /// </summary>
     static public void ClearSchemaAndData(this DataTable Target)
     {
         Target.Clear();
         Target.Constraints.Clear();
         Target.Columns.Clear();
     }
+    /// <summary>
+    /// Clears the columns of Target and re-creates them based on the columns of Source, copying the relevant column properties.
+    /// </summary>
     static public void CopyColumnsFrom(this DataTable Target, DataTable Source)
     {
         Target.Columns.Clear();
@@ -213,6 +219,9 @@ static public class DataTableExtensions
         }
     }
  
+    /// <summary>
+    /// Copies the rows of Source to Target, preserving the RowState of each row.
+    /// </summary>
     static public void CopyRowsFrom(this DataTable Target, DataTable Source)
     {
         Target.BeginLoadData();
@@ -255,6 +264,9 @@ static public class DataTableExtensions
         }
 
     }
+    /// <summary>
+    /// Clears Target and copies the table name, namespace, locale, case-sensitivity, columns and rows from Source to Target.
+    /// </summary>
     static public void CopyStructureAndRowsFrom(this DataTable Target, DataTable Source)
     {
         Target.ClearSchemaAndData();
@@ -591,6 +603,9 @@ static public class DataTableExtensions
     /// </summary>
     static public ObservableCollection<DataRow> ToObservableCollection(this DataTable Table) =>  new ObservableCollection<DataRow>(Table.AsEnumerable());
 
+    /// <summary>
+    /// Returns the first row in Table whose values for FieldNames match Values, according to Options, if found, else null.
+    /// </summary>
     static public DataRow Locate(this DataTable Table, string[] FieldNames, object[] Values, LocateOptions Options)
     {
         if (Table == null || FieldNames == null || Values == null || FieldNames.Length != Values.Length)
@@ -661,6 +676,9 @@ static public class DataTableExtensions
 
         return null;
     }
+    /// <summary>
+    /// Returns the first row in Table whose value for FieldName matches Value, according to Options, if found, else null.
+    /// </summary>
     static public DataRow Locate(this DataTable Table, string FieldName, object Value, LocateOptions Options) => Locate(Table, [FieldName], [Value], Options);
  
 }
@@ -689,4 +707,3 @@ public enum LocateOptions
     /// </summary>
     Both = CaseInsensitive | PartialKey,
 }
- 

@@ -51,14 +51,21 @@ public class TradeDataModule: DocumentDataModule
     {
         return ItemTables.FirstOrDefault(Table => Table.TableName.IsSameText(TableName));
     }
+    protected virtual bool IsPurchaseTrade() => DocumentType.TradeTypeId == (int)TradeType.Purchases;
+    protected virtual string GetPriceResolverClassName() => IsPurchaseTrade()
+        ? AppDefaultProperties.Purchase.PriceResolverClassName
+        : AppDefaultProperties.Sales.PriceResolverClassName;
+    protected virtual string GetTaxResolverClassName() => IsPurchaseTrade()
+        ? AppDefaultProperties.Purchase.TaxResolverClassName
+        : AppDefaultProperties.Sales.TaxResolverClassName;
     /// <summary>
     /// Creates the configured price resolver.
     /// </summary>
     protected virtual IPriceResolver CreatePriceResolver()
     {
-        string ClassName = AppDefaultProperties.Sales.PriceResolverClassName;
+        string ClassName = GetPriceResolverClassName();
         if (string.IsNullOrWhiteSpace(ClassName))
-            throw new TripousException("SalesDefaults.PriceResolverClassName is not defined.");
+            throw new TripousException("PriceResolverClassName is not defined.");
 
         return TypeStore.CreateInstance<IPriceResolver>(ClassName);
     }
@@ -67,18 +74,20 @@ public class TradeDataModule: DocumentDataModule
     /// </summary>
     protected virtual ITaxResolver CreateTaxResolver()
     {
-        string ClassName = AppDefaultProperties.Sales.TaxResolverClassName;
+        string ClassName = GetTaxResolverClassName();
         if (string.IsNullOrWhiteSpace(ClassName))
-            throw new TripousException("SalesDefaults.TaxResolverClassName is not defined.");
+            throw new TripousException("TaxResolverClassName is not defined.");
 
         return TypeStore.CreateInstance<ITaxResolver>(ClassName);
     }
     /// <summary>
-    /// Returns the configured price list type or resolves the current sales default.
+    /// Returns the configured price list type for the current trade type.
     /// </summary>
     protected virtual string GetPriceListTypeId()
     {
-        string Result = AppDefaultProperties.Sales.PriceListTypeId;
+        string Result = IsPurchaseTrade()
+            ? AppDefaultProperties.Purchase.PriceListTypeId
+            : AppDefaultProperties.Sales.PriceListTypeId;
         return !string.IsNullOrWhiteSpace(Result) ? Result : DataLib.GetDefaultPriceListTypeId();
     }
     /// <summary>
@@ -365,8 +374,10 @@ where
     {
         TaxResult Result = fTaxResolver.Resolve(CreateTaxResolveArgs(Row));
 
-        CurrentRow.SetValue("OriginTaxJurisdictionId", string.IsNullOrWhiteSpace(Result.OriginTaxJurisdictionId) ? DBNull.Value : Result.OriginTaxJurisdictionId);
-        CurrentRow.SetValue("DestinationTaxJurisdictionId", string.IsNullOrWhiteSpace(Result.DestinationTaxJurisdictionId) ? DBNull.Value : Result.DestinationTaxJurisdictionId);
+        if (!string.IsNullOrWhiteSpace(Result.OriginTaxJurisdictionId))
+            CurrentRow.SetValue("OriginTaxJurisdictionId", Result.OriginTaxJurisdictionId);
+        if (!string.IsNullOrWhiteSpace(Result.DestinationTaxJurisdictionId))
+            CurrentRow.SetValue("DestinationTaxJurisdictionId", Result.DestinationTaxJurisdictionId);
         Row.SetValue("TaxPercent", Result.TaxPercent);
         Row.SetValue("IsTaxExempt", Result.IsExempt);
         Row.SetValue("IsReverseCharge", Result.IsReverseCharge);

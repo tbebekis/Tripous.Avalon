@@ -12,7 +12,7 @@ namespace Tripous.Data;
 /// Indicates when a numeric ID, which uniquelly identifies a database row, is created: Before or After the
 /// insertion of the new row. For example, MS Sql identity columns are considered After. Firebird Generators
 /// and Oracle Sequencers are considered Before.
-/// <para>OidMode has effect only when <see cref="OidType"/> is set to Integer.</para>
+/// <para>OidMode has effect only when OIDs are integers.</para>
 /// <para>An OID (Object Identifier) must uniquely identify a data table row and must has no business meaning at all.</para>
 /// </summary>
 public enum OidMode
@@ -31,7 +31,4 @@ public enum OidMode
     /// by an auto-increment mechanism
     /// </summary>
     AutoInc,
-    
-    
-    
 }

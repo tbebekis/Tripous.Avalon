@@ -5,11 +5,13 @@ public class TradeItemPage: ItemPage
     // ● protected
     protected virtual void ApplyTradeLineGridFields()
     {
-        if (Context.Module is not SalesDataModule)
+        if (Context.Module is not SalesDataModule && Context.Module is not PurchaseDataModule)
             return;
 
         AppDefaultProperties AppDefaultProperties = Config.GetObjectValue<AppDefaultProperties>(DataLib.SAppDefaultProperties);
-        List<string> FieldNames = AppDefaultProperties.Sales.TradeLineGridFields;
+        List<string> FieldNames = Context.Module is PurchaseDataModule
+            ? AppDefaultProperties.Purchase.TradeLineGridFields
+            : AppDefaultProperties.Sales.TradeLineGridFields;
         UiDetailTableInfo DetailInfo = Context.TopTableUiInfo.DetailList.FirstOrDefault(Item => Item.TableDef.Name.IsSameText("TradeLine"));
         if (DetailInfo?.Grid == null || FieldNames == null)
             return;

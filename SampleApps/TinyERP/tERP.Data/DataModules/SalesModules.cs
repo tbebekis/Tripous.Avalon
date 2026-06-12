@@ -243,7 +243,7 @@ public class SalesOrderDataModule: SalesDataModule
     }
 }
 
-public class SalesDeliveryNoteDataModule: SalesDataModule
+public class SalesStockDataModule: SalesDataModule
 {
     // ● protected
     /// <summary>
@@ -290,6 +290,8 @@ public class SalesDeliveryNoteDataModule: SalesDataModule
         decimal CostAmount = RoundAmount(PrimaryQuantity * UnitCost);
         decimal NewQuantity = RoundAmount(CurrentQuantity + DocumentType.StockDirection * PrimaryQuantity);
         decimal NewTotalCostAmount = RoundAmount(CurrentTotalCostAmount + DocumentType.StockDirection * CostAmount);
+        if (NewQuantity == 0)
+            NewTotalCostAmount = 0;
         decimal NewAverageUnitCost = NewQuantity == 0 ? 0 : RoundAmount(NewTotalCostAmount / NewQuantity);
 
         if (NewQuantity < 0 && !Warehouse.AsBoolean("AllowNegativeStock"))
@@ -422,6 +424,7 @@ public class SalesDeliveryNoteDataModule: SalesDataModule
             CreateStockMovement(Transaction, Row, UserId, CreatedAt, MovementDate);
         }
     }
+    protected virtual bool UpdatesSourceOrder() => false;
     protected virtual Dictionary<string, decimal> GetSourceLineQuantities()
     {
         MemTable LineTable = FindItemTable("TradeLine");
@@ -525,13 +528,46 @@ public class SalesDeliveryNoteDataModule: SalesDataModule
         if (IsPosting && e.Stage == TransactionStage.Post && e.ExecTime == ExecTime.After)
         {
             CreateStockMovements(e.Transaction);
-            UpdateSourceExecutedQuantities(e.Transaction);
+            if (UpdatesSourceOrder())
+                UpdateSourceExecutedQuantities(e.Transaction);
         }
     }
 
     // ● construction
+    public SalesStockDataModule()
+    {
+    }
+}
+
+public class SalesDeliveryNoteDataModule: SalesStockDataModule
+{
+    // ● protected
+    protected virtual void CheckCanCreateReturn()
+    {
+        if (CurrentRow == null)
+            throw new TripousBusinessException("No Sales Delivery Note is selected.");
+        if (HasChanges())
+            throw new TripousBusinessException("Save or cancel the Sales Delivery Note changes before creating a Sales Return.");
+        if ((TradeStatus)CurrentRow.AsInteger("TradeStatusId") != TradeStatus.Posted)
+            throw new TripousBusinessException("Only posted Sales Delivery Notes can create a Sales Return.");
+        if (CurrentRow.AsBoolean("IsCancelled"))
+            throw new TripousBusinessException("A cancelled Sales Delivery Note cannot create a Sales Return.");
+    }
+    protected override bool UpdatesSourceOrder() => true;
+
+    // ● construction
     public SalesDeliveryNoteDataModule()
     {
+    }
+
+    // ● public
+    public virtual SalesReturnDataModule CreateReturn()
+    {
+        CheckCanCreateReturn();
+        SalesReturnDataModule Result = CreateTransformedDocument("SalesReturn") as SalesReturnDataModule;
+        if (Result == null)
+            throw new TripousDataException("Cannot create a Sales Return module.");
+        return Result;
     }
 }
 
@@ -551,8 +587,85 @@ public class SalesCreditNoteDataModule: SalesDataModule
     }
 }
 
-public class SalesReturnDataModule: SalesDataModule
+public class SalesReturnDataModule: SalesStockDataModule
 {
+    // ● protected
+    protected virtual Dictionary<string, decimal> GetReturnedQuantities()
+    {
+        MemTable LineTable = FindItemTable("TradeLine");
+        if (LineTable == null)
+            throw new TripousDataException("TradeLine table is not available.");
+
+        Dictionary<string, decimal> Result = new(StringComparer.OrdinalIgnoreCase);
+        foreach (DataRow Row in LineTable.Rows)
+        {
+            if (Row.RowState == DataRowState.Deleted || Row.RowState == DataRowState.Detached)
+                continue;
+
+            string SourceTradeLineId = Row.AsString("SourceTradeLineId");
+            if (string.IsNullOrWhiteSpace(SourceTradeLineId))
+                throw new TripousBusinessException($"{GetLineLabel(Row)}: Source Sales Delivery Note line is required.");
+
+            decimal Quantity = Row.AsDecimal("Quantity");
+            if (Quantity <= 0)
+                throw new TripousBusinessException($"{GetLineLabel(Row)}: Quantity must be greater than zero.");
+
+            Result.TryGetValue(SourceTradeLineId, out decimal TotalQuantity);
+            Result[SourceTradeLineId] = TotalQuantity + Quantity;
+        }
+
+        if (Result.Count == 0)
+            throw new TripousBusinessException("The Sales Return has no lines.");
+
+        return Result;
+    }
+    protected virtual void UpdateSourceReturnedQuantities(DbTransaction Transaction)
+    {
+        string SourceId = CurrentRow.AsString("SourceId");
+        if (string.IsNullOrWhiteSpace(SourceId))
+            return;
+
+        DataRow SourceDelivery = Store.Provider.SelectForUpdate(Transaction, "Trade", "Id", SourceId);
+        if (SourceDelivery == null)
+            throw new TripousBusinessException("The source Sales Delivery Note does not exist.");
+        if ((TradeStatus)SourceDelivery.AsInteger("TradeStatusId") != TradeStatus.Posted)
+            throw new TripousBusinessException("Only posted Sales Delivery Notes can be returned.");
+        if (SourceDelivery.AsBoolean("IsCancelled"))
+            throw new TripousBusinessException("A cancelled Sales Delivery Note cannot be returned.");
+
+        Dictionary<string, decimal> Quantities = GetReturnedQuantities();
+        foreach (KeyValuePair<string, decimal> Entry in Quantities.OrderBy(Item => Item.Key))
+        {
+            DataRow SourceLine = Store.Provider.SelectForUpdate(Transaction, "TradeLine", "Id", Entry.Key);
+            if (SourceLine == null || !SourceLine.AsString("TradeId").IsSameText(SourceId))
+                throw new TripousBusinessException("A source Sales Delivery Note line does not exist.");
+
+            decimal DeliveredQuantity = SourceLine.AsDecimal("Quantity");
+            decimal ReturnedQuantity = SourceLine.AsDecimal("ExecutedQuantity");
+            decimal RemainingQuantity = DeliveredQuantity - ReturnedQuantity;
+            if (Entry.Value > RemainingQuantity)
+                throw new TripousBusinessException($"Return quantity {Entry.Value} exceeds remaining quantity {RemainingQuantity}.");
+
+            string SqlText = """
+                             update TradeLine
+                             set ExecutedQuantity = :ExecutedQuantity
+                             where Id = :Id
+                             """;
+            Store.ExecSql(Transaction, SqlText, new Dictionary<string, object>()
+            {
+                ["Id"] = Entry.Key,
+                ["ExecutedQuantity"] = ReturnedQuantity + Entry.Value,
+            });
+        }
+    }
+    protected override void TableSet_TransactionStageCommit(object sender, TransactionEventArgs e)
+    {
+        base.TableSet_TransactionStageCommit(sender, e);
+
+        if (IsPosting && e.Stage == TransactionStage.Post && e.ExecTime == ExecTime.After)
+            UpdateSourceReturnedQuantities(e.Transaction);
+    }
+
     // ● construction
     public SalesReturnDataModule()
     {

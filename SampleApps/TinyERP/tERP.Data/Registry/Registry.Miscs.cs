@@ -191,15 +191,20 @@ where P.IsActive = 1
         string[] DocumentSnapshotModules = MovementModules.ToArray();
         string[] AllModules = SalesDocumentModules.Concat(PurchaseDocumentModules).Concat(StockDocumentModules).Concat(JournalDocumentModules).Concat(MovementModules).ToArray();
 
+        //---------------------------------------------------------------
         void SetTradeModulePersonLocator(string Locator, string[] ModuleNames)
         {
             foreach (string ModuleName in ModuleNames)
             {
                 ModuleDef ModuleDef = DataRegistry.Modules.Find(ModuleName);
                 if (ModuleDef != null && ModuleDef.Table.Fields.Contains("PersonId"))
+                {
                     ModuleDef.Table.Fields["PersonId"].Locator = Locator;
+                    ModuleDef.Table.Fields["PersonId"].TitleKey = Locator;
+                }
             }
         }
+        //---------------------------------------------------------------
 
         SetTradeModulePersonLocator("Customer", SalesDocumentModules);
         SetTradeModulePersonLocator("Supplier", PurchaseDocumentModules);

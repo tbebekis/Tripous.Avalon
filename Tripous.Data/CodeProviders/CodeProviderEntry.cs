@@ -109,15 +109,24 @@ public class CodeProviderEntry
     }
     
     // ● construction
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public CodeProviderEntry()
     {
     }
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public CodeProviderEntry(DataRow Row)
     {
         LoadForm(Row);
     }
     
     // ● public
+    /// <summary>
+    /// Loads this instance from a data row
+    /// </summary>
     public virtual void LoadForm(DataRow Row)
     {
         Code = Row.AsString("Code");
