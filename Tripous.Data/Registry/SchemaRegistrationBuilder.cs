@@ -3384,7 +3384,11 @@ static public class SchemaRegistrationBuilder
             if (Parts.Count > 1)
                 ModuleBlock.FormClassName = Parts[1];
             if (Parts.Count > 2)
+            {
+                if (!string.IsNullOrWhiteSpace(ModuleBlock.ItemPageClassName))
+                    throw new TripousDataException("Module block contains duplicate ItemPage: " + ModuleBlock.ModuleName);
                 ModuleBlock.ItemPageClassName = Parts[2];
+            }
         }
         /// <summary>
         /// Parses item page header text.
@@ -3446,13 +3450,9 @@ static public class SchemaRegistrationBuilder
                 if (Entry.Name.IsSameText("Group"))
                 {
                     if (Current == null)
-                        throw new TripousDataException("Invalid Group header order. Group must follow a Module line.");
+                        throw new TripousDataException("Group metadata requires a preceding Module line.");
                     if (!string.IsNullOrWhiteSpace(Current.GroupName))
-                        throw new TripousDataException("Invalid Group header order. Module block contains duplicate Group: " + Current.ModuleName);
-                    if (!string.IsNullOrWhiteSpace(Current.FormName))
-                        throw new TripousDataException("Invalid Group header order. Group must appear before Form: " + Current.ModuleName);
-                    if (!string.IsNullOrWhiteSpace(Current.ItemPageClassName))
-                        throw new TripousDataException("Invalid Group header order. Group must appear before ItemPage: " + Current.ModuleName);
+                        throw new TripousDataException("Module block contains duplicate Group: " + Current.ModuleName);
                     Current.GroupName = Entry.Value;
                     continue;
                 }
@@ -3460,15 +3460,9 @@ static public class SchemaRegistrationBuilder
                 if (Entry.Name.IsSameText("Form"))
                 {
                     if (Current == null)
-                        throw new TripousDataException("Invalid Form header order. Form must follow a Module line.");
-                    if (string.IsNullOrWhiteSpace(Current.GroupName))
-                        throw new TripousDataException("Invalid Form header order. Form must follow Group: " + Current.ModuleName);
-                    if (!string.IsNullOrWhiteSpace(Current.FormName))
-                        throw new TripousDataException("Invalid Form header order. Module block contains duplicate Form: " + Current.ModuleName);
-                    if (!string.IsNullOrWhiteSpace(Current.ItemPageClassName))
-                        throw new TripousDataException("Invalid Form header order. Form must appear before ItemPage: " + Current.ModuleName);
-                    if (Current.DetailOrder.Count > 0)
-                        throw new TripousDataException("Invalid Form header order. Form must appear before DetailOrder: " + Current.ModuleName);
+                        throw new TripousDataException("Form metadata requires a preceding Module line.");
+                    if (Current.IsFormSpecified)
+                        throw new TripousDataException("Module block contains duplicate Form: " + Current.ModuleName);
                     ParseFormHeader(Current, Entry.Value);
                     continue;
                 }
@@ -3476,13 +3470,9 @@ static public class SchemaRegistrationBuilder
                 if (Entry.Name.IsSameText("ItemPage"))
                 {
                     if (Current == null)
-                        throw new TripousDataException("Invalid ItemPage header order. ItemPage must follow a Module line.");
-                    if (string.IsNullOrWhiteSpace(Current.GroupName))
-                        throw new TripousDataException("Invalid ItemPage header order. ItemPage must follow Group: " + Current.ModuleName);
+                        throw new TripousDataException("ItemPage metadata requires a preceding Module line.");
                     if (!string.IsNullOrWhiteSpace(Current.ItemPageClassName))
-                        throw new TripousDataException("Invalid ItemPage header order. Module block contains duplicate ItemPage: " + Current.ModuleName);
-                    if (Current.DetailOrder.Count > 0)
-                        throw new TripousDataException("Invalid ItemPage header order. ItemPage must appear before DetailOrder: " + Current.ModuleName);
+                        throw new TripousDataException("Module block contains duplicate ItemPage: " + Current.ModuleName);
                     ParseItemPageHeader(Current, Entry.Value);
                     continue;
                 }
@@ -3490,11 +3480,7 @@ static public class SchemaRegistrationBuilder
                 if (Entry.Name.IsSameText("DetailOrder"))
                 {
                     if (Current == null)
-                        throw new TripousDataException("Invalid DetailOrder header order. DetailOrder must follow a Module line.");
-                    if (string.IsNullOrWhiteSpace(Current.GroupName))
-                        throw new TripousDataException("Invalid DetailOrder header order. DetailOrder must follow Group: " + Current.ModuleName);
-                    if (Current.CodeProvider != null)
-                        throw new TripousDataException("Invalid DetailOrder header order. DetailOrder must appear before Code: " + Current.ModuleName);
+                        throw new TripousDataException("DetailOrder metadata requires a preceding Module line.");
                     ParseDetailOrderHeader(Current, Entry.Value);
                     continue;
                 }
@@ -3502,11 +3488,9 @@ static public class SchemaRegistrationBuilder
                 if (Entry.Name.IsSameText("ListWhere"))
                 {
                     if (Current == null)
-                        throw new TripousDataException("Invalid ListWhere header order. ListWhere must follow a Module line.");
-                    if (string.IsNullOrWhiteSpace(Current.GroupName))
-                        throw new TripousDataException("Invalid ListWhere header order. ListWhere must follow Group: " + Current.ModuleName);
+                        throw new TripousDataException("ListWhere metadata requires a preceding Module line.");
                     if (!string.IsNullOrWhiteSpace(Current.ListWhere))
-                        throw new TripousDataException("Invalid ListWhere header order. Module block contains duplicate ListWhere: " + Current.ModuleName);
+                        throw new TripousDataException("Module block contains duplicate ListWhere: " + Current.ModuleName);
                     if (string.IsNullOrWhiteSpace(Entry.Value))
                         throw new TripousDataException("Invalid ListWhere header syntax. Expected: ListWhere: SQL_CONDITION");
                     Current.ListWhere = Entry.Value;
@@ -3516,11 +3500,9 @@ static public class SchemaRegistrationBuilder
                 if (Entry.Name.IsSameText("Code"))
                 {
                     if (Current == null)
-                        throw new TripousDataException("Invalid Code header order. Code must follow a Module line.");
-                    if (string.IsNullOrWhiteSpace(Current.GroupName))
-                        throw new TripousDataException("Invalid Code header order. Code must follow Group: " + Current.ModuleName);
+                        throw new TripousDataException("Code metadata requires a preceding Module line.");
                     if (Current.CodeProvider != null)
-                        throw new TripousDataException("Invalid Code header order. Module block contains duplicate Code: " + Current.ModuleName);
+                        throw new TripousDataException("Module block contains duplicate Code: " + Current.ModuleName);
                     Current.CodeProvider = ParseCodeProviderMetadata(Entry.Value);
                     continue;
                 }

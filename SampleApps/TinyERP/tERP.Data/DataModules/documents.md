@@ -124,6 +124,7 @@ tERP currently uses a simplified Sales Order lifecycle.
 - There is no separate `Released` status.
 - A posted Sales Order represents an approved or released order.
 - Only posted Sales Orders can be transformed into Sales Delivery Notes.
+- A Sales Order becomes completed when all line quantities are fully delivered.
 - Posting a Sales Order does not create stock movements.
 - Stock movements are created when the related Sales Delivery Note is posted.
 
@@ -470,12 +471,12 @@ The grid supports:
 - Currency conversion between price-list and document currencies is not implemented.
 - A pricing-field change replaces a manual unit price only when an applicable price is found.
 - Purchase-specific defaults, pricing, and validation are not implemented.
-- Posting currently updates document state and numbering but does not create stock, financial, or accounting records.
+- Posting currently does not create financial or accounting records.
 - Cancellation and document transformation workflows are not implemented.
 
 ## Sales Order Transformation
 
-The first implementation supports full delivery:
+The implementation supports partial delivery:
 
 - Only a posted Sales Order can be transformed.
 - The new Sales Delivery Note remains unsaved and opens in insert mode.
@@ -484,6 +485,29 @@ The first implementation supports full delivery:
 - Delivery quantity is `Quantity - ExecutedQuantity`.
 - Header and line business snapshots are copied.
 - IDs, codes, statuses, audit fields, calculated amounts, and tax snapshots are regenerated.
-- Only one active Sales Delivery Note is currently allowed per Sales Order.
+- Multiple Sales Delivery Notes can be created from one Sales Order.
+- Posting validates each delivery quantity against the remaining source quantity.
+- Posting updates source line `ExecutedQuantity` in the same transaction.
+- Posting the final remaining quantities sets the Sales Order status to `Completed`.
+- Posting creates immutable outgoing `StockMovement` rows in the same transaction.
+- Posting updates `StockBalance` quantity, total cost, average unit cost, and last movement.
+- Outgoing movements use the current moving-average unit cost.
+- Posting rejects negative stock unless `Warehouse.AllowNegativeStock` is enabled.
+- Stock movement, stock balance, delivery posting, and source-order updates share the same transaction.
 
-Partial delivery, stock movements, and `Warehouse.AllowNegativeStock` validation remain to be implemented.
+## Stock Count
+
+The Stock Count document supports initial stock and later inventory adjustments:
+
+- `SystemQuantity` captures the current warehouse balance when a product is selected.
+- `CountedQuantity` is the physical quantity entered by the user.
+- `DifferenceQuantity` is `CountedQuantity - SystemQuantity`.
+- Posting creates a stock movement only when the difference is not zero.
+- Positive differences use the unit cost entered on the count line.
+- Negative differences use the current moving-average unit cost.
+- Posting updates `StockBalance` to the counted quantity.
+- Posting is rejected when stock changed after the count was entered.
+- A zero difference posts without creating a stock movement.
+- Multi-line adjustments are atomic and roll back together when any line fails.
+- Stock movement, stock balance, and Stock Count posting share the same transaction.
+- The Stock Count desktop form exposes the standard document Post action.

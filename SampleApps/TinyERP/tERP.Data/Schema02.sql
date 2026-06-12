@@ -204,7 +204,7 @@ CREATE TABLE {TableName} (
     Code @NVARCHAR(40) @NOT_NULL,                       -- Code; [ReadOnlyUI]
     TradeTypeId int default 0 @NOT_NULL,                -- [Hidden]
 
-    TradeStatusId int default 0 @NOT_NULL,              -- Enum TradeStatus; [ReadOnlyUI]
+    TradeStatusId int default 1 @NOT_NULL,              -- Enum TradeStatus; [ReadOnlyUI]
     TaxBusinessGroupId @NVARCHAR(40) @NULL,             -- Lookup -- Tax classification copied from Person and stored as a document snapshot
     OriginTaxJurisdictionId @NVARCHAR(40) @NULL,        -- Lookup -- Jurisdiction resolved from the company or branch address
     DestinationTaxJurisdictionId @NVARCHAR(40) @NULL,   -- Lookup -- Jurisdiction resolved from the transaction address or selected as an override
@@ -491,7 +491,7 @@ CREATE TABLE {TableName} (
     DocumentDate @DATE @NOT_NULL,                       -- Group Dates
     PostingDate @DATE @NULL,                            -- Group Dates -- date used for generated stock movements
 
-    StatusId int @NOT_NULL,                             -- Enum TradeStatus
+    StatusId int default 1 @NOT_NULL,                   -- Enum TradeStatus
 
     TotalCostAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- total internal stock cost value posted by this document
 
@@ -712,6 +712,7 @@ CREATE TABLE {TableName} (
 /*---------------------------------------------------
 Table: StockCount 
 Module: StockCount StockCountDataModule
+Form: StockCount StockCountForm
 Group: Inventory
 FieldGroups: Relations, Audit, Notes
 -----------------------------------------------------
@@ -740,7 +741,7 @@ CREATE TABLE {TableName} (
 
     CountDate @DATE @NOT_NULL,
 
-    StatusId int DEFAULT 0 @NOT_NULL,                 -- Enum TradeStatus
+    StatusId int DEFAULT 1 @NOT_NULL,                 -- Enum TradeStatus; [ReadOnlyUI]
 
     Remarks @NBLOB_TEXT @NULL,                        -- LargeMemo; Group Notes
 
@@ -795,12 +796,12 @@ CREATE TABLE {TableName} (
 
     UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,          -- Lookup
 
-    SystemQuantity @DECIMAL DEFAULT 0 @NOT_NULL,
+    SystemQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- [ReadOnlyUI]
     CountedQuantity @DECIMAL DEFAULT 0 @NOT_NULL,
-    DifferenceQuantity @DECIMAL DEFAULT 0 @NOT_NULL,
+    DifferenceQuantity @DECIMAL DEFAULT 0 @NOT_NULL,   -- [ReadOnlyUI]
 
     UnitCost @DECIMAL DEFAULT 0 @NOT_NULL,
-    DifferenceCostAmount @DECIMAL DEFAULT 0 @NOT_NULL,
+    DifferenceCostAmount @DECIMAL DEFAULT 0 @NOT_NULL, -- [ReadOnlyUI]
 
     Remarks @NVARCHAR(512) @NULL,
 
@@ -1085,7 +1086,7 @@ CREATE TABLE {TableName} (
 
     EntryDate @DATE @NOT_NULL,
 
-    StatusId int DEFAULT 0 @NOT_NULL,                 -- Enum TradeStatus
+    StatusId int DEFAULT 1 @NOT_NULL,                 -- Enum TradeStatus
 
     TotalDebit @DECIMAL DEFAULT 0 @NOT_NULL,
     TotalCredit @DECIMAL DEFAULT 0 @NOT_NULL,

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Tripous.Data\Tripous.Data.csproj" />
+    <ProjectReference Include="..\..\..\Tripous.Desktop\Tripous.Desktop.csproj" />
+    <ProjectReference Include="..\..\..\Tripous.Logging\Tripous.Logging.csproj" />
+    <ProjectReference Include="..\..\..\Tripous\Tripous.csproj" />
+    <ProjectReference Include="..\tERP.Common\tERP.Common.csproj" />
+    <ProjectReference Include="..\tERP.Data\tERP.Data.csproj" />
+    <ProjectReference Include="..\tERP.Desktop\tERP.Desktop.csproj" />
+  </ItemGroup>
+
+</Project>

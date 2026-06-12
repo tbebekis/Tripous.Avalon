@@ -61,7 +61,7 @@ public class DocumentDataModule: AppDataModule
     protected virtual Dictionary<string, object> CreatePostingSnapshot(DataRow Row)
     {
         Dictionary<string, object> Result = new();
-        string[] FieldNames = ["Code", "TradeStatusId", "PostingDate", "PostedAt", "PostedBy", "IsLocked"];
+        string[] FieldNames = ["Code", "TradeStatusId", "StatusId", "PostingDate", "PostedAt", "PostedBy", "IsLocked"];
 
         foreach (string FieldName in FieldNames)
         {

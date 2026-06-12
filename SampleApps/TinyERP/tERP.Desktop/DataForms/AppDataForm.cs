@@ -22,16 +22,36 @@ public class DocumentDataForm : AppDataForm
     protected Button btnPost;
 
     // ● protected
-    protected virtual bool IsDocumentLocked() => CurrentRow != null && CurrentRow.AsBoolean("IsLocked");
+    protected virtual TradeStatus GetDocumentStatus()
+    {
+        if (CurrentRow == null)
+            return TradeStatus.None;
+        if (CurrentRow.Table.Columns.Contains("TradeStatusId"))
+            return (TradeStatus)CurrentRow.AsInteger("TradeStatusId");
+        if (CurrentRow.Table.Columns.Contains("StatusId"))
+            return (TradeStatus)CurrentRow.AsInteger("StatusId");
+        return TradeStatus.None;
+    }
+    protected virtual bool IsDocumentCancelled() => CurrentRow != null
+                                                     && CurrentRow.Table.Columns.Contains("IsCancelled")
+                                                     && CurrentRow.AsBoolean("IsCancelled");
+    protected virtual bool IsDocumentLocked()
+    {
+        if (CurrentRow == null)
+            return false;
+        if (CurrentRow.Table.Columns.Contains("IsLocked"))
+            return CurrentRow.AsBoolean("IsLocked");
+        return GetDocumentStatus() != TradeStatus.Draft;
+    }
     protected virtual bool CanPost()
     {
         if (!IsEditableForm || FormState != DataFormState.Edit || CurrentRow == null || HasChanges())
             return false;
         if (Module is not DocumentDataModule)
             return false;
-        if ((TradeStatus)CurrentRow.AsInteger("TradeStatusId") != TradeStatus.Draft)
+        if (GetDocumentStatus() != TradeStatus.Draft)
             return false;
-        if (CurrentRow.AsBoolean("IsCancelled") || CurrentRow.AsBoolean("IsLocked"))
+        if (IsDocumentCancelled() || IsDocumentLocked())
             return false;
 
         return true;
@@ -135,6 +155,7 @@ public class SalesOrderForm : DocumentDataForm
         DataFormContext Context = DataFormContext.Create("SalesDeliveryNote", DeliveryNoteModule, this);
         Context.StartAction = DataFormAction.Insert;
         await AppFormDialog.ShowModalDataForm(Context);
+        ItemPage?.Refresh();
     }
     protected override async Task ExecuteCustom(object Value)
     {
@@ -250,6 +271,14 @@ public class PurchaseCancellationForm : DocumentDataForm
 {
     // ● construction
     public PurchaseCancellationForm()
+    {
+    }
+}
+
+public class StockCountForm : DocumentDataForm
+{
+    // ● construction
+    public StockCountForm()
     {
     }
 }

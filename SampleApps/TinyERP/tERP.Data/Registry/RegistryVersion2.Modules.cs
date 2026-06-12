@@ -530,9 +530,11 @@ select
    JournalEntry.EntryDate,
    JournalEntry.StatusId,
    case
-      when JournalEntry.StatusId = 0 then 'Draft'
-      when JournalEntry.StatusId = 1 then 'Posted'
-      when JournalEntry.StatusId = 2 then 'Cancelled'
+      when JournalEntry.StatusId = 0 then 'None'
+      when JournalEntry.StatusId = 1 then 'Draft'
+      when JournalEntry.StatusId = 2 then 'Posted'
+      when JournalEntry.StatusId = 3 then 'Cancelled'
+      when JournalEntry.StatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    JournalEntry.TotalDebit,
@@ -577,7 +579,7 @@ from
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-JournalEntry");
         tblTop.AddDate("EntryDate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDecimal("TotalDebit", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDecimal("TotalCredit", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddString("SourceModule", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true).SetGroup("Source");
@@ -674,9 +676,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -806,7 +810,7 @@ where DocumentType.ModuleName = 'PurchaseCancellation'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseCancellation");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -1151,9 +1155,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -1283,7 +1289,7 @@ where DocumentType.ModuleName = 'PurchaseCreditNote'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseCreditNote");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -1628,9 +1634,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -1760,7 +1768,7 @@ where DocumentType.ModuleName = 'PurchaseDeliveryNote'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseDeliveryNote");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -2105,9 +2113,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -2235,7 +2245,7 @@ where DocumentType.ModuleName = 'PurchaseInvoice'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseInvoice");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -2580,9 +2590,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -2712,7 +2724,7 @@ where DocumentType.ModuleName = 'PurchaseOrder'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseOrder");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -3057,9 +3069,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -3189,7 +3203,7 @@ where DocumentType.ModuleName = 'PurchaseReturn'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-PurchaseReturn");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -3534,9 +3548,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -3666,7 +3682,7 @@ where DocumentType.ModuleName = 'SalesCancellation'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesCancellation");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -4011,9 +4027,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -4143,7 +4161,7 @@ where DocumentType.ModuleName = 'SalesCreditNote'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesCreditNote");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -4488,9 +4506,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -4620,7 +4640,7 @@ where DocumentType.ModuleName = 'SalesDeliveryNote'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesDeliveryNote");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -4965,9 +4985,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -5097,7 +5119,7 @@ where DocumentType.ModuleName = 'SalesInvoice'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesInvoice");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -5442,9 +5464,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -5574,7 +5598,7 @@ where DocumentType.ModuleName = 'SalesOrder'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesOrder");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -5919,9 +5943,11 @@ select
    Trade.TradeTypeId,
    Trade.TradeStatusId,
    case
-      when Trade.TradeStatusId = 0 then 'Draft'
-      when Trade.TradeStatusId = 1 then 'Posted'
-      when Trade.TradeStatusId = 2 then 'Cancelled'
+      when Trade.TradeStatusId = 0 then 'None'
+      when Trade.TradeStatusId = 1 then 'Draft'
+      when Trade.TradeStatusId = 2 then 'Posted'
+      when Trade.TradeStatusId = 3 then 'Cancelled'
+      when Trade.TradeStatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    Trade.TaxBusinessGroupId,
@@ -6051,7 +6077,7 @@ where DocumentType.ModuleName = 'SalesReturn'
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SalesReturn");
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
-        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("TradeStatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("OriginTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DestinationTaxJurisdictionId", "TaxJurisdiction", Flags: FieldFlags.None).SetNullable(true);
@@ -6468,9 +6494,11 @@ select
    StockCount.CountDate,
    StockCount.StatusId,
    case
-      when StockCount.StatusId = 0 then 'Draft'
-      when StockCount.StatusId = 1 then 'Posted'
-      when StockCount.StatusId = 2 then 'Cancelled'
+      when StockCount.StatusId = 0 then 'None'
+      when StockCount.StatusId = 1 then 'Draft'
+      when StockCount.StatusId = 2 then 'Posted'
+      when StockCount.StatusId = 3 then 'Cancelled'
+      when StockCount.StatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    StockCount.CancelledDocumentId,
@@ -6503,7 +6531,7 @@ from
         tblTop.AddInteger("TradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0");
         tblTop.AddStringLookupId("WarehouseId", "Warehouse", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("CountDate", Flags: FieldFlags.Required).SetNullable(false);
-        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1");
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo().SetGroup("Notes");
         tblTop.AddString("CancelledDocumentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
         tblTop.AddString("CancellationDocumentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
@@ -6558,11 +6586,11 @@ from
         tblStockCountLine.AddString("ProductCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("Product.Code");
         tblStockCountLine.AddString("ProductName", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false).SetSnapshotOf("Product.Name");
         tblStockCountLine.AddStringLookupId("UnitOfMeasureId", "UnitOfMeasure", Flags: FieldFlags.Required).SetNullable(false);
-        tblStockCountLine.AddDecimal("SystemQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockCountLine.AddDecimal("SystemQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblStockCountLine.AddDecimal("CountedQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblStockCountLine.AddDecimal("DifferenceQuantity", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockCountLine.AddDecimal("DifferenceQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblStockCountLine.AddDecimal("UnitCost", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
-        tblStockCountLine.AddDecimal("DifferenceCostAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblStockCountLine.AddDecimal("DifferenceCostAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblStockCountLine.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
         TableDef tblProduct = tblStockCountLine.AddJoin("ProductId", "Product", "Product", "Id");
         tblStockCountLine.Fields.Get("ProductId").Locator = "Product";
@@ -6810,9 +6838,11 @@ select
    StockTrade.PostingDate,
    StockTrade.StatusId,
    case
-      when StockTrade.StatusId = 0 then 'Draft'
-      when StockTrade.StatusId = 1 then 'Posted'
-      when StockTrade.StatusId = 2 then 'Cancelled'
+      when StockTrade.StatusId = 0 then 'None'
+      when StockTrade.StatusId = 1 then 'Draft'
+      when StockTrade.StatusId = 2 then 'Posted'
+      when StockTrade.StatusId = 3 then 'Cancelled'
+      when StockTrade.StatusId = 4 then 'Completed'
       else ''
    end as TradeStatus,
    StockTrade.TotalCostAmount,
@@ -6860,7 +6890,7 @@ from
         tblTop.AddStringLookupId("ToWarehouseId", "Warehouse", Flags: FieldFlags.None).SetNullable(true).SetGroup("Warehouses");
         tblTop.AddDate("DocumentDate", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Dates");
         tblTop.AddDate("PostingDate", Flags: FieldFlags.None).SetNullable(true).SetGroup("Dates");
-        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         tblTop.AddDecimal("TotalCostAmount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true).SetMemo().SetGroup("Notes");
         tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Status");
