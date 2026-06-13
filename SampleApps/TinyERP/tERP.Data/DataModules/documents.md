@@ -547,6 +547,37 @@ The same database-snapshot rule applies to:
 
 Final posting validation repeats quantity, status, cancellation, and stock checks inside the database transaction using locked rows.
 
+## Executed Quantity Semantics
+
+`TradeLine.ExecutedQuantity` represents operational fulfillment or return quantity:
+
+- On Sales Order lines, it is the quantity transformed into posted Sales Delivery Notes.
+- On Purchase Order lines, it is the quantity transformed into posted Purchase Delivery Notes.
+- On Sales Delivery Note lines, it is the quantity transformed into posted Sales Returns.
+- On Purchase Delivery Note lines, it is the quantity transformed into posted Purchase Returns.
+
+Invoicing is an independent process and must not reuse `ExecutedQuantity`. Delivery Note lines require a separate invoiced quantity so returns and invoices can progress independently.
+
+## Invoice Transformation
+
+Posted Sales and Purchase Delivery Notes can be transformed into draft Invoices:
+
+- Sales Delivery Note to Sales Invoice.
+- Purchase Delivery Note to Purchase Invoice.
+- `Trade.SourceId` references the source Delivery Note.
+- `TradeLine.SourceTradeLineId` references the source Delivery Note line.
+- Invoice quantity is `Quantity - InvoicedQuantity`.
+- Multiple partial Invoices can be created from one Delivery Note.
+- Posting validates invoice quantities against the current database values using locked source rows.
+- Posting updates source line `InvoicedQuantity` in the same transaction.
+- `ExecutedQuantity` remains dedicated to Returns and is not changed by Invoice posting.
+- Returns and Invoices can progress independently from the same Delivery Note.
+- Partner, addresses, prices, discounts, tax context, and business snapshots are copied.
+- The transformed Invoice is calculated and validated before its modal form is opened.
+- The Delivery Note form checks the current invoicing remainder before showing confirmation.
+- Invoice posting does not create stock movements because stock was already moved by the Delivery Note.
+- Financial and accounting posting remain separate future work.
+
 ## Stock Count
 
 The Stock Count document supports initial stock and later inventory adjustments:

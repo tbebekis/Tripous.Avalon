@@ -8,10 +8,10 @@
 
 namespace tERP.Desktop;
 
-public class AppDataForm: DataForm
+public class PurchaseInvoiceForm : DocumentDataForm
 {
     // ● construction
-    public AppDataForm()
+    public PurchaseInvoiceForm()
     {
     }
 }

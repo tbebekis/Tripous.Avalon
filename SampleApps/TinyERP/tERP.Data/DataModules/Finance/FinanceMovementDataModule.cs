@@ -18,12 +18,3 @@ public class FinanceMovementDataModule: AppDataModule
     }
 }
 
-/// <summary>
-/// Non-document module
-/// </summary>
-public class FinanceBalanceDataModule: AppDataModule
-{
-    public FinanceBalanceDataModule()
-    {
-    }
-}

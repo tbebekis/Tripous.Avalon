@@ -8,13 +8,6 @@
 
 namespace tERP.Data;
 
-public class StockTradeDataModule: DocumentDataModule
-{
-    public StockTradeDataModule()
-    {
-    }
-}
-
 public class StockCountDataModule: DocumentDataModule
 {
     // ● private fields
@@ -347,36 +340,5 @@ public class StockCountDataModule: DocumentDataModule
                 CalculateLine(Row);
         }
         ValidateStockCount();
-    }
-}
-
-/// <summary>
-/// Snapshot module
-/// </summary>
-public class StockMovementDataModule: AppDataModule
-{
-    public StockMovementDataModule()
-    {
-    }
-}
-
-
-/// <summary>
-/// Non-document module
-/// </summary>
-public class StockReservationDataModule: DataModule
-{
-    public StockReservationDataModule()
-    {
-    }
-}
-
-/// <summary>
-/// Non-document module
-/// </summary>
-public class StockBalanceDataModule: DataModule
-{
-    public StockBalanceDataModule()
-    {
     }
 }

@@ -6,12 +6,11 @@
  * See License.txt for details.
  */
 
-namespace tERP.Desktop;
+namespace tERP.Data;
 
-public class AppDataForm: DataForm
+public class PurchaseCreditNoteDataModule: PurchaseDataModule
 {
-    // ● construction
-    public AppDataForm()
+    public PurchaseCreditNoteDataModule()
     {
     }
 }

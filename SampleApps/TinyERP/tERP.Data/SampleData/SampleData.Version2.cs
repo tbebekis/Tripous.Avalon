@@ -22,12 +22,12 @@ public partial class SampleData2: SampleData
         Dictionary<string, string> Ids = [];
         Ids["SalesOrder"] = AddDocumentType(tblSource, "SAL-ORD", "Sales Order", 1, "SalesOrder", "SalesOrder", false, false, false, 0, 0, 0, false, null, 10, "#2563EB", "ShoppingCart");
         Ids["SalesDeliveryNote"] = AddDocumentType(tblSource, "SAL-DN", "Sales Delivery Note", 1, "SalesDeliveryNote", "SalesDeliveryNote", true, false, false, -1, 0, 0, false, null, 20, "#0891B2", "Truck");
-        Ids["SalesInvoice"] = AddDocumentType(tblSource, "SAL-INV", "Sales Invoice", 1, "SalesInvoice", "SalesInvoice", true, true, true, -1, 1, 1, false, null, 30, "#16A34A", "FileText");
+        Ids["SalesInvoice"] = AddDocumentType(tblSource, "SAL-INV", "Sales Invoice", 1, "SalesInvoice", "SalesInvoice", false, true, true, 0, 1, 1, false, null, 30, "#16A34A", "FileText");
         Ids["SalesCreditNote"] = AddDocumentType(tblSource, "SAL-CN", "Sales Credit Note", 1, "SalesCreditNote", "SalesCreditNote", true, true, true, 1, -1, -1, false, null, 40, "#F59E0B", "Undo2");
         Ids["SalesReturn"] = AddDocumentType(tblSource, "SAL-RET", "Sales Return", 1, "SalesReturn", "SalesReturn", true, false, false, 1, 0, 0, false, null, 50, "#CA8A04", "RotateCcw");
         Ids["PurchaseOrder"] = AddDocumentType(tblSource, "PUR-ORD", "Purchase Order", 2, "PurchaseOrder", "PurchaseOrder", false, false, false, 0, 0, 0, false, null, 110, "#7C3AED", "ShoppingBag");
         Ids["PurchaseDeliveryNote"] = AddDocumentType(tblSource, "PUR-DN", "Purchase Delivery Note", 2, "PurchaseDeliveryNote", "PurchaseDeliveryNote", true, false, false, 1, 0, 0, false, null, 120, "#0D9488", "PackageCheck");
-        Ids["PurchaseInvoice"] = AddDocumentType(tblSource, "PUR-INV", "Purchase Invoice", 2, "PurchaseInvoice", "PurchaseInvoice", true, true, true, 1, -1, -1, false, null, 130, "#059669", "ReceiptText");
+        Ids["PurchaseInvoice"] = AddDocumentType(tblSource, "PUR-INV", "Purchase Invoice", 2, "PurchaseInvoice", "PurchaseInvoice", false, true, true, 0, -1, -1, false, null, 130, "#059669", "ReceiptText");
         Ids["PurchaseCreditNote"] = AddDocumentType(tblSource, "PUR-CN", "Purchase Credit Note", 2, "PurchaseCreditNote", "PurchaseCreditNote", true, true, true, -1, 1, 1, false, null, 140, "#D97706", "Undo2");
         Ids["PurchaseReturn"] = AddDocumentType(tblSource, "PUR-RET", "Purchase Return", 2, "PurchaseReturn", "PurchaseReturn", true, false, false, -1, 0, 0, false, null, 150, "#B45309", "RotateCcw");
         Ids["StockTrade"] = AddDocumentType(tblSource, "STK-TRD", "Stock Trade", 3, "StockTrade", "StockTrade", true, false, false, 0, 0, 0, false, null, 210, "#4F46E5", "Boxes");

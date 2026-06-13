@@ -383,6 +383,7 @@ CREATE TABLE {TableName} (
 
     ReservedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity reserved by warehouse processes
     ExecutedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity already executed or fulfilled
+    InvoicedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity already transformed into posted invoices
 
     TaxPercent @DECIMAL_(9,4) default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Aggregate effective percentage of all tax components
     IsTaxExempt @BOOL default 0 @NOT_NULL,               -- [ReadOnlyUI] -- Indicates that the resolved tax treatment is exempt

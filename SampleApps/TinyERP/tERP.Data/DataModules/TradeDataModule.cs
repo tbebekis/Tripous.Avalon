@@ -61,6 +61,26 @@ public class TradeDataModule: DocumentDataModule
         ];
         return ModuleNames.Contains(ModuleDef.Name, StringComparer.OrdinalIgnoreCase);
     }
+    /// <summary>
+    /// Returns true when the persisted document has remaining quantity for the specified counter.
+    /// </summary>
+    protected virtual bool HasRemainingQuantity(string QuantityFieldName)
+    {
+        if (CurrentRow == null)
+            return false;
+
+        string SqlText = $"""
+                          select count(*)
+                          from TradeLine
+                          where TradeId = :TradeId
+                            and Quantity > {QuantityFieldName}
+                          """;
+        int Count = Store.IntegerResult(SqlText, 0, new Dictionary<string, object>()
+        {
+            ["TradeId"] = CurrentRow.AsString("Id"),
+        });
+        return Count > 0;
+    }
     protected virtual string GetPriceResolverClassName() => IsPurchaseTrade()
         ? AppDefaultProperties.Purchase.PriceResolverClassName
         : AppDefaultProperties.Sales.PriceResolverClassName;
@@ -134,6 +154,80 @@ public class TradeDataModule: DocumentDataModule
                 continue;
 
             Dest.SetValue(FieldName, Source[FieldName]);
+        }
+    }
+    /// <summary>
+    /// Collects quantities grouped by their source document line.
+    /// </summary>
+    protected virtual Dictionary<string, decimal> GetTransformationSourceQuantities(string SourceLineLabel, string EmptyDocumentMessage)
+    {
+        MemTable LineTable = FindItemTable("TradeLine");
+        if (LineTable == null)
+            throw new TripousDataException("TradeLine table is not available.");
+
+        Dictionary<string, decimal> Result = new(StringComparer.OrdinalIgnoreCase);
+        foreach (DataRow Row in LineTable.Rows)
+        {
+            if (Row.RowState == DataRowState.Deleted || Row.RowState == DataRowState.Detached)
+                continue;
+
+            string SourceTradeLineId = Row.AsString("SourceTradeLineId");
+            if (string.IsNullOrWhiteSpace(SourceTradeLineId))
+                throw new TripousBusinessException($"{GetLineLabel(Row)}: Source {SourceLineLabel} line is required.");
+
+            decimal Quantity = Row.AsDecimal("Quantity");
+            if (Quantity <= 0)
+                throw new TripousBusinessException($"{GetLineLabel(Row)}: Quantity must be greater than zero.");
+
+            Result.TryGetValue(SourceTradeLineId, out decimal TotalQuantity);
+            Result[SourceTradeLineId] = TotalQuantity + Quantity;
+        }
+
+        if (Result.Count == 0)
+            throw new TripousBusinessException(EmptyDocumentMessage);
+
+        return Result;
+    }
+    /// <summary>
+    /// Updates a quantity counter on source document lines inside the posting transaction.
+    /// </summary>
+    protected virtual void UpdateSourceTransformationQuantities(DbTransaction Transaction, string SourceDocumentName, string QuantityFieldName, string ActionLabel, string EmptyDocumentMessage)
+    {
+        string SourceId = CurrentRow.AsString("SourceId");
+        if (string.IsNullOrWhiteSpace(SourceId))
+            return;
+
+        DataRow SourceDocument = Store.Provider.SelectForUpdate(Transaction, "Trade", "Id", SourceId);
+        if (SourceDocument == null)
+            throw new TripousBusinessException($"The source {SourceDocumentName} does not exist.");
+        if ((TradeStatus)SourceDocument.AsInteger("TradeStatusId") != TradeStatus.Posted)
+            throw new TripousBusinessException($"Only posted {SourceDocumentName}s can be transformed.");
+        if (SourceDocument.AsBoolean("IsCancelled"))
+            throw new TripousBusinessException($"A cancelled {SourceDocumentName} cannot be transformed.");
+
+        Dictionary<string, decimal> Quantities = GetTransformationSourceQuantities(SourceDocumentName, EmptyDocumentMessage);
+        foreach (KeyValuePair<string, decimal> Entry in Quantities.OrderBy(Item => Item.Key))
+        {
+            DataRow SourceLine = Store.Provider.SelectForUpdate(Transaction, "TradeLine", "Id", Entry.Key);
+            if (SourceLine == null || !SourceLine.AsString("TradeId").IsSameText(SourceId))
+                throw new TripousBusinessException($"A source {SourceDocumentName} line does not exist.");
+
+            decimal SourceQuantity = SourceLine.AsDecimal("Quantity");
+            decimal TransformedQuantity = SourceLine.AsDecimal(QuantityFieldName);
+            decimal RemainingQuantity = SourceQuantity - TransformedQuantity;
+            if (Entry.Value > RemainingQuantity)
+                throw new TripousBusinessException($"{ActionLabel} quantity {Entry.Value} exceeds remaining quantity {RemainingQuantity}.");
+
+            string SqlText = $"""
+                              update TradeLine
+                              set {QuantityFieldName} = :TransformedQuantity
+                              where Id = :Id
+                              """;
+            Store.ExecSql(Transaction, SqlText, new Dictionary<string, object>()
+            {
+                ["Id"] = Entry.Key,
+                ["TransformedQuantity"] = TransformedQuantity + Entry.Value,
+            });
         }
     }
     /// <summary>
@@ -762,19 +856,13 @@ where
     /// </summary>
     public virtual bool HasRemainingTransformQuantity()
     {
-        if (CurrentRow == null)
-            return false;
-
-        string SqlText = """
-                         select count(*)
-                         from TradeLine
-                         where TradeId = :TradeId
-                           and Quantity > ExecutedQuantity
-                         """;
-        int Count = Store.IntegerResult(SqlText, 0, new Dictionary<string, object>()
-        {
-            ["TradeId"] = CurrentRow.AsString("Id"),
-        });
-        return Count > 0;
+        return HasRemainingQuantity("ExecutedQuantity");
+    }
+    /// <summary>
+    /// Returns true when the persisted document has at least one line with remaining invoice quantity.
+    /// </summary>
+    public virtual bool HasRemainingInvoiceQuantity()
+    {
+        return HasRemainingQuantity("InvoicedQuantity");
     }
 }

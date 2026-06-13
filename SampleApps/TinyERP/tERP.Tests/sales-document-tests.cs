@@ -261,6 +261,13 @@ public class SalesDocumentTests
         Result.Commit();
         return Result;
     }
+    SalesInvoiceDataModule CreateSalesInvoice(SalesDeliveryNoteDataModule DeliveryModule, decimal Quantity)
+    {
+        SalesInvoiceDataModule Result = DeliveryModule.CreateInvoice();
+        Result.GetTable("TradeLine").Rows[0].SetValue("Quantity", Quantity);
+        Result.Commit();
+        return Result;
+    }
 
     // ● construction
     public SalesDocumentTests(TestDatabaseFixture Fixture)
@@ -283,6 +290,51 @@ public class SalesDocumentTests
         Assert.False(Order.AsString("Code").StartsWith("DRAFT-", StringComparison.OrdinalIgnoreCase));
         Assert.False(Sys.IsNull(Order["PostedAt"]));
         Assert.Equal(Sys.Context.CurrentUser.Id, Order.AsString("PostedBy"));
+    }
+    [Fact]
+    public void PartialSalesInvoicesUpdateInvoicedQuantityIndependentlyFromReturns()
+    {
+        SalesDeliveryNoteDataModule DeliveryModule = CreateStandaloneDeliveryNote("Laptop Computer 14", 10m, "Main Warehouse");
+        string DeliveryLineId = DeliveryModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        DeliveryModule.Post();
+
+        SalesInvoiceDataModule FirstInvoice = CreateSalesInvoice(DeliveryModule, 4m);
+        string FirstInvoiceLineId = FirstInvoice.GetTable("TradeLine").Rows[0].AsString("Id");
+        FirstInvoice.Post();
+
+        SalesReturnDataModule ReturnModule = CreateSalesReturn(DeliveryModule, 3m);
+        ReturnModule.Post();
+
+        Assert.Equal(4m, GetTradeLine(DeliveryLineId).AsDecimal("InvoicedQuantity"));
+        Assert.Equal(3m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Null(GetStockMovement(FirstInvoiceLineId));
+
+        SalesInvoiceDataModule SecondInvoice = DeliveryModule.CreateInvoice();
+        Assert.Equal(6m, SecondInvoice.GetTable("TradeLine").Rows[0].AsDecimal("Quantity"));
+        string SecondInvoiceLineId = SecondInvoice.GetTable("TradeLine").Rows[0].AsString("Id");
+        SecondInvoice.Commit();
+        SecondInvoice.Post();
+
+        Assert.Equal(10m, GetTradeLine(DeliveryLineId).AsDecimal("InvoicedQuantity"));
+        Assert.Equal(3m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Null(GetStockMovement(SecondInvoiceLineId));
+        Assert.False(DeliveryModule.HasRemainingInvoiceQuantity());
+    }
+    [Fact]
+    public void PostingSalesInvoiceRejectsQuantityExceedingCurrentRemainingQuantity()
+    {
+        SalesDeliveryNoteDataModule DeliveryModule = CreateStandaloneDeliveryNote("Laptop Computer 14", 10m, "Main Warehouse");
+        string DeliveryLineId = DeliveryModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        DeliveryModule.Post();
+
+        SalesInvoiceDataModule FirstInvoice = CreateSalesInvoice(DeliveryModule, 6m);
+        SalesInvoiceDataModule ExcessInvoice = CreateSalesInvoice(DeliveryModule, 5m);
+        FirstInvoice.Post();
+
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => ExcessInvoice.Post());
+
+        Assert.Contains("invoice quantity 5 exceeds remaining quantity 4", Error.Message.ToLowerInvariant());
+        Assert.Equal(6m, GetTradeLine(DeliveryLineId).AsDecimal("InvoicedQuantity"));
     }
     [Fact]
     public void PartialDeliveriesUpdateExecutedQuantity()

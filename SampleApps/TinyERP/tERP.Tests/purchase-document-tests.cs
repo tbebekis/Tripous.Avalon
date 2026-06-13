@@ -287,6 +287,13 @@ public class PurchaseDocumentTests
         Result.Commit();
         return Result;
     }
+    PurchaseInvoiceDataModule CreatePurchaseInvoice(PurchaseDeliveryNoteDataModule DeliveryModule, decimal Quantity)
+    {
+        PurchaseInvoiceDataModule Result = DeliveryModule.CreateInvoice();
+        Result.GetTable("TradeLine").Rows[0].SetValue("Quantity", Quantity);
+        Result.Commit();
+        return Result;
+    }
 
     // ● construction
     public PurchaseDocumentTests(TestDatabaseFixture Fixture)
@@ -316,6 +323,44 @@ public class PurchaseDocumentTests
         Assert.Equal(DataLib.GetDefaultTaxJurisdictionId(), Module.CurrentRow.AsString("OriginTaxJurisdictionId"));
         Assert.Equal(DataLib.GetDefaultTaxJurisdictionId(), Module.CurrentRow.AsString("DestinationTaxJurisdictionId"));
         Assert.Equal(1m, Line.AsDecimal("Quantity"));
+    }
+    [Fact]
+    public void PartialPurchaseInvoicesPreserveContextAndRemainIndependentFromReturns()
+    {
+        DataRow Product = GetProduct("Espresso Beans");
+        string WarehouseId = DataLib.GetDefaultWarehouseId();
+        SetStockBalance(Product.AsString("Id"), WarehouseId, 0m, 0m);
+        PurchaseDeliveryNoteDataModule DeliveryModule = CreatePurchaseDeliveryNote("Espresso Beans", 10m, 20m);
+        string DeliveryLineId = DeliveryModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        DeliveryModule.Post();
+
+        PurchaseInvoiceDataModule FirstInvoice = CreatePurchaseInvoice(DeliveryModule, 4m);
+        string FirstInvoiceLineId = FirstInvoice.GetTable("TradeLine").Rows[0].AsString("Id");
+
+        Assert.Equal(DeliveryModule.CurrentRow.AsString("PersonId"), FirstInvoice.CurrentRow.AsString("PersonId"));
+        Assert.Equal(DeliveryModule.CurrentRow.AsString("BillingCountryId"), FirstInvoice.CurrentRow.AsString("BillingCountryId"));
+        Assert.Equal(DeliveryModule.CurrentRow.AsString("ShippingCountryId"), FirstInvoice.CurrentRow.AsString("ShippingCountryId"));
+        Assert.Equal(DeliveryModule.CurrentRow.AsString("DestinationTaxJurisdictionId"), FirstInvoice.CurrentRow.AsString("DestinationTaxJurisdictionId"));
+
+        FirstInvoice.Post();
+        PurchaseReturnDataModule ReturnModule = CreatePurchaseReturn(DeliveryModule, 3m);
+        ReturnModule.Post();
+
+        Assert.Equal(4m, GetTradeLine(DeliveryLineId).AsDecimal("InvoicedQuantity"));
+        Assert.Equal(3m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Null(GetStockMovement(FirstInvoiceLineId));
+
+        PurchaseInvoiceDataModule SecondInvoice = DeliveryModule.CreateInvoice();
+        Assert.Equal(6m, SecondInvoice.GetTable("TradeLine").Rows[0].AsDecimal("Quantity"));
+        string SecondInvoiceLineId = SecondInvoice.GetTable("TradeLine").Rows[0].AsString("Id");
+        SecondInvoice.Commit();
+        SecondInvoice.Post();
+
+        Assert.Equal(10m, GetTradeLine(DeliveryLineId).AsDecimal("InvoicedQuantity"));
+        Assert.Equal(3m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Null(GetStockMovement(SecondInvoiceLineId));
+        Assert.Equal(7m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));
+        Assert.False(DeliveryModule.HasRemainingInvoiceQuantity());
     }
     [Fact]
     public void PurchaseSupplierSelectionCopiesDocumentAddresses()
