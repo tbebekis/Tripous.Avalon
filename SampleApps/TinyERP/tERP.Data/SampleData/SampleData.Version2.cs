@@ -33,8 +33,8 @@ public partial class SampleData2: SampleData
         Ids["StockTrade"] = AddDocumentType(tblSource, "STK-TRD", "Stock Trade", 3, "StockTrade", "StockTrade", true, false, false, 0, 0, 0, false, null, 210, "#4F46E5", "Boxes");
         Ids["StockCount"] = AddDocumentType(tblSource, "STK-CNT", "Stock Count", 3, "StockCount", "StockCount", true, false, false, 0, 0, 0, false, null, 220, "#0284C7", "ClipboardCheck");
         Ids["JournalEntry"] = AddDocumentType(tblSource, "JRN", "Journal Entry", 5, "JournalEntry", "JournalEntry", false, false, true, 0, 0, 1, false, null, 310, "#475569", "BookOpen");
-        AddDocumentType(tblSource, "SAL-CANCEL", "Sales Cancellation", 1, "SalesCancellation", "SalesCancellation", true, true, true, 0, -1, -1, true, Ids["SalesInvoice"], 60, "#DC2626", "Ban");
-        AddDocumentType(tblSource, "PUR-CANCEL", "Purchase Cancellation", 2, "PurchaseCancellation", "PurchaseCancellation", true, true, true, 0, 1, 1, true, Ids["PurchaseInvoice"], 160, "#DC2626", "Ban");
+        AddDocumentType(tblSource, "SAL-CANCEL", "Sales Cancellation", 1, "SalesCancellation", "SalesCancellation", false, true, true, 0, -1, -1, true, Ids["SalesInvoice"], 60, "#DC2626", "Ban");
+        AddDocumentType(tblSource, "PUR-CANCEL", "Purchase Cancellation", 2, "PurchaseCancellation", "PurchaseCancellation", false, true, true, 0, 1, 1, true, Ids["PurchaseInvoice"], 160, "#DC2626", "Ban");
         Module.BatchInsert(tblSource);
     }
     static string AddDocumentType(MemTable Table, string Code, string Name, int TradeTypeId, string NumberSeriesCode, string ModuleName, bool AffectsStock, bool AffectsFinancial, bool AffectsAccounting, int StockDirection, int FinancialDirection, int AccountingDirection, bool IsCancellation, string CancellationTargetId, int DisplayOrder, string Color, string IconName)

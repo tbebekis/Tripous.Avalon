@@ -365,4 +365,6 @@ public enum DocumentAction
     CreateInvoice = 4,
     /// <summary>Creates a Credit Note from the current Invoice.</summary>
     CreateCreditNote = 5,
+    /// <summary>Creates a Cancellation document from the current Invoice.</summary>
+    CreateCancellation = 6,
 }

@@ -231,6 +231,152 @@ public class TradeDataModule: DocumentDataModule
         }
     }
     /// <summary>
+    /// Cancels the source Invoice and releases its quantities from the source Delivery Note.
+    /// </summary>
+    protected virtual void CancelSourceInvoice(DbTransaction Transaction, string SourceDocumentName)
+    {
+        string SourceId = CurrentRow.AsString("CancelsTradeId");
+        if (string.IsNullOrWhiteSpace(SourceId))
+            throw new TripousBusinessException($"The source {SourceDocumentName} is required.");
+
+        DataRow SourceInvoice = Store.Provider.SelectForUpdate(Transaction, "Trade", "Id", SourceId);
+        if (SourceInvoice == null)
+            throw new TripousBusinessException($"The source {SourceDocumentName} does not exist.");
+        if (!SourceInvoice.AsString("DocumentTypeId").IsSameText(DocumentType.CancellationTargetId))
+            throw new TripousBusinessException($"The selected document is not a {SourceDocumentName}.");
+        if (SourceInvoice.AsBoolean("IsCancelled") || !string.IsNullOrWhiteSpace(SourceInvoice.AsString("CancelledByTradeId")))
+            throw new TripousBusinessException($"The {SourceDocumentName} is already cancelled.");
+        if ((TradeStatus)SourceInvoice.AsInteger("TradeStatusId") != TradeStatus.Posted)
+            throw new TripousBusinessException($"Only posted {SourceDocumentName}s can be cancelled.");
+
+        int CreditedLineCount = Store.IntegerResult(Transaction, """
+                                                                  select count(*)
+                                                                  from TradeLine
+                                                                  where TradeId = :TradeId
+                                                                    and CreditedQuantity > 0
+                                                                  """, 0, new Dictionary<string, object>()
+        {
+            ["TradeId"] = SourceId,
+        });
+        if (CreditedLineCount > 0)
+            throw new TripousBusinessException($"A {SourceDocumentName} with posted Credit Notes cannot be cancelled.");
+
+        Dictionary<string, decimal> CancellationQuantities = GetTransformationSourceQuantities(SourceDocumentName, "The Cancellation document has no lines.");
+        int SourceLineCount = Store.IntegerResult(Transaction, "select count(*) from TradeLine where TradeId = :TradeId", 0, new Dictionary<string, object>()
+        {
+            ["TradeId"] = SourceId,
+        });
+        MemTable CancellationLineTable = FindItemTable("TradeLine");
+        DataRow[] CancellationLines = CancellationLineTable.Rows.Cast<DataRow>()
+            .Where(Row => Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached)
+            .ToArray();
+        if (CancellationQuantities.Count != SourceLineCount || CancellationLines.Length != SourceLineCount)
+            throw new TripousBusinessException($"The Cancellation document must contain all {SourceDocumentName} lines.");
+
+        Dictionary<string, decimal> DeliveryQuantities = new(StringComparer.OrdinalIgnoreCase);
+        foreach (KeyValuePair<string, decimal> Entry in CancellationQuantities.OrderBy(Item => Item.Key))
+        {
+            DataRow InvoiceLine = Store.Provider.SelectForUpdate(Transaction, "TradeLine", "Id", Entry.Key);
+            if (InvoiceLine == null || !InvoiceLine.AsString("TradeId").IsSameText(SourceId))
+                throw new TripousBusinessException($"A source {SourceDocumentName} line does not exist.");
+            if (Entry.Value != InvoiceLine.AsDecimal("Quantity"))
+                throw new TripousBusinessException($"The Cancellation quantity must equal the {SourceDocumentName} quantity.");
+
+            DataRow CancellationLine = CancellationLines.Single(Row => Row.AsString("SourceTradeLineId").IsSameText(Entry.Key));
+            string[] LineStringFields = ["ProductId", "TaxProductGroupId", "WarehouseId", "UnitOfMeasureId"];
+            foreach (string FieldName in LineStringFields)
+            {
+                if (!CancellationLine.AsString(FieldName).IsSameText(InvoiceLine.AsString(FieldName)))
+                    throw new TripousBusinessException($"The Cancellation line must preserve the {SourceDocumentName} {FieldName} value.");
+            }
+            string[] LineDecimalFields =
+            [
+                "Quantity", "UnitRatio", "UnitPrice", "DiscountPercent", "DiscountAmount",
+                "NetAmount", "DocumentDiscountAmount", "TaxAmount", "TotalAmount"
+            ];
+            foreach (string FieldName in LineDecimalFields)
+            {
+                if (CancellationLine.AsDecimal(FieldName) != InvoiceLine.AsDecimal(FieldName))
+                    throw new TripousBusinessException($"The Cancellation line must preserve the {SourceDocumentName} {FieldName} value.");
+            }
+
+            string DeliveryLineId = InvoiceLine.AsString("SourceTradeLineId");
+            if (string.IsNullOrWhiteSpace(DeliveryLineId))
+                continue;
+
+            DeliveryQuantities.TryGetValue(DeliveryLineId, out decimal Quantity);
+            DeliveryQuantities[DeliveryLineId] = Quantity + InvoiceLine.AsDecimal("Quantity");
+        }
+
+        string[] HeaderStringFields =
+        [
+            "PersonId", "CurrencyId", "TaxBusinessGroupId",
+            "OriginTaxJurisdictionId", "DestinationTaxJurisdictionId",
+            "BillingName", "BillingAddressLine1", "BillingAddressLine2", "BillingCity", "BillingRegion", "BillingPostalCode", "BillingCountryId",
+            "ShippingName", "ShippingAddressLine1", "ShippingAddressLine2", "ShippingCity", "ShippingRegion", "ShippingPostalCode", "ShippingCountryId"
+        ];
+        foreach (string FieldName in HeaderStringFields)
+        {
+            if (!CurrentRow.AsString(FieldName).IsSameText(SourceInvoice.AsString(FieldName)))
+                throw new TripousBusinessException($"The Cancellation document must preserve the {SourceDocumentName} {FieldName} value.");
+        }
+        string[] HeaderDecimalFields =
+        [
+            "ExchangeRate", "LinesAmount", "DiscountPercent", "DiscountAmount",
+            "ChargesAmount", "NetAmount", "TaxAmount", "TotalAmount"
+        ];
+        foreach (string FieldName in HeaderDecimalFields)
+        {
+            if (CurrentRow.AsDecimal(FieldName) != SourceInvoice.AsDecimal(FieldName))
+                throw new TripousBusinessException($"The Cancellation document must preserve the {SourceDocumentName} {FieldName} value.");
+        }
+
+        foreach (KeyValuePair<string, decimal> Entry in DeliveryQuantities.OrderBy(Item => Item.Key))
+        {
+            DataRow DeliveryLine = Store.Provider.SelectForUpdate(Transaction, "TradeLine", "Id", Entry.Key);
+            if (DeliveryLine == null)
+                throw new TripousBusinessException("A source Delivery Note line does not exist.");
+
+            decimal InvoicedQuantity = DeliveryLine.AsDecimal("InvoicedQuantity");
+            if (Entry.Value > InvoicedQuantity)
+                throw new TripousBusinessException("The source Delivery Note invoiced quantity is inconsistent.");
+
+            Store.ExecSql(Transaction, """
+                                       update TradeLine
+                                       set InvoicedQuantity = :InvoicedQuantity
+                                       where Id = :Id
+                                       """, new Dictionary<string, object>()
+            {
+                ["Id"] = Entry.Key,
+                ["InvoicedQuantity"] = InvoicedQuantity - Entry.Value,
+            });
+        }
+
+        string UserId = Sys.GetCurrentAppUserId();
+        DateTime Now = DateTime.UtcNow;
+        Store.ExecSql(Transaction, """
+                                   update Trade
+                                   set TradeStatusId = :TradeStatusId,
+                                       IsCancelled = :IsCancelled,
+                                       CancelledByTradeId = :CancelledByTradeId,
+                                       CancelledAt = :CancelledAt,
+                                       CancelledBy = :CancelledBy,
+                                       ModifiedAt = :ModifiedAt,
+                                       ModifiedBy = :ModifiedBy
+                                   where Id = :Id
+                                   """, new Dictionary<string, object>()
+        {
+            ["Id"] = SourceId,
+            ["TradeStatusId"] = (int)TradeStatus.Cancelled,
+            ["IsCancelled"] = true,
+            ["CancelledByTradeId"] = CurrentRow.AsString("Id"),
+            ["CancelledAt"] = Now,
+            ["CancelledBy"] = UserId,
+            ["ModifiedAt"] = Now,
+            ["ModifiedBy"] = UserId,
+        });
+    }
+    /// <summary>
     /// Converts a tax-inclusive list price to the tax-exclusive line price.
     /// </summary>
     protected virtual decimal GetTaxExclusiveUnitPrice(DataRow Row, decimal UnitPrice)
@@ -871,5 +1017,24 @@ where
     public virtual bool HasRemainingCreditQuantity()
     {
         return HasRemainingQuantity("CreditedQuantity");
+    }
+    /// <summary>
+    /// Returns true when the persisted document has at least one credited line.
+    /// </summary>
+    public virtual bool HasCreditedQuantity()
+    {
+        if (CurrentRow == null)
+            return false;
+
+        int Count = Store.IntegerResult("""
+                                        select count(*)
+                                        from TradeLine
+                                        where TradeId = :TradeId
+                                          and CreditedQuantity > 0
+                                        """, 0, new Dictionary<string, object>()
+        {
+            ["TradeId"] = CurrentRow.AsString("Id"),
+        });
+        return Count > 0;
     }
 }

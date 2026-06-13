@@ -24,6 +24,18 @@ public class PurchaseInvoiceDataModule: PurchaseDataModule
         if (HasChanges())
             throw new TripousBusinessException("Save or cancel the Purchase Invoice changes before creating a Purchase Credit Note.");
     }
+    /// <summary>
+    /// Validates that the current Purchase Invoice can create a Cancellation document.
+    /// </summary>
+    protected virtual void CheckCanCreateCancellation()
+    {
+        if (CurrentRow == null)
+            throw new TripousBusinessException("No Purchase Invoice is selected.");
+        if (HasChanges())
+            throw new TripousBusinessException("Save or cancel the Purchase Invoice changes before creating a Purchase Cancellation.");
+        if (HasCreditedQuantity())
+            throw new TripousBusinessException("A Purchase Invoice with posted Credit Notes cannot be cancelled.");
+    }
     protected override void TableSet_TransactionStageCommit(object sender, TransactionEventArgs e)
     {
         base.TableSet_TransactionStageCommit(sender, e);
@@ -47,6 +59,18 @@ public class PurchaseInvoiceDataModule: PurchaseDataModule
         PurchaseCreditNoteDataModule Result = CreateTransformedDocument("PurchaseCreditNote", "Purchase Invoice", "CreditedQuantity") as PurchaseCreditNoteDataModule;
         if (Result == null)
             throw new TripousDataException("Cannot create a Purchase Credit Note module.");
+        return Result;
+    }
+    /// <summary>
+    /// Creates an unsaved Purchase Cancellation from the complete Invoice.
+    /// </summary>
+    public virtual PurchaseCancellationDataModule CreateCancellation()
+    {
+        CheckCanCreateCancellation();
+        PurchaseCancellationDataModule Result = CreateTransformedDocument("PurchaseCancellation", "Purchase Invoice", "CreditedQuantity") as PurchaseCancellationDataModule;
+        if (Result == null)
+            throw new TripousDataException("Cannot create a Purchase Cancellation module.");
+        Result.CurrentRow.SetValue("CancelsTradeId", CurrentRow["Id"]);
         return Result;
     }
 }

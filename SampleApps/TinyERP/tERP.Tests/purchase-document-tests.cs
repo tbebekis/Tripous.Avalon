@@ -301,6 +301,12 @@ public class PurchaseDocumentTests
         Result.Commit();
         return Result;
     }
+    PurchaseCancellationDataModule CreatePurchaseCancellation(PurchaseInvoiceDataModule InvoiceModule)
+    {
+        PurchaseCancellationDataModule Result = InvoiceModule.CreateCancellation();
+        Result.Commit();
+        return Result;
+    }
 
     // ● construction
     public PurchaseDocumentTests(TestDatabaseFixture Fixture)
@@ -421,6 +427,68 @@ public class PurchaseDocumentTests
 
         Assert.Contains("credit quantity 5 exceeds remaining quantity 4", Error.Message.ToLowerInvariant());
         Assert.Equal(6m, GetTradeLine(InvoiceLineId).AsDecimal("CreditedQuantity"));
+    }
+    [Fact]
+    public void PostingPurchaseCancellationCancelsInvoiceAndReleasesDeliveryQuantity()
+    {
+        DataRow Product = GetProduct("Espresso Beans");
+        string WarehouseId = DataLib.GetDefaultWarehouseId();
+        SetStockBalance(Product.AsString("Id"), WarehouseId, 0m, 0m);
+        PurchaseDeliveryNoteDataModule DeliveryModule = CreatePurchaseDeliveryNote("Espresso Beans", 10m, 20m);
+        string DeliveryLineId = DeliveryModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        DeliveryModule.Post();
+        PurchaseInvoiceDataModule InvoiceModule = CreatePurchaseInvoice(DeliveryModule, 4m);
+        string InvoiceId = InvoiceModule.CurrentRow.AsString("Id");
+        InvoiceModule.Post();
+
+        PurchaseCancellationDataModule CancellationModule = CreatePurchaseCancellation(InvoiceModule);
+        string CancellationId = CancellationModule.CurrentRow.AsString("Id");
+        string CancellationLineId = CancellationModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        Assert.Equal(InvoiceId, CancellationModule.CurrentRow.AsString("CancelsTradeId"));
+        Assert.Equal(4m, CancellationModule.GetTable("TradeLine").Rows[0].AsDecimal("Quantity"));
+        CancellationModule.Post();
+
+        DataRow Invoice = GetTrade(InvoiceId);
+        Assert.Equal((int)TradeStatus.Cancelled, Invoice.AsInteger("TradeStatusId"));
+        Assert.True(Invoice.AsBoolean("IsCancelled"));
+        Assert.Equal(CancellationId, Invoice.AsString("CancelledByTradeId"));
+        Assert.False(Sys.IsNull(Invoice["CancelledAt"]));
+        Assert.Equal(Sys.Context.CurrentUser.Id, Invoice.AsString("CancelledBy"));
+        Assert.Equal(0m, GetTradeLine(DeliveryLineId).AsDecimal("InvoicedQuantity"));
+        Assert.Null(GetStockMovement(CancellationLineId));
+        Assert.Equal(10m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));
+
+        PurchaseInvoiceDataModule ReplacementInvoice = DeliveryModule.CreateInvoice();
+        Assert.Equal(10m, ReplacementInvoice.GetTable("TradeLine").Rows[0].AsDecimal("Quantity"));
+    }
+    [Fact]
+    public void PostingSecondPurchaseCancellationRejectsAlreadyCancelledInvoice()
+    {
+        PurchaseDeliveryNoteDataModule DeliveryModule = CreatePurchaseDeliveryNote("Espresso Beans", 10m, 20m);
+        DeliveryModule.Post();
+        PurchaseInvoiceDataModule InvoiceModule = CreatePurchaseInvoice(DeliveryModule, 10m);
+        InvoiceModule.Post();
+        PurchaseCancellationDataModule FirstCancellation = CreatePurchaseCancellation(InvoiceModule);
+        PurchaseCancellationDataModule SecondCancellation = CreatePurchaseCancellation(InvoiceModule);
+        FirstCancellation.Post();
+
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => SecondCancellation.Post());
+
+        Assert.Contains("already cancelled", Error.Message.ToLowerInvariant());
+    }
+    [Fact]
+    public void PurchaseInvoiceWithPostedCreditNoteCannotBeCancelled()
+    {
+        PurchaseDeliveryNoteDataModule DeliveryModule = CreatePurchaseDeliveryNote("Espresso Beans", 10m, 20m);
+        DeliveryModule.Post();
+        PurchaseInvoiceDataModule InvoiceModule = CreatePurchaseInvoice(DeliveryModule, 10m);
+        InvoiceModule.Post();
+        PurchaseCreditNoteDataModule CreditNoteModule = CreatePurchaseCreditNote(InvoiceModule, 4m);
+        CreditNoteModule.Post();
+
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => InvoiceModule.CreateCancellation());
+
+        Assert.Contains("with posted credit notes cannot be cancelled", Error.Message.ToLowerInvariant());
     }
     [Fact]
     public void PurchaseSupplierSelectionCopiesDocumentAddresses()

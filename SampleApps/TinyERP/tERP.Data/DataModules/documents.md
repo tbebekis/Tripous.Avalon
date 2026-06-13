@@ -517,9 +517,18 @@ The Sales and Purchase document flows were manually verified with a newly create
 - The original Invoice form can remain open throughout partial crediting.
 - No confirmation dialog is shown when no credit quantity remains.
 - Sales and Purchase Credit Notes do not create stock movements.
+- Sales Invoice to Sales Cancellation posting.
+- Purchase Invoice to Purchase Cancellation posting.
+- Cancellation transformations preserve partner, address, tax, pricing, line, and total context.
+- Cancellation posting changes the source Invoice status to `Cancelled`.
+- Cancellation posting releases the source Delivery Note invoiced quantity.
+- A new Invoice created after Cancellation receives the restored quantity `10`.
+- Sales and Purchase Cancellations do not create stock movements.
 - Sales stock was verified as opening `50`, delivery `-10`, return `+3`, final balance `43`.
 - Purchase stock was verified as opening `300`, delivery `+10`, return `-3`, final balance `307`.
 - Purchase Credit Notes left the `Espresso Beans` stock balance unchanged at `310` after a Purchase Delivery Note of `10`.
+- Sales Cancellation left the `Laptop Computer 14` stock balance unchanged at `40` after a Sales Delivery Note of `10`.
+- Purchase Cancellation left the `Espresso Beans` stock balance unchanged at `310` after a Purchase Delivery Note of `10`.
 
 ## Current Limitations
 
@@ -528,7 +537,6 @@ The Sales and Purchase document flows were manually verified with a newly create
 - Currency conversion between price-list and document currencies is not implemented.
 - A pricing-field change replaces a manual unit price only when an applicable price is found.
 - Posting currently does not create financial or accounting records.
-- Cancellation workflows are not implemented.
 
 ## Sales Order Transformation
 
@@ -611,6 +619,27 @@ Posted Sales and Purchase Invoices can be transformed into draft Credit Notes:
 - Credit Note posting does not create stock movements. Physical returns remain separate Return documents.
 - Sales Credit Notes reverse the financial and accounting direction of Sales Invoices.
 - Purchase Credit Notes reverse the financial and accounting direction of Purchase Invoices.
+- Financial and accounting posting remain separate future work.
+
+## Invoice Cancellation
+
+Posted Sales and Purchase Invoices can create full Cancellation documents:
+
+- Sales Invoice to Sales Cancellation.
+- Purchase Invoice to Purchase Cancellation.
+- `Trade.CancelsTradeId` references the cancelled Invoice.
+- The cancelled Invoice stores the Cancellation identifier in `Trade.CancelledByTradeId`.
+- The cancelled Invoice receives `TradeStatusId = Cancelled`, `IsCancelled`, `CancelledAt`, and `CancelledBy`.
+- Cancellation documents preserve the complete Invoice context, quantities, prices, discounts, taxes, and totals.
+- Partial or modified Cancellation documents are rejected during posting.
+- Posting validates the Invoice and all source lines again using locked database rows.
+- An Invoice can be cancelled only once.
+- An Invoice with posted Credit Notes cannot be cancelled.
+- Cancellation posting subtracts the Invoice quantities from the source Delivery Note `InvoicedQuantity`.
+- Released Delivery Note quantities can be invoiced again.
+- Cancellation posting and all source updates share the same database transaction.
+- Cancellation documents do not create stock movements because Invoice documents do not move stock.
+- Sales and Purchase Cancellations reverse the financial and accounting direction of their Invoices.
 - Financial and accounting posting remain separate future work.
 
 ## Stock Count

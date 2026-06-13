@@ -8,7 +8,10 @@
 
 namespace tERP.Desktop;
 
-public class SalesCancellationForm : DocumentDataForm
+/// <summary>
+/// Displays a Sales Cancellation document.
+/// </summary>
+public class SalesCancellationForm: DocumentDataForm
 {
     // ● construction
     public SalesCancellationForm()
