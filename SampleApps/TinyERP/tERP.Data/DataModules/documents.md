@@ -505,6 +505,14 @@ The Sales and Purchase document flows were manually verified with a newly create
 - Purchase transformations preserve supplier, address, and tax context.
 - Destination tax jurisdiction is available in transformed Purchase documents.
 - Address and tax validation prevents incomplete documents from being saved.
+- Partial Sales Delivery Note to Sales Invoice transformations.
+- Partial Purchase Delivery Note to Purchase Invoice transformations.
+- A Return between two partial Invoices does not alter the remaining invoice quantity.
+- The original Delivery Note form can remain open throughout partial invoicing.
+- No confirmation dialog is shown when no invoice quantity remains.
+- Sales and Purchase Invoices do not create stock movements.
+- Sales stock was verified as opening `50`, delivery `-10`, return `+3`, final balance `43`.
+- Purchase stock was verified as opening `300`, delivery `+10`, return `-3`, final balance `307`.
 
 ## Current Limitations
 
