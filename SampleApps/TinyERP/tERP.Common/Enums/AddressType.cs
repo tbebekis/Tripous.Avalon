@@ -363,4 +363,6 @@ public enum DocumentAction
     CreateReturn = 3,
     /// <summary>Creates an Invoice from the current Delivery Note.</summary>
     CreateInvoice = 4,
+    /// <summary>Creates a Credit Note from the current Invoice.</summary>
+    CreateCreditNote = 5,
 }

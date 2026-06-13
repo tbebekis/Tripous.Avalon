@@ -865,4 +865,11 @@ where
     {
         return HasRemainingQuantity("InvoicedQuantity");
     }
+    /// <summary>
+    /// Returns true when the persisted document has at least one line with remaining credit quantity.
+    /// </summary>
+    public virtual bool HasRemainingCreditQuantity()
+    {
+        return HasRemainingQuantity("CreditedQuantity");
+    }
 }

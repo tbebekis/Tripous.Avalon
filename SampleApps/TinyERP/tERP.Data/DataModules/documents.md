@@ -511,8 +511,15 @@ The Sales and Purchase document flows were manually verified with a newly create
 - The original Delivery Note form can remain open throughout partial invoicing.
 - No confirmation dialog is shown when no invoice quantity remains.
 - Sales and Purchase Invoices do not create stock movements.
+- Partial Sales Invoice to Sales Credit Note transformations with quantities `4 + 6`.
+- Partial Purchase Invoice to Purchase Credit Note transformations with quantities `4 + 6`.
+- Credit Note transformations preserve partner, address, tax, and pricing context.
+- The original Invoice form can remain open throughout partial crediting.
+- No confirmation dialog is shown when no credit quantity remains.
+- Sales and Purchase Credit Notes do not create stock movements.
 - Sales stock was verified as opening `50`, delivery `-10`, return `+3`, final balance `43`.
 - Purchase stock was verified as opening `300`, delivery `+10`, return `-3`, final balance `307`.
+- Purchase Credit Notes left the `Espresso Beans` stock balance unchanged at `310` after a Purchase Delivery Note of `10`.
 
 ## Current Limitations
 
@@ -584,6 +591,26 @@ Posted Sales and Purchase Delivery Notes can be transformed into draft Invoices:
 - The transformed Invoice is calculated and validated before its modal form is opened.
 - The Delivery Note form checks the current invoicing remainder before showing confirmation.
 - Invoice posting does not create stock movements because stock was already moved by the Delivery Note.
+- Financial and accounting posting remain separate future work.
+
+## Credit Note Transformation
+
+Posted Sales and Purchase Invoices can be transformed into draft Credit Notes:
+
+- Sales Invoice to Sales Credit Note.
+- Purchase Invoice to Purchase Credit Note.
+- `Trade.SourceId` references the source Invoice.
+- `TradeLine.SourceTradeLineId` references the source Invoice line.
+- Credit quantity is `Quantity - CreditedQuantity`.
+- Multiple partial Credit Notes can be created from one Invoice.
+- Posting validates credit quantities against the current database values using locked source rows.
+- Posting updates source line `CreditedQuantity` in the same transaction.
+- Partner, addresses, prices, discounts, tax context, and business snapshots are copied.
+- The transformed Credit Note is calculated and validated before its modal form is opened.
+- The Invoice form checks the current credit remainder before showing confirmation.
+- Credit Note posting does not create stock movements. Physical returns remain separate Return documents.
+- Sales Credit Notes reverse the financial and accounting direction of Sales Invoices.
+- Purchase Credit Notes reverse the financial and accounting direction of Purchase Invoices.
 - Financial and accounting posting remain separate future work.
 
 ## Stock Count

@@ -75,7 +75,7 @@ public class PurchaseDataModule: TradeDataModule
             string[] LineExcludedFields =
             [
                 "Id", "TradeId", "Quantity", "PrimaryUnitQuantity",
-                "ReservedQuantity", "ExecutedQuantity", "InvoicedQuantity",
+                "ReservedQuantity", "ExecutedQuantity", "InvoicedQuantity", "CreditedQuantity",
                 "GrossAmount", "DiscountAmount", "NetUnitPrice", "NetAmount",
                 "DocumentDiscountAmount", "TaxAmount", "TotalAmount",
                 "TaxPercent", "IsTaxExempt", "IsReverseCharge",

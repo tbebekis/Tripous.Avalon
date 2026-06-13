@@ -268,6 +268,13 @@ public class SalesDocumentTests
         Result.Commit();
         return Result;
     }
+    SalesCreditNoteDataModule CreateSalesCreditNote(SalesInvoiceDataModule InvoiceModule, decimal Quantity)
+    {
+        SalesCreditNoteDataModule Result = InvoiceModule.CreateCreditNote();
+        Result.GetTable("TradeLine").Rows[0].SetValue("Quantity", Quantity);
+        Result.Commit();
+        return Result;
+    }
 
     // ● construction
     public SalesDocumentTests(TestDatabaseFixture Fixture)
@@ -335,6 +342,51 @@ public class SalesDocumentTests
 
         Assert.Contains("invoice quantity 5 exceeds remaining quantity 4", Error.Message.ToLowerInvariant());
         Assert.Equal(6m, GetTradeLine(DeliveryLineId).AsDecimal("InvoicedQuantity"));
+    }
+    [Fact]
+    public void PartialSalesCreditNotesUpdateCreditedQuantityWithoutStockMovement()
+    {
+        SalesDeliveryNoteDataModule DeliveryModule = CreateStandaloneDeliveryNote("Laptop Computer 14", 10m, "Main Warehouse");
+        DeliveryModule.Post();
+        SalesInvoiceDataModule InvoiceModule = CreateSalesInvoice(DeliveryModule, 10m);
+        string InvoiceLineId = InvoiceModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        InvoiceModule.Post();
+
+        SalesCreditNoteDataModule FirstCreditNote = CreateSalesCreditNote(InvoiceModule, 4m);
+        string FirstCreditLineId = FirstCreditNote.GetTable("TradeLine").Rows[0].AsString("Id");
+        Assert.Equal(InvoiceModule.CurrentRow.AsString("PersonId"), FirstCreditNote.CurrentRow.AsString("PersonId"));
+        Assert.Equal(InvoiceModule.CurrentRow.AsString("BillingCountryId"), FirstCreditNote.CurrentRow.AsString("BillingCountryId"));
+        Assert.Equal(InvoiceModule.CurrentRow.AsString("DestinationTaxJurisdictionId"), FirstCreditNote.CurrentRow.AsString("DestinationTaxJurisdictionId"));
+        FirstCreditNote.Post();
+
+        SalesCreditNoteDataModule SecondCreditNote = InvoiceModule.CreateCreditNote();
+        Assert.Equal(6m, SecondCreditNote.GetTable("TradeLine").Rows[0].AsDecimal("Quantity"));
+        string SecondCreditLineId = SecondCreditNote.GetTable("TradeLine").Rows[0].AsString("Id");
+        SecondCreditNote.Commit();
+        SecondCreditNote.Post();
+
+        Assert.Equal(10m, GetTradeLine(InvoiceLineId).AsDecimal("CreditedQuantity"));
+        Assert.Null(GetStockMovement(FirstCreditLineId));
+        Assert.Null(GetStockMovement(SecondCreditLineId));
+        Assert.False(InvoiceModule.HasRemainingCreditQuantity());
+    }
+    [Fact]
+    public void PostingSalesCreditNoteRejectsQuantityExceedingCurrentRemainingQuantity()
+    {
+        SalesDeliveryNoteDataModule DeliveryModule = CreateStandaloneDeliveryNote("Laptop Computer 14", 10m, "Main Warehouse");
+        DeliveryModule.Post();
+        SalesInvoiceDataModule InvoiceModule = CreateSalesInvoice(DeliveryModule, 10m);
+        string InvoiceLineId = InvoiceModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        InvoiceModule.Post();
+
+        SalesCreditNoteDataModule FirstCreditNote = CreateSalesCreditNote(InvoiceModule, 6m);
+        SalesCreditNoteDataModule ExcessCreditNote = CreateSalesCreditNote(InvoiceModule, 5m);
+        FirstCreditNote.Post();
+
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => ExcessCreditNote.Post());
+
+        Assert.Contains("credit quantity 5 exceeds remaining quantity 4", Error.Message.ToLowerInvariant());
+        Assert.Equal(6m, GetTradeLine(InvoiceLineId).AsDecimal("CreditedQuantity"));
     }
     [Fact]
     public void PartialDeliveriesUpdateExecutedQuantity()
