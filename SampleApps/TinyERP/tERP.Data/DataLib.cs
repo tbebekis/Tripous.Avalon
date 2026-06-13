@@ -125,7 +125,7 @@ order by
     static public string GetDefaultTaxJurisdictionId()
     {
         string SqlText = @$"select * from TaxJurisdiction where IsActive = 1 order by Code";
-        string CodeValue = "EU";
+        string CodeValue = "GR";
         return GetDefaultId(SqlText, CodeValue);
     }
     // 

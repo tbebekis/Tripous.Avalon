@@ -79,7 +79,8 @@ static public class ControlBindingHelper
 
         if (Value == null || Value == DBNull.Value || string.IsNullOrWhiteSpace(Convert.ToString(Value)))
         {
-            Row[FieldName] = DBNull.Value;
+            if (Row[FieldName] != DBNull.Value)
+                Row[FieldName] = DBNull.Value;
             return;
         }
 

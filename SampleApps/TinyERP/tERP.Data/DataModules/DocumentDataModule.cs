@@ -72,6 +72,49 @@ public class DocumentDataModule: AppDataModule
         return Result;
     }
     /// <summary>
+    /// Verifies the persisted document state immediately before committing changes.
+    /// </summary>
+    protected virtual void ValidateStoredDocumentBeforeCommit(DbTransaction Transaction)
+    {
+        if (CurrentRow == null || CurrentRow.RowState == DataRowState.Added)
+            return;
+
+        string Id = CurrentRow.AsString("Id");
+        DataRow StoredRow = Store.Provider.SelectForUpdate(Transaction, tblItem.TableName, "Id", Id);
+        if (StoredRow == null)
+            throw new TripousBusinessException("The document no longer exists.");
+
+        if (StoredRow.Table.Columns.Contains("ModifiedAt") && CurrentRow.Table.Columns.Contains("ModifiedAt"))
+        {
+            object OriginalModifiedAt = CurrentRow["ModifiedAt", DataRowVersion.Original];
+            object StoredModifiedAt = StoredRow["ModifiedAt"];
+            bool BothNull = Sys.IsNull(OriginalModifiedAt) && Sys.IsNull(StoredModifiedAt);
+            bool BothEqual = !Sys.IsNull(OriginalModifiedAt)
+                             && !Sys.IsNull(StoredModifiedAt)
+                             && Convert.ToDateTime(OriginalModifiedAt) == Convert.ToDateTime(StoredModifiedAt);
+            if (!BothNull && !BothEqual)
+                throw new TripousBusinessException("The document changed after it was loaded. Reload it and try again.");
+        }
+
+        if (IsPosting)
+        {
+            if (StoredRow.Table.Columns.Contains("TradeStatusId")
+                && (TradeStatus)StoredRow.AsInteger("TradeStatusId") != TradeStatus.Draft)
+                throw new TripousBusinessException("Only draft documents can be posted.");
+            if (StoredRow.Table.Columns.Contains("StatusId")
+                && (TradeStatus)StoredRow.AsInteger("StatusId") != TradeStatus.Draft)
+                throw new TripousBusinessException("Only draft documents can be posted.");
+            if (StoredRow.Table.Columns.Contains("IsCancelled") && StoredRow.AsBoolean("IsCancelled"))
+                throw new TripousBusinessException("A cancelled document cannot be posted.");
+            if (StoredRow.Table.Columns.Contains("IsLocked") && StoredRow.AsBoolean("IsLocked"))
+                throw new TripousBusinessException("A locked document cannot be posted.");
+        }
+        else if (StoredRow.Table.Columns.Contains("IsLocked") && StoredRow.AsBoolean("IsLocked"))
+        {
+            throw new TripousBusinessException("A locked document cannot be saved.");
+        }
+    }
+    /// <summary>
     /// Restores values changed by a failed posting operation.
     /// </summary>
     protected virtual void RestorePostingSnapshot(DataRow Row, Dictionary<string, object> Snapshot)
@@ -182,6 +225,13 @@ public class DocumentDataModule: AppDataModule
         {
             Row.SetValue("TradeTypeId", DocumentType.TradeTypeId);
         }
+    }
+    protected override void TableSet_TransactionStageCommit(object sender, TransactionEventArgs e)
+    {
+        base.TableSet_TransactionStageCommit(sender, e);
+
+        if (e.Stage == TransactionStage.Post && e.ExecTime == ExecTime.Before)
+            ValidateStoredDocumentBeforeCommit(e.Transaction);
     }
 
     protected override void NewRowAdded(MemTable Table, DataTableNewRowEventArgs ea)

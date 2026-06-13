@@ -52,6 +52,15 @@ public class TradeDataModule: DocumentDataModule
         return ItemTables.FirstOrDefault(Table => Table.TableName.IsSameText(TableName));
     }
     protected virtual bool IsPurchaseTrade() => DocumentType.TradeTypeId == (int)TradeType.Purchases;
+    protected virtual bool RequiresShippingAddress()
+    {
+        string[] ModuleNames =
+        [
+            "SalesOrder", "SalesDeliveryNote", "SalesReturn",
+            "PurchaseOrder", "PurchaseDeliveryNote", "PurchaseReturn"
+        ];
+        return ModuleNames.Contains(ModuleDef.Name, StringComparer.OrdinalIgnoreCase);
+    }
     protected virtual string GetPriceResolverClassName() => IsPurchaseTrade()
         ? AppDefaultProperties.Purchase.PriceResolverClassName
         : AppDefaultProperties.Sales.PriceResolverClassName;
@@ -106,6 +115,26 @@ public class TradeDataModule: DocumentDataModule
             TradeDate = CurrentRow.AsDateTime("TradeDate", DateTime.Today),
             CurrencyId = CurrentRow.AsString("CurrencyId"),
         };
+    }
+    /// <summary>
+    /// Restores the document tax context after copying address snapshots.
+    /// </summary>
+    protected virtual void CopyTaxContext(DataRow Source, DataRow Dest)
+    {
+        string[] Fields =
+        [
+            "TaxBusinessGroupId",
+            "OriginTaxJurisdictionId",
+            "DestinationTaxJurisdictionId"
+        ];
+
+        foreach (string FieldName in Fields)
+        {
+            if (!Source.Table.Columns.Contains(FieldName) || !Dest.Table.Columns.Contains(FieldName))
+                continue;
+
+            Dest.SetValue(FieldName, Source[FieldName]);
+        }
     }
     /// <summary>
     /// Converts a tax-inclusive list price to the tax-exclusive line price.
@@ -199,6 +228,9 @@ public class TradeDataModule: DocumentDataModule
 
         if (string.IsNullOrWhiteSpace(CurrentRow.AsString("TaxBusinessGroupId")))
             Errors.Add("Tax business group is required.");
+        ValidateAddress("Billing", "Billing", Errors);
+        if (RequiresShippingAddress())
+            ValidateAddress("Shipping", "Shipping", Errors);
 
         foreach (MemTable Table in ItemTables.Where(IsTradeLineTable))
             foreach (DataRow Row in Table.Rows)
@@ -207,6 +239,26 @@ public class TradeDataModule: DocumentDataModule
 
         if (Errors.Count > 0)
             throw new TripousBusinessException(string.Join(Environment.NewLine, Errors));
+    }
+    /// <summary>
+    /// Validates a document address snapshot.
+    /// </summary>
+    protected virtual void ValidateAddress(string FieldPrefix, string AddressLabel, List<string> Errors)
+    {
+        (string FieldSuffix, string FieldLabel)[] Fields =
+        [
+            ("Name", "name"),
+            ("AddressLine1", "address line 1"),
+            ("City", "city"),
+            ("PostalCode", "postal code"),
+            ("CountryId", "country")
+        ];
+
+        foreach ((string FieldSuffix, string FieldLabel) in Fields)
+        {
+            if (string.IsNullOrWhiteSpace(CurrentRow.AsString($"{FieldPrefix}{FieldSuffix}")))
+                Errors.Add($"{AddressLabel} {FieldLabel} is required.");
+        }
     }
     /// <summary>
     /// Loads the tax business group assigned to a person.
@@ -704,5 +756,25 @@ where
             foreach (MemTable Table in ItemTables.Where(IsTradeLineTable))
                 Table.RowDeleted += TradeLine_RowDeleted;
         }
+    }
+    /// <summary>
+    /// Returns true when the persisted document has at least one line with remaining transformable quantity.
+    /// </summary>
+    public virtual bool HasRemainingTransformQuantity()
+    {
+        if (CurrentRow == null)
+            return false;
+
+        string SqlText = """
+                         select count(*)
+                         from TradeLine
+                         where TradeId = :TradeId
+                           and Quantity > ExecutedQuantity
+                         """;
+        int Count = Store.IntegerResult(SqlText, 0, new Dictionary<string, object>()
+        {
+            ["TradeId"] = CurrentRow.AsString("Id"),
+        });
+        return Count > 0;
     }
 }

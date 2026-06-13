@@ -20,22 +20,28 @@ public partial class SampleData1: SampleData
         SampleTables[tblSource.TableName] = tblSource;
 
         tblSource.CopyColumnsFrom(Module.tblItem);
+        MemTable tblTaxOffice = SampleTables["TaxOffice"];
+        MemTable tblCountry = SampleTables["Country"];
+        MemTable tblCurrency = SampleTables["Currency"];
+        object TaxOfficeId = tblTaxOffice.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("TAX-001"))["Id"];
+        object CountryId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("GR"))["Id"];
+        object CurrencyId = tblCurrency.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EUR"))["Id"];
 
         AddRow(tblSource,
             ("Id", Sys.StandardCompanyGuid),
-            ("Name", "Default"),
-            ("Title", "Default Company"),
+            ("Name", "Tripous Demo SA"),
+            ("Title", "Tripous Demo Company"),
             ("TaxNumber", "0123456789"),
-            ("TaxOfficeId", DBNull.Value),
-            ("CountryId", DBNull.Value),
-            ("CurrencyId", DBNull.Value),
-            ("AddressLine1", ""),
-            ("AddressLine2", ""),
-            ("City", ""),
-            ("PostalCode", ""),
-            ("Phone", ""),
-            ("Email", ""),
-            ("Website", "")
+            ("TaxOfficeId", TaxOfficeId),
+            ("CountryId", CountryId),
+            ("CurrencyId", CurrencyId),
+            ("AddressLine1", "1 Central Avenue"),
+            ("AddressLine2", DBNull.Value),
+            ("City", "Athens"),
+            ("PostalCode", "10563"),
+            ("Phone", "+30 210 1000000"),
+            ("Email", "info@tripous-demo.example"),
+            ("Website", "https://tripous-demo.example")
         );
 
         Module.BatchInsert(tblSource);
@@ -708,9 +714,12 @@ public partial class SampleData1: SampleData
         MemTable tblTaxClause = SampleTables["TaxClause"];
         object RegisteredId = tblBusinessGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("REGISTERED"))["Id"];
         object ConsumerId = tblBusinessGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CONSUMER"))["Id"];
+        object ExemptBusinessId = tblBusinessGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EXEMPT"))["Id"];
         object StandardId = tblProductGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("STANDARD"))["Id"];
         object ReducedId = tblProductGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("REDUCED"))["Id"];
+        object ZeroId = tblProductGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("ZERO"))["Id"];
         object GreeceId = tblJurisdiction.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("GR"))["Id"];
+        object GermanyId = tblJurisdiction.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("DE"))["Id"];
         object EuropeanUnionId = tblJurisdiction.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EU"))["Id"];
         object UnitedStatesId = tblJurisdiction.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("US"))["Id"];
         object CaliforniaId = tblJurisdiction.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("US-CA"))["Id"];
@@ -720,11 +729,21 @@ public partial class SampleData1: SampleData
         object CaliforniaRateId = tblTaxRate.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("US-CA-0725"))["Id"];
         object ReverseChargeId = tblTaxClause.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EU-REVERSE"))["Id"];
         object ExportId = tblTaxClause.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EXPORT"))["Id"];
+        object ExemptClauseId = tblTaxClause.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EXEMPT"))["Id"];
 
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-REGISTERED-STANDARD"), ("Name", "Greece Registered Standard VAT"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat24Id), ("TaxClauseId", DBNull.Value), ("TradeTypeId", (int)TradeType.None), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-REGISTERED-REDUCED"), ("Name", "Greece Registered Reduced VAT"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", ReducedId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat13Id), ("TaxClauseId", DBNull.Value), ("TradeTypeId", (int)TradeType.None), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-CONSUMER-STANDARD"), ("Name", "Greece Consumer Standard VAT"), ("TaxBusinessGroupId", ConsumerId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat24Id), ("TaxClauseId", DBNull.Value), ("TradeTypeId", (int)TradeType.None), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-CONSUMER-REDUCED"), ("Name", "Greece Consumer Reduced VAT"), ("TaxBusinessGroupId", ConsumerId), ("TaxProductGroupId", ReducedId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat13Id), ("TaxClauseId", DBNull.Value), ("TradeTypeId", (int)TradeType.None), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-REGISTERED-ZERO"), ("Name", "Greece Registered Zero VAT"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", ZeroId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat00Id), ("TaxClauseId", DBNull.Value), ("TradeTypeId", (int)TradeType.None), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-EXEMPT-STANDARD"), ("Name", "Greece Exempt Business Standard Goods"), ("TaxBusinessGroupId", ExemptBusinessId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat00Id), ("TaxClauseId", ExemptClauseId), ("TradeTypeId", (int)TradeType.None), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", true), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-EXEMPT-REDUCED"), ("Name", "Greece Exempt Business Reduced Goods"), ("TaxBusinessGroupId", ExemptBusinessId), ("TaxProductGroupId", ReducedId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat00Id), ("TaxClauseId", ExemptClauseId), ("TradeTypeId", (int)TradeType.None), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", true), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EU-REGISTERED-STANDARD"), ("Name", "EU Registered Reverse Charge"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", EuropeanUnionId), ("TaxRateId", Vat00Id), ("TaxClauseId", ReverseChargeId), ("TradeTypeId", (int)TradeType.Sales), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 80), ("IsExempt", false), ("IsReverseCharge", true), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EU-REGISTERED-REDUCED"), ("Name", "EU Registered Reduced Reverse Charge"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", ReducedId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", EuropeanUnionId), ("TaxRateId", Vat00Id), ("TaxClauseId", ReverseChargeId), ("TradeTypeId", (int)TradeType.Sales), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 80), ("IsExempt", false), ("IsReverseCharge", true), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "DE-GR-REGISTERED-STANDARD"), ("Name", "Germany to Greece Standard Reverse Charge"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", GermanyId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat00Id), ("TaxClauseId", ReverseChargeId), ("TradeTypeId", (int)TradeType.Purchases), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 80), ("IsExempt", false), ("IsReverseCharge", true), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "DE-GR-REGISTERED-REDUCED"), ("Name", "Germany to Greece Reduced Reverse Charge"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", ReducedId), ("OriginTaxJurisdictionId", GermanyId), ("DestinationTaxJurisdictionId", GreeceId), ("TaxRateId", Vat00Id), ("TaxClauseId", ReverseChargeId), ("TradeTypeId", (int)TradeType.Purchases), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 80), ("IsExempt", false), ("IsReverseCharge", true), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-US-EXPORT"), ("Name", "Greece Export to United States"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", UnitedStatesId), ("TaxRateId", Vat00Id), ("TaxClauseId", ExportId), ("TradeTypeId", (int)TradeType.Sales), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 80), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "GR-US-EXPORT-REDUCED"), ("Name", "Greece Reduced Goods Export to United States"), ("TaxBusinessGroupId", RegisteredId), ("TaxProductGroupId", ReducedId), ("OriginTaxJurisdictionId", GreeceId), ("DestinationTaxJurisdictionId", UnitedStatesId), ("TaxRateId", Vat00Id), ("TaxClauseId", ExportId), ("TradeTypeId", (int)TradeType.Sales), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 80), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "US-CA-CONSUMER-STANDARD"), ("Name", "California Consumer Standard Sales Tax"), ("TaxBusinessGroupId", ConsumerId), ("TaxProductGroupId", StandardId), ("OriginTaxJurisdictionId", CaliforniaId), ("DestinationTaxJurisdictionId", CaliforniaId), ("TaxRateId", CaliforniaRateId), ("TaxClauseId", DBNull.Value), ("TradeTypeId", (int)TradeType.Sales), ("TaxCalculationTypeId", (int)TaxCalculationType.Percentage), ("Priority", 100), ("IsExempt", false), ("IsReverseCharge", false), ("ValidFrom", DBNull.Value), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
 
         Module.BatchInsert(tblSource);
@@ -786,14 +805,19 @@ public partial class SampleData1: SampleData
         object CentralTaxOfficeId = tblTaxOffice.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("TAX-001"))["Id"];
         object GreeceId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("GR"))["Id"];
         object GermanyId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("DE"))["Id"];
+        object UnitedStatesId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("US"))["Id"];
         object EuroId = tblCurrency.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EUR"))["Id"];
+        object UsDollarId = tblCurrency.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("USD"))["Id"];
         object EnglishId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EN"))["Id"];
         object GreekId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EL"))["Id"];
         object GermanId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("DE"))["Id"];
         object RegisteredId = tblTaxBusinessGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("REGISTERED"))["Id"];
+        object ConsumerId = tblTaxBusinessGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CONSUMER"))["Id"];
 
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-ACME"), ("Name", "Acme Retail SA"), ("Title", "Retail Customer"), ("TaxNumber", "123456789"), ("TaxOfficeId", CentralTaxOfficeId), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", "10 Ermou Street"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "10563"), ("Phone", "+30 210 1000001"), ("Mobile", DBNull.Value), ("Email", "info@acmeretail.example"), ("Website", "https://acmeretail.example"), ("ContactPerson", "Maria Antoniou"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "Building2"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-NORTH"), ("Name", "Northwind Traders Ltd"), ("Title", "Wholesale Customer"), ("TaxNumber", "987654321"), ("TaxOfficeId", CentralTaxOfficeId), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", EnglishId), ("AddressLine1", "25 Kifisias Avenue"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "11523"), ("Phone", "+30 210 1000002"), ("Mobile", DBNull.Value), ("Email", "orders@northwind.example"), ("Website", "https://northwind.example"), ("ContactPerson", "Alex Morgan"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "Store"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-NIKOS"), ("Name", "Nikos Demo Customer"), ("Title", "Consumer Customer"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("TaxBusinessGroupId", ConsumerId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", "15 Patision Street"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "10434"), ("Phone", DBNull.Value), ("Mobile", "+30 694 2000001"), ("Email", "nikos.customer@example.com"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#0EA5E9"), ("IconName", "UserRound"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-LIBERTY"), ("Name", "Liberty Retail LLC"), ("Title", "Export Customer"), ("TaxNumber", "US-99887766"), ("TaxOfficeId", DBNull.Value), ("TaxBusinessGroupId", RegisteredId), ("CountryId", UnitedStatesId), ("CurrencyId", UsDollarId), ("LanguageId", EnglishId), ("AddressLine1", "100 Market Street"), ("AddressLine2", DBNull.Value), ("City", "San Francisco"), ("PostalCode", "94105"), ("Phone", "+1 415 555 0100"), ("Mobile", DBNull.Value), ("Email", "orders@liberty-retail.example"), ("Website", "https://liberty-retail.example"), ("ContactPerson", "John Miller"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#DC2626"), ("IconName", "Globe"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-HELIOS"), ("Name", "Helios Supplies OE"), ("Title", "Supplier"), ("TaxNumber", "456789123"), ("TaxOfficeId", CentralTaxOfficeId), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", "8 Piraeus Street"), ("AddressLine2", DBNull.Value), ("City", "Piraeus"), ("PostalCode", "18531"), ("Phone", "+30 210 1000003"), ("Mobile", DBNull.Value), ("Email", "sales@helios.example"), ("Website", "https://helios.example"), ("ContactPerson", "Nikos Papadopoulos"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "Truck"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-BERLIN"), ("Name", "Berlin Components GmbH"), ("Title", "International Supplier"), ("TaxNumber", "DE123456789"), ("TaxOfficeId", DBNull.Value), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GermanyId), ("CurrencyId", EuroId), ("LanguageId", GermanId), ("AddressLine1", "42 Alexanderplatz"), ("AddressLine2", DBNull.Value), ("City", "Berlin"), ("PostalCode", "10178"), ("Phone", "+49 30 1000004"), ("Mobile", DBNull.Value), ("Email", "info@berlincomponents.example"), ("Website", "https://berlincomponents.example"), ("ContactPerson", "Hans Becker"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#9333EA"), ("IconName", "Factory"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-ELENA"), ("Name", "Elena Papadopoulou"), ("Title", "Sales Manager"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000001"), ("Email", "elena.papadopoulou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#0EA5E9"), ("IconName", "UserRound"));
@@ -996,6 +1020,8 @@ public partial class SampleData1: SampleData
 
         AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Acme Retail SA")), CustomerRoleId);
         AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Northwind Traders Ltd")), CustomerRoleId);
+        AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CUST-NIKOS")), CustomerRoleId);
+        AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CUST-LIBERTY")), CustomerRoleId);
         AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Helios Supplies OE")), SupplierRoleId);
         AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Berlin Components GmbH")), SupplierRoleId);
         AddRole(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Berlin Components GmbH")), CarrierRoleId);
@@ -1020,13 +1046,15 @@ public partial class SampleData1: SampleData
 
         MemTable tblPerson = SampleTables["Person"];
 
-        object SalesManagerId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Northwind Traders Ltd"))["Id"];
-        object SupportManagerId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Acme Retail SA"))["Id"];
+        object SalesManagerId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EMP-ELENA"))["Id"];
+        object WarehouseManagerId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EMP-DIMITRIS"))["Id"];
+        object SupportManagerId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EMP-KATERINA"))["Id"];
 
         object AdministrationId = Sys.GenId();
 
         AddRow(tblSource, ("Id", AdministrationId), ("Code", "ADM"), ("Name", "Administration"), ("ParentCostCenterId", DBNull.Value), ("ManagerPersonId", DBNull.Value), ("StartDate", DateTime.Today), ("EndDate", DBNull.Value), ("IsActive", true), ("Color", "#64748B"), ("IconName", "BriefcaseBusiness"), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SALES"), ("Name", "Sales Department"), ("ParentCostCenterId", AdministrationId), ("ManagerPersonId", SalesManagerId), ("StartDate", DateTime.Today), ("EndDate", DBNull.Value), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "ChartNoAxesCombined"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "PURCHASES"), ("Name", "Purchasing Department"), ("ParentCostCenterId", AdministrationId), ("ManagerPersonId", WarehouseManagerId), ("StartDate", DateTime.Today), ("EndDate", DBNull.Value), ("IsActive", true), ("Color", "#7C3AED"), ("IconName", "ShoppingBag"), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "PROD"), ("Name", "Production"), ("ParentCostCenterId", AdministrationId), ("ManagerPersonId", DBNull.Value), ("StartDate", DateTime.Today), ("EndDate", DBNull.Value), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "Factory"), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUPPORT"), ("Name", "Technical Support"), ("ParentCostCenterId", AdministrationId), ("ManagerPersonId", SupportManagerId), ("StartDate", DateTime.Today), ("EndDate", DBNull.Value), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "Headset"), ("Remarks", DBNull.Value));
 
@@ -1087,6 +1115,7 @@ public partial class SampleData1: SampleData
 
         object GreeceId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("GR"))["Id"];
         object GermanyId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("DE"))["Id"];
+        object UnitedStatesId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("US"))["Id"];
 
         void AddAddress(DataRow PersonRow, int AddressTypeId, string Code, string Name, object CountryId, string City, string PostalCode, string AddressLine1)
         {
@@ -1102,9 +1131,24 @@ public partial class SampleData1: SampleData
             Module.Commit();
         }
 
-        AddAddress(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Acme Retail SA")), (int)AddressType.Billing, "ADR-ACME-BILL", "Billing Address", GreeceId, "Athens", "10563", "10 Ermou Street");
-        AddAddress(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Northwind Traders Ltd")), (int)AddressType.Shipping, "ADR-NORTH-SHIP", "Shipping Address", GreeceId, "Athens", "11523", "25 Kifisias Avenue");
-        AddAddress(tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Berlin Components GmbH")), (int)AddressType.Main, "ADR-BERLIN-MAIN", "Main Address", GermanyId, "Berlin", "10178", "42 Alexanderplatz");
+        DataRow AcmeRow = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CUST-ACME"));
+        DataRow NorthwindRow = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CUST-NORTH"));
+        DataRow HeliosRow = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("SUP-HELIOS"));
+        DataRow BerlinRow = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("SUP-BERLIN"));
+        DataRow ConsumerRow = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CUST-NIKOS"));
+        DataRow ExportRow = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CUST-LIBERTY"));
+        AddAddress(AcmeRow, (int)AddressType.Billing, "ADR-ACME-BILL", "Billing Address", GreeceId, "Athens", "10563", "10 Ermou Street");
+        AddAddress(AcmeRow, (int)AddressType.Shipping, "ADR-ACME-SHIP", "Shipping Address", GreeceId, "Athens", "10435", "20 Iera Odos");
+        AddAddress(NorthwindRow, (int)AddressType.Billing, "ADR-NORTH-BILL", "Billing Address", GreeceId, "Athens", "11523", "25 Kifisias Avenue");
+        AddAddress(NorthwindRow, (int)AddressType.Shipping, "ADR-NORTH-SHIP", "Shipping Address", GreeceId, "Marousi", "15124", "80 Kifisias Avenue");
+        AddAddress(HeliosRow, (int)AddressType.Billing, "ADR-HELIOS-BILL", "Billing Address", GreeceId, "Piraeus", "18531", "8 Piraeus Street");
+        AddAddress(HeliosRow, (int)AddressType.Shipping, "ADR-HELIOS-SHIP", "Shipping Address", GreeceId, "Aspropyrgos", "19300", "12 Industrial Road");
+        AddAddress(BerlinRow, (int)AddressType.Billing, "ADR-BERLIN-BILL", "Billing Address", GermanyId, "Berlin", "10178", "42 Alexanderplatz");
+        AddAddress(BerlinRow, (int)AddressType.Shipping, "ADR-BERLIN-SHIP", "Shipping Address", GermanyId, "Berlin", "10179", "18 Holzmarktstrasse");
+        AddAddress(ConsumerRow, (int)AddressType.Billing, "ADR-NIKOS-BILL", "Home Address", GreeceId, "Athens", "10434", "15 Patision Street");
+        AddAddress(ConsumerRow, (int)AddressType.Shipping, "ADR-NIKOS-SHIP", "Delivery Address", GreeceId, "Athens", "10434", "15 Patision Street");
+        AddAddress(ExportRow, (int)AddressType.Billing, "ADR-LIBERTY-BILL", "Billing Address", UnitedStatesId, "San Francisco", "94105", "100 Market Street");
+        AddAddress(ExportRow, (int)AddressType.Shipping, "ADR-LIBERTY-SHIP", "Shipping Address", UnitedStatesId, "San Francisco", "94107", "250 King Street");
     }
     static void Add_PersonContact()
     {
@@ -1196,7 +1240,7 @@ public partial class SampleData1: SampleData
         MemTable tblFixedAsset = SampleTables["FixedAsset"];
         MemTable tblPerson = SampleTables["Person"];
 
-        object AcmeRetailId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Acme Retail SA"))["Id"];
+        object EmployeeId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EMP-ELENA"))["Id"];
 
         void AddAssignment(DataRow FixedAssetRow, object PersonId)
         {
@@ -1212,7 +1256,7 @@ public partial class SampleData1: SampleData
             Module.Commit();
         }
 
-        AddAssignment(tblFixedAsset.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Office Laptop")), AcmeRetailId);
+        AddAssignment(tblFixedAsset.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Office Laptop")), EmployeeId);
     }
     static void Add_AssetMaintenance()
     {
@@ -1338,6 +1382,14 @@ public partial class SampleData1: SampleData
         AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", RetailPriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", CoffeeCapsulesId), ("UnitOfMeasureId", BoxId), ("MinQuantity", 1.0000m), ("UnitPrice", 8.7500m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", RetailPriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", MineralWaterId), ("UnitOfMeasureId", LiterId), ("MinQuantity", 1.0000m), ("UnitPrice", 1.2000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", RetailPriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", OrangeJuiceId), ("UnitOfMeasureId", LiterId), ("MinQuantity", 1.0000m), ("UnitPrice", 2.8500m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", CoffeeMachineId), ("UnitOfMeasureId", PieceId), ("MinQuantity", 1.0000m), ("UnitPrice", 229.0000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", EspressoBeansId), ("UnitOfMeasureId", KilogramId), ("MinQuantity", 1.0000m), ("UnitPrice", 16.9000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", LaptopComputerId), ("UnitOfMeasureId", PieceId), ("MinQuantity", 1.0000m), ("UnitPrice", 1249.0000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", MonitorId), ("UnitOfMeasureId", PieceId), ("MinQuantity", 1.0000m), ("UnitPrice", 309.9000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", WirelessKeyboardId), ("UnitOfMeasureId", PieceId), ("MinQuantity", 1.0000m), ("UnitPrice", 45.0000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", CoffeeCapsulesId), ("UnitOfMeasureId", BoxId), ("MinQuantity", 1.0000m), ("UnitPrice", 7.9000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", MineralWaterId), ("UnitOfMeasureId", LiterId), ("MinQuantity", 1.0000m), ("UnitPrice", 1.0000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", StandardDiscountCategoryId), ("CustomerId", DBNull.Value), ("ProductId", OrangeJuiceId), ("UnitOfMeasureId", LiterId), ("MinQuantity", 1.0000m), ("UnitPrice", 2.5000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", PreferredDiscountCategoryId), ("CustomerId", AcmeRetailId), ("ProductId", CoffeeMachineId), ("UnitOfMeasureId", PieceId), ("MinQuantity", 5.0000m), ("UnitPrice", 219.0000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", PreferredDiscountCategoryId), ("CustomerId", AcmeRetailId), ("ProductId", EspressoBeansId), ("UnitOfMeasureId", KilogramId), ("MinQuantity", 10.0000m), ("UnitPrice", 15.9000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("PriceListTypeId", WholesalePriceListTypeId), ("DiscountCategoryId", PreferredDiscountCategoryId), ("CustomerId", AcmeRetailId), ("ProductId", LaptopComputerId), ("UnitOfMeasureId", PieceId), ("MinQuantity", 3.0000m), ("UnitPrice", 1199.0000m), ("ValidFrom", ValidFrom), ("ValidTo", DBNull.Value), ("IsActive", true), ("Remarks", DBNull.Value));
@@ -1406,7 +1458,7 @@ public partial class SampleData1: SampleData
         object CompanyId = tblCompany.Rows[0]["Id"];
         object BranchId = tblCompanyBranch.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("MAIN"))["Id"];
         object GreeceId = tblCountry.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("GR"))["Id"];
-        object ResponsiblePersonId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Helios Supplies OE"))["Id"];
+        object ResponsiblePersonId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EMP-DIMITRIS"))["Id"];
 
         AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Main Warehouse"), ("CompanyId", CompanyId), ("BranchId", BranchId), ("WarehouseTypeId", (int)WarehouseType.Main), ("AddressLine1", "1 Central Avenue"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "10563"), ("CountryId", GreeceId), ("Phone", "+30 210 1000100"), ("Email", "warehouse@company.example"), ("ResponsiblePersonId", ResponsiblePersonId), ("IsActive", true), ("IsVirtual", false), ("AllowNegativeStock", false), ("AffectsAvailability", true), ("Color", "#2563EB"), ("IconName", "Warehouse"), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Retail Store"), ("CompanyId", CompanyId), ("BranchId", BranchId), ("WarehouseTypeId", (int)WarehouseType.Store), ("AddressLine1", "25 Ermou Street"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "10563"), ("CountryId", GreeceId), ("Phone", "+30 210 1000101"), ("Email", "store01@company.example"), ("ResponsiblePersonId", ResponsiblePersonId), ("IsActive", true), ("IsVirtual", false), ("AllowNegativeStock", false), ("AffectsAvailability", true), ("Color", "#16A34A"), ("IconName", "Store"), ("Remarks", DBNull.Value));
@@ -1429,17 +1481,20 @@ public partial class SampleData1: SampleData
         MemTable tblPerson = SampleTables["Person"];
         MemTable tblCostCenter = SampleTables["CostCenter"];
 
-        object AcmeRetailId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Acme Retail SA"))["Id"];
+        object AcmeRetailId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CUST-ACME"))["Id"];
         object NorthwindId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Northwind Traders Ltd"))["Id"];
+        object ElenaId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EMP-ELENA"))["Id"];
+        object DimitrisId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EMP-DIMITRIS"))["Id"];
+        object KaterinaId = tblPerson.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EMP-KATERINA"))["Id"];
         object SalesCostCenterId = tblCostCenter.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("SALES"))["Id"];
         object SupportCostCenterId = tblCostCenter.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("SUPPORT"))["Id"];
 
         DateTime StartDate = new(DateTime.Today.Year, 1, 1);
         DateTime EndDate = new(DateTime.Today.Year, 12, 31);
 
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "ERP Installation"), ("CustomerId", AcmeRetailId), ("ProjectStatusId", (int)ProjectStatus.Active), ("StartDate", StartDate), ("EndDate", EndDate), ("CostCenterId", SupportCostCenterId), ("ManagerPersonId", NorthwindId), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "BriefcaseBusiness"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "CRM Migration"), ("CustomerId", NorthwindId), ("ProjectStatusId", (int)ProjectStatus.Draft), ("StartDate", StartDate.AddMonths(2)), ("EndDate", DBNull.Value), ("CostCenterId", SalesCostCenterId), ("ManagerPersonId", AcmeRetailId), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "DatabaseZap"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Warehouse Automation"), ("CustomerId", AcmeRetailId), ("ProjectStatusId", (int)ProjectStatus.Active), ("StartDate", StartDate.AddMonths(4)), ("EndDate", DBNull.Value), ("CostCenterId", SupportCostCenterId), ("ManagerPersonId", NorthwindId), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "Warehouse"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "ERP Installation"), ("CustomerId", AcmeRetailId), ("ProjectStatusId", (int)ProjectStatus.Active), ("StartDate", StartDate), ("EndDate", EndDate), ("CostCenterId", SupportCostCenterId), ("ManagerPersonId", KaterinaId), ("IsActive", true), ("Color", "#2563EB"), ("IconName", "BriefcaseBusiness"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "CRM Migration"), ("CustomerId", NorthwindId), ("ProjectStatusId", (int)ProjectStatus.Draft), ("StartDate", StartDate.AddMonths(2)), ("EndDate", DBNull.Value), ("CostCenterId", SalesCostCenterId), ("ManagerPersonId", ElenaId), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "DatabaseZap"), ("Remarks", DBNull.Value));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Name", "Warehouse Automation"), ("CustomerId", AcmeRetailId), ("ProjectStatusId", (int)ProjectStatus.Active), ("StartDate", StartDate.AddMonths(4)), ("EndDate", DBNull.Value), ("CostCenterId", SupportCostCenterId), ("ManagerPersonId", DimitrisId), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "Warehouse"), ("Remarks", DBNull.Value));
 
         Module.BatchInsert(tblSource);
     }
@@ -1495,24 +1550,27 @@ public partial class SampleData1: SampleData
         MemTable tblProduct = SampleTables["Product"];
         MemTable tblUnitOfMeasure = SampleTables["UnitOfMeasure"];
 
-        DataRow CoffeeMachineRow = tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine"));
-        object CoffeeMachineId = CoffeeMachineRow["Id"];
-        object PieceId = tblUnitOfMeasure.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("H87"))["Id"];
         object BoxId = tblUnitOfMeasure.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("BX"))["Id"];
 
-        Module.Edit(CoffeeMachineId);
-        tblProductUnitOfMeasure = Module.GetTable(TableName);
+        void AddUnit(DataRow ProductRow, object UnitId, decimal Ratio, string Barcode, bool IsSalesDefault, bool IsPurchaseDefault)
+        {
+            object ProductId = ProductRow["Id"];
+            object Id = Sys.GenId();
 
-        object PieceRowId = Sys.GenId();
-        object BoxRowId = Sys.GenId();
+            Module.Edit(ProductId);
+            tblProductUnitOfMeasure = Module.GetTable(TableName);
 
-        AddRow(tblProductUnitOfMeasure, ("Id", PieceRowId), ("ProductId", CoffeeMachineId), ("UnitId", PieceId), ("Ratio", 1.0000m), ("Barcode", "5200000000011"), ("IsSalesDefault", true), ("IsPurchaseDefault", true), ("IsActive", true), ("Remarks", DBNull.Value));
-        AddRow(tblProductUnitOfMeasure, ("Id", BoxRowId), ("ProductId", CoffeeMachineId), ("UnitId", BoxId), ("Ratio", 12.0000m), ("Barcode", "5200000001018"), ("IsSalesDefault", false), ("IsPurchaseDefault", false), ("IsActive", true), ("Remarks", DBNull.Value));
+            AddRow(tblProductUnitOfMeasure, ("Id", Id), ("ProductId", ProductId), ("UnitId", UnitId), ("Ratio", Ratio), ("Barcode", Barcode), ("IsSalesDefault", IsSalesDefault), ("IsPurchaseDefault", IsPurchaseDefault), ("IsActive", true), ("Remarks", DBNull.Value));
+            AddRow(tblSource, ("Id", Id), ("ProductId", ProductId), ("UnitId", UnitId), ("Ratio", Ratio), ("Barcode", Barcode), ("IsSalesDefault", IsSalesDefault), ("IsPurchaseDefault", IsPurchaseDefault), ("IsActive", true), ("Remarks", DBNull.Value));
 
-        AddRow(tblSource, ("Id", PieceRowId), ("ProductId", CoffeeMachineId), ("UnitId", PieceId), ("Ratio", 1.0000m), ("Barcode", "5200000000011"), ("IsSalesDefault", true), ("IsPurchaseDefault", true), ("IsActive", true), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", BoxRowId), ("ProductId", CoffeeMachineId), ("UnitId", BoxId), ("Ratio", 12.0000m), ("Barcode", "5200000001018"), ("IsSalesDefault", false), ("IsPurchaseDefault", false), ("IsActive", true), ("Remarks", DBNull.Value));
+            Module.Commit();
+        }
 
-        Module.Commit();
+        DataRow CoffeeMachineRow = tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine"));
+        AddUnit(CoffeeMachineRow, CoffeeMachineRow["PrimaryUnitOfMeasureId"], 1.0000m, "5200000000011", true, true);
+        AddUnit(CoffeeMachineRow, BoxId, 12.0000m, "5200000001018", false, false);
+        foreach (DataRow ProductRow in tblProduct.Rows.Cast<DataRow>().Where(x => !x.AsString("Name").IsSameText("Coffee Machine")))
+            AddUnit(ProductRow, ProductRow["PrimaryUnitOfMeasureId"], 1.0000m, ProductRow.AsString("Barcode"), true, true);
     }
     static void Add_ProductBarcode()
     {
@@ -1546,6 +1604,12 @@ public partial class SampleData1: SampleData
         AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine")), "5200000000011", "Retail Barcode", true);
         AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine")), "5200000001018", "Box Barcode", false);
         AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Espresso Beans")), "5200000000028", "Retail Barcode", true);
+        AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Laptop Computer 14")), "5200000000035", "Retail Barcode", true);
+        AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Monitor 27 Inch")), "5200000000042", "Retail Barcode", true);
+        AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Wireless Keyboard")), "5200000000059", "Retail Barcode", true);
+        AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Capsules")), "5200000000066", "Retail Barcode", true);
+        AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Mineral Water")), "5200000000073", "Retail Barcode", true);
+        AddBarcode(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Orange Juice")), "5200000000080", "Retail Barcode", true);
     }
     static void Add_ProductSupplier()
     {
@@ -1582,6 +1646,12 @@ public partial class SampleData1: SampleData
 
         AddSupplier(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine")), BerlinId, "CM-2000", 14, 175.0000m, true);
         AddSupplier(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Espresso Beans")), HeliosId, "EB-1KG", 5, 11.2000m, true);
+        AddSupplier(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Laptop Computer 14")), BerlinId, "LAP-14", 10, 900.0000m, true);
+        AddSupplier(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Monitor 27 Inch")), BerlinId, "MON-27", 10, 210.0000m, true);
+        AddSupplier(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Wireless Keyboard")), BerlinId, "KEY-WL", 7, 25.0000m, true);
+        AddSupplier(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Capsules")), HeliosId, "CAP-10", 5, 4.5000m, true);
+        AddSupplier(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Mineral Water")), HeliosId, "WAT-1L", 3, 0.3500m, true);
+        AddSupplier(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Orange Juice")), HeliosId, "JUI-1L", 3, 1.1000m, true);
     }
     static void Add_BillOfMaterial()
     {
@@ -1738,8 +1808,11 @@ public partial class SampleData1: SampleData
             Module.Commit();
         }
 
-        AddWarehouse(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Coffee Machine")), MainWarehouseId, 2.0000m, 20.0000m, 5.0000m, true);
-        AddWarehouse(tblProduct.Rows.Cast<DataRow>().First(x => x.AsString("Name").IsSameText("Espresso Beans")), RetailStoreId, 5.0000m, 80.0000m, 15.0000m, true);
+        foreach (DataRow ProductRow in tblProduct.Rows)
+        {
+            AddWarehouse(ProductRow, MainWarehouseId, 5.0000m, 500.0000m, 20.0000m, true);
+            AddWarehouse(ProductRow, RetailStoreId, 2.0000m, 100.0000m, 10.0000m, false);
+        }
     }
     static void Add_WarehouseLocation()
     {
@@ -1807,7 +1880,6 @@ public partial class SampleData1: SampleData
     
     protected override void AddSampleDataInternal()
     {
-        Add_Company();
         Add_CustomerCategory();
         Add_SupplierCategory();
         Add_ProductBrand();
@@ -1821,6 +1893,7 @@ public partial class SampleData1: SampleData
         Add_Carrier();
         Add_Country();
         Add_Currency();
+        Add_Company();
         Add_TaxRate();
         Add_TaxBusinessGroup();
         Add_TaxProductGroup();

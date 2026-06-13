@@ -247,7 +247,7 @@ public class Locator
                 DataColumn Column = tblSchema.FindColumn(FieldDef.Alias);
                 if (Column != null && Column.DataType.IsString())
                 {
-                    string WhereItem = $"{Column.ColumnName} LIKE '{Term}%' " ;
+                    string WhereItem = $"{Column.ColumnName} LIKE '%{Term}%' " ;
                     UserWhereList.Add(WhereItem);
                 }
             }

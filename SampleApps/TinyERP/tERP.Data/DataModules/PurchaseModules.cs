@@ -30,8 +30,23 @@ public class PurchaseDataModule: TradeDataModule
                 Dest.SetValue(Column.ColumnName, Source[Column.ColumnName]);
         }
     }
-    protected virtual PurchaseDataModule CreateTransformedDocument(string TargetModuleName)
+    protected virtual PurchaseDataModule CreateTransformedDocument(string TargetModuleName, string SourceDocumentName)
     {
+        if (CurrentRow == null)
+            throw new TripousBusinessException($"No {SourceDocumentName} is selected.");
+
+        PurchaseDataModule SourceModule = DataRegistry.CreateModule(ModuleDef.Name) as PurchaseDataModule;
+        if (SourceModule == null)
+            throw new TripousDataException($"Cannot create source module '{ModuleDef.Name}'.");
+        SourceModule.Edit(CurrentRow["Id"]);
+
+        DataRow SourceDocument = SourceModule.CurrentRow;
+        if ((TradeStatus)SourceDocument.AsInteger("TradeStatusId") != TradeStatus.Posted)
+            throw new TripousBusinessException($"Only posted {SourceDocumentName}s can be transformed.");
+        if (SourceDocument.AsBoolean("IsCancelled"))
+            throw new TripousBusinessException($"A cancelled {SourceDocumentName} cannot be transformed.");
+
+        MemTable SourceLineTable = SourceModule.GetTable("TradeLine");
         PurchaseDataModule Result = DataRegistry.CreateModule(TargetModuleName) as PurchaseDataModule;
         if (Result == null)
             throw new TripousDataException($"Module '{TargetModuleName}' is not a purchase document module.");
@@ -50,12 +65,11 @@ public class PurchaseDataModule: TradeDataModule
                 "CreatedAt", "CreatedBy", "ModifiedAt", "ModifiedBy",
                 "PostedAt", "PostedBy", "CancelledAt", "CancelledBy"
             ];
-            CopyCommonValues(CurrentRow, Result.CurrentRow, HeaderExcludedFields);
-            Result.CurrentRow.SetValue("SourceId", CurrentRow["Id"]);
+            CopyCommonValues(SourceDocument, Result.CurrentRow, HeaderExcludedFields);
+            Result.CurrentRow.SetValue("SourceId", SourceDocument["Id"]);
 
-            MemTable SourceLineTable = FindItemTable("TradeLine");
             MemTable TargetLineTable = Result.FindItemTable("TradeLine");
-            if (SourceLineTable == null || TargetLineTable == null)
+            if (TargetLineTable == null)
                 throw new TripousDataException("TradeLine table is not available.");
 
             string[] LineExcludedFields =
@@ -88,6 +102,8 @@ public class PurchaseDataModule: TradeDataModule
                 throw new TripousBusinessException("The source document has no remaining quantity to transform.");
 
             Result.Calculate(null, "DiscountPercent", "DiscountPercent");
+            Result.CopyTaxContext(SourceDocument, Result.CurrentRow);
+            Result.Validate();
             return Result;
         }
         catch
@@ -128,6 +144,63 @@ public class PurchaseDataModule: TradeDataModule
         if (!IsTransforming && IsTradeLineTable(Table))
             ea.Row.SetValue("Quantity", AppDefaultProperties.Purchase.DefaultQuantity);
     }
+    protected override void ColumnChanged(MemTable Table, DataColumnChangeEventArgs ea)
+    {
+        base.ColumnChanged(Table, ea);
+        if (!IsCopyingPersonAddresses
+            && Table == tblItem
+            && !IsTransforming
+            && State.In(DataMode.Insert | DataMode.Edit)
+            && "PersonId".IsSameText(ea.Column.ColumnName))
+        {
+            CopyPersonAddresses(ea.Row);
+        }
+    }
+    protected virtual void CopyPersonAddresses(DataRow Row)
+    {
+        List<PersonAddress> AddressList = DataLib.LoadPersonAddressList(Row.AsString("PersonId"));
+
+        PersonAddress BillingAddress = AddressList.FirstOrDefault(x => x.AddressType == AddressType.Billing && x.IsDefault)
+                                       ?? AddressList.FirstOrDefault(x => x.AddressType == AddressType.Billing)
+                                       ?? AddressList.FirstOrDefault(x => x.AddressType == AddressType.Main && x.IsDefault)
+                                       ?? AddressList.FirstOrDefault(x => x.AddressType == AddressType.Main)
+                                       ?? AddressList.FirstOrDefault(x => x.IsDefault)
+                                       ?? AddressList.FirstOrDefault();
+
+        PersonAddress ShippingAddress = AddressList.FirstOrDefault(x => x.AddressType == AddressType.Shipping && x.IsDefault)
+                                        ?? AddressList.FirstOrDefault(x => x.AddressType == AddressType.Shipping)
+                                        ?? AddressList.FirstOrDefault(x => x.AddressType == AddressType.Main && x.IsDefault)
+                                        ?? AddressList.FirstOrDefault(x => x.AddressType == AddressType.Main)
+                                        ?? AddressList.FirstOrDefault(x => x.IsDefault)
+                                        ?? AddressList.FirstOrDefault();
+
+        IsCopyingPersonAddresses = true;
+        try
+        {
+            Row.SetValue("BillingName", BillingAddress != null ? BillingAddress.Name : DBNull.Value);
+            Row.SetValue("BillingAddressLine1", BillingAddress != null ? BillingAddress.AddressLine1 : DBNull.Value);
+            Row.SetValue("BillingAddressLine2", BillingAddress != null ? BillingAddress.AddressLine2 : DBNull.Value);
+            Row.SetValue("BillingCity", BillingAddress != null ? BillingAddress.City : DBNull.Value);
+            Row.SetValue("BillingRegion", BillingAddress != null ? BillingAddress.Region : DBNull.Value);
+            Row.SetValue("BillingPostalCode", BillingAddress != null ? BillingAddress.PostalCode : DBNull.Value);
+            Row.SetValue("BillingCountryId", BillingAddress != null ? BillingAddress.CountryId : DBNull.Value);
+
+            Row.SetValue("ShippingName", ShippingAddress != null ? ShippingAddress.Name : DBNull.Value);
+            Row.SetValue("ShippingAddressLine1", ShippingAddress != null ? ShippingAddress.AddressLine1 : DBNull.Value);
+            Row.SetValue("ShippingAddressLine2", ShippingAddress != null ? ShippingAddress.AddressLine2 : DBNull.Value);
+            Row.SetValue("ShippingCity", ShippingAddress != null ? ShippingAddress.City : DBNull.Value);
+            Row.SetValue("ShippingRegion", ShippingAddress != null ? ShippingAddress.Region : DBNull.Value);
+            Row.SetValue("ShippingPostalCode", ShippingAddress != null ? ShippingAddress.PostalCode : DBNull.Value);
+            Row.SetValue("ShippingCountryId", ShippingAddress != null ? ShippingAddress.CountryId : DBNull.Value);
+        }
+        finally
+        {
+            IsCopyingPersonAddresses = false;
+        }
+
+        ResolvePrices();
+        Calculate();
+    }
 
     // ● construction
     public PurchaseDataModule()
@@ -144,10 +217,6 @@ public class PurchaseOrderDataModule: PurchaseDataModule
             throw new TripousBusinessException("No Purchase Order is selected.");
         if (HasChanges())
             throw new TripousBusinessException("Save or cancel the Purchase Order changes before creating a Purchase Delivery Note.");
-        if ((TradeStatus)CurrentRow.AsInteger("TradeStatusId") != TradeStatus.Posted)
-            throw new TripousBusinessException("Only posted Purchase Orders can create a Purchase Delivery Note.");
-        if (CurrentRow.AsBoolean("IsCancelled"))
-            throw new TripousBusinessException("A cancelled Purchase Order cannot create a Purchase Delivery Note.");
     }
 
     // ● construction
@@ -159,7 +228,7 @@ public class PurchaseOrderDataModule: PurchaseDataModule
     public virtual PurchaseDeliveryNoteDataModule CreateDeliveryNote()
     {
         CheckCanCreateDeliveryNote();
-        PurchaseDeliveryNoteDataModule Result = CreateTransformedDocument("PurchaseDeliveryNote") as PurchaseDeliveryNoteDataModule;
+        PurchaseDeliveryNoteDataModule Result = CreateTransformedDocument("PurchaseDeliveryNote", "Purchase Order") as PurchaseDeliveryNoteDataModule;
         if (Result == null)
             throw new TripousDataException("Cannot create a Purchase Delivery Note module.");
         return Result;
@@ -378,10 +447,6 @@ public class PurchaseDeliveryNoteDataModule: PurchaseStockDataModule
             throw new TripousBusinessException("No Purchase Delivery Note is selected.");
         if (HasChanges())
             throw new TripousBusinessException("Save or cancel the Purchase Delivery Note changes before creating a Purchase Return.");
-        if ((TradeStatus)CurrentRow.AsInteger("TradeStatusId") != TradeStatus.Posted)
-            throw new TripousBusinessException("Only posted Purchase Delivery Notes can create a Purchase Return.");
-        if (CurrentRow.AsBoolean("IsCancelled"))
-            throw new TripousBusinessException("A cancelled Purchase Delivery Note cannot create a Purchase Return.");
     }
     protected virtual Dictionary<string, decimal> GetSourceLineQuantities()
     {
@@ -496,7 +561,7 @@ public class PurchaseDeliveryNoteDataModule: PurchaseStockDataModule
     public virtual PurchaseReturnDataModule CreateReturn()
     {
         CheckCanCreateReturn();
-        PurchaseReturnDataModule Result = CreateTransformedDocument("PurchaseReturn") as PurchaseReturnDataModule;
+        PurchaseReturnDataModule Result = CreateTransformedDocument("PurchaseReturn", "Purchase Delivery Note") as PurchaseReturnDataModule;
         if (Result == null)
             throw new TripousDataException("Cannot create a Purchase Return module.");
         return Result;

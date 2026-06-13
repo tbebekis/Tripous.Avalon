@@ -302,15 +302,46 @@ public class SalesDocumentTests
         Assert.Equal(-1, FirstMovement.AsInteger("Direction"));
         Assert.Equal(4m, FirstMovement.AsDecimal("Quantity"));
 
-        OrderModule.Edit(OrderId);
         SalesDeliveryNoteDataModule SecondDelivery = CreateDeliveryNote(OrderModule, 6m);
         SecondDelivery.Post();
         Assert.Equal(10m, GetTradeLine(OrderLineId).AsDecimal("ExecutedQuantity"));
         Assert.Equal((int)TradeStatus.Completed, GetTrade(OrderId).AsInteger("TradeStatusId"));
 
-        OrderModule.Edit(OrderId);
         TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => OrderModule.CreateDeliveryNote());
         Assert.Contains("only posted sales orders", Error.Message.ToLowerInvariant());
+    }
+    [Fact]
+    public void PostingStaleSalesOrderModuleRejectsAlreadyPostedDocument()
+    {
+        SalesOrderDataModule FirstModule = CreateSalesOrder(10m);
+        string OrderId = FirstModule.CurrentRow.AsString("Id");
+        SalesOrderDataModule StaleModule = DataRegistry.CreateModule("SalesOrder") as SalesOrderDataModule;
+        if (StaleModule == null)
+            throw new TripousDataException("Cannot create the Sales Order module.");
+        StaleModule.Edit(OrderId);
+
+        FirstModule.Post();
+
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => StaleModule.Post());
+        Assert.Contains("changed after it was loaded", Error.Message.ToLowerInvariant());
+        Assert.Equal((int)TradeStatus.Posted, GetTrade(OrderId).AsInteger("TradeStatusId"));
+    }
+    [Fact]
+    public void SavingStaleSalesOrderModuleRejectsPostedDocument()
+    {
+        SalesOrderDataModule FirstModule = CreateSalesOrder(10m);
+        string OrderId = FirstModule.CurrentRow.AsString("Id");
+        SalesOrderDataModule StaleModule = DataRegistry.CreateModule("SalesOrder") as SalesOrderDataModule;
+        if (StaleModule == null)
+            throw new TripousDataException("Cannot create the Sales Order module.");
+        StaleModule.Edit(OrderId);
+        StaleModule.CurrentRow.SetValue("Remarks", "Stale edit");
+
+        FirstModule.Post();
+
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => StaleModule.Commit());
+        Assert.Contains("changed after it was loaded", Error.Message.ToLowerInvariant());
+        Assert.Equal((int)TradeStatus.Posted, GetTrade(OrderId).AsInteger("TradeStatusId"));
     }
     [Fact]
     public void MultiLineOrderRemainsPostedUntilAllLinesAreDelivered()
@@ -330,7 +361,6 @@ public class SalesDocumentTests
         Assert.Equal(0m, GetTradeLine(MonitorLineId).AsDecimal("ExecutedQuantity"));
         Assert.Equal((int)TradeStatus.Posted, GetTrade(OrderId).AsInteger("TradeStatusId"));
 
-        OrderModule.Edit(OrderId);
         SalesDeliveryNoteDataModule SecondDelivery = CreateDeliveryNote(OrderModule, ("Monitor 27 Inch", 5m));
         SecondDelivery.Post();
 
@@ -358,7 +388,6 @@ public class SalesDocumentTests
         Assert.Equal(2m, GetTradeLine(MonitorLineId).AsDecimal("ExecutedQuantity"));
         Assert.Equal((int)TradeStatus.Posted, GetTrade(OrderId).AsInteger("TradeStatusId"));
 
-        OrderModule.Edit(OrderId);
         SalesDeliveryNoteDataModule SecondDelivery = CreateDeliveryNote(
             OrderModule,
             ("Laptop Computer 14", 6m),
@@ -388,7 +417,6 @@ public class SalesDocumentTests
             ("Monitor 27 Inch", 2m));
         FirstDelivery.Post();
 
-        OrderModule.Edit(OrderId);
         SalesDeliveryNoteDataModule FailedDelivery = CreateDeliveryNote(
             OrderModule,
             ("Monitor 27 Inch", 4m),
@@ -412,7 +440,6 @@ public class SalesDocumentTests
         SalesDeliveryNoteDataModule FirstDelivery = CreateDeliveryNote(OrderModule, 6m);
         FirstDelivery.Post();
 
-        OrderModule.Edit(OrderId);
         SalesDeliveryNoteDataModule ExcessDelivery = CreateDeliveryNote(OrderModule, 5m);
         TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => ExcessDelivery.Post());
 
@@ -430,7 +457,6 @@ public class SalesDocumentTests
         SalesDeliveryNoteDataModule FirstDelivery = CreateDeliveryNote(OrderModule, 6m);
         FirstDelivery.Post();
 
-        OrderModule.Edit(OrderId);
         SalesDeliveryNoteDataModule ExcessDelivery = CreateDeliveryNote(OrderModule, 5m);
         string DeliveryId = ExcessDelivery.CurrentRow.AsString("Id");
         string DraftCode = ExcessDelivery.CurrentRow.AsString("Code");
@@ -565,15 +591,14 @@ public class SalesDocumentTests
         Assert.Equal((int)TradeStatus.Posted, GetTrade(DeliveryId).AsInteger("TradeStatusId"));
         Assert.Equal(14m, GetStockBalance("Laptop Computer 14", "Main Warehouse").AsDecimal("PrimaryQuantity"));
 
-        DeliveryModule.Edit(DeliveryId);
         SalesReturnDataModule SecondReturn = CreateSalesReturn(DeliveryModule, 6m);
         SecondReturn.Post();
 
         Assert.Equal(10m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
         Assert.Equal((int)TradeStatus.Posted, GetTrade(DeliveryId).AsInteger("TradeStatusId"));
         Assert.Equal(20m, GetStockBalance("Laptop Computer 14", "Main Warehouse").AsDecimal("PrimaryQuantity"));
+        Assert.False(DeliveryModule.HasRemainingTransformQuantity());
 
-        DeliveryModule.Edit(DeliveryId);
         TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => DeliveryModule.CreateReturn());
         Assert.Contains("no remaining quantity", Error.Message.ToLowerInvariant());
     }

@@ -35,6 +35,8 @@ DataModule (Tripous.Data)
 
 `SalesDataModule` adds sales defaults, customer address snapshots, sales pricing validation, and sales line defaults.
 
+`PurchaseDataModule` adds purchase defaults, supplier address snapshots, purchase pricing validation, and purchase line defaults.
+
 The concrete sales and purchase data modules currently act as document-type entry points. Document-specific behavior can be added by overriding the virtual methods of their base classes.
 
 ## Document Types And Number Series
@@ -106,6 +108,18 @@ The base handlers contain shared behavior. Concrete handlers are extension point
 
 The final document code is assigned by `DocumentDataModule.AssignCodeValue()` inside the commit transaction.
 
+Before an existing document is saved or posted, `DocumentDataModule` locks and reloads its persisted row inside the commit transaction.
+
+The commit is rejected when:
+
+- The document no longer exists.
+- Its `ModifiedAt` value changed after the module loaded it.
+- A stale module attempts to save a document that is now locked.
+- A stale module attempts to post a document that is no longer a draft.
+- The persisted document is cancelled or locked before posting.
+
+This provides optimistic concurrency for document headers and prevents an open stale module from overwriting a document changed by another user.
+
 `DocumentDataForm` asks for confirmation and calls `DocumentDataModule.Post()`.
 
 After posting:
@@ -173,15 +187,17 @@ The value starts at `10` and increases by `10`.
 
 `TradeDataModule.NewRowAdded()` copies the document warehouse to detail rows containing a `WarehouseId` field.
 
-## Customer Snapshots
+## Business Partner Address Snapshots
 
 `SalesDataModule.ColumnChanged()` calls `CopyPersonAddresses()` when `PersonId` changes.
 
 `CopyPersonAddresses()` loads the customer addresses and copies billing and shipping values to the `Trade` row.
 
+`PurchaseDataModule` applies the same behavior when the supplier changes.
+
 These fields are document snapshots. Later changes to the customer addresses do not alter an existing document.
 
-Changing the customer also reloads the tax business group, resolves prices again, and recalculates the document.
+Changing the customer or supplier also reloads the tax business group, resolves prices again, and recalculates the document.
 
 ## Price List Snapshot
 
@@ -424,6 +440,16 @@ The parameterless `Calculate()` uses monetary discount amounts as authoritative 
 
 `Validate()` collects all validation errors and throws one `TripousBusinessException`.
 
+All sales and purchase documents require a complete billing address snapshot:
+
+- Name
+- Address line 1
+- City
+- Postal code
+- Country
+
+Sales and purchase Orders, Delivery Notes, and Returns also require a complete shipping address snapshot with the same fields.
+
 `ValidateLine()` checks:
 
 - Tax business group
@@ -466,20 +492,36 @@ The grid supports:
 - Posting with final number assignment and audit fields.
 - Reopening a posted document as read-only.
 
+## UI Verification
+
+The Sales and Purchase document flows were manually verified with a newly created sample database:
+
+- Partial Order to Delivery Note transformations.
+- Partial Delivery Note to Return transformations.
+- Correct remaining quantities after each transformation.
+- Correct behavior while the original source form remains open.
+- No confirmation dialog when the source has no remaining quantity.
+- Supplier selection copies billing and shipping address snapshots.
+- Purchase transformations preserve supplier, address, and tax context.
+- Destination tax jurisdiction is available in transformed Purchase documents.
+- Address and tax validation prevents incomplete documents from being saved.
+
 ## Current Limitations
 
 - `ExchangeRate` is entered manually.
 - Automatic currency-rate retrieval is not implemented.
 - Currency conversion between price-list and document currencies is not implemented.
 - A pricing-field change replaces a manual unit price only when an applicable price is found.
-- Purchase-specific defaults, pricing, and validation are not implemented.
 - Posting currently does not create financial or accounting records.
-- Cancellation and document transformation workflows are not implemented.
+- Cancellation workflows are not implemented.
 
 ## Sales Order Transformation
 
 The implementation supports partial delivery:
 
+- The open module is treated as an in-memory snapshot rather than the current database authority.
+- A temporary source module reloads the header, lookup display values, and lines from the database immediately before transformation.
+- The transformed document is calculated and validated before its modal form is opened.
 - Only a posted Sales Order can be transformed.
 - The new Sales Delivery Note remains unsaved and opens in insert mode.
 - `Trade.SourceId` references the Sales Order.
@@ -496,6 +538,14 @@ The implementation supports partial delivery:
 - Outgoing movements use the current moving-average unit cost.
 - Posting rejects negative stock unless `Warehouse.AllowNegativeStock` is enabled.
 - Stock movement, stock balance, delivery posting, and source-order updates share the same transaction.
+
+The same database-snapshot rule applies to:
+
+- Purchase Order to Purchase Delivery Note.
+- Sales Delivery Note to Sales Return.
+- Purchase Delivery Note to Purchase Return.
+
+Final posting validation repeats quantity, status, cancellation, and stock checks inside the database transaction using locked rows.
 
 ## Stock Count
 
@@ -536,7 +586,9 @@ The Stock Count document supports initial stock and later inventory adjustments:
 - Purchase Return posting creates outgoing movements using the current moving-average unit cost.
 - A posted Purchase Delivery Note can create a draft Purchase Return for its remaining returnable quantities.
 - The Purchase Delivery Note desktop form provides a `Create Purchase Return` toolbar button.
-- The button asks for confirmation, creates the draft return, and opens it in a modal form.
+- The button checks the current database quantities before asking for confirmation.
+- When no quantity remains, it displays the business message without showing the confirmation dialog.
+- Otherwise, it asks for confirmation, creates the draft return, and opens it in a modal form.
 - Posting a transformed Purchase Return increases `ExecutedQuantity` on each source delivery line.
 - A return quantity cannot exceed the remaining received quantity.
 - The source Purchase Delivery Note remains posted after partial or complete returns.
@@ -553,7 +605,9 @@ The Stock Count document supports initial stock and later inventory adjustments:
 - Posting increases stock quantity and total cost while preserving the moving-average cost.
 - A posted Sales Delivery Note can create a draft Sales Return for its remaining quantities.
 - The Sales Delivery Note desktop form provides a `Create Sales Return` toolbar button.
-- The button asks for confirmation, creates the draft return, and opens it in a modal form.
+- The button checks the current database quantities before asking for confirmation.
+- When no quantity remains, it displays the business message without showing the confirmation dialog.
+- Otherwise, it asks for confirmation, creates the draft return, and opens it in a modal form.
 - Sales Return lines reference their source Sales Delivery Note lines through `SourceTradeLineId`.
 - Posting a transformed Sales Return increases `ExecutedQuantity` on each source delivery line.
 - A return quantity cannot exceed the remaining delivered quantity.

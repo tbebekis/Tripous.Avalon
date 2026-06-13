@@ -45,6 +45,13 @@ public class PurchaseDocumentTests
             throw new TripousDataException("Test tax jurisdiction not found.");
         return Result.ToString();
     }
+    string GetCountryId()
+    {
+        object Result = fFixture.Store.SelectResult("select Id from Country where Code = 'GR'", null);
+        if (Sys.IsNull(Result))
+            throw new TripousDataException("Test country not found.");
+        return Result.ToString();
+    }
     string GetWarehouseId(string Name)
     {
         object Result = fFixture.Store.SelectResult("select Id from Warehouse where Name = :Name", null, new Dictionary<string, object>()
@@ -311,6 +318,78 @@ public class PurchaseDocumentTests
         Assert.Equal(1m, Line.AsDecimal("Quantity"));
     }
     [Fact]
+    public void PurchaseSupplierSelectionCopiesDocumentAddresses()
+    {
+        PurchaseDeliveryNoteDataModule Module = DataRegistry.CreateModule("PurchaseDeliveryNote") as PurchaseDeliveryNoteDataModule;
+        if (Module == null)
+            throw new TripousDataException("Cannot create the Purchase Delivery Note module.");
+
+        Module.Insert();
+        Module.CurrentRow.SetValue("PersonId", GetSupplierId());
+
+        Assert.Equal("Billing Address", Module.CurrentRow.AsString("BillingName"));
+        Assert.Equal("8 Piraeus Street", Module.CurrentRow.AsString("BillingAddressLine1"));
+        Assert.Equal("Piraeus", Module.CurrentRow.AsString("BillingCity"));
+        Assert.Equal("18531", Module.CurrentRow.AsString("BillingPostalCode"));
+        Assert.Equal(GetCountryId(), Module.CurrentRow.AsString("BillingCountryId"));
+        Assert.Equal("Shipping Address", Module.CurrentRow.AsString("ShippingName"));
+        Assert.Equal("12 Industrial Road", Module.CurrentRow.AsString("ShippingAddressLine1"));
+        Assert.Equal("Aspropyrgos", Module.CurrentRow.AsString("ShippingCity"));
+        Assert.Equal("19300", Module.CurrentRow.AsString("ShippingPostalCode"));
+        Assert.Equal(GetCountryId(), Module.CurrentRow.AsString("ShippingCountryId"));
+    }
+    [Fact]
+    public void PurchaseDocumentRejectsMissingBillingAddress()
+    {
+        PurchaseDeliveryNoteDataModule Module = DataRegistry.CreateModule("PurchaseDeliveryNote") as PurchaseDeliveryNoteDataModule;
+        if (Module == null)
+            throw new TripousDataException("Cannot create the Purchase Delivery Note module.");
+
+        Module.Insert();
+        ConfigurePurchaseDocument(Module);
+        AddLine(Module, "Espresso Beans", 1m, 20m);
+        Module.CurrentRow.SetValue("BillingAddressLine1", DBNull.Value);
+
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => Module.Commit());
+
+        Assert.Contains("billing address line 1 is required", Error.Message.ToLowerInvariant());
+    }
+    [Fact]
+    public void PurchaseDeliveryNoteRejectsMissingShippingAddress()
+    {
+        PurchaseDeliveryNoteDataModule Module = DataRegistry.CreateModule("PurchaseDeliveryNote") as PurchaseDeliveryNoteDataModule;
+        if (Module == null)
+            throw new TripousDataException("Cannot create the Purchase Delivery Note module.");
+
+        Module.Insert();
+        ConfigurePurchaseDocument(Module);
+        AddLine(Module, "Espresso Beans", 1m, 20m);
+        Module.CurrentRow.SetValue("ShippingAddressLine1", DBNull.Value);
+
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => Module.Commit());
+
+        Assert.Contains("shipping address line 1 is required", Error.Message.ToLowerInvariant());
+    }
+    [Fact]
+    public void PurchaseReturnTransformationCopiesSupplierAndTaxContext()
+    {
+        DataRow Product = GetProduct("Espresso Beans");
+        string WarehouseId = DataLib.GetDefaultWarehouseId();
+        SetStockBalance(Product.AsString("Id"), WarehouseId, 0m, 0m);
+        PurchaseDeliveryNoteDataModule DeliveryModule = CreatePurchaseDeliveryNote("Espresso Beans", 10m, 20m);
+        DeliveryModule.Post();
+
+        PurchaseReturnDataModule ReturnModule = DeliveryModule.CreateReturn();
+
+        Assert.Equal(DeliveryModule.CurrentRow.AsString("PersonId"), ReturnModule.CurrentRow.AsString("PersonId"));
+        Assert.Equal("SUP-HELIOS", ReturnModule.CurrentRow.AsString("Person__Code"));
+        Assert.Equal(DeliveryModule.CurrentRow.AsString("TaxBusinessGroupId"), ReturnModule.CurrentRow.AsString("TaxBusinessGroupId"));
+        Assert.Equal(DeliveryModule.CurrentRow.AsString("OriginTaxJurisdictionId"), ReturnModule.CurrentRow.AsString("OriginTaxJurisdictionId"));
+        Assert.Equal(GetTaxJurisdictionId(), ReturnModule.CurrentRow.AsString("DestinationTaxJurisdictionId"));
+        Assert.Equal(DeliveryModule.CurrentRow.AsString("BillingCountryId"), ReturnModule.CurrentRow.AsString("BillingCountryId"));
+        Assert.Equal(DeliveryModule.CurrentRow.AsString("ShippingCountryId"), ReturnModule.CurrentRow.AsString("ShippingCountryId"));
+    }
+    [Fact]
     public void PurchaseDocumentRejectsZeroUnitPriceByDefault()
     {
         TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => CreatePurchaseDeliveryNote("Espresso Beans", 1m, 0m));
@@ -364,7 +443,6 @@ public class PurchaseDocumentTests
         Assert.Equal(4m, GetTradeLine(OrderLineId).AsDecimal("ExecutedQuantity"));
         Assert.Equal((int)TradeStatus.Posted, GetTrade(OrderId).AsInteger("TradeStatusId"));
 
-        OrderModule.Edit(OrderId);
         PurchaseDeliveryNoteDataModule SecondReceipt = CreatePurchaseDeliveryNote(OrderModule, 6m);
         SecondReceipt.Post();
 
@@ -390,7 +468,6 @@ public class PurchaseDocumentTests
         Assert.Equal(0m, GetTradeLine(OrangeJuiceLineId).AsDecimal("ExecutedQuantity"));
         Assert.Equal((int)TradeStatus.Posted, GetTrade(OrderId).AsInteger("TradeStatusId"));
 
-        OrderModule.Edit(OrderId);
         PurchaseDeliveryNoteDataModule SecondReceipt = CreatePurchaseDeliveryNote(OrderModule, ("Orange Juice", 5m));
         SecondReceipt.Post();
 
@@ -411,7 +488,6 @@ public class PurchaseDocumentTests
         PurchaseDeliveryNoteDataModule FirstReceipt = CreatePurchaseDeliveryNote(OrderModule, 6m);
         FirstReceipt.Post();
 
-        OrderModule.Edit(OrderId);
         PurchaseDeliveryNoteDataModule ExcessReceipt = CreatePurchaseDeliveryNote(OrderModule, 5m);
         string ReceiptId = ExcessReceipt.CurrentRow.AsString("Id");
         string ReceiptLineId = ExcessReceipt.GetTable("TradeLine").Rows[0].AsString("Id");
@@ -607,15 +683,14 @@ public class PurchaseDocumentTests
         Assert.Equal((int)TradeStatus.Posted, GetTrade(DeliveryId).AsInteger("TradeStatusId"));
         Assert.Equal(6m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));
 
-        DeliveryModule.Edit(DeliveryId);
         PurchaseReturnDataModule SecondReturn = CreatePurchaseReturn(DeliveryModule, 6m);
         SecondReturn.Post();
 
         Assert.Equal(10m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
         Assert.Equal((int)TradeStatus.Posted, GetTrade(DeliveryId).AsInteger("TradeStatusId"));
         Assert.Equal(0m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));
+        Assert.False(DeliveryModule.HasRemainingTransformQuantity());
 
-        DeliveryModule.Edit(DeliveryId);
         TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => DeliveryModule.CreateReturn());
         Assert.Contains("no remaining quantity", Error.Message.ToLowerInvariant());
     }

@@ -207,12 +207,18 @@ public class SalesDeliveryNoteForm : DocumentDataForm
         if (!CanCreateReturn())
             return;
 
+        SalesDeliveryNoteDataModule DeliveryNoteModule = (SalesDeliveryNoteDataModule)Module;
+        if (!DeliveryNoteModule.HasRemainingTransformQuantity())
+        {
+            await MessageBox.Info("The source document has no remaining quantity to transform.", this);
+            return;
+        }
+
         string Code = CurrentRow.AsString("Code");
         string DeliveryText = string.IsNullOrWhiteSpace(Code) ? "Sales Delivery Note" : $"Sales Delivery Note: {Code}";
         if (!await MessageBox.YesNo($"Create a Sales Return from {DeliveryText}?", this))
             return;
 
-        SalesDeliveryNoteDataModule DeliveryNoteModule = (SalesDeliveryNoteDataModule)Module;
         SalesReturnDataModule ReturnModule = DeliveryNoteModule.CreateReturn();
         DataFormContext Context = DataFormContext.Create("SalesReturn", ReturnModule, this);
         Context.StartAction = DataFormAction.Insert;
@@ -363,12 +369,18 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
         if (!CanCreateReturn())
             return;
 
+        PurchaseDeliveryNoteDataModule DeliveryNoteModule = (PurchaseDeliveryNoteDataModule)Module;
+        if (!DeliveryNoteModule.HasRemainingTransformQuantity())
+        {
+            await MessageBox.Info("The source document has no remaining quantity to transform.", this);
+            return;
+        }
+
         string Code = CurrentRow.AsString("Code");
         string DeliveryText = string.IsNullOrWhiteSpace(Code) ? "Purchase Delivery Note" : $"Purchase Delivery Note: {Code}";
         if (!await MessageBox.YesNo($"Create a Purchase Return from {DeliveryText}?", this))
             return;
 
-        PurchaseDeliveryNoteDataModule DeliveryNoteModule = (PurchaseDeliveryNoteDataModule)Module;
         PurchaseReturnDataModule ReturnModule = DeliveryNoteModule.CreateReturn();
         DataFormContext Context = DataFormContext.Create("PurchaseReturn", ReturnModule, this);
         Context.StartAction = DataFormAction.Insert;

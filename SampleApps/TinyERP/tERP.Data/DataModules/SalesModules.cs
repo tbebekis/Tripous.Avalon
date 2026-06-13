@@ -27,8 +27,23 @@ public class SalesDataModule: TradeDataModule
     /// <summary>
     /// Creates an unsaved sales document from the current document.
     /// </summary>
-    protected virtual SalesDataModule CreateTransformedDocument(string TargetModuleName)
+    protected virtual SalesDataModule CreateTransformedDocument(string TargetModuleName, string SourceDocumentName)
     {
+        if (CurrentRow == null)
+            throw new TripousBusinessException($"No {SourceDocumentName} is selected.");
+
+        SalesDataModule SourceModule = DataRegistry.CreateModule(ModuleDef.Name) as SalesDataModule;
+        if (SourceModule == null)
+            throw new TripousDataException($"Cannot create source module '{ModuleDef.Name}'.");
+        SourceModule.Edit(CurrentRow["Id"]);
+
+        DataRow SourceDocument = SourceModule.CurrentRow;
+        if ((TradeStatus)SourceDocument.AsInteger("TradeStatusId") != TradeStatus.Posted)
+            throw new TripousBusinessException($"Only posted {SourceDocumentName}s can be transformed.");
+        if (SourceDocument.AsBoolean("IsCancelled"))
+            throw new TripousBusinessException($"A cancelled {SourceDocumentName} cannot be transformed.");
+
+        MemTable SourceLineTable = SourceModule.GetTable("TradeLine");
         SalesDataModule Result = DataRegistry.CreateModule(TargetModuleName) as SalesDataModule;
         if (Result == null)
             throw new TripousDataException($"Module '{TargetModuleName}' is not a sales document module.");
@@ -47,12 +62,11 @@ public class SalesDataModule: TradeDataModule
                 "CreatedAt", "CreatedBy", "ModifiedAt", "ModifiedBy",
                 "PostedAt", "PostedBy", "CancelledAt", "CancelledBy"
             ];
-            CopyCommonValues(CurrentRow, Result.CurrentRow, HeaderExcludedFields);
-            Result.CurrentRow.SetValue("SourceId", CurrentRow["Id"]);
+            CopyCommonValues(SourceDocument, Result.CurrentRow, HeaderExcludedFields);
+            Result.CurrentRow.SetValue("SourceId", SourceDocument["Id"]);
 
-            MemTable SourceLineTable = FindItemTable("TradeLine");
             MemTable TargetLineTable = Result.FindItemTable("TradeLine");
-            if (SourceLineTable == null || TargetLineTable == null)
+            if (TargetLineTable == null)
                 throw new TripousDataException("TradeLine table is not available.");
 
             string[] LineExcludedFields =
@@ -85,6 +99,8 @@ public class SalesDataModule: TradeDataModule
                 throw new TripousBusinessException("The source document has no remaining quantity to transform.");
 
             Result.Calculate(null, "DiscountPercent", "DiscountPercent");
+            Result.CopyTaxContext(SourceDocument, Result.CurrentRow);
+            Result.Validate();
             return Result;
         }
         catch
@@ -221,10 +237,6 @@ public class SalesOrderDataModule: SalesDataModule
             throw new TripousBusinessException("No Sales Order is selected.");
         if (HasChanges())
             throw new TripousBusinessException("Save or cancel the Sales Order changes before creating a Sales Delivery Note.");
-        if ((TradeStatus)CurrentRow.AsInteger("TradeStatusId") != TradeStatus.Posted)
-            throw new TripousBusinessException("Only posted Sales Orders can create a Sales Delivery Note.");
-        if (CurrentRow.AsBoolean("IsCancelled"))
-            throw new TripousBusinessException("A cancelled Sales Order cannot create a Sales Delivery Note.");
     }
 
     // ● construction
@@ -236,7 +248,7 @@ public class SalesOrderDataModule: SalesDataModule
     public virtual SalesDeliveryNoteDataModule CreateDeliveryNote()
     {
         CheckCanCreateDeliveryNote();
-        SalesDeliveryNoteDataModule Result = CreateTransformedDocument("SalesDeliveryNote") as SalesDeliveryNoteDataModule;
+        SalesDeliveryNoteDataModule Result = CreateTransformedDocument("SalesDeliveryNote", "Sales Order") as SalesDeliveryNoteDataModule;
         if (Result == null)
             throw new TripousDataException("Cannot create a Sales Delivery Note module.");
         return Result;
@@ -548,10 +560,6 @@ public class SalesDeliveryNoteDataModule: SalesStockDataModule
             throw new TripousBusinessException("No Sales Delivery Note is selected.");
         if (HasChanges())
             throw new TripousBusinessException("Save or cancel the Sales Delivery Note changes before creating a Sales Return.");
-        if ((TradeStatus)CurrentRow.AsInteger("TradeStatusId") != TradeStatus.Posted)
-            throw new TripousBusinessException("Only posted Sales Delivery Notes can create a Sales Return.");
-        if (CurrentRow.AsBoolean("IsCancelled"))
-            throw new TripousBusinessException("A cancelled Sales Delivery Note cannot create a Sales Return.");
     }
     protected override bool UpdatesSourceOrder() => true;
 
@@ -564,7 +572,7 @@ public class SalesDeliveryNoteDataModule: SalesStockDataModule
     public virtual SalesReturnDataModule CreateReturn()
     {
         CheckCanCreateReturn();
-        SalesReturnDataModule Result = CreateTransformedDocument("SalesReturn") as SalesReturnDataModule;
+        SalesReturnDataModule Result = CreateTransformedDocument("SalesReturn", "Sales Delivery Note") as SalesReturnDataModule;
         if (Result == null)
             throw new TripousDataException("Cannot create a Sales Return module.");
         return Result;
