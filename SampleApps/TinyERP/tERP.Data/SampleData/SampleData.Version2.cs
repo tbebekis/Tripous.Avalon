@@ -33,6 +33,10 @@ public partial class SampleData2: SampleData
         Ids["StockTrade"] = AddDocumentType(tblSource, "STK-TRD", "Stock Trade", 3, "StockTrade", "StockTrade", true, false, false, 0, 0, 0, false, null, 210, "#4F46E5", "Boxes");
         Ids["StockCount"] = AddDocumentType(tblSource, "STK-CNT", "Stock Count", 3, "StockCount", "StockCount", true, false, false, 0, 0, 0, false, null, 220, "#0284C7", "ClipboardCheck");
         Ids["JournalEntry"] = AddDocumentType(tblSource, "JRN", "Journal Entry", 5, "JournalEntry", "JournalEntry", false, false, true, 0, 0, 1, false, null, 310, "#475569", "BookOpen");
+        Ids["CustomerReceipt"] = AddDocumentType(tblSource, "CUS-REC", "Customer Receipt", 4, "CustomerReceipt", "CustomerReceipt", false, true, true, 0, 1, 1, false, null, 320, "#2563EB", "Receipt");
+        Ids["SupplierPayment"] = AddDocumentType(tblSource, "SUP-PAY", "Supplier Payment", 4, "SupplierPayment", "SupplierPayment", false, true, true, 0, -1, -1, false, null, 330, "#7C3AED", "Landmark");
+        AddDocumentType(tblSource, "CUS-REC-CANCEL", "Customer Receipt Cancellation", 4, "CustomerReceiptCancellation", "CustomerReceiptCancellation", false, true, true, 0, -1, -1, true, Ids["CustomerReceipt"], 340, "#DC2626", "Ban");
+        AddDocumentType(tblSource, "SUP-PAY-CANCEL", "Supplier Payment Cancellation", 4, "SupplierPaymentCancellation", "SupplierPaymentCancellation", false, true, true, 0, 1, 1, true, Ids["SupplierPayment"], 350, "#DC2626", "Ban");
         AddDocumentType(tblSource, "SAL-CANCEL", "Sales Cancellation", 1, "SalesCancellation", "SalesCancellation", false, true, true, 0, -1, -1, true, Ids["SalesInvoice"], 60, "#DC2626", "Ban");
         AddDocumentType(tblSource, "PUR-CANCEL", "Purchase Cancellation", 2, "PurchaseCancellation", "PurchaseCancellation", false, true, true, 0, 1, 1, true, Ids["PurchaseInvoice"], 160, "#DC2626", "Ban");
         Module.BatchInsert(tblSource);

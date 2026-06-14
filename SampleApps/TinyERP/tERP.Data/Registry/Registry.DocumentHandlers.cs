@@ -31,5 +31,9 @@ static public partial class Registry
         DataRegistry.AddOrUpdateDocumentHandler("StockCount", typeof(StockCountDocumentHandler).FullName);
         
         DataRegistry.AddOrUpdateDocumentHandler("JournalEntry", typeof(JournalEntryDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("CustomerReceipt", typeof(PaymentDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("CustomerReceiptCancellation", typeof(PaymentDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("SupplierPayment", typeof(PaymentDocumentHandler).FullName);
+        DataRegistry.AddOrUpdateDocumentHandler("SupplierPaymentCancellation", typeof(PaymentDocumentHandler).FullName);
     }
 }

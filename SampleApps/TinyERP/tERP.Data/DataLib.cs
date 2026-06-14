@@ -110,6 +110,18 @@ order by
         string CodeValue = "NET30"; // 30 Days
         return GetDefaultId(SqlText, CodeValue);
     }
+    static public string GetDefaultCashAccountId()
+    {
+        string SqlText = @$"select * from CashAccount where IsActive = 1 order by Code";
+        string CodeValue = "CASH-MAIN";
+        return GetDefaultId(SqlText, CodeValue);
+    }
+    static public string GetDefaultCompanyBankAccountId()
+    {
+        string SqlText = @$"select * from CompanyBankAccount where IsActive = 1 order by Code";
+        string CodeValue = "MAIN-EUR";
+        return GetDefaultId(SqlText, CodeValue);
+    }
     static public string GetDefaultPriceListTypeId()
     {
         string SqlText = @$"select * from PriceListType where IsActive = 1 order by Code";

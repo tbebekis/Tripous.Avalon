@@ -19,6 +19,10 @@ public partial class RegistryVersion2: RegistryVersion
     public override void RegisterCodeProviders()
     {
         DataRegistry.AddOrUpdateCodeProvider("Asset");
+        DataRegistry.AddOrUpdateCodeProvider("CustomerReceipt");
+        DataRegistry.AddOrUpdateCodeProvider("CustomerReceiptCancellation");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-CustomerReceipt");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-CustomerReceiptCancellation");
         DataRegistry.AddOrUpdateCodeProvider("DRAFT-JournalEntry");
         DataRegistry.AddOrUpdateCodeProvider("DRAFT-PurchaseCancellation");
         DataRegistry.AddOrUpdateCodeProvider("DRAFT-PurchaseCreditNote");
@@ -34,6 +38,8 @@ public partial class RegistryVersion2: RegistryVersion
         DataRegistry.AddOrUpdateCodeProvider("DRAFT-SalesReturn");
         DataRegistry.AddOrUpdateCodeProvider("DRAFT-StockCount");
         DataRegistry.AddOrUpdateCodeProvider("DRAFT-StockTrade");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-SupplierPayment");
+        DataRegistry.AddOrUpdateCodeProvider("DRAFT-SupplierPaymentCancellation");
         DataRegistry.AddOrUpdateCodeProvider("JournalEntry");
         DataRegistry.AddOrUpdateCodeProvider("PurchaseCancellation");
         DataRegistry.AddOrUpdateCodeProvider("PurchaseCreditNote");
@@ -49,5 +55,7 @@ public partial class RegistryVersion2: RegistryVersion
         DataRegistry.AddOrUpdateCodeProvider("SalesReturn");
         DataRegistry.AddOrUpdateCodeProvider("StockCount");
         DataRegistry.AddOrUpdateCodeProvider("StockTrade");
+        DataRegistry.AddOrUpdateCodeProvider("SupplierPayment");
+        DataRegistry.AddOrUpdateCodeProvider("SupplierPaymentCancellation");
     }
 }

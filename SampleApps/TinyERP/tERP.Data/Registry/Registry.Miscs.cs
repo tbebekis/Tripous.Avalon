@@ -186,10 +186,13 @@ where P.IsActive = 1
         string[] JournalDocumentModules = ["JournalEntry"];
         
         string[] MovementModules = ["StockMovement", "FinanceMovement"];
+        string[] CustomerPaymentModules = ["CustomerReceipt", "CustomerReceiptCancellation"];
+        string[] SupplierPaymentModules = ["SupplierPayment", "SupplierPaymentCancellation"];
         
-        string[] DocumentModules = SalesDocumentModules.Concat(PurchaseDocumentModules).Concat(StockDocumentModules).Concat(JournalDocumentModules).ToArray();
+        string[] PaymentDocumentModules = CustomerPaymentModules.Concat(SupplierPaymentModules).ToArray();
+        string[] DocumentModules = SalesDocumentModules.Concat(PurchaseDocumentModules).Concat(StockDocumentModules).Concat(JournalDocumentModules).Concat(PaymentDocumentModules).ToArray();
         string[] DocumentSnapshotModules = MovementModules.ToArray();
-        string[] AllModules = SalesDocumentModules.Concat(PurchaseDocumentModules).Concat(StockDocumentModules).Concat(JournalDocumentModules).Concat(MovementModules).ToArray();
+        string[] AllModules = SalesDocumentModules.Concat(PurchaseDocumentModules).Concat(StockDocumentModules).Concat(JournalDocumentModules).Concat(PaymentDocumentModules).Concat(MovementModules).ToArray();
 
         //---------------------------------------------------------------
         void SetTradeModulePersonLocator(string Locator, string[] ModuleNames)
@@ -208,6 +211,9 @@ where P.IsActive = 1
 
         SetTradeModulePersonLocator("Customer", SalesDocumentModules);
         SetTradeModulePersonLocator("Supplier", PurchaseDocumentModules);
+        
+        SetTradeModulePersonLocator("Customer", CustomerPaymentModules);
+        SetTradeModulePersonLocator("Supplier", SupplierPaymentModules);
     }
 
     static public void RegisterSycConfigProperties()

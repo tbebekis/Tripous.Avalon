@@ -20,10 +20,12 @@ public partial class RegistryVersion2: RegistryVersion
     {
         DesktopRegistry.AddOrUpdateForm("Account", TitleKey: "Account", Module: "Account", Group: "Accounting");
         DesktopRegistry.AddOrUpdateForm("Asset", TitleKey: "Asset", Module: "Asset", Group: "Assets");
+        DesktopRegistry.AddOrUpdateForm("CustomerReceipt", TitleKey: "CustomerReceipt", Module: "CustomerReceipt", ClassName: "CustomerReceiptForm", Group: "Finance");
+        DesktopRegistry.AddOrUpdateForm("CustomerReceiptCancellation", TitleKey: "CustomerReceiptCancellation", Module: "CustomerReceiptCancellation", ClassName: "CustomerReceiptCancellationForm", Group: "Finance");
         DesktopRegistry.AddOrUpdateForm("DocumentType", TitleKey: "DocumentType", Module: "DocumentType", Group: "Documents");
         DesktopRegistry.AddOrUpdateForm("FinanceBalance", TitleKey: "FinanceBalance", Module: "FinanceBalance", Group: "Finance", IsReadOnly: true);
         DesktopRegistry.AddOrUpdateForm("FinanceMovement", TitleKey: "FinanceMovement", Module: "FinanceMovement", Group: "Finance", IsReadOnly: true);
-        DesktopRegistry.AddOrUpdateForm("JournalEntry", TitleKey: "JournalEntry", Module: "JournalEntry", Group: "Accounting");
+        DesktopRegistry.AddOrUpdateForm("JournalEntry", TitleKey: "JournalEntry", Module: "JournalEntry", ClassName: "JournalEntryForm", Group: "Accounting");
         DesktopRegistry.AddOrUpdateForm("PurchaseCancellation", TitleKey: "PurchaseCancellation", Module: "PurchaseCancellation", ClassName: "PurchaseCancellationForm", Group: "Purchases", ItemClassName: "TradeItemPage");
         DesktopRegistry.AddOrUpdateForm("PurchaseCreditNote", TitleKey: "PurchaseCreditNote", Module: "PurchaseCreditNote", ClassName: "PurchaseCreditNoteForm", Group: "Purchases", ItemClassName: "TradeItemPage");
         DesktopRegistry.AddOrUpdateForm("PurchaseDeliveryNote", TitleKey: "PurchaseDeliveryNote", Module: "PurchaseDeliveryNote", ClassName: "PurchaseDeliveryNoteForm", Group: "Purchases", ItemClassName: "TradeItemPage");
@@ -41,5 +43,7 @@ public partial class RegistryVersion2: RegistryVersion
         DesktopRegistry.AddOrUpdateForm("StockMovement", TitleKey: "StockMovement", Module: "StockMovement", Group: "Inventory", IsReadOnly: true);
         DesktopRegistry.AddOrUpdateForm("StockReservation", TitleKey: "StockReservation", Module: "StockReservation", Group: "Inventory", IsReadOnly: true);
         DesktopRegistry.AddOrUpdateForm("StockTrade", TitleKey: "StockTrade", Module: "StockTrade", ClassName: "StockTradeForm", Group: "Inventory");
+        DesktopRegistry.AddOrUpdateForm("SupplierPayment", TitleKey: "SupplierPayment", Module: "SupplierPayment", ClassName: "SupplierPaymentForm", Group: "Finance");
+        DesktopRegistry.AddOrUpdateForm("SupplierPaymentCancellation", TitleKey: "SupplierPaymentCancellation", Module: "SupplierPaymentCancellation", ClassName: "SupplierPaymentCancellationForm", Group: "Finance");
     }
 }

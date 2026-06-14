@@ -218,6 +218,408 @@ from
         tblAssetDepreciationLine.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false);
         tblAssetDepreciationLine.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false);
     }
+    static void RegisterModule_CustomerReceipt()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Payment.Id,
+   Payment.DocumentTypeId,
+   Payment.Code,
+   Payment.TradeTypeId,
+   case
+      when Payment.TradeTypeId = 0 then 'None'
+      when Payment.TradeTypeId = 1 then 'Sales'
+      when Payment.TradeTypeId = 2 then 'Purchases'
+      when Payment.TradeTypeId = 3 then 'Warehouse'
+      when Payment.TradeTypeId = 4 then 'Financial'
+      when Payment.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
+   Payment.PartnerTradeTypeId,
+   Payment.PaymentDate,
+   Payment.PostingDate,
+   Payment.StatusId,
+   case
+      when Payment.StatusId = 0 then 'None'
+      when Payment.StatusId = 1 then 'Draft'
+      when Payment.StatusId = 2 then 'Posted'
+      when Payment.StatusId = 3 then 'Cancelled'
+      when Payment.StatusId = 4 then 'Completed'
+      else ''
+   end as TradeStatus,
+   Payment.PersonId,
+   Payment.PaymentMethodId,
+   Payment.CashAccountId,
+   Payment.CompanyBankAccountId,
+   Payment.CurrencyId,
+   Payment.ExchangeRate,
+   Payment.Amount,
+   Payment.SettledAmount,
+   Payment.UnappliedAmount,
+   Payment.ExternalRef,
+   Payment.CancelledPaymentId,
+   Payment.CancellationPaymentId,
+   Payment.IsLocked,
+   Payment.IsCancelled,
+   Payment.CreatedAt,
+   Payment.CreatedBy,
+   Payment.ModifiedAt,
+   Payment.ModifiedBy,
+   Payment.PostedAt,
+   Payment.PostedBy,
+   Payment.CancelledAt,
+   Payment.CancelledBy,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(CashAccount.Code, '') as CashAccount__Code,
+   COALESCE(CashAccount.Name, '') as CashAccount__Name,
+   COALESCE(CompanyBankAccount.Code, '') as CompanyBankAccount__Code,
+   COALESCE(CompanyBankAccount.Name, '') as CompanyBankAccount__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name
+from
+  Payment
+    left join DocumentType DocumentType on DocumentType.Id = Payment.DocumentTypeId
+    left join Person Person on Person.Id = Payment.PersonId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Payment.PaymentMethodId
+    left join CashAccount CashAccount on CashAccount.Id = Payment.CashAccountId
+    left join CompanyBankAccount CompanyBankAccount on CompanyBankAccount.Id = Payment.CompanyBankAccountId
+    left join Currency Currency on Currency.Id = Payment.CurrencyId
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Payment.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Payment.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Payment.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Payment.CancelledBy
+where DocumentType.ModuleName = 'CustomerReceipt'
+";
+        Module = DataRegistry.AddOrUpdateModule("CustomerReceipt", ClassName: "PaymentDataModule", ListSelectSql: SqlText);
+        Module.DetailOrder["Payment"] = ["PaymentSettlement"];
+        if (Module.Table.Fields.Count > 0)
+            return;
+        tblTop = Module.Table;
+        tblTop.Name = "Payment";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Payment", "Account", "Settlement", "Relations", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-CustomerReceipt");
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("4");
+        tblTop.AddInteger("PartnerTradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddDate("PaymentDate", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Payment");
+        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("CashAccountId", "CashAccount", Flags: FieldFlags.None).SetNullable(true).SetGroup("Account");
+        tblTop.AddStringLookupId("CompanyBankAccountId", "CompanyBankAccount", Flags: FieldFlags.None).SetNullable(true).SetGroup("Account");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Payment");
+        tblTop.AddDecimal("SettledAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddDecimal("UnappliedAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Payment");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo().SetGroup("Notes");
+        tblTop.AddString("CancelledPaymentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancellationPaymentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.None).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Appearance");
+        TableDef tblCancelledPayment = tblTop.AddJoin("CancelledPaymentId", "Payment", "CancelledPayment", "Id");
+        tblTop.Fields.Get("CancelledPaymentId").Locator = "Payment";
+        tblCancelledPayment.AddId("Id").SetNullable(false);
+        tblCancelledPayment.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Payment");
+        TableDef tblCancellationPayment = tblTop.AddJoin("CancellationPaymentId", "Payment", "CancellationPayment", "Id");
+        tblTop.Fields.Get("CancellationPaymentId").Locator = "Payment";
+        tblCancellationPayment.AddId("Id").SetNullable(false);
+        tblCancellationPayment.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Payment");
+        SelectDef = Module.SelectList[0];
+        SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("PaymentDate", FieldName: "PaymentDate", FilterDataType: DataFieldType.Date);
+        SelectDef.AddFilter("Person__Code", FieldName: "Person__Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Person__Name", FieldName: "Person__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("TradeStatus", FieldName: "TradeStatus", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Amount", FieldName: "Amount", FilterDataType: DataFieldType.Decimal);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PartnerTradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["PaymentDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["StatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["Amount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["SettledAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["UnappliedAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledPaymentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancellationPaymentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        TableDef tblPaymentSettlement = tblTop.AddDetail("PaymentSettlement", "Id", "PaymentId");
+        tblPaymentSettlement.KeyField = "Id";
+        tblPaymentSettlement.AddId("Id").SetNullable(false);
+        tblPaymentSettlement.AddString("PaymentId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblPaymentSettlement.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPaymentSettlement.AddString("FinanceMovementId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblPaymentSettlement.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPaymentSettlement.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
+        TableDef tblFinanceMovement = tblPaymentSettlement.AddJoin("FinanceMovementId", "FinanceMovement", "FinanceMovement", "Id");
+        tblPaymentSettlement.Fields.Get("FinanceMovementId").Locator = "FinanceMovement";
+        tblFinanceMovement.AddId("Id").SetNullable(false);
+        tblFinanceMovement.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+    }
+    static void RegisterModule_CustomerReceiptCancellation()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Payment.Id,
+   Payment.DocumentTypeId,
+   Payment.Code,
+   Payment.TradeTypeId,
+   case
+      when Payment.TradeTypeId = 0 then 'None'
+      when Payment.TradeTypeId = 1 then 'Sales'
+      when Payment.TradeTypeId = 2 then 'Purchases'
+      when Payment.TradeTypeId = 3 then 'Warehouse'
+      when Payment.TradeTypeId = 4 then 'Financial'
+      when Payment.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
+   Payment.PartnerTradeTypeId,
+   Payment.PaymentDate,
+   Payment.PostingDate,
+   Payment.StatusId,
+   case
+      when Payment.StatusId = 0 then 'None'
+      when Payment.StatusId = 1 then 'Draft'
+      when Payment.StatusId = 2 then 'Posted'
+      when Payment.StatusId = 3 then 'Cancelled'
+      when Payment.StatusId = 4 then 'Completed'
+      else ''
+   end as TradeStatus,
+   Payment.PersonId,
+   Payment.PaymentMethodId,
+   Payment.CashAccountId,
+   Payment.CompanyBankAccountId,
+   Payment.CurrencyId,
+   Payment.ExchangeRate,
+   Payment.Amount,
+   Payment.SettledAmount,
+   Payment.UnappliedAmount,
+   Payment.ExternalRef,
+   Payment.CancelledPaymentId,
+   Payment.CancellationPaymentId,
+   Payment.IsLocked,
+   Payment.IsCancelled,
+   Payment.CreatedAt,
+   Payment.CreatedBy,
+   Payment.ModifiedAt,
+   Payment.ModifiedBy,
+   Payment.PostedAt,
+   Payment.PostedBy,
+   Payment.CancelledAt,
+   Payment.CancelledBy,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(CashAccount.Code, '') as CashAccount__Code,
+   COALESCE(CashAccount.Name, '') as CashAccount__Name,
+   COALESCE(CompanyBankAccount.Code, '') as CompanyBankAccount__Code,
+   COALESCE(CompanyBankAccount.Name, '') as CompanyBankAccount__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name
+from
+  Payment
+    left join DocumentType DocumentType on DocumentType.Id = Payment.DocumentTypeId
+    left join Person Person on Person.Id = Payment.PersonId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Payment.PaymentMethodId
+    left join CashAccount CashAccount on CashAccount.Id = Payment.CashAccountId
+    left join CompanyBankAccount CompanyBankAccount on CompanyBankAccount.Id = Payment.CompanyBankAccountId
+    left join Currency Currency on Currency.Id = Payment.CurrencyId
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Payment.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Payment.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Payment.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Payment.CancelledBy
+where DocumentType.ModuleName = 'CustomerReceiptCancellation'
+";
+        Module = DataRegistry.AddOrUpdateModule("CustomerReceiptCancellation", ClassName: "PaymentDataModule", ListSelectSql: SqlText);
+        Module.DetailOrder["Payment"] = ["PaymentSettlement"];
+        if (Module.Table.Fields.Count > 0)
+            return;
+        tblTop = Module.Table;
+        tblTop.Name = "Payment";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Payment", "Account", "Settlement", "Relations", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-CustomerReceiptCancellation");
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("4");
+        tblTop.AddInteger("PartnerTradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddDate("PaymentDate", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Payment");
+        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("CashAccountId", "CashAccount", Flags: FieldFlags.None).SetNullable(true).SetGroup("Account");
+        tblTop.AddStringLookupId("CompanyBankAccountId", "CompanyBankAccount", Flags: FieldFlags.None).SetNullable(true).SetGroup("Account");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Payment");
+        tblTop.AddDecimal("SettledAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddDecimal("UnappliedAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Payment");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo().SetGroup("Notes");
+        tblTop.AddString("CancelledPaymentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancellationPaymentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.None).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Appearance");
+        TableDef tblCancelledPayment = tblTop.AddJoin("CancelledPaymentId", "Payment", "CancelledPayment", "Id");
+        tblTop.Fields.Get("CancelledPaymentId").Locator = "Payment";
+        tblCancelledPayment.AddId("Id").SetNullable(false);
+        tblCancelledPayment.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Payment");
+        TableDef tblCancellationPayment = tblTop.AddJoin("CancellationPaymentId", "Payment", "CancellationPayment", "Id");
+        tblTop.Fields.Get("CancellationPaymentId").Locator = "Payment";
+        tblCancellationPayment.AddId("Id").SetNullable(false);
+        tblCancellationPayment.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Payment");
+        SelectDef = Module.SelectList[0];
+        SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("PaymentDate", FieldName: "PaymentDate", FilterDataType: DataFieldType.Date);
+        SelectDef.AddFilter("Person__Code", FieldName: "Person__Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Person__Name", FieldName: "Person__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("TradeStatus", FieldName: "TradeStatus", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Amount", FieldName: "Amount", FilterDataType: DataFieldType.Decimal);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PartnerTradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["PaymentDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["StatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["Amount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["SettledAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["UnappliedAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledPaymentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancellationPaymentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        TableDef tblPaymentSettlement = tblTop.AddDetail("PaymentSettlement", "Id", "PaymentId");
+        tblPaymentSettlement.KeyField = "Id";
+        tblPaymentSettlement.AddId("Id").SetNullable(false);
+        tblPaymentSettlement.AddString("PaymentId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblPaymentSettlement.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPaymentSettlement.AddString("FinanceMovementId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblPaymentSettlement.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPaymentSettlement.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
+        TableDef tblFinanceMovement = tblPaymentSettlement.AddJoin("FinanceMovementId", "FinanceMovement", "FinanceMovement", "Id");
+        tblPaymentSettlement.Fields.Get("FinanceMovementId").Locator = "FinanceMovement";
+        tblFinanceMovement.AddId("Id").SetNullable(false);
+        tblFinanceMovement.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+    }
     static void RegisterModule_DocumentType()
     {
         ModuleDef Module;
@@ -346,17 +748,36 @@ from
         SqlText = @"
 select
    FinanceBalance.Id,
+   FinanceBalance.TradeTypeId,
+   case
+      when FinanceBalance.TradeTypeId = 0 then 'None'
+      when FinanceBalance.TradeTypeId = 1 then 'Sales'
+      when FinanceBalance.TradeTypeId = 2 then 'Purchases'
+      when FinanceBalance.TradeTypeId = 3 then 'Warehouse'
+      when FinanceBalance.TradeTypeId = 4 then 'Financial'
+      when FinanceBalance.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
+   FinanceBalance.CurrencyId,
+   FinanceBalance.PersonId,
    FinanceBalance.CashAccountId,
    FinanceBalance.CompanyBankAccountId,
    FinanceBalance.Balance,
    FinanceBalance.LastMovementDate,
    FinanceBalance.LastMovementId,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
    COALESCE(CashAccount.Code, '') as CashAccount__Code,
    COALESCE(CashAccount.Name, '') as CashAccount__Name,
    COALESCE(CompanyBankAccount.Code, '') as CompanyBankAccount__Code,
    COALESCE(CompanyBankAccount.Name, '') as CompanyBankAccount__Name
 from
   FinanceBalance
+    left join Currency Currency on Currency.Id = FinanceBalance.CurrencyId
+    left join Person Person on Person.Id = FinanceBalance.PersonId
     left join CashAccount CashAccount on CashAccount.Id = FinanceBalance.CashAccountId
     left join CompanyBankAccount CompanyBankAccount on CompanyBankAccount.Id = FinanceBalance.CompanyBankAccountId
     left join FinanceMovement LastMovement on LastMovement.Id = FinanceBalance.LastMovementId
@@ -369,6 +790,9 @@ from
         tblTop.KeyField = "Id";
         tblTop.IsUiVisible = false;
         tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("PersonId", "Person", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CashAccountId", "CashAccount", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CompanyBankAccountId", "CompanyBankAccount", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDecimal("Balance", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
@@ -380,13 +804,28 @@ from
         SelectDef.AddFilter("CashAccount__Name", FieldName: "CashAccount__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("CompanyBankAccount__Code", FieldName: "CompanyBankAccount__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("CompanyBankAccount__Name", FieldName: "CompanyBankAccount__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Currency__Code", FieldName: "Currency__Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Currency__Name", FieldName: "Currency__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("LastMovementDate", FieldName: "LastMovementDate", FilterDataType: DataFieldType.Date);
+        SelectDef.AddFilter("Person__Code", FieldName: "Person__Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Person__Name", FieldName: "Person__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Person__Title", FieldName: "Person__Title", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("TradeType", FieldName: "TradeType", FilterDataType: DataFieldType.String);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CashAccountId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CompanyBankAccountId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Balance"] = DataColumnType.Currency;
         SelectDef.ColumnTypes["LastMovementDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["LastMovementId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CashAccount__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CashAccount__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CompanyBankAccount__Code"] = DataColumnType.Text;
@@ -412,6 +851,7 @@ select
       else ''
    end as TradeType,
    FinanceMovement.MovementDate,
+   FinanceMovement.PersonId,
    FinanceMovement.CashAccountId,
    FinanceMovement.CompanyBankAccountId,
    FinanceMovement.Direction,
@@ -421,12 +861,17 @@ select
    FinanceMovement.SourceModule,
    FinanceMovement.SourceTable,
    FinanceMovement.SourceId,
+   FinanceMovement.CancelledMovementId,
+   FinanceMovement.CancellationMovementId,
    FinanceMovement.DocumentTypeId,
    FinanceMovement.DocumentCode,
    FinanceMovement.DocumentDate,
    FinanceMovement.Remarks,
    FinanceMovement.CreatedAt,
    FinanceMovement.CreatedBy,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
    COALESCE(CashAccount.Code, '') as CashAccount__Code,
    COALESCE(CashAccount.Name, '') as CashAccount__Name,
    COALESCE(CompanyBankAccount.Code, '') as CompanyBankAccount__Code,
@@ -437,6 +882,7 @@ select
    COALESCE(DocumentType.Name, '') as DocumentType__Name
 from
   FinanceMovement
+    left join Person Person on Person.Id = FinanceMovement.PersonId
     left join CashAccount CashAccount on CashAccount.Id = FinanceMovement.CashAccountId
     left join CompanyBankAccount CompanyBankAccount on CompanyBankAccount.Id = FinanceMovement.CompanyBankAccountId
     left join Currency Currency on Currency.Id = FinanceMovement.CurrencyId
@@ -453,6 +899,7 @@ from
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDate("MovementDate", Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("PersonId", "Person", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CashAccountId", "CashAccount", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("CompanyBankAccountId", "CompanyBankAccount", Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddInteger("Direction", Flags: FieldFlags.Required).SetNullable(false);
@@ -462,12 +909,22 @@ from
         tblTop.AddString("SourceModule", MaxLength: 64, Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddString("SourceTable", MaxLength: 64, Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddString("SourceId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("CancelledMovementId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
+        tblTop.AddString("CancellationMovementId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddDate("DocumentDate", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false);
         tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false);
+        TableDef tblCancelledMovement = tblTop.AddJoin("CancelledMovementId", "FinanceMovement", "CancelledMovement", "Id");
+        tblTop.Fields.Get("CancelledMovementId").Locator = "FinanceMovement";
+        tblCancelledMovement.AddId("Id").SetNullable(false);
+        tblCancelledMovement.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        TableDef tblCancellationMovement = tblTop.AddJoin("CancellationMovementId", "FinanceMovement", "CancellationMovement", "Id");
+        tblTop.Fields.Get("CancellationMovementId").Locator = "FinanceMovement";
+        tblCancellationMovement.AddId("Id").SetNullable(false);
+        tblCancellationMovement.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Amount", FieldName: "Amount", FilterDataType: DataFieldType.Decimal);
         SelectDef.AddFilter("CashAccount__Code", FieldName: "CashAccount__Code", FilterDataType: DataFieldType.String);
@@ -485,6 +942,9 @@ from
         SelectDef.AddFilter("DocumentType__Name", FieldName: "DocumentType__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("ExchangeRate", FieldName: "ExchangeRate", FilterDataType: DataFieldType.Decimal);
         SelectDef.AddFilter("MovementDate", FieldName: "MovementDate", FilterDataType: DataFieldType.Date);
+        SelectDef.AddFilter("Person__Code", FieldName: "Person__Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Person__Name", FieldName: "Person__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Person__Title", FieldName: "Person__Title", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Remarks", FieldName: "Remarks", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("SourceModule", FieldName: "SourceModule", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("SourceTable", FieldName: "SourceTable", FilterDataType: DataFieldType.String);
@@ -493,6 +953,7 @@ from
         SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
         SelectDef.ColumnTypes["MovementDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CashAccountId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CompanyBankAccountId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Direction"] = DataColumnType.Integer;
@@ -502,12 +963,17 @@ from
         SelectDef.ColumnTypes["SourceModule"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceTable"] = DataColumnType.Text;
         SelectDef.ColumnTypes["SourceId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledMovementId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancellationMovementId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentCode"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentDate"] = DataColumnType.Date;
         SelectDef.ColumnTypes["Remarks"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
         SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CashAccount__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CashAccount__Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CompanyBankAccount__Code"] = DataColumnType.Text;
@@ -557,10 +1023,16 @@ select
    end as TradeType,
    JournalEntry.CancelledDocumentId,
    JournalEntry.CancellationDocumentId,
+   JournalEntry.IsLocked,
+   JournalEntry.IsCancelled,
    JournalEntry.CreatedAt,
    JournalEntry.CreatedBy,
    JournalEntry.ModifiedAt,
    JournalEntry.ModifiedBy,
+   JournalEntry.PostedAt,
+   JournalEntry.PostedBy,
+   JournalEntry.CancelledAt,
+   JournalEntry.CancelledBy,
    COALESCE(DocumentType.Code, '') as DocumentType__Code,
    COALESCE(DocumentType.Name, '') as DocumentType__Name
 from
@@ -568,6 +1040,8 @@ from
     left join DocumentType DocumentType on DocumentType.Id = JournalEntry.DocumentTypeId
     left join SYS_APP_USER CreatedBy on CreatedBy.Id = JournalEntry.CreatedBy
     left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = JournalEntry.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = JournalEntry.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = JournalEntry.CancelledBy
 ";
         Module = DataRegistry.AddOrUpdateModule("JournalEntry", ClassName: "JournalEntryDataModule", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -592,10 +1066,16 @@ from
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo().SetGroup("Notes");
         tblTop.AddString("CancelledDocumentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
         tblTop.AddString("CancellationDocumentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
         tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
         TableDef tblCancelledDocument = tblTop.AddJoin("CancelledDocumentId", "JournalEntry", "CancelledDocument", "Id");
         tblTop.Fields.Get("CancelledDocumentId").Locator = "JournalEntry";
         tblCancelledDocument.AddId("Id").SetNullable(false);
@@ -607,6 +1087,8 @@ from
         tblCancellationDocument.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-JournalEntry");
         tblCancellationDocument.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Document");
         SelectDef = Module.SelectList[0];
+        SelectDef.AddFilter("CancelledAt", FieldName: "CancelledAt", FilterDataType: DataFieldType.DateTime);
+        SelectDef.AddFilter("CancelledBy", FieldName: "CancelledBy", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("CreatedAt", FieldName: "CreatedAt", FilterDataType: DataFieldType.DateTime);
         SelectDef.AddFilter("CreatedBy", FieldName: "CreatedBy", FilterDataType: DataFieldType.String);
@@ -617,6 +1099,8 @@ from
         SelectDef.AddFilter("EntryDate", FieldName: "EntryDate", FilterDataType: DataFieldType.Date);
         SelectDef.AddFilter("ModifiedAt", FieldName: "ModifiedAt", FilterDataType: DataFieldType.DateTime);
         SelectDef.AddFilter("ModifiedBy", FieldName: "ModifiedBy", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("PostedAt", FieldName: "PostedAt", FilterDataType: DataFieldType.DateTime);
+        SelectDef.AddFilter("PostedBy", FieldName: "PostedBy", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("SourceModule", FieldName: "SourceModule", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("SourceTable", FieldName: "SourceTable", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("TotalCredit", FieldName: "TotalCredit", FilterDataType: DataFieldType.Decimal);
@@ -640,10 +1124,16 @@ from
         SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CancelledDocumentId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["CancellationDocumentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
         SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
         SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
         SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
         TableDef tblJournalEntryLine = tblTop.AddDetail("JournalEntryLine", "Id", "JournalEntryId");
@@ -6247,12 +6737,416 @@ from
         tblProduct.AddString("Barcode", MaxLength: 64, Flags: FieldFlags.None).SetNullable(true);
         tblProduct.AddString("IconName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true);
     }
+    static void RegisterModule_SupplierPayment()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Payment.Id,
+   Payment.DocumentTypeId,
+   Payment.Code,
+   Payment.TradeTypeId,
+   case
+      when Payment.TradeTypeId = 0 then 'None'
+      when Payment.TradeTypeId = 1 then 'Sales'
+      when Payment.TradeTypeId = 2 then 'Purchases'
+      when Payment.TradeTypeId = 3 then 'Warehouse'
+      when Payment.TradeTypeId = 4 then 'Financial'
+      when Payment.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
+   Payment.PartnerTradeTypeId,
+   Payment.PaymentDate,
+   Payment.PostingDate,
+   Payment.StatusId,
+   case
+      when Payment.StatusId = 0 then 'None'
+      when Payment.StatusId = 1 then 'Draft'
+      when Payment.StatusId = 2 then 'Posted'
+      when Payment.StatusId = 3 then 'Cancelled'
+      when Payment.StatusId = 4 then 'Completed'
+      else ''
+   end as TradeStatus,
+   Payment.PersonId,
+   Payment.PaymentMethodId,
+   Payment.CashAccountId,
+   Payment.CompanyBankAccountId,
+   Payment.CurrencyId,
+   Payment.ExchangeRate,
+   Payment.Amount,
+   Payment.SettledAmount,
+   Payment.UnappliedAmount,
+   Payment.ExternalRef,
+   Payment.CancelledPaymentId,
+   Payment.CancellationPaymentId,
+   Payment.IsLocked,
+   Payment.IsCancelled,
+   Payment.CreatedAt,
+   Payment.CreatedBy,
+   Payment.ModifiedAt,
+   Payment.ModifiedBy,
+   Payment.PostedAt,
+   Payment.PostedBy,
+   Payment.CancelledAt,
+   Payment.CancelledBy,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(CashAccount.Code, '') as CashAccount__Code,
+   COALESCE(CashAccount.Name, '') as CashAccount__Name,
+   COALESCE(CompanyBankAccount.Code, '') as CompanyBankAccount__Code,
+   COALESCE(CompanyBankAccount.Name, '') as CompanyBankAccount__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name
+from
+  Payment
+    left join DocumentType DocumentType on DocumentType.Id = Payment.DocumentTypeId
+    left join Person Person on Person.Id = Payment.PersonId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Payment.PaymentMethodId
+    left join CashAccount CashAccount on CashAccount.Id = Payment.CashAccountId
+    left join CompanyBankAccount CompanyBankAccount on CompanyBankAccount.Id = Payment.CompanyBankAccountId
+    left join Currency Currency on Currency.Id = Payment.CurrencyId
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Payment.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Payment.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Payment.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Payment.CancelledBy
+where DocumentType.ModuleName = 'SupplierPayment'
+";
+        Module = DataRegistry.AddOrUpdateModule("SupplierPayment", ClassName: "PaymentDataModule", ListSelectSql: SqlText);
+        Module.DetailOrder["Payment"] = ["PaymentSettlement"];
+        if (Module.Table.Fields.Count > 0)
+            return;
+        tblTop = Module.Table;
+        tblTop.Name = "Payment";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Payment", "Account", "Settlement", "Relations", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SupplierPayment");
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("4");
+        tblTop.AddInteger("PartnerTradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddDate("PaymentDate", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Payment");
+        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("CashAccountId", "CashAccount", Flags: FieldFlags.None).SetNullable(true).SetGroup("Account");
+        tblTop.AddStringLookupId("CompanyBankAccountId", "CompanyBankAccount", Flags: FieldFlags.None).SetNullable(true).SetGroup("Account");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Payment");
+        tblTop.AddDecimal("SettledAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddDecimal("UnappliedAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Payment");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo().SetGroup("Notes");
+        tblTop.AddString("CancelledPaymentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancellationPaymentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.None).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Appearance");
+        TableDef tblCancelledPayment = tblTop.AddJoin("CancelledPaymentId", "Payment", "CancelledPayment", "Id");
+        tblTop.Fields.Get("CancelledPaymentId").Locator = "Payment";
+        tblCancelledPayment.AddId("Id").SetNullable(false);
+        tblCancelledPayment.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Payment");
+        TableDef tblCancellationPayment = tblTop.AddJoin("CancellationPaymentId", "Payment", "CancellationPayment", "Id");
+        tblTop.Fields.Get("CancellationPaymentId").Locator = "Payment";
+        tblCancellationPayment.AddId("Id").SetNullable(false);
+        tblCancellationPayment.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Payment");
+        SelectDef = Module.SelectList[0];
+        SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("PaymentDate", FieldName: "PaymentDate", FilterDataType: DataFieldType.Date);
+        SelectDef.AddFilter("Person__Code", FieldName: "Person__Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Person__Name", FieldName: "Person__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("TradeStatus", FieldName: "TradeStatus", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Amount", FieldName: "Amount", FilterDataType: DataFieldType.Decimal);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PartnerTradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["PaymentDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["StatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["Amount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["SettledAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["UnappliedAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledPaymentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancellationPaymentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        TableDef tblPaymentSettlement = tblTop.AddDetail("PaymentSettlement", "Id", "PaymentId");
+        tblPaymentSettlement.KeyField = "Id";
+        tblPaymentSettlement.AddId("Id").SetNullable(false);
+        tblPaymentSettlement.AddString("PaymentId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblPaymentSettlement.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPaymentSettlement.AddString("FinanceMovementId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblPaymentSettlement.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPaymentSettlement.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
+        TableDef tblFinanceMovement = tblPaymentSettlement.AddJoin("FinanceMovementId", "FinanceMovement", "FinanceMovement", "Id");
+        tblPaymentSettlement.Fields.Get("FinanceMovementId").Locator = "FinanceMovement";
+        tblFinanceMovement.AddId("Id").SetNullable(false);
+        tblFinanceMovement.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+    }
+    static void RegisterModule_SupplierPaymentCancellation()
+    {
+        ModuleDef Module;
+        TableDef tblTop;
+        SelectDef SelectDef;
+        string SqlText;
+        SqlText = @"
+select
+   Payment.Id,
+   Payment.DocumentTypeId,
+   Payment.Code,
+   Payment.TradeTypeId,
+   case
+      when Payment.TradeTypeId = 0 then 'None'
+      when Payment.TradeTypeId = 1 then 'Sales'
+      when Payment.TradeTypeId = 2 then 'Purchases'
+      when Payment.TradeTypeId = 3 then 'Warehouse'
+      when Payment.TradeTypeId = 4 then 'Financial'
+      when Payment.TradeTypeId = 5 then 'Accounting'
+      else ''
+   end as TradeType,
+   Payment.PartnerTradeTypeId,
+   Payment.PaymentDate,
+   Payment.PostingDate,
+   Payment.StatusId,
+   case
+      when Payment.StatusId = 0 then 'None'
+      when Payment.StatusId = 1 then 'Draft'
+      when Payment.StatusId = 2 then 'Posted'
+      when Payment.StatusId = 3 then 'Cancelled'
+      when Payment.StatusId = 4 then 'Completed'
+      else ''
+   end as TradeStatus,
+   Payment.PersonId,
+   Payment.PaymentMethodId,
+   Payment.CashAccountId,
+   Payment.CompanyBankAccountId,
+   Payment.CurrencyId,
+   Payment.ExchangeRate,
+   Payment.Amount,
+   Payment.SettledAmount,
+   Payment.UnappliedAmount,
+   Payment.ExternalRef,
+   Payment.CancelledPaymentId,
+   Payment.CancellationPaymentId,
+   Payment.IsLocked,
+   Payment.IsCancelled,
+   Payment.CreatedAt,
+   Payment.CreatedBy,
+   Payment.ModifiedAt,
+   Payment.ModifiedBy,
+   Payment.PostedAt,
+   Payment.PostedBy,
+   Payment.CancelledAt,
+   Payment.CancelledBy,
+   COALESCE(DocumentType.Code, '') as DocumentType__Code,
+   COALESCE(DocumentType.Name, '') as DocumentType__Name,
+   COALESCE(Person.Code, '') as Person__Code,
+   COALESCE(Person.Name, '') as Person__Name,
+   COALESCE(Person.Title, '') as Person__Title,
+   COALESCE(PaymentMethod.Code, '') as PaymentMethod__Code,
+   COALESCE(PaymentMethod.Name, '') as PaymentMethod__Name,
+   COALESCE(CashAccount.Code, '') as CashAccount__Code,
+   COALESCE(CashAccount.Name, '') as CashAccount__Name,
+   COALESCE(CompanyBankAccount.Code, '') as CompanyBankAccount__Code,
+   COALESCE(CompanyBankAccount.Name, '') as CompanyBankAccount__Name,
+   COALESCE(Currency.Code, '') as Currency__Code,
+   COALESCE(Currency.Name, '') as Currency__Name
+from
+  Payment
+    left join DocumentType DocumentType on DocumentType.Id = Payment.DocumentTypeId
+    left join Person Person on Person.Id = Payment.PersonId
+    left join PaymentMethod PaymentMethod on PaymentMethod.Id = Payment.PaymentMethodId
+    left join CashAccount CashAccount on CashAccount.Id = Payment.CashAccountId
+    left join CompanyBankAccount CompanyBankAccount on CompanyBankAccount.Id = Payment.CompanyBankAccountId
+    left join Currency Currency on Currency.Id = Payment.CurrencyId
+    left join SYS_APP_USER CreatedBy on CreatedBy.Id = Payment.CreatedBy
+    left join SYS_APP_USER ModifiedBy on ModifiedBy.Id = Payment.ModifiedBy
+    left join SYS_APP_USER PostedBy on PostedBy.Id = Payment.PostedBy
+    left join SYS_APP_USER CancelledBy on CancelledBy.Id = Payment.CancelledBy
+where DocumentType.ModuleName = 'SupplierPaymentCancellation'
+";
+        Module = DataRegistry.AddOrUpdateModule("SupplierPaymentCancellation", ClassName: "PaymentDataModule", ListSelectSql: SqlText);
+        Module.DetailOrder["Payment"] = ["PaymentSettlement"];
+        if (Module.Table.Fields.Count > 0)
+            return;
+        tblTop = Module.Table;
+        tblTop.Name = "Payment";
+        tblTop.KeyField = "Id";
+        tblTop.FieldGroups.AddRange(["Payment", "Account", "Settlement", "Relations", "Audit", "Notes"]);
+        tblTop.AddId("Id").SetNullable(false);
+        tblTop.AddStringLookupId("DocumentTypeId", "DocumentType", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
+        tblTop.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("DRAFT-SupplierPaymentCancellation");
+        tblTop.AddEnumLookupId("TradeTypeId", "TradeType", TypeStore.Get("TradeType"), Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("4");
+        tblTop.AddInteger("PartnerTradeTypeId", Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddDate("PaymentDate", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDate("PostingDate", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Payment");
+        tblTop.AddEnumLookupId("StatusId", "TradeStatus", TypeStore.Get("TradeStatus"), Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddString("PersonId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddStringLookupId("PaymentMethodId", "PaymentMethod", Flags: FieldFlags.None).SetNullable(true).SetGroup("Payment");
+        tblTop.AddStringLookupId("CashAccountId", "CashAccount", Flags: FieldFlags.None).SetNullable(true).SetGroup("Account");
+        tblTop.AddStringLookupId("CompanyBankAccountId", "CompanyBankAccount", Flags: FieldFlags.None).SetNullable(true).SetGroup("Account");
+        tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.Required).SetNullable(false).SetGroup("Payment");
+        tblTop.AddDecimal("ExchangeRate", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1").SetGroup("Payment");
+        tblTop.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0").SetGroup("Payment");
+        tblTop.AddDecimal("SettledAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddDecimal("UnappliedAmount", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0").SetGroup("Settlement");
+        tblTop.AddString("ExternalRef", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Payment");
+        tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true).SetLargeMemo().SetGroup("Notes");
+        tblTop.AddString("CancelledPaymentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
+        tblTop.AddString("CancellationPaymentId", MaxLength: 40, Flags: FieldFlags.None).SetNullable(true).SetGroup("Relations");
+        tblTop.AddBoolean("IsLocked", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddBoolean("IsCancelled", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTop.AddDateTime("CreatedAt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddStringLookupId("CreatedBy", "SYS_APP_USER", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetGroup("Audit");
+        tblTop.AddDateTime("ModifiedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("ModifiedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("PostedAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("PostedBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddDateTime("CancelledAt", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        tblTop.AddStringLookupId("CancelledBy", "SYS_APP_USER", Flags: FieldFlags.ReadOnlyUI).SetNullable(true).SetGroup("Audit");
+        TableDef tblPerson = tblTop.AddJoin("PersonId", "Person", "Person", "Id");
+        tblTop.Fields.Get("PersonId").Locator = "Person";
+        tblPerson.AddId("Id").SetNullable(false);
+        tblPerson.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
+        tblPerson.AddString("Name", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
+        tblPerson.AddString("PostalCode", MaxLength: 16, Flags: FieldFlags.None).SetNullable(true).SetGroup("Address");
+        tblPerson.AddString("IconName", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Appearance");
+        TableDef tblCancelledPayment = tblTop.AddJoin("CancelledPaymentId", "Payment", "CancelledPayment", "Id");
+        tblTop.Fields.Get("CancelledPaymentId").Locator = "Payment";
+        tblCancelledPayment.AddId("Id").SetNullable(false);
+        tblCancelledPayment.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Payment");
+        TableDef tblCancellationPayment = tblTop.AddJoin("CancellationPaymentId", "Payment", "CancellationPayment", "Id");
+        tblTop.Fields.Get("CancellationPaymentId").Locator = "Payment";
+        tblCancellationPayment.AddId("Id").SetNullable(false);
+        tblCancellationPayment.AddString("Code", MaxLength: 40, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit | FieldFlags.ReadOnlyUI).SetNullable(false).SetCodeProviderName("Payment");
+        SelectDef = Module.SelectList[0];
+        SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("PaymentDate", FieldName: "PaymentDate", FilterDataType: DataFieldType.Date);
+        SelectDef.AddFilter("Person__Code", FieldName: "Person__Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Person__Name", FieldName: "Person__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("TradeStatus", FieldName: "TradeStatus", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Amount", FieldName: "Amount", FilterDataType: DataFieldType.Decimal);
+        SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentTypeId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["TradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeType"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PartnerTradeTypeId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["PaymentDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["PostingDate"] = DataColumnType.Date;
+        SelectDef.ColumnTypes["StatusId"] = DataColumnType.Integer;
+        SelectDef.ColumnTypes["TradeStatus"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PersonId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethodId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccountId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CurrencyId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ExchangeRate"] = DataColumnType.Decimal;
+        SelectDef.ColumnTypes["Amount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["SettledAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["UnappliedAmount"] = DataColumnType.Currency;
+        SelectDef.ColumnTypes["ExternalRef"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledPaymentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancellationPaymentId"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["IsLocked"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["IsCancelled"] = DataColumnType.Boolean;
+        SelectDef.ColumnTypes["CreatedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CreatedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["ModifiedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["ModifiedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PostedAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["PostedBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CancelledAt"] = DataColumnType.DateTime;
+        SelectDef.ColumnTypes["CancelledBy"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["DocumentType__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Person__Title"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["PaymentMethod__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CashAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["CompanyBankAccount__Name"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Currency__Name"] = DataColumnType.Text;
+        TableDef tblPaymentSettlement = tblTop.AddDetail("PaymentSettlement", "Id", "PaymentId");
+        tblPaymentSettlement.KeyField = "Id";
+        tblPaymentSettlement.AddId("Id").SetNullable(false);
+        tblPaymentSettlement.AddString("PaymentId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblPaymentSettlement.AddInteger("DisplayOrder", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPaymentSettlement.AddString("FinanceMovementId", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+        tblPaymentSettlement.AddDecimal("Amount", Decimals: 4, Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("0");
+        tblPaymentSettlement.AddString("Remarks", MaxLength: 512, Flags: FieldFlags.None).SetNullable(true);
+        TableDef tblFinanceMovement = tblPaymentSettlement.AddJoin("FinanceMovementId", "FinanceMovement", "FinanceMovement", "Id");
+        tblPaymentSettlement.Fields.Get("FinanceMovementId").Locator = "FinanceMovement";
+        tblFinanceMovement.AddId("Id").SetNullable(false);
+        tblFinanceMovement.AddString("DocumentCode", MaxLength: 40, Flags: FieldFlags.Required).SetNullable(false);
+    }
 
     // ● public
     public override void RegisterModules()
     {
         RegisterModule_Account();
         RegisterModule_Asset();
+        RegisterModule_CustomerReceipt();
+        RegisterModule_CustomerReceiptCancellation();
         RegisterModule_DocumentType();
         RegisterModule_FinanceBalance();
         RegisterModule_FinanceMovement();
@@ -6274,5 +7168,7 @@ from
         RegisterModule_StockMovement();
         RegisterModule_StockReservation();
         RegisterModule_StockTrade();
+        RegisterModule_SupplierPayment();
+        RegisterModule_SupplierPaymentCancellation();
     }
 }

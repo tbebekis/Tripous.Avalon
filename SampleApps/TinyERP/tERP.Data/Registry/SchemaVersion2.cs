@@ -445,6 +445,7 @@ CREATE TABLE {TableName} (
     TradeTypeId int default 0 @NOT_NULL,              -- Enum; [ReadOnlyUI]
     MovementDate @DATE @NOT_NULL,
 
+    PersonId @NVARCHAR(40) @NULL,                     -- Lookup
     CashAccountId @NVARCHAR(40) @NULL,                -- Lookup
     CompanyBankAccountId @NVARCHAR(40) @NULL,         -- Lookup
 
@@ -459,6 +460,9 @@ CREATE TABLE {TableName} (
     SourceTable @NVARCHAR(64) @NOT_NULL,
     SourceId @NVARCHAR(40) @NOT_NULL,
 
+    CancelledMovementId @NVARCHAR(40) @NULL,         -- Locator FinanceMovement
+    CancellationMovementId @NVARCHAR(40) @NULL,      -- Locator FinanceMovement
+
     DocumentTypeId @NVARCHAR(40) @NOT_NULL,          -- Lookup
     DocumentCode @NVARCHAR(40) @NOT_NULL,
     DocumentDate @DATE @NOT_NULL,
@@ -470,12 +474,91 @@ CREATE TABLE {TableName} (
 
     CONSTRAINT CHK_{TableName}_Direction CHECK (Direction IN (1, -1)),
     CONSTRAINT CHK_{TableName}_Amount CHECK (Amount >= 0),
+    CONSTRAINT CHK_{TableName}_Owner CHECK (
+        (PersonId IS NOT NULL AND CashAccountId IS NULL AND CompanyBankAccountId IS NULL)
+        OR (PersonId IS NULL AND CashAccountId IS NOT NULL AND CompanyBankAccountId IS NULL)
+        OR (PersonId IS NULL AND CashAccountId IS NULL AND CompanyBankAccountId IS NOT NULL)
+    ),
 
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
     FOREIGN KEY (CashAccountId) REFERENCES CashAccount(Id),
     FOREIGN KEY (CompanyBankAccountId) REFERENCES CompanyBankAccount(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
     FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
+    FOREIGN KEY (CancelledMovementId) REFERENCES FinanceMovement(Id),
+    FOREIGN KEY (CancellationMovementId) REFERENCES FinanceMovement(Id),
     FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_Payment()
+    {
+        string TableName = "Payment";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup; [Hidden]
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code; [ReadOnlyUI]
+    TradeTypeId int DEFAULT 4 @NOT_NULL,                -- Enum TradeType; [Hidden]
+    PartnerTradeTypeId int DEFAULT 0 @NOT_NULL,         -- Group Settlement; [Hidden]
+
+    PaymentDate @DATE @NOT_NULL,                        -- Group Payment
+    PostingDate @DATE @NULL,                            -- Group Payment; [ReadOnlyUI]
+    StatusId int DEFAULT 1 @NOT_NULL,                   -- Enum TradeStatus; Group Payment; [ReadOnlyUI]
+
+    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person; Group Payment
+    PaymentMethodId @NVARCHAR(40) @NULL,                -- Lookup; Group Payment
+
+    CashAccountId @NVARCHAR(40) @NULL,                  -- Lookup; Group Account
+    CompanyBankAccountId @NVARCHAR(40) @NULL,           -- Lookup; Group Account
+
+    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup; Group Payment
+    ExchangeRate @DECIMAL DEFAULT 1 @NOT_NULL,          -- Group Payment
+
+    Amount @DECIMAL DEFAULT 0 @NOT_NULL,                -- Group Payment
+    SettledAmount @DECIMAL DEFAULT 0 @NOT_NULL,         -- Group Settlement; [ReadOnlyUI]
+    UnappliedAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- Group Settlement; [ReadOnlyUI]
+
+    ExternalRef @NVARCHAR(96) @NULL,                    -- Group Payment
+    Remarks @NBLOB_TEXT @NULL,                          -- LargeMemo; Group Notes
+
+    CancelledPaymentId @NVARCHAR(40) @NULL,             -- Locator Payment; Group Relations
+    CancellationPaymentId @NVARCHAR(40) @NULL,          -- Locator Payment; Group Relations
+
+    IsLocked @BOOL DEFAULT 0 @NOT_NULL,                 -- [ReadOnlyUI]
+    IsCancelled @BOOL DEFAULT 0 @NOT_NULL,              -- [ReadOnlyUI]
+
+    CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit; [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    ModifiedAt @DATE_TIME @NULL,                        -- Group Audit; [ReadOnlyUI]
+    ModifiedBy @NVARCHAR(40) @NULL,                     --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    PostedAt @DATE_TIME @NULL,                          -- Group Audit; [ReadOnlyUI]
+    PostedBy @NVARCHAR(40) @NULL,                       --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    CancelledAt @DATE_TIME @NULL,                       -- Group Audit; [ReadOnlyUI]
+    CancelledBy @NVARCHAR(40) @NULL,                    --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT CHK_{TableName}_Amount CHECK (Amount >= 0),
+    CONSTRAINT CHK_{TableName}_Totals CHECK (Amount = SettledAmount + UnappliedAmount),
+    CONSTRAINT CHK_{TableName}_Account CHECK (
+        (CashAccountId IS NOT NULL AND CompanyBankAccountId IS NULL)
+        OR (CashAccountId IS NULL AND CompanyBankAccountId IS NOT NULL)
+    ),
+
+    FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
+    FOREIGN KEY (PaymentMethodId) REFERENCES PaymentMethod(Id),
+    FOREIGN KEY (CashAccountId) REFERENCES CashAccount(Id),
+    FOREIGN KEY (CompanyBankAccountId) REFERENCES CompanyBankAccount(Id),
+    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
+    FOREIGN KEY (CancelledPaymentId) REFERENCES Payment(Id),
+    FOREIGN KEY (CancellationPaymentId) REFERENCES Payment(Id),
+    FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (PostedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (CancelledBy) REFERENCES  SYS_APP_USER(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -510,10 +593,17 @@ CREATE TABLE {TableName} (
     CancelledDocumentId @NVARCHAR(40) @NULL,          -- Locator JournalEntry; Group Relations
     CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator JournalEntry; Group Relations
 
+    IsLocked @BOOL DEFAULT 0 @NOT_NULL,               -- [ReadOnlyUI]
+    IsCancelled @BOOL DEFAULT 0 @NOT_NULL,            -- [ReadOnlyUI]
+
     CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit; [ReadOnlyUI]
     CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
     ModifiedAt @DATE_TIME @NULL,                      -- Group Audit; [ReadOnlyUI]
     ModifiedBy @NVARCHAR(40) @NULL,                   --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    PostedAt @DATE_TIME @NULL,                        -- Group Audit; [ReadOnlyUI]
+    PostedBy @NVARCHAR(40) @NULL,                     --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    CancelledAt @DATE_TIME @NULL,                     -- Group Audit; [ReadOnlyUI]
+    CancelledBy @NVARCHAR(40) @NULL,                  --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
     CONSTRAINT CHK_{TableName}_Totals CHECK (TotalDebit = TotalCredit),
@@ -522,7 +612,9 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (CancelledDocumentId) REFERENCES JournalEntry(Id),
     FOREIGN KEY (CancellationDocumentId) REFERENCES JournalEntry(Id),
     FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id),
-    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id)
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (PostedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (CancelledBy) REFERENCES  SYS_APP_USER(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -682,6 +774,9 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
+    TradeTypeId int default 0 @NOT_NULL,              -- Enum; [ReadOnlyUI]
+    CurrencyId @NVARCHAR(40) @NOT_NULL,               -- Lookup
+    PersonId @NVARCHAR(40) @NULL,                     -- Lookup
     CashAccountId @NVARCHAR(40) @NULL,                -- Lookup
     CompanyBankAccountId @NVARCHAR(40) @NULL,         -- Lookup
 
@@ -690,9 +785,41 @@ CREATE TABLE {TableName} (
     LastMovementDate @DATE @NULL,
     LastMovementId @NVARCHAR(40) @NULL,
 
+    CONSTRAINT CHK_{TableName}_Owner CHECK (
+        (PersonId IS NOT NULL AND CashAccountId IS NULL AND CompanyBankAccountId IS NULL)
+        OR (PersonId IS NULL AND CashAccountId IS NOT NULL AND CompanyBankAccountId IS NULL)
+        OR (PersonId IS NULL AND CashAccountId IS NULL AND CompanyBankAccountId IS NOT NULL)
+    ),
+
+    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
     FOREIGN KEY (CashAccountId) REFERENCES CashAccount(Id),
     FOREIGN KEY (CompanyBankAccountId) REFERENCES CompanyBankAccount(Id),
     FOREIGN KEY (LastMovementId) REFERENCES FinanceMovement(Id)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_PaymentSettlement()
+    {
+        string TableName = "PaymentSettlement";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+
+    PaymentId @NVARCHAR(40) @NOT_NULL,                 -- Master
+    DisplayOrder int DEFAULT 0 @NOT_NULL,
+
+    FinanceMovementId @NVARCHAR(40) @NOT_NULL,         -- Locator FinanceMovement
+    Amount @DECIMAL DEFAULT 0 @NOT_NULL,
+
+    Remarks @NVARCHAR(512) @NULL,
+
+    CONSTRAINT UQ_{TableName}_Payment_Movement UNIQUE (PaymentId, FinanceMovementId),
+    CONSTRAINT CHK_{TableName}_Amount CHECK (Amount > 0),
+
+    FOREIGN KEY (PaymentId) REFERENCES Payment(Id),
+    FOREIGN KEY (FinanceMovementId) REFERENCES FinanceMovement(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -850,6 +977,34 @@ VALUES
 INSERT INTO {DbConfig.SysNumberSeriesTableName}
 (Id, Code, Name, Pattern, ResetPeriodId, NextNumber, LastResetValue, IsActive)
 VALUES
+('{MemTable.GenId()}', 'CustomerReceipt', 'CustomerReceipt', 'CREC-YYYY-XXXXXX', 0, 1, NULL, 1)
+";
+        Version.AddStatementAfter(SqlText);
+        SqlText = $@"
+INSERT INTO {DbConfig.SysNumberSeriesTableName}
+(Id, Code, Name, Pattern, ResetPeriodId, NextNumber, LastResetValue, IsActive)
+VALUES
+('{MemTable.GenId()}', 'CustomerReceiptCancellation', 'CustomerReceiptCancellation', 'CREC-CANCEL-YYYY-XXXXXX', 0, 1, NULL, 1)
+";
+        Version.AddStatementAfter(SqlText);
+        SqlText = $@"
+INSERT INTO {DbConfig.SysNumberSeriesTableName}
+(Id, Code, Name, Pattern, ResetPeriodId, NextNumber, LastResetValue, IsActive)
+VALUES
+('{MemTable.GenId()}', 'DRAFT-CustomerReceipt', 'DRAFT-CustomerReceipt', 'DRAFT-CREC-YYYY-XXXXXX', 0, 1, NULL, 1)
+";
+        Version.AddStatementAfter(SqlText);
+        SqlText = $@"
+INSERT INTO {DbConfig.SysNumberSeriesTableName}
+(Id, Code, Name, Pattern, ResetPeriodId, NextNumber, LastResetValue, IsActive)
+VALUES
+('{MemTable.GenId()}', 'DRAFT-CustomerReceiptCancellation', 'DRAFT-CustomerReceiptCancellation', 'DRAFT-CREC-CANCEL-YYYY-XXXXXX', 0, 1, NULL, 1)
+";
+        Version.AddStatementAfter(SqlText);
+        SqlText = $@"
+INSERT INTO {DbConfig.SysNumberSeriesTableName}
+(Id, Code, Name, Pattern, ResetPeriodId, NextNumber, LastResetValue, IsActive)
+VALUES
 ('{MemTable.GenId()}', 'DRAFT-JournalEntry', 'DRAFT-JournalEntry', 'DRAFT-JE-YYYY-XXXXXX', 0, 1, NULL, 1)
 ";
         Version.AddStatementAfter(SqlText);
@@ -949,6 +1104,20 @@ INSERT INTO {DbConfig.SysNumberSeriesTableName}
 (Id, Code, Name, Pattern, ResetPeriodId, NextNumber, LastResetValue, IsActive)
 VALUES
 ('{MemTable.GenId()}', 'DRAFT-StockTrade', 'DRAFT-StockTrade', 'DRAFT-STK-YYYY-XXXXXX', 0, 1, NULL, 1)
+";
+        Version.AddStatementAfter(SqlText);
+        SqlText = $@"
+INSERT INTO {DbConfig.SysNumberSeriesTableName}
+(Id, Code, Name, Pattern, ResetPeriodId, NextNumber, LastResetValue, IsActive)
+VALUES
+('{MemTable.GenId()}', 'DRAFT-SupplierPayment', 'DRAFT-SupplierPayment', 'DRAFT-SPAY-YYYY-XXXXXX', 0, 1, NULL, 1)
+";
+        Version.AddStatementAfter(SqlText);
+        SqlText = $@"
+INSERT INTO {DbConfig.SysNumberSeriesTableName}
+(Id, Code, Name, Pattern, ResetPeriodId, NextNumber, LastResetValue, IsActive)
+VALUES
+('{MemTable.GenId()}', 'DRAFT-SupplierPaymentCancellation', 'DRAFT-SupplierPaymentCancellation', 'DRAFT-SPAY-CANCEL-YYYY-XXXXXX', 0, 1, NULL, 1)
 ";
         Version.AddStatementAfter(SqlText);
         SqlText = $@"
@@ -1056,6 +1225,20 @@ VALUES
 ('{MemTable.GenId()}', 'StockTrade', 'StockTrade', 'STK-YYYY-XXXXXX', 0, 1, NULL, 1)
 ";
         Version.AddStatementAfter(SqlText);
+        SqlText = $@"
+INSERT INTO {DbConfig.SysNumberSeriesTableName}
+(Id, Code, Name, Pattern, ResetPeriodId, NextNumber, LastResetValue, IsActive)
+VALUES
+('{MemTable.GenId()}', 'SupplierPayment', 'SupplierPayment', 'SPAY-YYYY-XXXXXX', 0, 1, NULL, 1)
+";
+        Version.AddStatementAfter(SqlText);
+        SqlText = $@"
+INSERT INTO {DbConfig.SysNumberSeriesTableName}
+(Id, Code, Name, Pattern, ResetPeriodId, NextNumber, LastResetValue, IsActive)
+VALUES
+('{MemTable.GenId()}', 'SupplierPaymentCancellation', 'SupplierPaymentCancellation', 'SPAY-CANCEL-YYYY-XXXXXX', 0, 1, NULL, 1)
+";
+        Version.AddStatementAfter(SqlText);
     }
 
     // ● protected
@@ -1070,12 +1253,14 @@ VALUES
         RegisterTable_StockMovement();
         RegisterTable_StockCount();
         RegisterTable_FinanceMovement();
+        RegisterTable_Payment();
         RegisterTable_JournalEntry();
         RegisterTable_TradeTax();
         RegisterTable_TradeLine();
         RegisterTable_StockBalance();
         RegisterTable_StockCountLine();
         RegisterTable_FinanceBalance();
+        RegisterTable_PaymentSettlement();
         RegisterTable_JournalEntryLine();
         RegisterTable_AssetDepreciationLine();
         RegisterTable_TradeLineTax();

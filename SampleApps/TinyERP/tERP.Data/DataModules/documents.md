@@ -4,7 +4,7 @@
 
 The document data modules provide the business logic for transactional documents in tERP.
 
-The current implementation focuses on commercial documents and especially the Sales Order. The same hierarchy is intended to support sales, purchases, posting, cancellation, document transformation, stock operations, and accounting integration.
+The current implementation covers sales, purchases, stock documents, manual journal entries, payments, posting, cancellation, document transformation, stock operations, finance movements, and accounting integration.
 
 ## Data Module Hierarchy
 
@@ -12,32 +12,50 @@ The current implementation focuses on commercial documents and especially the Sa
 DataModule (Tripous.Data)
     AppDataModule (tERP.Data)
         DocumentDataModule
+            JournalEntryDataModule
+            PaymentDataModule
+            StockCountDataModule
+            StockTradeDataModule
             TradeDataModule
                 SalesDataModule
                     SalesOrderDataModule
-                    SalesDeliveryNoteDataModule
+                    SalesStockDataModule
+                        SalesDeliveryNoteDataModule
+                        SalesReturnDataModule
                     SalesInvoiceDataModule
                     SalesCreditNoteDataModule
-                    SalesReturnDataModule
                     SalesCancellationDataModule
                 PurchaseDataModule
                     PurchaseOrderDataModule
-                    PurchaseDeliveryNoteDataModule
+                    PurchaseStockDataModule
+                        PurchaseDeliveryNoteDataModule
+                        PurchaseReturnDataModule
                     PurchaseInvoiceDataModule
                     PurchaseCreditNoteDataModule
-                    PurchaseReturnDataModule
                     PurchaseCancellationDataModule
 ```
 
 `DocumentDataModule` provides the common document infrastructure.
 
+`JournalEntryDataModule` handles manual accounting entries and validates debit and credit balance.
+
+`PaymentDataModule` handles customer receipts, supplier payments, and their cancellation documents.
+
+`StockCountDataModule` handles inventory counts and stock adjustments.
+
+`StockTradeDataModule` handles standalone stock receipts, issues, transfers, and stock cancellations.
+
 `TradeDataModule` adds commercial calculations, pricing, taxes, document discounts, totals, and validation.
 
 `SalesDataModule` adds sales defaults, customer address snapshots, sales pricing validation, and sales line defaults.
 
+`SalesStockDataModule` adds sales stock movement posting for delivery and return documents.
+
 `PurchaseDataModule` adds purchase defaults, supplier address snapshots, purchase pricing validation, and purchase line defaults.
 
-The concrete sales and purchase data modules currently act as document-type entry points. Document-specific behavior can be added by overriding the virtual methods of their base classes.
+`PurchaseStockDataModule` adds purchase stock movement posting for delivery and return documents.
+
+The concrete document modules act as document-type entry points and add document-specific transformation, posting, and cancellation behavior where needed.
 
 ## Document Types And Number Series
 
@@ -55,16 +73,28 @@ The concrete sales and purchase data modules currently act as document-type entr
 
 `AssignCodeValue()` replaces the draft code with the next final code while posting. The final number is assigned inside the same database transaction that saves the document.
 
+The current document modules are:
+
+- Sales: `SalesOrder`, `SalesDeliveryNote`, `SalesInvoice`, `SalesCreditNote`, `SalesReturn`, `SalesCancellation`
+- Purchases: `PurchaseOrder`, `PurchaseDeliveryNote`, `PurchaseInvoice`, `PurchaseCreditNote`, `PurchaseReturn`, `PurchaseCancellation`
+- Stock: `StockTrade`, `StockCount`
+- Accounting: `JournalEntry`
+- Finance: `CustomerReceipt`, `CustomerReceiptCancellation`, `SupplierPayment`, `SupplierPaymentCancellation`
+
 ## Document Handlers
 
 `DocumentDataModule.Initialize()` creates the handler registered for the current module.
 
 `CreateDocumentContext()` creates the `DocumentContext` passed to the handler.
 
-The handler hierarchy for trade documents is:
+The handler hierarchy is:
 
 ```text
 DocumentHandler
+    JournalEntryDocumentHandler
+    PaymentDocumentHandler
+    StockCountDocumentHandler
+    StockTradeDocumentHandler
     TradeDocumentHandler
         SalesDocumentHandler
             SalesOrderDocumentHandler
@@ -84,6 +114,8 @@ DocumentHandler
 
 The base handlers contain shared behavior. Concrete handlers are extension points for document-specific posting logic.
 
+`TradeDocumentHandler`, `PaymentDocumentHandler`, `StockTradeDocumentHandler`, `StockCountDocumentHandler`, and `JournalEntryDocumentHandler` all enforce draft, unlocked, non-cancelled posting rules for their document families.
+
 ## Posting
 
 `DocumentDataModule.Post()`:
@@ -96,12 +128,43 @@ The base handlers contain shared behavior. Concrete handlers are extension point
 - Restores the previous posting values if posting fails.
 - Disables `IsPosting` in a `finally` block.
 
-`TradeDocumentHandler.Validate()` permits posting only for an unlocked, non-cancelled draft document.
+Each document handler permits posting only for an unlocked, non-cancelled draft document in its own document family.
 
 `TradeDocumentHandler.Post()` assigns:
 
 - `TradeStatusId = Posted`
 - `PostingDate`
+- `PostedAt`
+- `PostedBy`
+- `IsLocked = true`
+
+`PaymentDocumentHandler.Post()` assigns:
+
+- `StatusId = Posted`
+- `PostingDate`
+- `PostedAt`
+- `PostedBy`
+- `IsLocked = true`
+
+`StockTradeDocumentHandler.Post()` assigns:
+
+- `StatusId = Posted`
+- `PostingDate`
+- `PostedAt`
+- `PostedBy`
+- `IsLocked = true`
+
+`StockCountDocumentHandler.Post()` assigns:
+
+- `StatusId = Posted`
+- `CountDate`
+- `PostedAt`
+- `PostedBy`
+- `IsLocked = true`
+
+`JournalEntryDocumentHandler.Post()` assigns:
+
+- `StatusId = Posted`
 - `PostedAt`
 - `PostedBy`
 - `IsLocked = true`
@@ -170,6 +233,43 @@ This is a deliberate simplification for the sample application. A future version
 
 The values are obtained from `SalesDefaults` and fall back to the corresponding `DataLib` default providers.
 
+`PurchaseDataModule.SetDefaultValues()` assigns configured purchase defaults:
+
+- `WarehouseId`
+- `CostCenterId`
+- `BranchId`
+- `PriceListTypeId`
+- `CurrencyId`
+- `PaymentMethodId`
+- `PaymentTermId`
+- `TaxBusinessGroupId`
+- `OriginTaxJurisdictionId`
+- `DestinationTaxJurisdictionId`
+
+The values are obtained from `PurchaseDefaults` and fall back to the corresponding `DataLib` default providers.
+
+`PaymentDataModule.SetDefaultValues()` assigns:
+
+- `DocumentTypeId`
+- `StatusId = Draft`
+- `PartnerTradeTypeId`
+- `PaymentDate`
+- `ExchangeRate = 1`
+- `CurrencyId`
+- `PaymentMethodId`
+- `CompanyBankAccountId`
+
+`JournalEntryDataModule.SetDefaultValues()` assigns:
+
+- `DocumentTypeId`
+- `StatusId = Draft`
+- `EntryDate`
+- `TradeTypeId = Accounting`
+- `IsLocked = false`
+- `IsCancelled = false`
+
+`StockTradeDataModule` and `StockCountDataModule` assign draft status, document dates, warehouse defaults, and lock/cancellation flags needed by their stock posting flows.
+
 ## Detail Line Order
 
 `DocumentDataModule.NewRowAdded()` assigns `DisplayOrder` to new detail rows.
@@ -181,9 +281,11 @@ The value starts at `10` and increases by `10`.
 - `DisplayOrder`
 - `Id`
 
-## Sales Line Defaults
+## Trade Line Defaults
 
 `SalesDataModule.NewRowAdded()` assigns `SalesDefaults.DefaultQuantity` to new trade lines.
+
+`PurchaseDataModule.NewRowAdded()` assigns `PurchaseDefaults.DefaultQuantity` to new trade lines.
 
 `TradeDataModule.NewRowAdded()` copies the document warehouse to detail rows containing a `WarehouseId` field.
 
@@ -529,6 +631,10 @@ The Sales and Purchase document flows were manually verified with a newly create
 - Purchase Credit Notes left the `Espresso Beans` stock balance unchanged at `310` after a Purchase Delivery Note of `10`.
 - Sales Cancellation left the `Laptop Computer 14` stock balance unchanged at `40` after a Sales Delivery Note of `10`.
 - Purchase Cancellation left the `Espresso Beans` stock balance unchanged at `310` after a Purchase Delivery Note of `10`.
+- Customer Receipt posting creates partner and bank Finance Movements and a matching accounting Journal Entry.
+- Supplier Payment posting creates partner and bank Finance Movements and a matching accounting Journal Entry.
+- Customer Receipt Cancellation reverses customer and bank balances and marks the original payment cancelled.
+- Supplier Payment Cancellation reverses supplier and bank balances and marks the original payment cancelled.
 
 ## Current Limitations
 
@@ -536,7 +642,7 @@ The Sales and Purchase document flows were manually verified with a newly create
 - Automatic currency-rate retrieval is not implemented.
 - Currency conversion between price-list and document currencies is not implemented.
 - A pricing-field change replaces a manual unit price only when an applicable price is found.
-- Posting currently does not create financial or accounting records.
+- Payment settlement is amount-based for the first cycle and does not yet allocate exchange-rate differences.
 
 ## Sales Order Transformation
 
@@ -599,7 +705,8 @@ Posted Sales and Purchase Delivery Notes can be transformed into draft Invoices:
 - The transformed Invoice is calculated and validated before its modal form is opened.
 - The Delivery Note form checks the current invoicing remainder before showing confirmation.
 - Invoice posting does not create stock movements because stock was already moved by the Delivery Note.
-- Financial and accounting posting remain separate future work.
+- Invoice posting creates the accounting Journal Entry.
+- Invoice posting creates the partner Finance Movement and updates Finance Balance.
 
 ## Credit Note Transformation
 
@@ -619,7 +726,8 @@ Posted Sales and Purchase Invoices can be transformed into draft Credit Notes:
 - Credit Note posting does not create stock movements. Physical returns remain separate Return documents.
 - Sales Credit Notes reverse the financial and accounting direction of Sales Invoices.
 - Purchase Credit Notes reverse the financial and accounting direction of Purchase Invoices.
-- Financial and accounting posting remain separate future work.
+- Credit Note posting creates the reversing accounting Journal Entry.
+- Credit Note posting creates the reversing partner Finance Movement and updates Finance Balance.
 
 ## Invoice Cancellation
 
@@ -640,7 +748,123 @@ Posted Sales and Purchase Invoices can create full Cancellation documents:
 - Cancellation posting and all source updates share the same database transaction.
 - Cancellation documents do not create stock movements because Invoice documents do not move stock.
 - Sales and Purchase Cancellations reverse the financial and accounting direction of their Invoices.
-- Financial and accounting posting remain separate future work.
+- Cancellation posting creates the reversing accounting Journal Entry.
+- Cancellation posting creates the reversing partner Finance Movement and updates Finance Balance.
+
+## Accounting Posting
+
+The accounting implementation is intentionally small and fixed for the first cycle.
+
+Manual Journal Entries:
+
+- A Journal Entry must have two or more active lines.
+- Each line must contain exactly one debit or credit amount.
+- Debit and credit totals must balance.
+- Only active posting accounts can be used.
+- Posting changes `StatusId` to `Posted`, assigns the final code, stores `PostedAt` and `PostedBy`, and locks the entry.
+- Posted and locked Journal Entries cannot be edited.
+- The Journal Entry desktop form uses the standard document Post action.
+
+Automatic Journal Entries are created when posting accounting-affecting documents:
+
+- Sales Invoices debit customer receivables and credit sales revenue plus VAT payable.
+- Purchase Invoices debit purchases plus VAT receivable and credit supplier payables.
+- Sales and Purchase Credit Notes create the reverse accounting direction of their source Invoice.
+- Sales and Purchase Cancellations create a full reversing Journal Entry.
+- Customer Receipts debit cash or bank and credit customers.
+- Supplier Payments debit suppliers and credit cash or bank.
+- Customer Receipt and Supplier Payment Cancellations create full reversing Journal Entries.
+- A Cancellation Journal Entry links to the original generated Journal Entry.
+- The original generated Journal Entry is marked cancelled after the reversing entry succeeds.
+- Journal Entry creation is part of the same database transaction as document posting.
+
+The first-cycle fixed accounts are:
+
+- `10-3000` Customers
+- `20-1000` Suppliers
+- `70-1000` Sales Revenue
+- `60-1000` Purchases
+- `20-2000` VAT Payable
+- `10-5000` VAT Receivable
+- `10-1000` Cash
+- `10-2000` Bank
+
+## Finance Posting
+
+The first-cycle finance implementation tracks partner, cash, and bank balances.
+
+Automatic Finance Movements are created when posting finance-affecting documents:
+
+- Sales Invoices create positive customer balance movements.
+- Purchase Invoices create negative supplier balance movements.
+- Sales and Purchase Credit Notes create reversing partner movements.
+- Sales and Purchase Cancellations create full reversing partner movements.
+- Customer Receipts create a negative customer movement and a positive cash or bank movement.
+- Supplier Payments create a positive supplier movement and a negative cash or bank movement.
+- Customer Receipt and Supplier Payment Cancellations create reversing partner and cash or bank movements.
+- A Cancellation Finance Movement links to the original generated Finance Movement.
+- Finance Movement creation and Finance Balance update are part of the same database transaction as document posting.
+
+Finance Balance is a cache maintained from Finance Movement:
+
+- Balances are grouped by `TradeTypeId`, `CurrencyId`, and financial owner.
+- Current partner balances use `PersonId`.
+- Cash balances use `CashAccountId`.
+- Bank balances use `CompanyBankAccountId`.
+
+## Payment Posting
+
+Customer Receipts and Supplier Payments use `PaymentDataModule`.
+
+Payment posting creates:
+
+- One partner Finance Movement.
+- One cash or bank Finance Movement.
+- Finance Balance updates for both financial owners.
+- One automatic accounting Journal Entry.
+
+Customer Receipt posting:
+
+- Reduces the customer Sales balance.
+- Increases the selected cash or bank Financial balance.
+- Debits Cash or Bank.
+- Credits Customers.
+
+Supplier Payment posting:
+
+- Reduces the supplier Purchases balance.
+- Decreases the selected cash or bank Financial balance.
+- Debits Suppliers.
+- Credits Cash or Bank.
+
+Payment settlement rows link payments to open trade Finance Movements:
+
+- A settlement can reference only trade Finance Movements.
+- The settlement movement must belong to the same partner, currency, and trade type.
+- The movement direction must match the payment document type.
+- Cancelled movements cannot be settled.
+- The settled amount cannot exceed the open movement amount.
+- Cancellation documents cannot have settlement rows.
+
+## Payment Cancellation
+
+Posted payments are cancelled through separate cancellation documents:
+
+- Customer Receipt to Customer Receipt Cancellation.
+- Supplier Payment to Supplier Payment Cancellation.
+- `Payment.CancelledPaymentId` references the cancelled payment from the cancellation document.
+- The cancelled payment stores the cancellation identifier in `Payment.CancellationPaymentId`.
+- The cancelled payment receives `StatusId = Cancelled`, `IsCancelled`, `CancelledAt`, and `CancelledBy`.
+
+Payment cancellation posting:
+
+- Creates reversing partner and cash or bank Finance Movements.
+- Links reversing Finance Movements to the original payment Finance Movements.
+- Updates Finance Balance in the same posting transaction.
+- Creates a reversing accounting Journal Entry.
+- Links the reversing Journal Entry to the original generated Journal Entry.
+- Marks the original generated Journal Entry as cancelled.
+- Reopens the original trade movement open amount because posted settlements on cancelled payments are ignored.
 
 ## Stock Count
 

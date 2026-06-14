@@ -470,7 +470,6 @@ CREATE TABLE {TableName} (
     )
 
 
-
 /*---------------------------------------------------
 Table: StockTrade 
 Module: StockTrade StockTradeDataModule
@@ -881,9 +880,11 @@ IsReadOnly
 -----------------------------------------------------
 The central financial ledger of the ERP system.
 
-All cash and bank account changes are recorded here as immutable movement rows.
+All customer, supplier, cash, and bank account changes are recorded here as immutable movement rows.
 
 FinanceMovement is the single source of truth for:
+- customer balances
+- supplier balances
 - cash balances
 - bank balances
 - financial transaction history
@@ -900,15 +901,15 @@ Typical sources include:
 - bank transfers
 - financial adjustments
 
-A FinanceMovement represents one financial effect on one cash account or one bank account.
+A FinanceMovement represents one financial effect on one customer, supplier, cash account, or bank account.
 
 Current balances are calculated from FinanceMovement, not from document tables.
 
 Cancellation is performed through reversal movements that preserve the complete audit trail.
   
-A financial movement affects exactly one financial account.
+A financial movement affects exactly one financial owner.
 
-A movement may belong either to a CashAccount or to a CompanyBankAccount, but never to both simultaneously.
+A movement may belong to a Person, CashAccount, or CompanyBankAccount, but never to more than one simultaneously.
 
 This rule ensures that every movement has a single financial destination and prevents double counting of financial balances.
 
@@ -921,6 +922,7 @@ CREATE TABLE {TableName} (
     TradeTypeId int default 0 @NOT_NULL,              -- Enum; [ReadOnlyUI]
     MovementDate @DATE @NOT_NULL,
 
+    PersonId @NVARCHAR(40) @NULL,                     -- Lookup
     CashAccountId @NVARCHAR(40) @NULL,                -- Lookup
     CompanyBankAccountId @NVARCHAR(40) @NULL,         -- Lookup
 
@@ -935,6 +937,9 @@ CREATE TABLE {TableName} (
     SourceTable @NVARCHAR(64) @NOT_NULL,
     SourceId @NVARCHAR(40) @NOT_NULL,
 
+    CancelledMovementId @NVARCHAR(40) @NULL,         -- Locator FinanceMovement
+    CancellationMovementId @NVARCHAR(40) @NULL,      -- Locator FinanceMovement
+
     DocumentTypeId @NVARCHAR(40) @NOT_NULL,          -- Lookup
     DocumentCode @NVARCHAR(40) @NOT_NULL,
     DocumentDate @DATE @NOT_NULL,
@@ -946,11 +951,19 @@ CREATE TABLE {TableName} (
 
     CONSTRAINT CHK_{TableName}_Direction CHECK (Direction IN (1, -1)),
     CONSTRAINT CHK_{TableName}_Amount CHECK (Amount >= 0),
+    CONSTRAINT CHK_{TableName}_Owner CHECK (
+        (PersonId IS NOT NULL AND CashAccountId IS NULL AND CompanyBankAccountId IS NULL)
+        OR (PersonId IS NULL AND CashAccountId IS NOT NULL AND CompanyBankAccountId IS NULL)
+        OR (PersonId IS NULL AND CashAccountId IS NULL AND CompanyBankAccountId IS NOT NULL)
+    ),
 
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
     FOREIGN KEY (CashAccountId) REFERENCES CashAccount(Id),
     FOREIGN KEY (CompanyBankAccountId) REFERENCES CompanyBankAccount(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
     FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
+    FOREIGN KEY (CancelledMovementId) REFERENCES FinanceMovement(Id),
+    FOREIGN KEY (CancellationMovementId) REFERENCES FinanceMovement(Id),
     FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id)
     )
 
@@ -962,7 +975,7 @@ Group: Finance
 NotUiVisible
 IsReadOnly
 -----------------------------------------------------
-Maintains the current balance of cash and bank accounts.
+Maintains the current balance of customers, suppliers, cash accounts, and bank accounts.
 
 This table is a performance cache and not the authoritative financial ledger.
 
@@ -973,6 +986,8 @@ FinanceBalance is maintained automatically during document posting and cancellat
 Users never insert, edit, or delete rows in this table directly.
 
 Used for:
+- current customer balances
+- current supplier balances
 - current cash balances
 - current bank balances
 - cash availability
@@ -982,11 +997,14 @@ One row exists per financial account.
   
 A balance row belongs to exactly one financial account.
 
-A row may reference either a CashAccount or a CompanyBankAccount, but never both simultaneously.  
+A row may reference a Person, CashAccount, or CompanyBankAccount, but never more than one simultaneously.  
 ----------------------------------------------------*/
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
+    TradeTypeId int default 0 @NOT_NULL,              -- Enum; [ReadOnlyUI]
+    CurrencyId @NVARCHAR(40) @NOT_NULL,               -- Lookup
+    PersonId @NVARCHAR(40) @NULL,                     -- Lookup
     CashAccountId @NVARCHAR(40) @NULL,                -- Lookup
     CompanyBankAccountId @NVARCHAR(40) @NULL,         -- Lookup
 
@@ -995,9 +1013,163 @@ CREATE TABLE {TableName} (
     LastMovementDate @DATE @NULL,
     LastMovementId @NVARCHAR(40) @NULL,
 
+    CONSTRAINT CHK_{TableName}_Owner CHECK (
+        (PersonId IS NOT NULL AND CashAccountId IS NULL AND CompanyBankAccountId IS NULL)
+        OR (PersonId IS NULL AND CashAccountId IS NOT NULL AND CompanyBankAccountId IS NULL)
+        OR (PersonId IS NULL AND CashAccountId IS NULL AND CompanyBankAccountId IS NOT NULL)
+    ),
+
+    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
     FOREIGN KEY (CashAccountId) REFERENCES CashAccount(Id),
     FOREIGN KEY (CompanyBankAccountId) REFERENCES CompanyBankAccount(Id),
     FOREIGN KEY (LastMovementId) REFERENCES FinanceMovement(Id)
+    )
+
+/*---------------------------------------------------
+Table: Payment
+
+Module: CustomerReceipt PaymentDataModule
+Group: Finance
+Form: CustomerReceipt CustomerReceiptForm
+DetailOrder: Payment=PaymentSettlement
+Code: Draft CREC-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'CustomerReceipt'
+FilterFields: Code, PaymentDate, Person__Code, Person__Name, TradeStatus, Amount
+
+Module: CustomerReceiptCancellation PaymentDataModule
+Group: Finance
+Form: CustomerReceiptCancellation CustomerReceiptCancellationForm
+DetailOrder: Payment=PaymentSettlement
+Code: Draft CREC-CANCEL-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'CustomerReceiptCancellation'
+FilterFields: Code, PaymentDate, Person__Code, Person__Name, TradeStatus, Amount
+
+Module: SupplierPayment PaymentDataModule
+Group: Finance
+Form: SupplierPayment SupplierPaymentForm
+DetailOrder: Payment=PaymentSettlement
+Code: Draft SPAY-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'SupplierPayment'
+FilterFields: Code, PaymentDate, Person__Code, Person__Name, TradeStatus, Amount
+
+Module: SupplierPaymentCancellation PaymentDataModule
+Group: Finance
+Form: SupplierPaymentCancellation SupplierPaymentCancellationForm
+DetailOrder: Payment=PaymentSettlement
+Code: Draft SPAY-CANCEL-YYYY-XXXXXX
+ListWhere: DocumentType.ModuleName = 'SupplierPaymentCancellation'
+FilterFields: Code, PaymentDate, Person__Code, Person__Name, TradeStatus, Amount
+
+FieldGroups: Payment, Account, Settlement, Relations, Audit, Notes
+-----------------------------------------------------
+Financial document used for customer receipts and supplier payments.
+
+Customer receipts collect money from customers and reduce customer balances.
+
+Supplier payments pay suppliers and reduce supplier balances.
+
+Payment cancellations reverse posted customer receipts or supplier payments using separate
+cancellation documents.
+
+Posting creates:
+- one partner FinanceMovement
+- one cash or bank FinanceMovement
+- FinanceBalance updates for both financial owners
+
+Settlement rows optionally link the payment to open invoice-related FinanceMovement rows.
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup; [Hidden]
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code; [ReadOnlyUI]
+    TradeTypeId int DEFAULT 4 @NOT_NULL,                -- Enum TradeType; [Hidden]
+    PartnerTradeTypeId int DEFAULT 0 @NOT_NULL,         -- Group Settlement; [Hidden]
+
+    PaymentDate @DATE @NOT_NULL,                        -- 
+    PostingDate @DATE @NULL,                            -- [ReadOnlyUI]
+    StatusId int DEFAULT 1 @NOT_NULL,                   -- Enum TradeStatus; [ReadOnlyUI]
+
+    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person
+    PaymentMethodId @NVARCHAR(40) @NULL,                -- Lookup
+
+    CashAccountId @NVARCHAR(40) @NULL,                  -- Lookup; Group Account
+    CompanyBankAccountId @NVARCHAR(40) @NULL,           -- Lookup; Group Account
+
+    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup
+    ExchangeRate @DECIMAL DEFAULT 1 @NOT_NULL,          -- 
+
+    Amount @DECIMAL DEFAULT 0 @NOT_NULL,                -- 
+    SettledAmount @DECIMAL DEFAULT 0 @NOT_NULL,         -- [ReadOnlyUI]
+    UnappliedAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- [ReadOnlyUI]
+
+    ExternalRef @NVARCHAR(96) @NULL,                    -- 
+    Remarks @NBLOB_TEXT @NULL,                          -- LargeMemo; Group Notes
+
+    CancelledPaymentId @NVARCHAR(40) @NULL,             -- Locator Payment; Group Relations
+    CancellationPaymentId @NVARCHAR(40) @NULL,          -- Locator Payment; Group Relations
+
+    IsLocked @BOOL DEFAULT 0 @NOT_NULL,                 -- [ReadOnlyUI]
+    IsCancelled @BOOL DEFAULT 0 @NOT_NULL,              -- [ReadOnlyUI]
+
+    CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit; [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    ModifiedAt @DATE_TIME @NULL,                        -- Group Audit; [ReadOnlyUI]
+    ModifiedBy @NVARCHAR(40) @NULL,                     --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    PostedAt @DATE_TIME @NULL,                          -- Group Audit; [ReadOnlyUI]
+    PostedBy @NVARCHAR(40) @NULL,                       --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    CancelledAt @DATE_TIME @NULL,                       -- Group Audit; [ReadOnlyUI]
+    CancelledBy @NVARCHAR(40) @NULL,                    --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT CHK_{TableName}_Amount CHECK (Amount >= 0),
+    CONSTRAINT CHK_{TableName}_Totals CHECK (Amount = SettledAmount + UnappliedAmount),
+    CONSTRAINT CHK_{TableName}_Account CHECK (
+        (CashAccountId IS NOT NULL AND CompanyBankAccountId IS NULL)
+        OR (CashAccountId IS NULL AND CompanyBankAccountId IS NOT NULL)
+    ),
+
+    FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
+    FOREIGN KEY (PersonId) REFERENCES Person(Id),
+    FOREIGN KEY (PaymentMethodId) REFERENCES PaymentMethod(Id),
+    FOREIGN KEY (CashAccountId) REFERENCES CashAccount(Id),
+    FOREIGN KEY (CompanyBankAccountId) REFERENCES CompanyBankAccount(Id),
+    FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
+    FOREIGN KEY (CancelledPaymentId) REFERENCES Payment(Id),
+    FOREIGN KEY (CancellationPaymentId) REFERENCES Payment(Id),
+    FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (PostedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (CancelledBy) REFERENCES  SYS_APP_USER(Id)
+    )
+
+/*---------------------------------------------------
+Table: PaymentSettlement
+-----------------------------------------------------
+Settlement detail rows linking a payment to open partner FinanceMovement rows.
+
+Each row settles part or all of one invoice-related movement.
+
+The source FinanceMovement remains immutable. Settlement rows and payment-generated
+FinanceMovement rows provide the audit trail.
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
+
+    PaymentId @NVARCHAR(40) @NOT_NULL,                 -- Master
+    DisplayOrder int DEFAULT 0 @NOT_NULL,
+
+    FinanceMovementId @NVARCHAR(40) @NOT_NULL,         -- Locator FinanceMovement
+    Amount @DECIMAL DEFAULT 0 @NOT_NULL,
+
+    Remarks @NVARCHAR(512) @NULL,
+
+    CONSTRAINT UQ_{TableName}_Payment_Movement UNIQUE (PaymentId, FinanceMovementId),
+    CONSTRAINT CHK_{TableName}_Amount CHECK (Amount > 0),
+
+    FOREIGN KEY (PaymentId) REFERENCES Payment(Id),
+    FOREIGN KEY (FinanceMovementId) REFERENCES FinanceMovement(Id)
     )
 
 
@@ -1068,6 +1240,7 @@ CREATE TABLE {TableName} (
 /*---------------------------------------------------
 Table: JournalEntry  
 Module: JournalEntry JournalEntryDataModule
+Form: JournalEntry JournalEntryForm
 Group: Accounting
 FieldGroups: Source, Document, Relations, Audit, Notes
 -----------------------------------------------------
@@ -1120,10 +1293,17 @@ CREATE TABLE {TableName} (
     CancelledDocumentId @NVARCHAR(40) @NULL,          -- Locator JournalEntry; Group Relations
     CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator JournalEntry; Group Relations
 
+    IsLocked @BOOL DEFAULT 0 @NOT_NULL,               -- [ReadOnlyUI]
+    IsCancelled @BOOL DEFAULT 0 @NOT_NULL,            -- [ReadOnlyUI]
+
     CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit; [ReadOnlyUI]
     CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
     ModifiedAt @DATE_TIME @NULL,                      -- Group Audit; [ReadOnlyUI]
     ModifiedBy @NVARCHAR(40) @NULL,                   --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    PostedAt @DATE_TIME @NULL,                        -- Group Audit; [ReadOnlyUI]
+    PostedBy @NVARCHAR(40) @NULL,                     --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    CancelledAt @DATE_TIME @NULL,                     -- Group Audit; [ReadOnlyUI]
+    CancelledBy @NVARCHAR(40) @NULL,                  --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
     CONSTRAINT CHK_{TableName}_Totals CHECK (TotalDebit = TotalCredit),
@@ -1132,7 +1312,9 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (CancelledDocumentId) REFERENCES JournalEntry(Id),
     FOREIGN KEY (CancellationDocumentId) REFERENCES JournalEntry(Id),
     FOREIGN KEY (CreatedBy) REFERENCES  SYS_APP_USER(Id),
-    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id)
+    FOREIGN KEY (ModifiedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (PostedBy) REFERENCES  SYS_APP_USER(Id),
+    FOREIGN KEY (CancelledBy) REFERENCES  SYS_APP_USER(Id)
     )
 
 /*---------------------------------------------------

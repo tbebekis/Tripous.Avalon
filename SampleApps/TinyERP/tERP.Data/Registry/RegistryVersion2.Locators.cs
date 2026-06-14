@@ -18,7 +18,9 @@ public partial class RegistryVersion2: RegistryVersion
     // ● public
     public override void RegisterLocators()
     {
+        DataRegistry.AddOrUpdateLocator("FinanceMovement", "FinanceMovement", "Id", FormName: "FinanceMovement");
         DataRegistry.AddOrUpdateLocator("JournalEntry", "JournalEntry", "Id", FormName: "JournalEntry");
+        DataRegistry.AddOrUpdateLocator("Payment", "Payment", "Id", FormName: "CustomerReceipt");
         DataRegistry.AddOrUpdateLocator("Person", "Person", "Id", FormName: "Person");
         DataRegistry.AddOrUpdateLocator("Product", "Product", "Id", FormName: "Product");
         DataRegistry.AddOrUpdateLocator("StockCount", "StockCount", "Id", FormName: "StockCount");
