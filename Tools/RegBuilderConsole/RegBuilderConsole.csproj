@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <NoWarn>$(NoWarn);NU1510;NU1903</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Tripous.Data\Tripous.Data.csproj" />
+        <ProjectReference Include="..\..\Tripous\Tripous.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="AppSettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+</Project>

@@ -11,6 +11,7 @@ Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 Code:   Code [Draft] [Pattern] [ProviderName]
 ListWhere: SQL_CONDITION
+FilterFields: Field1, Field2, FieldN
 
 Module: MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
@@ -18,6 +19,7 @@ Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 Code:   Code [Draft] [Pattern] [ProviderName]
 ListWhere: SQL_CONDITION
+FilterFields: Field1, Field2, FieldN
 FieldGroups: Address, Billing, Notes
 
 IsLookup
@@ -41,9 +43,9 @@ NoGuidOids
 - `Table` must be the first metadata entry.
 - A top table may declare one or more module blocks.
 - Each `Module` line starts a new module block.
-- The following `Group`, optional `Form`, optional `ItemPage`, optional `DetailOrder`, optional `ListWhere`, and optional `Code` belong to that module block.
+- The following `Group`, optional `Form`, optional `ItemPage`, optional `DetailOrder`, optional `Code`, optional `ListWhere`, and optional `FilterFields` belong to that module block.
 - A module block is complete when the next `Module` line starts or when non-module header metadata begins.
-- Module block order is `Module`, `Group`, `Form`, `ItemPage`, `DetailOrder`, `Code`, `ListWhere`.
+- Module block order is `Module`, `Group`, `Form`, `ItemPage`, `DetailOrder`, `Code`, `ListWhere`, `FilterFields`.
 - `Group` is required for each module block.
 - If `Form` is omitted, the form name defaults to the module name and the form class defaults to `DataForm`.
 - If `ItemPage` is omitted, the item page class defaults to `ItemPage`.
@@ -51,6 +53,8 @@ NoGuidOids
 - Example nested order: `DetailOrder: BillOfMaterial=BillOfMaterialLine, BillOfMaterialCost`.
 - `ListWhere` adds a module-specific condition to the generated list SELECT. Write only the condition, without `WHERE`.
 - `ListWhere` may reference the top table and generated join aliases.
+- `FilterFields` limits generated filters to the specified List SELECT column names and preserves their declared order.
+- Without `FilterFields`, the existing automatic filter generation is used.
 - `Code` is optional and uses the same syntax as field `-- Code`.
 - If header `Code:` omits `ProviderName`, provider name defaults to `ModuleName`.
 - If header `Code:` is omitted, field `-- Code` metadata is used as fallback for that module.
@@ -86,6 +90,18 @@ ListWhere: Trade.IsActive = 1
 - The RegBuilder appends it as a `where` clause after the generated joins.
 - Do not include the `WHERE` keyword.
 - Only one `ListWhere` is allowed per module block.
+
+## FilterFields Syntax
+
+```sql
+FilterFields: Code, TradeDate, Person__Name, TradeStatus
+```
+
+- `FilterFields` is optional and belongs to the current module block.
+- Names are resolved against the final generated List SELECT columns, including join aliases and enum display columns.
+- Unknown and duplicate names are validation errors.
+- Only one `FilterFields` declaration is allowed per module block.
+- When omitted, filters are generated automatically.
 
 ## Boolean Flags
 

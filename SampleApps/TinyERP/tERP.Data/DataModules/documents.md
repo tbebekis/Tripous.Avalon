@@ -659,6 +659,29 @@ The Stock Count document supports initial stock and later inventory adjustments:
 - Stock movement, stock balance, and Stock Count posting share the same transaction.
 - The Stock Count desktop form exposes the standard document Post action.
 
+## Stock Transactions
+
+The Stock Transaction document supports the inventory operations required by the tiny ERP:
+
+- Transfer moves stock between two warehouses and creates one outgoing and one incoming movement.
+- Receipt increases stock using the unit cost entered on the document line.
+- Issue decreases stock using the current moving-average unit cost.
+- Transfer uses the source warehouse moving-average cost for both movements.
+- Destination warehouse valuation is recalculated using moving-average costing.
+- Alternative product units are converted using `ProductUnitOfMeasure.Ratio`.
+- Receipt and Issue lines may override the header warehouse.
+- Transfer lines use the header source and destination warehouses.
+- Negative stock is rejected unless the source warehouse permits it.
+- Posting updates `StockMovement` and `StockBalance` in the document transaction.
+- Posted documents are locked and cannot be posted or edited again.
+- Cancellation creates a complete reversing Stock Transaction.
+- Cancellation preserves all source products, quantities, units, and posted costs.
+- Modified or partial cancellations are rejected during posting.
+- The source document is marked cancelled only after the reversing movements succeed.
+- A Stock Transaction can be cancelled only once.
+- A cancellation document cannot itself be cancelled.
+- The desktop form provides a `Create Stock Cancellation` toolbar action.
+
 ## Purchase Stock Posting
 
 - New purchase documents receive configured defaults for warehouse, cost center, branch, price list, currency, payment, and tax fields.

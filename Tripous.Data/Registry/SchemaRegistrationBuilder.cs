@@ -459,6 +459,7 @@ static public class SchemaRegistrationBuilder
         ValidateLookupFields(Result, Script);
         ValidateEnumFields(Result, Script);
         ValidateLocatorFields(Result, Script);
+        ValidateFilterFields(Result, Script);
     }
     /// <summary>
     /// Validates field metadata.
@@ -531,6 +532,28 @@ static public class SchemaRegistrationBuilder
                         else if (!DirectChildren.Contains(DetailName))
                             AddError(Result, "DETAIL_ORDER_CHILD_NOT_FOUND", "Direct child detail table not found: " + ModuleBlock.ModuleName + " -> " + Pair.Key + "=" + DetailName);
                     }
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// Validates module filter fields against the generated list SELECT columns.
+    /// </summary>
+    static void ValidateFilterFields(SchemaParserResult Result, SchemaScript Script)
+    {
+        foreach (SchemaTable TopTable in Script.TopTables)
+        {
+            foreach (SchemaModuleBlock ModuleBlock in TopTable.ModuleBlocks.Where(Item => Item.FilterFields.Count > 0))
+            {
+                SelectBuildResult SelectResult = BuildListSelectSql(Script, TopTable, ModuleBlock);
+                HashSet<string> SelectFieldNames = SelectResult.SelectFields
+                    .Select(Item => Item.Alias)
+                    .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+                foreach (string FieldName in ModuleBlock.FilterFields)
+                {
+                    if (!SelectFieldNames.Contains(FieldName))
+                        AddError(Result, "FILTER_FIELD_NOT_FOUND", "Filter field not found in module list SELECT: " + ModuleBlock.ModuleName + " -> " + FieldName);
                 }
             }
         }
@@ -1601,7 +1624,7 @@ static public class SchemaRegistrationBuilder
 
         BuildTableFieldsSource(SB, Script, TopTable, "tblTop", "        ", ModuleBlock);
         if (TopTable.UseFilters)
-            BuildFiltersSource(SB, SelectResult.FilterFields);
+            BuildFiltersSource(SB, SelectResult.FilterFields, ModuleBlock.FilterFields.Count == 0);
 
         BuildSelectColumnTypesSource(SB, SelectResult);
 
@@ -1688,15 +1711,18 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds source code for filters.
     /// </summary>
-    static void BuildFiltersSource(StringBuilder SB, List<SelectField> FilterFields)
+    static void BuildFiltersSource(StringBuilder SB, List<SelectField> FilterFields, bool SortFields)
     {
         if (FilterFields.Count == 0)
             return;
-        
-        FilterFields = FilterFields
-            .OrderByDescending(x => x.Alias.IsSameText("Name"))
-            .ThenBy(x => x.Alias)
-            .ToList();
+
+        if (SortFields)
+        {
+            FilterFields = FilterFields
+                .OrderByDescending(x => x.Alias.IsSameText("Name"))
+                .ThenBy(x => x.Alias)
+                .ToList();
+        }
 
         SB.AppendLine("        SelectDef = Module.SelectList[0];");
         foreach (SelectField Field in FilterFields)
@@ -1787,6 +1813,7 @@ static public class SchemaRegistrationBuilder
             {
                 SelectLines.Add("   " + TopTable.Name + "." + Field.Name);
                 AddColumnType(Result, Field.Name, Field);
+                Result.SelectFields.Add(new SelectField(Field.Name, Field.DataType));
 
                 if (IsFilterableField(Field, Field.Name))
                     Result.FilterFields.Add(new SelectField(Field.Name, Field.DataType));
@@ -1799,6 +1826,7 @@ static public class SchemaRegistrationBuilder
                     {
                         SelectLines.Add(EnumCaseExpression);
                         Result.ColumnTypes[EnumName] = DataColumnType.Text;
+                        Result.SelectFields.Add(new SelectField(EnumName, DataFieldType.String));
                         Result.FilterFields.Add(new SelectField(EnumName, DataFieldType.String));
                     }
                 }
@@ -1833,6 +1861,7 @@ static public class SchemaRegistrationBuilder
 
                 SelectLines.Add("   COALESCE(" + Alias + "." + JoinField.Name + ", '') as " + DisplayAlias);
                 AddColumnType(Result, DisplayAlias, JoinField);
+                Result.SelectFields.Add(new SelectField(DisplayAlias, JoinField.DataType));
 
                 if (IsFilterableField(JoinField, DisplayAlias))
                     Result.FilterFields.Add(new SelectField(DisplayAlias, JoinField.DataType));
@@ -1854,11 +1883,22 @@ static public class SchemaRegistrationBuilder
 
         Result.SqlText = SB.ToString().TrimEnd();
 
-        Result.FilterFields = Result.FilterFields
+        Result.SelectFields = Result.SelectFields
             .GroupBy(x => x.Alias, StringComparer.OrdinalIgnoreCase)
             .Select(x => x.First())
             .OrderBy(x => x.Alias)
             .ToList();
+
+        Result.FilterFields = ModuleBlock.FilterFields.Count > 0
+            ? ModuleBlock.FilterFields
+                .Select(Name => Result.SelectFields.FirstOrDefault(Field => Field.Alias.IsSameText(Name)))
+                .Where(Field => Field != null)
+                .ToList()
+            : Result.FilterFields
+                .GroupBy(x => x.Alias, StringComparer.OrdinalIgnoreCase)
+                .Select(x => x.First())
+                .OrderBy(x => x.Alias)
+                .ToList();
 
         return Result;
     }
@@ -3568,6 +3608,29 @@ static public class SchemaRegistrationBuilder
                     continue;
                 }
 
+                if (Entry.Name.IsSameText("FilterFields"))
+                {
+                    if (Current == null)
+                        throw new TripousDataException("FilterFields metadata requires a preceding Module line.");
+                    if (Current.FilterFields.Count > 0)
+                        throw new TripousDataException("Module block contains duplicate FilterFields: " + Current.ModuleName);
+
+                    List<string> FieldNames = SplitHeaderList(Entry.Value);
+                    if (FieldNames.Count == 0 || FieldNames.Any(Name => !IsIdentifier(Name)))
+                        throw new TripousDataException("Invalid FilterFields header syntax. Expected: FilterFields: FIELD_NAME, FIELD_NAME");
+
+                    List<string> Duplicates = FieldNames
+                        .GroupBy(Name => Name, StringComparer.OrdinalIgnoreCase)
+                        .Where(Group => Group.Count() > 1)
+                        .Select(Group => Group.Key)
+                        .ToList();
+                    if (Duplicates.Count > 0)
+                        throw new TripousDataException("Module block contains duplicate FilterFields entries: " + Current.ModuleName + " -> " + string.Join(", ", Duplicates));
+
+                    Current.FilterFields = FieldNames;
+                    continue;
+                }
+
                 if (Entry.Name.IsSameText("Code"))
                 {
                     if (Current == null)
@@ -3843,6 +3906,10 @@ static public class SchemaRegistrationBuilder
         /// Preferred direct child detail display order, keyed by parent table name.
         /// </summary>
         public Dictionary<string, List<string>> DetailOrder { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+        /// <summary>
+        /// List SELECT column names used for generated filters.
+        /// </summary>
+        public List<string> FilterFields { get; set; } = [];
         /// <summary>
         /// Optional SQL condition appended to the generated list SELECT.
         /// </summary>
@@ -4261,9 +4328,16 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public string SqlText { get; set; }
         /// <summary>
+        /// Fields included in the generated list SELECT.
+        /// </summary>
+        public List<SelectField> SelectFields { get; set; } = [];
+        /// <summary>
         /// Filter fields.
         /// </summary>
         public List<SelectField> FilterFields { get; set; } = [];
+        /// <summary>
+        /// Generated List SELECT column types.
+        /// </summary>
         public Dictionary<string, DataColumnType> ColumnTypes  { get; set; } = [];
     }
 

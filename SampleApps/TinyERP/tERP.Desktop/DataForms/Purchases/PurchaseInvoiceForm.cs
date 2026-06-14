@@ -125,7 +125,7 @@ public class PurchaseInvoiceForm: DocumentDataForm
 
         BtnCreateCreditNote = ToolBar.AddButton("document_redirect.png", "Create Purchase Credit Note", async () => await ExecuteCustom(DocumentAction.CreateCreditNote));
         ToolBar.PlaceControlAfter(btnPost, BtnCreateCreditNote);
-        BtnCreateCancellation = ToolBar.AddButton("document_redirect.png", "Create Purchase Cancellation", async () => await ExecuteCustom(DocumentAction.CreateCancellation));
+        BtnCreateCancellation = ToolBar.AddButton("document_torn.png", "Create Purchase Cancellation", async () => await ExecuteCustom(DocumentAction.CreateCancellation));
         ToolBar.PlaceControlAfter(BtnCreateCreditNote, BtnCreateCancellation);
         return true;
     }

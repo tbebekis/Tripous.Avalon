@@ -59,6 +59,10 @@ public partial class DataForm : AppForm
     protected Button btnInsert;
     protected Button btnEdit;
     protected Button btnDelete;
+    /// <summary>
+    /// Reloads the current item from the database.
+    /// </summary>
+    protected Button btnRefresh;
     protected Border sepEdit;
 
     protected Button btnSave;
@@ -264,6 +268,9 @@ public partial class DataForm : AppForm
                     if (!Sys.IsNull(oId))
                         await ExecuteDelete(oId);
                     break;
+                case DataFormAction.Refresh:
+                    await ExecuteRefresh();
+                    break;
                 case DataFormAction.Save:
                     ExecuteSave();
                     break;
@@ -406,6 +413,26 @@ public partial class DataForm : AppForm
 
         this.FormState = DataFormState.Edit;
     }
+    /// <summary>
+    /// Confirms pending changes and reloads the current item from the database.
+    /// </summary>
+    protected virtual async Task ExecuteRefresh()
+    {
+        if (FormState != DataFormState.Edit || CurrentRow == null)
+            return;
+
+        object Id = CurrentRow[ModuleDef.Table.KeyField];
+        if (HasChanges())
+        {
+            if (!await MessageBox.YesNo("Cancel changes and refresh the current item?", this))
+                return;
+
+            CancelChanges();
+        }
+
+        Refresh();
+        UiLog($"Refreshed {GetItemLogText(Id)}");
+    }
     protected virtual async Task ExecuteCancel()
     {
         if (FormState == DataFormState.List)  
@@ -536,6 +563,19 @@ public partial class DataForm : AppForm
         Module.Commit(Reselect: false);
         ListIsDirty = true; 
     }
+    /// <summary>
+    /// Reloads the current item and refreshes its controls.
+    /// </summary>
+    protected virtual void Refresh()
+    {
+        if (CurrentRow == null)
+            return;
+
+        object Id = CurrentRow[ModuleDef.Table.KeyField];
+        Load(Id);
+        ListIsDirty = true;
+        ItemPage?.Refresh();
+    }
 
     protected virtual bool HasChanges() => Module.HasChanges();
     protected virtual void CancelChanges()
@@ -563,6 +603,7 @@ public partial class DataForm : AppForm
             btnInsert = ToolBar.AddButton("table_add.png", "Insert (Ctrl+Insert)", async () => await Execute(DataFormAction.Insert));
             btnEdit = ToolBar.AddButton("table_edit.png", "Edit (Ctrl+Enter)", async () => await Execute(DataFormAction.Edit));
             btnDelete = ToolBar.AddButton("table_delete.png", "Delete (Ctrl+Delete)", async () => await Execute(DataFormAction.Delete));
+            btnRefresh = ToolBar.AddButton("table_refresh.png", "Refresh Item", async () => await Execute(DataFormAction.Refresh));
             sepEdit = ToolBar.AddSeparator(); // sepEdit
             
             btnSave = ToolBar.AddButton("disk.png", "Save (Ctrl+S)", async () => await Execute(DataFormAction.Save));
@@ -693,7 +734,8 @@ public partial class DataForm : AppForm
         btnInsert.IsVisible = IsEditableForm;
         btnEdit.IsVisible = true; // but it can be saved.
         btnDelete.IsVisible = IsEditableForm;
-        sepEdit.IsVisible = IsEditableForm;
+        btnRefresh.IsVisible = true;
+        sepEdit.IsVisible = btnInsert.IsVisible || btnEdit.IsVisible || btnDelete.IsVisible || btnRefresh.IsVisible;
         
         btnSave.IsVisible = IsEditableForm;
         sepSave.IsVisible = btnSave.IsVisible;
@@ -715,6 +757,7 @@ public partial class DataForm : AppForm
         btnInsert.IsEnabled = IsEditableForm && !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List | DataFormState.Edit);
         btnEdit.IsEnabled = !DataFormAction.Insert.In(InvalidActions) && FormState.In(DataFormState.List) && !IsListEmpty; 
         btnDelete.IsEnabled = IsEditableForm && !DataFormAction.Delete.In(InvalidActions) && FormState.In(DataFormState.List) && !IsListEmpty;
+        btnRefresh.IsEnabled = !DataFormAction.Refresh.In(InvalidActions) && FormState == DataFormState.Edit && CurrentRow != null;
         btnSave.IsEnabled = IsEditableForm && FormState.In(DataFormState.Insert | DataFormState.Edit);
         
         // Edit states: cancels edits and returns to List state

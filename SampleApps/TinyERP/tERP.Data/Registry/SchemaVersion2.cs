@@ -84,7 +84,7 @@ CREATE TABLE {TableName} (
     SourceId @NVARCHAR(40) @NOT_NULL,
     SourceLineId @NVARCHAR(40) @NOT_NULL,
 
-    CreatedAt @DATE_TIME @NOT_NULL,
+    CreatedAt @DATE_TIME @NOT_NULL,                   -- [ReadOnlyUI]
 
     FOREIGN KEY (ProductId) REFERENCES Product(Id),
     FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
@@ -135,7 +135,7 @@ CREATE TABLE {TableName} (
     AssetCategoryId @NVARCHAR(40) @NOT_NULL,       -- Lookup; Group Classification
     AssetLocationId @NVARCHAR(40) @NULL,           -- Lookup; Group Classification
 
-    StatusId int DEFAULT 1 @NOT_NULL,              -- Enum AssetStatus
+    StatusId int DEFAULT 1 @NOT_NULL,              -- Enum AssetStatus; [ReadOnlyUI]
 
     AcquisitionDate @DATE @NOT_NULL,               -- Group Acquisition
     InServiceDate @DATE @NULL,                     -- Group Acquisition
@@ -155,10 +155,10 @@ CREATE TABLE {TableName} (
 
     Remarks @NBLOB_TEXT @NULL,                     -- LargeMemo; Group Notes
 
-    CreatedAt @DATE_TIME @NOT_NULL,                -- Group Audit
-    CreatedBy @NVARCHAR(40) @NOT_NULL,             --  Lookup SYS_APP_USER; Group Audit
-    ModifiedAt @DATE_TIME @NULL,                   -- Group Audit
-    ModifiedBy @NVARCHAR(40) @NULL,                --  Lookup SYS_APP_USER; Group Audit
+    CreatedAt @DATE_TIME @NOT_NULL,                -- Group Audit; [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,             --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    ModifiedAt @DATE_TIME @NULL,                   -- Group Audit; [ReadOnlyUI]
+    ModifiedBy @NVARCHAR(40) @NULL,                --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
 
@@ -299,36 +299,37 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup -- controls numbering, posting behavior and movement direction
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup -- controls numbering and posting behavior
     Code @NVARCHAR(40) @NOT_NULL,                       -- Code Draft STK-YYYY-XXXXXX StockTrade
     TradeTypeId int default 0 @NOT_NULL,                -- [Hidden]
+    OperationTypeId int default 1 @NOT_NULL,             -- Enum StockTradeOperation
     
-    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup; Group Warehouses -- main/source warehouse
-    ToWarehouseId @NVARCHAR(40) @NULL,                  -- Lookup; Group Warehouses -- destination warehouse, used only for transfers
+    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup -- main/source warehouse
+    ToWarehouseId @NVARCHAR(40) @NULL,                  -- Lookup -- destination warehouse, used only for transfers
  
-    DocumentDate @DATE @NOT_NULL,                       -- Group Dates
-    PostingDate @DATE @NULL,                            -- Group Dates -- date used for generated stock movements
+    DocumentDate @DATE @NOT_NULL,                       --
+    PostingDate @DATE @NULL,                            -- [ReadOnlyUI] -- date used for generated stock movements
 
-    StatusId int default 1 @NOT_NULL,                   -- Enum TradeStatus
+    StatusId int default 1 @NOT_NULL,                   -- Enum TradeStatus; [ReadOnlyUI]
 
-    TotalCostAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- total internal stock cost value posted by this document
+    TotalCostAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- [ReadOnlyUI] -- total internal stock cost value posted by this document
 
     Remarks @NVARCHAR(512) @NULL,                       -- Memo; Group Notes -- internal notes
 
-    IsLocked @BOOL DEFAULT 0 @NOT_NULL,                 -- Group Status
-    IsCancelled @BOOL DEFAULT 0 @NOT_NULL,              -- Group Status
+    IsLocked @BOOL DEFAULT 0 @NOT_NULL,                 -- [ReadOnlyUI]
+    IsCancelled @BOOL DEFAULT 0 @NOT_NULL,              -- [ReadOnlyUI]
 
     CancelsStockTradeId @NVARCHAR(40) @NULL,            -- Locator StockTrade; Group Relations -- original document cancelled by this one
     CancelledByStockTradeId @NVARCHAR(40) @NULL,        -- Locator StockTrade; Group Relations -- reverse/cancellation document
 
-    CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; Group Audit
-    ModifiedAt @DATE_TIME @NULL,                        -- Group Audit
-    ModifiedBy @NVARCHAR(40) @NULL,                     --  Lookup SYS_APP_USER; Group Audit
-    PostedAt @DATE_TIME @NULL,                          -- Group Audit
-    PostedBy @NVARCHAR(40) @NULL,                       --  Lookup SYS_APP_USER; Group Audit
-    CancelledAt @DATE_TIME @NULL,                       -- Group Audit
-    CancelledBy @NVARCHAR(40) @NULL,                    --  Lookup SYS_APP_USER; Group Audit
+    CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit; [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    ModifiedAt @DATE_TIME @NULL,                        -- Group Audit; [ReadOnlyUI]
+    ModifiedBy @NVARCHAR(40) @NULL,                     --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    PostedAt @DATE_TIME @NULL,                          -- Group Audit; [ReadOnlyUI]
+    PostedBy @NVARCHAR(40) @NULL,                       --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    CancelledAt @DATE_TIME @NULL,                       -- Group Audit; [ReadOnlyUI]
+    CancelledBy @NVARCHAR(40) @NULL,                    --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
 
     CONSTRAINT UQ_{TableName}_DocumentType_Code UNIQUE (DocumentTypeId, Code),
 
@@ -380,8 +381,8 @@ CREATE TABLE {TableName} (
     DocumentCode @NVARCHAR(40) @NOT_NULL,               -- source document code snapshot
     DocumentDate @DATE @NOT_NULL,                       -- source document date snapshot    
 
-    CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER
+    CreatedAt @DATE_TIME @NOT_NULL,                     -- [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; [ReadOnlyUI]
 
     CONSTRAINT CHK_{TableName}_Direction CHECK (Direction IN (1, -1)),
     CONSTRAINT CHK_{TableName}_Quantity CHECK (Quantity >= 0),
@@ -418,10 +419,10 @@ CREATE TABLE {TableName} (
     CancelledDocumentId @NVARCHAR(40) @NULL,          -- Locator StockCount; Group Relations
     CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator StockCount; Group Relations
 
-    CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; Group Audit
-    ModifiedAt @DATE_TIME @NULL,                      -- Group Audit
-    ModifiedBy @NVARCHAR(40) @NULL,                   --  Lookup SYS_APP_USER; Group Audit
+    CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit; [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    ModifiedAt @DATE_TIME @NULL,                      -- Group Audit; [ReadOnlyUI]
+    ModifiedBy @NVARCHAR(40) @NULL,                   --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
 
     FOREIGN KEY (DocumentTypeId) REFERENCES DocumentType(Id),
     FOREIGN KEY (WarehouseId) REFERENCES Warehouse(Id),
@@ -464,8 +465,8 @@ CREATE TABLE {TableName} (
 
     Remarks @NVARCHAR(512) @NULL,
 
-    CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,               --  Lookup SYS_APP_USER
+    CreatedAt @DATE_TIME @NOT_NULL,                  -- [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,               --  Lookup SYS_APP_USER; [ReadOnlyUI]
 
     CONSTRAINT CHK_{TableName}_Direction CHECK (Direction IN (1, -1)),
     CONSTRAINT CHK_{TableName}_Amount CHECK (Amount >= 0),
@@ -490,7 +491,7 @@ CREATE TABLE {TableName} (
 
     EntryDate @DATE @NOT_NULL,
 
-    StatusId int DEFAULT 1 @NOT_NULL,                 -- Enum TradeStatus
+    StatusId int DEFAULT 1 @NOT_NULL,                 -- Enum TradeStatus; [ReadOnlyUI]
 
     TotalDebit @DECIMAL DEFAULT 0 @NOT_NULL,
     TotalCredit @DECIMAL DEFAULT 0 @NOT_NULL,
@@ -509,10 +510,10 @@ CREATE TABLE {TableName} (
     CancelledDocumentId @NVARCHAR(40) @NULL,          -- Locator JournalEntry; Group Relations
     CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator JournalEntry; Group Relations
 
-    CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; Group Audit
-    ModifiedAt @DATE_TIME @NULL,                      -- Group Audit
-    ModifiedBy @NVARCHAR(40) @NULL,                   --  Lookup SYS_APP_USER; Group Audit
+    CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit; [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
+    ModifiedAt @DATE_TIME @NULL,                      -- Group Audit; [ReadOnlyUI]
+    ModifiedBy @NVARCHAR(40) @NULL,                   --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
 
     CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
     CONSTRAINT CHK_{TableName}_Totals CHECK (TotalDebit = TotalCredit),
@@ -751,8 +752,8 @@ CREATE TABLE {TableName} (
 
     Remarks @NVARCHAR(512) @NULL,
 
-    CreatedAt @DATE_TIME @NOT_NULL,
-    CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER
+    CreatedAt @DATE_TIME @NOT_NULL,                   -- [ReadOnlyUI]
+    CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; [ReadOnlyUI]
 
     FOREIGN KEY (AssetId) REFERENCES Asset(Id),
     FOREIGN KEY (JournalEntryId) REFERENCES JournalEntry(Id),
@@ -815,7 +816,7 @@ CREATE TABLE {TableName} (
     UnitOfMeasureName @NVARCHAR(40) @NOT_NULL,          -- Snapshot UnitOfMeasure.Name
     UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- ratio to primary unit, ProductUnitOfMeasure.Ratio, converts line quantity to primary/base quantity
 
-    Quantity @DECIMAL DEFAULT 0 @NOT_NULL,              -- always positive, direction is determined by DocumentType
+    Quantity @DECIMAL DEFAULT 0 @NOT_NULL,              -- always positive, direction is determined by StockTrade.OperationTypeId
     PrimaryQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- Quantity * UnitRatio
 
     UnitCost @DECIMAL DEFAULT 0 @NOT_NULL,              -- internal stock cost per primary unit

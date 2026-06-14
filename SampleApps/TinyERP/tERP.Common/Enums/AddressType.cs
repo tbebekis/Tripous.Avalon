@@ -266,6 +266,22 @@ public enum StockCostingMethod
 }
 
 /// <summary>
+/// Defines the inventory operation performed by a stock transaction.
+/// </summary>
+[TypeStore]
+public enum StockTradeOperation
+{
+    /// <summary>No stock operation is specified.</summary>
+    None = 0,
+    /// <summary>Moves stock between two warehouses without changing its cost.</summary>
+    Transfer = 1,
+    /// <summary>Receives stock into a warehouse using the entered cost.</summary>
+    Receipt = 2,
+    /// <summary>Issues stock from a warehouse using the current moving-average cost.</summary>
+    Issue = 3,
+}
+
+/// <summary>
 /// Defines the financial statement category of an account.
 /// </summary>
 [TypeStore]

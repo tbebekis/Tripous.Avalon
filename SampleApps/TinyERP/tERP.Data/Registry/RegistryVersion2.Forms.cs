@@ -40,6 +40,6 @@ public partial class RegistryVersion2: RegistryVersion
         DesktopRegistry.AddOrUpdateForm("StockCount", TitleKey: "StockCount", Module: "StockCount", ClassName: "StockCountForm", Group: "Inventory");
         DesktopRegistry.AddOrUpdateForm("StockMovement", TitleKey: "StockMovement", Module: "StockMovement", Group: "Inventory", IsReadOnly: true);
         DesktopRegistry.AddOrUpdateForm("StockReservation", TitleKey: "StockReservation", Module: "StockReservation", Group: "Inventory", IsReadOnly: true);
-        DesktopRegistry.AddOrUpdateForm("StockTrade", TitleKey: "StockTrade", Module: "StockTrade", Group: "Inventory");
+        DesktopRegistry.AddOrUpdateForm("StockTrade", TitleKey: "StockTrade", Module: "StockTrade", ClassName: "StockTradeForm", Group: "Inventory");
     }
 }

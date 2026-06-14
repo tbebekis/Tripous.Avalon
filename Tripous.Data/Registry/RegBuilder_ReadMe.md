@@ -133,6 +133,7 @@ Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 Code:   Code [Draft] [Pattern] [ProviderName]
 ListWhere: SQL_CONDITION
+FilterFields: Field1, Field2, FieldN
 
 Module: MODULE_NAME [MODULE_CLASS_NAME]
 Group:  GROUP_NAME
@@ -140,6 +141,7 @@ Form:   DataForm | FORM_NAME [FORM_CLASS_NAME]
 ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 Code:   Code [Draft] [Pattern] [ProviderName]
 ListWhere: SQL_CONDITION
+FilterFields: Field1, Field2, FieldN
 FieldGroups: Address, Billing, Notes
 
 IsLookup | NotUiVisible | IsReadOnly
@@ -159,7 +161,7 @@ IsSingleSelect | NoFilters | NoCascadeDeletes | NoGuidOids
 - Free text comments may follow after the metadata section separator.
 
 ### Module block
-Each `Module` line starts a new module block. The following `Group`, optional `Form`, optional `ItemPage`, optional `DetailOrder`, optional `ListWhere`, and optional `Code` belong to that module block. A module block is complete when the next `Module` line starts or when non-module header metadata begins.
+Each `Module` line starts a new module block. The following `Group`, optional `Form`, optional `ItemPage`, optional `DetailOrder`, optional `Code`, optional `ListWhere`, and optional `FilterFields` belong to that module block. A module block is complete when the next `Module` line starts or when non-module header metadata begins.
 
 A module block has the following entries, in this order:
 
@@ -171,6 +173,7 @@ ItemPage: ItemPage | ITEM_PAGE_CLASS_NAME
 DetailOrder: PARENT_TABLE_NAME=DETAIL_TABLE_NAME, DETAIL_TABLE_NAME
 Code: Code [Draft] [Pattern] [ProviderName]
 ListWhere: SQL_CONDITION
+FilterFields: Field1, Field2, FieldN
 ```
 
 - `Module` is required.
@@ -179,6 +182,7 @@ ListWhere: SQL_CONDITION
 - `ItemPage` is optional.
 - `DetailOrder` is optional.
 - `ListWhere` is optional.
+- `FilterFields` is optional.
 - `Code` is optional.
 - If `Form` is omitted, the form name defaults to the module name and the form class defaults to `DataForm`.
 - If `ItemPage` is omitted, the item page class defaults to `ItemPage`.
@@ -186,6 +190,8 @@ ListWhere: SQL_CONDITION
 - Example: `DetailOrder: Trade=TradeLine, TradeTax` and `DetailOrder: BillOfMaterial=BillOfMaterialLine, BillOfMaterialCost`.
 - `ListWhere` adds a module-specific condition to the generated list SELECT. Write only the condition, without the `WHERE` keyword.
 - `ListWhere` may reference the top table and generated join aliases.
+- `FilterFields` limits generated filters to the specified final List SELECT column names and preserves their declared order.
+- If `FilterFields` is omitted, the existing automatic filter generation is used.
 - If class names are omitted, default `DataModule`, `DataForm`, and `ItemPage` types are used.
 - If `Code` is omitted, field `-- Code` metadata is used as fallback.
 
@@ -202,6 +208,7 @@ ItemPage: TradeItemPage
 DetailOrder: Trade=TradeLine, TradeTax
 Code: Draft SO-YYYY-XXXXXX
 ListWhere: DocumentType.ModuleName = 'SalesOrder'
+FilterFields: Code, TradeDate, Person__Code, Person__Name, TradeStatus, TotalAmount
 
 Module: SalesInvoice SalesInvoiceDataModule
 Group: Sales Invoices
@@ -209,6 +216,7 @@ Form: SalesInvoice TradeForm
 ItemPage: TradeItemPage
 Code: Draft SI-YYYY-XXXXXX
 ListWhere: DocumentType.ModuleName = 'SalesInvoice'
+FilterFields: Code, TradeDate, Person__Code, Person__Name, TradeStatus, TotalAmount
 
 Module: SalesCreditNote SalesCreditNoteDataModule
 Group: Sales Credit Notes
@@ -216,6 +224,7 @@ Form: SalesCreditNote TradeForm
 ItemPage: TradeItemPage
 Code: Draft SCN-YYYY-XXXXXX
 ListWhere: DocumentType.ModuleName = 'SalesCreditNote'
+FilterFields: Code, TradeDate, Person__Code, Person__Name, TradeStatus, TotalAmount
 
 FieldGroups: Dates, Party, Organization, Payment, Billing, Shipping, Relations, Amounts, Status, Audit, Notes
 
@@ -270,6 +279,14 @@ ListWhere: Trade.IsActive = 1
 ```
 
 The RegBuilder appends the condition as a `where` clause after the generated joins. Do not include the `WHERE` keyword. Only one `ListWhere` is allowed per module block.
+
+### FilterFields syntax
+
+```sql
+FilterFields: Code, TradeDate, Person__Name, TradeStatus
+```
+
+`FilterFields` is optional and belongs to the current module block. Each name must exist in the final generated List SELECT, including generated join aliases such as `Person__Name` and enum display columns such as `TradeStatus`. Unknown or duplicate names are validation errors. Only one declaration is allowed per module block.
 
 ### FieldGroups syntax
 Field grouping is defined at table level through an optional header entry:
