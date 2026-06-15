@@ -21,6 +21,9 @@ public class WriteLineFile
 {
     int fMaxSizeKiloBytes = 512;
 
+    /// <summary>
+    /// Starts a new file.
+    /// </summary>
     protected void BeginFile()
     {
         Size = 0;

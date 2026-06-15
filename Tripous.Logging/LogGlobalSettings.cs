@@ -8,23 +8,31 @@
 
 namespace Tripous.Logging;
 
+/// <summary>
+/// Global settings for the <see cref="Logger"/> class.
+/// </summary>
 public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
 {
- 
-    
     // ● private  
+    /// <summary>
+    /// Raises the <see cref="PropertyChanged"/> event.
+    /// </summary>
+    /// <param name="PropertyName">The name of the property that changed.</param>
     void NotifyPropertyChanged(string PropertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
     }
     
     // ● construction  
+    /// <summary>
+    /// Constructor
+    /// </summary>
     internal LogGlobalSettings()
     {
     }
     
     // ● properties
-     /// <summary>
+    /// <summary>
     /// When false no logs are recorded. Defaults to true.
     /// </summary>
     public bool Active
@@ -43,7 +51,7 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
         set { if (MinLevel != value) { MinLevel = value; NotifyPropertyChanged(nameof(MinLevel)); } }
     }
     /// <summary>
-    /// Returns the path to the folder where file logs are saved
+    /// Gets or sets the path to the folder where file logs are saved.
     /// </summary>
     public string LogFolderPath
     {
@@ -52,7 +60,7 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
 
     }
     /// <summary>
-    /// After how many writes to check whether it is time to apply the retain policy. Defaults to 100
+    /// Gets or sets after how many writes to check whether it is time to apply the retain policy. Defaults to 100.
     /// </summary>
     public int RetainPolicyCounter
     {
@@ -60,7 +68,7 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
         set { if (RetainPolicyCounter != value) { RetainPolicyCounter = value; NotifyPropertyChanged(nameof(RetainPolicyCounter)); } }
     }
     /// <summary>
-    /// Retain policy. How many days to retain in the storage medium. Defaults to 7
+    /// Gets or sets how many days to retain in the storage medium. Defaults to 7.
     /// </summary>
     public int RetainDays
     {
@@ -68,7 +76,7 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
         set { if (RetainDays != value) { RetainDays = value; NotifyPropertyChanged(nameof(RetainDays)); } }
     }
     /// <summary>
-    /// Retain policy. How many KB to allow a single log file to grow. Defaults to 512 KB
+    /// Gets or sets how many KB to allow a single log file to grow. Defaults to 512 KB.
     /// </summary>
     public int MaxSizeKiloBytes
     {
@@ -77,5 +85,8 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
     }
     
     // ● events
+    /// <summary>
+    /// Occurs when a property value changes.
+    /// </summary>
     public event PropertyChangedEventHandler PropertyChanged;
 }

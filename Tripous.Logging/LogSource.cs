@@ -128,6 +128,9 @@ public class LogSource
             fScopes.Add(scope);                
         }
     }
+    /// <summary>
+    /// Exits the last entered scope.
+    /// </summary>
     public void ExitScope()
     {
         lock (syncLock)

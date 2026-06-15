@@ -168,6 +168,9 @@ public class LogEntry
     }
 
     // ● properties  
+    /// <summary>
+    /// Id
+    /// </summary>
     public string Id { get; }
     /// <summary>
     /// Returns the UTC date-time this info created

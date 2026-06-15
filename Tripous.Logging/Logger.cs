@@ -643,5 +643,8 @@ CREATE TABLE {TableName} (
         set { fMaxSizeKiloBytes = value; }
     }
 
+    /// <summary>
+    /// Settings
+    /// </summary>
     static public LogGlobalSettings Settings { get; } = new();
 }
