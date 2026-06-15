@@ -81,6 +81,7 @@ static internal partial class AppHost
             Command Cmd = FormDef.CreateShowCommand(ShowFormFunc);
             cmdGroup.Commands.Add(Cmd);
         }
+        RegisterReadOnlyViewCommands();
         AppRegistry.MenuCommands.Sort();
         AppRegistry.MenuCommands.Insert(0, cmdGeneral);
         
