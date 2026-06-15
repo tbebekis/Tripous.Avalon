@@ -48,14 +48,25 @@ static internal partial class AppHost
         //FormDef FormDef = DesktopRegistry.Forms.Get(Cmd.Form);
         return AppHost.ContentHandler.ShowDataForm(Cmd.Form);
     }
+    /// <summary>
+    /// Opens the demo dashboard.
+    /// </summary>
+    static object ShowDashboardFunc(Command Cmd)
+    {
+        FormContext Context = FormContext.Create("Dashboard", typeof(DashboardForm).FullName, FormDisplayMode.TabItem, AppHost.MainWindow);
+        Context.Title = "Dashboard";
+        return AppHost.ContentHandler.ShowAppForm(Context);
+    }
  
     static public void RegisterCommands()
     {
         // NOTE: ToolBar commands should define an ImageFileName.
         
         // ● commands  
+        Command cmdDashboard = Command.Create("Dashboard", "chart_bar.png", ShowDashboardFunc);
         Command cmdExit = Command.Create("Exit", "door_out.png", (c) => { AppHost.MainWindow.Close(); return 0; });
         Command cmdAppFolder = Command.Create("ShowAppFolder", "folder.png", (c) => { Sys.OpenFileExplorer(SysConfig.AppFolderPath); return 0; });
+        Command cmdApplicationSettings = Command.CreateAsync("Application Settings", "setting_tools.png", async (c) => { await ConfigDialog.ShowModal(AppHost.MainWindow); return 0; });
         Command cmdConnectionInfo = Command.CreateAsync("ConnectionInfo", "database_edit.png", async (c) => { await ShowDbConnectionEditDialog(Db.GetDefaultConnectionInfo()); return 0; });
         Command cmdRegenerateDatabase = Command.CreateAsync("Regenerate Database", "database_refresh.png", async (c) => { await RegenerateDatabase(); return 0; });
         Command cmdClearLog = Command.Create("Clear Log", "bin.png", (c) => { LogBox.Clear(); return 0; });
@@ -66,7 +77,7 @@ static internal partial class AppHost
         
         // ● General commands  
         Command cmdGeneral = new ("General");
-        cmdGeneral.Commands.AddRange([cmdAppFolder, cmdConnectionInfo, cmdRegenerateDatabase, cmdExit]);
+        cmdGeneral.Commands.AddRange([cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdConnectionInfo, cmdRegenerateDatabase, cmdExit]);
 
         // ● form commands  
         foreach (FormDef FormDef in DesktopRegistry.Forms)
@@ -86,7 +97,7 @@ static internal partial class AppHost
         AppRegistry.MenuCommands.Insert(0, cmdGeneral);
         
         // ● split commands to toolbar and menu commands
-        AppRegistry.ToolBarCommands.AddRange([cmdAppFolder, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdTest, cmdExit]);
+        AppRegistry.ToolBarCommands.AddRange([cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdTest, cmdExit]);
         //AppRegistry.MenuCommands.AddRange(MasterCommandGroups);
     }
 }

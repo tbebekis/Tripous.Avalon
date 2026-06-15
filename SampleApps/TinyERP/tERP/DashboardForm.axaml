@@ -1,0 +1,61 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="tERP.DashboardForm">
+    <DockPanel Margin="2,2,2,2">
+        <Border DockPanel.Dock="Top" Classes="ToolbarContainer">
+            <StackPanel Name="pnlToolBar" Classes="ToolBar" MinHeight="32">
+            </StackPanel>
+        </Border>
+        <Grid RowDefinitions="Auto,*" Margin="8">
+            <Grid Grid.Row="0" ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto">
+                <Border Grid.Row="0" Grid.Column="0" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                    <StackPanel>
+                        <TextBlock Text="Sales" FontWeight="SemiBold"/>
+                        <TextBlock Name="txtSalesTotal" FontSize="22"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                    <StackPanel>
+                        <TextBlock Text="Purchases" FontWeight="SemiBold"/>
+                        <TextBlock Name="txtPurchasesTotal" FontSize="22"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                    <StackPanel>
+                        <TextBlock Text="Stock Value" FontWeight="SemiBold"/>
+                        <TextBlock Name="txtStockValue" FontSize="22"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="0" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                    <StackPanel>
+                        <TextBlock Text="Receivables" FontWeight="SemiBold"/>
+                        <TextBlock Name="txtReceivables" FontSize="22"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                    <StackPanel>
+                        <TextBlock Text="Payables" FontWeight="SemiBold"/>
+                        <TextBlock Name="txtPayables" FontSize="22"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                    <StackPanel>
+                        <TextBlock Text="Cash / Bank" FontWeight="SemiBold"/>
+                        <TextBlock Name="txtCashBank" FontSize="22"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <TabControl Grid.Row="1" Margin="4,10,4,4">
+                <TabItem Header="Top Customers">
+                    <DataGrid Name="gridCustomers" IsReadOnly="True"/>
+                </TabItem>
+                <TabItem Header="Top Suppliers">
+                    <DataGrid Name="gridSuppliers" IsReadOnly="True"/>
+                </TabItem>
+                <TabItem Header="Stock Snapshot">
+                    <DataGrid Name="gridStock" IsReadOnly="True"/>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</UserControl>

@@ -244,8 +244,9 @@ where P.IsActive = 1
         ConfigValueKind Kind = ConfigValueKind.Object;
         string DefaultValue = Json.Serialize(new AppDefaultProperties());
         string TypeName = typeof(AppDefaultProperties).FullName;
+        string EditorClassName = "tERP.AppDefaultPropertiesEditor";
         
-        ConfigPropertyDef ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, TypeName);
+        ConfigPropertyDef ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, TypeName, EditorClassName);
         
         // ●  Show DataForm Log
         Name = Ui.SShowDataFormLog;

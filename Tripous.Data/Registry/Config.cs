@@ -128,6 +128,10 @@ public class ConfigPropertyDef : BaseDef
     /// </summary>
     public string TypeName { get; set; }
     /// <summary>
+    /// Gets or sets the class name of a desktop editor used for complex configuration values.
+    /// </summary>
+    public string EditorClassName { get; set; }
+    /// <summary>
     /// Gets or sets a callback that is invoked when a value is applied to this property.
     /// </summary>
     public Action<ConfigPropertyDef, string> ApplyValueFunc { get; set; }

@@ -232,7 +232,7 @@ static public class DataRegistry
         if (ConfigProperties.Contains(Name))
             throw new TripousException($"Cannot add a {nameof(ConfigPropertyDef)}. '{Name}' is already registered.");
     }
-    static void UpdateConfigProperty(ConfigPropertyDef Def, string TitleKey, string GroupName, UserLevel? SecurityLevel, ConfigValueKind? Kind, string DefaultValue, string TypeName)
+    static void UpdateConfigProperty(ConfigPropertyDef Def, string TitleKey, string GroupName, UserLevel? SecurityLevel, ConfigValueKind? Kind, string DefaultValue, string TypeName, string EditorClassName)
     {
         if (TitleKey != null)
             Def.TitleKey = TitleKey;
@@ -246,6 +246,8 @@ static public class DataRegistry
             Def.DefaultValue = DefaultValue;
         if (TypeName != null)
             Def.TypeName = TypeName;
+        if (EditorClassName != null)
+            Def.EditorClassName = EditorClassName;
     }
     
     
@@ -597,7 +599,7 @@ static public class DataRegistry
     /// Adds a configuration property definition.
     /// If the definition exists, an exception is thrown.
     /// </summary>
-    static public ConfigPropertyDef AddConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel SecurityLevel = UserLevel.Admin, ConfigValueKind Kind = ConfigValueKind.String, string DefaultValue = null, string TypeName = null)
+    static public ConfigPropertyDef AddConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel SecurityLevel = UserLevel.Admin, ConfigValueKind Kind = ConfigValueKind.String, string DefaultValue = null, string TypeName = null, string EditorClassName = null)
     {
         CheckConfigProperty(Name);
         ConfigPropertyDef Result = new();
@@ -608,6 +610,7 @@ static public class DataRegistry
         Result.Kind = Kind;
         Result.DefaultValue = DefaultValue;
         Result.TypeName = TypeName;
+        Result.EditorClassName = EditorClassName;
         ConfigProperties.Add(Result);
         return Result;
     }
@@ -615,15 +618,15 @@ static public class DataRegistry
     /// Adds or updates a configuration property definition.
     /// NOTE: When the definition already exists, non-null parameters and nullable enum parameters with a value update its scalar properties.
     /// </summary>
-    static public ConfigPropertyDef AddOrUpdateConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel? SecurityLevel = null, ConfigValueKind? Kind = null, string DefaultValue = null, string TypeName = null)
+    static public ConfigPropertyDef AddOrUpdateConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel? SecurityLevel = null, ConfigValueKind? Kind = null, string DefaultValue = null, string TypeName = null, string EditorClassName = null)
     {
         if (string.IsNullOrWhiteSpace(Name))
             throw new TripousException($"Cannot add or update a {nameof(ConfigPropertyDef)}. No '{nameof(Name)}' is provided.");
         ConfigPropertyDef Result = ConfigProperties.Find(Name);
         if (Result == null)
-            Result = AddConfigProperty(Name, TitleKey, GroupName, SecurityLevel ?? UserLevel.Admin, Kind ?? ConfigValueKind.String, DefaultValue, TypeName);
+            Result = AddConfigProperty(Name, TitleKey, GroupName, SecurityLevel ?? UserLevel.Admin, Kind ?? ConfigValueKind.String, DefaultValue, TypeName, EditorClassName);
         else
-            UpdateConfigProperty(Result, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, TypeName);
+            UpdateConfigProperty(Result, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, TypeName, EditorClassName);
         return Result;
     }
 

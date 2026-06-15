@@ -11,7 +11,6 @@ namespace tERP;
 /// <summary>
 /// Displays a read-only SQL view using a filter sidebar and a grid.
 /// </summary>
-[TypeStore]
 public partial class ReadOnlyViewForm : AppForm
 {
     // ● private fields
