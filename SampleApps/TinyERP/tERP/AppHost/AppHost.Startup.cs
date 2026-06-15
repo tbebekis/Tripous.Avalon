@@ -172,23 +172,42 @@ static internal partial class AppHost
 
         return false;
     }
-    static async Task<bool> DebugAutoLoginUser()
+    static bool UseUsers()
     {
-        if (string.IsNullOrWhiteSpace(DataLib.DebugUserName))
-            return await LoginUser();
+        string Value = Config.GetValue(DataLib.SUseUsers);
+        return !string.IsNullOrWhiteSpace(Value) && Convert.ToBoolean(Value);
+    }
+    static string GetAutoLoginUserName()
+    {
+        if (!string.IsNullOrWhiteSpace(DataLib.DebugUserName))
+            return DataLib.DebugUserName;
+        object Result = Store.SelectResult("""
+            select UserName
+            from SYS_APP_USER
+            where IsActive = 1
+            order by UserLevelId desc, UserName
+            """, string.Empty);
+        return Result == null || Result == DBNull.Value ? string.Empty : Result.ToString();
+    }
+    static async Task<bool> AutoLoginUser()
+    {
+        string UserName = GetAutoLoginUserName();
+        if (string.IsNullOrWhiteSpace(UserName))
+            return false;
 
         AppUserDataModule Module = DataRegistry.CreateModule("AppUser") as AppUserDataModule;
 
-        AppUser User = Module.LoadByUserName(DataLib.DebugUserName);
+        AppUser User = Module.LoadByUserName(UserName);
 
         if (User == null)
-            throw new TripousException($"Debug user not found: {DataLib.DebugUserName}");
+            throw new TripousException($"Auto-login user not found: {UserName}");
 
         if (!User.IsActive)
-            throw new TripousException($"Debug user is inactive: {DataLib.DebugUserName}");
+            throw new TripousException($"Auto-login user is inactive: {UserName}");
 
         Sys.Context.CurrentUser = User;
 
+        await Task.CompletedTask;
         return true;
     }
  
@@ -225,21 +244,16 @@ static internal partial class AppHost
             TypeStore.RegisterLoadedAssemblies();
             Registry.RegisterDescriptors();             // Register descriptors, i.e. commands, lookup sources, locators, modules and forms.
             
-            RegisterCommands();
- 
             InitializeLibraries();
             
             Flag = await EnsureAdminUser();
-            
-#if DEBUG
-            Flag = await DebugAutoLoginUser();
-#else     
+
             if (Flag)
-                Flag = await LoginUser();
-#endif
+                Flag = UseUsers() ? await LoginUser() : await AutoLoginUser();
             
             if (Flag)
             {
+                RegisterCommands();
                 AppHost.MainWindow = new MainWindow();
                 Ui.MainWindow = AppHost.MainWindow;
                 MainWindow.Show();

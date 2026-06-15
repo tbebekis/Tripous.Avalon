@@ -236,6 +236,13 @@ where P.IsActive = 1
 
     static public void RegisterSycConfigProperties()
     {
+        ModuleDef AppUserModule = DataRegistry.Modules.Find("AppUser");
+        if (AppUserModule != null)
+            AppUserModule.SecurityLevel = UserLevel.Admin;
+        FormDef AppUserForm = DesktopRegistry.Forms.Find("AppUser");
+        if (AppUserForm != null)
+            AppUserForm.SecurityLevel = UserLevel.Admin;
+
         // ●  Application Defaults
         string Name = DataLib.SAppDefaultProperties;
         string TitleKey = "Application Defaults";
@@ -260,5 +267,13 @@ where P.IsActive = 1
             bool Value = Convert.ToBoolean(S);
             Ui.Settings.ShowDataFormLog = Value;
         };
+
+        // ●  Use Users
+        Name = DataLib.SUseUsers;
+        TitleKey = "Use Users";
+        SecurityLevel = UserLevel.Admin;
+        Kind = ConfigValueKind.Boolean;
+        DefaultValue = "false";
+        ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue);
     }
 }

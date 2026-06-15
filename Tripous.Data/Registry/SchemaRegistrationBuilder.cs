@@ -1387,6 +1387,8 @@ static public class SchemaRegistrationBuilder
             Args.Add("ItemClassName: \"" + EscapeString(ModuleBlock.ItemPageClassName) + "\"");
         if (TopTable.IsReadOnly)
             Args.Add("IsReadOnly: true");
+        if (ModuleBlock.SecurityLevel != UserLevel.None)
+            Args.Add("SecurityLevel: UserLevel." + ModuleBlock.SecurityLevel);
 
         return "DesktopRegistry.AddOrUpdateForm(" + string.Join(", ", Args) + ");";
     }
@@ -1573,6 +1575,8 @@ static public class SchemaRegistrationBuilder
 
         if (TopTable.IsSingleSelect)
             Args.Add("IsSingleSelect: true");
+        if (ModuleBlock.SecurityLevel != UserLevel.None)
+            Args.Add("SecurityLevel: UserLevel." + ModuleBlock.SecurityLevel);
 
         return "Module = DataRegistry.AddOrUpdateModule(" + string.Join(", ", Args) + ");";
     }
@@ -1809,7 +1813,7 @@ static public class SchemaRegistrationBuilder
 
         foreach (SchemaField Field in TopTable.Fields)
         {
-            if (!Field.DataType.IsBlob())
+            if (!Field.DataType.IsBlob() && !Field.FieldFlags.HasFlag(FieldFlags.Hidden))
             {
                 SelectLines.Add("   " + TopTable.Name + "." + Field.Name);
                 AddColumnType(Result, Field.Name, Field);
@@ -3588,6 +3592,18 @@ static public class SchemaRegistrationBuilder
                     continue;
                 }
 
+                if (Entry.Name.IsSameText("SecurityLevel"))
+                {
+                    if (Current == null)
+                        throw new TripousDataException("SecurityLevel metadata requires a preceding Module line.");
+                    if (Current.SecurityLevel != UserLevel.None)
+                        throw new TripousDataException("Module block contains duplicate SecurityLevel: " + Current.ModuleName);
+                    if (!Enum.TryParse(Entry.Value, ignoreCase: true, out UserLevel SecurityLevel))
+                        throw new TripousDataException("Invalid SecurityLevel metadata value: " + Entry.Value);
+                    Current.SecurityLevel = SecurityLevel;
+                    continue;
+                }
+
                 if (Entry.Name.IsSameText("DetailOrder"))
                 {
                     if (Current == null)
@@ -3898,6 +3914,10 @@ static public class SchemaRegistrationBuilder
         /// Item page class name.
         /// </summary>
         public string ItemPageClassName { get; set; }
+        /// <summary>
+        /// Minimum user level required for this module and form.
+        /// </summary>
+        public UserLevel SecurityLevel { get; set; }
         /// <summary>
         /// True when Form was explicitly defined.
         /// </summary>

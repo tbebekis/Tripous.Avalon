@@ -18,7 +18,7 @@ public partial class RegistryVersion1: RegistryVersion
     // ● public
     public override void RegisterForms()
     {
-        DesktopRegistry.AddOrUpdateForm("AppUser", TitleKey: "AppUser", Module: "AppUser", Group: "Setup");
+        DesktopRegistry.AddOrUpdateForm("AppUser", TitleKey: "AppUser", Module: "AppUser", ClassName: "AppUserForm", Group: "Setup", SecurityLevel: UserLevel.Admin);
         DesktopRegistry.AddOrUpdateForm("AssetCategory", TitleKey: "AssetCategory", Module: "AssetCategory", Group: "Assets");
         DesktopRegistry.AddOrUpdateForm("AssetDepreciationMethod", TitleKey: "AssetDepreciationMethod", Module: "AssetDepreciationMethod", Group: "Assets");
         DesktopRegistry.AddOrUpdateForm("AssetLocation", TitleKey: "AssetLocation", Module: "AssetLocation", Group: "Assets");

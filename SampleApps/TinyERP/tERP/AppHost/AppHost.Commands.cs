@@ -11,6 +11,13 @@ namespace tERP;
 static internal partial class AppHost
 {
     /// <summary>
+    /// Returns true when the current user may access a command.
+    /// </summary>
+    static bool CanAccess(Command Command)
+    {
+        return Command.CanAccess(Sys.Context.CurrentUser);
+    }
+    /// <summary>
     /// Returns the physical file path of the default SQLite database.
     /// </summary>
     static string GetDefaultDatabaseFilePath()
@@ -57,6 +64,28 @@ static internal partial class AppHost
         Context.Title = "Dashboard";
         return AppHost.ContentHandler.ShowAppForm(Context);
     }
+    /// <summary>
+    /// Changes the current user password.
+    /// </summary>
+    static async Task ChangePassword()
+    {
+        AppUser User = Sys.Context.CurrentUser;
+        if (User == null)
+            return;
+        ChangePasswordDialog Dialog = await ChangePasswordDialog.ShowModal(User.UserName, AppHost.MainWindow);
+        if (!Dialog.Result)
+            return;
+        try
+        {
+            AppUserDataModule Module = DataRegistry.CreateModule("AppUser") as AppUserDataModule;
+            Module.ChangePassword(User.UserName, Dialog.CurrentPassword, Dialog.NewPassword);
+            await MessageBox.Info("Password changed.", AppHost.MainWindow);
+        }
+        catch (Exception e)
+        {
+            await MessageBox.Error(e.Message, AppHost.MainWindow);
+        }
+    }
  
     static public void RegisterCommands()
     {
@@ -67,8 +96,11 @@ static internal partial class AppHost
         Command cmdExit = Command.Create("Exit", "door_out.png", (c) => { AppHost.MainWindow.Close(); return 0; });
         Command cmdAppFolder = Command.Create("ShowAppFolder", "folder.png", (c) => { Sys.OpenFileExplorer(SysConfig.AppFolderPath); return 0; });
         Command cmdApplicationSettings = Command.CreateAsync("Application Settings", "setting_tools.png", async (c) => { await ConfigDialog.ShowModal(AppHost.MainWindow); return 0; });
+        Command cmdChangePassword = Command.CreateAsync("Change Password", "change_password.png", async (c) => { await ChangePassword(); return 0; });
         Command cmdConnectionInfo = Command.CreateAsync("ConnectionInfo", "database_edit.png", async (c) => { await ShowDbConnectionEditDialog(Db.GetDefaultConnectionInfo()); return 0; });
         Command cmdRegenerateDatabase = Command.CreateAsync("Regenerate Database", "database_refresh.png", async (c) => { await RegenerateDatabase(); return 0; });
+        cmdConnectionInfo.SecurityLevel = UserLevel.Admin;
+        cmdRegenerateDatabase.SecurityLevel = UserLevel.Admin;
         Command cmdClearLog = Command.Create("Clear Log", "bin.png", (c) => { LogBox.Clear(); return 0; });
         Command cmdToggleLog = Command.Create("Toggle Log", "error_log.png", (c) => { AppHost.MainWindow.ToggleLog(); return 0; });
         Command cmdToggleLogSqlStatements = Command.Create("Log Sql", "file_extension_log.png", (c) => { AppHost.MainWindow.ToggleLogSqlStatements(); return 0; });
@@ -77,7 +109,7 @@ static internal partial class AppHost
         
         // ● General commands  
         Command cmdGeneral = new ("General");
-        cmdGeneral.Commands.AddRange([cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdConnectionInfo, cmdRegenerateDatabase, cmdExit]);
+        cmdGeneral.Commands.AddRange(new Command[] { cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdExit }.Where(CanAccess));
 
         // ● form commands  
         foreach (FormDef FormDef in DesktopRegistry.Forms)
@@ -90,14 +122,23 @@ static internal partial class AppHost
             }
 
             Command Cmd = FormDef.CreateShowCommand(ShowFormFunc);
-            cmdGroup.Commands.Add(Cmd);
+            ModuleDef ModuleDef = DataRegistry.Modules.Find(FormDef.Module);
+            if (ModuleDef != null && ModuleDef.SecurityLevel != UserLevel.None)
+                Cmd.SecurityLevel = ModuleDef.SecurityLevel;
+            if (CanAccess(Cmd))
+                cmdGroup.Commands.Add(Cmd);
         }
         RegisterReadOnlyViewCommands();
+        foreach (Command Command in AppRegistry.MenuCommands.ToArray())
+        {
+            if (Command.HasChildren && Command.Commands.Count == 0)
+                AppRegistry.MenuCommands.Remove(Command);
+        }
         AppRegistry.MenuCommands.Sort();
         AppRegistry.MenuCommands.Insert(0, cmdGeneral);
         
         // ● split commands to toolbar and menu commands
-        AppRegistry.ToolBarCommands.AddRange([cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdTest, cmdExit]);
+        AppRegistry.ToolBarCommands.AddRange(new Command[] { cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdTest, cmdExit }.Where(CanAccess));
         //AppRegistry.MenuCommands.AddRange(MasterCommandGroups);
     }
 }

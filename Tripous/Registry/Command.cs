@@ -19,6 +19,22 @@ public class Command: BaseDef
     string fForm;
     string fImageFileName;
     DefList<Command> fCommands;
+
+    // ● private methods
+    bool IsAllowed(UserLevel UserLevel)
+    {
+        if (SecurityLevel == UserLevel.None)
+            return true;
+        if ((UserLevel & UserLevel.God) == UserLevel.God)
+            return true;
+        if ((UserLevel & UserLevel.Admin) == UserLevel.Admin)
+            return SecurityLevel == UserLevel.Admin || SecurityLevel == UserLevel.User || SecurityLevel == UserLevel.Guest;
+        if ((UserLevel & UserLevel.User) == UserLevel.User)
+            return SecurityLevel == UserLevel.User || SecurityLevel == UserLevel.Guest;
+        if ((UserLevel & UserLevel.Guest) == UserLevel.Guest)
+            return SecurityLevel == UserLevel.Guest;
+        return (UserLevel & SecurityLevel) == SecurityLevel;
+    }
     
     // ● construction
     /// <summary>
@@ -108,6 +124,14 @@ public class Command: BaseDef
         object Result = ExecuteAsyncFunc != null && CanExecute()? await ExecuteAsyncFunc(this) : null;
         return Result;
     }
+    /// <summary>
+    /// Returns true when the specified user may see or execute this command.
+    /// </summary>
+    public bool CanAccess(AppUser User)
+    {
+        UserLevel UserLevel = User != null ? User.UserLevel : UserLevel.None;
+        return IsAllowed(UserLevel);
+    }
 
     // ● properties
     /// <summary>
@@ -147,6 +171,10 @@ public class Command: BaseDef
     /// Gets or sets a value indicating whether this command toggles a Boolean value.
     /// </summary>
     public bool IsToggle { get; set; }
+    /// <summary>
+    /// Gets or sets the minimum user level required to view or execute this command.
+    /// </summary>
+    public UserLevel SecurityLevel { get; set; }
     /// <summary>
     /// Gets or sets the callback that determines whether this command can execute.
     /// </summary>

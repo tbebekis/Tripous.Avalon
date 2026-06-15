@@ -26,8 +26,10 @@ public class ModuleDef: BaseDef
     bool fCascadeDeletes = true;
     string fItemCaptionField;
     bool fUseFilters = true;
+    UserLevel fSecurityLevel;
     Dictionary<string, List<string>> fDetailOrder;
 
+    // ● private methods
     string GetItemCaptionField()
    {
        string[] CaptionFields = { "Name", "Code", "Description", "Id" };
@@ -45,6 +47,20 @@ public class ModuleDef: BaseDef
 
        throw new TripousDataException($"Cannot find an item caption/title field for {nameof(ModuleDef)} {Name}");
    }
+    bool IsAllowed(UserLevel UserLevel)
+    {
+        if (SecurityLevel == UserLevel.None)
+            return true;
+        if ((UserLevel & UserLevel.God) == UserLevel.God)
+            return true;
+        if ((UserLevel & UserLevel.Admin) == UserLevel.Admin)
+            return SecurityLevel == UserLevel.Admin || SecurityLevel == UserLevel.User || SecurityLevel == UserLevel.Guest;
+        if ((UserLevel & UserLevel.User) == UserLevel.User)
+            return SecurityLevel == UserLevel.User || SecurityLevel == UserLevel.Guest;
+        if ((UserLevel & UserLevel.Guest) == UserLevel.Guest)
+            return SecurityLevel == UserLevel.Guest;
+        return (UserLevel & SecurityLevel) == SecurityLevel;
+    }
 
     // ● public
     /// <summary>
@@ -109,6 +125,14 @@ public class ModuleDef: BaseDef
         AddTable(Table);
         return List;
     }
+    /// <summary>
+    /// Returns true when the specified user may access this module.
+    /// </summary>
+    public bool CanAccess(AppUser User)
+    {
+        UserLevel UserLevel = User != null ? User.UserLevel : UserLevel.None;
+        return IsAllowed(UserLevel);
+    }
  
     // ● properties
     /// <summary>
@@ -164,6 +188,14 @@ public class ModuleDef: BaseDef
     {
         get => fUseFilters;
         set { if (fUseFilters != value) { fUseFilters = value; NotifyPropertyChanged(nameof(UseFilters)); } }
+    }
+    /// <summary>
+    /// Gets or sets the minimum user level required to access this module.
+    /// </summary>
+    public UserLevel SecurityLevel
+    {
+        get => fSecurityLevel;
+        set { if (fSecurityLevel != value) { fSecurityLevel = value; NotifyPropertyChanged(nameof(SecurityLevel)); } }
     }
     /// <summary>
     /// When is true indicates that the OID is a Guid string.  

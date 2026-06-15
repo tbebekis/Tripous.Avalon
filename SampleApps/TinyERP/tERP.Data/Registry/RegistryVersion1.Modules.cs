@@ -26,8 +26,6 @@ public partial class RegistryVersion1: RegistryVersion
 select
    SYS_APP_USER.Id,
    SYS_APP_USER.UserName,
-   SYS_APP_USER.Password,
-   SYS_APP_USER.Salt,
    SYS_APP_USER.FullName,
    SYS_APP_USER.UserLevelId,
    case
@@ -49,7 +47,7 @@ select
 from
   SYS_APP_USER
 ";
-        Module = DataRegistry.AddOrUpdateModule("AppUser", ClassName: "AppUserDataModule", ListSelectSql: SqlText);
+        Module = DataRegistry.AddOrUpdateModule("AppUser", ClassName: "AppUserDataModule", ListSelectSql: SqlText, SecurityLevel: UserLevel.Admin);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
@@ -57,8 +55,8 @@ from
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("UserName", MaxLength: 64, Flags: FieldFlags.Required).SetNullable(false);
-        tblTop.AddString("Password", MaxLength: 512, Flags: FieldFlags.Required).SetNullable(false);
-        tblTop.AddString("Salt", MaxLength: 256, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddString("Password", MaxLength: 512, Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
+        tblTop.AddString("Salt", MaxLength: 256, Flags: FieldFlags.Required | FieldFlags.Hidden).SetNullable(false);
         tblTop.AddString("FullName", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddEnumLookupId("UserLevelId", "UserLevel", TypeStore.Get("UserLevel"), Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddString("CultureCode", MaxLength: 16, Flags: FieldFlags.None).SetNullable(true);
@@ -73,16 +71,12 @@ from
         SelectDef.AddFilter("Email", FieldName: "Email", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("FullName", FieldName: "FullName", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("LastLoginAt", FieldName: "LastLoginAt", FilterDataType: DataFieldType.DateTime);
-        SelectDef.AddFilter("Password", FieldName: "Password", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("PasswordChangedAt", FieldName: "PasswordChangedAt", FilterDataType: DataFieldType.DateTime);
         SelectDef.AddFilter("Phone", FieldName: "Phone", FilterDataType: DataFieldType.String);
-        SelectDef.AddFilter("Salt", FieldName: "Salt", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("UserLevel", FieldName: "UserLevel", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("UserName", FieldName: "UserName", FilterDataType: DataFieldType.String);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["UserName"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Password"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Salt"] = DataColumnType.Text;
         SelectDef.ColumnTypes["FullName"] = DataColumnType.Text;
         SelectDef.ColumnTypes["UserLevelId"] = DataColumnType.Integer;
         SelectDef.ColumnTypes["UserLevel"] = DataColumnType.Text;

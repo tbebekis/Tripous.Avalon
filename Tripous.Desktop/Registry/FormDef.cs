@@ -20,10 +20,26 @@ public class FormDef: BaseDef
     string fModule;
     bool fIsReadOnly;
     string fGroup;
+    UserLevel fSecurityLevel;
 
+    // ● private methods
+    bool IsAllowed(UserLevel UserLevel)
+    {
+        if (SecurityLevel == UserLevel.None)
+            return true;
+        if ((UserLevel & UserLevel.God) == UserLevel.God)
+            return true;
+        if ((UserLevel & UserLevel.Admin) == UserLevel.Admin)
+            return SecurityLevel == UserLevel.Admin || SecurityLevel == UserLevel.User || SecurityLevel == UserLevel.Guest;
+        if ((UserLevel & UserLevel.User) == UserLevel.User)
+            return SecurityLevel == UserLevel.User || SecurityLevel == UserLevel.Guest;
+        if ((UserLevel & UserLevel.Guest) == UserLevel.Guest)
+            return SecurityLevel == UserLevel.Guest;
+        return (UserLevel & SecurityLevel) == SecurityLevel;
+    }
+
+    // ● protected methods
     protected override string GetTitleKey() => SplitTitleKeyToWordsWithPluralEnding();
- 
-
 
     // ● public
     /// <summary>
@@ -40,9 +56,17 @@ public class FormDef: BaseDef
     /// </summary>
     public Command CreateShowCommand(Func<Command, object> ExecuteFunc = null)
     {
-        Command Result = new(Name) { TitleKey = TitleKey, Form = Name};
+        Command Result = new(Name) { TitleKey = TitleKey, Form = Name, SecurityLevel = SecurityLevel };
         Result.ExecuteFunc = ExecuteFunc;
         return Result;
+    }
+    /// <summary>
+    /// Returns true when the specified user may access this form.
+    /// </summary>
+    public bool CanAccess(AppUser User)
+    {
+        UserLevel UserLevel = User != null ? User.UserLevel : UserLevel.None;
+        return IsAllowed(UserLevel);
     }
 
     // ● properties
@@ -107,8 +131,12 @@ public class FormDef: BaseDef
         get => fIsReadOnly;
         set { if (fIsReadOnly != value) { fIsReadOnly = value; NotifyPropertyChanged(nameof(IsReadOnly)); } }
     }
-    
- 
+    /// <summary>
+    /// Gets or sets the minimum user level required to access this form.
+    /// </summary>
+public UserLevel SecurityLevel
+    {
+        get => fSecurityLevel;
+        set { if (fSecurityLevel != value) { fSecurityLevel = value; NotifyPropertyChanged(nameof(SecurityLevel)); } }
+    }
 }
-
- 

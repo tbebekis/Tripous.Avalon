@@ -11,7 +11,7 @@ namespace Tripous.Desktop;
 static public class DesktopRegistry
 {
     // ● private
-    static FormDef AddFormInternal(string Name, string TitleKey = null, string Module = null, string ClassName = null, string Group = null, string ItemClassName = null, bool IsReadOnly = false)
+    static FormDef AddFormInternal(string Name, string TitleKey = null, string Module = null, string ClassName = null, string Group = null, string ItemClassName = null, bool IsReadOnly = false, UserLevel SecurityLevel = UserLevel.None)
     {
         FormDef Result = new();
         
@@ -22,6 +22,7 @@ static public class DesktopRegistry
         Result.Group = Group;
         Result.ItemClassName = ItemClassName;
         Result.IsReadOnly = IsReadOnly;
+        Result.SecurityLevel = SecurityLevel;
         
         DesktopRegistry.Forms.Add(Result);
         return Result;
@@ -39,10 +40,10 @@ static public class DesktopRegistry
     /// Adds a definition to the registry.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public FormDef AddForm(string Name, string TitleKey = null, string Module = null, string ClassName = null, string Group = null, string ItemClassName = null, bool IsReadOnly = false)
+    static public FormDef AddForm(string Name, string TitleKey = null, string Module = null, string ClassName = null, string Group = null, string ItemClassName = null, bool IsReadOnly = false, UserLevel SecurityLevel = UserLevel.None)
     {
         CheckForm(Name);
-        FormDef Result = AddFormInternal(Name, TitleKey, Module, ClassName, Group, ItemClassName, IsReadOnly);
+        FormDef Result = AddFormInternal(Name, TitleKey, Module, ClassName, Group, ItemClassName, IsReadOnly, SecurityLevel);
         return Result;
     }
     /// <summary>
@@ -64,14 +65,14 @@ static public class DesktopRegistry
     /// Adds or updates a form definition.
     /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public FormDef AddOrUpdateForm(string Name, string TitleKey = null, string Module = null, string ClassName = null, string Group = null, string ItemClassName = null, bool? IsReadOnly = null)
+    static public FormDef AddOrUpdateForm(string Name, string TitleKey = null, string Module = null, string ClassName = null, string Group = null, string ItemClassName = null, bool? IsReadOnly = null, UserLevel? SecurityLevel = null)
     {
         if (string.IsNullOrWhiteSpace(Name))
             throw new TripousException($"Cannot add or update a {nameof(FormDef)}. No '{nameof(Name)}' is provided.");
 
         FormDef Result = Forms.Find(Name);
         if (Result == null)
-            Result = AddFormInternal(Name, TitleKey, Module, ClassName, Group, ItemClassName, IsReadOnly ?? false);
+            Result = AddFormInternal(Name, TitleKey, Module, ClassName, Group, ItemClassName, IsReadOnly ?? false, SecurityLevel ?? UserLevel.None);
         else
         {
             if (TitleKey != null)
@@ -86,6 +87,8 @@ static public class DesktopRegistry
                 Result.ItemClassName = ItemClassName;
             if (IsReadOnly.HasValue)
                 Result.IsReadOnly = IsReadOnly.Value;
+            if (SecurityLevel.HasValue)
+                Result.SecurityLevel = SecurityLevel.Value;
         }
         return Result;
     }

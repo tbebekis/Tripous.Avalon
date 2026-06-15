@@ -81,12 +81,12 @@ CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
     UserName @NVARCHAR(64) @NOT_NULL,
-    Password @NVARCHAR(512) @NOT_NULL,
-    Salt @NVARCHAR(256) @NOT_NULL,
+    Password @NVARCHAR(512) @NOT_NULL,              -- [Hidden]
+    Salt @NVARCHAR(256) @NOT_NULL,                  -- [Hidden]
 
     FullName @NVARCHAR(96) @NOT_NULL,
 
-    UserLevelId int @NOT_NULL,                     -- Enum UserLevel
+    UserLevelId int @NOT_NULL,                      -- Enum UserLevel
     CultureCode @NVARCHAR(16) @NULL,
 
     Email @NVARCHAR(96) @NULL,

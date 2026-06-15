@@ -14,7 +14,7 @@ namespace Tripous.Data;
 static public class DataRegistry
 {
     // ● private
-    static ModuleDef AddModuleInternal(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false)
+    static ModuleDef AddModuleInternal(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false, UserLevel SecurityLevel = UserLevel.None)
     {
         ModuleDef Result = new();
         Result.Name = Name;
@@ -23,6 +23,7 @@ static public class DataRegistry
         Result.ClassName = !string.IsNullOrWhiteSpace(ClassName)? ClassName: typeof(DataModule).FullName;
         Result.Table.Name = Name;
         Result.IsSingleSelect = IsSingleSelect;
+        Result.SecurityLevel = SecurityLevel;
 
         SelectDef SelectDef = new();
         SelectDef.Name = Sys.DEFAULT;
@@ -32,7 +33,7 @@ static public class DataRegistry
         DataRegistry.Modules.Add(Result);
         return Result;
     }
-    static void UpdateModule(ModuleDef ModuleDef, string TitleKey, string ClassName, string ListSelectSql, bool? IsSingleSelect)
+    static void UpdateModule(ModuleDef ModuleDef, string TitleKey, string ClassName, string ListSelectSql, bool? IsSingleSelect, UserLevel? SecurityLevel)
     {
         if (TitleKey != null)
             ModuleDef.TitleKey = TitleKey;
@@ -42,6 +43,8 @@ static public class DataRegistry
             ModuleDef.SelectList[0].SqlText = ListSelectSql;
         if (IsSingleSelect.HasValue)
             ModuleDef.IsSingleSelect = IsSingleSelect.Value;
+        if (SecurityLevel.HasValue)
+            ModuleDef.SecurityLevel = SecurityLevel.Value;
     }
     static ModuleDef AddLookupListModuleInternal(string TableName, string Name, string TitleKey)
     {
@@ -256,10 +259,10 @@ static public class DataRegistry
     /// Adds a definition to the registry.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public ModuleDef AddModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false)
+    static public ModuleDef AddModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false, UserLevel SecurityLevel = UserLevel.None)
     {
         CheckModule(Name);
-        ModuleDef Result = AddModuleInternal(Name, TitleKey, ClassName, ListSelectSql, IsSingleSelect); 
+        ModuleDef Result = AddModuleInternal(Name, TitleKey, ClassName, ListSelectSql, IsSingleSelect, SecurityLevel);
         return Result;
     }
     /// <summary>
@@ -267,16 +270,16 @@ static public class DataRegistry
     /// <para>Existing child definitions and collections are preserved.</para>
     /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public ModuleDef AddOrUpdateModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool? IsSingleSelect = null)
+    static public ModuleDef AddOrUpdateModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool? IsSingleSelect = null, UserLevel? SecurityLevel = null)
     {
         if (string.IsNullOrWhiteSpace(Name))
             throw new TripousException($"Cannot add or update a {nameof(ModuleDef)}. No '{nameof(Name)}' is provided.");
 
         ModuleDef Result = Modules.Find(Name);
         if (Result == null)
-            Result = AddModuleInternal(Name, TitleKey, ClassName, ListSelectSql, IsSingleSelect ?? false);
+            Result = AddModuleInternal(Name, TitleKey, ClassName, ListSelectSql, IsSingleSelect ?? false, SecurityLevel ?? UserLevel.None);
         else
-            UpdateModule(Result, TitleKey, ClassName, ListSelectSql, IsSingleSelect);
+            UpdateModule(Result, TitleKey, ClassName, ListSelectSql, IsSingleSelect, SecurityLevel);
         return Result;
     }
  
