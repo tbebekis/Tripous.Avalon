@@ -272,7 +272,7 @@ public partial class DataForm : AppForm
                     await ExecuteRefresh();
                     break;
                 case DataFormAction.Save:
-                    ExecuteSave();
+                    await ExecuteSave();
                     break;
                 
                 case DataFormAction.Cancel:
@@ -395,7 +395,7 @@ public partial class DataForm : AppForm
             }
         }
     }
-    protected virtual void ExecuteSave()
+    protected virtual async Task ExecuteSave()
     {
         Dictionary<DataGrid, Tuple<int, DataGridColumn>> DetailGridSelection = ItemPage?.CaptureDetailGridSelection();
         Saving = true;
@@ -412,6 +412,7 @@ public partial class DataForm : AppForm
         }
 
         this.FormState = DataFormState.Edit;
+        await Task.CompletedTask;
     }
     /// <summary>
     /// Confirms pending changes and reloads the current item from the database.
@@ -582,6 +583,10 @@ public partial class DataForm : AppForm
     {
         Module.Cancel();
     }
+    /// <summary>
+    /// Returns true when a detail grid command can execute.
+    /// </summary>
+    public virtual bool CanExecuteGridCommand(GridCommandContext Context) => true;
 
     // ● UI
     protected virtual bool CreateToolBar()

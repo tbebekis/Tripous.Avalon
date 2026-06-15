@@ -15,6 +15,10 @@ public class PurchaseInvoiceForm: DocumentDataForm
 {
     // ● protected fields
     /// <summary>
+    /// Creates a Supplier Payment from the current Invoice.
+    /// </summary>
+    protected Button BtnCreatePayment;
+    /// <summary>
     /// Creates a Purchase Credit Note from the current Invoice.
     /// </summary>
     protected Button BtnCreateCreditNote;
@@ -40,6 +44,18 @@ public class PurchaseInvoiceForm: DocumentDataForm
     /// Returns true when the current Purchase Invoice can create a Cancellation document.
     /// </summary>
     protected virtual bool CanCreateCancellation()
+    {
+        return Module is PurchaseInvoiceDataModule
+               && FormState == DataFormState.Edit
+               && CurrentRow != null
+               && !HasChanges()
+               && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
+               && !CurrentRow.AsBoolean("IsCancelled");
+    }
+    /// <summary>
+    /// Returns true when the current Purchase Invoice can create a Supplier Payment.
+    /// </summary>
+    protected virtual bool CanCreatePayment()
     {
         return Module is PurchaseInvoiceDataModule
                && FormState == DataFormState.Edit
@@ -75,6 +91,26 @@ public class PurchaseInvoiceForm: DocumentDataForm
         ItemPage?.Refresh();
     }
     /// <summary>
+    /// Creates and displays a Supplier Payment for the current open invoice amount.
+    /// </summary>
+    protected virtual async Task ExecuteCreatePayment()
+    {
+        if (!CanCreatePayment())
+            return;
+
+        PurchaseInvoiceDataModule InvoiceModule = (PurchaseInvoiceDataModule)Module;
+        string Code = CurrentRow.AsString("Code");
+        string InvoiceText = string.IsNullOrWhiteSpace(Code) ? "Purchase Invoice" : $"Purchase Invoice: {Code}";
+        if (!await MessageBox.YesNo($"Create a Supplier Payment from {InvoiceText}?", this))
+            return;
+
+        PaymentDataModule PaymentModule = InvoiceModule.CreateSupplierPayment();
+        DataFormContext Context = DataFormContext.Create("SupplierPayment", PaymentModule, this);
+        Context.StartAction = DataFormAction.Insert;
+        await AppFormDialog.ShowModalDataForm(Context);
+        ItemPage?.Refresh();
+    }
+    /// <summary>
     /// Creates and displays a Purchase Cancellation after validating the current database state.
     /// </summary>
     protected virtual async Task ExecuteCreateCancellation()
@@ -104,6 +140,8 @@ public class PurchaseInvoiceForm: DocumentDataForm
     {
         if (Value is DocumentAction Action && Action == DocumentAction.CreateCreditNote)
             await ExecuteCreateCreditNote();
+        if (Value is DocumentAction PaymentAction && PaymentAction == DocumentAction.CreatePayment)
+            await ExecuteCreatePayment();
         if (Value is DocumentAction CancellationAction && CancellationAction == DocumentAction.CreateCancellation)
             await ExecuteCreateCancellation();
 
@@ -113,6 +151,8 @@ public class PurchaseInvoiceForm: DocumentDataForm
     {
         base.EnableCommands();
 
+        BtnCreatePayment.IsVisible = true;
+        BtnCreatePayment.IsEnabled = CanCreatePayment();
         BtnCreateCreditNote.IsVisible = true;
         BtnCreateCreditNote.IsEnabled = CanCreateCreditNote();
         BtnCreateCancellation.IsVisible = true;
@@ -123,8 +163,10 @@ public class PurchaseInvoiceForm: DocumentDataForm
         if (!base.CreateToolBar())
             return false;
 
+        BtnCreatePayment = ToolBar.AddButton("coins_delete.png", "Create Supplier Payment", async () => await ExecuteCustom(DocumentAction.CreatePayment));
+        ToolBar.PlaceControlAfter(btnPost, BtnCreatePayment);
         BtnCreateCreditNote = ToolBar.AddButton("document_redirect.png", "Create Purchase Credit Note", async () => await ExecuteCustom(DocumentAction.CreateCreditNote));
-        ToolBar.PlaceControlAfter(btnPost, BtnCreateCreditNote);
+        ToolBar.PlaceControlAfter(BtnCreatePayment, BtnCreateCreditNote);
         BtnCreateCancellation = ToolBar.AddButton("document_torn.png", "Create Purchase Cancellation", async () => await ExecuteCustom(DocumentAction.CreateCancellation));
         ToolBar.PlaceControlAfter(BtnCreateCreditNote, BtnCreateCancellation);
         return true;

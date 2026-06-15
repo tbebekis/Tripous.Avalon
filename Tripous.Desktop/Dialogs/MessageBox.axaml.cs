@@ -112,10 +112,7 @@ public partial class MessageBox : Window
             Dlg.pnlButtons.Children.Add(Dlg.fBtnClose);
         }
 
-        if (Caller == null)
-            Caller = Ui.MainWindow;
-        
-        Window ParentWindow = Caller is Window? Caller as Window: Caller.GetParentWindow(); 
+        Window ParentWindow = Caller.GetOwnerWindow();
  
         await Dlg.ShowDialog(ParentWindow);
         return Dlg.DialogResultValue;

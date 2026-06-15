@@ -422,6 +422,10 @@ public class LocatorBox: UserControl
 
             DataColumn Column = Row.Table.FindColumn(TargetField);
             object Value = Column != null ? Row[Column] : DBNull.Value;
+            if (Column == null && !Sys.IsNull(KeyValue) && Locator.LocateByKey(KeyValue))
+                Value = Locator.SelectedRow != null && Locator.SelectedRow.Table.Columns.Contains(FieldDef.Name)
+                    ? Locator.SelectedRow[FieldDef.Name]
+                    : DBNull.Value;
             SetTargetBoxValue(FieldDef, Value);
         }
     }

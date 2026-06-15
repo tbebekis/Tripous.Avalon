@@ -49,6 +49,24 @@ public class PaymentDataModule : DocumentDataModule
         CurrentRow.SetValue("UnappliedAmount", RoundAmount(CurrentRow.AsDecimal("Amount") - SettledAmount));
     }
     /// <summary>
+    /// Adjusts the payment amount to match the settlement total when settlement lines exist.
+    /// </summary>
+    void AdjustAmountToSettlementTotal()
+    {
+        AmountAdjustmentMessage = "";
+        if (CurrentRow == null || IsPaymentCancellation())
+            return;
+        List<DataRow> Settlements = GetActiveSettlements();
+        if (Settlements.Count == 0)
+            return;
+        decimal SettledAmount = RoundAmount(Settlements.Sum(Row => Row.AsDecimal("Amount")));
+        decimal Amount = RoundAmount(CurrentRow.AsDecimal("Amount"));
+        if (Amount == SettledAmount)
+            return;
+        CurrentRow.SetValue("Amount", SettledAmount);
+        AmountAdjustmentMessage = $"Payment amount was adjusted from {Amount} to {SettledAmount} to match settlement total.";
+    }
+    /// <summary>
     /// Returns true when this module handles customer receipts.
     /// </summary>
     bool IsCustomerReceipt() => ModuleDef != null
@@ -66,6 +84,42 @@ public class PaymentDataModule : DocumentDataModule
         if (string.IsNullOrWhiteSpace(Value))
             return DBNull.Value;
         return Value;
+    }
+    /// <summary>
+    /// Sets a row field value when the field exists.
+    /// </summary>
+    void SetValueIfColumnExists(DataRow Row, string FieldName, object Value)
+    {
+        if (Row.Table.Columns.Contains(FieldName))
+            Row.SetValue(FieldName, Value);
+    }
+    /// <summary>
+    /// Sets person display fields on a payment row.
+    /// </summary>
+    void SetPersonDisplayFields(DataRow PaymentRow)
+    {
+        string PersonId = PaymentRow.AsString("PersonId");
+        if (string.IsNullOrWhiteSpace(PersonId))
+            return;
+        DataRow Person = Store.SelectResults("""
+                                             select Code, Name
+                                             from Person
+                                             where Id = :Id
+                                             """, new Dictionary<string, object>()
+        {
+            ["Id"] = PersonId,
+        });
+        if (Person == null)
+            return;
+        SetValueIfColumnExists(PaymentRow, "Person__Code", Person.AsString("Code"));
+        SetValueIfColumnExists(PaymentRow, "Person__Name", Person.AsString("Name"));
+    }
+    /// <summary>
+    /// Sets payment display fields for cancellation links.
+    /// </summary>
+    void SetPaymentDisplayFields(DataRow PaymentRow, string FieldPrefix, DataRow SourcePayment)
+    {
+        SetValueIfColumnExists(PaymentRow, $"{FieldPrefix}__Code", SourcePayment.AsString("Code"));
     }
     /// <summary>
     /// Returns the generated journal entry code for the current payment.
@@ -640,7 +694,7 @@ public class PaymentDataModule : DocumentDataModule
     /// <summary>
     /// Validates the payment header and settlement lines.
     /// </summary>
-    void ValidatePayment()
+    void ValidatePayment(bool ValidateHeaderAmount = true)
     {
         List<string> Errors = [];
         if (string.IsNullOrWhiteSpace(CurrentRow.AsString("PersonId")))
@@ -649,13 +703,13 @@ public class PaymentDataModule : DocumentDataModule
             Errors.Add("Currency is required.");
         if (CurrentRow.AsDecimal("ExchangeRate") <= 0)
             Errors.Add("Exchange rate must be greater than zero.");
-        if (CurrentRow.AsDecimal("Amount") <= 0)
+        if (ValidateHeaderAmount && CurrentRow.AsDecimal("Amount") <= 0)
             Errors.Add("Amount must be greater than zero.");
         bool HasCashAccount = !string.IsNullOrWhiteSpace(CurrentRow.AsString("CashAccountId"));
         bool HasBankAccount = !string.IsNullOrWhiteSpace(CurrentRow.AsString("CompanyBankAccountId"));
         if (HasCashAccount == HasBankAccount)
             Errors.Add("Exactly one cash or bank account is required.");
-        if (CurrentRow.AsDecimal("UnappliedAmount") < 0)
+        if (ValidateHeaderAmount && CurrentRow.AsDecimal("UnappliedAmount") < 0)
             Errors.Add("Settled amount cannot exceed payment amount.");
         if (!IsPaymentCancellation())
         {
@@ -732,6 +786,9 @@ public class PaymentDataModule : DocumentDataModule
     {
         base.CheckCanCommit(Reselect);
         CalculateTotals();
+        ValidatePayment(false);
+        AdjustAmountToSettlementTotal();
+        CalculateTotals();
         ValidatePayment();
     }
     /// <summary>
@@ -767,6 +824,14 @@ public class PaymentDataModule : DocumentDataModule
         Result.CurrentRow.SetValue("SettledAmount", 0m);
         Result.CurrentRow.SetValue("UnappliedAmount", CurrentRow["Amount"]);
         Result.CurrentRow.SetValue("ExternalRef", CurrentRow["Code"]);
+        SetPersonDisplayFields(Result.CurrentRow);
+        SetPaymentDisplayFields(Result.CurrentRow, "CancelledPayment", CurrentRow);
         return Result;
     }
+
+    // ● properties
+    /// <summary>
+    /// Gets the latest payment amount adjustment message.
+    /// </summary>
+    public string AmountAdjustmentMessage { get; protected set; } = "";
 }

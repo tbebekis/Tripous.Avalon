@@ -17,4 +17,15 @@ public class SupplierPaymentCancellationForm : DocumentDataForm
     public SupplierPaymentCancellationForm()
     {
     }
+
+    // ● public
+    /// <summary>
+    /// Returns true when a detail grid command can execute.
+    /// </summary>
+    public override bool CanExecuteGridCommand(GridCommandContext Context)
+    {
+        if (Context?.Command?.ActionType == GridActionType.Add && Context.Table?.TableName.IsSameText("PaymentSettlement") == true)
+            return false;
+        return base.CanExecuteGridCommand(Context);
+    }
 }

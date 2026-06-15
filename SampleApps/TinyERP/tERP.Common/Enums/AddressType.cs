@@ -383,4 +383,6 @@ public enum DocumentAction
     CreateCreditNote = 5,
     /// <summary>Creates a Cancellation document from the current Invoice.</summary>
     CreateCancellation = 6,
+    /// <summary>Creates a payment document from the current Invoice.</summary>
+    CreatePayment = 7,
 }

@@ -45,11 +45,18 @@ public static class DataGridBinder
 
     static object GetValue(DataRowView RowView, string ColumnName)
     {
-        if (RowView == null || RowView.Row == null || RowView.Row.RowState.In(DataRowState.Deleted))
+        if (RowView == null || RowView.Row == null || RowView.Row.RowState.In(DataRowState.Deleted | DataRowState.Detached))
             return null;
 
-        object Result = RowView[ColumnName];
-        return Result == DBNull.Value ? null : Result;
+        try
+        {
+            object Result = RowView[ColumnName];
+            return Result == DBNull.Value ? null : Result;
+        }
+        catch (RowNotInTableException)
+        {
+            return null;
+        }
     }
     static void SetValue(DataRowView RowView, string ColumnName, object Value)
     {

@@ -139,6 +139,24 @@ where P.IsActive = 1
         LocatorDef.Fields.Find("UnitOfMeasureId").IsVisible = false;
         
         //*/
+
+        // ● Payment Settlement Finance Movement
+        LocatorDef = DataRegistry.AddOrUpdateLocator(
+            "PaymentSettlementFinanceMovement",
+            "FinanceMovement",
+            "Id",
+            ClassName: typeof(PaymentSettlementFinanceMovementLocator).FullName,
+            FormName: "FinanceMovement");
+        LocatorDef.Fields.Clear();
+        LocatorDef.Add("Id", DataFieldType.String, TargetField: null, Alias: "Id", TitleKey: "Id", IsVisible: false, IsSearchable: false);
+        LocatorDef.Add("DocumentCode", DataFieldType.String, TargetField: null, Alias: "DocumentCode", TitleKey: "Document", IsVisible: true, IsSearchable: true).DisplayWidth = 120;
+        LocatorDef.Add("DocumentDate", DataFieldType.Date, TargetField: null, Alias: "DocumentDate", TitleKey: "Date", IsVisible: true, IsSearchable: false).DisplayWidth = 100;
+        LocatorDef.Add("PersonCode", DataFieldType.String, TargetField: null, Alias: "PersonCode", TitleKey: "Person Code", IsVisible: true, IsSearchable: true).DisplayWidth = 110;
+        LocatorDef.Add("PersonName", DataFieldType.String, TargetField: null, Alias: "PersonName", TitleKey: "Person", IsVisible: true, IsSearchable: true).DisplayWidth = 180;
+        LocatorDef.Add("TradeType", DataFieldType.String, TargetField: null, Alias: "TradeType", TitleKey: "Trade Type", IsVisible: true, IsSearchable: true).DisplayWidth = 100;
+        LocatorDef.Add("Direction", DataFieldType.Integer, TargetField: null, Alias: "Direction", TitleKey: "Direction", IsVisible: true, IsSearchable: false).DisplayWidth = 80;
+        LocatorDef.Add("Amount", DataFieldType.Decimal, TargetField: null, Alias: "Amount", TitleKey: "Amount", IsVisible: true, IsSearchable: false).DisplayWidth = 110;
+        LocatorDef.Add("OpenAmount", DataFieldType.Decimal, TargetField: null, Alias: "OpenAmount", TitleKey: "Open Amount", IsVisible: true, IsSearchable: false).DisplayWidth = 120;
         
  
     }

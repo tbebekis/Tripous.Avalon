@@ -546,6 +546,10 @@ public class Locator
     /// </summary>
     public MemTable SourceTable { get; } = new();
     /// <summary>
+    /// Optional context provided by the control or caller that executes this locator.
+    /// </summary>
+    public virtual object Context { get; set; }
+    /// <summary>
     /// True when <see cref="SourceTable"/> contains valid data.
     /// </summary>
     public bool IsSourceTableValid { get; protected set; }

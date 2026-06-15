@@ -402,7 +402,7 @@ static public class UiItemDetails
             if (TargetField == null)
                 continue;
 
-            bool IsReadOnly = Field.IsReadOnly || Field.IsReadOnlyUI || TargetField.IsReadOnly || TargetField.IsReadOnlyUI || LocatorDef.IsReadOnly || !LocatorField.IsSearchable;
+            bool IsReadOnly = Field.IsReadOnly || Field.IsReadOnlyUI || LocatorDef.IsReadOnly || !LocatorField.IsSearchable;
             Result.Add(DataGridBinder.CreateLocatorColumn(TargetField.Alias, TargetField.Title, Field, LocatorDef, LocatorField, TargetFieldMap, IsReadOnly: IsReadOnly));
         }
 

@@ -6,6 +6,8 @@ The document data modules provide the business logic for transactional documents
 
 The current implementation covers sales, purchases, stock documents, manual journal entries, payments, posting, cancellation, document transformation, stock operations, finance movements, and accounting integration.
 
+Data modules do not show UI, modal dialogs, message boxes, or wait for user interaction. They may be used from services or other non-UI callers. UI feedback belongs to forms and other desktop-layer classes.
+
 ## Data Module Hierarchy
 
 ```text
@@ -189,6 +191,7 @@ After posting:
 
 - The document cannot be edited.
 - The Save and Post commands are disabled.
+- The Add New command remains enabled so the user can immediately start the next document.
 - Bound controls and detail grids are read-only.
 - Detail Add/Delete commands and their keyboard shortcuts are disabled.
 
@@ -837,6 +840,13 @@ Supplier Payment posting:
 - Debits Suppliers.
 - Credits Cash or Bank.
 
+Posted invoice forms can create payment documents:
+
+- Sales Invoice provides `Create Customer Receipt`.
+- Purchase Invoice provides `Create Supplier Payment`.
+- The created payment uses the invoice's current open finance movement amount.
+- The created payment copies partner, currency, exchange rate, source code, and an initial settlement row.
+
 Payment settlement rows link payments to open trade Finance Movements:
 
 - A settlement can reference only trade Finance Movements.
@@ -844,7 +854,17 @@ Payment settlement rows link payments to open trade Finance Movements:
 - The movement direction must match the payment document type.
 - Cancelled movements cannot be settled.
 - The settled amount cannot exceed the open movement amount.
+- When settlement rows exist, the payment header amount is adjusted on save to match the settlement total.
+- Invalid settlement rows are validated before header amount adjustment, so an over-settlement is blocked instead of being normalized into the header amount.
+- If no settlement rows exist, the payment amount remains manually entered and becomes unapplied.
 - Cancellation documents cannot have settlement rows.
+- Payment cancellation forms disable adding settlement rows in the settlement detail grid.
+- `PaymentSettlement.FinanceMovementId` uses a payment-aware locator that filters open trade movements by the payment header partner, currency, trade type, and financial direction.
+
+Payment forms:
+
+- Show an information message when the payment header amount is adjusted to the settlement total.
+- Attempt posting for draft editable documents even when pending UI changes exist, so validation errors are shown to the user instead of silently disabling the post command.
 
 ## Payment Cancellation
 
@@ -855,6 +875,7 @@ Posted payments are cancelled through separate cancellation documents:
 - `Payment.CancelledPaymentId` references the cancelled payment from the cancellation document.
 - The cancelled payment stores the cancellation identifier in `Payment.CancellationPaymentId`.
 - The cancelled payment receives `StatusId = Cancelled`, `IsCancelled`, `CancelledAt`, and `CancelledBy`.
+- Cancellation forms copy source payment display fields such as partner and cancelled payment code for immediate UI display.
 
 Payment cancellation posting:
 

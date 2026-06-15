@@ -135,6 +135,22 @@ public class GridLocatorBox: UserControl
         RowView.BeginEdit();
         Locator.Assign(SourceRow, RowView.Row, KeyFieldName, TargetFieldMap);
     }
+    async Task<bool> TryAssignSourceRow(DataRow SourceRow)
+    {
+        try
+        {
+            AssignSourceRow(SourceRow);
+            return true;
+        }
+        catch (Exception e)
+        {
+            ClosePopup();
+            CancelCell();
+            LogBox.AppendLine($"Grid Locator: {e.Message}");
+            await MessageBox.Error(e, this);
+            return false;
+        }
+    }
     void UpdateLocatorDisplayCells(DataGrid Grid, DataRowView TargetRowView)
     {
         if (Grid == null || TargetRowView?.Row == null)
@@ -189,11 +205,12 @@ public class GridLocatorBox: UserControl
             }, DispatcherPriority.Input);
         }, DispatcherPriority.Background);
     }
-    void SelectCurrentRow()
+    async void SelectCurrentRow()
     {
         if (fGrid?.SelectedItem is DataRowView SourceRowView)
         {
-            AssignSourceRow(SourceRowView.Row);
+            if (!await TryAssignSourceRow(SourceRowView.Row))
+                return;
             ClosePopup();
             CommitCell();
         }
@@ -225,8 +242,11 @@ public class GridLocatorBox: UserControl
             {
                 ClosePopup();
                 LogBox.AppendLine($"Grid Locator: Found 1 row for term: {LogTerm}");
-                AssignSourceRow(Result.SourceTable.Rows[0]);
-                CommitCell();
+                Ui.Post(async () =>
+                {
+                    if (await TryAssignSourceRow(Result.SourceTable.Rows[0]))
+                        CommitCell();
+                });
             }
             else
             {
@@ -304,6 +324,8 @@ public class GridLocatorBox: UserControl
         this.KeyFieldName = KeyFieldName;
         this.TargetFieldMap = TargetFieldMap ?? [];
         this.Locator = LocatorDef?.Create();
+        if (this.Locator != null)
+            this.Locator.Context = RowView?.Row;
     }
     /// <summary>
     /// Focuses the editor textbox.

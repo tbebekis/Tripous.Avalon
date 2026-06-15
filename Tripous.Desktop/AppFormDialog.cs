@@ -29,7 +29,13 @@ public class AppFormDialog : Window
         
         base.OnOpened(e);
     }
-    
+
+    // ● construction
+    public AppFormDialog()
+    {
+        ShowInTaskbar = false;
+    }
+
     // ● public
     /// <summary>
     /// Shows a modal window with an embedded form (UserControl) 
@@ -44,7 +50,7 @@ public class AppFormDialog : Window
         Context.DisplayMode = FormDisplayMode.Dialog;
         Context.ParentControl = Dialog;
         
-        Dialog.OwnerWindow = Context.Caller is Window? Context.Caller as Window: Context.Caller.GetParentWindow(); 
+        Dialog.OwnerWindow = Context.Caller.GetOwnerWindow();
         Dialog.Context = Context;
         Dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         Dialog.Title = Context.Title;

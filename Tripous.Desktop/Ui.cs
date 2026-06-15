@@ -24,13 +24,20 @@ static public partial class Ui
  
     // ● dialogs
     static public Window GetParentWindow(this Control Control) => TopLevel.GetTopLevel(Control) as Window;
+    static public Window GetOwnerWindow(this Control Control)
+    {
+        if (Control is Window Window)
+            return Window;
+        Window Result = Control != null ? Control.GetParentWindow() : null;
+        return Result ?? Ui.MainWindow;
+    }
     
     static public async Task<string> SaveFileDialog(Control Caller, params string[] Extensions)
     {
         if (Caller == null)
             Caller = Ui.MainWindow;
 
-        Window ParentWindow = Caller is Window? Caller as Window: Caller.GetParentWindow(); 
+        Window ParentWindow = Caller.GetOwnerWindow();
  
         if (ParentWindow == null)
             return null;
@@ -76,7 +83,7 @@ static public partial class Ui
         if (Caller == null)
             Caller = Ui.MainWindow;
 
-        Window ParentWindow = Caller is Window? Caller as Window: Caller.GetParentWindow(); 
+        Window ParentWindow = Caller.GetOwnerWindow();
  
         if (ParentWindow == null)
             return null;
@@ -307,5 +314,3 @@ static public partial class Ui
     /// </summary>
     static public UiGlobalSettings Settings { get; } = new();
 }
-
-

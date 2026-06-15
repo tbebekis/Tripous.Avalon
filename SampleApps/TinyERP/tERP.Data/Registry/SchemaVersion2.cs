@@ -179,36 +179,40 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,             
 
-    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup; [Hidden]
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup; [ReadOnlyUI]
     Code @NVARCHAR(40) @NOT_NULL,                       -- Code; [ReadOnlyUI]
-    TradeTypeId int default 0 @NOT_NULL,                -- [Hidden]
+    TradeTypeId int default 0 @NOT_NULL,                -- Enum TradeType; [ReadOnlyUI]
 
     TradeStatusId int default 1 @NOT_NULL,              -- Enum TradeStatus; [ReadOnlyUI]
-    TaxBusinessGroupId @NVARCHAR(40) @NULL,             -- Lookup -- Tax classification copied from Person and stored as a document snapshot
-    OriginTaxJurisdictionId @NVARCHAR(40) @NULL,        -- Lookup -- Jurisdiction resolved from the company or branch address
-    DestinationTaxJurisdictionId @NVARCHAR(40) @NULL,   -- Lookup -- Jurisdiction resolved from the transaction address or selected as an override
+
+    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person -- Customer, Supplier, etc
+    WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup
+
+    PriceListTypeId @NVARCHAR(40) @NULL,                -- Lookup -- Price list type stored as a document snapshot
+    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup
+    ExchangeRate @DECIMAL default 1 @NOT_NULL,          -- Exchange Rate for base currency
 
     TradeDate @DATE @NOT_NULL,                          -- 
     PostingDate @DATE @NULL,                            -- [ReadOnlyUI]
     DeliveryDate @DATE @NULL,                           -- 
     DueDate @DATE @NULL,                                -- 
 
-    ExternalRef @NVARCHAR(96) @NULL,                    -- e.g. ""Related to Order 123"", ""Your ref: PO-456""
+    TaxBusinessGroupId @NVARCHAR(40) @NULL,             -- Lookup -- Tax classification copied from Person and stored as a document snapshot
+    OriginTaxJurisdictionId @NVARCHAR(40) @NULL,        -- Lookup -- Jurisdiction resolved from the company or branch address
+    DestinationTaxJurisdictionId @NVARCHAR(40) @NULL,   -- Lookup -- Jurisdiction resolved from the transaction address or selected as an override
 
-    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person -- Customer, Supplier, etc
-    WarehouseId @NVARCHAR(40) @NULL,                    -- Lookup
+    ExternalRef @NVARCHAR(96) @NULL,                    -- e.g. ""Related to Order 123"", ""Your ref: PO-456""
 
     SalesPersonId @NVARCHAR(40) @NULL,                  -- Lookup Person; Group Organization
     ProjectId @NVARCHAR(40) @NULL,                      -- Lookup; Group Organization
     CostCenterId @NVARCHAR(40) @NULL,                   -- Lookup; Group Organization
     BranchId @NVARCHAR(40) @NULL,                       -- Lookup; Group Organization
 
-    PriceListTypeId @NVARCHAR(40) @NULL,                -- Lookup -- Price list type stored as a document snapshot
-    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup
-    ExchangeRate @DECIMAL default 1 @NOT_NULL,          -- Exchange Rate for base currency
-
     PaymentMethodId @NVARCHAR(40) @NULL,                -- Lookup
     PaymentTermId @NVARCHAR(40) @NULL,                  -- Lookup
+
+    IsLocked @BOOL default 0 @NOT_NULL,                 -- [ReadOnlyUI] -- Lock document from editing
+    IsCancelled @BOOL default 0 @NOT_NULL,              -- [ReadOnlyUI]
 
     BillingName @NVARCHAR(96) @NULL,                    -- Group Billing
     BillingAddressLine1 @NVARCHAR(128) @NULL,           -- Group Billing
@@ -226,23 +230,20 @@ CREATE TABLE {TableName} (
     ShippingPostalCode @NVARCHAR(20) @NULL,             -- Group Shipping
     ShippingCountryId @NVARCHAR(40) @NULL,              -- Lookup; Group Shipping
 
-    SourceId @NVARCHAR(40) @NULL,                       -- Locator Trade; [Hidden]
-    CancelsTradeId @NVARCHAR(40) @NULL,                 -- Locator Trade; [Hidden]
-    CancelledByTradeId @NVARCHAR(40) @NULL,             -- Locator Trade; [Hidden]
+    SourceId @NVARCHAR(40) @NULL,                       -- Locator Trade; Group Relations; [ReadOnlyUI]
+    CancelsTradeId @NVARCHAR(40) @NULL,                 -- Locator Trade; Group Relations; [ReadOnlyUI]
+    CancelledByTradeId @NVARCHAR(40) @NULL,             -- Locator Trade; Group Relations; [ReadOnlyUI]
 
-    LinesAmount @DECIMAL default 0 @NOT_NULL,           -- Group Amounts; [ReadOnlyUI] -- sum of lines before header discounts/charges/taxes
-    DiscountPercent @DECIMAL default 0 @NOT_NULL,       -- Group Amounts -- Header Discount %
-    DiscountAmount @DECIMAL default 0 @NOT_NULL,        -- Group Amounts
-    DiscountReason @NVARCHAR(256) @NULL,                -- Group Amounts
+    LinesAmount @DECIMAL default 0 @NOT_NULL,           -- Group Totals; [ReadOnlyUI] -- sum of lines before header discounts/charges/taxes
+    DiscountPercent @DECIMAL default 0 @NOT_NULL,       -- Group Totals -- Header Discount %
+    DiscountAmount @DECIMAL default 0 @NOT_NULL,        -- Group Totals
+    DiscountReason @NVARCHAR(256) @NULL,                -- Group Totals
 
-    ChargesAmount @DECIMAL default 0 @NOT_NULL,         -- Group Amounts
+    ChargesAmount @DECIMAL default 0 @NOT_NULL,         -- Group Totals
 
-    NetAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts; [ReadOnlyUI] -- = LinesAmount - DiscountAmount + ChargesAmount
-    TaxAmount @DECIMAL default 0 @NOT_NULL,             -- Group Amounts; [ReadOnlyUI] -- Total tax amount from all line tax components
-    TotalAmount @DECIMAL default 0 @NOT_NULL,           -- Group Amounts; [ReadOnlyUI]
-
-    IsLocked @BOOL default 0 @NOT_NULL,                 -- [ReadOnlyUI] -- Lock document from editing
-    IsCancelled @BOOL default 0 @NOT_NULL,              -- [ReadOnlyUI]
+    NetAmount @DECIMAL default 0 @NOT_NULL,             -- Group Totals; [ReadOnlyUI] -- = LinesAmount - DiscountAmount + ChargesAmount
+    TaxAmount @DECIMAL default 0 @NOT_NULL,             -- Group Totals; [ReadOnlyUI] -- Total tax amount from all line tax components
+    TotalAmount @DECIMAL default 0 @NOT_NULL,           -- Group Totals; [ReadOnlyUI]
 
     CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit; [ReadOnlyUI]
     CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
@@ -299,10 +300,11 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup -- controls numbering and posting behavior
-    Code @NVARCHAR(40) @NOT_NULL,                       -- Code Draft STK-YYYY-XXXXXX StockTrade
-    TradeTypeId int default 0 @NOT_NULL,                -- [Hidden]
-    OperationTypeId int default 1 @NOT_NULL,             -- Enum StockTradeOperation
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup; [ReadOnlyUI] -- controls numbering and posting behavior
+    Code @NVARCHAR(40) @NOT_NULL,                       -- Code Draft STK-YYYY-XXXXXX StockTrade; [ReadOnlyUI]
+    TradeTypeId int default 0 @NOT_NULL,                -- Enum TradeType; [ReadOnlyUI]
+    OperationTypeId int default 1 @NOT_NULL,            -- Enum StockTradeOperation
+    StatusId int default 1 @NOT_NULL,                   -- Enum TradeStatus; [ReadOnlyUI]
     
     WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup -- main/source warehouse
     ToWarehouseId @NVARCHAR(40) @NULL,                  -- Lookup -- destination warehouse, used only for transfers
@@ -310,17 +312,15 @@ CREATE TABLE {TableName} (
     DocumentDate @DATE @NOT_NULL,                       --
     PostingDate @DATE @NULL,                            -- [ReadOnlyUI] -- date used for generated stock movements
 
-    StatusId int default 1 @NOT_NULL,                   -- Enum TradeStatus; [ReadOnlyUI]
-
-    TotalCostAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- [ReadOnlyUI] -- total internal stock cost value posted by this document
-
-    Remarks @NVARCHAR(512) @NULL,                       -- Memo; Group Notes -- internal notes
-
     IsLocked @BOOL DEFAULT 0 @NOT_NULL,                 -- [ReadOnlyUI]
     IsCancelled @BOOL DEFAULT 0 @NOT_NULL,              -- [ReadOnlyUI]
 
-    CancelsStockTradeId @NVARCHAR(40) @NULL,            -- Locator StockTrade; Group Relations -- original document cancelled by this one
-    CancelledByStockTradeId @NVARCHAR(40) @NULL,        -- Locator StockTrade; Group Relations -- reverse/cancellation document
+    TotalCostAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- Group Totals; [ReadOnlyUI] -- total internal stock cost value posted by this document
+
+    Remarks @NVARCHAR(512) @NULL,                       -- Memo; Group Notes -- internal notes
+
+    CancelsStockTradeId @NVARCHAR(40) @NULL,            -- Locator StockTrade; Group Relations; [ReadOnlyUI] -- original document cancelled by this one
+    CancelledByStockTradeId @NVARCHAR(40) @NULL,        -- Locator StockTrade; Group Relations; [ReadOnlyUI] -- reverse/cancellation document
 
     CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit; [ReadOnlyUI]
     CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
@@ -357,29 +357,29 @@ CREATE TABLE {TableName} (
 
     TradeTypeId int default 0 @NOT_NULL,                -- Enum; [ReadOnlyUI]
     
-    ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
-    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup
+    ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product; [ReadOnlyUI]
+    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup; [ReadOnlyUI]
 
-    MovementDate @DATE @NOT_NULL,                       -- stock ledger date
-    Direction int @NOT_NULL,                            -- 1=in, -1=out
+    MovementDate @DATE @NOT_NULL,                       -- [ReadOnlyUI] -- stock ledger date
+    Direction int @NOT_NULL,                            -- 1=in, -1=out; [ReadOnlyUI]
 
-    Quantity @DECIMAL DEFAULT 0 @NOT_NULL,              -- always positive, in movement unit
-    PrimaryQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- quantity in product primary unit
+    Quantity @DECIMAL DEFAULT 0 @NOT_NULL,              -- [ReadOnlyUI] -- always positive, in movement unit
+    PrimaryQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- [ReadOnlyUI] -- quantity in product primary unit
 
-    UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,            -- Lookup
-    UnitOfMeasureName @NVARCHAR(40) @NOT_NULL,          -- Snapshot UnitOfMeasure.Name
-    UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- ratio to primary unit, ProductUnitOfMeasure.Ratio, converts line quantity to primary/base quantity
+    UnitOfMeasureId @NVARCHAR(40) @NOT_NULL,            -- Lookup; [ReadOnlyUI]
+    UnitOfMeasureName @NVARCHAR(40) @NOT_NULL,          -- Snapshot UnitOfMeasure.Name; [ReadOnlyUI]
+    UnitRatio @DECIMAL DEFAULT 1 @NOT_NULL,             -- [ReadOnlyUI] -- ratio to primary unit, ProductUnitOfMeasure.Ratio, converts line quantity to primary/base quantity
 
-    UnitCost @DECIMAL DEFAULT 0 @NOT_NULL,              -- internal stock cost per primary unit at movement time
-    CostAmount @DECIMAL DEFAULT 0 @NOT_NULL,            -- total stock cost posted by the movement
+    UnitCost @DECIMAL DEFAULT 0 @NOT_NULL,              -- [ReadOnlyUI] -- internal stock cost per primary unit at movement time
+    CostAmount @DECIMAL DEFAULT 0 @NOT_NULL,            -- [ReadOnlyUI] -- total stock cost posted by the movement
 
-    SourceModule @NVARCHAR(64) @NOT_NULL,               -- source module name, e.g. Trade or StockTrade
-    SourceTable @NVARCHAR(64) @NOT_NULL,                -- source line table, e.g. TradeLine or StockTradeLine
-    SourceId @NVARCHAR(40) @NOT_NULL,                   -- source line Id
+    SourceModule @NVARCHAR(64) @NOT_NULL,               -- [ReadOnlyUI] -- source module name, e.g. Trade or StockTrade
+    SourceTable @NVARCHAR(64) @NOT_NULL,                -- [ReadOnlyUI] -- source line table, e.g. TradeLine or StockTradeLine
+    SourceId @NVARCHAR(40) @NOT_NULL,                   -- [ReadOnlyUI] -- source line Id
 
-    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup -- source document type
-    DocumentCode @NVARCHAR(40) @NOT_NULL,               -- source document code snapshot
-    DocumentDate @DATE @NOT_NULL,                       -- source document date snapshot    
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup; [ReadOnlyUI] -- source document type
+    DocumentCode @NVARCHAR(40) @NOT_NULL,               -- [ReadOnlyUI] -- source document code snapshot
+    DocumentDate @DATE @NOT_NULL,                       -- [ReadOnlyUI] -- source document date snapshot
 
     CreatedAt @DATE_TIME @NOT_NULL,                     -- [ReadOnlyUI]
     CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; [ReadOnlyUI]
@@ -404,20 +404,19 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    Code @NVARCHAR(40) @NOT_NULL,                     -- Code Draft SC-YYYY-XXXXXX StockCount
-    DocumentTypeId @NVARCHAR(40) @NOT_NULL,           -- Lookup -- controls numbering, posting behavior and movement direction
-    TradeTypeId int default 0 @NOT_NULL,              -- [Hidden]
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,           -- Lookup; [ReadOnlyUI] -- controls numbering, posting behavior and movement direction
+    Code @NVARCHAR(40) @NOT_NULL,                     -- Code Draft SC-YYYY-XXXXXX StockCount; [ReadOnlyUI]
+    TradeTypeId int default 0 @NOT_NULL,              -- Enum TradeType; [ReadOnlyUI]
+    StatusId int DEFAULT 1 @NOT_NULL,                 -- Enum TradeStatus; [ReadOnlyUI]
     
     WarehouseId @NVARCHAR(40) @NOT_NULL,              -- Lookup
 
     CountDate @DATE @NOT_NULL,
 
-    StatusId int DEFAULT 1 @NOT_NULL,                 -- Enum TradeStatus; [ReadOnlyUI]
-
     Remarks @NBLOB_TEXT @NULL,                        -- LargeMemo; Group Notes
 
-    CancelledDocumentId @NVARCHAR(40) @NULL,          -- Locator StockCount; Group Relations
-    CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator StockCount; Group Relations
+    CancelledDocumentId @NVARCHAR(40) @NULL,          -- Locator StockCount; Group Relations; [ReadOnlyUI]
+    CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator StockCount; Group Relations; [ReadOnlyUI]
 
     CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit; [ReadOnlyUI]
     CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
@@ -441,33 +440,31 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-   
     TradeTypeId int default 0 @NOT_NULL,              -- Enum; [ReadOnlyUI]
-    MovementDate @DATE @NOT_NULL,
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,          -- Lookup; [ReadOnlyUI]
+    DocumentCode @NVARCHAR(40) @NOT_NULL,            -- [ReadOnlyUI]
 
-    PersonId @NVARCHAR(40) @NULL,                     -- Lookup
-    CashAccountId @NVARCHAR(40) @NULL,                -- Lookup
-    CompanyBankAccountId @NVARCHAR(40) @NULL,         -- Lookup
+    PersonId @NVARCHAR(40) @NULL,                     -- Lookup; [ReadOnlyUI]
+    CashAccountId @NVARCHAR(40) @NULL,                -- Lookup; [ReadOnlyUI]
+    CompanyBankAccountId @NVARCHAR(40) @NULL,         -- Lookup; [ReadOnlyUI]
 
-    Direction int @NOT_NULL,                          -- 1=in, -1=out
+    CurrencyId @NVARCHAR(40) @NOT_NULL,              -- Lookup; [ReadOnlyUI]
+    ExchangeRate @DECIMAL DEFAULT 1 @NOT_NULL,       -- [ReadOnlyUI]
 
-    Amount @DECIMAL DEFAULT 0 @NOT_NULL,
+    MovementDate @DATE @NOT_NULL,                    -- [ReadOnlyUI]
+    DocumentDate @DATE @NOT_NULL,                    -- [ReadOnlyUI]
 
-    CurrencyId @NVARCHAR(40) @NOT_NULL,              -- Lookup
-    ExchangeRate @DECIMAL DEFAULT 1 @NOT_NULL,
+    Direction int @NOT_NULL,                         -- 1=in, -1=out; [ReadOnlyUI]
+    Amount @DECIMAL DEFAULT 0 @NOT_NULL,             -- [ReadOnlyUI]
 
-    SourceModule @NVARCHAR(64) @NOT_NULL,
-    SourceTable @NVARCHAR(64) @NOT_NULL,
-    SourceId @NVARCHAR(40) @NOT_NULL,
+    SourceModule @NVARCHAR(64) @NOT_NULL,            -- [ReadOnlyUI]
+    SourceTable @NVARCHAR(64) @NOT_NULL,             -- [ReadOnlyUI]
+    SourceId @NVARCHAR(40) @NOT_NULL,                -- [ReadOnlyUI]
 
-    CancelledMovementId @NVARCHAR(40) @NULL,         -- Locator FinanceMovement
-    CancellationMovementId @NVARCHAR(40) @NULL,      -- Locator FinanceMovement
+    CancelledMovementId @NVARCHAR(40) @NULL,         -- Locator FinanceMovement; [ReadOnlyUI]
+    CancellationMovementId @NVARCHAR(40) @NULL,      -- Locator FinanceMovement; [ReadOnlyUI]
 
-    DocumentTypeId @NVARCHAR(40) @NOT_NULL,          -- Lookup
-    DocumentCode @NVARCHAR(40) @NOT_NULL,
-    DocumentDate @DATE @NOT_NULL,
-
-    Remarks @NVARCHAR(512) @NULL,
+    Remarks @NVARCHAR(512) @NULL,                    -- [ReadOnlyUI]
 
     CreatedAt @DATE_TIME @NOT_NULL,                  -- [ReadOnlyUI]
     CreatedBy @NVARCHAR(40) @NOT_NULL,               --  Lookup SYS_APP_USER; [ReadOnlyUI]
@@ -499,36 +496,38 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup; [Hidden]
+    DocumentTypeId @NVARCHAR(40) @NOT_NULL,             -- Lookup; [ReadOnlyUI]
     Code @NVARCHAR(40) @NOT_NULL,                       -- Code; [ReadOnlyUI]
-    TradeTypeId int DEFAULT 4 @NOT_NULL,                -- Enum TradeType; [Hidden]
-    PartnerTradeTypeId int DEFAULT 0 @NOT_NULL,         -- Group Settlement; [Hidden]
+    TradeTypeId int DEFAULT 4 @NOT_NULL,                -- Enum TradeType; [ReadOnlyUI]
+    PartnerTradeTypeId int DEFAULT 0 @NOT_NULL,         -- Enum TradeType; [ReadOnlyUI]
 
-    PaymentDate @DATE @NOT_NULL,                        -- Group Payment
-    PostingDate @DATE @NULL,                            -- Group Payment; [ReadOnlyUI]
-    StatusId int DEFAULT 1 @NOT_NULL,                   -- Enum TradeStatus; Group Payment; [ReadOnlyUI]
+    StatusId int DEFAULT 1 @NOT_NULL,                   -- Enum TradeStatus; [ReadOnlyUI]
 
-    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person; Group Payment
-    PaymentMethodId @NVARCHAR(40) @NULL,                -- Lookup; Group Payment
+    PersonId @NVARCHAR(40) @NOT_NULL,                   -- Locator Person
+    PaymentMethodId @NVARCHAR(40) @NULL,                -- Lookup
 
-    CashAccountId @NVARCHAR(40) @NULL,                  -- Lookup; Group Account
-    CompanyBankAccountId @NVARCHAR(40) @NULL,           -- Lookup; Group Account
+    CashAccountId @NVARCHAR(40) @NULL,                  -- Lookup
+    CompanyBankAccountId @NVARCHAR(40) @NULL,           -- Lookup
 
-    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup; Group Payment
-    ExchangeRate @DECIMAL DEFAULT 1 @NOT_NULL,          -- Group Payment
+    CurrencyId @NVARCHAR(40) @NOT_NULL,                 -- Lookup
+    ExchangeRate @DECIMAL DEFAULT 1 @NOT_NULL,
 
-    Amount @DECIMAL DEFAULT 0 @NOT_NULL,                -- Group Payment
-    SettledAmount @DECIMAL DEFAULT 0 @NOT_NULL,         -- Group Settlement; [ReadOnlyUI]
-    UnappliedAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- Group Settlement; [ReadOnlyUI]
+    PaymentDate @DATE @NOT_NULL,
+    PostingDate @DATE @NULL,                            -- [ReadOnlyUI]
 
-    ExternalRef @NVARCHAR(96) @NULL,                    -- Group Payment
-    Remarks @NBLOB_TEXT @NULL,                          -- LargeMemo; Group Notes
-
-    CancelledPaymentId @NVARCHAR(40) @NULL,             -- Locator Payment; Group Relations
-    CancellationPaymentId @NVARCHAR(40) @NULL,          -- Locator Payment; Group Relations
+    Amount @DECIMAL DEFAULT 0 @NOT_NULL,
 
     IsLocked @BOOL DEFAULT 0 @NOT_NULL,                 -- [ReadOnlyUI]
     IsCancelled @BOOL DEFAULT 0 @NOT_NULL,              -- [ReadOnlyUI]
+
+    SettledAmount @DECIMAL DEFAULT 0 @NOT_NULL,         -- Group Settlement; [ReadOnlyUI]
+    UnappliedAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- Group Settlement; [ReadOnlyUI]
+
+    ExternalRef @NVARCHAR(96) @NULL,
+    Remarks @NBLOB_TEXT @NULL,                          -- LargeMemo; Group Notes
+
+    CancelledPaymentId @NVARCHAR(40) @NULL,             -- Locator Payment; Group Relations; [ReadOnlyUI]
+    CancellationPaymentId @NVARCHAR(40) @NULL,          -- Locator Payment; Group Relations; [ReadOnlyUI]
 
     CreatedAt @DATE_TIME @NOT_NULL,                     -- Group Audit; [ReadOnlyUI]
     CreatedBy @NVARCHAR(40) @NOT_NULL,                  --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
@@ -570,31 +569,32 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    Code @NVARCHAR(40) @NOT_NULL,                     -- Code Draft JE-YYYY-XXXXXX JournalEntry
+    Code @NVARCHAR(40) @NOT_NULL,                     -- Code Draft JE-YYYY-XXXXXX JournalEntry; [ReadOnlyUI]
 
-    EntryDate @DATE @NOT_NULL,
+    DocumentTypeId @NVARCHAR(40) @NULL,               -- Lookup; [ReadOnlyUI]
+    TradeTypeId int default 0 @NOT_NULL,              -- Enum; [ReadOnlyUI]
 
     StatusId int DEFAULT 1 @NOT_NULL,                 -- Enum TradeStatus; [ReadOnlyUI]
 
-    TotalDebit @DECIMAL DEFAULT 0 @NOT_NULL,
-    TotalCredit @DECIMAL DEFAULT 0 @NOT_NULL,
-
-    SourceModule @NVARCHAR(64) @NULL,                 -- Group Source
-    SourceTable @NVARCHAR(64) @NULL,                  -- Group Source
-    SourceId @NVARCHAR(40) @NULL,                     -- Group Source
-
-    DocumentTypeId @NVARCHAR(40) @NULL,               -- Lookup; Group Document
-    DocumentCode @NVARCHAR(40) @NULL,                 -- Group Document
-    DocumentDate @DATE @NULL,                         -- Group Document
-    TradeTypeId int default 0 @NOT_NULL,              -- Enum; [Hidden]
-
-    Remarks @NBLOB_TEXT @NULL,                        -- LargeMemo; Group Notes
-
-    CancelledDocumentId @NVARCHAR(40) @NULL,          -- Locator JournalEntry; Group Relations
-    CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator JournalEntry; Group Relations
+    EntryDate @DATE @NOT_NULL,
+    DocumentDate @DATE @NULL,                         -- [ReadOnlyUI]
 
     IsLocked @BOOL DEFAULT 0 @NOT_NULL,               -- [ReadOnlyUI]
     IsCancelled @BOOL DEFAULT 0 @NOT_NULL,            -- [ReadOnlyUI]
+
+    TotalDebit @DECIMAL DEFAULT 0 @NOT_NULL,          -- Group Totals; [ReadOnlyUI]
+    TotalCredit @DECIMAL DEFAULT 0 @NOT_NULL,         -- Group Totals; [ReadOnlyUI]
+
+    SourceModule @NVARCHAR(64) @NULL,                 -- Group Source; [ReadOnlyUI]
+    SourceTable @NVARCHAR(64) @NULL,                  -- Group Source; [ReadOnlyUI]
+    SourceId @NVARCHAR(40) @NULL,                     -- Group Source; [ReadOnlyUI]
+
+    DocumentCode @NVARCHAR(40) @NULL,                 -- Group Document; [ReadOnlyUI]
+
+    Remarks @NBLOB_TEXT @NULL,                        -- LargeMemo; Group Notes
+
+    CancelledDocumentId @NVARCHAR(40) @NULL,          -- Locator JournalEntry; Group Relations; [ReadOnlyUI]
+    CancellationDocumentId @NVARCHAR(40) @NULL,       -- Locator JournalEntry; Group Relations; [ReadOnlyUI]
 
     CreatedAt @DATE_TIME @NOT_NULL,                   -- Group Audit; [ReadOnlyUI]
     CreatedBy @NVARCHAR(40) @NOT_NULL,                --  Lookup SYS_APP_USER; Group Audit; [ReadOnlyUI]
@@ -715,15 +715,15 @@ CREATE TABLE {TableName} (
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
-    ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product
-    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup
+    ProductId @NVARCHAR(40) @NOT_NULL,                  -- Locator Product; [ReadOnlyUI]
+    WarehouseId @NVARCHAR(40) @NOT_NULL,                -- Lookup; [ReadOnlyUI]
 
-    PrimaryQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- current stock in product primary unit
-    TotalCostAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- current total stock value
-    AverageUnitCost @DECIMAL DEFAULT 0 @NOT_NULL,       -- TotalCostAmount / PrimaryQuantity
+    PrimaryQuantity @DECIMAL DEFAULT 0 @NOT_NULL,       -- [ReadOnlyUI] -- current stock in product primary unit
+    TotalCostAmount @DECIMAL DEFAULT 0 @NOT_NULL,       -- [ReadOnlyUI] -- current total stock value
+    AverageUnitCost @DECIMAL DEFAULT 0 @NOT_NULL,       -- [ReadOnlyUI] -- TotalCostAmount / PrimaryQuantity
 
-    LastMovementDate @DATE @NULL,
-    LastMovementId @NVARCHAR(40) @NULL,
+    LastMovementDate @DATE @NULL,                       -- [ReadOnlyUI]
+    LastMovementId @NVARCHAR(40) @NULL,                 -- Locator StockMovement; [ReadOnlyUI]
 
     CONSTRAINT UQ_{TableName}_Product_Warehouse UNIQUE (ProductId, WarehouseId),
 
@@ -775,15 +775,15 @@ CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL PRIMARY KEY,
 
     TradeTypeId int default 0 @NOT_NULL,              -- Enum; [ReadOnlyUI]
-    CurrencyId @NVARCHAR(40) @NOT_NULL,               -- Lookup
-    PersonId @NVARCHAR(40) @NULL,                     -- Lookup
-    CashAccountId @NVARCHAR(40) @NULL,                -- Lookup
-    CompanyBankAccountId @NVARCHAR(40) @NULL,         -- Lookup
+    CurrencyId @NVARCHAR(40) @NOT_NULL,               -- Lookup; [ReadOnlyUI]
+    PersonId @NVARCHAR(40) @NULL,                     -- Lookup; [ReadOnlyUI]
+    CashAccountId @NVARCHAR(40) @NULL,                -- Lookup; [ReadOnlyUI]
+    CompanyBankAccountId @NVARCHAR(40) @NULL,         -- Lookup; [ReadOnlyUI]
 
-    Balance @DECIMAL DEFAULT 0 @NOT_NULL,
+    Balance @DECIMAL DEFAULT 0 @NOT_NULL,             -- [ReadOnlyUI]
 
-    LastMovementDate @DATE @NULL,
-    LastMovementId @NVARCHAR(40) @NULL,
+    LastMovementDate @DATE @NULL,                     -- [ReadOnlyUI]
+    LastMovementId @NVARCHAR(40) @NULL,               -- Locator FinanceMovement; [ReadOnlyUI]
 
     CONSTRAINT CHK_{TableName}_Owner CHECK (
         (PersonId IS NOT NULL AND CashAccountId IS NULL AND CompanyBankAccountId IS NULL)
@@ -810,7 +810,7 @@ CREATE TABLE {TableName} (
     PaymentId @NVARCHAR(40) @NOT_NULL,                 -- Master
     DisplayOrder int DEFAULT 0 @NOT_NULL,
 
-    FinanceMovementId @NVARCHAR(40) @NOT_NULL,         -- Locator FinanceMovement
+    FinanceMovementId @NVARCHAR(40) @NOT_NULL,         -- Locator PaymentSettlementFinanceMovement ClassName:tERP.Data.PaymentSettlementFinanceMovementLocator
     Amount @DECIMAL DEFAULT 0 @NOT_NULL,
 
     Remarks @NVARCHAR(512) @NULL,

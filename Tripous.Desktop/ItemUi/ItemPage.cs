@@ -631,6 +631,8 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
 
         if (!DataForm.FormState.In(DataFormState.Insert | DataFormState.Edit))
             return false;
+        if (!DataForm.CanExecuteGridCommand(Context))
+            return false;
 
         switch (Context.Command.ActionType)
         {

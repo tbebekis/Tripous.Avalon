@@ -15,6 +15,10 @@ public class SalesInvoiceForm: DocumentDataForm
 {
     // ● protected fields
     /// <summary>
+    /// Creates a Customer Receipt from the current Invoice.
+    /// </summary>
+    protected Button BtnCreatePayment;
+    /// <summary>
     /// Creates a Sales Credit Note from the current Invoice.
     /// </summary>
     protected Button BtnCreateCreditNote;
@@ -40,6 +44,18 @@ public class SalesInvoiceForm: DocumentDataForm
     /// Returns true when the current Sales Invoice can create a Cancellation document.
     /// </summary>
     protected virtual bool CanCreateCancellation()
+    {
+        return Module is SalesInvoiceDataModule
+               && FormState == DataFormState.Edit
+               && CurrentRow != null
+               && !HasChanges()
+               && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
+               && !CurrentRow.AsBoolean("IsCancelled");
+    }
+    /// <summary>
+    /// Returns true when the current Sales Invoice can create a Customer Receipt.
+    /// </summary>
+    protected virtual bool CanCreatePayment()
     {
         return Module is SalesInvoiceDataModule
                && FormState == DataFormState.Edit
@@ -75,6 +91,26 @@ public class SalesInvoiceForm: DocumentDataForm
         ItemPage?.Refresh();
     }
     /// <summary>
+    /// Creates and displays a Customer Receipt for the current open invoice amount.
+    /// </summary>
+    protected virtual async Task ExecuteCreatePayment()
+    {
+        if (!CanCreatePayment())
+            return;
+
+        SalesInvoiceDataModule InvoiceModule = (SalesInvoiceDataModule)Module;
+        string Code = CurrentRow.AsString("Code");
+        string InvoiceText = string.IsNullOrWhiteSpace(Code) ? "Sales Invoice" : $"Sales Invoice: {Code}";
+        if (!await MessageBox.YesNo($"Create a Customer Receipt from {InvoiceText}?", this))
+            return;
+
+        PaymentDataModule PaymentModule = InvoiceModule.CreateCustomerReceipt();
+        DataFormContext Context = DataFormContext.Create("CustomerReceipt", PaymentModule, this);
+        Context.StartAction = DataFormAction.Insert;
+        await AppFormDialog.ShowModalDataForm(Context);
+        ItemPage?.Refresh();
+    }
+    /// <summary>
     /// Creates and displays a Sales Cancellation after validating the current database state.
     /// </summary>
     protected virtual async Task ExecuteCreateCancellation()
@@ -104,6 +140,8 @@ public class SalesInvoiceForm: DocumentDataForm
     {
         if (Value is DocumentAction Action && Action == DocumentAction.CreateCreditNote)
             await ExecuteCreateCreditNote();
+        if (Value is DocumentAction PaymentAction && PaymentAction == DocumentAction.CreatePayment)
+            await ExecuteCreatePayment();
         if (Value is DocumentAction CancellationAction && CancellationAction == DocumentAction.CreateCancellation)
             await ExecuteCreateCancellation();
 
@@ -113,6 +151,8 @@ public class SalesInvoiceForm: DocumentDataForm
     {
         base.EnableCommands();
 
+        BtnCreatePayment.IsVisible = true;
+        BtnCreatePayment.IsEnabled = CanCreatePayment();
         BtnCreateCreditNote.IsVisible = true;
         BtnCreateCreditNote.IsEnabled = CanCreateCreditNote();
         BtnCreateCancellation.IsVisible = true;
@@ -123,8 +163,10 @@ public class SalesInvoiceForm: DocumentDataForm
         if (!base.CreateToolBar())
             return false;
 
+        BtnCreatePayment = ToolBar.AddButton("coins_add.png", "Create Customer Receipt", async () => await ExecuteCustom(DocumentAction.CreatePayment));
+        ToolBar.PlaceControlAfter(btnPost, BtnCreatePayment);
         BtnCreateCreditNote = ToolBar.AddButton("document_redirect.png", "Create Sales Credit Note", async () => await ExecuteCustom(DocumentAction.CreateCreditNote));
-        ToolBar.PlaceControlAfter(btnPost, BtnCreateCreditNote);
+        ToolBar.PlaceControlAfter(BtnCreatePayment, BtnCreateCreditNote);
         BtnCreateCancellation = ToolBar.AddButton("document_torn.png", "Create Sales Cancellation", async () => await ExecuteCustom(DocumentAction.CreateCancellation));
         ToolBar.PlaceControlAfter(BtnCreateCreditNote, BtnCreateCancellation);
         return true;

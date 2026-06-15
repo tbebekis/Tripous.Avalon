@@ -20,7 +20,7 @@ public class DialogInfo
             Caller = Ui.MainWindow;
 
         this.Caller = Caller;
-        this.Parent = Caller is Window? Caller as Window: Caller.GetParentWindow(); 
+        this.Parent = Caller.GetOwnerWindow();
         this.InputData = InputData?? this;
     
         Dialog = Activator.CreateInstance<T>() as DialogWindow;

@@ -21,9 +21,11 @@ public partial class RegistryVersion2: RegistryVersion
         DataRegistry.AddOrUpdateLocator("FinanceMovement", "FinanceMovement", "Id", FormName: "FinanceMovement");
         DataRegistry.AddOrUpdateLocator("JournalEntry", "JournalEntry", "Id", FormName: "JournalEntry");
         DataRegistry.AddOrUpdateLocator("Payment", "Payment", "Id", FormName: "CustomerReceipt");
+        DataRegistry.AddOrUpdateLocator("PaymentSettlementFinanceMovement", "FinanceMovement", "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator", FormName: "FinanceMovement");
         DataRegistry.AddOrUpdateLocator("Person", "Person", "Id", FormName: "Person");
         DataRegistry.AddOrUpdateLocator("Product", "Product", "Id", FormName: "Product");
         DataRegistry.AddOrUpdateLocator("StockCount", "StockCount", "Id", FormName: "StockCount");
+        DataRegistry.AddOrUpdateLocator("StockMovement", "StockMovement", "Id", FormName: "StockMovement");
         DataRegistry.AddOrUpdateLocator("StockTrade", "StockTrade", "Id", FormName: "StockTrade");
         DataRegistry.AddOrUpdateLocator("Supplier", "ProductSupplier", "Id");
         DataRegistry.AddOrUpdateLocator("Trade", "Trade", "Id", FormName: "SalesOrder");

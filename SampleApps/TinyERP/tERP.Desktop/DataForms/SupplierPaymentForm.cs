@@ -57,6 +57,12 @@ public class SupplierPaymentForm : DocumentDataForm
             await ExecuteCreateCancellation();
         await base.ExecuteCustom(Value);
     }
+    protected override async Task ExecuteSave()
+    {
+        await base.ExecuteSave();
+        if (Module is PaymentDataModule PaymentModule && !string.IsNullOrWhiteSpace(PaymentModule.AmountAdjustmentMessage))
+            await MessageBox.Info(PaymentModule.AmountAdjustmentMessage, this);
+    }
     protected override void EnableCommands()
     {
         base.EnableCommands();

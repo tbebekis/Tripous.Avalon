@@ -48,10 +48,38 @@ public class DocumentDataForm : AppDataForm
 
         return true;
     }
+    /// <summary>
+    /// Returns true when the current document can attempt posting.
+    /// </summary>
+    protected virtual bool CanAttemptPost()
+    {
+        if (!IsEditableForm || FormState != DataFormState.Edit || CurrentRow == null)
+            return false;
+        if (Module is not DocumentDataModule)
+            return false;
+        if (GetDocumentStatus() != TradeStatus.Draft)
+            return false;
+        if (IsDocumentCancelled() || IsDocumentLocked())
+            return false;
+        return true;
+    }
     protected virtual async Task ExecutePost()
     {
-        if (!CanPost())
+        if (!CanAttemptPost())
+        {
+            EnableCommands();
             return;
+        }
+        try
+        {
+            ((DocumentDataModule)Module).CheckCanCommit(false);
+        }
+        catch (Exception e)
+        {
+            EnableCommands();
+            await MessageBox.Error(e, this);
+            return;
+        }
 
         string Code = CurrentRow.AsString("Code");
         string DocumentText = string.IsNullOrWhiteSpace(Code) ? "document" : $"document: {Code}";
@@ -72,6 +100,13 @@ After posting, the document can no longer be edited.
             ItemPage?.Refresh();
             ItemPage?.RestoreDetailGridSelection(DetailGridSelection);
             UiLog($"Posted {GetItemLogText(Id)}");
+            FormState = DataFormState.Edit;
+            UpdateUi();
+        }
+        catch (Exception e)
+        {
+            EnableCommands();
+            await MessageBox.Error(e, this);
         }
         finally
         {

@@ -256,7 +256,7 @@ public partial class DbConnectionEditDialog : Window
     {
         if (Caller == null)
             Caller = Ui.MainWindow;
-        Window parent = Caller is Window ? Caller as Window : Caller.GetParentWindow();
+        Window parent = Caller.GetOwnerWindow();
         var dialog = new DbConnectionEditDialog();
         dialog.ConnectionInfo = ConnectionInfo;
         dialog.LoadConnectionInfo();

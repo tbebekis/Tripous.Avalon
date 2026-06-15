@@ -35,6 +35,10 @@ public class LocatorEventArgs : EventArgs
     /// </summary>
     public LocatorDef LocatorDef => Locator.LocatorDef;
     /// <summary>
+    /// Optional context provided by the control or caller that executes the locator.
+    /// </summary>
+    public object Context => Locator.Context;
+    /// <summary>
     /// The SELECT statement.
     /// <para>Used with the <see cref="LocatorEventType.AddToWhere"/> type and the <see cref="LocatorEventType.SelectSourceTable"/> only.</para>
     /// <para>With <see cref="LocatorEventType.AddToWhere"/>, client code may add to <see cref="SelectSql.Where"/>.</para>
