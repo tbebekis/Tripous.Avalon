@@ -666,6 +666,60 @@ public class JournalEntryTests
         Assert.Contains("exceeds open amount", Error.Message);
     }
     [Fact]
+    public void CustomerReceiptAdjustsHeaderAmountToSettlementTotal()
+    {
+        SalesInvoiceDataModule InvoiceModule = CreateSalesInvoice();
+        InvoiceModule.Post();
+        DataRow InvoiceMovement = GetFinanceMovementBySource(InvoiceModule.CurrentRow.AsString("Id"));
+        PaymentDataModule PaymentModule = DataRegistry.CreateModule("CustomerReceipt") as PaymentDataModule;
+        if (PaymentModule == null)
+            throw new TripousDataException("Cannot create the Customer Receipt module.");
+        PaymentModule.Insert();
+        PaymentModule.CurrentRow.SetValue("PersonId", GetPersonId("CUST-ACME"));
+        PaymentModule.CurrentRow.SetValue("CurrencyId", DataLib.GetDefaultCurrencyId());
+        PaymentModule.CurrentRow.SetValue("ExchangeRate", 1m);
+        PaymentModule.CurrentRow.SetValue("PaymentMethodId", DataLib.GetDefaultPaymentMethodId());
+        PaymentModule.CurrentRow.SetValue("CompanyBankAccountId", DataLib.GetDefaultCompanyBankAccountId());
+        PaymentModule.CurrentRow.SetValue("CashAccountId", DBNull.Value);
+        PaymentModule.CurrentRow.SetValue("Amount", 200m);
+        DataRow Settlement = PaymentModule.GetTable("PaymentSettlement").AddNewRow();
+        Settlement.SetValue("FinanceMovementId", InvoiceMovement.AsString("Id"));
+        Settlement.SetValue("Amount", 124m);
+
+        PaymentModule.Commit();
+
+        Assert.Equal(124m, PaymentModule.CurrentRow.AsDecimal("Amount"));
+        Assert.Equal(124m, PaymentModule.CurrentRow.AsDecimal("SettledAmount"));
+        Assert.Equal(0m, PaymentModule.CurrentRow.AsDecimal("UnappliedAmount"));
+        Assert.Contains("adjusted from 200", PaymentModule.AmountAdjustmentMessage);
+    }
+    [Fact]
+    public void CustomerReceiptRejectsOverSettlementBeforeHeaderAdjustment()
+    {
+        SalesInvoiceDataModule InvoiceModule = CreateSalesInvoice();
+        InvoiceModule.Post();
+        DataRow InvoiceMovement = GetFinanceMovementBySource(InvoiceModule.CurrentRow.AsString("Id"));
+        PaymentDataModule PaymentModule = DataRegistry.CreateModule("CustomerReceipt") as PaymentDataModule;
+        if (PaymentModule == null)
+            throw new TripousDataException("Cannot create the Customer Receipt module.");
+        PaymentModule.Insert();
+        PaymentModule.CurrentRow.SetValue("PersonId", GetPersonId("CUST-ACME"));
+        PaymentModule.CurrentRow.SetValue("CurrencyId", DataLib.GetDefaultCurrencyId());
+        PaymentModule.CurrentRow.SetValue("ExchangeRate", 1m);
+        PaymentModule.CurrentRow.SetValue("PaymentMethodId", DataLib.GetDefaultPaymentMethodId());
+        PaymentModule.CurrentRow.SetValue("CompanyBankAccountId", DataLib.GetDefaultCompanyBankAccountId());
+        PaymentModule.CurrentRow.SetValue("CashAccountId", DBNull.Value);
+        PaymentModule.CurrentRow.SetValue("Amount", 200m);
+        DataRow Settlement = PaymentModule.GetTable("PaymentSettlement").AddNewRow();
+        Settlement.SetValue("FinanceMovementId", InvoiceMovement.AsString("Id"));
+        Settlement.SetValue("Amount", 125m);
+
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => PaymentModule.Commit());
+
+        Assert.Contains("exceeds open amount", Error.Message);
+        Assert.Equal(200m, PaymentModule.CurrentRow.AsDecimal("Amount"));
+    }
+    [Fact]
     public void PostingCustomerReceiptCancellationReversesPayment()
     {
         decimal PreviousCustomerBalance = GetFinanceBalanceAmount("CUST-ACME", TradeType.Sales);
@@ -703,6 +757,23 @@ public class JournalEntryTests
         Assert.Equal(124m, Lines.Rows[0].AsDecimal("DebitAmount"));
         Assert.Equal("10-2000", Lines.Rows[1].AsString("AccountCode"));
         Assert.Equal(124m, Lines.Rows[1].AsDecimal("CreditAmount"));
+    }
+    [Fact]
+    public void CustomerReceiptCancellationRejectsSettlementRows()
+    {
+        SalesInvoiceDataModule InvoiceModule = CreateSalesInvoice();
+        InvoiceModule.Post();
+        DataRow InvoiceMovement = GetFinanceMovementBySource(InvoiceModule.CurrentRow.AsString("Id"));
+        PaymentDataModule PaymentModule = CreatePayment("CustomerReceipt", "CUST-ACME", InvoiceMovement.AsString("Id"), 124m);
+        PaymentModule.Post();
+        PaymentDataModule CancellationModule = PaymentModule.CreateCancellation();
+        DataRow Settlement = CancellationModule.GetTable("PaymentSettlement").AddNewRow();
+        Settlement.SetValue("FinanceMovementId", InvoiceMovement.AsString("Id"));
+        Settlement.SetValue("Amount", 1m);
+
+        TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => CancellationModule.Commit());
+
+        Assert.Contains("cancellation documents cannot have settlement lines", Error.Message);
     }
     [Fact]
     public void PostingSupplierPaymentCancellationReversesPayment()

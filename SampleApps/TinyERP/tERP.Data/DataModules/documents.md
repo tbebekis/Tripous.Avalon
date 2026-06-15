@@ -647,6 +647,19 @@ The Sales and Purchase document flows were manually verified with a newly create
 - A pricing-field change replaces a manual unit price only when an applicable price is found.
 - Payment settlement is amount-based for the first cycle and does not yet allocate exchange-rate differences.
 
+## Tester Release TODO
+
+- Add a tester guide with database setup, sample data notes, main workflows, expected outcomes, and known limitations.
+- Add a demo checklist for Sales, Purchases, Stock, Accounting, Finance, Payments, and Settlements.
+- Add initial database creation on application startup, with a user confirmation question before creating the database.
+- Add an easy database regeneration command or UI action for testers.
+- Add an application settings dialog for database path and basic application options.
+- Verify master modules with a quick List, Edit, Save smoke test.
+- Verify reports and views for Finance Movements, Finance Balances, Stock Movements, Stock Balances, and Journal Entries.
+- Document that tERP is a sample ERP used to demonstrate Tripous.Avalon capabilities, not a production ERP.
+- Document reset and regeneration steps for testers.
+- Document known functional limits before tester delivery.
+
 ## Sales Order Transformation
 
 The implementation supports partial delivery:
