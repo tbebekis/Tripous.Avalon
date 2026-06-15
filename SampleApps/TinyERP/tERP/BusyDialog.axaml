@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="tERP.BusyDialog"
+        Width="420"
+        Height="150"
+        CanResize="False"
+        ShowInTaskbar="False"
+        SystemDecorations="None"
+        WindowStartupLocation="CenterOwner"
+        Title="Please wait">
+    <Border Padding="20">
+        <Grid RowDefinitions="Auto, 8, Auto, 20, Auto">
+            <TextBlock Grid.Row="0"
+                       Text="Please wait"
+                       FontWeight="SemiBold"
+                       FontSize="15"/>
+            <TextBlock Name="edtMessage"
+                       Grid.Row="2"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"/>
+            <ProgressBar Grid.Row="4"
+                         Height="18"
+                         IsIndeterminate="True"/>
+        </Grid>
+    </Border>
+</Window>

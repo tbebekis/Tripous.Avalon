@@ -24,7 +24,24 @@ static internal partial class AppHost
         
         //Db.Settings.LogSqlStatements = true;
     }
- 
+    /// <summary>
+    /// Creates the default tERP SQLite connection.
+    /// </summary>
+    static DbConnectionInfo CreateDefaultConnectionInfo()
+    {
+        DbConnectionInfo Result = new DbConnectionInfo();
+        Result.Name = Sys.DEFAULT;
+        Result.DbServerType = DbServerType.Sqlite;
+        Result.ConnectionString = string.Format(DbServerType.Sqlite.GetTemplateConnectionString(), "[Data]/tERP.db3");
+        return Result;
+    }
+    /// <summary>
+    /// Shows the database connection edit dialog.
+    /// </summary>
+    static async Task<bool> ShowDbConnectionEditDialog(DbConnectionInfo ConnectionInfo)
+    {
+        return await DbConnectionEditDialog.ShowModal(ConnectionInfo, HiddenMainWindow);
+    }
     /// <summary>
     /// Loads database configuration settings.
     /// </summary>
@@ -33,48 +50,40 @@ static internal partial class AppHost
         Db.Connections.Load();
         if (Db.Connections.List.Count == 0)
         {
-            DbConnectionInfo CI = new DbConnectionInfo();
-            CI.Name = Sys.DEFAULT;
-            bool Flag = await DbConnectionEditDialog.ShowModal(CI, HiddenMainWindow);
-
-            if (Flag)
-            {
-                Db.Connections.Add(CI);
-                Db.Connections.Save();
-            }
-            else
-            {
-                HiddenMainWindow.Close();
-            }
+            // The natural process is to call ShowDbConnectionEditDialog() and let the user enter a connection string.
+            DbConnectionInfo CI = CreateDefaultConnectionInfo();
+            Db.Connections.Add(CI);
+            Db.Connections.Save();
+            await MessageBox.Info($"A default SQLite connection has been created.{Environment.NewLine}{Environment.NewLine}{CI.ConnectionString}", HiddenMainWindow);
         }
     }
-    
     /// <summary>
-    /// Creates any non-existing creatable database.
+    /// Creates a database when it does not exist yet.
     /// </summary>
-    static void CreateDatabases()
+    static async Task CreateDatabase(DbConnectionInfo ConnectionInfo)
     {
-        DbConnectionInfo DefaultConnectionInfo = Db.GetDefaultConnectionInfo();
-
-        SqlProvider Provider = DefaultConnectionInfo.GetSqlProvider();
-        string ConnectionString = DefaultConnectionInfo.ConnectionString;
+        SqlProvider Provider = ConnectionInfo.GetSqlProvider();
+        string ConnectionString = ConnectionInfo.ConnectionString;
 
         if (!Provider.DatabaseExists(ConnectionString) && Provider.CanCreateDatabases)
         {
             Provider.CreateDatabase(ConnectionString);
+            await MessageBox.Info($"An empty database has been created for connection '{ConnectionInfo.Name}'.{Environment.NewLine}{Environment.NewLine}{ConnectionString}", HiddenMainWindow);
         }
+    }
+    /// <summary>
+    /// Creates any non-existing creatable database.
+    /// </summary>
+    static async Task CreateDatabases()
+    {
+        DbConnectionInfo DefaultConnectionInfo = Db.GetDefaultConnectionInfo();
+        await CreateDatabase(DefaultConnectionInfo);
 
         foreach (var ConInfo in Db.Connections.List)
         {
             if (ConInfo != DefaultConnectionInfo)
             {
-                Provider = ConInfo.GetSqlProvider();
-                ConnectionString = ConInfo.ConnectionString;
-
-                if (!Provider.DatabaseExists(ConnectionString) && Provider.CanCreateDatabases)
-                {
-                    Provider.CreateDatabase(ConnectionString);
-                }
+                await CreateDatabase(ConInfo);
             }
         }
     }
@@ -205,7 +214,7 @@ static internal partial class AppHost
             InitializeConfigs();
 
             await LoadConnectionStrings();
-            CreateDatabases();
+            await CreateDatabases();
            
             Registry.RegisterSchemas();                 // Registers database schema versions
             Schemas.Execute();                          // Creates database tables etc. based on the registered schemas

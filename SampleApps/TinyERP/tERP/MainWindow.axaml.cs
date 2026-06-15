@@ -58,10 +58,29 @@ public partial class MainWindow : Window
             if (Flag)
             {
                 LogBox.AppendLine("Adding sample data. Please wait...");
+                BusyDialog BusyDialog = new("Adding sample data. Please wait...");
+                Task BusyDialogTask = BusyDialog.ShowDialog(this);
+                bool IsDone = false;
+                Exception Error = null;
                 try
                 {
+                    await Dispatcher.UIThread.InvokeAsync(() => { }, DispatcherPriority.Background);
                     await SampleData.AddSampleDataAsync(NotAddedSampleData);
-                    
+                    IsDone = true;
+                }
+                catch (Exception e)
+                {
+                    Error = e;
+                    LogBox.AppendLine(e.ToString());
+                }
+                finally
+                {
+                    BusyDialog.CloseDialog();
+                    await BusyDialogTask;
+                }
+
+                if (IsDone)
+                {
                     string Message = @"DONE.
 
 The application will now terminate.
@@ -72,10 +91,9 @@ Please restart the application.
                     
                     this.Close();
                 }
-                catch (Exception e)
+                else if (Error != null)
                 {
-                    LogBox.AppendLine(e.ToString());
-                    await MessageBox.Error(e.Message, this);
+                    await MessageBox.Error(Error.Message, this);
                 }
             }
         }
