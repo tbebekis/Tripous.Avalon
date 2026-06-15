@@ -14,22 +14,53 @@ using Avalonia.Markup.Xaml;
 
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Defines the display mode of a message box.
+/// </summary>
 public enum MessageBoxMode
 {
+    /// <summary>
+    /// Information message.
+    /// </summary>
     Info,
+    /// <summary>
+    /// Error message.
+    /// </summary>
     Error,
+    /// <summary>
+    /// Question message.
+    /// </summary>
     Question
 }
 
+/// <summary>
+/// Displays a modal message box.
+/// </summary>
 public partial class MessageBox : Window
 {
     // ● private fields
+    /// <summary>
+    /// The current message box mode.
+    /// </summary>
     private MessageBoxMode fBoxMode;
+    /// <summary>
+    /// The Yes button.
+    /// </summary>
     private Button fBtnYes;
+    /// <summary>
+    /// The No button.
+    /// </summary>
     private Button fBtnNo;
+    /// <summary>
+    /// The Close button.
+    /// </summary>
     private Button fBtnClose;
     
     // ● private
+    /// <summary>
+    /// Sets the message box icon.
+    /// </summary>
+    /// <param name="boxMode">The message box mode.</param>
     private void SetIcon(MessageBoxMode boxMode)
     {
         fBoxMode = boxMode;
@@ -46,6 +77,9 @@ public partial class MessageBox : Window
         AvaloniaAssets.SetImage(imgIcon, fileName);
  
     }
+    /// <summary>
+    /// Focuses the default button.
+    /// </summary>
     private void FocusDefaultButton()
     {
         Dispatcher.UIThread.Post(() =>
@@ -56,6 +90,11 @@ public partial class MessageBox : Window
                 fBtnNo.Focus(NavigationMethod.Tab, KeyModifiers.None);
         }, DispatcherPriority.Input);
     }
+    /// <summary>
+    /// Handles arrow key navigation between question buttons.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The key event arguments.</param>
     private void QuestionButton_KeyDown(object Sender, KeyEventArgs Args)
     {
         if (Args.Key != Key.Left && Args.Key != Key.Right && Args.Key != Key.Up && Args.Key != Key.Down)
@@ -68,6 +107,15 @@ public partial class MessageBox : Window
 
         Args.Handled = true;
     }
+    /// <summary>
+    /// Shows a modal message box.
+    /// </summary>
+    /// <param name="title">The window title.</param>
+    /// <param name="Message">The message text.</param>
+    /// <param name="isQuestion">True to show Yes and No buttons.</param>
+    /// <param name="boxMode">The message box mode.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>True when the user selects Yes; otherwise, false.</returns>
     private static async Task<bool> ShowDialog(string title, string Message, bool isQuestion, MessageBoxMode boxMode, Control Caller)
     {
         var Dlg = new MessageBox();
@@ -118,26 +166,54 @@ public partial class MessageBox : Window
         return Dlg.DialogResultValue;
     }
     
+    // ● construction
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MessageBox"/> class.
+    /// </summary>
     public MessageBox()
     {
         InitializeComponent();
         Loaded += (s, e) => FocusDefaultButton();
     }
     
-    // ● Static Methods
+    // ● static public
+    /// <summary>
+    /// Shows an information message.
+    /// </summary>
+    /// <param name="Message">The message text.</param>
+    /// <param name="Caller">The caller control.</param>
     public static async Task Info(string Message, Control Caller = null) 
         => await ShowDialog("Information", Message, false, MessageBoxMode.Info, Caller);
 
+    /// <summary>
+    /// Shows an error message.
+    /// </summary>
+    /// <param name="Message">The message text.</param>
+    /// <param name="Caller">The caller control.</param>
     public static async Task Error(string Message, Control Caller = null) 
         => await ShowDialog("Error", Message, false, MessageBoxMode.Error, Caller);
 
+    /// <summary>
+    /// Shows an error message.
+    /// </summary>
+    /// <param name="e">The exception.</param>
+    /// <param name="Caller">The caller control.</param>
     public static async Task Error(Exception e, Control Caller = null) 
         => await ShowDialog("Error", e.Message, false, MessageBoxMode.Error, Caller);
 
+    /// <summary>
+    /// Shows a Yes/No question message.
+    /// </summary>
+    /// <param name="Message">The message text.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>True when the user selects Yes; otherwise, false.</returns>
     public static async Task<bool> YesNo(string Message, Control Caller = null) 
         => await ShowDialog("Question", Message, true, MessageBoxMode.Question, Caller);
     
- 
+    // ● properties
+    /// <summary>
+    /// Gets the dialog result value.
+    /// </summary>
     public bool DialogResultValue { get; private set; }
  
 }

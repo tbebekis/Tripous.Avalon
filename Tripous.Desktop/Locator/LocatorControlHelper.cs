@@ -14,6 +14,9 @@ namespace Tripous.Desktop;
 static public class LocatorControlHelper
 {
     // ● public
+    /// <summary>
+    /// Gets the width of a field.
+    /// </summary>
     static public double GetFieldWidth(LocatorFieldDef FieldDef)
     {
         if (FieldDef.DisplayWidth > 0)
@@ -30,6 +33,9 @@ static public class LocatorControlHelper
 
         return FieldDef.DataType == DataFieldType.String ? 180 : 120;
     }
+    /// <summary>
+    /// Gets the width of the popup.
+    /// </summary>
     static public double GetPopupWidth(IEnumerable<LocatorFieldDef> Fields, double MinimumWidth = 300, double MaximumWidth = 800)
     {
         double Width = Fields.Where(item => item.IsVisible).Sum(GetFieldWidth) + 30;

@@ -37,55 +37,138 @@ namespace Tripous.Desktop;
 /// </summary>
 public partial class DataForm : AppForm
 {
+    // ● protected fields
+    /// <summary>
+    /// The current form state.
+    /// </summary>
     protected DataFormState fFormState = DataFormState.None;
+    /// <summary>
+    /// The last executed form action.
+    /// </summary>
     protected DataFormAction LastAction = DataFormAction.None;
-    
+    /// <summary>
+    /// True while a save operation is in progress.
+    /// </summary>
     protected bool Saving;
+    /// <summary>
+    /// True when ID columns are visible.
+    /// </summary>
     protected bool fIdColumnsVisible = false;
+    /// <summary>
+    /// True when the filters sidebar is visible.
+    /// </summary>
     protected bool fFiltersSideBarVisible = true;
+    /// <summary>
+    /// The list row identifier to select after a list refresh.
+    /// </summary>
     protected object fListTargetId;
-    
+    /// <summary>
+    /// The main form toolbar.
+    /// </summary>
     protected ToolBar ToolBar;
-
+    /// <summary>
+    /// The Home toolbar button.
+    /// </summary>
     protected Button btnHome;
+    /// <summary>
+    /// The Home toolbar separator.
+    /// </summary>
     protected Border sepHome;
-    
+    /// <summary>
+    /// The List toolbar button.
+    /// </summary>
     protected Button btnList;
+    /// <summary>
+    /// The Refresh List toolbar button.
+    /// </summary>
     protected Button btnRefreshList;
+    /// <summary>
+    /// The Find toolbar button.
+    /// </summary>
     protected Button btnFind;
+    /// <summary>
+    /// The Toggle Ids toolbar button.
+    /// </summary>
     protected ToggleButton btnToggleIds;
+    /// <summary>
+    /// The List toolbar separator.
+    /// </summary>
     protected Border sepList;
-    
+    /// <summary>
+    /// The Insert toolbar button.
+    /// </summary>
     protected Button btnInsert;
+    /// <summary>
+    /// The Edit toolbar button.
+    /// </summary>
     protected Button btnEdit;
+    /// <summary>
+    /// The Delete toolbar button.
+    /// </summary>
     protected Button btnDelete;
     /// <summary>
     /// Reloads the current item from the database.
     /// </summary>
     protected Button btnRefresh;
+    /// <summary>
+    /// The edit toolbar separator.
+    /// </summary>
     protected Border sepEdit;
-
+    /// <summary>
+    /// The Save toolbar button.
+    /// </summary>
     protected Button btnSave;
+    /// <summary>
+    /// The Save toolbar separator.
+    /// </summary>
     protected Border sepSave;
-
+    /// <summary>
+    /// The Cancel toolbar button.
+    /// </summary>
     protected Button btnCancel;
+    /// <summary>
+    /// The OK toolbar button.
+    /// </summary>
     protected Button btnOK;
+    /// <summary>
+    /// The Cancel/OK toolbar separator.
+    /// </summary>
     protected Border sepCancelOK;
-    
+    /// <summary>
+    /// The Close toolbar button.
+    /// </summary>
     protected Button btnClose;
-    
+    /// <summary>
+    /// The select list toolbar.
+    /// </summary>
     protected ToolBar SelectListToolBar;
+    /// <summary>
+    /// The select list combo box.
+    /// </summary>
     protected ComboBox cboSelectList;
-
+    /// <summary>
+    /// The SQL filter panel handler.
+    /// </summary>
     protected SqlFilterPanelHandler FilterPanelHandler;
  
     // ● event handlers
+    /// <summary>
+    /// Handles a list grid double-tap and executes the Edit action.
+    /// </summary>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The tapped event arguments.</param>
     void gridList_OnDoubleTapped(object sender, TappedEventArgs e)
     { 
         _ = Execute(DataFormAction.Edit);
     }
  
     // ● shortcuts
+    /// <summary>
+    /// Executes a shortcut action when the associated button is available.
+    /// </summary>
+    /// <param name="Button">The toolbar button associated with the shortcut.</param>
+    /// <param name="Action">The form action to execute.</param>
+    /// <returns>True if the shortcut was handled; otherwise, false.</returns>
     protected virtual bool ExecuteShortcut(Button Button, DataFormAction Action)
     {
         if (Button == null || !Button.IsVisible || !Button.IsEnabled)
@@ -94,6 +177,11 @@ public partial class DataForm : AppForm
         Ui.Post(async () => await Execute(Action));
         return true;
     }
+    /// <summary>
+    /// Processes a keyboard shortcut.
+    /// </summary>
+    /// <param name="e">The key event arguments.</param>
+    /// <returns>True if the shortcut was handled; otherwise, false.</returns>
     protected virtual bool ProcessShortcutKey(KeyEventArgs e)
     {
         if (e.KeyModifiers == KeyModifiers.None)
@@ -129,6 +217,11 @@ public partial class DataForm : AppForm
     }
 
     // ● overrides
+    /// <summary>
+    /// Processes key down events.
+    /// </summary>
+    /// <param name="e">The key event arguments.</param>
+    /// <returns>True if the key was processed; otherwise, false.</returns>
     protected override bool ProcessKeyDown(KeyEventArgs e)
     {
         if (!Design.IsDesignMode && ProcessShortcutKey(e))
@@ -139,6 +232,7 @@ public partial class DataForm : AppForm
     /// <summary>
     /// Called when the control is added to a rooted visual tree. 
     /// </summary>
+    /// <param name="e">The visual tree attachment event arguments.</param>
     protected override async void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
@@ -180,6 +274,9 @@ public partial class DataForm : AppForm
     }
     
     // ● form state
+    /// <summary>
+    /// Called when the <see cref="FormState"/> property changes.
+    /// </summary>
     protected virtual void FormStateChanged()
     { 
         if (gridList != null)
@@ -203,6 +300,9 @@ public partial class DataForm : AppForm
     }
  
     // ● form actions
+    /// <summary>
+    /// Executes the startup action.
+    /// </summary>
     protected virtual async Task ExecuteStartAction()
     {
         if (StartAction == DataFormAction.Edit && !Sys.IsNull(DataFormContext.RowId))
@@ -232,6 +332,10 @@ public partial class DataForm : AppForm
 
         await Execute(StartAction);
     }
+    /// <summary>
+    /// Executes a form action.
+    /// </summary>
+    /// <param name="Value">The action to execute.</param>
     protected virtual async Task Execute(DataFormAction Value)
     {
         if (!Executing(Value))
@@ -295,19 +399,45 @@ public partial class DataForm : AppForm
         }
 
     }
+    /// <summary>
+    /// Called before a form action is executed.
+    /// </summary>
+    /// <param name="Value">The action to execute.</param>
+    /// <returns>True to cancel the default execution; otherwise, false.</returns>
     protected virtual bool Executing(DataFormAction Value) => false;
+    /// <summary>
+    /// Called after a form action is executed.
+    /// </summary>
+    /// <param name="Value">The executed action.</param>
     protected virtual void Executed(DataFormAction Value) =>  LastAction = Value;
     
+    /// <summary>
+    /// Executes a custom action.
+    /// </summary>
+    /// <param name="Value">The custom action value.</param>
     protected virtual async Task ExecuteCustom(object Value)
     {
         UpdateUi();
         await Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Executes the Home action.
+    /// </summary>
     protected virtual void ExecuteHome() => FormState = DataFormState.List;
+    /// <summary>
+    /// Executes the Find action.
+    /// </summary>
     protected virtual void ExecuteFind() => FiltersSideBarVisible = !FiltersSideBarVisible;
-
+    /// <summary>
+    /// Executes the Toggle Ids action.
+    /// </summary>
     protected virtual void ExecuteToggleIds() => IdColumnsVisible = !IdColumnsVisible;
+    /// <summary>
+    /// Returns a text describing the current item for logging purposes.
+    /// </summary>
+    /// <param name="Id">The item identifier.</param>
+    /// <returns>The item log text.</returns>
     protected virtual string GetItemLogText(object Id)
     {
         List<string> Parts = new();
@@ -340,6 +470,9 @@ public partial class DataForm : AppForm
         return Result;
     }
 
+    /// <summary>
+    /// Executes the List action.
+    /// </summary>
     protected virtual async Task ExecuteList()
     {
         if (!Saving && FormState.In(DataFormState.Insert |DataFormState.Edit))  
@@ -353,17 +486,27 @@ public partial class DataForm : AppForm
         
         this.FormState = DataFormState.List;
     }
+    /// <summary>
+    /// Executes the Refresh List action.
+    /// </summary>
     protected virtual async Task ExecuteRefreshList()
     {
         ListIsDirty = true;
         await ExecuteList();
     }
     
+    /// <summary>
+    /// Executes the Insert action.
+    /// </summary>
     protected virtual void ExecuteInsert()
     {
         Insert();
         this.FormState = DataFormState.Insert;
     }
+    /// <summary>
+    /// Executes the Edit action.
+    /// </summary>
+    /// <param name="oId">The row identifier to edit.</param>
     protected virtual void ExecuteEdit(object oId = null)
     {
         if (oId == null)
@@ -377,6 +520,10 @@ public partial class DataForm : AppForm
             this.FormState = DataFormState.Edit;
         }
     }
+    /// <summary>
+    /// Executes the Delete action.
+    /// </summary>
+    /// <param name="oId">The row identifier to delete.</param>
     protected virtual async Task ExecuteDelete(object oId = null)
     {
         if (oId == null)
@@ -395,6 +542,9 @@ public partial class DataForm : AppForm
             }
         }
     }
+    /// <summary>
+    /// Executes the Save action.
+    /// </summary>
     protected virtual async Task ExecuteSave()
     {
         Dictionary<DataGrid, Tuple<int, DataGridColumn>> DetailGridSelection = ItemPage?.CaptureDetailGridSelection();
@@ -434,6 +584,9 @@ public partial class DataForm : AppForm
         Refresh();
         UiLog($"Refreshed {GetItemLogText(Id)}");
     }
+    /// <summary>
+    /// Executes the Cancel action.
+    /// </summary>
     protected virtual async Task ExecuteCancel()
     {
         if (FormState == DataFormState.List)  
@@ -451,6 +604,10 @@ public partial class DataForm : AppForm
                 await ExecuteList();
         } 
     }
+    /// <summary>
+    /// Cancels item editing after optional confirmation.
+    /// </summary>
+    /// <returns>True if editing was cancelled or there were no changes; otherwise, false.</returns>
     protected virtual async Task<bool> ExecuteCancelEdit()
     {
         if (HasChanges())
@@ -469,6 +626,9 @@ public partial class DataForm : AppForm
     }
  
     // ● list
+    /// <summary>
+    /// Selects the current list using the selected select definition and active filters.
+    /// </summary>
     protected virtual async Task ListSelect()
     {
         SelectDef SelectDef = cboSelectList.SelectedItem as SelectDef;
@@ -501,6 +661,11 @@ public partial class DataForm : AppForm
         }
     }
 
+    /// <summary>
+    /// Selects a list row by identifier.
+    /// </summary>
+    /// <param name="oId">The row identifier.</param>
+    /// <returns>True if the row was found and selected; otherwise, false.</returns>
     protected virtual bool GoToListOID(object oId)
     {
         DataView DataView = Module.tblList.DataView;
@@ -529,6 +694,10 @@ public partial class DataForm : AppForm
 
         return false;
     }
+    /// <summary>
+    /// Returns the current list row identifier.
+    /// </summary>
+    /// <returns>The current list row identifier, if any; otherwise, null.</returns>
     protected virtual object GetCurrentListId()
     {
         if (ListCurrentRow != null)
@@ -539,6 +708,9 @@ public partial class DataForm : AppForm
         
         return null;
     }
+    /// <summary>
+    /// Passes modal result data back to the form context.
+    /// </summary>
     protected override void PassResultBack()
     {
         if (!IsModal || DataFormContext == null || ModalResult != ModalResult.Ok)
@@ -552,13 +724,27 @@ public partial class DataForm : AppForm
     }
   
     // ● item
+    /// <summary>
+    /// Inserts a new item.
+    /// </summary>
     protected virtual void Insert() => Module.Insert();
+    /// <summary>
+    /// Loads an item for editing.
+    /// </summary>
+    /// <param name="oId">The row identifier.</param>
     protected virtual void Load(object oId) => Module.Edit(oId);
+    /// <summary>
+    /// Deletes an item.
+    /// </summary>
+    /// <param name="oId">The row identifier.</param>
     protected virtual void Delete(object oId) 
     {
         Module.Delete(oId);
         ListIsDirty = true; 
     }
+    /// <summary>
+    /// Saves the current item.
+    /// </summary>
     protected virtual void Save() 
     {
         Module.Commit(Reselect: false);
@@ -578,7 +764,14 @@ public partial class DataForm : AppForm
         ItemPage?.Refresh();
     }
 
+    /// <summary>
+    /// Returns true when the data module has changes.
+    /// </summary>
+    /// <returns>True if the data module has changes; otherwise, false.</returns>
     protected virtual bool HasChanges() => Module.HasChanges();
+    /// <summary>
+    /// Cancels changes in the data module.
+    /// </summary>
     protected virtual void CancelChanges()
     {
         Module.Cancel();
@@ -586,9 +779,15 @@ public partial class DataForm : AppForm
     /// <summary>
     /// Returns true when a detail grid command can execute.
     /// </summary>
+    /// <param name="Context">The grid command context.</param>
+    /// <returns>True if the command can execute; otherwise, false.</returns>
     public virtual bool CanExecuteGridCommand(GridCommandContext Context) => true;
 
     // ● UI
+    /// <summary>
+    /// Creates the main toolbar.
+    /// </summary>
+    /// <returns>True if the toolbar was created; otherwise, false.</returns>
     protected virtual bool CreateToolBar()
     {
         if (ToolBar == null)
@@ -625,6 +824,9 @@ public partial class DataForm : AppForm
 
         return false;
     }
+    /// <summary>
+    /// Creates the select list toolbar.
+    /// </summary>
     protected virtual void CreateSelectListToolBar()
     {
         if (SelectListToolBar == null)
@@ -640,8 +842,20 @@ public partial class DataForm : AppForm
         }
     }
 
+    /// <summary>
+    /// Binds the list grid to the list table data view.
+    /// </summary>
+    /// <param name="SelectDef">The select definition.</param>
     protected virtual void BindListGrid(SelectDef SelectDef) => DataGridBinder.BindGrid(SelectDef, gridList, Module.tblList.DataView, SupportsRecycling: false, GoToFirst: true);
+    /// <summary>
+    /// Unbinds the list grid.
+    /// </summary>
     protected virtual void UnBindListGrid() => DataGridBinder.UnBindGrid(gridList);
+    /// <summary>
+    /// Returns the first editable focus control in a container.
+    /// </summary>
+    /// <param name="Container">The container to search.</param>
+    /// <returns>The first editable focus control, if any; otherwise, null.</returns>
     protected override Control FindFirstFocusableControl(Control Container)
     {
         if (Container == null)
@@ -655,6 +869,11 @@ public partial class DataForm : AppForm
 
         return null;
     }
+    /// <summary>
+    /// Returns true when a control can receive edit focus.
+    /// </summary>
+    /// <param name="Control">The control to check.</param>
+    /// <returns>True if the control can receive edit focus; otherwise, false.</returns>
     protected virtual bool IsEditableFocusControl(Control Control)
     {
         if (Control == null || !Control.IsEffectivelyVisible || !Control.IsEnabled)
@@ -673,6 +892,11 @@ public partial class DataForm : AppForm
 
         return false;
     }
+    /// <summary>
+    /// Focuses the previous editable control in the item panel.
+    /// </summary>
+    /// <param name="Current">The current control.</param>
+    /// <returns>True if focus moved; otherwise, false.</returns>
     public virtual bool FocusPreviousEditableControl(Control Current)
     {
         // Used by CalendarDatePicker Shift+Tab workaround.
@@ -695,6 +919,9 @@ public partial class DataForm : AppForm
         return Controls[PreviousIndex].Focus(NavigationMethod.Tab, KeyModifiers.Shift);
     }
  
+    /// <summary>
+    /// Creates the item panel.
+    /// </summary>
     protected virtual void CreateItemPanel()
     {
         if (!string.IsNullOrWhiteSpace(FormDef.ItemClassName))
@@ -828,8 +1055,11 @@ public partial class DataForm : AppForm
         }
     }
     /// <summary>
-    /// Creates and returna a new <see cref="SqlFilterDefs"/> instance with the saved filter values of the current user.
+    /// Creates and returns a new <see cref="SqlFilterDefs"/> instance with the saved filter values of the current user.
     /// </summary>
+    /// <param name="SelectDef">The select definition.</param>
+    /// <param name="FilterDefs">The filter definitions.</param>
+    /// <returns>The filter definitions with saved values applied.</returns>
     protected virtual SqlFilterDefs GetSavedFilterValues(SelectDef SelectDef, SqlFilterDefs FilterDefs)
     {
         return FilterDefs;
@@ -840,6 +1070,7 @@ public partial class DataForm : AppForm
     /// <para>Returning true indicates that the key press is handled.</para>
     /// <para>NOTE: By default, when is a modal dialog, it sets <see cref="ModalResult"/> to Cancel, and closes the form.</para>
     /// </summary>
+    /// <returns>True if the escape key was processed; otherwise, false.</returns>
     protected override bool ProcessEscapeKey()
     {
         if (btnCancel.IsVisible && btnCancel.IsEnabled)
@@ -851,6 +1082,10 @@ public partial class DataForm : AppForm
         return base.ProcessEscapeKey();
     }
 
+    /// <summary>
+    /// Writes a message to the UI log when data form logging is enabled.
+    /// </summary>
+    /// <param name="Message">The message to write.</param>
     protected virtual void UiLog(string Message)  
     {
         if (Ui.Settings.ShowDataFormLog)
@@ -945,7 +1180,9 @@ public partial class DataForm : AppForm
     /// True when the list grid/table is empty.
     /// </summary>
     public bool IsListEmpty => Module == null || Module.tblList == null || Module.tblList.Rows.Count == 0;
-
+    /// <summary>
+    /// True when the list should be reloaded.
+    /// </summary>
     public bool ListIsDirty { get; protected set; }
 
     /// <summary>

@@ -296,6 +296,9 @@ public class GridLocatorBox: UserControl
     }
 
     // ● overridables
+    /// <summary>
+    /// Called when the control is attached to the visual tree.
+    /// </summary>
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);

@@ -14,6 +14,14 @@ namespace Tripous.Desktop;
 public class DataFormContext: FormContext
 {
     // ● private
+    /// <summary>
+    /// Creates a data form context.
+    /// </summary>
+    /// <param name="FormId">The form identifier.</param>
+    /// <param name="FormRegistryName">The form registry name.</param>
+    /// <param name="Module">The data module to use.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>The created data form context.</returns>
     static DataFormContext CreateCore(string FormId, string FormRegistryName, DataModule Module, Control Caller)
     {
         if (string.IsNullOrWhiteSpace(FormRegistryName))
@@ -41,10 +49,23 @@ public class DataFormContext: FormContext
     }
 
     // ● static public
+    /// <summary>
+    /// Creates a data form context.
+    /// </summary>
+    /// <param name="FormRegistryName">The form registry name.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>The created data form context.</returns>
     static public DataFormContext Create(string FormRegistryName, Control Caller = null)
     {
         return CreateCore(FormRegistryName, FormRegistryName, null, Caller);
     }
+    /// <summary>
+    /// Creates a data form context.
+    /// </summary>
+    /// <param name="FormRegistryName">The form registry name.</param>
+    /// <param name="Module">The data module to use.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>The created data form context.</returns>
     static public DataFormContext Create(string FormRegistryName, DataModule Module, Control Caller = null)
     {
         if (Module == null)
@@ -52,17 +73,36 @@ public class DataFormContext: FormContext
 
         return CreateCore(FormRegistryName, FormRegistryName, Module, Caller);
     }
+    /// <summary>
+    /// Creates a data form context.
+    /// </summary>
+    /// <param name="FormId">The form identifier.</param>
+    /// <param name="FormRegistryName">The form registry name.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>The created data form context.</returns>
     static public DataFormContext Create(string FormId, string FormRegistryName, Control Caller = null)
     {
         return CreateCore(FormId, FormRegistryName, null, Caller);
     }
  
+    /// <summary>
+    /// Creates or returns the form instance.
+    /// </summary>
+    /// <returns>The created or existing form instance.</returns>
     public override AppForm CreateForm()
     {
         if (Form == null)
             Form = TypeStore.CreateInstance<DataForm>(ClassName);
         return Form;
     }
+    /// <summary>
+    /// Shows a data form in a modal dialog.
+    /// </summary>
+    /// <param name="FormRegistryName">The form registry name.</param>
+    /// <param name="StartAction">The first action the form should execute.</param>
+    /// <param name="RowId">The optional row identifier.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>The data form context after the modal dialog is closed.</returns>
     static public async Task<DataFormContext> ShowFormModal(
         string FormRegistryName,
         DataFormAction StartAction = DataFormAction.List,

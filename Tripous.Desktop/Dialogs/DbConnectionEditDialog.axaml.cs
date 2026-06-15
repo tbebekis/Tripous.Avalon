@@ -8,25 +8,54 @@
 
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Dialog used to edit database connection information.
+/// </summary>
 public partial class DbConnectionEditDialog : Window
 {
     // ● private fields
+    /// <summary>
+    /// True while connection information is being loaded.
+    /// </summary>
     private bool fLoading;
+    /// <summary>
+    /// The dialog result.
+    /// </summary>
     bool DialogResult;
 
     // ● private methods
+    /// <summary>
+    /// Returns the selected database connection adapter.
+    /// </summary>
+    /// <returns>The selected database connection adapter.</returns>
     private DbConAdapter GetAdapter()
     {
         return DbConAdapters.Get((DbServerType)cboDbServerType.SelectedItem);
     }
+    /// <summary>
+    /// Returns a connection property definition.
+    /// </summary>
+    /// <param name="PropType">The connection property type.</param>
+    /// <returns>The connection property definition, if any; otherwise, null.</returns>
     private DbConPropDef GetPropDef(DbConPropType PropType)
     {
         return GetAdapter().PropDefs.FirstOrDefault(item => item.PropType == PropType);
     }
+    /// <summary>
+    /// Returns true when a connection property type is supported by the selected adapter.
+    /// </summary>
+    /// <param name="PropType">The connection property type.</param>
+    /// <returns>True if the property is supported; otherwise, false.</returns>
     private bool IsValidProp(DbConPropType PropType)
     {
         return GetPropDef(PropType) != null;
     }
+    /// <summary>
+    /// Configures a text box for a connection property.
+    /// </summary>
+    /// <param name="TextBox">The text box.</param>
+    /// <param name="Label">The label.</param>
+    /// <param name="PropType">The connection property type.</param>
     private void SetTextBox(TextBox TextBox, TextBlock Label, DbConPropType PropType)
     {
         var def = GetPropDef(PropType);
@@ -40,12 +69,20 @@ public partial class DbConnectionEditDialog : Window
             TextBox.Text = def.DefaultValue;
         }
     }
+    /// <summary>
+    /// Configures a check box for a connection property.
+    /// </summary>
+    /// <param name="CheckBox">The check box.</param>
+    /// <param name="PropType">The connection property type.</param>
     private void SetCheckBox(CheckBox CheckBox, DbConPropType PropType)
     {
         var def = GetPropDef(PropType);
         CheckBox.IsEnabled = def != null;
         CheckBox.IsChecked = false;
     }
+    /// <summary>
+    /// Configures the SSL mode combo box.
+    /// </summary>
     private void SetSslMode()
     {
         var def = GetPropDef(DbConPropType.SslMode);
@@ -57,6 +94,9 @@ public partial class DbConnectionEditDialog : Window
         if (isValid && def.ValidValues.Length > 0)
             cboSslMode.SelectedIndex = 0;
     }
+    /// <summary>
+    /// Applies the selected database provider to the UI controls.
+    /// </summary>
     private void ApplyProvider()
     {
         if (fLoading)
@@ -73,15 +113,30 @@ public partial class DbConnectionEditDialog : Window
         edtConnectionString.Text = "";
         txtMessage.Text = "";
     }
+    /// <summary>
+    /// Returns trimmed text from a text box.
+    /// </summary>
+    /// <param name="TextBox">The text box.</param>
+    /// <returns>The trimmed text.</returns>
     private string GetText(TextBox TextBox)
     {
         return TextBox.Text == null ? "" : TextBox.Text.Trim();
     }
+    /// <summary>
+    /// Adds a connection property to a list when valid.
+    /// </summary>
+    /// <param name="Props">The property list.</param>
+    /// <param name="PropType">The connection property type.</param>
+    /// <param name="Value">The property value.</param>
     private void AddProp(List<DbConProp> Props, DbConPropType PropType, string Value)
     {
         if (IsValidProp(PropType) && !string.IsNullOrWhiteSpace(Value))
             Props.Add(new DbConProp { PropType = PropType, Value = Value });
     }
+    /// <summary>
+    /// Returns connection properties from the UI controls.
+    /// </summary>
+    /// <returns>The connection properties.</returns>
     private List<DbConProp> GetPropsFromControls()
     {
         var result = new List<DbConProp>();
@@ -99,6 +154,10 @@ public partial class DbConnectionEditDialog : Window
         AddProp(result, DbConPropType.Charset, GetText(edtCharset));
         return result;
     }
+    /// <summary>
+    /// Applies a connection property to the UI controls.
+    /// </summary>
+    /// <param name="Prop">The connection property.</param>
     private void SetPropToControls(DbConProp Prop)
     {
         if (Prop.PropType == DbConPropType.Server)
@@ -120,6 +179,9 @@ public partial class DbConnectionEditDialog : Window
         else if (Prop.PropType == DbConPropType.Charset)
             edtCharset.Text = Prop.Value;
     }
+    /// <summary>
+    /// Loads connection information to the UI controls.
+    /// </summary>
     private void LoadConnectionInfo()
     {
         fLoading = true;
@@ -136,6 +198,10 @@ public partial class DbConnectionEditDialog : Window
                 SetPropToControls(prop);
         }
     }
+    /// <summary>
+    /// Validates the connection information.
+    /// </summary>
+    /// <returns>True if the connection information is valid; otherwise, false.</returns>
     private bool Validate()
     {
         txtMessage.Text = "";
@@ -155,10 +221,17 @@ public partial class DbConnectionEditDialog : Window
         }
         return true;
     }
+    /// <summary>
+    /// Constructs the connection string from the UI controls.
+    /// </summary>
+    /// <returns>The constructed connection string.</returns>
     private string ConstructConnectionString()
     {
         return GetAdapter().Construct(GetPropsFromControls());
     }
+    /// <summary>
+    /// Updates the connection string preview.
+    /// </summary>
     private void UpdateConnectionStringPreview()
     {
         try
@@ -170,6 +243,9 @@ public partial class DbConnectionEditDialog : Window
             edtConnectionString.Text = ex.Message;
         }
     }
+    /// <summary>
+    /// Saves the UI values to the connection information.
+    /// </summary>
     private void SaveConnectionInfo()
     {
         ConnectionInfo.Name = GetText(edtName);
@@ -177,6 +253,10 @@ public partial class DbConnectionEditDialog : Window
         ConnectionInfo.CommandTimeoutSeconds = edtCommandTimeoutSeconds.AsInt(ConnectionInfo.CommandTimeoutSeconds);
         ConnectionInfo.ConnectionString = ConstructConnectionString();
     }
+    /// <summary>
+    /// Tests the current connection information.
+    /// </summary>
+    /// <returns>True if the connection succeeds; otherwise, false.</returns>
     private async Task<bool> TestConnection()
     {
         if (!Validate())
@@ -191,6 +271,11 @@ public partial class DbConnectionEditDialog : Window
         return true;
     }
     
+    /// <summary>
+    /// Handles the Test Connection button click.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The routed event arguments.</param>
     private async void btnTestConnection_Click(object Sender, RoutedEventArgs Args)
     {
         try
@@ -203,6 +288,11 @@ public partial class DbConnectionEditDialog : Window
             txtMessage.Text = ex.Message;
         }
     }
+    /// <summary>
+    /// Handles the OK button click.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The routed event arguments.</param>
     private async void btnOK_Click(object Sender, RoutedEventArgs Args)
     {
         try
@@ -218,15 +308,30 @@ public partial class DbConnectionEditDialog : Window
             txtMessage.Text = ex.Message;
         }
     }
+    /// <summary>
+    /// Handles the Cancel button click.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The routed event arguments.</param>
     private void btnCancel_Click(object Sender, RoutedEventArgs Args)
     {
         DialogResult = false;
         Close();
     }
+    /// <summary>
+    /// Handles database server type selection changes.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The selection changed event arguments.</param>
     private void cboDbServerType_SelectionChanged(object Sender, SelectionChangedEventArgs Args)
     {
         ApplyProvider();
     }
+    /// <summary>
+    /// Handles tab selection changes.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The selection changed event arguments.</param>
     private void tabControl_SelectionChanged(object Sender, SelectionChangedEventArgs Args)
     {
         if (tabControl.SelectedItem == tabConnectionString)
@@ -234,6 +339,9 @@ public partial class DbConnectionEditDialog : Window
     }
 
     // ● constructor
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DbConnectionEditDialog"/> class.
+    /// </summary>
     public DbConnectionEditDialog()
     {
         InitializeComponent();
@@ -252,6 +360,12 @@ public partial class DbConnectionEditDialog : Window
     }
 
     // ● static public methods
+    /// <summary>
+    /// Shows the dialog modally.
+    /// </summary>
+    /// <param name="ConnectionInfo">The connection information to edit.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>True if the dialog was accepted; otherwise, false.</returns>
     static public async Task<bool> ShowModal(DbConnectionInfo ConnectionInfo, Control Caller = null)
     {
         if (Caller == null)
@@ -265,5 +379,8 @@ public partial class DbConnectionEditDialog : Window
     }
 
     // ● properties
+    /// <summary>
+    /// Gets or sets the connection information being edited.
+    /// </summary>
     public DbConnectionInfo ConnectionInfo { get; set; }
 }

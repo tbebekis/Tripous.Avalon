@@ -8,9 +8,17 @@
 
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Provides helper methods for binding Avalonia controls to data rows.
+/// </summary>
 static public class ControlBindingHelper
 {
     // ● private
+    /// <summary>
+    /// Ensures that a locator has visible fields inferred from the joined table of a field.
+    /// </summary>
+    /// <param name="LocatorDef">The locator definition.</param>
+    /// <param name="FieldDef">The field definition.</param>
     static void EnsureLocatorFieldsCore(LocatorDef LocatorDef, FieldDef FieldDef)
     {
         if (LocatorDef == null || FieldDef?.TableDef == null || LocatorDef.Fields.Count > 0)
@@ -55,10 +63,21 @@ static public class ControlBindingHelper
             LocatorDef.Fields.Add(LocatorField);
         }
     }
+    /// <summary>
+    /// Returns the current row of a row provider.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <returns>The current row, if any; otherwise, null.</returns>
     static DataRow GetCurrentRow(IRowProvider RowProvider)
     {
         return RowProvider?.CurrentRow;
     }
+    /// <summary>
+    /// Returns a field value from the current row of a row provider.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <returns>The field value, if any; otherwise, null.</returns>
     static object GetValue(IRowProvider RowProvider, string FieldName)
     {
         DataRow Row = GetCurrentRow(RowProvider);
@@ -68,6 +87,12 @@ static public class ControlBindingHelper
         object Result = Row[FieldName];
         return Result == DBNull.Value ? null : Result;
     }
+    /// <summary>
+    /// Sets a field value to the current row of a row provider.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="Value">The value to set.</param>
     static void SetValue(IRowProvider RowProvider, string FieldName, object Value)
     {
         DataRow Row = GetCurrentRow(RowProvider);
@@ -112,6 +137,11 @@ static public class ControlBindingHelper
   
     }
     
+    /// <summary>
+    /// Refreshes a text box from a bound row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Binding">The control binding.</param>
     static void RefreshTextBox(IRowProvider RowProvider, ControlBinding Binding)
     {
         if (Binding.Control is not TextBox Box)
@@ -131,6 +161,11 @@ static public class ControlBindingHelper
             Binding.IsRefreshing = false;
         }
     }
+    /// <summary>
+    /// Refreshes a combo box from a bound row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Binding">The control binding.</param>
     static void RefreshComboBox(IRowProvider RowProvider, ControlBinding Binding)
     {
         if (Binding.Control is not ComboBox Box)
@@ -151,6 +186,11 @@ static public class ControlBindingHelper
             Binding.IsRefreshing = false;
         }
     }
+    /// <summary>
+    /// Refreshes an image control from a bound row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Binding">The control binding.</param>
     static void RefreshImage(IRowProvider RowProvider, ControlBinding Binding)
     {
         if (Binding.Control is not Image Box)
@@ -174,6 +214,11 @@ static public class ControlBindingHelper
             Binding.IsRefreshing = false;
         }
     }
+    /// <summary>
+    /// Refreshes a locator box from a bound row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Binding">The control binding.</param>
     static void RefreshLocatorBox(IRowProvider RowProvider, ControlBinding Binding)
     {
         if (Binding.Control is not LocatorBox Control)
@@ -193,6 +238,11 @@ static public class ControlBindingHelper
         Control.RefreshTargetBoxes(Row, Binding.LocatorTargetFieldMap);
     }
 
+    /// <summary>
+    /// Refreshes a check box from a bound row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Binding">The control binding.</param>
     static void RefreshCheckBox(IRowProvider RowProvider, ControlBinding Binding)
     {
         if (Binding.Control is not CheckBox Box)
@@ -221,6 +271,11 @@ static public class ControlBindingHelper
     }
     
     // ● static public
+    /// <summary>
+    /// Refreshes a bound control from its row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Binding">The control binding.</param>
     static public void Refresh(IRowProvider RowProvider, ControlBinding Binding)
     {
         if (RowProvider == null || Binding == null)
@@ -266,10 +321,24 @@ static public class ControlBindingHelper
         }
     }
 
+    /// <summary>
+    /// Ensures that a locator has fields inferred from the specified field definition.
+    /// </summary>
+    /// <param name="LocatorDef">The locator definition.</param>
+    /// <param name="FieldDef">The field definition.</param>
     static public void EnsureLocatorFields(LocatorDef LocatorDef, FieldDef FieldDef)
     {
         EnsureLocatorFieldsCore(LocatorDef, FieldDef);
     }
+    /// <summary>
+    /// Binds a text box to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The text box.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding Bind(IRowProvider RowProvider, TextBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         if (RowProvider == null)
@@ -307,6 +376,15 @@ static public class ControlBindingHelper
         Refresh(RowProvider, Result);
         return Result;
     }
+    /// <summary>
+    /// Binds a multi-line text box to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The text box.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding BindMemo(IRowProvider RowProvider, TextBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         Box.AcceptsReturn = true;
@@ -315,6 +393,15 @@ static public class ControlBindingHelper
         return Bind(RowProvider, Box, FieldName, DataColumn, FieldDef);
     }
     
+    /// <summary>
+    /// Binds a check box to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The check box.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding Bind(IRowProvider RowProvider, CheckBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         ControlBinding Result = new()
@@ -345,6 +432,15 @@ static public class ControlBindingHelper
         Refresh(RowProvider, Result);
         return Result;
     }
+    /// <summary>
+    /// Binds a date picker to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The date picker.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding Bind(IRowProvider RowProvider, DatePicker Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         ControlBinding Result = new()
@@ -375,6 +471,15 @@ static public class ControlBindingHelper
         Refresh(RowProvider, Result);
         return Result;
     }
+    /// <summary>
+    /// Binds a calendar date picker to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The calendar date picker.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding Bind(IRowProvider RowProvider, CalendarDatePicker Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         ControlBinding Result = new()
@@ -460,6 +565,16 @@ static public class ControlBindingHelper
         return Result;
     }
     
+    /// <summary>
+    /// Binds a combo box to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The combo box.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="Items">The items source.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding Bind(IRowProvider RowProvider, ComboBox Box, string FieldName, DataColumn DataColumn, IEnumerable Items, FieldDef FieldDef = null)
     {
         ControlBinding Result = new()
@@ -490,6 +605,16 @@ static public class ControlBindingHelper
         Refresh(RowProvider, Result);
         return Result;
     }
+    /// <summary>
+    /// Binds a list box to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The list box.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="Items">The items source.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding Bind(IRowProvider RowProvider, ListBox Box, string FieldName, DataColumn DataColumn, IEnumerable Items, FieldDef FieldDef = null)
     {
         ControlBinding Result = new()
@@ -521,6 +646,15 @@ static public class ControlBindingHelper
         return Result;
     }
     
+    /// <summary>
+    /// Binds a numeric up-down control to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The numeric up-down control.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding Bind(IRowProvider RowProvider, NumericUpDown Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         ControlBinding Result = new()
@@ -550,6 +684,15 @@ static public class ControlBindingHelper
         return Result;
     }
     
+    /// <summary>
+    /// Binds a lookup combo box to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The combo box.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding BindLookup(IRowProvider RowProvider, ComboBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef)
     {
         if (FieldDef == null)
@@ -559,6 +702,16 @@ static public class ControlBindingHelper
 
         return BindLookup(RowProvider, Box, FieldName, DataColumn, FieldDef.LookupSource, FieldDef);
     }
+    /// <summary>
+    /// Binds a lookup combo box to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The combo box.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="LookupSourceName">The lookup source name.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding BindLookup(IRowProvider RowProvider, ComboBox Box, string FieldName, DataColumn DataColumn, string LookupSourceName, FieldDef FieldDef = null)
     {
         if (RowProvider == null)
@@ -621,6 +774,15 @@ static public class ControlBindingHelper
         return Result;
     }
 
+    /// <summary>
+    /// Binds an image control to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The image control.</param>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataColumn">The data column.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding BindImage(IRowProvider RowProvider, Image Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
     {
         if (RowProvider == null)
@@ -645,6 +807,13 @@ static public class ControlBindingHelper
         return Result;
     }
 
+    /// <summary>
+    /// Binds a locator box to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The locator box.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
     static public ControlBinding Bind(IRowProvider RowProvider, LocatorBox Box, FieldDef FieldDef)
     {
         if (Box == null)

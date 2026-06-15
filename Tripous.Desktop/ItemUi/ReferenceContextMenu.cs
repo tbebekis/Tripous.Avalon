@@ -8,10 +8,28 @@
 
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Provides command handling for a reference context menu.
+/// </summary>
 public interface IReferenceContextMenuHost
 {
+    /// <summary>
+    /// Returns true when a reference context menu can open.
+    /// </summary>
+    /// <param name="RefContextMenu">The reference context menu.</param>
+    /// <returns>True if the context menu can open; otherwise, false.</returns>
     bool CanOpenRefContextMenu(ReferenceContextMenu RefContextMenu);
+    /// <summary>
+    /// Returns true when a reference menu command can execute.
+    /// </summary>
+    /// <param name="Context">The command context.</param>
+    /// <returns>True if the command can execute; otherwise, false.</returns>
     bool CanExecute(ReferenceMenuCommandContext Context);
+    /// <summary>
+    /// Executes a reference menu command.
+    /// </summary>
+    /// <param name="Context">The command context.</param>
+    /// <returns>The command result.</returns>
     object Execute(ReferenceMenuCommandContext Context);
 }
 
@@ -21,15 +39,29 @@ public interface IReferenceContextMenuHost
 [TypeStore]
 public class ReferenceContextMenu
 {
-    // ● protected
+    // ● protected fields
+    /// <summary>
+    /// The menu command host.
+    /// </summary>
     protected IReferenceContextMenuHost MenuHost;
+    /// <summary>
+    /// The caller control used when opening the menu explicitly.
+    /// </summary>
     protected Control fCallerControl;
     
-    // ● protected
+    // ● protected methods
+    /// <summary>
+    /// Returns the reference form name.
+    /// </summary>
+    /// <returns>The reference form name.</returns>
     protected virtual string GetFormName()
     {
         return Binding.LookupSource?.LookupDef?.Form ?? Binding.LocatorDef?.Form;
     }
+    /// <summary>
+    /// Returns the current reference row identifier.
+    /// </summary>
+    /// <returns>The current reference row identifier, if any; otherwise, null.</returns>
     protected virtual object GetRowId()
     {
         if (Binding is ControlBinding ControlBinding && ControlBinding.Control is ComboBox ComboBox)
@@ -43,6 +75,11 @@ public class ReferenceContextMenu
 
         return Binding.Table.CurrentRow[Binding.FieldName];
     }
+    /// <summary>
+    /// Returns the action type represented by a menu item.
+    /// </summary>
+    /// <param name="MenuItem">The menu item.</param>
+    /// <returns>The reference menu action type.</returns>
     protected virtual ReferenceMenuActionType GetActionType(MenuItem MenuItem)
     {
         if (MenuItem == mnuShowList)
@@ -58,6 +95,11 @@ public class ReferenceContextMenu
 
         return ReferenceMenuActionType.ShowList;
     }
+    /// <summary>
+    /// Creates a reference menu command context.
+    /// </summary>
+    /// <param name="ActionType">The action type.</param>
+    /// <returns>The created command context.</returns>
     protected virtual ReferenceMenuCommandContext CreateContext(ReferenceMenuActionType ActionType)
     {
         return new ReferenceMenuCommandContext()
@@ -70,6 +112,9 @@ public class ReferenceContextMenu
             Caller = (Binding as ControlBinding)?.Control ?? fCallerControl
         };
     }
+    /// <summary>
+    /// Enables or disables menu items according to the current context.
+    /// </summary>
     protected virtual void EnableMenuItems()
     {
         mnuReload.IsVisible = Binding.LocatorDef == null;
@@ -84,6 +129,8 @@ public class ReferenceContextMenu
     /// <summary>
     /// Dispatches a menu click to the corresponding operation.
     /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The routed event arguments.</param>
     protected virtual async void AnyMenuItem_Click(object Sender, RoutedEventArgs Args)
     {
         MenuItem MenuItem = Sender as MenuItem;
@@ -101,6 +148,10 @@ public class ReferenceContextMenu
         else
             Context.Result = Result;
     }
+    /// <summary>
+    /// Returns true when this context menu can open.
+    /// </summary>
+    /// <returns>True if the context menu can open; otherwise, false.</returns>
     protected virtual bool CanOpen() => MenuHost.CanOpenRefContextMenu(this);
 
     // ● construction
@@ -127,6 +178,11 @@ public class ReferenceContextMenu
     }
 
     // ● public
+    /// <summary>
+    /// Initializes this reference context menu.
+    /// </summary>
+    /// <param name="MenuHost">The menu command host.</param>
+    /// <param name="Binding">The binding this menu serves.</param>
     public virtual void Initialize(IReferenceContextMenuHost MenuHost, TripousBinding Binding)
     {
         if (this.Binding != null)
@@ -195,6 +251,11 @@ public class ReferenceContextMenu
         // -----------------------------------------------
         Menu.Opening += (Sender, Args) => EnableMenuItems();
     }
+    /// <summary>
+    /// Opens the context menu for a control.
+    /// </summary>
+    /// <param name="Control">The caller control.</param>
+    /// <returns>True if the menu opened; otherwise, false.</returns>
     public virtual bool Open(Control Control)
     {
         if (Control == null || !CanOpen())

@@ -8,17 +8,35 @@
 
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Displays application commands in a tree view.
+/// </summary>
 public partial class CommandTreeViewForm : AppForm
 {
+    // ● private fields
+    /// <summary>
+    /// The commands displayed by the form.
+    /// </summary>
     DefList<Command> Commands;
+    /// <summary>
+    /// The form toolbar.
+    /// </summary>
     ToolBar ToolBar;
     
+    // ● private
+    /// <summary>
+    /// Handles a tree view double-tap and executes the selected command.
+    /// </summary>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The routed event arguments.</param>
     async void tv_DoubleTapped(object sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         await ExecuteCommand();
     }
  
-    // ● private
+    /// <summary>
+    /// Creates the tree view nodes.
+    /// </summary>
     void CreateTreeViewNodes()
     {
         // ----------------------------------------------------------------------
@@ -55,6 +73,9 @@ public partial class CommandTreeViewForm : AppForm
         foreach (Command Command in Commands)
             AddCommandNode(tv.Items, Command);
     }
+    /// <summary>
+    /// Executes the selected command.
+    /// </summary>
     async Task ExecuteCommand()
     {
         if (tv.SelectedItem is not TreeViewItem Node) 
@@ -70,6 +91,9 @@ public partial class CommandTreeViewForm : AppForm
             Cmd.Execute();
     }
 
+    /// <summary>
+    /// Creates the toolbar.
+    /// </summary>
     void CreateToolBar()
     {
         if (ToolBar == null)
@@ -110,6 +134,8 @@ public partial class CommandTreeViewForm : AppForm
     /// It is called by the OnKeyDown() method. 
     /// <para>Returns true if processes the key</para>
     /// </summary>
+    /// <param name="e">The key event arguments.</param>
+    /// <returns>True if the key was processed; otherwise, false.</returns>
     protected override bool ProcessKeyDown(KeyEventArgs e)
     {
         return false;
@@ -117,12 +143,20 @@ public partial class CommandTreeViewForm : AppForm
     
     
     // ● construction
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CommandTreeViewForm"/> class.
+    /// </summary>
     public CommandTreeViewForm()
     {
         InitializeComponent();
     }
     
     // ● static
+    /// <summary>
+    /// Creates a form context for this form.
+    /// </summary>
+    /// <param name="Tag">The context tag.</param>
+    /// <returns>The created form context.</returns>
     static public FormContext CreateFormContext(object Tag = null) => FormContext.Create(typeof(CommandTreeViewForm), FormDisplayMode.TabItem, Caller: null, Tag: Tag);
  
 }

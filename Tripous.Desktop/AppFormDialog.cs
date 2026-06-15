@@ -13,12 +13,23 @@ namespace Tripous.Desktop;
 /// </summary>
 public class AppFormDialog : Window
 {
+    // ● private fields
+    /// <summary>
+    /// Indicates whether the window has been initialized.
+    /// </summary>
     bool IsWindowInitialized = false;
 
     // ● overridables
+    /// <summary>
+    /// Initializes the window.
+    /// </summary>
     protected virtual void WindowInitialize()
     {
     }
+    /// <summary>
+    /// Called when the window is opened.
+    /// </summary>
+    /// <param name="e">The event arguments.</param>
     protected override void OnOpened(EventArgs e)
     {
         if (IsWindowInitialized)
@@ -31,6 +42,9 @@ public class AppFormDialog : Window
     }
 
     // ● construction
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AppFormDialog"/> class.
+    /// </summary>
     public AppFormDialog()
     {
         ShowInTaskbar = false;
@@ -40,6 +54,8 @@ public class AppFormDialog : Window
     /// <summary>
     /// Shows a modal window with an embedded form (UserControl) 
     /// </summary>
+    /// <param name="Context">The form context.</param>
+    /// <returns>The form context after the modal window is closed.</returns>
     static public async Task<FormContext> ShowModal(FormContext Context)
     {
         if (Context == null)
@@ -69,9 +85,17 @@ public class AppFormDialog : Window
     /// <summary>
     /// Shows a modal window with an embedded form (UserControl) 
     /// </summary>
+    /// <param name="Context">The data form context.</param>
+    /// <returns>The data form context after the modal window is closed.</returns>
     static public async Task<DataFormContext> ShowModalDataForm(DataFormContext Context) => await ShowModal(Context) as DataFormContext;
     
     // ● properties
+    /// <summary>
+    /// Gets the form context.
+    /// </summary>
     public FormContext Context { get; private set; }
+    /// <summary>
+    /// Gets the owner window.
+    /// </summary>
     public Window OwnerWindow { get; private set; }
 }

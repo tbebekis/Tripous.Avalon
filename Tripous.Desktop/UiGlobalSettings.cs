@@ -8,6 +8,9 @@
 
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Global settings for the UI.
+/// </summary>
 public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
 {
     Stretch fFormImageStretch = Stretch.Uniform;
@@ -139,5 +142,8 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     }
 
     // ● events
+    /// <summary>
+    /// Occurs when a property value changes.
+    /// </summary>
     public event PropertyChangedEventHandler PropertyChanged;
 }

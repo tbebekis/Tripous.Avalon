@@ -9,20 +9,36 @@
 namespace Tripous.Desktop;
 
 /// <summary>
-/// Controls keyboard editing behavior for a <see cref="DataGrid"/>.
+/// Controls keyboard editing behavior for a data grid.
 /// </summary>
 public class GridEditController
 {
-    // ● fields
+    // ● private fields
+    /// <summary>
+    /// The controlled data grid.
+    /// </summary>
     readonly DataGrid fGrid;
+    /// <summary>
+    /// True when this controller is attached to the grid.
+    /// </summary>
     bool fIsAttached;
+    /// <summary>
+    /// True while a grid cell is being edited.
+    /// </summary>
     bool fIsEditing;
 
     // ● private
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GridEditController"/> class.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
     GridEditController(DataGrid Grid)
     {
         fGrid = Grid ?? throw new TripousArgumentNullException(nameof(Grid));
     }
+    /// <summary>
+    /// Attaches this controller to the grid.
+    /// </summary>
     void Attach()
     {
         if (fIsAttached)
@@ -34,6 +50,9 @@ public class GridEditController
         fGrid.CellEditEnded += Grid_CellEditEnded;
         fIsAttached = true;
     }
+    /// <summary>
+    /// Detaches this controller from the grid.
+    /// </summary>
     void Detach()
     {
         if (!fIsAttached)
@@ -45,6 +64,10 @@ public class GridEditController
         fGrid.CellEditEnded -= Grid_CellEditEnded;
         fIsAttached = false;
     }
+    /// <summary>
+    /// Returns true when the focused element is an editor control.
+    /// </summary>
+    /// <returns>True if the focused element is an editor control; otherwise, false.</returns>
     bool IsFocusedEditor()
     {
         IInputElement FocusedElement = TopLevel.GetTopLevel(fGrid)?.FocusManager?.GetFocusedElement();
@@ -58,6 +81,10 @@ public class GridEditController
             || Visual.FindAncestorOfType<ComboBox>() != null
             || Visual.FindAncestorOfType<CheckBox>() != null;
     }
+    /// <summary>
+    /// Returns the focused combo box.
+    /// </summary>
+    /// <returns>The focused combo box, if any; otherwise, null.</returns>
     ComboBox GetFocusedComboBox()
     {
         IInputElement FocusedElement = TopLevel.GetTopLevel(fGrid)?.FocusManager?.GetFocusedElement();
@@ -66,15 +93,27 @@ public class GridEditController
 
         return Visual as ComboBox ?? Visual.FindAncestorOfType<ComboBox>();
     }
+    /// <summary>
+    /// Returns an open combo box in the grid.
+    /// </summary>
+    /// <returns>The open combo box, if any; otherwise, null.</returns>
     ComboBox GetOpenComboBox()
     {
         return fGrid.GetVisualDescendants().OfType<ComboBox>().FirstOrDefault(ComboBox => ComboBox.IsDropDownOpen);
     }
+    /// <summary>
+    /// Returns the combo box in the current cell.
+    /// </summary>
+    /// <returns>The current cell combo box, if any; otherwise, null.</returns>
     ComboBox GetCurrentCellComboBox()
     {
         DataGridCell Cell = FindCurrentCell();
         return Cell?.GetVisualDescendants().OfType<ComboBox>().FirstOrDefault();
     }
+    /// <summary>
+    /// Returns true when the current cell can enter edit mode.
+    /// </summary>
+    /// <returns>True if editing can begin; otherwise, false.</returns>
     bool CanBeginEdit()
     {
         if (fGrid.IsReadOnly || fGrid.SelectedItem == null || fGrid.CurrentColumn == null)
@@ -82,10 +121,19 @@ public class GridEditController
 
         return !fGrid.CurrentColumn.IsReadOnly;
     }
+    /// <summary>
+    /// Returns true when text contains printable characters.
+    /// </summary>
+    /// <param name="Text">The text to check.</param>
+    /// <returns>True if the text is printable; otherwise, false.</returns>
     bool IsPrintableText(string Text)
     {
         return !string.IsNullOrEmpty(Text) && !Text.Any(c => char.IsControl(c));
     }
+    /// <summary>
+    /// Returns the visible grid columns ordered by display index.
+    /// </summary>
+    /// <returns>The visible grid columns.</returns>
     List<DataGridColumn> GetVisibleColumns()
     {
         return fGrid.Columns
@@ -93,6 +141,11 @@ public class GridEditController
             .OrderBy(Column => Column.DisplayIndex)
             .ToList();
     }
+    /// <summary>
+    /// Returns the index of the current column in a column list.
+    /// </summary>
+    /// <param name="Columns">The column list.</param>
+    /// <returns>The current column index.</returns>
     int GetCurrentColumnIndex(List<DataGridColumn> Columns)
     {
         if (fGrid.CurrentColumn == null)
@@ -100,6 +153,11 @@ public class GridEditController
 
         return Columns.IndexOf(fGrid.CurrentColumn);
     }
+    /// <summary>
+    /// Moves the current cell horizontally.
+    /// </summary>
+    /// <param name="Delta">The column offset.</param>
+    /// <returns>True if the current cell moved; otherwise, false.</returns>
     bool MoveCurrentCell(int Delta)
     {
         List<DataGridColumn> Columns = GetVisibleColumns();
@@ -115,6 +173,11 @@ public class GridEditController
         FocusCurrentCell();
         return true;
     }
+    /// <summary>
+    /// Moves the current row vertically.
+    /// </summary>
+    /// <param name="Delta">The row offset.</param>
+    /// <returns>True if the current row moved; otherwise, false.</returns>
     bool MoveCurrentRow(int Delta)
     {
         if (fGrid.ItemsSource is not IList Items || Items.Count == 0)
@@ -130,6 +193,10 @@ public class GridEditController
         FocusCurrentCell();
         return true;
     }
+    /// <summary>
+    /// Ensures that the grid has a current column.
+    /// </summary>
+    /// <returns>True if the current column exists; otherwise, false.</returns>
     bool EnsureCurrentColumn()
     {
         if (fGrid.SelectedItem == null)
@@ -140,6 +207,9 @@ public class GridEditController
         fGrid.CurrentColumn = GetVisibleColumns().FirstOrDefault();
         return fGrid.CurrentColumn != null;
     }
+    /// <summary>
+    /// Focuses the current grid cell.
+    /// </summary>
     void FocusCurrentCell()
     {
         if (!EnsureCurrentColumn())
@@ -153,6 +223,10 @@ public class GridEditController
             Cell?.Focus(NavigationMethod.Tab, KeyModifiers.None);
         }, DispatcherPriority.Input);
     }
+    /// <summary>
+    /// Finds the current grid cell.
+    /// </summary>
+    /// <returns>The current grid cell, if any; otherwise, null.</returns>
     DataGridCell FindCurrentCell()
     {
         if (fGrid.SelectedItem == null || fGrid.CurrentColumn == null)
@@ -168,10 +242,18 @@ public class GridEditController
 
         return null;
     }
+    /// <summary>
+    /// Commits the current cell edit.
+    /// </summary>
+    /// <returns>True if the edit was committed; otherwise, false.</returns>
     bool CommitCellEdit()
     {
         return fGrid.CommitEdit(DataGridEditingUnit.Cell, true);
     }
+    /// <summary>
+    /// Opens the lookup drop-down of the current cell.
+    /// </summary>
+    /// <returns>True if the drop-down was opened; otherwise, false.</returns>
     bool OpenCurrentLookupDropDown()
     {
         if (!CanBeginEdit())
@@ -195,10 +277,18 @@ public class GridEditController
 
         return true;
     }
+    /// <summary>
+    /// Cancels the current cell edit.
+    /// </summary>
+    /// <returns>True if the edit was cancelled; otherwise, false.</returns>
     bool CancelCellEdit()
     {
         return fGrid.CancelEdit(DataGridEditingUnit.Cell);
     }
+    /// <summary>
+    /// Toggles the boolean value of the current cell.
+    /// </summary>
+    /// <returns>True if the value was toggled; otherwise, false.</returns>
     bool ToggleCurrentBooleanCell()
     {
         if (fGrid.SelectedItem is not DataRowView RowView || fGrid.CurrentColumn == null)
@@ -222,6 +312,11 @@ public class GridEditController
         FocusCurrentCell();
         return true;
     }
+    /// <summary>
+    /// Handles text input and starts editing when needed.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The text input event arguments.</param>
     void Grid_TextInput(object Sender, TextInputEventArgs Args)
     {
         if (fIsEditing || !IsPrintableText(Args.Text) || IsFocusedEditor() || !CanBeginEdit())
@@ -230,6 +325,11 @@ public class GridEditController
         if (fGrid.BeginEdit())
             Args.Handled = true;
     }
+    /// <summary>
+    /// Handles grid key down events.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The key event arguments.</param>
     void Grid_KeyDown(object Sender, KeyEventArgs Args)
     {
         if (Args.Key == Key.Tab)
@@ -306,18 +406,36 @@ public class GridEditController
                 Args.Handled = true;
         }
     }
+    /// <summary>
+    /// Handles the beginning edit event.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The beginning edit event arguments.</param>
     void Grid_BeginningEdit(object Sender, DataGridBeginningEditEventArgs Args)
     {
         fIsEditing = true;
     }
+    /// <summary>
+    /// Handles the cell edit ended event.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The cell edit ended event arguments.</param>
     void Grid_CellEditEnded(object Sender, DataGridCellEditEndedEventArgs Args)
     {
         fIsEditing = false;
     }
 
     // ● static public
+    /// <summary>
+    /// Identifies the attached controller property.
+    /// </summary>
     static public readonly AttachedProperty<GridEditController> ControllerProperty =
         AvaloniaProperty.RegisterAttached<GridEditController, DataGrid, GridEditController>("Controller");
+    /// <summary>
+    /// Attaches a grid edit controller to a data grid.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
+    /// <returns>The attached grid edit controller.</returns>
     static public GridEditController Attach(DataGrid Grid)
     {
         GridEditController Result = GetController(Grid);
@@ -329,6 +447,10 @@ public class GridEditController
         Result.Attach();
         return Result;
     }
+    /// <summary>
+    /// Detaches the grid edit controller from a data grid.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
     static public void Detach(DataGrid Grid)
     {
         GridEditController Controller = GetController(Grid);
@@ -338,10 +460,26 @@ public class GridEditController
         Controller.Detach();
         SetController(Grid, null);
     }
+    /// <summary>
+    /// Returns the grid edit controller attached to a data grid.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
+    /// <returns>The attached grid edit controller, if any; otherwise, null.</returns>
     static public GridEditController GetController(DataGrid Grid) => Grid.GetValue(ControllerProperty);
+    /// <summary>
+    /// Sets the grid edit controller attached to a data grid.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
+    /// <param name="Value">The grid edit controller.</param>
     static public void SetController(DataGrid Grid, GridEditController Value) => Grid.SetValue(ControllerProperty, Value);
 
     // ● properties
+    /// <summary>
+    /// Gets the controlled data grid.
+    /// </summary>
     public DataGrid Grid => fGrid;
+    /// <summary>
+    /// Gets a value indicating whether a grid cell is being edited.
+    /// </summary>
     public bool IsEditing => fIsEditing;
 }

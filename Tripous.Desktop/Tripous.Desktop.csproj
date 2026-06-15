@@ -8,7 +8,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>bin\Debug\net10.0\Tripous.Desktop.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\net10.0\Tripous.Desktop.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

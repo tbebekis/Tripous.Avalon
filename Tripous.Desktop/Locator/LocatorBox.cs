@@ -17,6 +17,7 @@ public class LocatorBoxRowEventArgs: EventArgs
     /// <summary>
     /// Constructor.
     /// </summary>
+    /// <param name="Row">The selected source row.</param>
     public LocatorBoxRowEventArgs(DataRow Row)
     {
         this.Row = Row;
@@ -35,16 +36,43 @@ public class LocatorBoxRowEventArgs: EventArgs
 public class LocatorBox: UserControl
 {
     // ● private fields
+    /// <summary>
+    /// The root layout grid.
+    /// </summary>
     protected Grid fRoot;
+    /// <summary>
+    /// The popup displaying locator results.
+    /// </summary>
     protected Popup fPopup;
+    /// <summary>
+    /// The popup border.
+    /// </summary>
     protected Border fPopupBorder;
+    /// <summary>
+    /// The popup result grid.
+    /// </summary>
     protected DataGrid fGrid;
+    /// <summary>
+    /// The reference menu button.
+    /// </summary>
     protected Button fMenuButton;
+    /// <summary>
+    /// The popup items source.
+    /// </summary>
     protected DataViewItemsSource fPopupItemsSource;
+    /// <summary>
+    /// The target text boxes.
+    /// </summary>
     protected List<TextBox> fTextBoxes = [];
+    /// <summary>
+    /// Maps locator fields to target text boxes.
+    /// </summary>
     protected Dictionary<LocatorFieldDef, TextBox> fTextBoxMap = [];
 
     // ● protected methods
+    /// <summary>
+    /// Applies read-only state to target text boxes.
+    /// </summary>
     protected virtual void ApplyReadOnly()
     {
         foreach (KeyValuePair<LocatorFieldDef, TextBox> Entry in fTextBoxMap)
@@ -53,6 +81,10 @@ public class LocatorBox: UserControl
     /// <summary>
     /// Returns the column width of a locator field.
     /// </summary>
+    /// <param name="FieldDef">The locator field definition.</param>
+    /// <param name="Index">The field index.</param>
+    /// <param name="Fields">The visible locator fields.</param>
+    /// <returns>The grid column width.</returns>
     protected virtual GridLength GetFieldWidth(LocatorFieldDef FieldDef, int Index, List<LocatorFieldDef> Fields)
     {
         bool IsLast = Index == Fields.Count - 1;
@@ -101,6 +133,8 @@ public class LocatorBox: UserControl
     /// <summary>
     /// Creates a textbox for a locator field.
     /// </summary>
+    /// <param name="FieldDef">The locator field definition.</param>
+    /// <returns>The created text box.</returns>
     protected virtual TextBox CreateTextBox(LocatorFieldDef FieldDef)
     {
         TextBox Result = new();
@@ -114,6 +148,7 @@ public class LocatorBox: UserControl
     /// <summary>
     /// Creates the reference menu button.
     /// </summary>
+    /// <returns>The created button.</returns>
     protected virtual Button CreateMenuButton()
     {
         Button Result = new();
@@ -180,6 +215,7 @@ public class LocatorBox: UserControl
     /// <summary>
     /// Opens the popup.
     /// </summary>
+    /// <param name="Target">The target control used to align the popup.</param>
     protected virtual void OpenPopup(Control Target)
     {
         if (fPopup != null && fGrid != null && Locator != null)
@@ -212,6 +248,7 @@ public class LocatorBox: UserControl
     /// <summary>
     /// Assigns a source row to this control.
     /// </summary>
+    /// <param name="Row">The source row.</param>
     protected virtual void AssignRow(DataRow Row)
     {
         if (Row == null || Locator == null || Locator.LocatorDef == null)
@@ -230,6 +267,8 @@ public class LocatorBox: UserControl
     /// <summary>
     /// Returns a log-friendly search term.
     /// </summary>
+    /// <param name="Term">The search term.</param>
+    /// <returns>The log-friendly search term.</returns>
     protected virtual string GetLogSearchTerm(string Term)
     {
         return !string.IsNullOrWhiteSpace(Term) ? Term.Trim().TrimEnd('?').Trim() : string.Empty;
@@ -237,6 +276,7 @@ public class LocatorBox: UserControl
     /// <summary>
     /// Performs search using the specified textbox text.
     /// </summary>
+    /// <param name="TextBox">The text box containing the search term.</param>
     protected virtual void Search(TextBox TextBox)
     {
         if (TextBox == null || Locator == null)
@@ -295,6 +335,11 @@ public class LocatorBox: UserControl
     {
         AssignRow(null);
     }
+    /// <summary>
+    /// Handles target text box key down events.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The key event arguments.</param>
     protected virtual void TextBox_KeyDown(object Sender, KeyEventArgs Args)
     {
         if (Args.Key == Key.Enter && fPopup != null && fPopup.IsOpen)
@@ -308,11 +353,21 @@ public class LocatorBox: UserControl
             Args.Handled = true;
         }
     }
+    /// <summary>
+    /// Handles target text box text changes.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The text changed event arguments.</param>
     protected virtual void TextBox_TextChanged(object Sender, TextChangedEventArgs Args)
     {
         if (Sender is TextBox TextBox && Locator != null && Locator.ContainsSearchTrigger(TextBox.Text))
             Search(TextBox);
     }
+    /// <summary>
+    /// Handles popup grid key down events.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The key event arguments.</param>
     protected virtual void Grid_KeyDown(object Sender, KeyEventArgs Args)
     {
         if (Args.Key == Key.Enter)
@@ -326,10 +381,20 @@ public class LocatorBox: UserControl
             Args.Handled = true;
         }
     }
+    /// <summary>
+    /// Handles popup grid double-tap events.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The tapped event arguments.</param>
     protected virtual void Grid_DoubleTapped(object Sender, TappedEventArgs Args)
     {
         SelectCurrentRow();
     }
+    /// <summary>
+    /// Handles popup grid preview key down events.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The key event arguments.</param>
     protected virtual void Grid_PreviewKeyDown(object Sender, KeyEventArgs Args)
     {
         if (Args.Key == Key.Enter)
@@ -338,6 +403,11 @@ public class LocatorBox: UserControl
             Args.Handled = true;
         }
     }
+    /// <summary>
+    /// Handles item zoom button clicks.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The routed event arguments.</param>
     protected virtual void ItemZoom_Click(object Sender, RoutedEventArgs Args)
     {
         ZoomRequested?.Invoke(this, EventArgs.Empty);
@@ -377,6 +447,8 @@ public class LocatorBox: UserControl
     /// <summary>
     /// Sets a textbox value.
     /// </summary>
+    /// <param name="FieldDef">The locator field definition.</param>
+    /// <param name="Value">The value to set.</param>
     public virtual void SetTargetBoxValue(LocatorFieldDef FieldDef, object Value)
     {
         if (FieldDef != null && fTextBoxMap.TryGetValue(FieldDef, out TextBox TextBox))
@@ -393,10 +465,13 @@ public class LocatorBox: UserControl
     /// <summary>
     /// Refreshes all target textboxes from a row.
     /// </summary>
+    /// <param name="Row">The source row.</param>
     public virtual void RefreshTargetBoxes(DataRow Row) => RefreshTargetBoxes(Row, null);
     /// <summary>
     /// Refreshes all target textboxes from a row using an optional target field map.
     /// </summary>
+    /// <param name="Row">The source row.</param>
+    /// <param name="TargetFieldMap">The target field map.</param>
     public virtual void RefreshTargetBoxes(DataRow Row, Dictionary<string, string> TargetFieldMap)
     {
         if (Row == null || Locator == null || Locator.LocatorDef == null)

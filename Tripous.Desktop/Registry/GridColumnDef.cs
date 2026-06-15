@@ -14,19 +14,55 @@ namespace Tripous.Desktop;
 public class GridColumnDef: BaseDef
 {
     // ● private fields
+    /// <summary>
+    /// The column data type.
+    /// </summary>
     private Type fDataType;
+    /// <summary>
+    /// True when the source column allows null values.
+    /// </summary>
     private bool fSourceAllowsNull;
+    /// <summary>
+    /// The display format.
+    /// </summary>
     private string fDisplayFormat;
+    /// <summary>
+    /// The edit format.
+    /// </summary>
     private string fEditFormat;
+    /// <summary>
+    /// True when the column is read-only.
+    /// </summary>
     private bool fIsReadOnly;
+    /// <summary>
+    /// The visible index.
+    /// </summary>
     private int fVisibleIndex = 0;
+    /// <summary>
+    /// The group index.
+    /// </summary>
     private int fGroupIndex = -1;
+    /// <summary>
+    /// The sort index.
+    /// </summary>
     private int fSortIndex = -1;
+    /// <summary>
+    /// The sort direction.
+    /// </summary>
     private ListSortDirection fSortDirection;
+    /// <summary>
+    /// The aggregate type.
+    /// </summary>
     private AggregateType fAggregate = AggregateType.None;
+    /// <summary>
+    /// The horizontal alignment.
+    /// </summary>
     private HorizontalAlignment fAlignment = HorizontalAlignment.Left;
 
     // ● private
+    /// <summary>
+    /// Updates derived data type flags.
+    /// </summary>
     void DataTypeChanged()
     {
         UnderlyingType = fDataType != null ? Nullable.GetUnderlyingType(fDataType) ?? fDataType : null;
@@ -45,11 +81,20 @@ public class GridColumnDef: BaseDef
     }
 
     // ● construction
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GridColumnDef"/> class.
+    /// </summary>
     public GridColumnDef()
     {
     }
 
     // ● static public
+    /// <summary>
+    /// Creates a grid column definition from a data column and optional field definition.
+    /// </summary>
+    /// <param name="Column">The data column.</param>
+    /// <param name="Field">The field definition.</param>
+    /// <returns>The created grid column definition.</returns>
     static public GridColumnDef From(DataColumn Column, FieldDef Field = null)
     {
         GridColumnDef Result = new();
@@ -70,8 +115,14 @@ public class GridColumnDef: BaseDef
     }
  
     // ● properties
+    /// <summary>
+    /// Gets the field name.
+    /// </summary>
     public string FieldName => Name;
    
+    /// <summary>
+    /// Gets or sets the data type.
+    /// </summary>
     [JsonIgnore]
     public Type DataType
     {
@@ -86,6 +137,9 @@ public class GridColumnDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets a value indicating whether the source column allows null values.
+    /// </summary>
     public bool SourceAllowsNull
     {
         get => fSourceAllowsNull;
@@ -99,6 +153,9 @@ public class GridColumnDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets a value indicating whether the column is read-only.
+    /// </summary>
     public bool IsReadOnly
     {
         get => fIsReadOnly;
@@ -111,6 +168,9 @@ public class GridColumnDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets the horizontal alignment.
+    /// </summary>
     public HorizontalAlignment Alignment
     {
         get => fAlignment;
@@ -123,6 +183,9 @@ public class GridColumnDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets the display format.
+    /// </summary>
     public string DisplayFormat
     {
         get
@@ -147,6 +210,9 @@ public class GridColumnDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets the edit format.
+    /// </summary>
     public string EditFormat
     {
         get
@@ -168,6 +234,9 @@ public class GridColumnDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets the visible index.
+    /// </summary>
     public int VisibleIndex
     {
         get => fVisibleIndex;
@@ -180,6 +249,9 @@ public class GridColumnDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets the group index.
+    /// </summary>
     public int GroupIndex
     {
         get => fGroupIndex;
@@ -192,6 +264,9 @@ public class GridColumnDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets the sort index.
+    /// </summary>
     public int SortIndex
     {
         get => fSortIndex;
@@ -204,6 +279,9 @@ public class GridColumnDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets the sort direction.
+    /// </summary>
     public ListSortDirection SortDirection
     {
         get => fSortDirection;
@@ -216,6 +294,9 @@ public class GridColumnDef: BaseDef
             }
         }
     }
+    /// <summary>
+    /// Gets or sets the aggregate type.
+    /// </summary>
     public AggregateType Aggregate
     {
         get => fAggregate;
@@ -229,23 +310,50 @@ public class GridColumnDef: BaseDef
         }
     }
  
+    /// <summary>
+    /// Gets or sets the lookup source name.
+    /// </summary>
     public string LookupSource { get; set; }
  
     // ● derived
+    /// <summary>
+    /// Gets or sets the associated data grid column.
+    /// </summary>
     [JsonIgnore]
     public DataGridColumn GridColumn { get; set; }
+    /// <summary>
+    /// Gets the underlying data type.
+    /// </summary>
     [JsonIgnore]
     public Type UnderlyingType { get; private set; }
+    /// <summary>
+    /// Gets a value indicating whether the column data type is string.
+    /// </summary>
     [JsonIgnore]
     public bool IsString { get; private set; }
+    /// <summary>
+    /// Gets a value indicating whether the column data type is date/time.
+    /// </summary>
     [JsonIgnore]
     public bool IsDateTime { get; private set; }
+    /// <summary>
+    /// Gets a value indicating whether the column data type is numeric.
+    /// </summary>
     [JsonIgnore]
     public bool IsNumeric { get; private set; }
+    /// <summary>
+    /// Gets a value indicating whether the column data type is boolean.
+    /// </summary>
     [JsonIgnore]
     public bool IsBool { get; private set; }
+    /// <summary>
+    /// Gets a value indicating whether the column accepts null values.
+    /// </summary>
     [JsonIgnore]
     public bool IsNullable { get; private set; }
+    /// <summary>
+    /// Gets a value indicating whether this column has a lookup source.
+    /// </summary>
     [JsonIgnore]
     public bool HasLookup => !string.IsNullOrWhiteSpace(LookupSource);
 }

@@ -8,13 +8,35 @@
 
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Provides thread-safe logging to a text box.
+/// </summary>
 public static class LogBox
 {
+    // ● private fields
+    /// <summary>
+    /// The separator line text.
+    /// </summary>
     private const string SLine = "-------------------------------------------------------------------";
+    /// <summary>
+    /// The synchronization lock.
+    /// </summary>
     static readonly object fLock = new();
+    /// <summary>
+    /// The pending log text buffer.
+    /// </summary>
     static readonly StringBuilder fBuffer = new();
+    /// <summary>
+    /// The target text box.
+    /// </summary>
     static TextBox fBox;
+    /// <summary>
+    /// True when a flush operation has been posted to the UI thread.
+    /// </summary>
     static bool fFlushPosted;
+    /// <summary>
+    /// The maximum number of characters kept in the text box.
+    /// </summary>
     static int fMaxLength = 200000;
 
     // ● private
@@ -42,6 +64,7 @@ public static class LogBox
     /// <summary>
     /// The core logging method. Thread-safe implementation for Avalonia.
     /// </summary>
+    /// <param name="Text">The text to log.</param>
     static void Log(string Text)
     {
         if (fBox == null || string.IsNullOrEmpty(Text))
@@ -63,6 +86,7 @@ public static class LogBox
     /// <summary>
     /// Initializes this class.
     /// </summary>
+    /// <param name="Box">The target text box.</param>
     static public void Initialize(TextBox Box)
     {
         fBox ??= Box;
@@ -85,6 +109,7 @@ public static class LogBox
     /// <summary>
     /// Appends text in the box, in the last existing text line, if any.
     /// </summary>
+    /// <param name="Text">The text to append.</param>
     static public void Append(string Text)
     {
         if (IsInitialized && !string.IsNullOrWhiteSpace(Text))
@@ -93,6 +118,7 @@ public static class LogBox
     /// <summary>
     /// Appends a new text line in the box.
     /// </summary>
+    /// <param name="Text">The text to append.</param>
     static public void AppendLine(string Text)
     {
         if (!IsInitialized) return;
@@ -108,6 +134,10 @@ public static class LogBox
 
         Log(FinalText);
     }
+    /// <summary>
+    /// Appends a new text line with serialized data.
+    /// </summary>
+    /// <param name="Data">The data to serialize and append.</param>
     static public void AppendLine(object Data)
     {
         if (Data != null)
@@ -116,6 +146,10 @@ public static class LogBox
             AppendLine(JsonText);
         }
     }
+    /// <summary>
+    /// Appends a new text line with serialized row values.
+    /// </summary>
+    /// <param name="Row">The data row.</param>
     static public void AppendLine(DataRow Row)
     {
         if (Row != null)
@@ -131,6 +165,7 @@ public static class LogBox
     /// <summary>
     /// Appends a new text line in the box based on an Exception.
     /// </summary>
+    /// <param name="ex">The exception.</param>
     static public void AppendLine(Exception ex) => AppendLine(ex.ToString());
     /// <summary>
     /// Appends a separator line in the box.

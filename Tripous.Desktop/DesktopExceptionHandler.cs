@@ -8,9 +8,14 @@
 
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Handles exceptions in the desktop application.
+/// </summary>
 static public class DesktopExceptionHandler
 {
     static Exception LastException = null;
+    
+    
     // ● private
     static Exception Unwrap(Exception Ex)
     {
@@ -76,6 +81,9 @@ Message: {Ex.Message}
     }
 
     // ● static public
+    /// <summary>
+    /// Initializes this class.
+    /// </summary>
     static public void Initialize()
     {
         AppDomain.CurrentDomain.UnhandledException += (s, e) =>

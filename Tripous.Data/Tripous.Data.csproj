@@ -12,6 +12,10 @@
     <DocumentationFile>bin\Debug\net10.0\Tripous.Data.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\net10.0\Tripous.Data.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />

@@ -9,15 +9,22 @@
 namespace Tripous.Desktop;
 
 /// <summary>
-/// A base class for a UI embedabbable in <see cref="TabItem"/> controls.
+/// A base class for a UI embeddable in <see cref="TabItem"/> controls.
 /// </summary>
 [TypeStore]
 public class AppForm: UserControl
 {
+    // ● private fields
+    /// <summary>
+    /// The modal result of the modal dialog displaying this form.
+    /// </summary>
     private ModalResult fModalResult;
+
+    // ● protected fields
+    /// <summary>
+    /// The title text of the form.
+    /// </summary>
     protected string fTitleText;
-    
- 
 
     // ● protected
     /// <summary>
@@ -62,14 +69,21 @@ public class AppForm: UserControl
     protected virtual void ProcessFormOptions()
     {
     }
-    
+    /// <summary>
+    /// Called just before the form is closed.
+    /// </summary>
     protected virtual void Closing()
     {
     }
+    /// <summary>
+    /// Called just after the form is closed.
+    /// </summary>
     protected virtual void Closed()
     {
     }
-    
+    /// <summary>
+    /// Called when the <see cref="TitleText"/> property changes.
+    /// </summary>
     protected virtual void TitleTextChanged()
     {
         if (this.ParentTabPage != null)
@@ -88,6 +102,8 @@ public class AppForm: UserControl
     /// <summary>
     /// Returns the control that is last added to the container
     /// </summary>
+    /// <param name="Container">The container to search.</param>
+    /// <returns>The first focusable control, if any; otherwise, null.</returns>
     protected virtual Control FindFirstFocusableControl(Control Container)
     {
         return null;
@@ -95,6 +111,8 @@ public class AppForm: UserControl
     /// <summary>
     /// Handles a broadcaster event.
     /// </summary>
+    /// <param name="EventName">The broadcaster event name.</param>
+    /// <param name="Args">The broadcaster event arguments.</param>
     protected virtual void HandleBroadcasterEvent(string EventName, IDictionary<string, object> Args)
     {
         switch (EventName)
@@ -107,6 +125,8 @@ public class AppForm: UserControl
     /// It is called by the OnKeyDown() method. 
     /// <para>Returns true if processes the key</para>
     /// </summary>
+    /// <param name="e">The key event arguments.</param>
+    /// <returns>True if the key was processed; otherwise, false.</returns>
     protected virtual bool ProcessKeyDown(KeyEventArgs e)
     {
         if (!Design.IsDesignMode)
@@ -123,6 +143,7 @@ public class AppForm: UserControl
     /// <para>Returning true indicates that the key press is handled.</para>
     /// <para>NOTE: By default, when is a modal dialog, it sets <see cref="ModalResult"/> to Cancel, and closes the form.</para>
     /// </summary>
+    /// <returns>True if the escape key was processed; otherwise, false.</returns>
     protected virtual bool ProcessEscapeKey()
     {
         if (this.IsModal)
@@ -138,6 +159,7 @@ public class AppForm: UserControl
     /// <summary>
     /// Called when the control is added to a rooted visual tree. 
     /// </summary>
+    /// <param name="e">The visual tree attachment event arguments.</param>
     protected override async void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
@@ -177,6 +199,7 @@ public class AppForm: UserControl
     /// This is called from the <see cref="AppFormPagerHandler"/> or the <see cref="AppFormDialog"/> right after the form creation.
     /// <para>NOTE: When this is called the form has just added to its parent.</para>
     /// </summary>
+    /// <param name="Context">The form context.</param>
     public void Setup(FormContext Context)
     {
         if (!IsSetupDone)
@@ -234,7 +257,9 @@ public class AppForm: UserControl
     }
  
     // ● properties
-    
+    /// <summary>
+    /// Gets the form context.
+    /// </summary>
     public FormContext Context { get; private set; }
     /// <summary>
     /// A unique id among all pages hosted in the same <see cref="TabControl"/>

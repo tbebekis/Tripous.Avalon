@@ -13,7 +13,14 @@ namespace Tripous.Desktop;
 /// </summary>
 public class FormContext
 {
+    // ● protected fields
+    /// <summary>
+    /// The form identifier.
+    /// </summary>
     protected string fFormId;
+    /// <summary>
+    /// The form title.
+    /// </summary>
     protected string fTitle;
 
     // ● construction
@@ -28,6 +35,11 @@ public class FormContext
     /// <summary>
     /// Creates an instance of this class.
     /// </summary>
+    /// <param name="AppFormType">The application form type.</param>
+    /// <param name="DisplayMode">The form display mode.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <param name="Tag">Optional user data.</param>
+    /// <returns>The created form context.</returns>
     static public FormContext Create(Type AppFormType, FormDisplayMode DisplayMode, Control Caller = null, object Tag = null)
     {
         if (!AppFormType.InheritsFrom(typeof(AppForm)))
@@ -37,6 +49,11 @@ public class FormContext
     /// <summary>
     /// Creates an instance of this class.
     /// </summary>
+    /// <param name="ClassName">The form class name.</param>
+    /// <param name="DisplayMode">The form display mode.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <param name="Tag">Optional user data.</param>
+    /// <returns>The created form context.</returns>
     static public FormContext Create(string ClassName, FormDisplayMode DisplayMode, Control Caller = null, object Tag = null)
     {
         return FormContext.Create(ClassName, ClassName, DisplayMode, Caller, Tag);
@@ -44,6 +61,12 @@ public class FormContext
     /// <summary>
     /// Creates an instance of this class.
     /// </summary>
+    /// <param name="FormId">The form identifier.</param>
+    /// <param name="ClassName">The form class name.</param>
+    /// <param name="DisplayMode">The form display mode.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <param name="Tag">Optional user data.</param>
+    /// <returns>The created form context.</returns>
     static public FormContext Create(string FormId, string ClassName, FormDisplayMode DisplayMode, Control Caller = null, object Tag = null)
     {
         FormContext Result = new()
@@ -61,6 +84,7 @@ public class FormContext
     /// <summary>
     /// Creates an instance of an AppForm based on the <see cref="ClassName"/> of the form.
     /// </summary>
+    /// <returns>The created or existing form instance.</returns>
     public virtual AppForm CreateForm()
     {
         if (Form == null)
@@ -86,7 +110,7 @@ public class FormContext
     /// </summary>
     public FormDisplayMode DisplayMode { get; set;  }
     /// <summary>
-    /// The caller control. Caller control is used in getting the <see cref="Window.Owner"/> when the form (i.e. the UserControl) is displayed in a modal dialog.
+    /// The caller control. Caller control is used in getting the Owner when the form (i.e. the UserControl) is displayed in a modal dialog.
     /// </summary>
     public Control Caller { get; protected set; }
     /// <summary>

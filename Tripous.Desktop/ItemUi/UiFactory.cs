@@ -53,6 +53,9 @@ static public class UiFactory
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
     }
+    /// <summary>
+    /// Creates a horizontal stack panel.
+    /// </summary>
     static public StackPanel CreateToolBarPanel()
     {
         StackPanel Result = new()
@@ -65,6 +68,9 @@ static public class UiFactory
         Result.Classes.Add("ToolBar");
         return Result;
     }
+    /// <summary>
+    /// Creates a border for a toolbar.
+    /// </summary>
     static public Border CreateToolBarBorder()
     {
         Border Result = new();

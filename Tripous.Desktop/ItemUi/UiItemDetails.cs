@@ -281,6 +281,9 @@ static public class UiItemDetails
         ToolBar.IsVisible = true;
         UpdateButtons();
     }
+    /// <summary>
+    /// Creates the reference menus for a detail data grid.
+    /// </summary>
     static public void CreateDetailGridReferenceMenus(UiItemContext context, UiDetailTableInfo DetailUiInfo)
     {
         if (DetailUiInfo.Grid == null || DetailUiInfo.Table == null || context.GridHandler is not IReferenceContextMenuHost MenuHost)

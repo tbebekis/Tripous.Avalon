@@ -9,15 +9,37 @@
 namespace Tripous.Desktop;
  
 
+/// <summary>
+/// Creates and manages SQL filter controls in a panel.
+/// </summary>
 public class SqlFilterPanelHandler
 {
     // ● private fields
+    /// <summary>
+    /// The filter UI information list.
+    /// </summary>
     List<SqlFilterInfo> fFilterInfos = new();
+    /// <summary>
+    /// The panel hosting the filter controls.
+    /// </summary>
     StackPanel Panel;
 
     // ● private
+    /// <summary>
+    /// Returns the default filter margin.
+    /// </summary>
+    /// <returns>The default filter margin.</returns>
     static Thickness GetMargin() => new Thickness(0, 0, 0, 8);
+    /// <summary>
+    /// Returns the default small margin.
+    /// </summary>
+    /// <returns>The default small margin.</returns>
     static Thickness GetSmallMargin() => new Thickness(0, 2, 0, 0);
+    /// <summary>
+    /// Creates a filter label.
+    /// </summary>
+    /// <param name="FilterDef">The filter definition.</param>
+    /// <returns>The created label.</returns>
     static TextBlock CreateLabel(SqlFilterDef FilterDef)
     {
         return new TextBlock
@@ -26,6 +48,11 @@ public class SqlFilterPanelHandler
             Margin = GetSmallMargin()
         };
     }
+    /// <summary>
+    /// Creates a boolean operator combo box.
+    /// </summary>
+    /// <param name="FilterDef">The filter definition.</param>
+    /// <returns>The created combo box.</returns>
     static ComboBox CreateBoolOpCombo(SqlFilterDef FilterDef)
     {
         ComboBox Result = new();
@@ -33,6 +60,11 @@ public class SqlFilterPanelHandler
         Result.SelectedItem = FilterDef.BoolOp == BoolOp.Or ? BoolOp.Or : BoolOp.And;
         return Result;
     }
+    /// <summary>
+    /// Creates a condition operator combo box.
+    /// </summary>
+    /// <param name="FilterDef">The filter definition.</param>
+    /// <returns>The created combo box.</returns>
     static ComboBox CreateConditionOpCombo(SqlFilterDef FilterDef)
     {
         ComboBox Result = new();
@@ -40,6 +72,11 @@ public class SqlFilterPanelHandler
         Result.SelectedItem = Result.Items.Cast<ConditionOp>().Contains(FilterDef.ConditionOp) ? FilterDef.ConditionOp : ConditionOp.Equal;
         return Result;
     }
+    /// <summary>
+    /// Returns the condition operators supported by a data type.
+    /// </summary>
+    /// <param name="DataType">The data type.</param>
+    /// <returns>The condition operators.</returns>
     static ConditionOp[] GetConditionOps(DataFieldType DataType)
     {
         if (DataType == DataFieldType.String)
@@ -61,6 +98,12 @@ public class SqlFilterPanelHandler
             ConditionOp.Between
         };
     }
+    /// <summary>
+    /// Creates a value control for a filter definition.
+    /// </summary>
+    /// <param name="FilterDef">The filter definition.</param>
+    /// <param name="IsSecond">True to create the second value control.</param>
+    /// <returns>The created value control.</returns>
     static Control CreateValueControl(SqlFilterDef FilterDef, bool IsSecond)
     {
         object Value = IsSecond ? FilterDef.Value2 : FilterDef.Value;
@@ -79,6 +122,12 @@ public class SqlFilterPanelHandler
             return Result;
         }
     }
+    /// <summary>
+    /// Returns a value from a filter control.
+    /// </summary>
+    /// <param name="Control">The filter control.</param>
+    /// <param name="DataType">The filter data type.</param>
+    /// <returns>The control value.</returns>
     static object GetControlValue(Control Control, DataFieldType DataType)
     {
         if (Control is DatePicker DatePicker)
@@ -107,6 +156,11 @@ public class SqlFilterPanelHandler
 
         return null;
     }
+    /// <summary>
+    /// Sets the visibility of a control.
+    /// </summary>
+    /// <param name="Control">The control.</param>
+    /// <param name="Visible">True to show the control.</param>
     static void SetControlVisible(Control Control, bool Visible)
     {
         if (Control != null)
@@ -114,6 +168,11 @@ public class SqlFilterPanelHandler
     }
 
     // ● protected
+    /// <summary>
+    /// Creates filter UI information for a filter definition.
+    /// </summary>
+    /// <param name="FilterDef">The filter definition.</param>
+    /// <returns>The created filter information.</returns>
     protected virtual SqlFilterInfo CreateFilterInfo(SqlFilterDef FilterDef)
     {
         SqlFilterInfo Result = new();
@@ -124,6 +183,10 @@ public class SqlFilterPanelHandler
     }
 
     // ● constructors
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SqlFilterPanelHandler"/> class.
+    /// </summary>
+    /// <param name="Panel">The panel hosting the filter controls.</param>
     public SqlFilterPanelHandler(StackPanel Panel)
     {
         this.Panel = Panel;
@@ -133,6 +196,7 @@ public class SqlFilterPanelHandler
     /// <summary>
     /// Creates the controls for a specified <see cref="SqlFilterDefs"/> in the filters panel.
     /// </summary>
+    /// <param name="FilterDefs">The filter definitions.</param>
     public void CreateFilterControls(SqlFilterDefs FilterDefs)
     {
         Clear();
@@ -201,6 +265,7 @@ public class SqlFilterPanelHandler
     /// <summary>
     /// Collects values from the filter controls and returns active filters only.
     /// </summary>
+    /// <returns>The active filter definitions.</returns>
     public SqlFilterDefs CollectValues_OLD()
     {
         SqlFilterDefs Result = new();
@@ -253,6 +318,7 @@ public class SqlFilterPanelHandler
     /// <summary>
     /// Collects values from the filter controls and returns active filters only.
     /// </summary>
+    /// <returns>The active filter definitions.</returns>
     public SqlFilterDefs CollectValues()
     {
         SqlFilterDefs Result = new();
@@ -292,12 +358,19 @@ public class SqlFilterPanelHandler
         return Result;
     }
     
+    /// <summary>
+    /// Returns the SQL WHERE text produced by the active filters.
+    /// </summary>
+    /// <returns>The SQL WHERE text.</returns>
     public string GetWhere()
     {
         SqlFilterDefs Defs = CollectValues();
         string Result = Defs.GetSqlWhereFilterTextInline();
         return Result;
     }
+    /// <summary>
+    /// Clears all filter control values.
+    /// </summary>
     public void Clear()
     {
         foreach (var Info in fFilterInfos)
@@ -319,5 +392,8 @@ public class SqlFilterPanelHandler
     }
 
     // ● properties
+    /// <summary>
+    /// Gets the filter UI information list.
+    /// </summary>
     public IReadOnlyList<SqlFilterInfo> FilterInfos => fFilterInfos;
 }

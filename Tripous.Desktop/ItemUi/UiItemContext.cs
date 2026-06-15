@@ -41,6 +41,9 @@ public class UiItemContext
     }
  
     // ● properties
+    /// <summary>
+    /// The grid handler.
+    /// </summary>
     public IGridHandler GridHandler { get; set; }
     /// <summary>
     /// The main item binder.

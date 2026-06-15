@@ -8,25 +8,44 @@
 
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Base class for modal dialog windows.
+/// </summary>
 public class DialogWindow: Window
 {
+    // ● private fields
+    /// <summary>
+    /// True when the window has been initialized.
+    /// </summary>
     bool IsWindowInitialized = false;
 
     // ● overridables
+    /// <summary>
+    /// Initializes the window.
+    /// </summary>
     protected virtual async Task WindowInitialize()
     {
         await Task.CompletedTask;
     }
+    /// <summary>
+    /// Loads item values into the dialog controls.
+    /// </summary>
     protected virtual async Task ItemToControls()
     {
         await Task.CompletedTask;
     }
+    /// <summary>
+    /// Saves dialog control values to the item.
+    /// </summary>
     protected virtual async Task ControlsToItem()
     {
         await Task.CompletedTask;
     }
  
     // ● construction
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DialogWindow"/> class.
+    /// </summary>
     public DialogWindow()
     {        
         this.Loaded += async (s, e) =>
@@ -40,16 +59,35 @@ public class DialogWindow: Window
     }
  
     // ● static
+    /// <summary>
+    /// Shows a dialog window modally.
+    /// </summary>
+    /// <typeparam name="T">The dialog window type.</typeparam>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>The dialog information.</returns>
     static public async Task<DialogInfo> ShowModal<T>(Control Caller) where T : DialogWindow, new()
     {
         return await ShowModal<T>(Caller, null);
     }
+    /// <summary>
+    /// Shows a dialog window modally.
+    /// </summary>
+    /// <typeparam name="T">The dialog window type.</typeparam>
+    /// <param name="InputData">The input data passed to the dialog.</param>
+    /// <returns>The dialog information.</returns>
     static public async Task<DialogInfo> ShowModal<T>(object InputData) where T : DialogWindow, new()
     {
         if (InputData == null)
             throw new TripousArgumentNullException(nameof(InputData));
         return await ShowModal<T>(InputData,null);
     }
+    /// <summary>
+    /// Shows a dialog window modally.
+    /// </summary>
+    /// <typeparam name="T">The dialog window type.</typeparam>
+    /// <param name="InputData">The input data passed to the dialog.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>The dialog information.</returns>
     static public async Task<DialogInfo> ShowModal<T>(object InputData = null, Control Caller = null)
         where T : DialogWindow, new()
     {
@@ -60,6 +98,9 @@ public class DialogWindow: Window
     
     
     // ● properties
+    /// <summary>
+    /// Gets or sets the modal result.
+    /// </summary>
     public virtual ModalResult ModalResult
     {
         get => Info != null? Info.ModalResult: ModalResult.None;
@@ -75,7 +116,13 @@ public class DialogWindow: Window
 
         }
     }
+    /// <summary>
+    /// Gets the input data passed to the dialog.
+    /// </summary>
     public object InputData => Info != null? Info.InputData: null;
+    /// <summary>
+    /// Gets or sets the result data returned by the dialog.
+    /// </summary>
     public object ResultData
     {
         get =>  Info != null? Info.ResultData: null;
@@ -85,5 +132,8 @@ public class DialogWindow: Window
                 Info.ResultData = value;
         }
     }
+    /// <summary>
+    /// Gets or sets the dialog information.
+    /// </summary>
     public DialogInfo Info { get; set; }
 }

@@ -8,11 +8,25 @@
 
 namespace Tripous.Desktop;
  
+/// <summary>
+/// Provides helper methods for binding data grids to data tables and definitions.
+/// </summary>
 public static class DataGridBinder
 {
+    /// <summary>
+    /// Converts boolean values to display text for data grid cells.
+    /// </summary>
     class BoolDisplayConverter: IValueConverter
     {
         // ● public methods
+        /// <summary>
+        /// Converts a value to boolean display text.
+        /// </summary>
+        /// <param name="Value">The value to convert.</param>
+        /// <param name="TargetType">The target type.</param>
+        /// <param name="Parameter">The converter parameter.</param>
+        /// <param name="Culture">The culture.</param>
+        /// <returns>The converted display text.</returns>
         public object Convert(object Value, Type TargetType, object Parameter, CultureInfo Culture)
         {
             bool Flag = false;
@@ -32,17 +46,36 @@ public static class DataGridBinder
             }
             return Flag ? "x" : string.Empty;
         }
+        /// <summary>
+        /// Converts a value back to the source type.
+        /// </summary>
+        /// <param name="Value">The value to convert.</param>
+        /// <param name="TargetType">The target type.</param>
+        /// <param name="Parameter">The converter parameter.</param>
+        /// <param name="Culture">The culture.</param>
+        /// <returns>A binding operation value.</returns>
         public object ConvertBack(object Value, Type TargetType, object Parameter, CultureInfo Culture)
         {
             return Avalonia.Data.BindingOperations.DoNothing;
         }
     }
 
+    // ● private
+    /// <summary>
+    /// Returns the default cell padding.
+    /// </summary>
+    /// <returns>The default cell padding.</returns>
     static Thickness GetCellPadding()
     {
         return new Thickness(6, 2, 6, 2);
     }
 
+    /// <summary>
+    /// Returns a value from a data row view.
+    /// </summary>
+    /// <param name="RowView">The row view.</param>
+    /// <param name="ColumnName">The column name.</param>
+    /// <returns>The value, if any; otherwise, null.</returns>
     static object GetValue(DataRowView RowView, string ColumnName)
     {
         if (RowView == null || RowView.Row == null || RowView.Row.RowState.In(DataRowState.Deleted | DataRowState.Detached))
@@ -58,6 +91,12 @@ public static class DataGridBinder
             return null;
         }
     }
+    /// <summary>
+    /// Sets a value to a data row view.
+    /// </summary>
+    /// <param name="RowView">The row view.</param>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="Value">The value to set.</param>
     static void SetValue(DataRowView RowView, string ColumnName, object Value)
     {
         if (RowView == null)
@@ -106,6 +145,11 @@ public static class DataGridBinder
             // ● ignore invalid input for now
         }
     }
+    /// <summary>
+    /// Converts a value to boolean.
+    /// </summary>
+    /// <param name="Value">The value to convert.</param>
+    /// <returns>The converted boolean value.</returns>
     static bool AsBoolean(object Value)
     {
         if (Sys.IsNull(Value))
@@ -122,6 +166,12 @@ public static class DataGridBinder
             return System.Convert.ToString(Value, CultureInfo.InvariantCulture).IsSameText("true");
         }
     }
+    /// <summary>
+    /// Sets a boolean value to a data row view.
+    /// </summary>
+    /// <param name="RowView">The row view.</param>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="Value">The value to set.</param>
     static void SetBooleanValue(DataRowView RowView, string ColumnName, bool Value)
     {
         if (RowView == null || RowView.Row == null || RowView.Row.RowState.In(DataRowState.Deleted | DataRowState.Detached))
@@ -137,6 +187,12 @@ public static class DataGridBinder
             RowView[ColumnName] = NewValue;
         }
     }
+    /// <summary>
+    /// Restores focus to a data grid cell.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
+    /// <param name="SelectedItem">The selected item.</param>
+    /// <param name="CurrentColumn">The current column.</param>
     static void RestoreGridCellFocus(DataGrid Grid, object SelectedItem, DataGridColumn CurrentColumn)
     {
         if (Grid == null || SelectedItem == null || CurrentColumn == null)
@@ -163,6 +219,12 @@ public static class DataGridBinder
             }, DispatcherPriority.Input);
         }, DispatcherPriority.Background);
     }
+    /// <summary>
+    /// Sets the selected lookup item of a combo box.
+    /// </summary>
+    /// <param name="ComboBox">The combo box.</param>
+    /// <param name="LookupSource">The lookup source.</param>
+    /// <param name="Value">The lookup value.</param>
     static void SetLookupSelectedItem(ComboBox ComboBox, LookupSource LookupSource, object Value)
     {
         ComboBox.SelectedItem = null;
@@ -172,6 +234,14 @@ public static class DataGridBinder
     // Display templates listen to ColumnChanged because recycled cells may not refresh after programmatic row updates.
     // Edit templates do not listen because refreshing while editing can overwrite typing or selection state.
  
+    /// <summary>
+    /// Creates a text display cell template.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="Alignment">The text alignment.</param>
+    /// <param name="Format">The display format.</param>
+    /// <param name="SupportsRecycling">True when the template supports recycling.</param>
+    /// <returns>The created data template.</returns>
     static IDataTemplate CreateTextDisplayTemplate(string ColumnName, TextAlignment Alignment, string Format, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
@@ -222,6 +292,14 @@ public static class DataGridBinder
             return Result;
         }, SupportsRecycling);
     }
+    /// <summary>
+    /// Creates a text edit cell template.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="Alignment">The text alignment.</param>
+    /// <param name="Format">The display format.</param>
+    /// <param name="SupportsRecycling">True when the template supports recycling.</param>
+    /// <returns>The created data template.</returns>
     static IDataTemplate CreateTextEditTemplate(string ColumnName, TextAlignment Alignment, string Format, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
@@ -264,6 +342,14 @@ public static class DataGridBinder
         }, SupportsRecycling);
     }
     
+    /// <summary>
+    /// Creates a lookup display cell template.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="LookupSource">The lookup source.</param>
+    /// <param name="Binding">The grid column binding.</param>
+    /// <param name="SupportsRecycling">True when the template supports recycling.</param>
+    /// <returns>The created data template.</returns>
     static IDataTemplate CreateLookupDisplayTemplate(string ColumnName, LookupSource LookupSource, GridColumnBinding Binding, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
@@ -315,6 +401,14 @@ public static class DataGridBinder
             return Result;
         }, SupportsRecycling);
     }
+    /// <summary>
+    /// Creates a lookup edit cell template.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="LookupSource">The lookup source.</param>
+    /// <param name="Binding">The grid column binding.</param>
+    /// <param name="SupportsRecycling">True when the template supports recycling.</param>
+    /// <returns>The created data template.</returns>
     static IDataTemplate CreateLookupEditTemplate(string ColumnName, LookupSource LookupSource, GridColumnBinding Binding, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
@@ -448,6 +542,16 @@ public static class DataGridBinder
             return Result;
         }, SupportsRecycling);
     }
+    /// <summary>
+    /// Creates a locator edit cell template.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <param name="LocatorDef">The locator definition.</param>
+    /// <param name="LocatorFieldDef">The locator field definition.</param>
+    /// <param name="TargetFieldMap">The target field map.</param>
+    /// <param name="SupportsRecycling">True when the template supports recycling.</param>
+    /// <returns>The created data template.</returns>
     static IDataTemplate CreateLocatorEditTemplate(string ColumnName, FieldDef FieldDef, LocatorDef LocatorDef, LocatorFieldDef LocatorFieldDef, Dictionary<string, string> TargetFieldMap, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
@@ -475,6 +579,12 @@ public static class DataGridBinder
         }, SupportsRecycling);
     }
     
+    /// <summary>
+    /// Creates a boolean display cell template.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="SupportsRecycling">True when the template supports recycling.</param>
+    /// <returns>The created data template.</returns>
     static IDataTemplate CreateBoolDisplayTemplate(string ColumnName, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
@@ -491,6 +601,12 @@ public static class DataGridBinder
             return Result;
         }, SupportsRecycling);
     }
+    /// <summary>
+    /// Creates a boolean edit cell template.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="SupportsRecycling">True when the template supports recycling.</param>
+    /// <returns>The created data template.</returns>
     static IDataTemplate CreateBoolEditTemplate(string ColumnName, bool SupportsRecycling)
     {
         return new FuncDataTemplate<DataRowView>((Item, _) =>
@@ -547,6 +663,12 @@ public static class DataGridBinder
         }, SupportsRecycling);
     }
 
+    // ● static public
+    /// <summary>
+    /// Returns a display header from a header or column name.
+    /// </summary>
+    /// <param name="Header">The header text.</param>
+    /// <returns>The display header.</returns>
     static public string GetHeader(string Header)
     {
         if (!string.IsNullOrWhiteSpace(Header))
@@ -566,8 +688,20 @@ public static class DataGridBinder
         }
         return Header;
     }
+    /// <summary>
+    /// Returns a display header from a column name and optional header.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="Header">The header text.</param>
+    /// <returns>The display header.</returns>
     static public string GetHeader(string ColumnName, string Header) => string.IsNullOrWhiteSpace(Header)? GetHeader(ColumnName) : GetHeader(Header);
  
+    /// <summary>
+    /// Formats a value using the specified format.
+    /// </summary>
+    /// <param name="Value">The value to format.</param>
+    /// <param name="Format">The display format.</param>
+    /// <returns>The formatted value text.</returns>
     static public string FormatValue(object Value, string Format)
     {
         if (Value == null)
@@ -576,6 +710,13 @@ public static class DataGridBinder
             return string.Format(CultureInfo.CurrentCulture, $"{{0:{Format}}}", Value);
         return string.Format(CultureInfo.CurrentCulture, "{0}", Value);
     }
+    /// <summary>
+    /// Returns a date-aware display format.
+    /// </summary>
+    /// <param name="FieldName">The field name.</param>
+    /// <param name="DataType">The data type.</param>
+    /// <param name="Format">The current format.</param>
+    /// <returns>The date-aware display format.</returns>
     static public string GetDateAwareFormat(string FieldName, Type DataType, string Format)
     {
         if (DataType != typeof(DateTime))
@@ -586,6 +727,11 @@ public static class DataGridBinder
             return Sys.Settings.DateTimeFormat;
         return Format;
     }
+    /// <summary>
+    /// Returns a date-aware display format.
+    /// </summary>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The date-aware display format.</returns>
     static public string GetDateAwareFormat(FieldDef FieldDef)
     {
         string Format = FieldDef.DisplayFormat;
@@ -599,6 +745,16 @@ public static class DataGridBinder
     }
  
     // ● private - create columns
+    /// <summary>
+    /// Creates a text data grid column.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="Header">The column header.</param>
+    /// <param name="Format">The display format.</param>
+    /// <param name="Alignment">The text alignment.</param>
+    /// <param name="IsReadOnly">True when the column is read-only.</param>
+    /// <param name="SupportsRecycling">True when the column supports recycling.</param>
+    /// <returns>The created data grid column.</returns>
     static DataGridColumn CreateTextColumn(string ColumnName, string Header = "", string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         DataGridTemplateColumn Result = new();
@@ -612,6 +768,14 @@ public static class DataGridBinder
 
         return Result;
     }
+    /// <summary>
+    /// Creates a boolean data grid column.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="Header">The column header.</param>
+    /// <param name="IsReadOnly">True when the column is read-only.</param>
+    /// <param name="SupportsRecycling">True when the column supports recycling.</param>
+    /// <returns>The created data grid column.</returns>
     static DataGridColumn CreateBoolColumn(string ColumnName, string Header = "", bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         DataGridTemplateColumn Result = new();
@@ -623,6 +787,16 @@ public static class DataGridBinder
 
         return Result;
     }
+    /// <summary>
+    /// Configures a lookup data grid column.
+    /// </summary>
+    /// <param name="Column">The template column.</param>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="LookupSource">The lookup source.</param>
+    /// <param name="Binding">The grid column binding.</param>
+    /// <param name="Header">The column header.</param>
+    /// <param name="IsReadOnly">True when the column is read-only.</param>
+    /// <param name="SupportsRecycling">True when the column supports recycling.</param>
     static void ConfigureLookupColumn(DataGridTemplateColumn Column, string ColumnName, LookupSource LookupSource, GridColumnBinding Binding, string Header = "", bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         Column.Header = GetHeader(ColumnName, Header); 
@@ -631,7 +805,15 @@ public static class DataGridBinder
         Column.CellEditingTemplate = IsReadOnly ? null : CreateLookupEditTemplate(ColumnName, LookupSource, Binding, SupportsRecycling);
     }
     
-    // ● static public
+    /// <summary>
+    /// Binds a data grid to a data view using a select definition.
+    /// </summary>
+    /// <param name="SelectDef">The select definition.</param>
+    /// <param name="Grid">The data grid.</param>
+    /// <param name="DataView">The data view.</param>
+    /// <param name="SupportsRecycling">True when columns support recycling.</param>
+    /// <param name="GoToFirst">True to select the first row.</param>
+    /// <returns>The created data grid columns.</returns>
     static public List<DataGridColumn> BindGrid(SelectDef SelectDef, DataGrid Grid, DataView DataView, bool SupportsRecycling = false, bool GoToFirst = true)
     {
         Grid.AutoGenerateColumns = false;
@@ -661,6 +843,14 @@ public static class DataGridBinder
 
         return Result;
     }
+    /// <summary>
+    /// Binds a data grid to a data view.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
+    /// <param name="DataView">The data view.</param>
+    /// <param name="SupportsRecycling">True when columns support recycling.</param>
+    /// <param name="GoToFirst">True to select the first row.</param>
+    /// <returns>The created data grid columns.</returns>
     static public List<DataGridColumn> BindGrid(DataGrid Grid, DataView DataView, bool SupportsRecycling = false, bool GoToFirst = true)
     {
         Grid.AutoGenerateColumns = false;
@@ -678,13 +868,31 @@ public static class DataGridBinder
 
         return Result;
     }
+    /// <summary>
+    /// Unbinds a data grid.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
     static public void UnBindGrid(DataGrid Grid)
     {
         Grid.ItemsSource = null;
         Grid.Columns.Clear();
     }
     
+    /// <summary>
+    /// Creates data grid columns from a data table.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
+    /// <param name="Table">The data table.</param>
+    /// <param name="SupportsRecycling">True when columns support recycling.</param>
+    /// <returns>The created data grid columns.</returns>
     static public List<DataGridColumn> CreateColumns(DataGrid Grid, DataTable Table, bool SupportsRecycling = false) => CreateColumns(Grid, Table.Columns.Cast<DataColumn>().ToArray(), SupportsRecycling);
+    /// <summary>
+    /// Creates data grid columns from data columns.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
+    /// <param name="DataColumns">The data columns.</param>
+    /// <param name="SupportsRecycling">True when columns support recycling.</param>
+    /// <returns>The created data grid columns.</returns>
     static public List<DataGridColumn> CreateColumns(DataGrid Grid, DataColumn[] DataColumns, bool SupportsRecycling = false)
     {
         List<DataGridColumn> Result = new();
@@ -705,7 +913,21 @@ public static class DataGridBinder
         return Result;
     }  
     
+    /// <summary>
+    /// Creates data grid columns from a table definition.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
+    /// <param name="TableDef">The table definition.</param>
+    /// <param name="SupportsRecycling">True when columns support recycling.</param>
+    /// <returns>The created data grid columns.</returns>
     static public List<DataGridColumn> CreateColumns(DataGrid Grid, TableDef TableDef, bool SupportsRecycling = false) => CreateColumns(Grid, TableDef.Fields.ToArray(), SupportsRecycling);
+    /// <summary>
+    /// Creates data grid columns from field definitions.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
+    /// <param name="FieldDefs">The field definitions.</param>
+    /// <param name="SupportsRecycling">True when columns support recycling.</param>
+    /// <returns>The created data grid columns.</returns>
     static public List<DataGridColumn> CreateColumns(DataGrid Grid, FieldDef[] FieldDefs, bool SupportsRecycling = false)
     {
         List<DataGridColumn> Result = new();
@@ -721,6 +943,15 @@ public static class DataGridBinder
         return Result;
     }
 
+    /// <summary>
+    /// Creates a data grid column from a data column.
+    /// </summary>
+    /// <param name="Column">The data column.</param>
+    /// <param name="Format">The display format.</param>
+    /// <param name="Alignment">The text alignment.</param>
+    /// <param name="IsReadOnly">True when the column is read-only.</param>
+    /// <param name="SupportsRecycling">True when the column supports recycling.</param>
+    /// <returns>The created data grid column.</returns>
     static public DataGridColumn CreateGridColumn(DataColumn Column, string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         Format = GetDateAwareFormat(Column.ColumnName, Column.DataType, Format);
@@ -756,6 +987,16 @@ public static class DataGridBinder
 
         return Result;
     }
+    /// <summary>
+    /// Creates a data grid column.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="Header">The column header.</param>
+    /// <param name="DataType">The data type.</param>
+    /// <param name="Format">The display format.</param>
+    /// <param name="IsReadOnly">True when the column is read-only.</param>
+    /// <param name="SupportsRecycling">True when the column supports recycling.</param>
+    /// <returns>The created data grid column.</returns>
     static public DataGridColumn CreateGridColumn(string ColumnName, string Header, DataFieldType DataType, string Format = null, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
   
@@ -776,6 +1017,18 @@ public static class DataGridBinder
 
         return Result;
     }
+    /// <summary>
+    /// Creates a locator data grid column.
+    /// </summary>
+    /// <param name="ColumnName">The column name.</param>
+    /// <param name="Header">The column header.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <param name="LocatorDef">The locator definition.</param>
+    /// <param name="LocatorFieldDef">The locator field definition.</param>
+    /// <param name="TargetFieldMap">The target field map.</param>
+    /// <param name="IsReadOnly">True when the column is read-only.</param>
+    /// <param name="SupportsRecycling">True when the column supports recycling.</param>
+    /// <returns>The created data grid column.</returns>
     static public DataGridColumn CreateLocatorColumn(string ColumnName, string Header, FieldDef FieldDef, LocatorDef LocatorDef, LocatorFieldDef LocatorFieldDef, Dictionary<string, string> TargetFieldMap, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         TextAlignment Align = LocatorFieldDef.DataType.GetTextAlignment();
@@ -796,6 +1049,12 @@ public static class DataGridBinder
 
         return Result;
     }
+    /// <summary>
+    /// Creates a data grid column from a field definition.
+    /// </summary>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <param name="SupportsRecycling">True when the column supports recycling.</param>
+    /// <returns>The created data grid column.</returns>
     static public DataGridColumn CreateGridColumn(FieldDef FieldDef, bool SupportsRecycling = false)
     {
         bool IsBoolean = FieldDef.IsBoolean;
@@ -815,6 +1074,14 @@ public static class DataGridBinder
         return Result;                  
     }
     
+    /// <summary>
+    /// Creates a lookup data grid column from a data column.
+    /// </summary>
+    /// <param name="Column">The data column.</param>
+    /// <param name="LookupDef">The lookup definition.</param>
+    /// <param name="IsReadOnly">True when the column is read-only.</param>
+    /// <param name="SupportsRecycling">True when the column supports recycling.</param>
+    /// <returns>The created data grid column.</returns>
     static public DataGridColumn CreateLookupColumn(DataColumn Column, LookupDef LookupDef, bool IsReadOnly = false, bool SupportsRecycling = false)
     {
         LookupSource LookupSource = LookupDef.Create();
@@ -826,6 +1093,13 @@ public static class DataGridBinder
         Result.Tag = CI; 
         return Result;
     }
+    /// <summary>
+    /// Creates a lookup data grid column from a field definition.
+    /// </summary>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <param name="LookupDef">The lookup definition.</param>
+    /// <param name="SupportsRecycling">True when the column supports recycling.</param>
+    /// <returns>The created data grid column.</returns>
     static public DataGridColumn CreateLookupColumn(FieldDef FieldDef, LookupDef LookupDef = null, bool SupportsRecycling = false)
     {
         LookupDef = LookupDef ?? DataRegistry.Lookups.Get(FieldDef.LookupSource);
@@ -838,6 +1112,12 @@ public static class DataGridBinder
         Result.Tag = CI;    
         return Result;
     }
+    /// <summary>
+    /// Resets lookup column templates using a lookup source.
+    /// </summary>
+    /// <param name="Column">The data grid column.</param>
+    /// <param name="LookupSource">The lookup source.</param>
+    /// <param name="SupportsRecycling">True when the column supports recycling.</param>
     static public void ResetLookupColumnTemplates(DataGridColumn Column, LookupSource LookupSource, bool SupportsRecycling = false)
     {
         if (Column is not DataGridTemplateColumn TemplateColumn || LookupSource == null)
@@ -851,8 +1131,18 @@ public static class DataGridBinder
         TemplateColumn.CellEditingTemplate = TemplateColumn.IsReadOnly ? null : CreateLookupEditTemplate(Binding.FieldName, LookupSource, Binding, SupportsRecycling);
     }
 
+    /// <summary>
+    /// Returns the grid column binding associated with a data grid column.
+    /// </summary>
+    /// <param name="Column">The data grid column.</param>
+    /// <returns>The grid column binding, if any; otherwise, null.</returns>
     static public GridColumnBinding GetInfo(this DataGridColumn Column) => Column != null ? Column.Tag as GridColumnBinding : null;
 
+    /// <summary>
+    /// Returns the grid column bindings associated with a data grid.
+    /// </summary>
+    /// <param name="Grid">The data grid.</param>
+    /// <returns>The grid column bindings.</returns>
     static public List<GridColumnBinding> GetInfoList(this DataGrid Grid)
     {
         List<GridColumnBinding> Result = new();

@@ -8,6 +8,9 @@
 
 namespace Tripous.Desktop;
  
+/// <summary>
+/// A registry of <see cref="FormDef"/> instances.
+/// </summary>
 static public class DesktopRegistry
 {
     // ● private

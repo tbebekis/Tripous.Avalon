@@ -15,13 +15,33 @@ namespace Tripous.Desktop;
 public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
 {
     // ● protected fields
+    /// <summary>
+    /// The item UI context.
+    /// </summary>
     protected UiItemContext Context;
+    /// <summary>
+    /// The parent data form.
+    /// </summary>
     protected DataForm fDataForm;
+    /// <summary>
+    /// True when this item page is read-only.
+    /// </summary>
     protected bool fIsReadOnly;
+    /// <summary>
+    /// Stores the original read-only state of detail grids.
+    /// </summary>
     protected Dictionary<DataGrid, bool> fGridReadOnlyStates = new();
+    /// <summary>
+    /// Stores the original read-only state of detail grid columns.
+    /// </summary>
     protected Dictionary<DataGridColumn, bool> fGridColumnReadOnlyStates = new();
  
     // ● protected methods
+    /// <summary>
+    /// Returns true when a binding should be read-only.
+    /// </summary>
+    /// <param name="Binding">The binding to check.</param>
+    /// <returns>True if the binding should be read-only; otherwise, false.</returns>
     protected virtual bool IsBindingReadOnly(TripousBinding Binding)
     {
         if (!DataForm.IsEditableForm)
@@ -40,6 +60,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
                || (Field.IsReadOnlyEdit && DataForm.FormState != DataFormState.Insert)
                || (Binding.LocatorDef != null && Binding.LocatorDef.IsReadOnly);
     }
+    /// <summary>
+    /// Sets a bound control to read-only or restores its field-defined state.
+    /// </summary>
+    /// <param name="Binding">The control binding.</param>
+    /// <param name="Value">True to force read-only.</param>
     protected virtual void SetControlReadOnly(ControlBinding Binding, bool Value)
     {
         if (Binding == null || Binding.Control == null)
@@ -61,6 +86,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
                 break;
         }
     }
+    /// <summary>
+    /// Sets a detail grid to read-only or restores its field-defined state.
+    /// </summary>
+    /// <param name="DetailInfo">The detail table information.</param>
+    /// <param name="Value">True to force read-only.</param>
     protected virtual void SetGridReadOnly(UiDetailTableInfo DetailInfo, bool Value)
     {
         if (DetailInfo == null || DetailInfo.Grid == null)
@@ -106,6 +136,9 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <summary>
     /// Creates a field editor.
     /// </summary>
+    /// <param name="Field">The field definition.</param>
+    /// <param name="Binder">The item binder.</param>
+    /// <returns>The created editor control.</returns>
     protected virtual Control CreateEditor(FieldDef Field, ItemBinder Binder)
     {
         Control Result;
@@ -175,7 +208,16 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     }
     
     // ● IReferenceContextMenuHost related
+    /// <summary>
+    /// Returns true when a reference command produced a successful form result.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
+    /// <returns>True if the reference command succeeded; otherwise, false.</returns>
     protected virtual bool IsSuccessfulReferenceResult(ReferenceMenuCommandContext Context) => Context?.FormContext != null && Context.FormContext.Result;
+    /// <summary>
+    /// Reloads a reference lookup source.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
     protected virtual void ReloadReferenceLookup(ReferenceMenuCommandContext Context)
     {
         if (Context.Binding.LookupSource == null)
@@ -211,6 +253,10 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             }
         }
     }
+    /// <summary>
+    /// Refreshes a reference binding.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
     protected virtual void RefreshReferenceBinding(ReferenceMenuCommandContext Context)
     {
         if (Context.Binding is ControlBinding ControlBinding)
@@ -224,6 +270,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
 
         Grid.InvalidateVisual();
     }
+    /// <summary>
+    /// Sets a reference value to the bound row.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
+    /// <param name="Value">The reference value.</param>
     protected virtual void SetReferenceValue(ReferenceMenuCommandContext Context, object Value)
     {
         if (Context.Binding?.Table?.CurrentRow == null || string.IsNullOrWhiteSpace(Context.Binding.FieldName))
@@ -291,6 +342,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <summary>
     /// Captures the current selection of all detail grids.
     /// </summary>
+    /// <returns>The captured detail grid selections.</returns>
     public virtual Dictionary<DataGrid, Tuple<int, DataGridColumn>> CaptureDetailGridSelection()
     {
         Dictionary<DataGrid, Tuple<int, DataGridColumn>> Result = new();
@@ -308,6 +360,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <summary>
     /// Restores the selection of all detail grids.
     /// </summary>
+    /// <param name="Selections">The captured detail grid selections.</param>
     public virtual void RestoreDetailGridSelection(Dictionary<DataGrid, Tuple<int, DataGridColumn>> Selections)
     {
         if (Selections == null || Selections.Count == 0)
@@ -344,6 +397,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <summary>
     /// Applies the visibility of detail grid columns ending with ID.
     /// </summary>
+    /// <param name="Value">True to show ID columns; otherwise, false.</param>
     public virtual void ApplyIdColumnsVisible(bool Value)
     {
         foreach (UiDetailTableInfo DetailInfo in Context.TopTableUiInfo.DetailList)
@@ -362,6 +416,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <summary>
     /// Sets the data-bound controls and detail grids to read-only or restores their field-defined state.
     /// </summary>
+    /// <param name="Value">True to force read-only.</param>
     public virtual void SetReadOnly(bool Value)
     {
         fIsReadOnly = Value;
@@ -394,6 +449,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <summary>
     /// Binds this instance.
     /// </summary>
+    /// <param name="ColumnCount">The editor column count.</param>
     public virtual void Bind(int ColumnCount)
     {
         if (IsBindingDone)
@@ -421,6 +477,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     }
 
     // ● IReferenceContextMenuHost implementation
+    /// <summary>
+    /// Returns true when a reference context menu can open.
+    /// </summary>
+    /// <param name="RefContextMenu">The reference context menu.</param>
+    /// <returns>True if the context menu can open; otherwise, false.</returns>
     public virtual bool CanOpenRefContextMenu(ReferenceContextMenu RefContextMenu)
     {
         if (IsReadOnly)
@@ -429,6 +490,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         bool Result = RefContextMenu.Binding.FieldDef.IsReadOnlyEdit? DataForm.FormState == DataFormState.Insert : true;
         return Result;
     }
+    /// <summary>
+    /// Returns true when a reference menu command can execute.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
+    /// <returns>True if the command can execute; otherwise, false.</returns>
     public virtual bool CanExecute(ReferenceMenuCommandContext Context)
     {
         if (IsReadOnly || Context == null || Context.Binding == null)
@@ -449,6 +515,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
 
         return false;
     }
+    /// <summary>
+    /// Executes a reference menu command.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
+    /// <returns>The command result.</returns>
     public virtual object Execute(ReferenceMenuCommandContext Context)
     {
         if (!CanExecute(Context))
@@ -472,6 +543,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     }
 
     // ● IReferenceContextMenuHost related
+    /// <summary>
+    /// Executes the Show List reference command.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
+    /// <returns>The data form context.</returns>
     public virtual async Task<DataFormContext> ExecuteReferenceShowList(ReferenceMenuCommandContext Context)
     {
         Context.FormContext = await DataFormContext.ShowFormModal(Context.FormName, DataFormAction.List, null, Context.Caller);
@@ -479,12 +555,22 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             SetReferenceValue(Context, Context.FormContext.ResultData);
         return Context.FormContext;
     }
+    /// <summary>
+    /// Executes the Reload reference command.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
+    /// <returns>The command result.</returns>
     public virtual object ExecuteReferenceReload(ReferenceMenuCommandContext Context)
     {
         ReloadReferenceLookup(Context);
         RefreshReferenceBinding(Context);
         return null;
     }
+    /// <summary>
+    /// Executes the Edit reference command.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
+    /// <returns>The data form context.</returns>
     public virtual async Task<DataFormContext> ExecuteReferenceEdit(ReferenceMenuCommandContext Context)
     {
         Context.FormContext = await DataFormContext.ShowFormModal(Context.FormName, DataFormAction.Edit, Context.RowId, Context.Caller);
@@ -495,6 +581,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         }
         return Context.FormContext;
     }
+    /// <summary>
+    /// Executes the Add reference command.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
+    /// <returns>The data form context.</returns>
     public virtual async Task<DataFormContext> ExecuteReferenceAdd(ReferenceMenuCommandContext Context)
     {
         Context.FormContext = await DataFormContext.ShowFormModal(Context.FormName, DataFormAction.Insert, null, Context.Caller);
@@ -505,6 +596,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         }
         return Context.FormContext;
     }
+    /// <summary>
+    /// Executes the Clear reference command.
+    /// </summary>
+    /// <param name="Context">The reference menu command context.</param>
+    /// <returns>The command result.</returns>
     public virtual object ExecuteReferenceClear(ReferenceMenuCommandContext Context)
     {
         SetReferenceValue(Context, DBNull.Value);
@@ -584,7 +680,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// </summary>
     public event EventHandler CurrentRowChanged;
 
-
+    // ● IGridHandler implementation
+    /// <summary>
+    /// Returns the grid commands provided by this handler.
+    /// </summary>
+    /// <returns>The grid commands.</returns>
     public virtual GridCommand[] GetGridCommands()
     {
         List<GridCommand> Result = new();
@@ -621,6 +721,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         return Result.ToArray();
     }
 
+    /// <summary>
+    /// Returns true when a grid command can execute.
+    /// </summary>
+    /// <param name="Context">The grid command context.</param>
+    /// <returns>True if the command can execute; otherwise, false.</returns>
     public virtual bool CanExecute(GridCommandContext Context)
     {
         if (Context == null || Context.Command == null || Context.Grid == null || Context.Table == null)
@@ -645,6 +750,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         return Context.Command.IsEnabled;
     }
 
+    /// <summary>
+    /// Executes a grid command.
+    /// </summary>
+    /// <param name="Context">The grid command context.</param>
+    /// <returns>The command result.</returns>
     public virtual object Execute(GridCommandContext Context)
     {
         if (!CanExecute(Context))
@@ -663,6 +773,8 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <summary>
     /// Adds a new row to a detail grid table.
     /// </summary>
+    /// <param name="Context">The grid command context.</param>
+    /// <returns>The created row.</returns>
     public virtual object ExecuteGridAdd(GridCommandContext Context)
     {
         if (Context == null || Context.Table == null || Context.Grid == null)
@@ -683,6 +795,8 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <summary>
     /// Deletes the selected row from a detail grid table.
     /// </summary>
+    /// <param name="Context">The grid command context.</param>
+    /// <returns>The command result.</returns>
     public virtual object ExecuteGridDelete(GridCommandContext Context)
     {
         if (Context == null || Context.Table == null || Context.Grid == null || Context.Grid.SelectedItem is not DataRowView RowView)

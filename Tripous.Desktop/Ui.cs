@@ -9,7 +9,7 @@
 namespace Tripous.Desktop;
 
 /// <summary>
-/// Helper for the Ui
+/// Provides UI helper methods and settings.
 /// </summary>
 static public partial class Ui
 {
@@ -23,7 +23,17 @@ static public partial class Ui
     }
  
     // ● dialogs
+    /// <summary>
+    /// Returns the parent window of a control.
+    /// </summary>
+    /// <param name="Control">The control.</param>
+    /// <returns>The parent window, if any; otherwise, null.</returns>
     static public Window GetParentWindow(this Control Control) => TopLevel.GetTopLevel(Control) as Window;
+    /// <summary>
+    /// Returns the owner window of a control.
+    /// </summary>
+    /// <param name="Control">The control.</param>
+    /// <returns>The owner window.</returns>
     static public Window GetOwnerWindow(this Control Control)
     {
         if (Control is Window Window)
@@ -32,6 +42,12 @@ static public partial class Ui
         return Result ?? Ui.MainWindow;
     }
     
+    /// <summary>
+    /// Shows a save file dialog.
+    /// </summary>
+    /// <param name="Caller">The caller control.</param>
+    /// <param name="Extensions">The allowed file extensions.</param>
+    /// <returns>The selected file path, if any; otherwise, null.</returns>
     static public async Task<string> SaveFileDialog(Control Caller, params string[] Extensions)
     {
         if (Caller == null)
@@ -78,6 +94,12 @@ static public partial class Ui
 
         return file?.Path?.LocalPath;
     }
+    /// <summary>
+    /// Shows an open file dialog.
+    /// </summary>
+    /// <param name="Caller">The caller control.</param>
+    /// <param name="Extensions">The allowed file extensions.</param>
+    /// <returns>The selected file path, if any; otherwise, null.</returns>
     static public async Task<string> OpenFileDialog(Control Caller,params string[] Extensions)
     {
         if (Caller == null)
@@ -126,6 +148,13 @@ static public partial class Ui
 
         return files[0]?.Path?.LocalPath;
     }
+    /// <summary>
+    /// Shows an input box dialog.
+    /// </summary>
+    /// <param name="Message">The dialog message.</param>
+    /// <param name="Value">The initial value.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>The input box data.</returns>
     static public async Task<InputBoxData> InputBox(string Message, string Value = "", Control Caller = null)
     {
         return await Desktop.InputBox.ShowModal(Message, Value, Caller);
@@ -135,14 +164,20 @@ static public partial class Ui
     /// <summary>
     /// Expands or collapses all items in a TreeView.
     /// </summary>
+    /// <param name="tv">The tree view.</param>
+    /// <param name="Flag">True to expand; false to collapse.</param>
     static public void ExpandAll(this TreeView tv, bool Flag) => ExpandAll(tv as ItemsControl, Flag);
     /// <summary>
     /// Expands or collapses all items in TreeViewItem.
     /// </summary>
+    /// <param name="Node">The tree view item.</param>
+    /// <param name="Flag">True to expand; false to collapse.</param>
     static public void ExpandAll(this TreeViewItem Node, bool Flag)=> ExpandAll(Node as ItemsControl, Flag);
     /// <summary>
     /// Expands or collapses all items in a TreeView or TreeViewItem.
     /// </summary>
+    /// <param name="Control">The items control.</param>
+    /// <param name="Flag">True to expand; false to collapse.</param>
     static public void ExpandAll(ItemsControl Control, bool Flag)
     {
         if (Control == null)
@@ -167,6 +202,13 @@ static public partial class Ui
     /// <summary>
     /// Creates a <see cref="TreeViewItem"/> node with an image.
     /// </summary>
+    /// <param name="Caption">The node caption.</param>
+    /// <param name="FontWeight">The caption font weight.</param>
+    /// <param name="IconFile">The icon file name.</param>
+    /// <param name="Tag">The node tag.</param>
+    /// <param name="Spacing">The content spacing.</param>
+    /// <param name="NegativeMargin">The negative left margin.</param>
+    /// <returns>The created tree view item.</returns>
     static public TreeViewItem CreateTreeNode(string Caption, FontWeight FontWeight, string IconFile, object Tag, double Spacing = 5, int NegativeMargin = 0)
     {
         var Panel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Spacing,  };
@@ -188,6 +230,12 @@ static public partial class Ui
     /// <summary>
     /// Creates a container <see cref="TreeViewItem"/> node with an image.
     /// </summary>
+    /// <param name="Caption">The node caption.</param>
+    /// <param name="Tag">The node tag.</param>
+    /// <param name="IconFile">The icon file name.</param>
+    /// <param name="Spacing">The content spacing.</param>
+    /// <param name="NegativeMargin">The negative left margin.</param>
+    /// <returns>The created tree view item.</returns>
     static public TreeViewItem CreateContainerNode(string Caption, object Tag = null, string IconFile = "folder16.png", double Spacing = 5, int NegativeMargin = -8)
     {
         TreeViewItem Result = CreateTreeNode(Caption, FontWeight.SemiBold, IconFile, Tag, Spacing: Spacing, NegativeMargin: NegativeMargin);
@@ -196,6 +244,12 @@ static public partial class Ui
     /// <summary>
     /// Creates a leaf <see cref="TreeViewItem"/> node with an image.
     /// </summary>
+    /// <param name="Caption">The node caption.</param>
+    /// <param name="Tag">The node tag.</param>
+    /// <param name="IconFile">The icon file name.</param>
+    /// <param name="Spacing">The content spacing.</param>
+    /// <param name="NegativeMargin">The negative left margin.</param>
+    /// <returns>The created tree view item.</returns>
     static public TreeViewItem CreateLeafNode(string Caption, object Tag = null, string IconFile = "item16.png", double Spacing = 5, int NegativeMargin = 0)
     {
         TreeViewItem Result = CreateTreeNode(Caption, FontWeight.Normal, IconFile, Tag, Spacing: Spacing, NegativeMargin: NegativeMargin);
@@ -203,6 +257,10 @@ static public partial class Ui
     }
     
     // ● miscs
+    /// <summary>
+    /// Writes debug text to the UI log or debug output.
+    /// </summary>
+    /// <param name="Text">The text to write.</param>
     static public void Debug(string Text)
     {
         if (Sys.DebugMode)
@@ -213,6 +271,10 @@ static public partial class Ui
                 System.Diagnostics.Debug.WriteLine(Text);
         }
     }
+    /// <summary>
+    /// Writes an exception to the debug output.
+    /// </summary>
+    /// <param name="e">The exception.</param>
     static public void Debug(Exception e)
     {
         if (Sys.DebugMode)
@@ -226,12 +288,15 @@ static public partial class Ui
     /// <para>Supports both synchronous and asynchronous delegates.</para>
     /// <c>Ui.Post(async () => await DoSomethingAsync());</c>
     /// </summary>
+    /// <param name="Proc">The action to execute.</param>
     static public void Post(Action Proc) => Post(Proc, DispatcherPriority.Background);
     /// <summary>
     /// Executes an action on the UI thread (fire-and-forget).
     /// <para>Supports both synchronous and asynchronous delegates.</para>
     /// <c>Ui.Post(async () => await DoSomethingAsync());</c>
     /// </summary>
+    /// <param name="Proc">The action to execute.</param>
+    /// <param name="Priority">The dispatcher priority.</param>
     static public void Post(Action Proc, DispatcherPriority Priority)
     {
         if (Proc != null)
@@ -243,18 +308,26 @@ static public partial class Ui
     /// <para>Supports both synchronous and asynchronous delegates.</para>
     /// <c>Ui.Post(async () => await DoSomethingAsync());</c>
     /// </summary>
+    /// <param name="Func">The function to execute.</param>
     static public void Post(Func<Task> Func) => Post(Func, DispatcherPriority.Background);
     /// <summary>
     /// Executes an action on the UI thread (fire-and-forget).
     /// <para>Supports both synchronous and asynchronous delegates.</para>
     /// <c>Ui.Post(async () => await DoSomethingAsync());</c>
     /// </summary>
+    /// <param name="Func">The function to execute.</param>
+    /// <param name="Priority">The dispatcher priority.</param>
     static public void Post(Func<Task> Func, DispatcherPriority Priority)
     {
         if (Func != null)
             Dispatcher.UIThread.Post(() => Func(), Priority);
     }
     
+    /// <summary>
+    /// Executes an action while showing the wait cursor.
+    /// </summary>
+    /// <param name="Proc">The action to execute.</param>
+    /// <param name="Caller">The caller control.</param>
     static public void ShowWaitCursor(Action Proc, Control Caller = null)
     {
         if (Caller == null)
@@ -279,6 +352,13 @@ static public partial class Ui
         }
 
     }
+    /// <summary>
+    /// Executes an action while showing the wait cursor.
+    /// </summary>
+    /// <typeparam name="T">The action argument type.</typeparam>
+    /// <param name="Proc">The action to execute.</param>
+    /// <param name="Info">The action argument.</param>
+    /// <param name="Caller">The caller control.</param>
     static public void ShowWaitCursor<T>(Action<T> Proc, T Info, Control Caller = null)
     {
         if (Caller == null)
@@ -306,11 +386,11 @@ static public partial class Ui
     
     // ● properties
     /// <summary>
-    /// The main windows
+    /// The main window.
     /// </summary>
     static public Window MainWindow { get; set; }
     /// <summary>
-    /// Ui global settings
+    /// UI global settings.
     /// </summary>
     static public UiGlobalSettings Settings { get; } = new();
 }

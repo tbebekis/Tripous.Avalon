@@ -39,6 +39,9 @@ public class FormDef: BaseDef
     }
 
     // ● protected methods
+    /// <summary>
+    /// Returns the title key for this instance.
+    /// </summary>
     protected override string GetTitleKey() => SplitTitleKeyToWordsWithPluralEnding();
 
     // ● public

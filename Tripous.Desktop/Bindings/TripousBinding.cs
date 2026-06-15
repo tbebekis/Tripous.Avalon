@@ -14,6 +14,9 @@ namespace Tripous.Desktop;
 public class TripousBinding
 {
     // ● private
+    /// <summary>
+    /// The explicitly assigned data type.
+    /// </summary>
     Type fDataType;
 
     // ● construction
@@ -25,6 +28,10 @@ public class TripousBinding
     }
     
     // ● public
+    /// <summary>
+    /// Returns the bound field name.
+    /// </summary>
+    /// <returns>The bound field name.</returns>
     override public string ToString() => FieldName;
     
     /// <summary>
@@ -98,6 +105,8 @@ public class TripousBinding
     /// True while refreshing.
     /// </summary>
     public bool IsRefreshing { get; set; }
-    
+    /// <summary>
+    /// Gets or sets the action called when this binding is disposed.
+    /// </summary>
     public Action DisposeAction { get; set; }
 }

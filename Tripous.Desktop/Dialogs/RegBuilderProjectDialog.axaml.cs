@@ -8,11 +8,23 @@
 
 namespace Tripous.Desktop;
 
+/// <summary>
+/// Dialog used to edit a RegBuilder project.
+/// </summary>
 public partial class RegBuilderProjectDialog : DialogWindow
 {
+    // ● private fields
+    /// <summary>
+    /// The dialog data.
+    /// </summary>
     RegBuilderProjectData BoxData;
     
     // ● event handlers
+    /// <summary>
+    /// Handles OK and Cancel button clicks.
+    /// </summary>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The routed event arguments.</param>
     async void AnyClick(object sender, RoutedEventArgs e)
     {
         if (sender == btnCancel)
@@ -21,6 +33,10 @@ public partial class RegBuilderProjectDialog : DialogWindow
             await ControlsToItem();
     }
     
+    // ● overridables
+    /// <summary>
+    /// Initializes the window.
+    /// </summary>
     protected override async Task WindowInitialize()
     {
         btnOK.Click += AnyClick;
@@ -33,6 +49,9 @@ public partial class RegBuilderProjectDialog : DialogWindow
         
         await Task.CompletedTask;
     }
+    /// <summary>
+    /// Loads project values into the dialog controls.
+    /// </summary>
     protected override async Task ItemToControls()
     {
         RegBuilderProject Project = BoxData.RegBuilderProject;
@@ -55,6 +74,9 @@ public partial class RegBuilderProjectDialog : DialogWindow
         
         await Task.CompletedTask;
     }
+    /// <summary>
+    /// Saves dialog control values to the project.
+    /// </summary>
     protected override async Task ControlsToItem()
     {
         await Task.CompletedTask;
@@ -94,11 +116,21 @@ public partial class RegBuilderProjectDialog : DialogWindow
     }
     
     // ● construction
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RegBuilderProjectDialog"/> class.
+    /// </summary>
     public RegBuilderProjectDialog()
     {
         InitializeComponent();
     }
     
+    // ● static public
+    /// <summary>
+    /// Shows the dialog modally.
+    /// </summary>
+    /// <param name="RegBuilderProject">The RegBuilder project to edit.</param>
+    /// <param name="Caller">The caller control.</param>
+    /// <returns>The dialog data.</returns>
     static public async Task<RegBuilderProjectData> ShowModal(RegBuilderProject RegBuilderProject, Control Caller = null)
     {
         RegBuilderProjectData BoxData = new() { RegBuilderProject = RegBuilderProject };
@@ -108,9 +140,22 @@ public partial class RegBuilderProjectDialog : DialogWindow
     }
 }
 
+/// <summary>
+/// Contains RegBuilder project dialog data.
+/// </summary>
 public class RegBuilderProjectData
 {
+    // ● properties
+    /// <summary>
+    /// Gets or sets the RegBuilder project.
+    /// </summary>
     public RegBuilderProject RegBuilderProject { get; set; }  
+    /// <summary>
+    /// Gets the dialog information.
+    /// </summary>
     public DialogInfo Info { get; internal set; }
+    /// <summary>
+    /// Gets a value indicating whether the dialog result is OK.
+    /// </summary>
     public bool Result => Info.Result;
 }
