@@ -8,6 +8,9 @@
 
 namespace tERP.Data;
 
+/// <summary>
+/// Data module for stock count documents.
+/// </summary>
 public class StockCountDataModule: DocumentDataModule
 {
     // ● private fields

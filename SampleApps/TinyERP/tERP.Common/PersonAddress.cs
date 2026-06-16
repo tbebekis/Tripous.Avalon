@@ -15,15 +15,24 @@ public class PersonAddress
 {
     
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public PersonAddress()
     {
     }
+    /// <summary>
+    /// Creates a new instance and loads its values from a data row.
+    /// </summary>
     public PersonAddress(DataRow Row)
     {
         LoadFrom(Row);
     }
 
     // ● public
+    /// <summary>
+    /// Loads address values from a data row.
+    /// </summary>
     public void LoadFrom(DataRow Row)
     {
         Id = Row.AsString("Id");

@@ -9,6 +9,9 @@
 namespace tERP.Data;
 
 
+/// <summary>
+/// Base data module for sales documents that affect stock.
+/// </summary>
 public class SalesStockDataModule: SalesDataModule
 {
     // ● protected

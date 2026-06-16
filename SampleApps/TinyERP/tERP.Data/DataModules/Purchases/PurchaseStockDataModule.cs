@@ -8,6 +8,9 @@
 
 namespace tERP.Data;
 
+/// <summary>
+/// Base data module for purchase documents that affect stock.
+/// </summary>
 public class PurchaseStockDataModule: PurchaseDataModule
 {
     // ● protected

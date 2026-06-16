@@ -9,15 +9,15 @@
 namespace tERP.Data;
 
 /// <summary>
-/// Data module for accounts.
+/// Handles sales delivery note documents.
 /// </summary>
-public class AccountDataModule: AppDataModule
+public class SalesDeliveryNoteDocumentHandler : SalesDocumentHandler
 {
     // ● construction
     /// <summary>
     /// Creates a new instance.
     /// </summary>
-    public AccountDataModule()
+    public SalesDeliveryNoteDocumentHandler()
     {
     }
 }

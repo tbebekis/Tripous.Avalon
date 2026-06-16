@@ -9,15 +9,15 @@
 namespace tERP.Data;
 
 /// <summary>
-/// Data module for accounts.
+/// Handles purchase cancellation documents.
 /// </summary>
-public class AccountDataModule: AppDataModule
+public class PurchaseCancellationDocumentHandler : PurchaseDocumentHandler
 {
     // ● construction
     /// <summary>
     /// Creates a new instance.
     /// </summary>
-    public AccountDataModule()
+    public PurchaseCancellationDocumentHandler()
     {
     }
 }

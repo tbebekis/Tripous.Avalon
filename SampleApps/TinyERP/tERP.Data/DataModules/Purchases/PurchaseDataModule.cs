@@ -8,10 +8,19 @@
 
 namespace tERP.Data;
 
+/// <summary>
+/// Base data module for purchase documents.
+/// </summary>
 public class PurchaseDataModule: TradeDataModule
 {
     // ● protected
+    /// <summary>
+    /// Returns a configured default identifier, or a fallback default identifier.
+    /// </summary>
     protected virtual string GetDefaultId(string ConfigValue, Func<string> DefaultProvider) => !string.IsNullOrWhiteSpace(ConfigValue) ? ConfigValue : DefaultProvider();
+    /// <summary>
+    /// Validates a purchase document line.
+    /// </summary>
     protected override void ValidateLine(DataRow Row, List<string> Errors)
     {
         base.ValidateLine(Row, Errors);
@@ -20,6 +29,9 @@ public class PurchaseDataModule: TradeDataModule
         if (!AppDefaultProperties.Purchase.AllowZeroUnitPrice && Row.AsDecimal("UnitPrice") == 0)
             Errors.Add($"{LineLabel}: Unit price must be greater than zero.");
     }
+    /// <summary>
+    /// Copies common column values except for the specified fields.
+    /// </summary>
     protected virtual void CopyCommonValues(DataRow Source, DataRow Dest, IEnumerable<string> ExcludedFields)
     {
         HashSet<string> Excluded = new(ExcludedFields, StringComparer.OrdinalIgnoreCase);
@@ -30,6 +42,9 @@ public class PurchaseDataModule: TradeDataModule
                 Dest.SetValue(Column.ColumnName, Source[Column.ColumnName]);
         }
     }
+    /// <summary>
+    /// Creates an unsaved purchase document from the current document.
+    /// </summary>
     protected virtual PurchaseDataModule CreateTransformedDocument(string TargetModuleName, string SourceDocumentName, string SourceQuantityFieldName = "ExecutedQuantity")
     {
         if (CurrentRow == null)

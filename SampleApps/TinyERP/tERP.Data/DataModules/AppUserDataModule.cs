@@ -8,6 +8,9 @@
 
 namespace tERP.Data;
 
+/// <summary>
+/// Data module for application users.
+/// </summary>
 public class AppUserDataModule: AppDataModule
 {
     // ● constructors

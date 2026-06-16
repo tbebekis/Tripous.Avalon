@@ -8,11 +8,17 @@
 
 namespace tERP.Data;
 
+/// <summary>
+/// Data module for fixed assets.
+/// </summary>
 public class AssetDataModule: AppDataModule
 {
+    // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public AssetDataModule()
     {
     }
 }
-
 
