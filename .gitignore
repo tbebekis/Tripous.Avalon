@@ -32,3 +32,6 @@ Thumbs.db
 
 AGENTS.md
 *.lscache
+
+## [ Documentation build output ]
+Docs/_site/
